@@ -1,0 +1,114 @@
+import React, { memo, useEffect, useState } from "react";
+
+import StyledImage from "../../../components/Common/StyledImages";
+import DownIcon  from "../../../assets/images/down.svg";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import DropDownMenu from "./DropdownMenu";
+
+
+const NewBoxData = ({
+  title,
+  value,
+  showDropDown,
+  containerStyle,
+  valueStyle,
+  titleStyle,
+}: any) => {
+  const theme = useTheme();
+  const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
+
+
+  const [anchorEl, setAnchorEl] = useState<number | null>(null);
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleClick = () => {
+    if (title !== "Exposure") {
+        setAnchorEl((prev) => (prev === null ? 0 : null));
+      }
+  };
+
+  return (
+    <Box>
+      <Box
+       onClick={handleClick}
+        sx={[
+          {
+            backgroundColor: "white",
+            minWidth: { lg: "120px", xs: "110px" },
+            marginLeft: "1vw",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            boxShadow: "0px 3px 10px #B7B7B726",
+            height: { lg: "35px", xs: "33px" },
+            overflow: "hidden",
+            paddingX: "3px",
+            borderRadius: "5px",
+            cursor: "pointer",
+          },
+          containerStyle,
+        ]}
+      >
+        <Box
+          sx={{
+            marginLeft: { lg: "5px", xs: "5px" },
+            justifyContent: { xs: "center" },
+            display: "flex",
+            flexDirection: "column",
+      
+          }}
+        >
+          <Typography
+            sx={[
+              {
+                fontSize: { lg: "8px", xs: "8px" },
+                fontWeight: { xs: "bold", lg: "500px" },
+                textTransform: showDropDown && "capitalize",
+                whiteSpace: showDropDown && "nowrap",
+                textOverflow: showDropDown && "ellipsis",
+                maxWidth: showDropDown && "54px",
+                overflow: showDropDown && "hidden",
+                marginLeft: 0.5,
+                color: "black",
+              },
+              titleStyle,
+            ]}
+          >
+            {title}
+          </Typography>
+          <Typography
+            sx={[
+              {
+                fontWeight: "bold",
+                color: "#27AC1E",
+                fontSize: { xs: "12px", lg: "12px" },
+                marginLeft: 0.5,
+              },
+              valueStyle,
+            ]}
+          >
+            {value}
+          </Typography>
+        </Box>
+        {showDropDown && (
+          <Box>
+            <StyledImage
+              src={DownIcon}
+              sx={{ height: "10px", width: "10px", marginRight: "5px" }}
+            />
+          </Box>
+        )}
+      </Box>
+      <DropDownMenu
+          open={anchorEl !== null}
+        anchorEl={anchorEl}
+        handleClose={handleClose}
+
+      />
+    </Box>
+  );
+};
+
+export default memo(NewBoxData);

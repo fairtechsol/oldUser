@@ -1,0 +1,25 @@
+
+
+.marquee-container {
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    color: white;
+    font-size: 10px;
+    font-style: italic;
+    letter-spacing: 1px;
+    animation: marqueeAnimation 10s linear infinite; 
+  }
+  
+ 
+  
+  @keyframes marqueeAnimation {
+    from {
+      transform: translateX(100%); /* Start off-screen to the right */
+    }
+    
+    to {
+      transform: translateX(-100%); /* Move off-screen to the left */
+    }
+  }
+  
