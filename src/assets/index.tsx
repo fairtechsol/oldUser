@@ -10,8 +10,13 @@ export { default as logo } from './images/logo.png'
 export { default as Lock } from './images/lock.png'
 export { default as Logout } from './images/logout.png'
 export { default as loginBackground } from './images/new_back.webp'
+export { default as ARROWUP } from './images/arrowup1.png'
+export { default as DELETE } from './images/delete.png'
+export { default as FASTTIME } from './images/fastTime.png'
+export { default as TIME } from './images/time.png'
 
 export { default as ArrowDown } from './images/arrow_down.png'
+export { default as BallStart } from './images/ballStart.png'
 
 export { default as Slot } from './images/slot.png'
 export { default as Cricket } from './images/cricket.png'
@@ -31,3 +36,6 @@ export { default as BASKETBALL } from './images/basketball.png'
 
 
 
+export { default as LockIcon } from './images/lock.svg'
+export { default as ARROWUPs } from './images/arrowUp.png'
+export { default as UD } from './images/UD.png'
