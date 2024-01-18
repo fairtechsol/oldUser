@@ -1,4 +1,4 @@
-import {Box,Drawer} from "@mui/material";
+import { Box, Drawer } from "@mui/material";
 import SideBar from "./SideBar";
 
 
@@ -21,7 +21,7 @@ const MobileSideBar = ({ mobileOpen, setMobileOpen, showSideBarMobile, }: any) =
                 },
             }}
             ModalProps={{
-                keepMounted: true, // Better open performance on mobile.
+                keepMounted: true, // Better open performance on xs.
             }}
             sx={{
                 display: { xs: "block", sm: "none" },
@@ -35,7 +35,7 @@ const MobileSideBar = ({ mobileOpen, setMobileOpen, showSideBarMobile, }: any) =
                 sx={{
                     minHeight: {
                         lg: showSideBarMobile ? 50 + 32 + 40 : 90 + 32 + 40,
-                        // mobile: 60 + 32 + 21,
+                        // xs: 60 + 32 + 21,
                     },
                 }}
             />

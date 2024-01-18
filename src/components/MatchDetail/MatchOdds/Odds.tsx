@@ -9,7 +9,7 @@ import Divider from "../../../helper/Divider";
 
 import { formatNumber } from "../../../helper/index";
 import moment from "moment-timezone";
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 
 
 
@@ -17,7 +17,7 @@ import { useDispatch} from "react-redux";
 
 import { useNavigate } from "react-router-dom";
 let matchOddsCount = 0;
-const Odds = ({ onClick, top, blur, match }:any) => {
+const Odds = ({ onClick, top, blur, match }: any) => {
   const theme = useTheme();
   const navigate = useNavigate();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -153,7 +153,7 @@ const Odds = ({ onClick, top, blur, match }:any) => {
       <Box
         sx={{
           position: "relative",
-        //   width: "100%",
+          //   width: "100%",
           marginY: { xs: "13px", lg: "3px" },
           marginTop: {
             xs: top ? "13px" : "1.2vh",
@@ -172,7 +172,7 @@ const Odds = ({ onClick, top, blur, match }:any) => {
               position: "absolute",
               cursor: "pointer",
               zIndex: 2,
-            //   background: "rgba(0,0,0,0.5)",
+              //   background: "rgba(0,0,0,0.5)",
               width: "100%",
               right: 0,
               height: "100%",
@@ -182,7 +182,7 @@ const Odds = ({ onClick, top, blur, match }:any) => {
 
         {!upcoming && (
           <Box
-          className="liveAnimation"
+            className="liveAnimation"
             sx={{
               width: "70px",
               zIndex: 3,
@@ -286,12 +286,12 @@ const Odds = ({ onClick, top, blur, match }:any) => {
                   marginLeft: "7px",
                 }}
               >
-             {"India"} vs {"Pakistan"}{" "}
+                {"India"} vs {"Pakistan"}{" "}
                 <span style={{ fontWeight: "500" }}>
-              {"(Today 9:00 PM)"}
+                  {"(Today 9:00 PM)"}
                 </span>
               </Typography>{" "}
-   
+
             </Box>
             <Box
               sx={{
@@ -326,8 +326,8 @@ const Odds = ({ onClick, top, blur, match }:any) => {
                   alignSelf: "flex-end",
                   visibility:
                     Number(timeLeft) === 0 &&
-                    Number(timeLeft) === 0 &&
-                    Number(timeLeft) === 0
+                      Number(timeLeft) === 0 &&
+                      Number(timeLeft) === 0
                       ? "hidden"
                       : "visible",
                 }}
@@ -542,13 +542,13 @@ const Odds = ({ onClick, top, blur, match }:any) => {
                 alignItems: "center",
               }}
             >
-          
-                {/* <img
+
+              {/* <img
                
                   style={{ width: "25px", height: "25px", marginLeft: "10px" }}
                   alt={"teamA"}
                 /> */}
-             
+
               <Typography
                 sx={{
                   color: "black",
@@ -573,22 +573,22 @@ const Odds = ({ onClick, top, blur, match }:any) => {
               {!matchesMobile && (
                 <SeparateBox
                   value={
-                     0
+                    0
                   }
-                  value2={ 0
+                  value2={0
                   }
                   color={matchesMobile ? "white" : "#CEEBFF"}
                 />
               )}
               <Box
-                sx={{ width: ".25%", display: "flex", background: "pink" ,justifyContent: "stretch" }}
+                sx={{ width: ".25%", display: "flex", background: "pink", justifyContent: "stretch" }}
               ></Box>
               {!matchesMobile && (
                 <SeparateBox
                   value={
                     0
                   }
-                  value2={ 0
+                  value2={0
                   }
                   color={matchesMobile ? "white" : "#C2E6FF"}
                 />
@@ -618,7 +618,7 @@ const Odds = ({ onClick, top, blur, match }:any) => {
               ></Box>
               {!matchesMobile && (
                 <SeparateBox
-                  value={ 0
+                  value={0
                   }
                   value2={0}
                   color={matchesMobile ? "white" : "#F2CBCB"}
@@ -659,8 +659,8 @@ const Odds = ({ onClick, top, blur, match }:any) => {
                 alignItems: "center",
               }}
             >
-  
-                {/* <img
+
+              {/* <img
                  
                   style={{ width: "25px", height: "25px", marginLeft: "10px" }}
                   alt={"match?.teamB"}
@@ -689,7 +689,7 @@ const Odds = ({ onClick, top, blur, match }:any) => {
             >
               {!matchesMobile && (
                 <SeparateBox
-                  value={0 }
+                  value={0}
                   value2={0}
                   color={matchesMobile ? "white" : "#CEEBFF"}
                 />
@@ -710,7 +710,7 @@ const Odds = ({ onClick, top, blur, match }:any) => {
                 sx={{ width: ".25%", display: "flex", background: "pink" }}
               ></Box>
               <SeparateBox
-                value={ 0
+                value={0
                 }
                 value2={0}
                 color={matchesMobile ? "#A7DCFF" : "#A7DCFF"}
@@ -720,7 +720,7 @@ const Odds = ({ onClick, top, blur, match }:any) => {
               ></Box>
               <SeparateBox
                 value={
-                   0
+                  0
                 }
                 value2={0}
                 color={matchesMobile ? "#FFB5B5" : "#FFB5B5"}
@@ -730,7 +730,7 @@ const Odds = ({ onClick, top, blur, match }:any) => {
               ></Box>
               {!matchesMobile && (
                 <SeparateBox
-                  value={ 0
+                  value={0
                   }
                   value2={0}
                   color={matchesMobile ? "white" : "#F2CBCB"}
@@ -741,7 +741,7 @@ const Odds = ({ onClick, top, blur, match }:any) => {
               ></Box>
               {!matchesMobile && (
                 <SeparateBox
-                  value={ 0
+                  value={0
                   }
                   value2={0}
                   color={matchesMobile ? "white" : "#ECD6D6"}
@@ -753,113 +753,113 @@ const Odds = ({ onClick, top, blur, match }:any) => {
             </Box>
           </Box>
 
-            <>
-              <Divider />
+          <>
+            <Divider />
+            <Box
+              sx={{
+                display: "flex",
+                background: "white",
+                height: "40px",
+                width: "100%",
+                alignItems: "center",
+              }}
+            >
               <Box
                 sx={{
                   display: "flex",
                   background: "white",
                   height: "40px",
-                  width: "100%",
+                  width: "40%",
                   alignItems: "center",
                 }}
               >
-                <Box
+                <Typography
                   sx={{
-                    display: "flex",
-                    background: "white",
-                    height: "40px",
-                    width: "40%",
-                    alignItems: "center",
+                    color: "black",
+                    fontSize: { lg: "12px", xs: "11px" },
+                    marginLeft: "7px",
+                    fontWeight: "600",
                   }}
                 >
-                  <Typography
-                    sx={{
-                      color: "black",
-                      fontSize: { lg: "12px", xs: "11px" },
-                      marginLeft: "7px",
-                      fontWeight: "600",
-                    }}
-                  >
-                    {"Bangaldesh"}
-                  </Typography>
-                </Box>
+                  {"Bangaldesh"}
+                </Typography>
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  background: "white",
+                  height: "40px",
+                  width: { lg: "60%", xs: "80%" },
+                  justifyContent: { xs: "flex-end", lg: "center" },
+                  alignItems: "center",
+                }}
+              >
+                {!matchesMobile && (
+                  <SeparateBox
+                    value={1000
+                    }
+                    value2={0}
+                    color={matchesMobile ? "white" : "#CEEBFF"}
+                  />
+                )}
                 <Box
-                  sx={{
-                    display: "flex",
-                    background: "white",
-                    height: "40px",
-                    width: { lg: "60%", xs: "80%" },
-                    justifyContent: { xs: "flex-end", lg: "center" },
-                    alignItems: "center",
-                  }}
-                >
-                  {!matchesMobile && (
-                    <SeparateBox
-                      value={1000
-                      }
-                      value2={0}
-                      color={matchesMobile ? "white" : "#CEEBFF"}
-                    />
-                  )}
-                  <Box
-                    sx={{ width: ".25%", display: "flex", background: "pink" }}
-                  ></Box>
-                  {!matchesMobile && (
-                    <SeparateBox
-                      value={
-                         0
-                      }
-                      value2={0}
-                      color={matchesMobile ? "white" : "#C2E6FF"}
-                    />
-                  )}
-                  <Box
-                    sx={{ width: ".25%", display: "flex", background: "pink" }}
-                  ></Box>
+                  sx={{ width: ".25%", display: "flex", background: "pink" }}
+                ></Box>
+                {!matchesMobile && (
+                  <SeparateBox
+                    value={
+                      0
+                    }
+                    value2={0}
+                    color={matchesMobile ? "white" : "#C2E6FF"}
+                  />
+                )}
+                <Box
+                  sx={{ width: ".25%", display: "flex", background: "pink" }}
+                ></Box>
+                <SeparateBox
+                  value={0
+                  }
+                  value2={0}
+                  color={matchesMobile ? "#A7DCFF" : "#A7DCFF"}
+                />
+                <Box
+                  sx={{ width: ".25%", display: "flex", background: "pink" }}
+                ></Box>
+                <SeparateBox
+                  value={0}
+                  value2={0}
+                  color={matchesMobile ? "#FFB5B5" : "#FFB5B5"}
+                />
+                <Box
+                  sx={{ width: ".25%", display: "flex", background: "pink" }}
+                ></Box>
+                {!matchesMobile && (
                   <SeparateBox
                     value={0
                     }
                     value2={0}
-                    color={matchesMobile ? "#A7DCFF" : "#A7DCFF"}
+                    color={matchesMobile ? "white" : "#F2CBCB"}
                   />
-                  <Box
-                    sx={{ width: ".25%", display: "flex", background: "pink" }}
-                  ></Box>
+                )}
+                <Box
+                  sx={{ width: ".25%", display: "flex", background: "pink" }}
+                ></Box>
+                {!matchesMobile && (
                   <SeparateBox
-                    value={ 0}
+                    value={0
+                    }
                     value2={0}
-                    color={matchesMobile ? "#FFB5B5" : "#FFB5B5"}
+                    color={matchesMobile ? "white" : "#ECD6D6"}
                   />
-                  <Box
-                    sx={{ width: ".25%", display: "flex", background: "pink" }}
-                  ></Box>
-                  {!matchesMobile && (
-                    <SeparateBox
-                      value={0
-                      }
-                      value2={0}
-                      color={matchesMobile ? "white" : "#F2CBCB"}
-                    />
-                  )}
-                  <Box
-                    sx={{ width: ".25%", display: "flex", background: "pink" }}
-                  ></Box>
-                  {!matchesMobile && (
-                    <SeparateBox
-                      value={0
-                      }
-                      value2={0}
-                      color={matchesMobile ? "white" : "#ECD6D6"}
-                    />
-                  )}
-                  <Box
-                    sx={{ width: ".25%", display: "flex", background: "pink" }}
-                  ></Box>
-                </Box>
+                )}
+                <Box
+                  sx={{ width: ".25%", display: "flex", background: "pink" }}
+                ></Box>
               </Box>
-            </>
- 
+            </Box>
+          </>
+
         </Box>
       </Box>
     </>

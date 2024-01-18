@@ -20,3 +20,14 @@ export const  formatNumber=(value: number, isRound: any) =>{
       return amount;
     }
   };
+
+  export const customSort = (a:any, b:any) => {
+    // betStatus 1 should come before betStatus 2
+    const betStatusOrder = { 1: 0, 0: 1, 2: 2 };
+    const aStatus = 0;
+    const bStatus =  0;
+    return aStatus - bStatus;
+  }
+
+
+  

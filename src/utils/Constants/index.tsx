@@ -65,7 +65,10 @@ export const ApiConstants = {
     MainPaths: {
       root: "/",
       match: "match",
-      comingSoon: "comingsoon"
+      comingSoon: "comingsoon",
+      liveMarketMatches: "matchDetail",
+      myAccount: "my-account",
+      liveMarket: "inplay",
     },
 
 
@@ -77,7 +80,7 @@ export const ApiConstants = {
       creditReference: "credit_reference",
     },
     ReportsPaths: {
-      root: "/wallet/reports",
+      root: "/reports",
       profitLoss: "profit_loss",
       accountStatement: "account_statement",
       currentBet: "current_bet",
