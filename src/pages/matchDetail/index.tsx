@@ -2,7 +2,7 @@
 import { Box, useMediaQuery, useTheme } from "@mui/material";
 
 import { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 import MatchOdds from "../../components/MatchDetail/MatchOdds/MatchOdds";
 
 import LiveMatchHome from "../../components/MatchDetail/LiveMatchScore/LiveMatchHome";
@@ -20,7 +20,7 @@ const MatchDetail = () => {
     const [visible, setVisible] = useState(true);
     const theme = useTheme();
     const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
-
+    const navigate = useNavigate();
     return (
         <Box
             sx={{
@@ -33,6 +33,7 @@ const MatchDetail = () => {
                 // overflowY: "auto",
                 alignItems: "flex-start",
             }}
+          
         >
             <BetPlaced visible={visible} setVisible={setVisible} />
 
@@ -48,6 +49,7 @@ const MatchDetail = () => {
                             marginTop: "2%",
                             flexDirection: "column",
                         }}
+                    
                     >
                         <LiveScore />
                         <div style={{ width: "100%" }}>

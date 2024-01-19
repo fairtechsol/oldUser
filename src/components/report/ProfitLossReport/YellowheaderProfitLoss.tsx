@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import SearchInputWallet from "../../../components/Common/SearchInputWallet";
+import SearchInputWallet from "../../Common/SearchInput";
 import Calendar from "../../../components/Common/Calendar";
 import CustomButton from "../../../components/Common/CustomButton";
 

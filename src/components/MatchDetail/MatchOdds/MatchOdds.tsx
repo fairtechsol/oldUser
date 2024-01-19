@@ -56,14 +56,14 @@ const MatchOdds = ({
 //     }
 //   }, [quickBookmaker]);
 
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+  // const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setTimeLeft(calculateTimeLeft());
-    }, 0);
-    return () => clearTimeout(timer);
-  });
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setTimeLeft(calculateTimeLeft());
+  //   }, 0);
+  //   return () => clearTimeout(timer);
+  // });
 
   function calculateTimeLeft() {
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;

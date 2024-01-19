@@ -1,0 +1,84 @@
+@import "/src/assets/variable.scss";
+
+.secureAuth {
+    .pdf{
+        
+        font-size: 16px;
+        text-transform: uppercase;
+    }
+    .auth-verification-btn {
+        & + label {
+            border: 1px solid $green;
+            background-color: transparent;
+            color: $green;
+            font-size: 1.25rem !important ;
+            padding: 8px 16px;
+        }
+        &.active,
+        &:hover {
+            & + label {
+                background-color: $green !important;
+                color: $white;
+                border: 1px solid $green;
+            }
+        }
+    }
+    .auth-verification-btn#mobileapp {
+        & + label {
+            border-radius: 3px 0 0 3px !important;
+        }
+    }
+    .auth-verification-btn#telegram {
+        & + label {
+            border-radius: 0 3px 3px 0 !important;
+        }
+    }
+
+    .telegram {
+        .getConection {
+            max-width: 500px;
+        }
+    }
+}
+.androidDwnloadCard {
+    width: 200px;
+    color: #fff;
+    box-shadow: 2px 4px 4px #00000047;
+    text-decoration: none !important;
+    border-radius: 0.3rem;
+    padding: 0.5rem 1rem;
+}
+
+@media screen and (max-width: 768px) {
+    .secureAuth {
+            .pdf{
+                border-radius: 4px;
+                font-size: 16px;
+                text-transform: capitalize;
+            }
+        label.auth-verification-btn-box{
+            font-size: 14px !important;
+            font-weight: 400 !important;
+        }
+        .auth-verification-btn {
+            & + label {
+                padding: 5px;
+                font-weight: 500;
+            }
+            &.active,
+            &:hover {
+                & + label {
+                    background-color: $green !important;
+                    color: $white;
+                    border: 1px solid $green;
+                }
+            }
+        }
+
+        .telegram {
+            .getConection {
+                max-width: 500px;
+            }
+        }
+    }
+}

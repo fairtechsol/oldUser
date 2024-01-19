@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import MatchesComponent from "./index";
 import { memo } from "react";
 
-const Match = () => {
+const Match = ({ onClick }:any) => {
     const [id, setId] = useState("");
     const navigate = useNavigate();
     const theme = useTheme();

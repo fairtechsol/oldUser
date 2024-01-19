@@ -1,0 +1,26 @@
+@import "/src/assets/variable.scss";
+.tableHeader{
+    align-items: center;
+    justify-content: space-between;
+    background-color: $primary;
+}
+
+
+input{
+    ::placeholder{
+        color: #000;
+    }
+}
+.input-icon{
+    position:absolute;
+    right:10px;
+    top:5px;
+    z-index: 999;
+}
+
+.underline-textbox {
+    border: none !important;
+    border-bottom: 1px solid $secondary !important;
+    border-radius: 0 !important;
+    outline: none !important;
+  }

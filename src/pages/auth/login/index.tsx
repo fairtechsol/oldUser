@@ -1,6 +1,6 @@
 import { Button, Box, useTheme, CircularProgress, Card, useMediaQuery } from "@mui/material";
 import { mail, eye, eyeLock } from "../../../assets";
-import { useEffect } from "react";
+
 import Input from "../../../components/login/input";
 import { useNavigate } from "react-router-dom";
 import { authReset, login } from "../../../store/actions/auth/authAction";
@@ -9,8 +9,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import { loginValidationSchema } from "../../../utils/Validations";
-import Auth from "../../../layout/auth";
-import AuthBackground from "../AuthBackground";
+
 const initialValues: any = {
     userName: "",
     password: "",
@@ -42,21 +41,6 @@ const Login = () => {
 
     const matchesMobile = useMediaQuery(theme.breakpoints.down("md"));
 
-    //   useEffect(() => {
-    //     if (success) {
-    //       sessionStorage.setItem("userRole", userRole);
-    //       if (forceChangePassword) {
-    //         sessionStorage.setItem(
-    //           "forceChangePassword",
-    //           JSON.stringify(forceChangePassword)
-    //         );
-    //         navigate("/wallet/change_password");
-    //       } else if (isTransPasswordCreated) {
-    //         navigate("/wallet/list_of_clients");
-    //       }
-    //       dispatch(authReset());
-    //     }
-    //   }, [success]);
 
     return (
 
@@ -107,7 +91,12 @@ const Login = () => {
                     marginTop: "4vh",
                 }}
             >
+
                 <Button
+                    onClick={(e) => {
+                        navigate("/match", { state: { activeTab: "CRICKET" } });
+                        e.stopPropagation();
+                    }}
                     type="submit"
                     variant="contained"
                     color="secondary"
