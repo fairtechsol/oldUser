@@ -33,8 +33,9 @@ export { default as SNOOKER } from './images/snooker.png'
 export { default as GOLF } from './images/golf.png'
 export { default as CHESS } from './images/chess.png'
 export { default as BASKETBALL } from './images/basketball.png'
+export { default as BACKIMAGE } from './images/back.png'
 
-
+export { default as ARROWDROPDOWN } from './images/arrowDropDown.png'
 
 export { default as LockIcon } from './images/lock.svg'
 export { default as ARROWUPs } from './images/arrowUp.png'

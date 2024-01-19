@@ -2,18 +2,9 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { memo, useEffect, useState } from "react";
 import SeparateBox from "./SeparateBox";
-
 import Divider from "../../../helper/Divider";
-
-
-
-import { formatNumber } from "../../../helper/index";
 import moment from "moment-timezone";
 import { useDispatch } from "react-redux";
-
-
-
-
 
 import { useNavigate } from "react-router-dom";
 let matchOddsCount = 0;
@@ -21,7 +12,7 @@ const Odds = ({ onClick, top, blur, match }: any) => {
   const theme = useTheme();
   const navigate = useNavigate();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
-  const [matchOddsLive, setMatchOddsLive] = useState([]);
+
 
   const dispatch = useDispatch();
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
@@ -163,6 +154,10 @@ const Odds = ({ onClick, top, blur, match }: any) => {
           marginX: "1vw",
           padding: 0.1,
           background: "white",
+        }}
+        onClick={(e) => {
+          navigate("/matchDetail");
+          e.stopPropagation();
         }}
       >
         {!upcoming && (

@@ -58,7 +58,7 @@ export const ApiConstants = {
     AuthPaths: {
       root: "/",
       login: "login",
-      changePassword: "change_password",
+      changePassword: "change-password",
     },
 
     
@@ -69,6 +69,10 @@ export const ApiConstants = {
       liveMarketMatches: "matchDetail",
       myAccount: "my-account",
       liveMarket: "inplay",
+      changeButtonValue: "change_button_value",
+      rules: "rules",
+      changePassword: "change_password",
+      secureAuth: "secure-auth"
     },
 
 
@@ -80,11 +84,12 @@ export const ApiConstants = {
       creditReference: "credit_reference",
     },
     ReportsPaths: {
-      root: "/reports",
+      root: "/",
       profitLoss: "profit_loss",
       accountStatement: "account_statement",
       currentBet: "current_bet",
       generalReport: "general_report",
+      betHistory: "bet_history",
     },
     pageCount: 10,
     listOfClientCountLimit: 15,
@@ -101,6 +106,16 @@ export const ApiConstants = {
     apiBasePath: "http://3.89.232.255:5050",
     thirdParty: "http://3.89.232.255:3200",
     expertPath: "http://3.89.232.255:6060",
+  };
+  
+
+  export const teamStatus = {
+    suspended: "suspended",
+    active: "active",
+    closed: "closed",
+    ballStart: "ball start",
+    ballStop: "ball stop",
+    ballRunning: "ball running",
   };
   
   export const baseUrls = {

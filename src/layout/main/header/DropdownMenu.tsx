@@ -106,7 +106,12 @@ import {
               value={60}
             />
           ) : (
-            <StyledImage src={Logout} sx={{ width: "35%", height: "auto" }} />
+            <StyledImage src={Logout} sx={{ width: "35%", height: "auto" }} 
+            onClick={(e) => {
+              navigate("/login");
+              e.stopPropagation();
+            }}
+            />
           )}
         </Box>
       </Menu>

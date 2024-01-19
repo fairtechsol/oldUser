@@ -4,13 +4,14 @@ import { memo, useEffect, useState } from "react";
 import Match from "../../components/MatchDetail/MatchOdds/Match";
 import MatchDetail from "../matchDetail";
 import MyAccount from "../myAccount";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import ProfitLoss from "../reports/ProfitLoss";
 
 
 
 const Matches = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const [selected, setSelected] = useState(
     location.state?.activeTab || "CRICKET"
@@ -26,7 +27,7 @@ const Matches = () => {
     <>
        {/* {["INPLAY", "CRICKET"].includes(selected) &&
               window.location.pathname !== "/matchDetail" && ( */}
-      <Match/>
+      <Match />
               {/* )} */}
       {/* <MatchDetail/> */}
       {window.location.pathname === "/matchDetail" && (

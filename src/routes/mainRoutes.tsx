@@ -2,14 +2,22 @@ import { lazy } from "react";
 import Loadable from "../utils/loadable";
 import { Navigate } from "react-router-dom";
 import { Constants } from "../utils/Constants";
-import Comingsoon from "../pages/comingsoon/index";
-import Match from "../pages/match";
-import MatchDetail from "../pages/matchDetail";
-import ProfitLoss from "../pages/reports/ProfitLoss";
-import Inplay from "../pages/inplay";
+import SecureAuthVerification from "../pages/auth/secureAuthverification";
+
+
+
+
+
+const ChangeButtonValue = Loadable(lazy(() => import("../pages/changeButtonValue")));
+const Rules = Loadable(lazy(() => import("../pages/rules")));
+
 const MyAccount = Loadable(lazy(() => import("../pages/myAccount")));
 const MainLayout = Loadable(lazy(() => import("../layout/main")));
-
+const Comingsoon = Loadable(lazy(() => import("../pages/comingsoon/index")));
+const Match = Loadable(lazy(() => import("../pages/match")));
+const MatchDetail = Loadable(lazy(() => import("../pages/matchDetail")));
+const Inplay = Loadable(lazy(() => import("../pages/inplay")));
+const ChangePassword = Loadable(lazy(() => import("../pages/changepassword")));
 
 const MainRoutes = {
   path: Constants.MainPaths.root,
@@ -36,12 +44,24 @@ const MainRoutes = {
       element: <MyAccount />,
     },
     {
-      path: Constants.ReportsPaths.profitLoss,
-      element: <ProfitLoss />,
-    },
-    {
       path: Constants.MainPaths.liveMarket,
       element: <Inplay />,
+    },
+    {
+      path: Constants.MainPaths.changePassword,
+      element: <ChangePassword />,
+    },
+    {
+      path: Constants.MainPaths.changeButtonValue,
+      element: <ChangeButtonValue />,
+    },
+    {
+      path: Constants.MainPaths.rules,
+      element: <Rules />,
+    },
+    {
+      path: Constants.MainPaths.secureAuth,
+      element: <SecureAuthVerification />,
     },
     {
       path: "*",
@@ -49,4 +69,5 @@ const MainRoutes = {
     },
   ],
 };
-export default MainRoutes;
+
+export default  MainRoutes;
