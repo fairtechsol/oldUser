@@ -107,14 +107,6 @@ export const FgAdminValidation = Yup.object({
   confirmPassword: Yup.string()
     .oneOf([Yup.ref("password"), ""], "Passwords must match")
     .required("Confirm Password is required"),
-  // fullName: Yup.string().required("Full Name is required"),
-  // city: Yup.string()
-  //   .max(15, "City must be at most 15 characters")
-  //   .matches(/^[a-zA-Z\s]*$/, "City must only contain letters and spaces")
-  //   .required("City is required"),
-  // phoneNumber: Yup.string()
-  //   .matches(/^[6-9]\d{9}$/, "Invalid phone number")
-  //   .required("Number is required"),
 
   creditRefrence: Yup.string().required("Credit Reference is required"),
 
@@ -126,4 +118,29 @@ export const FgAdminValidation = Yup.object({
   ),
   // session: Yup.boolean(),
   // bookmaker: Yup.boolean(),
+});
+
+
+
+
+export const newPasswordValidationSchema = Yup.object({
+  oldPassword: Yup.string().required("Password is required"),
+  newPassword: Yup.string().required("Password is required"),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref("newPassword"), ""], "Passwords must match")
+    .required("Password is required"),
+  // transactionPassword: Yup.string().required(
+  //   "Transaction Password is required"
+  // ),
+});
+
+export const oldPasswordValidationSchema = Yup.object({
+  oldPassword: Yup.string().required("Password is required"),
+  newPassword: Yup.string().required("Password is required"),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref("newPassword"), ""], "Passwords must match")
+    .required("Password is required"),
+  transactionPassword: Yup.string().required(
+    "Transaction Password is required"
+  ),
 });

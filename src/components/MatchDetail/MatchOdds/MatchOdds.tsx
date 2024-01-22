@@ -14,6 +14,7 @@ import moment from "moment";
 // import QuickSessionMarket from "./SessionOdds/QuickSessionMarket";
 import { useLocation } from "react-router-dom";
 import QuickSessionMarket from "../QuickSession/QuickSessionMarket";
+import SessionMarket from "../SessionOdds/SessionMarket";
 
 const MatchOdds = ({
   data,
@@ -232,7 +233,7 @@ const MatchOdds = ({
           />
         </>
     
-        {/* <>
+        <>
           <SessionMarket
             min={data?.betfair_session_min_bet || 0}
             max={data?.betfair_session_max_bet || 0}
@@ -258,7 +259,7 @@ const MatchOdds = ({
             fastAmount={fastAmount?.sessionOdds}
             handleRateChange={handleRateChange}
           />
-        </>  */}
+        </> 
   
     </Box>
   );

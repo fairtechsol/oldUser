@@ -6,9 +6,19 @@ const EventComponent = ({ data, selected, setAnchor }:any) => {
   const navigate = useNavigate();
   return (
     <Box
-     onClick={()=> {
-        navigate(`/${data?.url}`)
-     }}
+    onClick={(e) => {
+      if (selected === data.title) {
+        navigate(`/match`, { state: { activeTab: "EmptyComponent" } });
+      } else {
+
+        if (data?.url) {
+          if (data.title === "MY ACCOUNT") {
+            setAnchor(e);
+          }
+          navigate(`/${data?.url}`, { state: { activeTab: data?.title } });
+        }
+      }
+    }}
       sx={[
         {
           width: "60px",

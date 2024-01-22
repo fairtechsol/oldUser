@@ -5,7 +5,7 @@ import {
   useTheme,
   AppBar,
 } from "@mui/material";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./index.css"
 import { useNavigate } from "react-router-dom";
 import MobileSideBar from "./MobileSideBar";
@@ -16,11 +16,14 @@ import StyledImage from "../../../components/Common/StyledImages";
 import { memo } from "react";
 import NewBoxData from "./NewBoxData";
 import { Draw, logo } from "../../../assets";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store/store";
+import { getProfile } from "../../../store/actions/user/userAction";
 
 const CustomHeader = () => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
-
+  const { getProfile } = useSelector((state: RootState) => state.user.profile);
   const navigate = useNavigate();
   const [notificationData, setNotificationData] = useState("Hello, this is a notification!");
   const [showSideBarMobile, setShowSideBarMobile] = useState(false);
@@ -35,7 +38,7 @@ const CustomHeader = () => {
 
 
   return (
-      <>
+    <>
       <Box sx={{ position: "relative", width: "100%" }}>
         {!isOnline && (
           <Box
@@ -158,16 +161,18 @@ const CustomHeader = () => {
                 containerStyle={{ marginTop: matchesMobile ? "5px" : "0px" }}
                 valueStyle={{}}
                 title={"Exposure"}
-                value={0}
+                value={getProfile?.userBal?.exposure || 0}
               />
               <NewBoxData
                 showDropDown={true}
-                title={"hero"}
+                title={getProfile?.userName || "hero"}
+
                 valueStyle={{ color: "white" }}
                 titleStyle={{ color: "white" }}
-                value={0}
+                value={getProfile?.userBal?.currentBalance || 0}
                 containerStyle={{ background: "#0B4F26" }}
               />
+
             </Box>
           </Box>
         </Box>
@@ -222,11 +227,11 @@ const CustomHeader = () => {
         )}
       </AppBar>
       <Box sx={{ minHeight: { lg: 90 + 32, xs: 60 + 32 + 21 } }} />
-      </>
-      );
-  };
-
-  
+    </>
+  );
+};
 
 
-      export default memo(CustomHeader);
+
+
+export default memo(CustomHeader);

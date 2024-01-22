@@ -9,11 +9,12 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import { loginValidationSchema } from "../../../utils/Validations";
+import { useEffect } from "react";
 
 const initialValues: any = {
     userName: "",
     password: "",
-    loginType: "wallet",
+    loginType: "user",
 };
 
 const Login = () => {
@@ -38,6 +39,18 @@ const Login = () => {
         isTransPasswordCreated,
         loading,
     } = useSelector((state: RootState) => state.auth);
+
+    useEffect(() => {
+        if (success) {
+          if (forceChangePassword) {
+            sessionStorage.setItem("forceChangePassword", "true");
+            navigate("/change-password");
+          } else {
+            navigate("/match");
+          }
+          dispatch(authReset());
+        }
+      }, [success]);
 
     const matchesMobile = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -93,10 +106,10 @@ const Login = () => {
             >
 
                 <Button
-                    onClick={(e) => {
-                        navigate("/match", { state: { activeTab: "CRICKET" } });
-                        e.stopPropagation();
-                    }}
+                    // onClick={(e) => {
+                    //     navigate("/match", { state: { activeTab: "CRICKET" } });
+                    //     e.stopPropagation();
+                    // }}
                     type="submit"
                     variant="contained"
                     color="secondary"

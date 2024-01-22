@@ -2,18 +2,55 @@ import { Box, Button, CircularProgress, Typography } from "@mui/material";
 
 import { eye, eyeLock } from "../../assets";
 import Input from "../../components/login/input";
+import { useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "../../store/store";
+import { useEffect, useState } from "react";
+import { changePassword, changePasswordReset, logout } from "../../store/actions/auth/authAction";
+import NavigateModal from "../../components/Common/NavigateModal";
+import { useFormik } from "formik";
+import { useSelector } from "react-redux";
+import { newPasswordValidationSchema } from "../../utils/Validations";
 
-
-
+const initialValues: any = {
+  oldPassword: "",
+  newPassword: "",
+  confirmPassword: "",
+};
 
 
 const ChangePassword = (props: any) => {
   const { passLoader, width } = props;
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const dispatch: AppDispatch = useDispatch();
+  // const { success } = useSelector((state: RootState) => state.auth.authReducer);
 
+  const formik = useFormik({
+    initialValues: initialValues,
+    validationSchema: newPasswordValidationSchema,
+    onSubmit: (values: any) => {
+      const payload = {
+        newPassword: values.newPassword,
+        confirmPassword: values.confirmPassword,
+        oldPassword: values.oldPassword,
+      };
+      dispatch(changePassword(payload));
+      setShowModal(true);
+    },
+  });
+
+  const { handleSubmit, touched, errors } = formik;
+
+
+  // useEffect(() => {
+  //   if (success) {
+  //     dispatch(changePasswordReset());
+  //     setShowModal(true);
+  //   }
+  // }, [success]);
 
   return (
     <>
-      <form >
+      <form  onSubmit={handleSubmit}>
         <Box
           sx={{
             width: { xs: "96vw", lg: "19vw", md: "19vw" },
@@ -61,7 +98,7 @@ const ChangePassword = (props: any) => {
               id="oldPassword"
               name={"oldPassword"}
               type="password"
-        
+              onChange={formik.handleChange}
             />
             {/* {touched.oldPassword && errors.oldPassword && (
               <p style={{ color: "#fa1e1e" }}>{errors.oldPassword as string}</p>
@@ -82,7 +119,7 @@ const ChangePassword = (props: any) => {
               img={eye}
               img1={eyeLock}
               type="password"
-           
+              onChange={formik.handleChange}
             />
             {/* {touched.newPassword && errors.newPassword && (
               <p style={{ color: "#fa1e1e" }}>{errors.newPassword as string}</p>
@@ -103,7 +140,7 @@ const ChangePassword = (props: any) => {
               img={eye}
               img1={eyeLock}
               type="password"
-      
+              onChange={formik.handleChange}
             />
             {/* {touched.confirmPassword && errors.confirmPassword && (
               <p style={{ color: "#fa1e1e" }}>
@@ -150,17 +187,17 @@ const ChangePassword = (props: any) => {
           </Box>
         </Box>
       </form>
-      {/* {showModal && (
-        <CustomModal
-          transactionMessage={transactionPassword?.transactionPassword}
+      {showModal && (
+        <NavigateModal
+    
           modalTitle="Your password has been changed sucessfully"
           setShowModal={setShowModal}
           showModal={showModal}
           functionDispatch={() => dispatch(logout())}
           buttonMessage={"Navigate To Login"}
-          navigateTo={"/wallet/login"}
+          navigateTo={"/login"}
         />
-      )} */}
+      )}
     </>
   );
 };
