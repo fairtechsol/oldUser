@@ -7,16 +7,41 @@ import moment from "moment-timezone";
 import { useDispatch } from "react-redux";
 
 import { useNavigate } from "react-router-dom";
+import { RootState } from "../../../store/store";
+import { useSelector } from "react-redux";
+
+interface MatchOddsProps {
+  minMax?: any;
+  data: any;
+  matchDetails?: any;
+  backLayCount?: number;
+}
+
+
+
+
 let matchOddsCount = 0;
+
 const Odds = ({ onClick, top, blur, match }: any) => {
   const theme = useTheme();
   const navigate = useNavigate();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
-
+  const { selectedBet } = useSelector(
+    (state: RootState) => state.match.matchList
+  );
 
   const dispatch = useDispatch();
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
+  
+  // const handleClick = (team: any, data: any) => {
+  //   dispatch(
+  //     selectedBetAction({
+  //       team,
+  //       data,
+  //     })
+  //   );
+  // };
 
   useEffect(() => {
     const timer = setInterval(() => {

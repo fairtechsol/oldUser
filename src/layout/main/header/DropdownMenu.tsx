@@ -5,7 +5,6 @@ import {
     MenuItem,
     useMediaQuery,
     useTheme,
-    Paper
   } from "@mui/material";
   import StyledImage from "../../../components/Common/StyledImages";
   import Logout  from "../../../assets/images/logout.png";

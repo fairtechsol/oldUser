@@ -108,7 +108,7 @@ import EventComponent from "./EventComponent";
               key={idx}
               data={i}
               selected={selected}
-            
+              setAnchor={setAnchor}
             />
           );
         })}

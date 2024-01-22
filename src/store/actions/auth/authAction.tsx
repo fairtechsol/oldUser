@@ -9,6 +9,13 @@ interface LoginData {
   loginType: string;
 }
 
+interface ChangePassword {
+  userId?: string;
+  newPassword: string;
+  confirmPassword: string;
+
+}
+
 export const login = createAsyncThunk<any, LoginData>(
   "auth/login",
   async (requestData, thunkApi) => {
@@ -27,13 +34,32 @@ export const login = createAsyncThunk<any, LoginData>(
   }
 );
 
+export const changePassword = createAsyncThunk<any, ChangePassword>(
+  "user/changePassword",
+  async (requestData, thunkApi) => {
+    try {
+      const resp = await service.post(
+        `${ApiConstants.AUTH.CHANGEPASSWORD}`,
+        requestData
+      );
+      if (resp) {
+        sessionStorage.clear();
+        window.location.replace("/login");
+      }
+    } catch (error: any) {
+      const err = error as AxiosError;
+      return thunkApi.rejectWithValue(err.response?.status);
+    }
+  }
+);
+
 export const logout = createAsyncThunk<any>(
   "auth/logout",
   async (_, thunkApi) => {
     try {
       const response = await service.post(`${ApiConstants.AUTH.LOGOUT}`);
       sessionStorage.clear();
-      window.location.replace("/wallet/login");
+      window.location.replace("/login");
       return response;
     } catch (error) {
       const err = error as AxiosError;
@@ -43,3 +69,4 @@ export const logout = createAsyncThunk<any>(
 );
 
 export const authReset = createAction("auth/reset");
+export const changePasswordReset = createAction("changePasswordReset/reset");

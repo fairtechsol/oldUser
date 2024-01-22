@@ -2,55 +2,33 @@ export const ApiConstants = {
     AUTH: {
       LOGIN: "/auth/login",
       LOGOUT: "/auth/logout",
+      CHANGEPASSWORD: "user/changePassword",
+    },
+    MATCH: {
+      MATCHLIST: "/match/list",
+      SEARCHLIST: "/user/searchlist",
+      MATCHDETAILS: "/match/",
+      CURRENTBET: "/bet",
     },
     USER: {
-      BALANCEUPDATE: "/balance/update",
-      CHANGEPASSWORD: "/user/changePassword",
-      LIST: "/user/list",
-      BALANCE: "/user/balance",
-      EXPERTLIST: "/expert/list",
-      ADDFGADMIN: "/user/add",
-      ADDURLADMIN: "/superadmin/add",
-      ADDEXPERT: "/expert/add",
-      UPDATEEXPERT: "/expert/update",
-      UPDATE: "/user/updateUser",
-      PROFILE: "/user/profile",
       MARQUEE: "/expert/notification",
-      LOCKUNLOCK: "/user/lockUnlockUser",
-      CREDITREFERRENCE: "/user/update/creditreferrence",
-      EXPOSURELIMIT: "/user/update/exposurelimit",
-    },
-    SUPERADMIN: {
-      ADD: "/superadmin/add",
-      UPDATE_USER: "/superadmin/updateUser",
-      CHANGE_PASSWORD: "/superadmin/changePassword",
-      LOCK_UNLOCK_USER: "/superadmin/lockUnlockUser",
-      EXPOSURE_LIMIT: "/superadmin/update/exposurelimit",
-      CREDIT_REFERRENCE: "/superadmin/update/creditreferrence",
-      UPDATE_BALANCE: "/superadmin/update/balance",
-    },
-    WALLET: {
-      BALANCEUPDATE: "wallet/update/balance",
-      CREDITREFERRENCE: "wallet/update/creditreference",
-      EXPOSURELIMIT: "wallet/update/exposurelimit",
-      LOCKUNLOCK: "/user/lockUnlockUser",
-      CHANGEPASSWORD: "/user/changePassword",
-      REPORTS: {
-        GETACCOUNTSTATEMENT: "/transaction/get",
-      },
+      SET_BTN_VALUE: "/button/insert",
+      GET_BTN_VALUE: "/button",
+      GET_PROFILE: "/user/profile",
+      ACCOUNT_STATEMENT: "/transaction/get/",
     },
     EXPERT: {
       COMPETITIONLIST: "/expert/match/competitionList/",
       COMPETITIONDATES: "/expert/match/competition/dates/",
       COMPETITIONMATCHES: "/expert/match/competition/getMatch/",
     },
-    INPLAY: {
-      MATCHLIST: "match/list",
+    BET: {
+      PLACEBETSESSION: "bet/session",
+      PLACEBETMATCHBETTING: "bet/matchBetting",
+      GETPLACEDBETS: "bet",
+      RUN_AMOUNT: "bet/session/profitLoss",
     },
-    MATCH: {
-      GET: "match",
-      BETDELETE: "/bet/deleteMultipleBet",
-    },
+
   };
   
   export const Constants = {
