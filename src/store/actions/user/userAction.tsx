@@ -21,9 +21,13 @@ export const marqueeNotification = createAsyncThunk<any>(
 export const getProfile = createAsyncThunk<any>("/user/profile", async () => {
   try {
     const resp = await service.get(`${ApiConstants.USER.GET_PROFILE}`);
+    // console.log("API Request user: Success", resp.data);
     if (resp) {
       return resp?.data;
+
+      
     }
+   
   } catch (error: any) {
     const err = error as AxiosError;
     throw err;

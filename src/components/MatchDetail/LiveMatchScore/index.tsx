@@ -145,7 +145,7 @@ const LiveScore = ({ currentMatch, liveScoreData, submit }:any) => {
 
                             <Typography
                                 sx={{
-                                    fontSize: { xs: "8px", table: "10px", lg: "12px" },
+                                    fontSize: { xs: "8px", md: "10px", lg: "12px" },
                                     marginTop: "0px",
                                     fontWeight: "bold",
                                 }}
@@ -154,7 +154,7 @@ const LiveScore = ({ currentMatch, liveScoreData, submit }:any) => {
                             </Typography>
                             <Typography
                                 sx={{
-                                    fontSize: { xs: "8px", table: "10px", lg: "12px" },
+                                    fontSize: { xs: "8px", md: "10px", lg: "12px" },
                                     marginTop: "10px",
                                     fontWeight: "bold",
                                 }}
@@ -174,7 +174,7 @@ const LiveScore = ({ currentMatch, liveScoreData, submit }:any) => {
 
                             {innings?.[0] && <Typography
                                 sx={{
-                                    fontSize: { xs: "8px", table: "10px", lg: "12px" },
+                                    fontSize: { xs: "8px", md: "10px", lg: "12px" },
                                     marginTop: "0",
                                     fontWeight: "bold",
                                 }}
@@ -195,7 +195,7 @@ const LiveScore = ({ currentMatch, liveScoreData, submit }:any) => {
                             )}
                             <Typography
                                 sx={{
-                                    fontSize: { xs: "8px", table: "10px", lg: "12px" },
+                                    fontSize: { xs: "8px", md: "10px", lg: "12px" },
                                     marginTop: "1vh",
                                     fontWeight: "600",
                                 }}
@@ -238,7 +238,7 @@ const LiveScore = ({ currentMatch, liveScoreData, submit }:any) => {
 
                             {innings?.[1] && <Typography
                                 sx={{
-                                    fontSize: { xs: "8px", table: "10px", lg: "12px" },
+                                    fontSize: { xs: "8px", md: "10px", lg: "12px" },
                                     marginTop: "1vh",
                                     fontWeight: "bold",
                                 }}
@@ -260,7 +260,7 @@ const LiveScore = ({ currentMatch, liveScoreData, submit }:any) => {
                             )}
                             <Typography
                                 sx={{
-                                    fontSize: { xs: "8px", table: "10px", lg: "12px" },
+                                    fontSize: { xs: "8px", md: "10px", lg: "12px" },
                                     marginTop: "1vh",
                                     fontWeight: "600",
                                 }}
@@ -275,7 +275,7 @@ const LiveScore = ({ currentMatch, liveScoreData, submit }:any) => {
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Box>
                             <Typography sx={{
-                                fontSize: { xs: "8px", table: "10px", lg: "14px" },
+                                fontSize: { xs: "8px", md: "10px", lg: "14px" },
                                 // marginTop: "1vh",
                                 fontWeight: "bold",
                                 color: "#319e5b"
@@ -295,12 +295,12 @@ const LiveScore = ({ currentMatch, liveScoreData, submit }:any) => {
                             >
                                 {ballLastOutcomes?.map((outcome, index) => (
                                     <ListItem key={index} style={{ padding: 0, width: 'auto', paddingLeft: '0px', paddingRight: '5px', }}>
-                                        <ListItemText primary={<Typography sx={{ fontSize: { xs: "8px", table: "10px", lg: "12px" }, fontWeight: 'bold', color: '#FF4D4D'  }}>{outcome}</Typography>} />
+                                        <ListItemText primary={<Typography sx={{ fontSize: { xs: "8px", md: "10px", lg: "12px" }, fontWeight: 'bold', color: '#FF4D4D'  }}>{outcome}</Typography>} />
                                     </ListItem>
                                 ))}
                                 {/* {ballLastOutcomes?.map((outcome, index) => (
                                     <ListItem key={index} style={{ padding: 0, width: 'auto', paddingLeft: '0px', paddingRight: '5px', }}>
-                                        <ListItemText primary={<Typography sx={{ fontSize: { xs: "8px", table: "10px", lg: "12px" }, fontWeight: 'bold' }}>{outcome}</Typography>} />
+                                        <ListItemText primary={<Typography sx={{ fontSize: { xs: "8px", md: "10px", lg: "12px" }, fontWeight: 'bold' }}>{outcome}</Typography>} />
                                     </ListItem>
                                 ))} */}
                             </List>
@@ -308,7 +308,7 @@ const LiveScore = ({ currentMatch, liveScoreData, submit }:any) => {
                         <Divider />
                         <Box>
                             <Typography sx={{
-                                fontSize: { xs: "8px", table: "10px", lg: "14px" },
+                                fontSize: { xs: "8px", md: "10px", lg: "14px" },
                                 // marginTop: "1vh",
                                 fontWeight: "bold",
                                 color: "#319e5b"
@@ -325,12 +325,12 @@ const LiveScore = ({ currentMatch, liveScoreData, submit }:any) => {
                             >
                                 {ballOutcomes?.map((outcome, index) => (
                                     <ListItem key={index} style={{ padding: 0, width: 'auto', paddingLeft: '0px', paddingRight: '5px', }}>
-                                        <ListItemText primary={<Typography sx={{ fontSize: { xs: "8px", table: "10px", lg: "12px" }, fontWeight: 'bold', color: '#FF4D4D'}}>{outcome}</Typography>} />
+                                        <ListItemText primary={<Typography sx={{ fontSize: { xs: "8px", md: "10px", lg: "12px" }, fontWeight: 'bold', color: '#FF4D4D'}}>{outcome}</Typography>} />
                                     </ListItem>
                                 ))}
                                 {/* {ballOutcomes?.map((outcome, index) => (
                                     <ListItem key={index} style={{ padding: 0, width: 'auto', paddingLeft: '0px', paddingRight: '5px', }}>
-                                        <ListItemText primary={<Typography sx={{ fontSize: { xs: "8px", table: "10px", lg: "12px" }, fontWeight: 'bold' }}>{outcome}</Typography>} />
+                                        <ListItemText primary={<Typography sx={{ fontSize: { xs: "8px", md: "10px", lg: "12px" }, fontWeight: 'bold' }}>{outcome}</Typography>} />
                                     </ListItem>
                                 ))} */}
                             </List>

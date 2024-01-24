@@ -73,7 +73,7 @@ const SeparateModal = ({
  
   useEffect(() => {
     if (closeModal || lock) {
-      console.log("closeModal", closeModal);
+      // console.log("closeModal", closeModal);
       setIsPopoverOpen(false);
     }
   }, [closeModal, lock]);

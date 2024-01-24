@@ -7,64 +7,56 @@ import moment from "moment-timezone";
 import { useDispatch } from "react-redux";
 
 import { useNavigate } from "react-router-dom";
-import { RootState } from "../../../store/store";
-import { useSelector } from "react-redux";
 
-interface MatchOddsProps {
-  minMax?: any;
-  data: any;
-  matchDetails?: any;
-  backLayCount?: number;
+
+interface TimeLeft {
+  days: string;
+  hours: string;
+  minutes: string;
+  seconds?: string;
 }
 
 
 
 
-let matchOddsCount = 0;
 
-const Odds = ({ onClick, top, blur, match }: any) => {
+
+const Odds = ({ onClick, top, blur, match, data, item, title }: any) => {
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
   const theme = useTheme();
   const navigate = useNavigate();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
-  const { selectedBet } = useSelector(
-    (state: RootState) => state.match.matchList
-  );
+
 
   const dispatch = useDispatch();
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
-  
-  // const handleClick = (team: any, data: any) => {
-  //   dispatch(
-  //     selectedBetAction({
-  //       team,
-  //       data,
-  //     })
-  //   );
-  // };
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(calculateTimeLeft());
-    }, 100);
-    return () => clearInterval(timer);
-  }, []);
 
-  function calculateTimeLeft() {
+
+
+  // useEffect(() => {
+  //   const timer = setInterval(() => {
+  //     setTimeLeft(calculateTimeLeft());
+  //   }, 100);
+  //   return () => clearInterval(timer);
+  // }, []);
+  function calculateTimeLeft(): TimeLeft {
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    const targetDate = moment(match?.startAt).tz(timezone);
+    const targetDate = moment(data?.startAt).tz(timezone);
     const difference = targetDate.diff(moment().tz(timezone), "milliseconds");
-    let timeLeft = {};
+    let timeLeft: TimeLeft = {
+      days: "",
+      hours: "",
+      minutes: ""
+    }; // Initialize with the defined type
+  
     if (difference > 0) {
       timeLeft = {
-        days:
-          ("0" + Math.floor(difference / (1000 * 60 * 60 * 24))).slice(-2) || 0,
-        hours:
-          ("0" + Math.floor((difference / (1000 * 60 * 60)) % 24)).slice(-2) ||
-          0,
-        minutes:
-          ("0" + Math.floor((difference / 1000 / 60) % 60)).slice(-2) || 0,
-        seconds: ("0" + Math.floor((difference / 1000) % 60)).slice(-2) || 0,
+        days: ("0" + Math.floor(difference / (1000 * 60 * 60 * 24))).slice(-2) || "00",
+        hours: ("0" + Math.floor((difference / (1000 * 60 * 60)) % 24)).slice(-2) || "00",
+        minutes: ("0" + Math.floor((difference / 1000 / 60) % 60)).slice(-2) || "00",
+        seconds: ("0" + Math.floor((difference / 1000) % 60)).slice(-2) || "00",
       };
     } else {
       timeLeft = {
@@ -73,14 +65,13 @@ const Odds = ({ onClick, top, blur, match }: any) => {
         minutes: "00",
       };
     }
-
+  
     return timeLeft;
   }
-
-  const upcoming =
-    Number(timeLeft) === 0 &&
-    Number(timeLeft) === 0 &&
-    Number(timeLeft) <= 30;
+  
+  const timeLeft = calculateTimeLeft();
+  
+  const upcoming = Number(timeLeft.days) === 0 && Number(timeLeft.hours) === 0 && Number(timeLeft.minutes) <= 10;
 
 
 
@@ -166,6 +157,7 @@ const Odds = ({ onClick, top, blur, match }: any) => {
           }
         `}
       </style>
+
       <Box
         sx={{
           position: "relative",
@@ -181,7 +173,11 @@ const Odds = ({ onClick, top, blur, match }: any) => {
           background: "white",
         }}
         onClick={(e) => {
-          navigate("/matchDetail");
+          navigate("/matchDetail", {
+            state: {
+              matchId: match?.id
+            }
+          });
           e.stopPropagation();
         }}
       >
@@ -287,6 +283,7 @@ const Odds = ({ onClick, top, blur, match }: any) => {
               alignSelf: "center",
             }}
           >
+
             <Box
               sx={{
                 flex: 1.2,
@@ -295,8 +292,11 @@ const Odds = ({ onClick, top, blur, match }: any) => {
                 alignItems: { lg: "center", xs: "flex-end" },
                 display: "flex",
               }}
+
             >
+
               <Typography
+
                 noWrap={true}
                 sx={{
                   overflow: "hidden",
@@ -306,13 +306,16 @@ const Odds = ({ onClick, top, blur, match }: any) => {
                   marginLeft: "7px",
                 }}
               >
-                {"India"} vs {"Pakistan"}{" "}
+                {match.teamA} vs {match?.teamB}{" "}
+
                 <span style={{ fontWeight: "500" }}>
-                  {"(Today 9:00 PM)"}
+                ({moment(match.startAt).format("LL")})
                 </span>
               </Typography>{" "}
 
             </Box>
+
+
             <Box
               sx={{
                 flex: 0.1,
@@ -366,7 +369,7 @@ const Odds = ({ onClick, top, blur, match }: any) => {
                       color: "#0B4F26",
                     }}
                   >
-                    {/* {timeLeft || 0} */}
+                    {timeLeft?.days || 0}
                   </Typography>
                   <Typography
                     sx={{
@@ -409,7 +412,7 @@ const Odds = ({ onClick, top, blur, match }: any) => {
                       color: "#0B4F26",
                     }}
                   >
-                    {/* {timeLeft?.hours || 0} */}
+                    {timeLeft?.hours || 0}
                   </Typography>
                   <Typography
                     sx={{
@@ -452,7 +455,7 @@ const Odds = ({ onClick, top, blur, match }: any) => {
                       color: "#0B4F26",
                     }}
                   >
-                    {/* {timeLeft?.minutes || 0} */}
+                    {timeLeft?.minutes || 0}
                   </Typography>
                   <Typography
                     sx={{
@@ -494,8 +497,8 @@ const Odds = ({ onClick, top, blur, match }: any) => {
                     marginLeft: "7px",
                   }}
                 >
-                  MIN: {"0"} MAX:{" "}
-                  {"100"}
+                  MIN: {match.betFairSessionMinBet} MAX:{""}
+                  {match.betFairSessionMaxBet}
                 </Typography>
               </Box>
               <Box
@@ -577,7 +580,7 @@ const Odds = ({ onClick, top, blur, match }: any) => {
                   fontWeight: "600",
                 }}
               >
-                {"India"}
+                {match?.teamA}
               </Typography>
             </Box>
             <Box
@@ -694,7 +697,7 @@ const Odds = ({ onClick, top, blur, match }: any) => {
                   fontWeight: "600",
                 }}
               >
-                {"Pakistan"}
+                {match.teamB}
               </Typography>
             </Box>
             <Box
@@ -801,7 +804,7 @@ const Odds = ({ onClick, top, blur, match }: any) => {
                     fontWeight: "600",
                   }}
                 >
-                  {"Bangaldesh"}
+                  {match.teamC}
                 </Typography>
               </Box>
               <Box
@@ -816,7 +819,7 @@ const Odds = ({ onClick, top, blur, match }: any) => {
               >
                 {!matchesMobile && (
                   <SeparateBox
-                    value={1000
+                    value={0
                     }
                     value2={0}
                     color={matchesMobile ? "white" : "#CEEBFF"}

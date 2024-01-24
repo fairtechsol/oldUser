@@ -10,7 +10,7 @@ import "./index.css"
 import { useNavigate } from "react-router-dom";
 import MobileSideBar from "./MobileSideBar";
 import StyledImage from "../../../components/Common/StyledImages";
-// import CustomLoader from "../../../components/Loader"
+
 
 
 import { memo } from "react";
@@ -18,9 +18,9 @@ import NewBoxData from "./NewBoxData";
 import { Draw, logo } from "../../../assets";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
-import { getProfile } from "../../../store/actions/user/userAction";
 
-const CustomHeader = () => {
+
+const CustomHeader = ({match}:any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const { getProfile } = useSelector((state: RootState) => state.user.profile);
@@ -161,11 +161,11 @@ const CustomHeader = () => {
                 containerStyle={{ marginTop: matchesMobile ? "5px" : "0px" }}
                 valueStyle={{}}
                 title={"Exposure"}
-                value={getProfile?.userBal?.exposure || 0}
+                value={getProfile?.data?.userBal?.exposure || 0}
               />
               <NewBoxData
                 showDropDown={true}
-                title={getProfile?.userName || "hero"}
+                title={getProfile?.data?.userName || "hero"}
 
                 valueStyle={{ color: "white" }}
                 titleStyle={{ color: "white" }}
