@@ -74,6 +74,7 @@ export const getButtonValue = createAsyncThunk<any>(
   async () => {
     try {
       const resp = await service.get(`${ApiConstants.USER.GET_BTN_VALUE}`);
+      console.log()
       if (resp) {
         return resp?.data;
       }

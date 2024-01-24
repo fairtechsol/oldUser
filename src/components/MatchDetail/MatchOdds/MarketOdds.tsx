@@ -60,7 +60,7 @@ const SmallBox = ({ valueA, valueB }: any) => {
                         color: valueA < 0 ? `#FF4D4D` : `#319E5B`,
                     }}
                 >
-                    {valueA < 0 ? ` ${valueA}` : `${valueA}`}
+                    {valueA}
                 </Typography>
             </Box>
             <Box
@@ -95,7 +95,7 @@ const SmallBox = ({ valueA, valueB }: any) => {
                         color: valueB < 0 ? `#FF4D4D` : `#319E5B`,
                     }}
                 >
-                    {valueB < 0 ? ` ${valueB}` : `${valueB}`}
+                    {valueB}
                 </Typography>
             </Box>
         </Box>
@@ -142,6 +142,8 @@ const MarketOdds = ({
     upcoming,
     handleRateChange,
     teamA,
+    teamB,
+    teamC,
     name
     
 }: any) => {
@@ -460,7 +462,7 @@ const MarketOdds = ({
                                 <BoxComponent
                                  
                                     setPlaceBetData={setPlaceBetData}
-                                    
+                                     name={teamA}
                                     color={teamARates <= 0 ? "#FF4D4D" : "#319E5B"}
                                    
                                
@@ -475,7 +477,7 @@ const MarketOdds = ({
                                    
                                     color={teamBRates <= 0 ? "#FF4D4D" : "#319E5B"}
                                    
-                                    team={"teamB"}
+                                   name={teamB}
                                    
                                 />
                                 {newData?.teamC && (
@@ -487,7 +489,7 @@ const MarketOdds = ({
                                            
                                             color={teamCRates <= 0 ? "#FF4D4D" : "#319E5B"}
                                            
-                                            team={"teamC"}
+                                            name={teamC}
                                            
                                         />
                                     </>

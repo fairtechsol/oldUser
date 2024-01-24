@@ -17,7 +17,8 @@ import { memo } from "react";
 import NewBoxData from "./NewBoxData";
 import { Draw, logo } from "../../../assets";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../store/store";
+import { AppDispatch, RootState } from "../../../store/store";
+import { useDispatch } from "react-redux";
 
 
 const CustomHeader = ({match}:any) => {
@@ -30,11 +31,15 @@ const CustomHeader = ({match}:any) => {
   const [mobileOpen, setMobileOpen] = useState(true);
   const [isOnline, setIsOnline] = useState(navigator.onLine);
 
+
   useEffect(() => {
     if (!matchesMobile) {
       setMobileOpen(false);
     }
   }, [matchesMobile]);
+
+  const dispatch: AppDispatch = useDispatch();
+
 
 
   return (
@@ -149,6 +154,7 @@ const CustomHeader = ({match}:any) => {
                 }}
               />
             </Box>
+
             <Box
               sx={{
                 display: "flex",
@@ -235,3 +241,7 @@ const CustomHeader = ({match}:any) => {
 
 
 export default memo(CustomHeader);
+function dispatch(arg0: any) {
+  throw new Error("Function not implemented.");
+}
+

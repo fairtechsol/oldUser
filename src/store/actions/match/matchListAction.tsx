@@ -63,16 +63,16 @@ export const matchDetailAction = createAsyncThunk<any, any>(
   async (matchId, thunkApi) => {
     try {
 
-      console.log("API Request: Start");
+      // console.log("API Request: Start");
       const resp = await service.get(
         `${ApiConstants.MATCH.MATCHDETAILS}${matchId}`
       );
-      console.log("API Request: Success", resp.data);
+      // console.log("API Request: Success", resp.data);
       if (resp) {
         return resp?.data;
       }
     } catch (error: any) {
-      console.error("API Request: Error", error);
+      // console.error("API Request: Error", error);
 
       const err = error as AxiosError;
       return thunkApi.rejectWithValue(err.response?.status);

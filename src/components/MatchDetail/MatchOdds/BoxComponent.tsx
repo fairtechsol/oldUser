@@ -49,9 +49,7 @@ const BoxComponent = ({
     }
   }, [livestatus, status, showBox]);
 
-  const { matchDetails } = useSelector(
-    (state: RootState) => state.match.matchList
-  );
+
   return (
     <Box
       sx={{
@@ -111,7 +109,7 @@ const BoxComponent = ({
               width: { xs: "113px", md: "100%", lg: "100%" },
             }}
           >
-        {title}
+        {name}
           </Typography>
         </Box>
         <MoneyBox color={color} rates={rate} />

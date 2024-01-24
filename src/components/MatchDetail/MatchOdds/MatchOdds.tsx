@@ -32,7 +32,7 @@ interface TimeLeft {
 const MatchOdds = ({
   data,
 
-  
+
 }: any) => {
   //   const { manualBookMarkerRates, quickBookmaker } = useSelector(
   //     (state) => state?.matchDetails
@@ -94,7 +94,7 @@ const MatchOdds = ({
   // }, [state?.matchId])
   const timeLeft = calculateTimeLeft();
 
-  { console.log(matchDetails?.bookmaker.name) }
+  // { console.log(matchDetails?.bookmaker.name) }
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -103,9 +103,13 @@ const MatchOdds = ({
       {matchDetails?.matchOdd?.isActive && (
 
         <MarketOdds
-
-        title={matchDetails?.matchOdd.name}
-
+          teamA={matchDetails?.teamA}
+          title={matchDetails?.matchOdd.name}
+          teamB={matchDetails?.teamB}
+          minBet={matchDetails?.matchOdd?.minBet}
+          maxBet={matchDetails?.matchOdd?.maxBet}
+          valueA={matchDetails?.profitLossDataMatch?.teamRateA}
+          valueB={matchDetails?.profitLossDataMatch?.teamRateB}
         />
 
       )}
@@ -114,6 +118,12 @@ const MatchOdds = ({
         <MarketOdds
           key={item.id}
           title={item?.name}
+          teamA={matchDetails?.teamA}
+          teamB={matchDetails?.teamB}
+          minBet={item?.minBet}
+          maxBet={item?.maxBet}
+          valueA={item?.teamRateA}
+          valueB={item?.teamRateB}
         />
 
       ))}
@@ -123,45 +133,93 @@ const MatchOdds = ({
         <MarketOdds
           // key={id}
           title={matchDetails?.bookmaker.name}
+          teamA={matchDetails?.teamA}
+          teamB={matchDetails?.teamB}
+          minBet={matchDetails?.bookmaker?.minBet}
+          maxBet={matchDetails?.bookmaker?.maxBet}
+          valueA={matchDetails?.profitLossDataMatch?.teamRateA}
+          valueB={matchDetails?.profitLossDataMatch?.teamRateB}
 
         />
 
       )}
 
+      {matchDetails?.apiTideMatch && (
+        <MarketOdds
+          title={matchDetails?.apiTideMatch.name}
+          teamA={"Yes"}
+          teamB={"No"}
+          minBet={matchDetails?.apiTideMatch?.minBet}
+          maxBet={matchDetails?.apiTideMatch?.maxBet}
+          valueA={matchDetails?.profitLossDataMatch?.yesRateTie}
+          valueB={matchDetails?.profitLossDataMatch?.noRateTie}
 
-      <MarketOdds
-  title={"tied_match"}
-
-
-      />
-       <MarketOdds
-        title={"tied_manual"}
-      />
-       <MarketOdds
-        title={"complete_match"}
-      />
-
-      {console.log(matchDetails?.quickBookmaker?.name)}
-      <>
-        {/* {matchDetails?.quickBookmaker.length > 0 &&
-          matchDetails?.quickBookmaker?.map(
-            (item: any, index: number) => (
-              <div key={index}>
-                {item?.isActive && ( */}
-
-        <QuickSessionMarket
 
         />
-        {/* )}
-              </div>
-            )
-          )} */}
+      )}
+
+      {matchDetails?.manualTiedMatch && (
+        <MarketOdds
+          title={matchDetails?.manualTiedMatch.name}
+          teamA={"Yes"}
+          teamB={"No"}
+          minBet={matchDetails?.manualTiedMatch?.minBet}
+          maxBet={matchDetails?.manualTiedMatch?.maxBet}
+          valueA={matchDetails?.profitLossDataMatch?.yesRateTie}
+          valueB={matchDetails?.profitLossDataMatch?.noRateTie}
+
+        />
+      )}
+
+
+      {matchDetails?.marketCompleteMatch && (
+        <MarketOdds
+          title={matchDetails?.marketCompleteMatch.name}
+          teamA={"Yes"}
+          teamB={"No"}
+          minBet={matchDetails?.marketCompleteMatch?.minBet}
+          maxBet={matchDetails?.marketCompleteMatch?.maxBet}
+          valueA={matchDetails?.profitLossDataMatch?.yesRateTie}
+          valueB={matchDetails?.profitLossDataMatch?.noRateTie}
+        />
+      )}
+
+
+
+
+      <>
+        {matchDetails?.apiSessionActive && (
+          <SessionMarket
+            title={"Session Market"}
+            type={MatchType.API_SESSION_MARKET}
+            data={matchDetails?.apiSession}
+          />
+        )}
       </>
 
       <>
-        <SessionMarket
 
-        />
+        {/* {matchDetails?.manualSessionActive && ( */}
+        {matchDetails?.sessionBettings && matchDetails?.sessionBettings?.map((item: any, index: any) => {
+          let value = JSON.parse(item)
+
+          // { console.log(JSON.parse(matchDetails?.sessionBettings[0])) }
+          // console.log(value)
+          return (
+            <QuickSessionMarket
+              title={"Quick Session Market"}
+              type={MatchType.SESSION_MARKET}
+              data={matchDetails?.sessionBettings}
+              name={value.name}
+              // betLock={true}
+              newData={matchDetails.sessionBettings}
+              minBet={matchDetails?.betFairSessionMinBet}
+              maxBet={matchDetails?.betFairSessionMaxBet}
+            />
+          )
+        })}
+
+        {/* )} */}
       </>
 
     </Box>

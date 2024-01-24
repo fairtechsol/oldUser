@@ -22,7 +22,7 @@ const MoneyBox = ({ color, rates }:any) => {
       }}
     >
       <Typography sx={{ fontSize: "10px", fontWeight: "bold", color: color }}>
-        {rates}
+        {rates || 0}
       </Typography>
     </Box>
   );

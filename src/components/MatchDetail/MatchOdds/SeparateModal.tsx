@@ -1,8 +1,9 @@
 
-import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Typography, useMediaQuery, useTheme, } from "@mui/material";
 import React, { memo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+// import Modal from '@mui/material/Modal';
 
 // import PlaceBet from "../PlaceBet";
 // import BetPlaced from "..";
@@ -54,7 +55,7 @@ const SeparateModal = ({
   const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
   const [visible, setVisible] = React.useState(false);
 
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(true);
   const [showModalMessage, setShowModalMessage] = useState("");
   const [selectedValue, setSelectedValue] = useState("");
   const [selectedCountry, setSelectedCountry] = useState("");
@@ -74,13 +75,13 @@ const SeparateModal = ({
   useEffect(() => {
     if (closeModal || lock) {
       // console.log("closeModal", closeModal);
-      setIsPopoverOpen(false);
+      setShowSuccessModal(false);
     }
   }, [closeModal, lock]);
 
 
 
-  
+  // {console.log("isPopoverOpen state:", isPopoverOpen)}
 
   return (
     <>
@@ -105,6 +106,7 @@ const SeparateModal = ({
                 setFastBetLoading(true);
 
                 let payload = {
+             
                   id: currentMatch?.id,
                   matchType: currentMatch?.gameType,
                   // betId: currentMatch?.matchOddsData?.[0]?.id,
@@ -126,7 +128,7 @@ const SeparateModal = ({
                 if (session) {
                   delete payload.betOn;
                 //   delete payload.odds;
-
+     
                   payload.matchType = data?.matchType;
                   payload.teamA_name = mainData?.teamA;
                   payload.teamB_name = mainData?.teamB;
@@ -203,12 +205,12 @@ const SeparateModal = ({
           )}
         </Box>
 
-        {/* <MUIModal
+        <Modal
           open={isPopoverOpen}
           onClose={() => {
             setIsPopoverOpen(false);
           }}
-        > */}
+       />
           <Box
             sx={{
               width: "100%",
@@ -224,7 +226,7 @@ const SeparateModal = ({
       {showSuccessModal && (
         <Modal
           message={showModalMessage}
-        //   setShowSuccessModal={handleChangeShowModalSuccess}
+          setShowSuccessModal={true}
           showSuccessModal={showSuccessModal}
           buttonMessage={"OK"}
           navigateTo={"matchDetail"}
