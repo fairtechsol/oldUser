@@ -209,7 +209,7 @@ const AllRateSeperate = ({
               ]?.map((i, k) => {
                 const num = allBetsData.length - k;
                 const formattedNum = num < 10 ? "0" + num : num.toString();
-                console.log("profit", i, k);
+                // console.log("profit", i, k);
                 return (
                   <Box
                     key={k}

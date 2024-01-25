@@ -9,6 +9,8 @@ import { formatNumber } from "../../../helper/index";
 
 import { useEffect } from "react";
 import { memo } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store/store";
 
 const BoxComponent = ({
   name,
@@ -35,7 +37,8 @@ const BoxComponent = ({
   fastRate,
   placeBetData,
   setFastBetLoading,
-  handleRateChange
+  handleRateChange,
+  title
 }:any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -45,6 +48,8 @@ const BoxComponent = ({
       setPlaceBetData(null);
     }
   }, [livestatus, status, showBox]);
+
+
   return (
     <Box
       sx={{
@@ -101,15 +106,15 @@ const BoxComponent = ({
               marginLeft: "10px",
               marginRight: "10px",
 
-              width: { xs: "113px", table: "100%", lg: "100%" },
+              width: { xs: "113px", md: "100%", lg: "100%" },
             }}
           >
-            {name}
+        {name}
           </Typography>
         </Box>
         <MoneyBox color={color} rates={rate} />
       </Box>
-      {/* {showBox && (
+      {showBox && (
         <Box
           sx={{
             background: "rgba(0,0,0,0.5)",
@@ -123,7 +128,7 @@ const BoxComponent = ({
             display: "flex",
           }}
         ></Box>
-      )} */}
+      )}
       {!["ACTIVE", "", undefined, null].includes(status) ||
         newData?.bettings?.length === 0 ||
         livestatus ? (

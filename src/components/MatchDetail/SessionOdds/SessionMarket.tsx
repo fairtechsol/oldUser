@@ -5,7 +5,7 @@ import { Box, Typography, useMediaQuery ,useTheme} from "@mui/material";
 import { ARROWUP } from "../../../assets";
 
 import {  } from "@emotion/react";
-import SmallBoxSeason from "./SmallboxSeason";
+
 import { memo } from "react";
 import { useState } from "react";
 
@@ -17,6 +17,7 @@ import { customSort } from "../../../helper/index";
 
 import FastTime from "../MatchOdds/FastTime";
 import FastTimePlaceBet from "../MatchOdds/Bets/FastTimePlaceBet";
+import SmallboxSeason from "./SmallBoxSeason";
 const SessionMarket = ({
   data,
   newData,
@@ -139,7 +140,7 @@ const SessionMarket = ({
             }}
           >
             {/* {console.warn("newData11 ",newData)} */}
-            <SmallBoxSeason
+            <SmallboxSeason
               allBetsData={allBetsData}
               sessionBets={sessionBets}
               totalAmount={sessionExposer}

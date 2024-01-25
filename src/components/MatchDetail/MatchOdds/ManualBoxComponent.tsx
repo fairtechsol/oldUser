@@ -166,7 +166,7 @@ const ManualBoxComponent = ({
               fontWeight: "600",
               marginLeft: "10px",
               marginRight: "10px",
-              width: { xs: "113px", table: "100%", lg: "100%" },
+              width: { xs: "113px", md: "100%", lg: "100%" },
               textTransform: "capitalize"
             }}
           >

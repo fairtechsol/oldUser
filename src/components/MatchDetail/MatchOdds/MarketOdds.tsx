@@ -1,9 +1,6 @@
 
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
-// import React, { useState } from "react";
-// import BoxComponent from "./BoxComponent";
-// import ManualBoxComponent from "./ManualBoxComponent";
-// import Divider from "../helper/Divider";
+
 import { TIME, ARROWUP, LockIcon } from "../../../assets";
 import { memo, useState } from "react";
 import Divider from "../../../helper/Divider";
@@ -12,12 +9,9 @@ import ManualBoxComponent from "./ManualBoxComponent";
 import BoxComponent from "./BoxComponent";
 import FastTimePlaceBet from "./Bets/FastTimePlaceBet";
 import OddsPlaceBet from "./Bets/OddsPlacebet";
-// import FastTimePlaceBet from "../FastImePlaceBet";
-// import FastTime from "../FastTime";
-// import { currencyFormatter, formatNumber } from "../helper/helper";
-// import OddsPlaceBet from "../OddsPlaceBet";
-// import NotificationModal from "../NotificationModal";
-// import { LockIcon } from "../../admin/assets";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store/store";
+
 
 
 const SmallBox = ({ valueA, valueB }: any) => {
@@ -66,7 +60,7 @@ const SmallBox = ({ valueA, valueB }: any) => {
                         color: valueA < 0 ? `#FF4D4D` : `#319E5B`,
                     }}
                 >
-                    {valueA < 0 ? ` ${valueA}` : `${valueA}`}
+                    {valueA}
                 </Typography>
             </Box>
             <Box
@@ -101,7 +95,7 @@ const SmallBox = ({ valueA, valueB }: any) => {
                         color: valueB < 0 ? `#FF4D4D` : `#319E5B`,
                     }}
                 >
-                    {valueB < 0 ? ` ${valueB}` : `${valueB}`}
+                    {valueB}
                 </Typography>
             </Box>
         </Box>
@@ -126,14 +120,14 @@ const Time = (data: any) => {
     );
 };
 
-const MatchOdds = ({
+const MarketOdds = ({
     data,
     teamARates,
     teamBRates,
     teamCRates,
     title,
-    min,
-    max,
+    minBet,
+    maxBet,
     showBox,
     showDely,
     newData,
@@ -147,6 +141,11 @@ const MatchOdds = ({
     showFast,
     upcoming,
     handleRateChange,
+    teamA,
+    teamB,
+    teamC,
+    name
+    
 }: any) => {
     const theme = useTheme();
     const [showFastTimeBox, setShowFastTimeBox] = useState(false);
@@ -155,6 +154,9 @@ const MatchOdds = ({
 
     const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
+    const { matchDetails } = useSelector(
+        (state: RootState) => state.match.matchList
+      );
 
     const [visible, setVisible] = useState(true);
     return (
@@ -205,18 +207,16 @@ const MatchOdds = ({
                                 marginLeft: "7px",
                             }}
                         >
-                            {title}dxw
+                           {title}
                         </Typography>
                         {showDely && typeOfBet === "MATCH ODDS" && (
-                            <Time time={"0"} />
+                            <Time time={30} />
                         )}
                         {showFast && (
                             <FastTime
-                                session={session}
+                               
                                 setPlaceBetData={setPlaceBetData}
-                                setFastAmount={setFastAmount}
-                                setShowFastTimeBox={setShowFastTimeBox}
-                                typeOfBet={typeOfBet}
+                               
                                 data={"8"}
                             />
                         )}
@@ -304,7 +304,7 @@ const MatchOdds = ({
                                         marginLeft: "7px",
                                     }}
                                 >
-                                    MIN: {min} MAX:{max}
+                                    MIN: {minBet} MAX:{maxBet}
                                 </Typography>
                             </Box>
                             <Box
@@ -384,10 +384,12 @@ const MatchOdds = ({
                                         alignItems: "center",
                                     }}
                                 >
+                                
                                     <img
                                         style={{ width: "35px", height: "40px" }}
                                         src={LockIcon}
                                     />
+                                    
                                     <Typography
                                         sx={{
                                             fontWeight: "600",
@@ -421,252 +423,74 @@ const MatchOdds = ({
                         {session === "manualBookMaker" ? (
                             <>
                                 <ManualBoxComponent
-                                    //   setFastBetLoading={setFastBetLoading}
-                                    placeBetData={placeBetData}
-                                    //   setFastRate={(val) => setFastRate(val)}
-                                    fastRate={fastRate}
+                                  
                                     setPlaceBetData={setPlaceBetData}
-                                    setFastAmount={setFastAmount}
-                                    time={true}
-                                    sessionMain={session}
-                                    fromOdds={true}
-                                    showBox={showBox}
-                                    selectedFastAmount={fastAmount}
-                                    livestatus={
-                                        matchOddsData?.teamA_suspend === "suspended" ? true : false
-                                    }
-                                    ballStatus={
-                                        matchOddsData?.teamA_Ball === "ball" ||
-                                            matchOddsData?.teamA_suspend == "Ball Started"
-                                            ? true
-                                            : false
-                                    }
-                                    teamImage={newData?.teamA_Image}
-                                    newData={newData}
+                                  
+                                   
                                     color={teamARates <= 0 ? "#FF4D4D" : "#319E5B"}
-                                    allRates={{
-                                        teamA: teamARates,
-                                        teamB: teamBRates,
-                                        teamC: teamCRates,
-                                    }}
-                                    rate={teamARates}
-                                    name={newData?.teamA}
-                                    data={data?.length > 0 ? data[0] : []}
+                                   
                                     team={"teamA"}
 
-                                    typeOfBet={typeOfBet}
-                                    isRound={isRound}
-                                    matchOddsData={{
-                                        back: matchOddsData?.teamA_Back,
-                                        lay: matchOddsData?.teamA_lay,
-                                    }}
-                                    isBall={true}
-                                    isTeamC={newData?.teamC}
-                                    handleRateChange={handleRateChange}
                                 />
+                          
                                 <Divider />
-                                <ManualBoxComponent
-                                    //   setFastBetLoading={setFastBetLoading}
-                                    placeBetData={placeBetData}
-                                    //   setFastRate={(val) => setFastRate(val)}
-                                    fastRate={fastRate}
-                                    setPlaceBetData={setPlaceBetData}
-                                    sessionMain={session}
-                                    setFastAmount={setFastAmount}
-                                    teamImage={newData?.teamB_Image}
-                                    time={true}
-                                    fromOdds={true}
-                                    showBox={showBox}
-                                    newData={newData}
-                                    selectedFastAmount={fastAmount}
-                                    // livestatus={newData?.status === "SUSPENDED" ? true : false}
-                                    livestatus={
-                                        matchOddsData?.teamB_suspend === "suspended" ? true : false
-                                    }
-                                    ballStatus={
-                                        matchOddsData?.teamB_Ball === "ball" ||
-                                            matchOddsData?.teamB_suspend == "Ball Started"
-                                            ? true
-                                            : false
-                                    }
-                                    color={teamBRates <= 0 ? "#FF4D4D" : "#319E5B"}
-                                    name={newData?.teamB}
-                                    data={data?.length > 0 ? data[1] : []}
 
-                                    rate={teamBRates}
-                                    allRates={{
-                                        teamA: teamARates,
-                                        teamB: teamBRates,
-                                        teamC: teamCRates,
-                                    }}
+                                
+                                <ManualBoxComponent
+                                  
+                                    setPlaceBetData={setPlaceBetData}
+                                    
+                                    color={teamBRates <= 0 ? "#FF4D4D" : "#319E5B"}
+                                   
                                     team={"teamB"}
-                                    typeOfBet={typeOfBet}
-                                    isRound={isRound}
-                                    matchOddsData={{
-                                        back: matchOddsData?.teamB_Back,
-                                        lay: matchOddsData?.teamB_lay,
-                                    }}
-                                    isBall={false}
-                                    isTeamC={newData?.teamC}
-                                    handleRateChange={handleRateChange}
+                                  
                                 />
                                 {newData?.teamC && (
                                     <>
                                         <Divider />
                                         <ManualBoxComponent
-                                            //   setFastBetLoading={setFastBetLoading}
-                                            placeBetData={placeBetData}
-                                            //   setFastRate={(val) => setFastRate(val)}
-                                            fastRate={fastRate}
-                                            setPlaceBetData={setPlaceBetData}
-                                            sessionMain={session}
-                                            setFastAmount={setFastAmount}
-                                            teamImage={null}
-                                            selectedFastAmount={fastAmount}
-                                            fromOdds={true}
-                                            time={true}
-                                            // livestatus={newData?.status === "SUSPENDED" ? true : false}
-                                            livestatus={
-                                                matchOddsData?.teamC_suspend === "suspended"
-                                                    ? true
-                                                    : false
-                                            }
-                                            ballStatus={
-                                                matchOddsData?.teamC_Ball === "ball" ||
-                                                    matchOddsData?.teamC_suspend == "Ball Started"
-                                                    ? true
-                                                    : false
-                                            }
-                                            showBox={showBox}
-                                            newData={newData}
-                                            // color={"#FF4D4D"}
+                                          
                                             color={teamCRates <= 0 ? "#FF4D4D" : "#46e080"}
-                                            name={newData?.teamC}
-                                            data={data?.length > 0 ? data[2] : []}
-                                            suspendedData={data[2]?.status}
-                                            rate={teamCRates}
-                                            allRates={{
-                                                teamA: teamARates,
-                                                teamB: teamBRates,
-                                                teamC: teamCRates,
-                                            }}
-                                            team={"teamC"}
-                                            typeOfBet={typeOfBet}
-                                            isRound={isRound}
-                                            matchOddsData={{
-                                                back: matchOddsData?.teamC_Back,
-                                                lay: matchOddsData?.teamC_lay,
-                                            }}
-                                            isBall={false}
-                                            isTeamC={newData?.teamC}
-                                            handleRateChange={handleRateChange}
+                                          
                                         />
                                     </>
                                 )}
                             </>
                         ) : (
                             <>
+                  
                                 <BoxComponent
-                                    //   setFastBetLoading={setFastBetLoading}
-                                    placeBetData={placeBetData}
-                                    //   setFastRate={(val) => setFastRate(val)}
-                                    fastRate={fastRate}
+                                 
                                     setPlaceBetData={setPlaceBetData}
-                                    sessionMain={session}
-                                    setFastAmount={setFastAmount}
-                                    time={true}
-                                    fromOdds={true}
-                                    selectedFastAmount={fastAmount}
-                                    showBox={showBox}
-                                    livestatus={newData?.status === "SUSPENDED" ? true : false}
-                                    teamImage={newData?.teamA_Image}
-                                    newData={newData}
-                                    // lock={data?.length > 0 ? false : true}
+                                     name={teamA}
                                     color={teamARates <= 0 ? "#FF4D4D" : "#319E5B"}
-                                    allRates={{
-                                        teamA: teamARates,
-                                        teamB: teamBRates,
-                                        teamC: teamCRates,
-                                    }}
-                                    rate={teamARates}
-                                    name={newData?.teamA}
-                                    data={data?.length > 0 ? data[0] : []}
-                                    team={"teamA"}
+                                   
+                               
 
-                                    typeOfBet={typeOfBet}
-                                    isRound={isRound}
-                                    handleRateChange={handleRateChange}
                                 />
+           
                                 <Divider />
                                 {/* {console.log("newData :",newData)} */}
                                 <BoxComponent
-                                    //   setFastBetLoading={setFastBetLoading}
-                                    placeBetData={placeBetData}
-                                    //   setFastRate={(val) => {
-                                    //     setFastRate(val);
-                                    //   }}
-                                    fastRate={fastRate}
+                                 
                                     setPlaceBetData={setPlaceBetData}
-                                    sessionMain={session}
-                                    setFastAmount={setFastAmount}
-                                    teamImage={newData?.teamB_Image}
-                                    time={true}
-                                    showBox={showBox}
-                                    fromOdds={true}
-                                    selectedFastAmount={fastAmount}
-                                    newData={newData}
-                                    livestatus={newData?.status === "SUSPENDED" ? true : false}
-                                    // lock={data?.length > 0 ? false : true}
+                                   
                                     color={teamBRates <= 0 ? "#FF4D4D" : "#319E5B"}
-                                    name={newData?.teamB}
-                                    data={data?.length > 0 ? data[1] : []}
-
-                                    rate={teamBRates}
-                                    allRates={{
-                                        teamA: teamARates,
-                                        teamB: teamBRates,
-                                        teamC: teamCRates,
-                                    }}
-                                    team={"teamB"}
-                                    typeOfBet={typeOfBet}
-                                    isRound={isRound}
-                                    handleRateChange={handleRateChange}
+                                   
+                                   name={teamB}
+                                   
                                 />
                                 {newData?.teamC && (
                                     <>
                                         <Divider />
                                         <BoxComponent
-                                            //   setFastBetLoading={setFastBetLoading}
-                                            placeBetData={placeBetData}
-                                            //   setFastRate={(val) => setFastRate(val)}
-                                            fastRate={fastRate}
+                                           
                                             setPlaceBetData={setPlaceBetData}
-                                            sessionMain={session}
-                                            setFastAmount={setFastAmount}
-                                            fromOdds={true}
-                                            teamImage={null}
-                                            selectedFastAmount={fastAmount}
-                                            time={true}
-                                            livestatus={
-                                                newData?.status === "SUSPENDED" ? true : false
-                                            }
-                                            showBox={showBox}
-                                            newData={newData}
-                                            // lock={data?.length > 0 ? false : true}
+                                           
                                             color={teamCRates <= 0 ? "#FF4D4D" : "#319E5B"}
-                                            name={newData?.teamC}
-                                            data={data?.length > 0 ? data[2] : []}
-                                            suspendedData={data[2]?.status}
-                                            rate={teamCRates}
-                                            allRates={{
-                                                teamA: teamARates,
-                                                teamB: teamBRates,
-                                                teamC: teamCRates,
-                                            }}
-                                            team={"teamC"}
-                                            typeOfBet={typeOfBet}
-                                            isRound={isRound}
-                                            handleRateChange={handleRateChange}
+                                           
+                                            name={teamC}
+                                           
                                         />
                                     </>
                                 )}
@@ -677,12 +501,7 @@ const MatchOdds = ({
                 {visible && showFastTimeBox && !upcoming && (
           <Box>
             <FastTimePlaceBet
-              typeOfBet={typeOfBet}
-              session={session}
-              setFastAmount={setFastAmount}
-              selectedFastAmount={fastAmount}
-              setShowFastTimeBox={setShowFastTimeBox}
-              matchOddsData={matchOddsData}
+
             />
           </Box>
         )}
@@ -707,20 +526,7 @@ const MatchOdds = ({
             <OddsPlaceBet
             //   setCanceled={setCanceled}
               setPlaceBetData={setPlaceBetData}
-              placeBetData={placeBetData}
-              handleClose={() => setPlaceBetData(null)}
-            //   name={placeBetData?.name}
-              setFastRate={setFastRate}
-              fastRate={fastRate}
-            //   rates={placeBetData?.rates}
-              season={session}
-            //   back={placeBetData?.back}
-            //   currentMatch={placeBetData?.currentMatch}
-            //   isBack={placeBetData?.isBack}
-            //   selectedValue={placeBetData?.selectedValue}
-            //   type={placeBetData?.type}
-              typeOfBet={typeOfBet}
-              handleRateChange={handleRateChange}
+            
             />
           </Box>
 
@@ -742,4 +548,4 @@ const MatchOdds = ({
         </>
     );
 };
-export default memo(MatchOdds);
+export default memo(MarketOdds);

@@ -9,6 +9,7 @@ import PlaceBetComponentWeb from "../MatchOdds/Bets/PlaceBetComponentWeb";
 import FastTimePlaceBet from "../MatchOdds/Bets/FastTimePlaceBet";
 import FastTime from "../MatchOdds/FastTime";
 import PlaceBetComponent from "../MatchOdds/Bets/PlaceBetComponent";
+import MoneyBox from "../MatchOdds/MoneyBox";
 
 
 const QuickSessionMarketBox = ({
@@ -28,7 +29,9 @@ const QuickSessionMarketBox = ({
   upcoming,
   fastAmount,
   setSelectedItem,
-  selectedItem
+  selectedItem,
+  betStatus,
+  suspended
 }:any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -88,26 +91,19 @@ const QuickSessionMarketBox = ({
               marginLeft: "7px",
               fontWeight: "600",
               textAlign: "start",
-              width: '40%'
+              width: '100%'
             }}
           >
-            {data?.bet_condition}
+            {data?.name}
           </Typography>
-          {true && (
-            <FastTime
-              session={sessionMain}
-              setFastAmount={setFastAmount}
-              setShowFastTimeBox={setShowFastTimeBox}
-              data1={data}
-              setSelectedItem={setSelectedItem}
-              selectedItem={selectedItem}
-              data={fastAmount ? currencyFormatter(fastAmount) : ""}
-            />
-          )}
+       <MoneyBox
+      
+       rates={data?.rates ? data?.rates : 0}
+       />
         </Box>
-        {matchesMobile && (
+        {/* {matchesMobile && (
           <PlaceBetComponent amount={index == 2} profitLoss={data} />
-        )}
+        )} */}
         {!matchesMobile && (
           <PlaceBetComponentWeb amount={index === 2} profitLoss={data} />
         )}
@@ -189,8 +185,8 @@ const QuickSessionMarketBox = ({
                 sessionMain={sessionMain}
                 selectedFastAmount={selectedFastAmount}
                 betType={"no"}
-                value={data?.no_rate}
-                value2={"0"}
+                value={data?.noRate}
+                value2={data?.noPercent}
                 lock={[null, 0, "0"].includes(data?.no_rate) ? true : false}
                 color={"#F6D0CB"}
                 type={{ color: "#FFB5B5", type: "YN" }}
@@ -212,8 +208,8 @@ const QuickSessionMarketBox = ({
                 selectedFastAmount={selectedFastAmount}
                 session={true}
                 betType={"yes"}
-                value={data?.yes_rate}
-                value2={"0"}
+                value={data?.yesRate}
+                value2={data?.yesPercent}
                 lock={[null, 0, "0"].includes(data?.yes_rate) ? true : false}
                 color={"#B3E0FF"}
                 type={{ color: "#A7DCFF", type: "YN" }}

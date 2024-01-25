@@ -18,7 +18,7 @@ const LabelButton = ({ value, index, onChange }:any) => {
         }}
       >
         <TextField
-          value={value.lable}
+         value={value.label}
           onChange={handleChange}
           variant="outlined"
           onKeyDown={(event) => {

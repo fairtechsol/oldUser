@@ -80,6 +80,7 @@ const matchListSlice = createSlice({
         state.error = null;
       })
       .addCase(matchDetailAction.fulfilled, (state, action) => {
+        // console.log("Fulfilled action payload:", action.payload);
         state.loading = false;
         state.success = true;
         state.matchDetails = action.payload;

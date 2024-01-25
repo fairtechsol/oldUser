@@ -9,9 +9,11 @@ import { Constants } from "../../../utils/Constants";
 
 
 import CustomLoader from "../../Loader/index";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store/store";
 
 const MatchesComponent = ({
-    loader,
+    loader, item, doNavigateWithState
 }: any) => {
     // const classes=useStyle()
     const [matchData, setMatchData] = useState([]);
@@ -21,21 +23,31 @@ const MatchesComponent = ({
     const [pageLimit, setPageLimit] = useState(Constants.customPageLimit);
     const dispatch = useDispatch();
 
-
+    const { matchList } = useSelector(
+        (state: RootState) => state.match.matchList
+    );
 
 
     return (
         <>
-            <Odds onClick={() => { }}
-                top={true}
-                blur={false} />
-            <Pagination
-                page={currentPage}
-                className="whiteTextPagination d-flex justify-content-center"
-                count={pageCount}
-                color="primary"
-
-            />
+            {matchList &&
+          matchList?.map((match: any, item: any, index: number) => {
+                return (
+                    <>
+                        <Odds
+                            item={item}
+                            key={index}
+                            top={true}
+                            blur={false}
+                            match={match} />
+                        <Pagination
+                            page={currentPage}
+                            className="whiteTextPagination d-flex justify-content-center"
+                            count={pageCount}
+                            color="primary" />
+                    </>
+                );
+            })}
 
             {loader && <CustomLoader text="" />}
             {loader && (

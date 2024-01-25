@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useEffect } from "react";
 
 import CustomHeader from "./header/CustomHeader";
 import { Outlet, useLocation } from "react-router-dom";
@@ -7,11 +7,19 @@ import Rules from "../../pages/rules";
 import { Box } from "@mui/material";
 import { BACKIMAGE } from "../../assets";
 import SecureAuthVerification from "../../pages/auth/secureAuthverification";
+import { getProfile } from "../../store/actions/user/userAction";
+import { AppDispatch } from "../../store/store";
+import { useDispatch } from "react-redux";
 
 
 const MainLayout = () => {
 
   const location = useLocation()
+  const dispatch: AppDispatch = useDispatch();
+
+  useEffect(()=> {
+    dispatch(getProfile());
+  },[])
 
 
   return (

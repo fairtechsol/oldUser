@@ -37,8 +37,8 @@ const QuickSessionMarket = ({
   upcoming,
   handleRateChange,
   title,
-  max,
-  min,
+  maxBet,
+  minBet,
   typeOfBet,
   apiSessionActive,
   manualSessionActive,
@@ -205,8 +205,8 @@ const QuickSessionMarket = ({
                       marginLeft: "7px",
                     }}
                   >
-                    MIN:{min} MAX:
-                    {max}
+                    MIN:{minBet} MAX:
+                    {maxBet}
                   </Typography>
                 </Box>
                 <Box
@@ -317,21 +317,23 @@ const QuickSessionMarket = ({
                 </Box>
               </Box>
             )}
+
             <Box
               sx={{
                 display: "flex",
                 flexDirection: "column",
                 width: "100%",
                 position: "relative",
-                // maxHeight: "387px",
-                // overflowY: "visible",
+                maxHeight: "387px",
+                overflowY: "visible",
               }}
             >
+        {/* {         console.log(newData)} */}
               {newData?.length > 0 &&
+           
                 newData
-                  ?.slice()
-                  .sort(customSort)
-                  ?.map((element:any) => {
+                  ?.map((item:any) => {
+                    let element = JSON.parse(item)
                     return (
                       <Box
                         key={element?.id}
@@ -341,10 +343,9 @@ const QuickSessionMarket = ({
                         }}
                       >
                         <QuickSessionMarketBox
+                        betStatus={false}
                           upcoming={upcoming}
-                          closeModal={
-                            [0, 2]?.includes(element?.betStatus) ? true : false
-                          }
+                          closeModal={true}
                           typeOfBet={typeOfBet}
                           setFastBetLoading={setFastBetLoading}
                           data={element}
@@ -355,7 +356,7 @@ const QuickSessionMarket = ({
                           showFastTimeBox={showFastTimeBox}
                           setSelectedItem={setSelectedItem}
                           selectedItem={selectedItem}
-                          mainData={data}
+                          // mainData={data}
                           allRates={{
                             teamA: teamARates,
                             teamB: teamBRates,

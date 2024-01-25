@@ -1,44 +1,26 @@
 
-import { memo, useEffect, useState } from "react";
+import { memo, useEffect } from "react";
 
 import Match from "../../components/MatchDetail/MatchOdds/Match";
-import MatchDetail from "../matchDetail";
-import MyAccount from "../myAccount";
-import { useLocation, useNavigate } from "react-router-dom";
-import ProfitLoss from "../reports/ProfitLoss";
+import { useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "../../store/store";
+import { getMatchList } from "../../store/actions/match/matchListAction";
+import { useSelector } from "react-redux";
+import { stat } from "fs";
 
 
 
 const Matches = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
+  const dispatch: AppDispatch = useDispatch();
 
-  const [selected, setSelected] = useState(
-    location.state?.activeTab || "CRICKET"
-  );
 
-  useEffect(() => {
-    if (location.state?.activeTab) {
-      setSelected(location.state?.activeTab);
-    }
-  }, [location.state?.activeTab]);
+  useEffect(()=> {
+    dispatch(getMatchList({}));
+  },[])
 
   return (
     <>
-       {/* {["INPLAY", "CRICKET"].includes(selected) &&
-              window.location.pathname !== "/matchDetail" && ( */}
       <Match />
-              {/* )} */}
-      {/* <MatchDetail/> */}
-      {window.location.pathname === "/matchDetail" && (
-        <MatchDetail />
-      )}
-       {window.location.pathname === "/my-account" && (
-      <MyAccount />
-       )}
-        { window.location.pathname === "/profit_loss" && (
-                <ProfitLoss/>
-              )}
     </>
   );
 };

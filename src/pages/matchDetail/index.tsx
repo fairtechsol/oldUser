@@ -1,8 +1,8 @@
 
 import { Box, useMediaQuery, useTheme } from "@mui/material";
 
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import MatchOdds from "../../components/MatchDetail/MatchOdds/MatchOdds";
 
 import LiveMatchHome from "../../components/MatchDetail/LiveMatchScore/LiveMatchHome";
@@ -13,14 +13,44 @@ import { memo } from "react";
 
 
 import LiveScore from "../../components/MatchDetail/LiveMatchScore";
+import { useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store/store";
+import { useDispatch } from "react-redux";
+import { matchDetailAction } from "../../store/actions/match/matchListAction";
 
 
-const MatchDetail = () => {
+
+interface BetTableProps {
+    title: string;
+    type: string;
+    data: any;
+    backLayCount?: number;
+}
+
+
+
+const MatchDetail = ({ title, type, data, backLayCount }: BetTableProps) => {
+    const dispatch: AppDispatch = useDispatch()
+    const {state} = useLocation()
     const [loading, setLoading] = useState(true);
     const [visible, setVisible] = useState(true);
     const theme = useTheme();
     const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
     const navigate = useNavigate();
+
+    const { matchDetails } = useSelector(
+        (state: RootState) => state.match.matchList
+
+    );
+//    console.log(state, "abc")
+
+    useEffect(() => {
+        if(state?.matchId){
+            dispatch(matchDetailAction(state?.matchId))
+        }
+        
+    }, [state?.matchId])
+
     return (
         <Box
             sx={{
@@ -33,7 +63,7 @@ const MatchDetail = () => {
                 // overflowY: "auto",
                 alignItems: "flex-start",
             }}
-          
+
         >
             <BetPlaced visible={visible} setVisible={setVisible} />
 
@@ -49,11 +79,17 @@ const MatchDetail = () => {
                             marginTop: "2%",
                             flexDirection: "column",
                         }}
-                    
+
                     >
                         <LiveScore />
                         <div style={{ width: "100%" }}>
-                            <MatchOdds />
+                            <MatchOdds
+
+                                // data={data}
+                                backLayCount={backLayCount}
+                                matchDetails={matchDetails}
+                            />
+
                         </div>
                         <Box
                             sx={{

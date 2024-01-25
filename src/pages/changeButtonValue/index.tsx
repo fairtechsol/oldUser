@@ -1,9 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, Typography, CircularProgress } from "@mui/material";
 
 import LabelButton from "../../components/ChangeValueButtons/LabelButton";
 import ValueButton from "../../components/ChangeValueButtons/ValueButton";
+import { AppDispatch, RootState } from "../../store/store";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { useFormik } from "formik";
+import { getButtonValue, setButtonValue } from "../../store/actions/user/userAction";
 
+
+interface ButtonProps {
+  label: string;
+  value: string;
+}
 const ChangeButtonValue = () => {
 
   const [loader, setLoader] = useState(false);
@@ -29,8 +39,61 @@ const ChangeButtonValue = () => {
     { lable: "", value: "" },
     { lable: "", value: "" },
   ]);
+  const dispatch: AppDispatch = useDispatch();
+  const { buttonValues } = useSelector(
+    (state: RootState) => state.user.profile
+  );
+
+  const formik = useFormik({
+    initialValues: valueLabel.reduce((acc, item, index) => {
+      return { ...acc, [`${item.lable}_${index}`]: item.value };
+    }, {}),
+    onSubmit: (value: any) => {
+      let result = {};
+      value.forEach((item: ButtonProps) => {
+        result = { ...result, [item?.label]: item?.value };
+      });
+      const payload = {
+        id: buttonValues?.id,
+        type: "Match",
+        value: result,
+      };
+      dispatch(setButtonValue(payload));
+    },
+  });
+
+  useEffect(() => {
+    dispatch(getButtonValue());
+  }, []);
+
+  const { handleSubmit, setValues, setFieldValue } = formik;
+
+  // useEffect(() => {
+  //   if (buttonValues?.value) {
+  //     setValues(
+  //       Object.keys(JSON.parse(buttonValues?.value))?.map((item) => {
+  //         return {
+  //           label: item,
+  //           value: JSON.parse(buttonValues?.value)[item],
+  //         };
+  //       })
+  //     );
+  //   }
+  // }, [buttonValues]);
+  // console.log(JSON.parse(buttonValues.value))
+useEffect(()=> {
+  if(buttonValues?.value ){
+    
+  }
+})
 
 
+  const newArray = typeof buttonValues?.value === 'string'
+  ? JSON.parse(buttonValues.value)
+  : buttonValues?.value || {};
+  const dataArray = Object.entries(newArray).map(([label, value]) => ({ label, value }));
+
+// console.log(dataArray);
 
   return (
     <Box
@@ -40,7 +103,9 @@ const ChangeButtonValue = () => {
       }}
     >
       {/* {visible ? ( */}
+
       <>
+            <form onSubmit={handleSubmit}>
         <Box
           sx={{
             flex: 1,
@@ -49,6 +114,7 @@ const ChangeButtonValue = () => {
             marginTop: "10px",
             marginX: { xs: "2vw", lg: "1vw" },
           }}
+
         >
           <Typography
             sx={{
@@ -68,6 +134,7 @@ const ChangeButtonValue = () => {
               padding: "20px",
               marginTop: "10px",
             }}
+            
           >
             <Box sx={{ display: "flex" }}>
               <Box sx={{ flex: 1 }}>
@@ -80,13 +147,13 @@ const ChangeButtonValue = () => {
                 >
                   Price Lable
                 </Typography>
-                {valueLabel.map((item, index) => {
+                {dataArray?.map((item, index) => {
                   return (
                     <LabelButton
                       key={index}
                       value={item}
-                      index={index}
-                    //   onChange={handleLabelChange}
+                     type="text"
+                    //  onChange={handleLabelChange}
                     />
                   );
                 })}
@@ -101,20 +168,21 @@ const ChangeButtonValue = () => {
                 >
                   Price Value
                 </Typography>
-                {valueLabel.map((item, index) => {
+                {dataArray.map((item, index) => {
                   return (
                     <ValueButton
                       key={index}
                       value={item}
                       index={index}
-                    //   onChange={handleLabelChange}
+                      type="text"
+                      // onChange={handleLabelChange}
                     />
                   );
                 })}
               </Box>
             </Box>
             <Box
-            //   onClick={setMatchButtonList}
+              //   onClick={setMatchButtonList}
               sx={{
                 height: "50px",
                 display: "flex",
@@ -147,10 +215,13 @@ const ChangeButtonValue = () => {
                 )}
               </Typography>
             </Box>
+            
           </Box>
+          
         </Box>
+        </form>
       </>
-      <>
+      {/* <>
         <Box
           sx={{
             flex: 1,
@@ -190,7 +261,7 @@ const ChangeButtonValue = () => {
                 >
                   Price Lable
                 </Typography>
-                {valueLabel1.map((item, index) => {
+                {dataArray.map((item, index) => {
                   return (
                     <LabelButton
                       key={index}
@@ -211,7 +282,7 @@ const ChangeButtonValue = () => {
                 >
                   Price Value
                 </Typography>
-                {valueLabel1.map((item, index) => {
+                {dataArray.map((item, index) => {
                   return (
                     <ValueButton
                       key={index}
@@ -224,7 +295,7 @@ const ChangeButtonValue = () => {
               </Box>
             </Box>
             <Box
-            //   onClick={setSessionButtonList}
+              //   onClick={setSessionButtonList}
               sx={{
                 height: "50px",
                 display: "flex",
@@ -259,7 +330,7 @@ const ChangeButtonValue = () => {
             </Box>
           </Box>
         </Box>
-      </>
+      </> */}
     </Box>
   );
 };

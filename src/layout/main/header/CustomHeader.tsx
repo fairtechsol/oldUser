@@ -10,17 +10,18 @@ import "./index.css"
 import { useNavigate } from "react-router-dom";
 import MobileSideBar from "./MobileSideBar";
 import StyledImage from "../../../components/Common/StyledImages";
-// import CustomLoader from "../../../components/Loader"
+
 
 
 import { memo } from "react";
 import NewBoxData from "./NewBoxData";
 import { Draw, logo } from "../../../assets";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../store/store";
-import { getProfile } from "../../../store/actions/user/userAction";
+import { AppDispatch, RootState } from "../../../store/store";
+import { useDispatch } from "react-redux";
 
-const CustomHeader = () => {
+
+const CustomHeader = ({match}:any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const { getProfile } = useSelector((state: RootState) => state.user.profile);
@@ -30,11 +31,15 @@ const CustomHeader = () => {
   const [mobileOpen, setMobileOpen] = useState(true);
   const [isOnline, setIsOnline] = useState(navigator.onLine);
 
+
   useEffect(() => {
     if (!matchesMobile) {
       setMobileOpen(false);
     }
   }, [matchesMobile]);
+
+  const dispatch: AppDispatch = useDispatch();
+
 
 
   return (
@@ -149,6 +154,7 @@ const CustomHeader = () => {
                 }}
               />
             </Box>
+
             <Box
               sx={{
                 display: "flex",
@@ -161,11 +167,11 @@ const CustomHeader = () => {
                 containerStyle={{ marginTop: matchesMobile ? "5px" : "0px" }}
                 valueStyle={{}}
                 title={"Exposure"}
-                value={getProfile?.userBal?.exposure || 0}
+                value={getProfile?.data?.userBal?.exposure || 0}
               />
               <NewBoxData
                 showDropDown={true}
-                title={getProfile?.userName || "hero"}
+                title={getProfile?.data?.userName || "hero"}
 
                 valueStyle={{ color: "white" }}
                 titleStyle={{ color: "white" }}
@@ -235,3 +241,7 @@ const CustomHeader = () => {
 
 
 export default memo(CustomHeader);
+function dispatch(arg0: any) {
+  throw new Error("Function not implemented.");
+}
+
