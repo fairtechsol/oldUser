@@ -1,6 +1,8 @@
 import { Box, Typography } from "@mui/material";
+import { PaginationInterface } from "../../interface/common";
 
-const Footer = ({ currentPage, pages, callPage, currenLimit }:any) => {
+const Footer = (props: PaginationInterface) => {
+  const { currentPage, pages, setCurrentPage } = props;
     return (
       <Box
         sx={{
@@ -33,9 +35,7 @@ const Footer = ({ currentPage, pages, callPage, currenLimit }:any) => {
               cursor: "pointer",
             }}
             onClick={() => {
-              callPage(
-                parseInt(currentPage) - 1 === -1 ? 0 : parseInt(currentPage) - 1
-              );
+              setCurrentPage(+currentPage - 1 === 0 ? 1 : +currentPage - 1);
             }}
           >
             <Typography
@@ -65,7 +65,7 @@ const Footer = ({ currentPage, pages, callPage, currenLimit }:any) => {
                 fontSize: { lg: "14px", xs: "12px" },
               }}
             >
-              {currentPage + 1}
+              {currentPage}
             </Typography>
           </Box>
           <Box
@@ -80,11 +80,7 @@ const Footer = ({ currentPage, pages, callPage, currenLimit }:any) => {
               cursor: "pointer",
             }}
             onClick={() => {
-              callPage(
-                parseInt(currentPage) === pages - 1
-                  ? pages - 1
-                  : parseInt(currentPage) + 1
-              );
+              setCurrentPage(+currentPage === pages ? pages : +currentPage + 1);
             }}
           >
             <Typography

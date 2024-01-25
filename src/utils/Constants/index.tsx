@@ -16,6 +16,7 @@ export const ApiConstants = {
       GET_BTN_VALUE: "/button",
       GET_PROFILE: "/user/profile",
       ACCOUNT_STATEMENT: "/transaction/get/",
+      LIST: "/user/list",
     },
     EXPERT: {
       COMPETITIONLIST: "/expert/match/competitionList/",

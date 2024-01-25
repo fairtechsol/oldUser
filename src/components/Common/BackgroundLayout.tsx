@@ -13,6 +13,7 @@ const BackgroundLayout = ({ children }: any) => {
                 backgroundImage: `url(${BACKIMAGE})`,
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "100% 100%",
+                   overflowY: "auto",
             }}
         >
             <div style={{ height: "120vh", display: "flex", flexDirection: "column" }}>

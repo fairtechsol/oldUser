@@ -1,8 +1,4 @@
 import { Box } from "@mui/material";
-
-
-
-
 import Loader from "../Loader";
 import ListHeaderT from "./ListheaderT";
 import TableRow from "./TableRow";
@@ -10,16 +6,74 @@ import EmptyRow from "./EmptyRow";
 import Footer from "./Footer";
 import ListH from "./ListH";
 import YellowHeader from "./YellowHeader";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store/store";
+import moment from "moment-timezone";
+import { useDispatch } from "react-redux";
+import { getAccountStatement } from "../../store/actions/user/userAction";
 
 
 const AccountStatementList = () => {
-    const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [pageLimit, setPageLimit] = useState<number>(15);
+  const [fromDate, setFromDate] = useState<any>();
+  const [toDate, setToDate] = useState<any>();
+
+  const dispatch: AppDispatch = useDispatch();
+
+
+  const { transactions, getProfile } = useSelector(
+    (state: RootState) => state.user.profile
+  );
+
+  useEffect(() => {
+    if (getProfile?.id) {
+      dispatch(
+        getAccountStatement({
+          userId: getProfile?.id,
+          page: currentPage,
+          limit: pageLimit,
+        })
+      );
+    }
+  }, [getProfile, currentPage, pageLimit]);
 
   return (
     <Box sx={{ width: "100%" }}>
       <Box sx={{ marginX: { xs: "2vw", lg: "1vw" } }}>
         <YellowHeader
+          fromDate={fromDate}
+          toDate={toDate}
+          getAccountStatement={() => {
+            let filter = "";
+            if (fromDate && toDate) {
+              filter += `&createdAt=between${moment(fromDate)?.format(
+                "YYYY-MM-DD"
+              )}|${moment(toDate.setDate(toDate.getDate() + 1))?.format(
+                "YYYY-MM-DD"
+              )}`;
+            } else if (fromDate) {
+              filter += `&createdAt=gte${moment(fromDate)?.format(
+                "YYYY-MM-DD"
+              )}`;
+            } else if (toDate) {
+              filter += `&createdAt=lte${moment(toDate)?.format(
+                "YYYY-MM-DD"
+              )}`;
+            }
+            dispatch(
+              getAccountStatement({
+                userId: getProfile?.id,
+                page: currentPage,
+                filter: filter,
+              })
+            );
+          }}
+          setToDate={setToDate}
+          setFromDate={setFromDate}
         />
       </Box>
 
@@ -45,7 +99,11 @@ const AccountStatementList = () => {
           },
         ]}
       >
-        <ListH/>
+        <ListH
+          searchFor={"accountStatement"}
+          pageLimit={pageLimit}
+          setPageLimit={setPageLimit}
+        />
 
         {loading ? (
           <Box
@@ -62,33 +120,37 @@ const AccountStatementList = () => {
           <>
             <Box sx={{ overflowX: "scroll", width: "100%" }}>
               <ListHeaderT />
-            
-                    <TableRow
-                    //   key={item?.id}
-                    //   index={item?.id}
-                    //   containerStyle={{ background: "#FFE094" }}
-                    //   profit={true}
-                    //   fContainerStyle={{ background: "#0B4F26" }}
-                    //   fTextStyle={{ color: "white" }}
-                    //   date={item?.createAt}
-                    //   closing={item?.current_amount}
-                    //   trans_type={item?.trans_type}
-                    //   amount={item?.amount}
-                    //   description={item?.description}
-                    //   fromuserName={item?.action_by?.userName}
-                    //   touserName={item?.user?.userName}
-                    />
-
-
-
-                <EmptyRow containerStyle={{ background: "#FFE094" }} />
+              {transactions?.transactions?.length === 0 ? ( // Check if no records
+        <EmptyRow containerStyle={{ background: "#FFE094" }} />
+      ) : (
+        transactions?.transactions?.map((item: any) => (
+                <TableRow
+                  key={item?.id}
+                  index={item?.id}
+                  containerStyle={{ background: "#FFE094" }}
+                  profit={true}
+                  fContainerStyle={{ background: "#0B4F26" }}
+                  fTextStyle={{ color: "white" }}
+                  date={moment(item?.createdAt)}
+                  description={item?.description}
+                  closing={item?.closingBalance}
+                  trans_type={item?.transType}
+                  amount={item?.amount}
+                  fromuserName={item?.actionByUser?.userName}
+                  touserName={item?.user?.userName}
+                />
+                ))
+                )}
 
             </Box>
             <Footer
-            //   currenLimit={currenLimit}
-            //   currentPage={currentPage}
-            //   pages={pageCount}
-            //   callPage={callPage}
+              currentPage={currentPage}
+              pages={Math.ceil(
+                parseInt(
+                  transactions && transactions?.count ? transactions?.count : 1
+                ) / pageLimit
+              )}
+              setCurrentPage={setCurrentPage}
             />
           </>
         )}

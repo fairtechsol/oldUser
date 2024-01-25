@@ -1,48 +1,44 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import SearchInput from "../Common/SearchInput";
-import SmallDropDown from "../Common/SmallDropdown";
 
-const ListH = ({ getLimitEntries, getAccountStatement }:any) => {
-    return (
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: {
-            xs: "row",
-            lg: "row",
-            md: "row",
-          },
-          justifyContent: "space-between",
-          px: "10px",
-          gap: 1,
-          py: "6px",
+import { ApiConstants } from "../../utils/Constants";
+import NumberDropDown from "../Common/NumberDropDown";
+
+
+const ListH = (props: any) => {
+  const { getLimitEntries, getAccountStatement, searchFor, pageLimit, setPageLimit } = props;
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: {
+          xs: "row",
+          lg: "row",
+          md: "row",
+        },
+        justifyContent: "space-between",
+        px: "10px",
+        gap: 1,
+        py: "6px",
+      }}
+    >
+      <NumberDropDown getLimitEntries={getLimitEntries} setPageLimit={setPageLimit} pageLimit={pageLimit} textColor={"000"} />
+
+      <SearchInput
+        show={true}
+        searchFor={searchFor}
+        endpoint={ApiConstants.USER.LIST}
+        getListOfUser={getAccountStatement}
+        pageLimit={pageLimit}
+        width={"100%"}
+        placeholder={"Search..."}
+        inputContainerStyle={{
+          width: { xs: "50vw", lg: "17vw" },
+          marginLeft: "auto",
         }}
-      >
-        <Box display={"flex"} alignItems="center" sx={{ width: "100%" }}>
-          <Typography
-            sx={{ fontSize: "10px", color: "black", fontWeight: "500" }}
-          >
-            Show
-          </Typography>
-          <SmallDropDown getLimitEntries={getLimitEntries} />
-          <Typography
-            sx={{ fontSize: "10px", color: "black", fontWeight: "500" }}
-          >
-            Entries
-          </Typography>
-        </Box>
-        <SearchInput
-          show={true}
-          getListOfUser={getAccountStatement}
-          width={"100%"}
-          placeholder={"Search..."}
-          inputContainerStyle={{
-            width: { xs: "50vw", lg: "17vw" },
-            marginLeft: "auto",
-          }}
-        />
-      </Box>
-    );
-  };
+      />
+    </Box>
+  );
+};
 
-  export default ListH;
+export default ListH;
