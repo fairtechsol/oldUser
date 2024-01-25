@@ -5,7 +5,7 @@ import { ApiConstants } from "../../../utils/Constants";
 
 export const marqueeNotification = createAsyncThunk<any>(
   "user/notification",
-  async () => {
+  async (__, thunkApi) => {
     try {
       const resp = await service.get(`${ApiConstants.USER.MARQUEE}`);
       if (resp) {
@@ -13,12 +13,12 @@ export const marqueeNotification = createAsyncThunk<any>(
       }
     } catch (error: any) {
       const err = error as AxiosError;
-      throw err;
+      return thunkApi.rejectWithValue(err.response?.status);
     }
   }
 );
 
-export const getProfile = createAsyncThunk<any>("/user/profile", async () => {
+export const getProfile = createAsyncThunk<any>("/user/profile", async (__, thunkApi) => {
   try {
     const resp = await service.get(`${ApiConstants.USER.GET_PROFILE}`);
     // console.log("API Request user: Success", resp.data);
@@ -30,7 +30,7 @@ export const getProfile = createAsyncThunk<any>("/user/profile", async () => {
    
   } catch (error: any) {
     const err = error as AxiosError;
-    throw err;
+    return thunkApi.rejectWithValue(err.response?.status);
   }
 });
 
@@ -50,44 +50,44 @@ export const betDataFromSocket = createAsyncThunk<any, any>(
 
 export const getAccountStatement = createAsyncThunk<any, any>(
   "user/account/statement",
-  async ({ userId, page, limit, searchBy, keyword, filter }) => {
+  async ({ userId, page, limit, searchBy, keyword, filter },thunkApi) => {
     try {
       const resp = await service.get(
         `${ApiConstants.USER.ACCOUNT_STATEMENT}${userId}?page=${
           page || 1
-        }&limit=${limit || 15}&searchBy=${searchBy}&keyword=${
-          keyword || ""
-        }${filter}`
+        }&limit=${limit || 15}&searchBy=${searchBy ?? ""}&keyword=${
+          keyword ?? ""
+        }${filter ?? ""}`
       );
       if (resp) {
         return resp?.data;
       }
     } catch (error: any) {
       const err = error as AxiosError;
-      throw err;
+      return thunkApi.rejectWithValue(err.response?.status);
     }
   }
 );
 
-export const getButtonValue = createAsyncThunk<any>(
+export const getButtonValue = createAsyncThunk<any, string>(
   "user/getButtonValue",
-  async () => {
+  async (requestData, thunkApi) => {
     try {
-      const resp = await service.get(`${ApiConstants.USER.GET_BTN_VALUE}`);
-      console.log()
+      const resp = await service.get(`${ApiConstants.USER.GET_BTN_VALUE}?type=${requestData}`);
+      
       if (resp) {
         return resp?.data;
       }
     } catch (error: any) {
       const err = error as AxiosError;
-      throw err;
+      return thunkApi.rejectWithValue(err.response?.status);
     }
   }
 );
 
 export const setButtonValue = createAsyncThunk<any, any>(
   "/setButtonValues",
-  async (requestData) => {
+  async (requestData, thunkApi) => {
     try {
       const resp = await service.post(
         `${ApiConstants.USER.SET_BTN_VALUE}`,
@@ -98,7 +98,7 @@ export const setButtonValue = createAsyncThunk<any, any>(
       }
     } catch (error: any) {
       const err = error as AxiosError;
-      throw err;
+      return thunkApi.rejectWithValue(err.response?.status);
     }
   }
 );

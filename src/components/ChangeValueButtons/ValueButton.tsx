@@ -1,9 +1,6 @@
 import { Box, TextField } from "@mui/material";
 
 const ValueButton = ({ value, index, onChange }:any) => {
-    const handleChange = (event:any) => {
-      onChange(index, event.target.value, "value");
-    };
   
     return (
       <Box
@@ -19,7 +16,7 @@ const ValueButton = ({ value, index, onChange }:any) => {
         <TextField
           required={true}
           value={value.value}
-          onChange={handleChange}
+          onChange={onChange}
           variant="outlined"
           type="number" // Allow only numeric input
           size="small"

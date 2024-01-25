@@ -14,6 +14,8 @@ export { default as ARROWUP } from './images/arrowup1.png'
 export { default as DELETE } from './images/delete.png'
 export { default as FASTTIME } from './images/fastTime.png'
 export { default as TIME } from './images/time.png'
+export { default as SEARCH } from './images/search1.png'
+export { default as Search } from './images/search.png'
 
 export { default as ArrowDown } from './images/arrow_down.png'
 export { default as BallStart } from './images/ballStart.png'

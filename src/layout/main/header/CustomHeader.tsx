@@ -38,8 +38,6 @@ const CustomHeader = ({match}:any) => {
     }
   }, [matchesMobile]);
 
-  const dispatch: AppDispatch = useDispatch();
-
 
 
   return (
@@ -167,15 +165,15 @@ const CustomHeader = ({match}:any) => {
                 containerStyle={{ marginTop: matchesMobile ? "5px" : "0px" }}
                 valueStyle={{}}
                 title={"Exposure"}
-                value={getProfile?.data?.userBal?.exposure || 0}
+                value={getProfile?.userBal?.exposure}
               />
               <NewBoxData
                 showDropDown={true}
-                title={getProfile?.data?.userName || "hero"}
+                title={getProfile?.userName}
 
                 valueStyle={{ color: "white" }}
                 titleStyle={{ color: "white" }}
-                value={getProfile?.userBal?.currentBalance || 0}
+                value={getProfile?.userBal?.currentBalance}
                 containerStyle={{ background: "#0B4F26" }}
               />
 

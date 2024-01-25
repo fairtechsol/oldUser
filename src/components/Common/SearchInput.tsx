@@ -1,14 +1,24 @@
-import { Box, TextField, Typography } from "@mui/material";
+import { Box, TextField, Typography, debounce } from "@mui/material";
 import { useState } from "react";
 import ARROWDROPDOWN  from "../../assets/images/arrowDropDown.png";
-const SearchInput = ({
-  title,
-  data,
-  containerStyle,
-  inputContainerStyle,
-  setSearch,
-  search,
-}:any) => {
+import { useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store/store";
+import { useDispatch } from "react-redux";
+import { getAccountStatement } from "../../store/actions/user/userAction";
+import StyledImage from "./StyledImages";
+import { Search } from "../../assets";
+const SearchInput = (props: any) => {
+  const {
+    title,
+    inputContainerStyle,
+    setShowSearch,
+    onChange,
+    searchFor,
+    pageLimit,
+    search,
+    data,
+    containerStyle
+  } = props;
   const [value, setValue] = useState("All");
   const [open, setOpen] = useState(false);
 
@@ -17,7 +27,7 @@ const SearchInput = ({
       <>
         <Typography
           onClick={() => {
-            setSearch(item);
+            setShowSearch(item);
             setOpen(false);
           }}
           sx={{
@@ -40,12 +50,44 @@ const SearchInput = ({
   const Block = ({ i }:any) => {
     return <Item item={i} />;
   };
+
+
+
+  const { getProfile } = useSelector(
+    (state: RootState) => state.user.profile
+  );
+  const dispatch: AppDispatch = useDispatch();
+
+  const handleInputChange = debounce(async (event: any) => {
+    const value = event.target.value;
+    if (onChange && typeof onChange === "function") {
+      onChange(value);
+    }
+    try {
+      if (searchFor === "accountStatement") {
+        dispatch(
+          getAccountStatement({
+            userId: getProfile?.id,
+            page: 1,
+            pageLimit: pageLimit,
+            keyword: value,
+            searchBy: "description,user.userName,actionByUser.userName",
+          })
+        );
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }, 500);
+
+
   return (
     <Box
       sx={[
         { width: { lg: "30%", xs: "100%", position: "relative" } },
         containerStyle,
       ]}
+      onClick={setShowSearch}
     >
       <Typography
         sx={{ fontSize: "12px", fontWeight: "600", marginBottom: ".3vh" }}
@@ -64,7 +106,7 @@ const SearchInput = ({
             alignItems: "center",
             display: "flex",
             background: "white",
-            borderRadius: "3px",
+            borderRadius: "50px",
             border: "2px solid #DEDEDE",
             paddingX: "7px",
           },
@@ -75,11 +117,7 @@ const SearchInput = ({
           variant="standard"
           placeholder={"Search"}
           value={search?.userName}
-          onChange={(e) => {
-         
-            setSearch(e.target?.value);
-            setOpen(true);
-          }}
+          onChange={handleInputChange}
           InputProps={{
             disableUnderline: true,
             // textTransform:"lowercase",
@@ -93,14 +131,29 @@ const SearchInput = ({
             fontSize: { lg: "10px", xs: "8px" },
           }}
         />
-        <img
-          src={ARROWDROPDOWN}
-          style={{
-            width: "11px",
-            height: "6px",
-            transform: open ? "rotate(0deg)" : "rotate(180deg)",
-          }}
-        />
+         <Box
+          sx={[
+            {
+              height: "30px",
+              width: "30px",
+              borderRadius: "50px",
+              border: "1px solid white",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "primary.main",
+              marginRight: -0.3,
+              cursor: "pointer",
+            },
+           
+          ]}
+          
+        >
+          <StyledImage
+            src={Search}
+            sx={{ height: "40%", width: "auto" }}
+          />
+        </Box>
       </Box>
       {search && search.length > 0 && open && (
         <Box

@@ -1,23 +1,20 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
-
 import "react-datepicker/dist/react-datepicker.css";
 
-
-import { toast } from "react-toastify";
 import Calendar from "../Common/Calendar";
 import CustomButton from "../Common/CustomButton";
 
+import { AppDispatch } from "../../store/store";
+import { useDispatch } from "react-redux";
 
-const YellowHeader = ({
-  getAccountStatement,
-  fromDate,
-  toDate,
-  setFromDate,
-  setToDate,
-}:any) => {
+
+const YellowHeader = (props: any) => {
+  const { getAccountStatement, fromDate, toDate, setFromDate, setToDate } =
+    props;
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const tab = useMediaQuery(theme.breakpoints.between("xs", "lg"));
+  const dispatch: AppDispatch = useDispatch();
   return (
     <Box
       sx={{
@@ -77,6 +74,7 @@ const YellowHeader = ({
             <Calendar
               sx={{ width: "50%" }}
               title={"From"}
+
               startDate={fromDate}
               setStartDate={setFromDate}
             />
@@ -101,8 +99,7 @@ const YellowHeader = ({
                 marginTop: matchesMobile ? "25px" : 0,
                 marginLeft: matchesMobile ? "10px" : "20px",
                 // marginBottom: matchesMobile ? "15px" : tab ? "28px" : "15px",
-              }}
-              onClick={() => {
+              }} onClick={() => {
                 getAccountStatement();
               }}
               getAccountStatement={getAccountStatement}
@@ -122,7 +119,7 @@ const YellowHeader = ({
             }}
             onClick={() => {
               if (fromDate === "" && toDate === "") {
-                toast.warn("Please select From and To date");
+                // toast.warn("Please select From and To date");
                 return false;
               } else {
                 getAccountStatement(fromDate, toDate);

@@ -7,7 +7,7 @@ import CustomButton from "../../../components/Common/CustomButton";
 const YellowHeaderProfitLoss = ({
   type,
   clientData,
-  setSearch,
+  setShowSearch,
   search,
   startDate,
   setEndDate,
@@ -72,7 +72,7 @@ const YellowHeaderProfitLoss = ({
                 containerStyle={{ width: "100% !important " }}
                 data={clientData}
                 title={"Search By Client Name"}
-                setSearch={setSearch}
+                setShowSearch={setShowSearch}
                 search={search}
               />
             </Box>

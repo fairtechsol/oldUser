@@ -778,6 +778,7 @@ const Odds = ({ onClick, top, blur, match, data, item, title }: any) => {
 
           <>
             <Divider />
+            {match.teamC && ( 
             <Box
               sx={{
                 display: "flex",
@@ -881,6 +882,7 @@ const Odds = ({ onClick, top, blur, match, data, item, title }: any) => {
                 ></Box>
               </Box>
             </Box>
+            )}
           </>
 
         </Box>
