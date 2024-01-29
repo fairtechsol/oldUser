@@ -144,7 +144,10 @@ const MarketOdds = ({
     teamA,
     teamB,
     teamC,
-    name
+    name,
+    statusTeamA,
+    statusTeamB,
+    statusTeamC
     
 }: any) => {
     const theme = useTheme();
@@ -385,10 +388,10 @@ const MarketOdds = ({
                                     }}
                                 >
                                 
-                                    <img
-                                        style={{ width: "35px", height: "40px" }}
-                                        src={LockIcon}
-                                    />
+                                     <img
+                                         style={{ width: "35px", height: "40px" }}
+                                         src={LockIcon}
+                                     />
                                     
                                     <Typography
                                         sx={{
@@ -462,7 +465,7 @@ const MarketOdds = ({
                             <>
                   
                                 <BoxComponent
-                                 
+                                    livestatus={statusTeamA === "suspended" ? true : false}
                                     setPlaceBetData={setPlaceBetData}
                                      name={teamA}
                                     color={teamARates <= 0 ? "#FF4D4D" : "#319E5B"}
@@ -474,7 +477,7 @@ const MarketOdds = ({
                                 <Divider />
                                 {/* {console.log("newData :",newData)} */}
                                 <BoxComponent
-                                 
+                                        livestatus={statusTeamB === "suspended" ? true : false}
                                     setPlaceBetData={setPlaceBetData}
                                    
                                     color={teamBRates <= 0 ? "#FF4D4D" : "#319E5B"}
@@ -486,7 +489,7 @@ const MarketOdds = ({
                                     <>
                                         <Divider />
                                         <BoxComponent
-                                           
+                                                  livestatus={statusTeamC === "suspended" ? true : false}
                                             setPlaceBetData={setPlaceBetData}
                                            
                                             color={teamCRates <= 0 ? "#FF4D4D" : "#319E5B"}

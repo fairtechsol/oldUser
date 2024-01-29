@@ -14,13 +14,17 @@ import {
   import StyledImage from "../../../Common/StyledImages";
   import { useDispatch, useSelector } from "react-redux";
 import BoxInput from "../../Common/BoxInput";
+import MoneyBox from "../MoneyBox";
+import TeamsOdssData from "./TeamOddsData";
+import { CancelDark } from "../../../../assets";
 
 
   const OddsPlaceBet = ({
     handleClose,
     season,
     type,
-    name,
+    data,
+    eventName,
     typeOfBet,
     placeBetData,
     setPlaceBetData,
@@ -46,222 +50,7 @@ import BoxInput from "../../Common/BoxInput";
 
     const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   
-
-
-  
-    const TeamsOdssData = ({
-      input,
-      title,
-      value,
-      containerStyle,
-      valueContainerStyle,
-      valueTextStyle,
-      bet_condition,
-    }:any) => {
-      const [oddValue, setOddValue] = useState(placeBetData?.odds);
-      return (
-        <Box sx={[{ display: "flex", flexDirection: "column" }, containerStyle]}>
-          <Box
-            sx={{
-              background: "#262626",
-              border: "2px solid #C7B6B6",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: "25px",
-            }}
-          >
-            <Typography
-              sx={{
-                color: "white",
-                fontSize: { xs: "10px", md: "11px", lg: "11px" },
-                fontWeight: "600",
-              }}
-            >
-              {title}
-            </Typography>
-          </Box>
-          {!input && (
-            <Box
-              sx={[
-                {
-                  background: "white",
-                  border: "1px solid #FFF",
-                  // border: "0px solid #C7B6B6",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: "32px",
-                  marginTop: "1px",
-                },
-                valueContainerStyle,
-              ]}
-            >
-              <Typography
-                sx={[
-                  {
-                    overflow: bet_condition && "hidden",
-                    textOverflow: bet_condition && "ellipsis",
-                    whiteSpace: bet_condition && "nowrap",
-                    width: bet_condition && { lg: "140px", xs: "100px" },
-                    margin: bet_condition && "auto",
-                    marginTop: bet_condition && "5px",
-                    color: "#262626",
-                    padding: "1px",
-                    fontSize: {
-                      xs: "12px",
-                      md: "12px",
-                      lg: "12px",
-                    },
-                    fontWeight: { xs: "700", lg: "600" },
-                    textTransform: 'capitalize'
-                  },
-                  valueTextStyle,
-                ]}
-              >
-                {value}
-              </Typography>
-            </Box>
-          )}
-          {input && (
-            <Box
-              sx={[
-                {
-                  // background: selectedColorBox,
-                  border: "1px solid #FFF",
-                  // border: "0px solid #C7B6B6",
-                  display: "flex",
-                  justifyContent: season ? "center" : "space-between",
-                  paddingX: "4px",
-                  alignItems: "center",
-                  height: "32px",
-                  marginTop: "1px",
-                },
-                valueContainerStyle,
-              ]}
-            >
-              {!season && (
-                <Box
-                  onClick={() => {
-                    setOddValue((i:any) => Number(i) - 1);
-                  }}
-                  sx={{
-                    width: "18px",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    display: "flex",
-                    borderRadius: "3px",
-                    height: "18px",
-                    background: "#319E5B",
-                  }}
-                >
-                  <Typography
-                    sx={{ color: "white", fontSize: "14px", fontWeight: "bold" }}
-                  >
-                    -
-                  </Typography>
-                </Box>
-              )}
-              <Box
-                sx={{
-                  width: "30px",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  display: "flex",
-                  borderRadius: "3px",
-                  height: "15px",
-                }}
-              >
-                <Typography
-                  className="OddValue"
-                  sx={{
-                    color: "black",
-                    fontSize: { xs: "12px", lg: "12px" },
-                    fontWeight: { xs: "700", lg: "600" },
-                  }}
-                >
-                  {oddValue}
-                </Typography>
-              </Box>
-              {!season && (
-                <Box
-                  onClick={() => {
-                    setOddValue((i:any) => Number(i) + 1);
-                  }}
-                  sx={{
-                    width: "18px",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    display: "flex",
-                    borderRadius: "3px",
-                    height: "18px",
-                    background: "#319E5B",
-                  }}
-                >
-                  <Typography
-                    sx={{ color: "white", fontSize: "14px", fontWeight: "bold" }}
-                  >
-                    +
-                  </Typography>
-                </Box>
-              )}
-            </Box>
-          )}
-        </Box>
-      );
-    };
-  
-    const MoneyBox = ({ color, trendingDown, rate, trendingUp }:any) => {
-      return (
-        <Box
-          sx={{
-            width: { xs: "70px", md: "100px", lg: "100px" },
-            height: "25px",
-            alignItems: "center",
-            justifyContent: "center",
-            background: color,
-            borderRadius: "4px",
-            display: "flex",
-          }}
-        >
-          <Typography
-            sx={{
-              fontSize: { xs: "10px", md: "13px", lg: "13px" },
-              fontWeight: "700",
-              color: "white",
-            }}
-          >
-            {rate}
-          </Typography>
-          {trendingUp && (
-            <StyledImage
-              src="https://fontawesomeicons.com/images/svg/trending-up-sharp.svg"
-              sx={{
-                height: "20px",
-                marginLeft: "5px",
-                filter: "invert(.9) sepia(1) saturate(5) hue-rotate(175deg);",
-                width: "20px",
-              }}
-            />
-          )}
-          {trendingDown && (
-            <StyledImage
-              src="https://fontawesomeicons.com/images/svg/trending-down-sharp.svg"
-              sx={{
-                height: "20px",
-                marginLeft: "5px",
-                filter: "invert(.9) sepia(1) saturate(5) hue-rotate(175deg);",
-                width: "20px",
-              }}
-            />
-          )}
-        </Box>
-      );
-    };
-  
-   
- 
-  
+    // console.log(data);
     return (
       <Box
         sx={[
@@ -312,12 +101,12 @@ import BoxInput from "../../Common/BoxInput";
               <MoneyBox
                 trendingDown={false}
                 rate={Number(newRates?.loss_amount).toFixed(2)}
-                color={"#FF4D4D"}
+                color="#FF4D4D"
               />
               <Box sx={{ width: "5px", marginRight: "20px" }}></Box>
               <StyledImage
                 onClick={handleClose}
-                // src={CancelDark}
+                src={CancelDark}
                 sx={{
                   padding: "10px",
                   height: "50px",
@@ -334,7 +123,7 @@ import BoxInput from "../../Common/BoxInput";
                 background: type?.color ? type?.color : "#F8C851",
               }}
               containerStyle={{ flex: season ? { xs: 2.5, lg: 2 } : 1 }}
-              value={placeBetData?.name}
+              value={data?.name}
             />
             <TeamsOdssData
               input={true}
@@ -342,12 +131,12 @@ import BoxInput from "../../Common/BoxInput";
               valueContainerStyle={{
                 background: type?.color ? type?.color : "#F8C851",
               }}
-              value={"60.00"}
+              value={60.00}
               containerStyle={{ marginLeft: "2px", flex: 1 }}
             />
             <TeamsOdssData
               title={"Back/Lay"}
-              value={placeBetData?.bet_type}
+              value={data?.type}
               valueContainerStyle={{ background: type?.color }}
               containerStyle={{ marginLeft: "2px", flex: 1 }}
             />
