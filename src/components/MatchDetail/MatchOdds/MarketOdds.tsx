@@ -134,7 +134,7 @@ const MarketOdds = ({
     isRound,
     typeOfBet,
     session,
-    matchOddsData,
+    matchOdd,
     setFastAmount,
     fastAmount,
     betLock,
@@ -426,7 +426,9 @@ const MarketOdds = ({
                                   
                                     setPlaceBetData={setPlaceBetData}
                                   
-                                   
+                                    livestatus={
+                                        matchOdd?.statusTeamA === "suspended" ? true : false
+                                      }
                                     color={teamARates <= 0 ? "#FF4D4D" : "#319E5B"}
                                    
                                     team={"teamA"}
@@ -524,8 +526,22 @@ const MarketOdds = ({
                     ></Box>
                     <Box sx={{ width: { xs: "98%", lg: "58%", md: "98%" } }}>
             <OddsPlaceBet
-            //   setCanceled={setCanceled}
-              setPlaceBetData={setPlaceBetData}
+            //  setCanceled={setCanceled}
+             setPlaceBetData={setPlaceBetData}
+             placeBetData={placeBetData}
+             handleClose={() => setPlaceBetData(null)}
+            //  name={placeBetData?.name}
+             setFastRate={setFastRate}
+             fastRate={fastRate}
+            //  rates={placeBetData?.rates}
+             season={session}
+            //  back={placeBetData?.back}
+            //  currentMatch={placeBetData?.currentMatch}
+            //  isBack={placeBetData?.isBack}
+            //  selectedValue={placeBetData?.selectedValue}
+            //  type={placeBetData?.type}
+             typeOfBet={typeOfBet}
+             handleRateChange={handleRateChange}
             
             />
           </Box>

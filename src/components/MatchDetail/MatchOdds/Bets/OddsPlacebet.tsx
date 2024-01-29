@@ -271,8 +271,10 @@ import BoxInput from "../../Common/BoxInput";
             border: "1px solid white",
             borderRadius: "5px",
             overflow: "hidden",
-            width: "100%",
+            marginLeft: season ? 0 : 0,
+            width: { xs: "98vw", md: "60vw", lg: "40%" },
             position: "relative",
+            boxShadow: "rgba(0, 0, 0, 0.56) 0px 22px 70px 4px",
           },
         ]}
       >
@@ -295,7 +297,7 @@ import BoxInput from "../../Common/BoxInput";
               sx={{
                 fontWeight: "bold",
                 fontSize: { xs: "10px", md: "10px", lg: "14px" },
-                color: "text.white",
+                color: "white",
               }}
             >
               Place Bet

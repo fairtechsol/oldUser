@@ -198,7 +198,6 @@ const Odds = ({ onClick, top, blur, match, data, item, title }: any) => {
 
         {!upcoming && (
           <Box
-            className="liveAnimation"
             sx={{
               width: "70px",
               zIndex: 3,

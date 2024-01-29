@@ -31,23 +31,25 @@ const MatchesComponent = ({
     return (
         <>
             {matchList &&
-          matchList?.map((match: any, item: any, index: number) => {
-                return (
-                    <>
+                matchList?.map((match: any, item: any, index: number) => {
+                    return (
+
                         <Odds
                             item={item}
                             key={index}
                             top={true}
                             blur={false}
-                            match={match} />
-                        <Pagination
-                            page={currentPage}
-                            className="whiteTextPagination d-flex justify-content-center"
-                            count={pageCount}
-                            color="primary" />
-                    </>
-                );
-            })}
+                            match={match}
+                        />
+                    );
+                })}
+
+            <Pagination
+                page={currentPage}
+                className="whiteTextPagination d-flex justify-content-center"
+                count={pageCount}
+                color="primary"
+            />
 
             {loader && <CustomLoader text="" />}
             {loader && (
