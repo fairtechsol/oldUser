@@ -3,35 +3,19 @@ import { useState } from "react";
 import { DELETE, ARROWUP, ArrowDown } from "../../../assets";
 
 import StyledImage from "../../Common/StyledImages";
-
-const data = [
-    {
-        title: "BOOKMAKER",
-        time: "03:23 AM",
-        type: "Yes",
-        odds: "90.00",
-        stake: "1000.00",
-        country: "INDIA",
-    },
-    {
-        title: "Match odds",
-        time: "03:23 AM",
-        type: "No",
-        odds: "90.00",
-        stake: "1000.00",
-        country: "INDIA",
-    },
-];
+import { RootState } from "../../../store/store";
+import { useSelector } from "react-redux";
 const SessionBetSeperate = ({
     profit,
     mark,
     mark2,
-    allBetsData,
+    placedBets,
     betHistory,
     isArrow,
 }: any) => {
-   
-    const [visible, setVisible] = useState(true);
+
+    const [visible, setVisible] = useState(false);
+ 
     return (
         <>
             <Box
@@ -79,8 +63,8 @@ const SessionBetSeperate = ({
                                 marginLeft: "7px",
                             }}
                         >
-                            Session Bets: {allBetsData?.length < 10 ? 0 : ""}
-                            {allBetsData?.length || 0}
+                            Session Bets: {placedBets?.length < 10 ? 0 : ""}
+                            {placedBets?.length || 0}
                         </Typography>
                     </Box>
 
@@ -174,9 +158,9 @@ const SessionBetSeperate = ({
                                 overflowY: "auto",
                             }}
                         >
-                            {allBetsData?.map((i: any, k: any) => {
-                                // console.log(allBetsData, "allBetsData");
-                                const num = allBetsData.length - k;
+                            {placedBets?.map((i: any, k: any) => {
+                                // console.log(placedBets, "placedBets");
+                                const num = placedBets.length - k;
                                 const formattedNum = num < 10 ? "0" + num : num.toString();
                                 return (
                                     <Box
@@ -407,7 +391,11 @@ const SessionBetSeperate = ({
     );
 };
 // value2 = { formatNumber(newData?.rate_percent?.split("-")[0])}
-const RowComponent = ({ header, data }: any) => {
+const RowComponent = ({ header, data, placeBets }: any) => {
+
+    const {  getProfile } = useSelector(
+        (state: RootState) => state.user.profile
+      );
     const getTime = (date: any) => {
         const now = new Date(date);
         const timeString = now.toLocaleTimeString("en-US", {
@@ -420,10 +408,10 @@ const RowComponent = ({ header, data }: any) => {
     const getColor = () => {
         if (header) {
             return "black";
-        } else if (data?.bet_type === "back" || data?.bet_type == "yes") {
+        } else if (data?.betType === "BACK" || data?.betType == "YES") {
             // return "#00C0F9";
             return "#CEEBFF";
-        } else if (data?.bet_type === "lay" || data?.bet_type == "no") {
+        } else if (data?.betType === "LAY" || data?.betType == "NO") {
             // return "#FF9292";
             return "#F2CBCB";
         }
@@ -446,14 +434,14 @@ const RowComponent = ({ header, data }: any) => {
                 <>
                     <SingleBox
                         color={getColor}
-                        data={data?.marketType}
+                        data={data?.teamName}
                         first={true}
                         header={header}
-                        time={getTime(data.createAt)}
+                        time={getTime(data.createdAt)}
                     />
                     <SingleBox
                         color={getColor()}
-                        data={data?.username || data?.userName || data?.user?.userName}
+                        data={getProfile?.userName}
                         header={header}
                     />
                     <SingleBox
@@ -461,21 +449,15 @@ const RowComponent = ({ header, data }: any) => {
                         data={data?.odds}
                         header={header}
                         isPercent={true}
-                    // rate={formatNumber(
-                    //   data?.bet_type === "no" ||
-                    //   data?.betType === "no"
-                    //     ? data?.rate?.split("-")[0]
-                    //     : data?.rate?.split("-")[1]
-                    // )}
                     />
                     <SingleBox
                         color={getColor()}
-                        data={data?.betType || data?.bet_type}
+                        data={data?.betType}
                         header={header}
                     />
                     <SingleBox
                         color={getColor()}
-                        data={data?.stack || data?.stake || data?.amount}
+                        data={data?.amount}
                         header={header}
                     />
                 </>

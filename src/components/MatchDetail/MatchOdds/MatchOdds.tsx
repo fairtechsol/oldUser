@@ -1,17 +1,7 @@
-import React, { useEffect } from "react";
-
 import { Box } from "@mui/material";
-
-
-
 import MarketOdds from "./MarketOdds";
-
-// import SessionMarket from "./SessionOdds/SessionMarket";
 import { memo } from "react";
-
-import { useState } from "react";
 import moment from "moment-timezone";
-// import QuickSessionMarket from "./SessionOdds/QuickSessionMarket";
 import { useLocation } from "react-router-dom";
 import QuickSessionMarket from "../QuickSession/QuickSessionMarket";
 import SessionMarket from "../SessionOdds/SessionMarket";
@@ -19,7 +9,7 @@ import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../store/store";
 import { MatchType } from "../../../utils/enum";
 import { useDispatch } from "react-redux";
-import { matchDetailAction } from "../../../store/actions/match/matchListAction";
+
 
 
 
@@ -31,20 +21,10 @@ interface TimeLeft {
 }
 const MatchOdds = ({
   data,
-
+  newData,
 
 }: any) => {
-  //   const { manualBookMarkerRates, quickBookmaker } = useSelector(
-  //     (state) => state?.matchDetails
-  //   );
-  const [matchOddsData, setMatchOddsData] = useState([]);
-  const [bookMakerRateLive, setBookMakerRateLive] = useState(false);
-  const [matchOddRateLive, setMatchOddRateLive] = useState(false);
-  const [localQuickBookmaker, setLocalQuickBookmaker] = useState([]);
-  const [bookmakerHttp, setBookmakerHttp] = useState([]);
-  const [manualSessions, setManualSessions] = useState([]);
-  const [sessionExposerHttp, setSessionExposerHttp] = useState([])
-  const location = useLocation();
+
 
 
 
@@ -76,25 +56,10 @@ const MatchOdds = ({
     return timeLeft;
   }
 
-
-
-  // const upcoming = Number(timeLeft.days) === 0 && Number(timeLeft.hours) === 0 && Number(timeLeft.minutes) <= 10;
-
-  const dispatch: AppDispatch = useDispatch()
-  const { state } = useLocation()
   const { matchDetails } = useSelector(
     (state: RootState) => state.match.matchList
   );
 
-  // useEffect(() => {
-  //   if (state?.matchId) {
-  //     dispatch(matchDetailAction(state?.matchId))
-  //   }
-
-  // }, [state?.matchId])
-  const timeLeft = calculateTimeLeft();
-
-  // { console.log(matchDetails?.bookmaker.name) }
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -114,19 +79,30 @@ const MatchOdds = ({
 
       )}
 
-      {matchDetails?.quickBookmaker?.map((item: any, index: number) => (
+      {matchDetails?.quickBookmaker?.map((item: any) => (
         <MarketOdds
-          key={item.id}
+          key={item?.id}
+          // upcoming={!upcoming}
+          betLock={data?.blockMarket?.MANUALBOOKMAKER?.block}
+          newData={item}
+          lock={false}
+          showDely={false}
+          session={"manualBookMaker"}
+          showFast={true}
+          suspended={false}
+          data={matchDetails}
+          // teamARates={teamRates?.teamA}
+          // teamBRates={teamRates?.teamB}
+          // teamCRates={teamRates?.teamC}
+          min={item?.minBet || 0}
+          max={item?.maxBet || 0}
           title={item?.name}
-          teamA={matchDetails?.teamA}
-          teamB={matchDetails?.teamB}
-          minBet={item?.minBet}
-          maxBet={item?.maxBet}
-          valueA={item?.teamRateA}
-          valueB={item?.teamRateB}
-          statusTeamA={item?.statusTeamA}
-          statusTeamB={item?.statusTeamB}
-          statusTeamC={item?.statusTeamC}
+          typeOfBet={item?.type
+          }
+          matchOddsData={item}
+        // setFastAmount={setFastAmount}
+        // fastAmount={fastAmount?.[item?.marketType]}
+        // handleRateChange={handleRateChange}
         />
 
       ))}
@@ -180,6 +156,7 @@ const MatchOdds = ({
           title={matchDetails?.marketCompleteMatch.name}
           teamA={"Yes"}
           teamB={"No"}
+
           minBet={matchDetails?.marketCompleteMatch?.minBet}
           maxBet={matchDetails?.marketCompleteMatch?.maxBet}
           valueA={matchDetails?.profitLossDataMatch?.yesRateTie}
@@ -199,30 +176,21 @@ const MatchOdds = ({
           />
         )}
       </>
-
       <>
-
-        {matchDetails?.sessionBettings && matchDetails?.sessionBettings?.map((item: any, index: any) => {
-          let value = JSON.parse(item)
-          console.log(value,matchDetails?.sessionBettings)
-          return (
-            <QuickSessionMarket
-              title={"Quick Session Market"}
-              type={MatchType.SESSION_MARKET}
-              data={matchDetails?.sessionBettings}
-              name={value.name}
-              // betLock={true}
-              newData={matchDetails.sessionBettings}
-              minBet={matchDetails?.betFairSessionMinBet}
-              maxBet={matchDetails?.betFairSessionMaxBet}
-            />
-          )
-        })}
-
-        {/* )} */}
+        {matchDetails?.sessionBettings && matchDetails.sessionBettings.length > 0 && (
+          <QuickSessionMarket
+            title={"Quick Session Market"}
+            type={MatchType.SESSION_MARKET}
+            name={JSON.parse(matchDetails.sessionBettings[0]).name}
+            newData={matchDetails.sessionBettings}
+            eventType={matchDetails?.matchType}
+            minBet={matchDetails?.betFairSessionMinBet}
+            maxBet={matchDetails?.betFairSessionMaxBet}
+          />
+        )}
       </>
-
     </Box>
+
   );
 };
 

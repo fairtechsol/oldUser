@@ -9,8 +9,7 @@ import ManualBoxComponent from "./ManualBoxComponent";
 import BoxComponent from "./BoxComponent";
 import FastTimePlaceBet from "./Bets/FastTimePlaceBet";
 import OddsPlaceBet from "./Bets/OddsPlacebet";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../store/store";
+
 
 
 
@@ -121,7 +120,6 @@ const Time = (data: any) => {
 };
 
 const MarketOdds = ({
-    data,
     teamARates,
     teamBRates,
     teamCRates,
@@ -131,12 +129,10 @@ const MarketOdds = ({
     showBox,
     showDely,
     newData,
-    isRound,
+    data,
     typeOfBet,
     session,
     matchOdd,
-    setFastAmount,
-    fastAmount,
     betLock,
     showFast,
     upcoming,
@@ -144,11 +140,11 @@ const MarketOdds = ({
     teamA,
     teamB,
     teamC,
-    name,
     statusTeamA,
     statusTeamB,
-    statusTeamC
-    
+    statusTeamC,
+    eventType,
+    allRates
 }: any) => {
     const theme = useTheme();
     const [showFastTimeBox, setShowFastTimeBox] = useState(false);
@@ -157,11 +153,9 @@ const MarketOdds = ({
 
     const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
-    const { matchDetails } = useSelector(
-        (state: RootState) => state.match.matchList
-      );
 
     const [visible, setVisible] = useState(true);
+    console.log(newData)
     return (
         <>
 
@@ -210,16 +204,14 @@ const MarketOdds = ({
                                 marginLeft: "7px",
                             }}
                         >
-                           {title}
+                            {title}
                         </Typography>
                         {showDely && typeOfBet === "MATCH ODDS" && (
                             <Time time={30} />
                         )}
                         {showFast && (
                             <FastTime
-                               
                                 setPlaceBetData={setPlaceBetData}
-                               
                                 data={"8"}
                             />
                         )}
@@ -387,12 +379,12 @@ const MarketOdds = ({
                                         alignItems: "center",
                                     }}
                                 >
-                                
-                                     <img
-                                         style={{ width: "35px", height: "40px" }}
-                                         src={LockIcon}
-                                     />
-                                    
+
+                                    <img
+                                        style={{ width: "35px", height: "40px" }}
+                                        src={LockIcon}
+                                    />
+
                                     <Typography
                                         sx={{
                                             fontWeight: "600",
@@ -426,76 +418,107 @@ const MarketOdds = ({
                         {session === "manualBookMaker" ? (
                             <>
                                 <ManualBoxComponent
-                                  
                                     setPlaceBetData={setPlaceBetData}
-                                  
                                     livestatus={
-                                        matchOdd?.statusTeamA === "suspended" ? true : false
-                                      }
+                                        newData?.statusTeamA === "SUSPENDED" ? true : false
+                                    }
                                     color={teamARates <= 0 ? "#FF4D4D" : "#319E5B"}
-                                   
                                     team={"teamA"}
-
+                                    placeBetData={placeBetData}
+                                    fastRate={fastRate}
+                                    name={data?.teamA}
+                                    time={true}
+                                    sessionMain={session}
+                                    fromOdds={true}
+                                    showBox={showBox}
+                                    teamImage={newData?.teamA_Image}
+                                    newData={newData}
+                                    allRates={{
+                                        teamA: teamARates,
+                                        teamB: teamBRates,
+                                        teamC: teamCRates,
+                                    }}
+                                    rate={teamARates}
+                                    typeOfBet={typeOfBet}
+                                    isBall={true}
+                                    isTeamC={newData?.teamC}
+                                    handleRateChange={handleRateChange}
                                 />
-                          
                                 <Divider />
-
-                                
                                 <ManualBoxComponent
-                                  
                                     setPlaceBetData={setPlaceBetData}
-                                    
                                     color={teamBRates <= 0 ? "#FF4D4D" : "#319E5B"}
-                                   
                                     team={"teamB"}
-                                  
+                                    placeBetData={placeBetData}
+                                    fastRate={fastRate}
+                                    sessionMain={session}
+                                    teamImage={null}
+                                    fromOdds={true}
+                                    time={true}
+
+                                    // ballStatus={
+                                    //   matchOddsData?.teamC_Ball === "ball" ||
+                                    //   matchOddsData?.teamC_suspend == "Ball Started"
+                                    //     ? true
+                                    //     : false
+                                    // }
+                                    showBox={showBox}
+                                    newData={newData}
+                                    name={data?.teamB}
+                                    rate={teamCRates}
+                                    allRates={{
+                                        teamA: teamARates,
+                                        teamB: teamBRates,
+                                        teamC: teamCRates,
+                                    }}
+                                    typeOfBet={typeOfBet}
+
+                                    isBall={false}
+                                    isTeamC={newData?.teamC}
+                                    handleRateChange={handleRateChange}
+
                                 />
                                 {newData?.teamC && (
                                     <>
                                         <Divider />
                                         <ManualBoxComponent
-                                          
+                                            name={teamC}
                                             color={teamCRates <= 0 ? "#FF4D4D" : "#46e080"}
-                                          
+
                                         />
                                     </>
                                 )}
                             </>
                         ) : (
                             <>
-                  
+
                                 <BoxComponent
                                     livestatus={statusTeamA === "suspended" ? true : false}
                                     setPlaceBetData={setPlaceBetData}
-                                     name={teamA}
+                                    name={teamA}
                                     color={teamARates <= 0 ? "#FF4D4D" : "#319E5B"}
-                                   
-                               
+                                    eventType={eventType}
 
                                 />
-           
+
                                 <Divider />
-                                {/* {console.log("newData :",newData)} */}
+
                                 <BoxComponent
-                                        livestatus={statusTeamB === "suspended" ? true : false}
+                                    livestatus={statusTeamB === "suspended" ? true : false}
                                     setPlaceBetData={setPlaceBetData}
-                                   
                                     color={teamBRates <= 0 ? "#FF4D4D" : "#319E5B"}
-                                   
-                                   name={teamB}
-                                   
+                                    name={teamB}
                                 />
                                 {newData?.teamC && (
                                     <>
                                         <Divider />
                                         <BoxComponent
-                                                  livestatus={statusTeamC === "suspended" ? true : false}
+                                            livestatus={statusTeamC === "suspended" ? true : false}
                                             setPlaceBetData={setPlaceBetData}
-                                           
                                             color={teamCRates <= 0 ? "#FF4D4D" : "#319E5B"}
-                                           
+                                            eventType={eventType}
                                             name={teamC}
-                                           
+
                                         />
                                     </>
                                 )}
@@ -504,12 +527,12 @@ const MarketOdds = ({
                     </Box>
                 )}
                 {visible && showFastTimeBox && !upcoming && (
-          <Box>
-            <FastTimePlaceBet
+                    <Box>
+                        <FastTimePlaceBet
 
-            />
-          </Box>
-        )}
+                        />
+                    </Box>
+                )}
             </Box>
 
             {placeBetData && (
@@ -528,26 +551,18 @@ const MarketOdds = ({
                         }}
                     ></Box>
                     <Box sx={{ width: { xs: "98%", lg: "58%", md: "98%" } }}>
-            <OddsPlaceBet
-            //  setCanceled={setCanceled}
-             setPlaceBetData={setPlaceBetData}
-             placeBetData={placeBetData}
-             handleClose={() => setPlaceBetData(null)}
-            //  name={placeBetData?.name}
-             setFastRate={setFastRate}
-             fastRate={fastRate}
-            //  rates={placeBetData?.rates}
-             season={session}
-            //  back={placeBetData?.back}
-            //  currentMatch={placeBetData?.currentMatch}
-            //  isBack={placeBetData?.isBack}
-            //  selectedValue={placeBetData?.selectedValue}
-            //  type={placeBetData?.type}
-             typeOfBet={typeOfBet}
-             handleRateChange={handleRateChange}
-            
-            />
-          </Box>
+                        <OddsPlaceBet
+                            setPlaceBetData={setPlaceBetData}
+                            placeBetData={placeBetData}
+                            handleClose={() => setPlaceBetData(null)}
+                            setFastRate={setFastRate}
+                            fastRate={fastRate}
+                            season={session}
+                            typeOfBet={typeOfBet}
+                            handleRateChange={handleRateChange}
+
+                        />
+                    </Box>
 
                 </Box>
             )}

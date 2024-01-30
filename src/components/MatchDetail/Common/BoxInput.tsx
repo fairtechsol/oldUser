@@ -3,14 +3,14 @@ import { Box } from "@mui/system";
 
 const BoxInput = ({
   title,
-  defaultValue,
+  stakeValue,
   containerStyle,
   valueContainerStyle,
   valueTextStyle,
   trendingUp,
   getLatestBetAmount,
   trendingDown,
-  setDefaultValue,
+  setStakeValue,
   selectedColorBox,
 }:any) => {
   const handleInputChange = (e:any) => {
@@ -26,10 +26,10 @@ const BoxInput = ({
     }
 
     if (value === "") {
-      setDefaultValue(" "); // Set your desired default value here
+      setStakeValue(" "); // Set your desired default value here
       getLatestBetAmount(" ");
     } else {
-      setDefaultValue(value);
+      setStakeValue(value);
       getLatestBetAmount(value);
     }
   };
@@ -70,7 +70,7 @@ const BoxInput = ({
         ]}
       >
         <TextField 
-          value={defaultValue}
+          value={stakeValue}
           // autoFocus
           variant="standard"
           InputProps={{

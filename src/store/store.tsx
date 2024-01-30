@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { authReducer } from "./reducers/auth/authReducer";
 import { userReducer } from "./reducers/user";
 import { matchReducer } from "./reducers/match";
+import { placedBetReducer } from "./reducers/betPlace";
 
 
 const store = configureStore({
@@ -9,6 +10,7 @@ const store = configureStore({
     auth: authReducer,
     user: userReducer,
     match: matchReducer,
+    bets: placedBetReducer,
   },
 });
 
