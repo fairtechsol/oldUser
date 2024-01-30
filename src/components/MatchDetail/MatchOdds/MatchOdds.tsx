@@ -124,6 +124,9 @@ const MatchOdds = ({
           maxBet={item?.maxBet}
           valueA={item?.teamRateA}
           valueB={item?.teamRateB}
+          statusTeamA={item?.statusTeamA}
+          statusTeamB={item?.statusTeamB}
+          statusTeamC={item?.statusTeamC}
         />
 
       ))}
@@ -153,8 +156,6 @@ const MatchOdds = ({
           maxBet={matchDetails?.apiTideMatch?.maxBet}
           valueA={matchDetails?.profitLossDataMatch?.yesRateTie}
           valueB={matchDetails?.profitLossDataMatch?.noRateTie}
-
-
         />
       )}
 
@@ -167,7 +168,9 @@ const MatchOdds = ({
           maxBet={matchDetails?.manualTiedMatch?.maxBet}
           valueA={matchDetails?.profitLossDataMatch?.yesRateTie}
           valueB={matchDetails?.profitLossDataMatch?.noRateTie}
-
+          statusTeamA={matchDetails?.manualTiedMatch?.statusTeamA}
+          statusTeamB={matchDetails?.manualTiedMatch?.statusTeamB}
+          statusTeamC={matchDetails?.manualTiedMatch?.statusTeamC}
         />
       )}
 
@@ -199,12 +202,9 @@ const MatchOdds = ({
 
       <>
 
-        {/* {matchDetails?.manualSessionActive && ( */}
         {matchDetails?.sessionBettings && matchDetails?.sessionBettings?.map((item: any, index: any) => {
           let value = JSON.parse(item)
-
-          // { console.log(JSON.parse(matchDetails?.sessionBettings[0])) }
-          // console.log(value)
+          console.log(value,matchDetails?.sessionBettings)
           return (
             <QuickSessionMarket
               title={"Quick Session Market"}

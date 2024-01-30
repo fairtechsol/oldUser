@@ -134,7 +134,7 @@ const MarketOdds = ({
     isRound,
     typeOfBet,
     session,
-    matchOddsData,
+    matchOdd,
     setFastAmount,
     fastAmount,
     betLock,
@@ -144,7 +144,10 @@ const MarketOdds = ({
     teamA,
     teamB,
     teamC,
-    name
+    name,
+    statusTeamA,
+    statusTeamB,
+    statusTeamC
     
 }: any) => {
     const theme = useTheme();
@@ -385,10 +388,10 @@ const MarketOdds = ({
                                     }}
                                 >
                                 
-                                    <img
-                                        style={{ width: "35px", height: "40px" }}
-                                        src={LockIcon}
-                                    />
+                                     <img
+                                         style={{ width: "35px", height: "40px" }}
+                                         src={LockIcon}
+                                     />
                                     
                                     <Typography
                                         sx={{
@@ -426,7 +429,9 @@ const MarketOdds = ({
                                   
                                     setPlaceBetData={setPlaceBetData}
                                   
-                                   
+                                    livestatus={
+                                        matchOdd?.statusTeamA === "suspended" ? true : false
+                                      }
                                     color={teamARates <= 0 ? "#FF4D4D" : "#319E5B"}
                                    
                                     team={"teamA"}
@@ -460,7 +465,7 @@ const MarketOdds = ({
                             <>
                   
                                 <BoxComponent
-                                 
+                                    livestatus={statusTeamA === "suspended" ? true : false}
                                     setPlaceBetData={setPlaceBetData}
                                      name={teamA}
                                     color={teamARates <= 0 ? "#FF4D4D" : "#319E5B"}
@@ -472,7 +477,7 @@ const MarketOdds = ({
                                 <Divider />
                                 {/* {console.log("newData :",newData)} */}
                                 <BoxComponent
-                                 
+                                        livestatus={statusTeamB === "suspended" ? true : false}
                                     setPlaceBetData={setPlaceBetData}
                                    
                                     color={teamBRates <= 0 ? "#FF4D4D" : "#319E5B"}
@@ -484,7 +489,7 @@ const MarketOdds = ({
                                     <>
                                         <Divider />
                                         <BoxComponent
-                                           
+                                                  livestatus={statusTeamC === "suspended" ? true : false}
                                             setPlaceBetData={setPlaceBetData}
                                            
                                             color={teamCRates <= 0 ? "#FF4D4D" : "#319E5B"}
@@ -524,8 +529,22 @@ const MarketOdds = ({
                     ></Box>
                     <Box sx={{ width: { xs: "98%", lg: "58%", md: "98%" } }}>
             <OddsPlaceBet
-            //   setCanceled={setCanceled}
-              setPlaceBetData={setPlaceBetData}
+            //  setCanceled={setCanceled}
+             setPlaceBetData={setPlaceBetData}
+             placeBetData={placeBetData}
+             handleClose={() => setPlaceBetData(null)}
+            //  name={placeBetData?.name}
+             setFastRate={setFastRate}
+             fastRate={fastRate}
+            //  rates={placeBetData?.rates}
+             season={session}
+            //  back={placeBetData?.back}
+            //  currentMatch={placeBetData?.currentMatch}
+            //  isBack={placeBetData?.isBack}
+            //  selectedValue={placeBetData?.selectedValue}
+            //  type={placeBetData?.type}
+             typeOfBet={typeOfBet}
+             handleRateChange={handleRateChange}
             
             />
           </Box>
