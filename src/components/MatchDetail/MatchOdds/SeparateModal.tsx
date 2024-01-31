@@ -119,9 +119,9 @@ const SeparateModal = ({
                 let payload = {
 
                   id: currentMatch?.id,
-                  matchType: currentMatch?.gameType,
+                  matchType: currentMatch?.matchType,
 
-                  bet_type: type?.color === "#A7DCFF" ? "back" : "lay",
+                  betType: type?.color === "#A7DCFF" ? "back" : "lay",
                   odds: Number(value),
                   betOn: name,
                   stack: Number(selectedFastAmount),
@@ -140,21 +140,27 @@ const SeparateModal = ({
                   payload.teamA_name = mainData?.teamA;
                   payload.teamB_name = mainData?.teamB;
                   payload.id = data?.match_id;
-                  payload.bet_type = type?.color === "#A7DCFF" ? "yes" : "no";
+                  payload.betType = type?.color === "#A7DCFF" ? "yes" : "no";
                   payload.marketType = typeOfBet;
                   payload.odds = Number(value);
                 }
               } else {
                 setIsPopoverOpen(true);
                 handleClick({
+                  betOnTeam:
+                  data?.type === "completeMatch" ||
+                  data?.type === "tiedMatch1" ||
+                  data?.type === "bookmaker" ||
+                  data?.type === "quickBookmaker",
                   betId: data?.id,
                   name: data?.name,
                   rate: value,
                   type: betType,
                   stake: 0,
                   percent: value2,
-                  eventType: eventType,
+                  eventType: matchDetails?.matchType,
                   matchId: data?.matchId,
+                  matchBetType: data?.type,
                 }, data)
                 setSelectedCountry(name);
                 setSelectedValue(value);

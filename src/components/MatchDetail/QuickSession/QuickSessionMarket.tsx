@@ -20,7 +20,9 @@ import QuickSessionMarketBox from "./QuickSessionMarketBox";
 
 const QuickSessionMarket = ({
   newData,
-
+  backTeamA,
+  backTeamB,
+  backTeamC,
   teamARates,
   teamBRates,
   teamCRates,
@@ -353,9 +355,9 @@ const QuickSessionMarket = ({
                           setSelectedItem={setSelectedItem}
                           selectedItem={selectedItem}
                           allRates={{
-                            teamA: teamARates,
-                            teamB: teamBRates,
-                            teamC: teamCRates,
+                            teamA: backTeamA,
+                            teamB: backTeamB,
+                            teamC: backTeamC,
                           }}
                           handleRateChange={handleRateChange}
                           eventType={eventType}

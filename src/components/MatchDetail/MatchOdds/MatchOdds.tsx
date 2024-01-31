@@ -2,13 +2,11 @@ import { Box } from "@mui/material";
 import MarketOdds from "./MarketOdds";
 import { memo } from "react";
 import moment from "moment-timezone";
-import { useLocation } from "react-router-dom";
 import QuickSessionMarket from "../QuickSession/QuickSessionMarket";
 import SessionMarket from "../SessionOdds/SessionMarket";
 import { useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../../store/store";
+import { RootState } from "../../../store/store";
 import { MatchType } from "../../../utils/enum";
-import { useDispatch } from "react-redux";
 
 
 
@@ -22,6 +20,10 @@ interface TimeLeft {
 const MatchOdds = ({
   data,
   newData,
+  allRates,
+  backTeamA,
+  backTeamB,
+  backTeamC
 
 }: any) => {
 
@@ -75,6 +77,14 @@ const MatchOdds = ({
           maxBet={matchDetails?.matchOdd?.maxBet}
           valueA={matchDetails?.profitLossDataMatch?.teamRateA}
           valueB={matchDetails?.profitLossDataMatch?.teamRateB}
+          key={matchDetails?.id}
+          newData={matchDetails?.matchOdd}
+          matchOddsData={matchDetails?.matchOdd}
+          data={matchDetails}
+          typeOfBet={matchDetails?.type
+          }
+          type={MatchType.MATCH_ODDS}
+          
         />
 
       )}
@@ -82,8 +92,6 @@ const MatchOdds = ({
       {matchDetails?.quickBookmaker?.map((item: any) => (
         <MarketOdds
           key={item?.id}
-          // upcoming={!upcoming}
-          betLock={data?.blockMarket?.MANUALBOOKMAKER?.block}
           newData={item}
           lock={false}
           showDely={false}
@@ -91,18 +99,14 @@ const MatchOdds = ({
           showFast={true}
           suspended={false}
           data={matchDetails}
-          // teamARates={teamRates?.teamA}
-          // teamBRates={teamRates?.teamB}
-          // teamCRates={teamRates?.teamC}
           min={item?.minBet || 0}
           max={item?.maxBet || 0}
           title={item?.name}
           typeOfBet={item?.type
           }
           matchOddsData={item}
-        // setFastAmount={setFastAmount}
-        // fastAmount={fastAmount?.[item?.marketType]}
-        // handleRateChange={handleRateChange}
+          type={MatchType.BOOKMAKER}
+           eventType={matchDetails?.matchType}
         />
 
       ))}
@@ -110,7 +114,10 @@ const MatchOdds = ({
 
       {matchDetails?.bookmaker && (
         <MarketOdds
-          // key={id}
+          key={matchDetails?.id}
+          newData={matchDetails?.bookmaker}
+          matchOddsData={matchDetails?.bookmaker}
+          data={matchDetails}
           title={matchDetails?.bookmaker.name}
           teamA={matchDetails?.teamA}
           teamB={matchDetails?.teamB}
@@ -118,13 +125,18 @@ const MatchOdds = ({
           maxBet={matchDetails?.bookmaker?.maxBet}
           valueA={matchDetails?.profitLossDataMatch?.teamRateA}
           valueB={matchDetails?.profitLossDataMatch?.teamRateB}
-
+          typeOfBet={matchDetails?.type
+          }
         />
 
       )}
 
       {matchDetails?.apiTideMatch && (
         <MarketOdds
+          key={matchDetails?.id}
+          newData={matchDetails?.apiTideMatch}
+          matchOddsData={matchDetails?.apiTideMatch}
+          data={matchDetails}
           title={matchDetails?.apiTideMatch.name}
           teamA={"Yes"}
           teamB={"No"}
@@ -132,11 +144,17 @@ const MatchOdds = ({
           maxBet={matchDetails?.apiTideMatch?.maxBet}
           valueA={matchDetails?.profitLossDataMatch?.yesRateTie}
           valueB={matchDetails?.profitLossDataMatch?.noRateTie}
+          typeOfBet={matchDetails?.type
+          }
         />
       )}
 
       {matchDetails?.manualTiedMatch && (
         <MarketOdds
+          key={matchDetails?.id}
+          newData={matchDetails?.manualTiedMatch}
+          matchOddsData={matchDetails?.manualTiedMatch}
+          data={matchDetails}
           title={matchDetails?.manualTiedMatch.name}
           teamA={"Yes"}
           teamB={"No"}
@@ -147,16 +165,23 @@ const MatchOdds = ({
           statusTeamA={matchDetails?.manualTiedMatch?.statusTeamA}
           statusTeamB={matchDetails?.manualTiedMatch?.statusTeamB}
           statusTeamC={matchDetails?.manualTiedMatch?.statusTeamC}
+          typeOfBet={matchDetails?.type
+          }
         />
       )}
 
 
       {matchDetails?.marketCompleteMatch && (
         <MarketOdds
+          key={matchDetails?.id}
+          newData={matchDetails?.marketCompleteMatch}
+          matchOddsData={matchDetails?.marketCompleteMatch}
+          data={matchDetails}
           title={matchDetails?.marketCompleteMatch.name}
           teamA={"Yes"}
           teamB={"No"}
-
+          typeOfBet={matchDetails?.type
+          }
           minBet={matchDetails?.marketCompleteMatch?.minBet}
           maxBet={matchDetails?.marketCompleteMatch?.maxBet}
           valueA={matchDetails?.profitLossDataMatch?.yesRateTie}
@@ -170,6 +195,11 @@ const MatchOdds = ({
       <>
         {matchDetails?.apiSessionActive && (
           <SessionMarket
+            key={matchDetails?.id}
+            newData={matchDetails?.apiSessionActive}
+            matchOddsData={matchDetails?.apiSessionActive}
+            typeOfBet={matchDetails?.type
+            }
             title={"Session Market"}
             type={MatchType.API_SESSION_MARKET}
             data={matchDetails?.apiSession}
@@ -179,13 +209,17 @@ const MatchOdds = ({
       <>
         {matchDetails?.sessionBettings && matchDetails.sessionBettings.length > 0 && (
           <QuickSessionMarket
+            key={matchDetails?.id}
             title={"Quick Session Market"}
             type={MatchType.SESSION_MARKET}
+            matchOddsData={matchDetails?.sessionBettings}
             name={JSON.parse(matchDetails.sessionBettings[0]).name}
             newData={matchDetails.sessionBettings}
             eventType={matchDetails?.matchType}
             minBet={matchDetails?.betFairSessionMinBet}
             maxBet={matchDetails?.betFairSessionMaxBet}
+            typeOfBet={matchDetails?.type
+            }
           />
         )}
       </>

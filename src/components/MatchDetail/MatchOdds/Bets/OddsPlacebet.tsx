@@ -151,7 +151,7 @@ import { ApiConstants } from "../../../../utils/Constants";
                 background: type?.color ? type?.color : "#F8C851",
               }}
               containerStyle={{ flex: season ? { xs: 2.5, lg: 2 } : 1 }}
-              value={selectedBet?.team?.name}
+              value={selectedBet?.team?.name ?? selectedBet?.team?.betOnTeam}
             />
             <TeamsOdssData
               input={true}

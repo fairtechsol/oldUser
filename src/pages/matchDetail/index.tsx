@@ -43,7 +43,7 @@ const MatchDetail = ({ title, type, data, backLayCount }: BetTableProps) => {
 
 
     const { placedBets } = useSelector((state: RootState) => state.bets);
-    console.log("betHistory", placedBets);
+    // console.log("betHistory", placedBets);
 
     useEffect(() => {
         if (state?.matchId) {
