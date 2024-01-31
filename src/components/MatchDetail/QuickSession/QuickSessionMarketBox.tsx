@@ -31,7 +31,9 @@ const QuickSessionMarketBox = ({
   setSelectedItem,
   selectedItem,
   betStatus,
-  suspended
+  suspended,
+  matchDetails,
+  eventType
 }:any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -187,13 +189,14 @@ const QuickSessionMarketBox = ({
                 betType={"no"}
                 value={data?.noRate}
                 value2={data?.noPercent}
-                lock={[null, 0, "0"].includes(data?.no_rate) ? true : false}
+                lock={[null, 0, "0"].includes(data?.noRate) ? true : false}
                 color={"#F6D0CB"}
                 type={{ color: "#FFB5B5", type: "YN" }}
                 typeOfBet={typeOfBet}
                 data={data}
                 mainData={mainData}
                 handleRateChange={handleRateChange}
+                eventType={eventType}
               />
               <Box
                 sx={{ width: ".45%", display: "flex", background: "pink" }}
@@ -210,12 +213,13 @@ const QuickSessionMarketBox = ({
                 betType={"yes"}
                 value={data?.yesRate}
                 value2={data?.yesPercent}
-                lock={[null, 0, "0"].includes(data?.yes_rate) ? true : false}
+                lock={[null, 0, "0"].includes(data?.yesRate) ? true : false}
                 color={"#B3E0FF"}
                 type={{ color: "#A7DCFF", type: "YN" }}
                 typeOfBet={typeOfBet}
                 data={data}
                 mainData={mainData}
+                eventType={eventType}
                 handleRateChange={handleRateChange}
               />
               <Box

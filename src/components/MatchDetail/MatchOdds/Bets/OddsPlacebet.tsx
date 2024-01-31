@@ -4,7 +4,7 @@ import {
     useTheme,
   } from "@mui/material";
   import { Box } from "@mui/system";
-  import { useState } from "react";
+  import { useEffect, useState } from "react";
 //   import {
 //     CancelDark,
 //     HourGlass,
@@ -17,6 +17,11 @@ import BoxInput from "../../Common/BoxInput";
 import MoneyBox from "../MoneyBox";
 import TeamsOdssData from "./TeamOddsData";
 import { CancelDark } from "../../../../assets";
+import { AppDispatch, RootState } from "../../../../store/store";
+import { selectedBetAction } from "../../../../store/actions/match/matchListAction";
+import { betPlaceSuccessReset, placeBet } from "../../../../store/actions/betPlace/betPlaceActions";
+import axios from "axios";
+import { ApiConstants } from "../../../../utils/Constants";
 
 
   const OddsPlaceBet = ({
@@ -24,33 +29,56 @@ import { CancelDark } from "../../../../assets";
     season,
     type,
     data,
-    eventName,
-    typeOfBet,
-    placeBetData,
-    setPlaceBetData,
-    setFastRate,
-    fastRate,
-    setCanceled,
-    handleRateChange
   }:any) => {
-    const [defaultValue, setDefaultValue] = useState(" ");
+    const [stakeValue, setStakeValue] = useState(0);
     const [betPlaceLoading, setBetPlaceLoading] = useState(false);
-    const dispatch = useDispatch();
-    const [isPopoverOpen, setIsPopoverOpen] = useState(false);
-    const [visible, setVisible] = useState(false);
-    const [betPalaceError, setBetPalaceError] = useState(false);
-  
-    const [showSuccessModal, setShowSuccessModal] = useState(false);
-    const [showModalMessage, setShowModalMessage] = useState("");
+    const [stake, setStake] = useState<any>(0);
     const [newRates, setNewRates] = useState({
       loss_amount: 0,
       win_amount: 0,
     });
+    const { selectedBet } = useSelector(
+      (state: RootState) => state.match.matchList
+    );
+    const { success } = useSelector((state: RootState) => state.match.bet);
+    const dispatch: AppDispatch = useDispatch();
     const theme = useTheme();
+    const [browserInfo, setBrowserInfo] = useState<any>(null);
+    const [ipAddress, setIpAddress] = useState(null);
+
 
     const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
+    useEffect(() => {
+      setStake(selectedBet?.team?.stake);
+    }, [selectedBet]);
+
+
+    useEffect(() => {
+      // Get browser information
+      const { userAgent, appName, appVersion, platform } = navigator;
+      const info: any = { userAgent, appName, appVersion, platform };
+      setBrowserInfo(info);
+      const fetchData = async () => {
+        try {
+          const { data } = await axios.get("https://geolocation-db.com/json/");
+          if (data) {
+            setIpAddress(data?.IPv4);
+          }
+        } catch (e) {
+          console.log(e);
+        }
+      };
+      fetchData();
+    }, []);
   
-    // console.log(data);
+    useEffect(() => {
+      if (success) {
+        dispatch(selectedBetAction(null));
+        dispatch(betPlaceSuccessReset());
+        handleClose()
+      }
+    }, [success]);
+
     return (
       <Box
         sx={[
@@ -123,7 +151,7 @@ import { CancelDark } from "../../../../assets";
                 background: type?.color ? type?.color : "#F8C851",
               }}
               containerStyle={{ flex: season ? { xs: 2.5, lg: 2 } : 1 }}
-              value={data?.name}
+              value={selectedBet?.team?.name ?? selectedBet?.team?.betOnTeam}
             />
             <TeamsOdssData
               input={true}
@@ -131,21 +159,29 @@ import { CancelDark } from "../../../../assets";
               valueContainerStyle={{
                 background: type?.color ? type?.color : "#F8C851",
               }}
-              value={60.00}
+              value={selectedBet?.team?.rate}
               containerStyle={{ marginLeft: "2px", flex: 1 }}
+              // onChange={(e:any) => {
+              //   dispatch(
+              //     selectedBetAction({
+              //       ...selectedBet,
+              //       team: { ...selectedBet?.team, stake: +e.target.value },
+              //     })
+              //   );
+              // }}
             />
             <TeamsOdssData
               title={"Back/Lay"}
-              value={data?.type}
+              value={selectedBet?.team?.type}
               valueContainerStyle={{ background: type?.color }}
               containerStyle={{ marginLeft: "2px", flex: 1 }}
             />
             {!matchesMobile && <Box sx={{ width: "20px" }}></Box>}
             <BoxInput
-              setDefaultValue={setDefaultValue}
-              defaultValue={defaultValue}
+              setStakeValue={setStakeValue}
+              stakeValue={stakeValue}
               selectedColorBox={type?.color}
-           
+              
               containerStyle={{ marginLeft: "2px", flex: 1.3 }}
               title={"Stake"}
             />
@@ -162,7 +198,7 @@ import { CancelDark } from "../../../../assets";
                     containerStyle={{ marginLeft: "2px", flex: 1 }}
                     value={v}
                    
-                    setDefaultValue={setDefaultValue}
+                    setStakeValue={setStakeValue}
                   />
                 ))}
               </Box>
@@ -173,12 +209,13 @@ import { CancelDark } from "../../../../assets";
                     containerStyle={{ marginLeft: "2px", flex: 1 }}
                     value={v}
                    
-                    setDefaultValue={setDefaultValue}
+                    setStakeValue={setStakeValue}
                   />
                 ))}
               </Box>
             </>
           }
+ 
           <Box
             sx={{
               display: "flex",
@@ -199,7 +236,7 @@ import { CancelDark } from "../../../../assets";
                 border: "2px solid white",
               }}
               onClick={() => {
-                setDefaultValue(" ");
+                setStakeValue(0);
                 setNewRates({
                   loss_amount: 0,
                   win_amount: 0,
@@ -210,7 +247,7 @@ import { CancelDark } from "../../../../assets";
             </button>
   
             <button
-              // style={classes.CustomButton_Btn("#262626")}
+               type="submit"
               style={{
                 color: "#fff",
                 backgroundColor: "#262626",
@@ -221,11 +258,62 @@ import { CancelDark } from "../../../../assets";
                 borderRadius: "5px",
                 border: "2px solid white",
               }}
+              onClick={() => {
+                let payloadForSession: any = {
+                  betId: selectedBet?.team?.betId,
+                  betType: selectedBet?.team?.type.toUpperCase(),
+                  browserDetail: browserInfo?.userAgent,
+                  eventName: selectedBet?.team?.name,
+                  eventType: selectedBet?.team?.eventType,
+                  matchId: selectedBet?.team?.matchId,
+                  ipAddress:
+                    ipAddress === "Not found" || !ipAddress
+                      ? "192.168.1.100"
+                      : ipAddress,
+                  odds: selectedBet?.team?.rate,
+                  ratePercent: selectedBet?.team?.percent,
+                  stake: stakeValue || selectedBet?.team?.stake,
+                };
+                let payloadForBettings: any = {
+                  betId: selectedBet?.team?.betId,
+                  teamA: selectedBet?.team?.teamA,
+                  teamB: selectedBet?.team?.teamB,
+                  teamC: selectedBet?.team?.teamC,
+                  bettingType: selectedBet?.team?.type.toUpperCase(),
+                  browserDetail: browserInfo?.userAgent,
+                  matchId: selectedBet?.team?.matchId,
+                  ipAddress:
+                    ipAddress === "Not found" || !ipAddress
+                      ? "192.168.1.100"
+                      : ipAddress,
+                  odd: selectedBet?.team?.rate,
+                  stake: selectedBet?.team?.stake,
+                  matchBetType: selectedBet?.team?.matchBetType,
+                  betOnTeam: selectedBet?.team?.betOnTeam,
+                  placeIndex: selectedBet?.team?.placeIndex,
+                };
+                dispatch(
+                  placeBet({
+                    url:
+                      selectedBet?.data?.type === "session" ||
+                      selectedBet?.data?.SelectionId
+                        ? ApiConstants.BET.PLACEBETSESSION
+                        : ApiConstants.BET.PLACEBETMATCHBETTING,
+                    data:
+                      selectedBet?.data?.type === "session" ||
+                      selectedBet?.data?.SelectionId
+                        ? JSON.stringify(payloadForSession)
+                        : JSON.stringify(payloadForBettings),
+                  })
+                );
+                // handleClose()
+              }}
             >
               Submit
             </button>
           </Box>
         </Box>
+
         {betPlaceLoading && (
           <Box
             sx={{
@@ -250,19 +338,21 @@ import { CancelDark } from "../../../../assets";
           </Box>
         )}
       </Box>
+       
     );
+    
   };
   
   const NumberData = ({
     value,
     containerStyle,
-    setDefaultValue,
+    setStakeValue,
     getLatestBetAmount,
   }:any) => {
     return (
       <Box
         onClick={() => {
-          setDefaultValue(value);
+          setStakeValue(value);
           getLatestBetAmount(value);
         }}
         sx={[

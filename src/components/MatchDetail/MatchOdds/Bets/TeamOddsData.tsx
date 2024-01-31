@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const TeamsOdssData = ({
     input,
@@ -13,6 +13,10 @@ const TeamsOdssData = ({
     season
   }:any) => {
     const [oddValue, setOddValue] = useState(value);
+    useEffect(() => {
+      setOddValue(value);
+    }, [value]);
+    
     return (
       <Box sx={[{ display: "flex", flexDirection: "column" }, containerStyle]}>
         <Box

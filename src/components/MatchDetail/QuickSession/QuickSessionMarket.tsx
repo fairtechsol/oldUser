@@ -1,17 +1,17 @@
 import React, { useEffect } from "react";
 
 
-import { Box, Typography, useMediaQuery ,useTheme} from "@mui/material";
-import {ARROWUP } from "../../../assets";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { ARROWUP } from "../../../assets";
 
-import {  } from "@emotion/react";
+import { } from "@emotion/react";
 import SmallBoxSeason from "../QuickSession/SmallBoxSeason";
 import { memo } from "react";
 import { useState } from "react";
 
 import { LockIcon } from "../../../assets";
 
-import { customSort } from "../../../helper/index";
+
 
 
 import { useLocation } from "react-router-dom";
@@ -19,17 +19,18 @@ import Divider from "../../../helper/Divider";
 import QuickSessionMarketBox from "./QuickSessionMarketBox";
 
 const QuickSessionMarket = ({
-  data,
   newData,
-  showFast,
+  backTeamA,
+  backTeamB,
+  backTeamC,
   teamARates,
   teamBRates,
   teamCRates,
   allBetsData,
   sessionExposer,
-  dataProfit,
+
   sessionBets,
-  sessionOffline,
+
   setFastAmount,
   fastAmount,
   session,
@@ -40,17 +41,14 @@ const QuickSessionMarket = ({
   maxBet,
   minBet,
   typeOfBet,
-  apiSessionActive,
-  manualSessionActive,
-}:any) => {
+
+  eventType
+}: any) => {
   const theme = useTheme();
   const [showFastTimeBox, setShowFastTimeBox] = useState(false);
-  const [fastBetLoading, setFastBetLoading] = useState(false);
-  const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
-  const [localQuickSession, setLocalQuickSession] = useState([]);
   const [selectedItem, setSelectedItem] = useState("");
- 
+
   const location = useLocation();
   const id = location?.state?.matchId;
 
@@ -176,7 +174,7 @@ const QuickSessionMarket = ({
             </Box>
           </Box>
         </Box>
-       
+
         {visible && (
           <Box sx={{ width: "100%", position: "relative" }}>
             {
@@ -328,11 +326,11 @@ const QuickSessionMarket = ({
                 overflowY: "visible",
               }}
             >
-        {/* {         console.log(newData)} */}
+
               {newData?.length > 0 &&
-           
+
                 newData
-                  ?.map((item:any) => {
+                  ?.map((item: any) => {
                     let element = JSON.parse(item)
                     return (
                       <Box
@@ -343,11 +341,11 @@ const QuickSessionMarket = ({
                         }}
                       >
                         <QuickSessionMarketBox
-                        betStatus={false}
+                          betStatus={false}
                           upcoming={upcoming}
                           closeModal={true}
                           typeOfBet={typeOfBet}
-                          setFastBetLoading={setFastBetLoading}
+                          // setFastBetLoading={setFastBetLoading}
                           data={element}
                           sessionMain={session}
                           setShowFastTimeBox={setShowFastTimeBox}
@@ -356,13 +354,13 @@ const QuickSessionMarket = ({
                           showFastTimeBox={showFastTimeBox}
                           setSelectedItem={setSelectedItem}
                           selectedItem={selectedItem}
-                          // mainData={data}
                           allRates={{
-                            teamA: teamARates,
-                            teamB: teamBRates,
-                            teamC: teamCRates,
+                            teamA: backTeamA,
+                            teamB: backTeamB,
+                            teamC: backTeamC,
                           }}
                           handleRateChange={handleRateChange}
+                          eventType={eventType}
                         />
                         <Divider />
                       </Box>

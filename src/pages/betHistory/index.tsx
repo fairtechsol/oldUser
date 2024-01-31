@@ -8,6 +8,8 @@ import Loader from "../../components/Loader";
 import AllRateSeperate from "../../components/MatchDetail/AllRateBets/AllRateSeperate";
 import SessionBetSeperate from "../../components/MatchDetail/SessionOdds/SessionBetSeperate";
 import { Constants } from "../../utils/Constants";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 
 
 
@@ -23,7 +25,7 @@ const BetHistory = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [currenLimit, setCurrenLimit] = useState(1);
   const [loading, setLoading] = useState(false);
-
+  const { placedBets } = useSelector((state: RootState) => state.bets);
   
   return (
     <>
@@ -111,6 +113,7 @@ const BetHistory = () => {
                         "QuickBookmaker2",
                       ].includes("b?.marketType")
                   )}
+                  placedBets={placedBets}
                   mark
                 />
               </Box>

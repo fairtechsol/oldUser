@@ -1,22 +1,19 @@
-
 import { Box, useMediaQuery, useTheme } from "@mui/material";
-
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import MatchOdds from "../../components/MatchDetail/MatchOdds/MatchOdds";
-
 import LiveMatchHome from "../../components/MatchDetail/LiveMatchScore/LiveMatchHome";
 import AllRateSeperate from "../../components/MatchDetail/AllRateBets/AllRateSeperate";
 import SessionBetSeperate from "../../components/MatchDetail/SessionOdds/SessionBetSeperate";
 import BetPlaced from "../../components/MatchDetail/Common/BetPlaced";
 import { memo } from "react";
-
-
 import LiveScore from "../../components/MatchDetail/LiveMatchScore";
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { useDispatch } from "react-redux";
 import { matchDetailAction } from "../../store/actions/match/matchListAction";
+import { getPlacedBets } from "../../store/actions/betPlace/betPlaceActions";
+import { updateBalance } from "../../store/actions/user/userAction";
 
 
 
@@ -31,36 +28,50 @@ interface BetTableProps {
 
 const MatchDetail = ({ title, type, data, backLayCount }: BetTableProps) => {
     const dispatch: AppDispatch = useDispatch()
-    const {state} = useLocation()
-    const [loading, setLoading] = useState(true);
+    const { state } = useLocation()
+    const [IObets, setIObtes] = useState([]);
+    const [sessionBets, setSessionBets] = useState([]);
     const [visible, setVisible] = useState(true);
     const theme = useTheme();
     const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
-    const navigate = useNavigate();
+
 
     const { matchDetails } = useSelector(
         (state: RootState) => state.match.matchList
 
     );
-//    console.log(state, "abc")
+
+
+    const { placedBets } = useSelector((state: RootState) => state.bets);
+    // console.log("betHistory", placedBets);
 
     useEffect(() => {
-        if(state?.matchId){
+        if (state?.matchId) {
             dispatch(matchDetailAction(state?.matchId))
         }
-        
+
     }, [state?.matchId])
 
+
+
+    useEffect(() => {
+        try {
+            if (state?.matchId) {
+                dispatch(getPlacedBets(state?.matchId));
+            }
+        } catch (e) {
+            console.log(e);
+        }
+
+    }, [state?.matchId]);
     return (
         <Box
             sx={{
                 display: "flex",
-                // overflowX: "hidden",
                 flexDirection: "column",
                 flex: 1,
                 width: "100%",
                 justifyContent: "flex-start",
-                // overflowY: "auto",
                 alignItems: "flex-start",
             }}
 
@@ -107,10 +118,36 @@ const MatchDetail = ({ title, type, data, backLayCount }: BetTableProps) => {
                                     width: "98%",
                                 }}
                             >
-                                <SessionBetSeperate mark />
+                                <SessionBetSeperate
+                                    placedBets={placedBets}
+                                    mark />
 
-                                <AllRateSeperate mark />
-
+                                {IObets.length > 0 && (
+                                    <AllRateSeperate allBetsData={IObets?.filter((v) =>
+                                        [
+                                            "MATCH ODDS",
+                                            "BOOKMAKER",
+                                            "MANUAL BOOKMAKER",
+                                            "QuickBookmaker0",
+                                            "QuickBookmaker1",
+                                            "QuickBookmaker2",
+                                        ]
+                                    )}
+                                        count={
+                                            IObets?.filter((v) =>
+                                                [
+                                                    "MATCH ODDS",
+                                                    "BOOKMAKER",
+                                                    "MANUAL BOOKMAKER",
+                                                    "QuickBookmaker0",
+                                                    "QuickBookmaker1",
+                                                    "QuickBookmaker2",
+                                                ]
+                                            ).length
+                                        }
+                                        mark
+                                    />
+                                )}
                             </Box>
                             <LiveMatchHome />
                         </Box>
@@ -142,7 +179,9 @@ const MatchDetail = ({ title, type, data, backLayCount }: BetTableProps) => {
 
                             <LiveMatchHome /> {/* Poster */}
                             <AllRateSeperate mark />
-                            <SessionBetSeperate mark />
+                            <SessionBetSeperate
+                              placedBets={placedBets}
+                             mark />
                         </Box>
                     </Box>
                 )}

@@ -4,6 +4,7 @@ import { BallStart } from "../../../assets";
 import { useEffect } from "react";
 import { memo } from "react";
 import MoneyBox from "./MoneyBox";
+import SeparateModal from "./SeparateModal";
 
 
 const ManualBoxComponent = ({
@@ -18,7 +19,9 @@ const ManualBoxComponent = ({
   lock,
   teamImage,
   newData,
-  suspendedData,
+  backTeamA,
+  backTeamB,
+  backTeamC,
   showBox,
   livestatus,
   isRound,
@@ -127,19 +130,17 @@ const ManualBoxComponent = ({
           {/* {name != "DRAW" ? (
             <></>
           ) : (
-            <img
-              src={name == "INDIA" ? INDIA : PAKISTAN}
-              style={{
-                width: "22px",
-                height: "25px",
-                marginLeft: "10px",
-                backgroundSize: "contains",
-              }}
-              alt="draw"
-            />
-            <Box
-              sx={{ width: "22px", height: "25px", marginLeft: "10px" }}
-            ></Box>
+            <><img
+                // src={name == "INDIA" ? INDIA : PAKISTAN}
+                style={{
+                  width: "22px",
+                  height: "25px",
+                  marginLeft: "10px",
+                  backgroundSize: "contains",
+                }}
+                alt="draw" /><Box
+                  sx={{ width: "22px", height: "25px", marginLeft: "10px" }}
+                ></Box></>
           )} */}
 
           {teamImage != null && (
@@ -213,8 +214,7 @@ const ManualBoxComponent = ({
               }}
             ></Box>
           )}
-          {!["ACTIVE", "", undefined, null].includes(status) ||
-            newData?.bettings?.length === 0 ||
+          {
             livestatus ? (
             <Box
               sx={{
@@ -238,8 +238,8 @@ const ManualBoxComponent = ({
                     fontWeight: "400",
                   }}
                 >
-                  {newData?.bettings?.length === 0 || livestatus
-                    ? "suspended"
+                  {livestatus
+                    ? "SUSPENDED"
                     : status}
                 </Typography>
               )}
@@ -257,8 +257,8 @@ const ManualBoxComponent = ({
                   position: "relative",
                 }}
               >
-                {/* {!matchesMobile && (
-                  <ManualSeparateBox
+                {!matchesMobile && (
+                  <SeparateModal
                     closeModal={ballStatus}
                     setFastBetLoading={setFastBetLoading}
                     placeBetData={placeBetData}
@@ -271,7 +271,7 @@ const ManualBoxComponent = ({
                     selectedFastAmount={selectedFastAmount}
                     back={true}
                     currentMatch={newData}
-                    // lock={lock}
+                    backTeamA={backTeamA}
                     lock={matchOddsData?.back ? handleDecimal(matchOddsData?.back, 2, "back") > 0 ? false : true : true}
                     rates={allRates}
                     value={
@@ -287,12 +287,13 @@ const ManualBoxComponent = ({
                     typeOfBet={typeOfBet}
                     handleRateChange={handleRateChange}
                   />
-                )} */}
+                )}
                 <Box
                   sx={{ width: ".25%", display: "flex", background: "pink" }}
                 ></Box>
-                {/* {!matchesMobile && (
-                  <ManualSeparateBox
+                {!matchesMobile && (
+                  <SeparateModal
+                  backTeamB={backTeamB}
                     closeModal={ballStatus}
                     setFastBetLoading={setFastBetLoading}
                     placeBetData={placeBetData}
@@ -322,12 +323,12 @@ const ManualBoxComponent = ({
                     typeOfBet={typeOfBet}
                     handleRateChange={handleRateChange}
                   />
-                )} */}
+                )}
                 <Box
                   sx={{ width: ".25%", display: "flex", background: "pink" }}
                 ></Box>
 
-                {/* <ManualSeparateBox
+                <SeparateModal
                   closeModal={ballStatus}
                   setFastBetLoading={setFastBetLoading}
                   placeBetData={placeBetData}
@@ -351,13 +352,13 @@ const ManualBoxComponent = ({
                   data={data}
                   typeOfBet={typeOfBet}
                   handleRateChange={handleRateChange}
-                /> */}
+                />
 
                 <Box
                   sx={{ width: ".25%", display: "flex", background: "pink" }}
                 ></Box>
 
-                {/* <ManualSeparateBox
+                <SeparateModal
                   closeModal={ballStatus}
                   setFastBetLoading={setFastBetLoading}
                   placeBetData={placeBetData}
@@ -383,7 +384,7 @@ const ManualBoxComponent = ({
                   handleRateChange={handleRateChange}
                 />
                 {!matchesMobile && (
-                  <ManualSeparateBox
+                  <SeparateModal
                     closeModal={ballStatus}
                     setFastBetLoading={setFastBetLoading}
                     placeBetData={placeBetData}
@@ -399,7 +400,6 @@ const ManualBoxComponent = ({
                     rates={allRates}
                     // lock={lock}
                     lock={matchOddsData?.lay ? handleDecimal(matchOddsData?.lay, 1, "") > 0 ? false : true : true}
-                    // value={matchOddsData?.lay ? matchOddsData?.lay + 1 : 0}
                     value={
                       matchOddsData?.lay
                         ? handleDecimal(matchOddsData?.lay, 1, "")
@@ -415,7 +415,7 @@ const ManualBoxComponent = ({
                   />
                 )}
                 {!matchesMobile && (
-                  <ManualSeparateBox
+                  <SeparateModal
                     closeModal={ballStatus}
                     setFastBetLoading={setFastBetLoading}
                     placeBetData={placeBetData}
@@ -428,7 +428,7 @@ const ManualBoxComponent = ({
                     selectedFastAmount={selectedFastAmount}
                     back={true}
                     currentMatch={newData}
-                    rates={allRates}
+                    allRates={allRates}
                     // lock={lock}
                     lock={matchOddsData?.lay ? handleDecimal(matchOddsData?.lay, 2, "") > 0 ? false : true : true}
                     // value={matchOddsData?.lay ? matchOddsData?.lay + 2 : 0}
@@ -445,7 +445,7 @@ const ManualBoxComponent = ({
                     typeOfBet={typeOfBet}
                     handleRateChange={handleRateChange}
                   />
-                )} */}
+                )}
                 <Box
                   sx={{ width: ".25%", display: "flex", background: "pink" }}
                 ></Box>

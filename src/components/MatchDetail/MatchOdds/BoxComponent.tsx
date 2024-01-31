@@ -114,7 +114,7 @@ const BoxComponent = ({
         </Box>
         <MoneyBox color={color} rates={rate} />
       </Box>
-      {!showBox && (
+      {showBox && (
         <Box
           sx={{
             background: "rgba(0,0,0,0.5)",

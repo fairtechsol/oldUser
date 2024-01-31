@@ -1,25 +1,13 @@
-import React, { useEffect } from "react";
-
 import { Box } from "@mui/material";
-
-
-
 import MarketOdds from "./MarketOdds";
-
-// import SessionMarket from "./SessionOdds/SessionMarket";
 import { memo } from "react";
-
-import { useState } from "react";
 import moment from "moment-timezone";
-// import QuickSessionMarket from "./SessionOdds/QuickSessionMarket";
-import { useLocation } from "react-router-dom";
 import QuickSessionMarket from "../QuickSession/QuickSessionMarket";
 import SessionMarket from "../SessionOdds/SessionMarket";
 import { useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../../store/store";
+import { RootState } from "../../../store/store";
 import { MatchType } from "../../../utils/enum";
-import { useDispatch } from "react-redux";
-import { matchDetailAction } from "../../../store/actions/match/matchListAction";
+
 
 
 
@@ -31,20 +19,14 @@ interface TimeLeft {
 }
 const MatchOdds = ({
   data,
-
+  newData,
+  allRates,
+  backTeamA,
+  backTeamB,
+  backTeamC
 
 }: any) => {
-  //   const { manualBookMarkerRates, quickBookmaker } = useSelector(
-  //     (state) => state?.matchDetails
-  //   );
-  const [matchOddsData, setMatchOddsData] = useState([]);
-  const [bookMakerRateLive, setBookMakerRateLive] = useState(false);
-  const [matchOddRateLive, setMatchOddRateLive] = useState(false);
-  const [localQuickBookmaker, setLocalQuickBookmaker] = useState([]);
-  const [bookmakerHttp, setBookmakerHttp] = useState([]);
-  const [manualSessions, setManualSessions] = useState([]);
-  const [sessionExposerHttp, setSessionExposerHttp] = useState([])
-  const location = useLocation();
+
 
 
 
@@ -76,25 +58,10 @@ const MatchOdds = ({
     return timeLeft;
   }
 
-
-
-  // const upcoming = Number(timeLeft.days) === 0 && Number(timeLeft.hours) === 0 && Number(timeLeft.minutes) <= 10;
-
-  const dispatch: AppDispatch = useDispatch()
-  const { state } = useLocation()
   const { matchDetails } = useSelector(
     (state: RootState) => state.match.matchList
   );
 
-  // useEffect(() => {
-  //   if (state?.matchId) {
-  //     dispatch(matchDetailAction(state?.matchId))
-  //   }
-
-  // }, [state?.matchId])
-  const timeLeft = calculateTimeLeft();
-
-  // { console.log(matchDetails?.bookmaker.name) }
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -110,23 +77,36 @@ const MatchOdds = ({
           maxBet={matchDetails?.matchOdd?.maxBet}
           valueA={matchDetails?.profitLossDataMatch?.teamRateA}
           valueB={matchDetails?.profitLossDataMatch?.teamRateB}
+          key={matchDetails?.id}
+          newData={matchDetails?.matchOdd}
+          matchOddsData={matchDetails?.matchOdd}
+          data={matchDetails}
+          typeOfBet={matchDetails?.type
+          }
+          type={MatchType.MATCH_ODDS}
+          
         />
 
       )}
 
-      {matchDetails?.quickBookmaker?.map((item: any, index: number) => (
+      {matchDetails?.quickBookmaker?.map((item: any) => (
         <MarketOdds
-          key={item.id}
+          key={item?.id}
+          newData={item}
+          lock={false}
+          showDely={false}
+          session={"manualBookMaker"}
+          showFast={true}
+          suspended={false}
+          data={matchDetails}
+          min={item?.minBet || 0}
+          max={item?.maxBet || 0}
           title={item?.name}
-          teamA={matchDetails?.teamA}
-          teamB={matchDetails?.teamB}
-          minBet={item?.minBet}
-          maxBet={item?.maxBet}
-          valueA={item?.teamRateA}
-          valueB={item?.teamRateB}
-          statusTeamA={item?.statusTeamA}
-          statusTeamB={item?.statusTeamB}
-          statusTeamC={item?.statusTeamC}
+          typeOfBet={item?.type
+          }
+          matchOddsData={item}
+          type={MatchType.BOOKMAKER}
+           eventType={matchDetails?.matchType}
         />
 
       ))}
@@ -134,7 +114,10 @@ const MatchOdds = ({
 
       {matchDetails?.bookmaker && (
         <MarketOdds
-          // key={id}
+          key={matchDetails?.id}
+          newData={matchDetails?.bookmaker}
+          matchOddsData={matchDetails?.bookmaker}
+          data={matchDetails}
           title={matchDetails?.bookmaker.name}
           teamA={matchDetails?.teamA}
           teamB={matchDetails?.teamB}
@@ -142,13 +125,18 @@ const MatchOdds = ({
           maxBet={matchDetails?.bookmaker?.maxBet}
           valueA={matchDetails?.profitLossDataMatch?.teamRateA}
           valueB={matchDetails?.profitLossDataMatch?.teamRateB}
-
+          typeOfBet={matchDetails?.type
+          }
         />
 
       )}
 
       {matchDetails?.apiTideMatch && (
         <MarketOdds
+          key={matchDetails?.id}
+          newData={matchDetails?.apiTideMatch}
+          matchOddsData={matchDetails?.apiTideMatch}
+          data={matchDetails}
           title={matchDetails?.apiTideMatch.name}
           teamA={"Yes"}
           teamB={"No"}
@@ -156,11 +144,17 @@ const MatchOdds = ({
           maxBet={matchDetails?.apiTideMatch?.maxBet}
           valueA={matchDetails?.profitLossDataMatch?.yesRateTie}
           valueB={matchDetails?.profitLossDataMatch?.noRateTie}
+          typeOfBet={matchDetails?.type
+          }
         />
       )}
 
       {matchDetails?.manualTiedMatch && (
         <MarketOdds
+          key={matchDetails?.id}
+          newData={matchDetails?.manualTiedMatch}
+          matchOddsData={matchDetails?.manualTiedMatch}
+          data={matchDetails}
           title={matchDetails?.manualTiedMatch.name}
           teamA={"Yes"}
           teamB={"No"}
@@ -171,15 +165,23 @@ const MatchOdds = ({
           statusTeamA={matchDetails?.manualTiedMatch?.statusTeamA}
           statusTeamB={matchDetails?.manualTiedMatch?.statusTeamB}
           statusTeamC={matchDetails?.manualTiedMatch?.statusTeamC}
+          typeOfBet={matchDetails?.type
+          }
         />
       )}
 
 
       {matchDetails?.marketCompleteMatch && (
         <MarketOdds
+          key={matchDetails?.id}
+          newData={matchDetails?.marketCompleteMatch}
+          matchOddsData={matchDetails?.marketCompleteMatch}
+          data={matchDetails}
           title={matchDetails?.marketCompleteMatch.name}
           teamA={"Yes"}
           teamB={"No"}
+          typeOfBet={matchDetails?.type
+          }
           minBet={matchDetails?.marketCompleteMatch?.minBet}
           maxBet={matchDetails?.marketCompleteMatch?.maxBet}
           valueA={matchDetails?.profitLossDataMatch?.yesRateTie}
@@ -193,36 +195,36 @@ const MatchOdds = ({
       <>
         {matchDetails?.apiSessionActive && (
           <SessionMarket
+            key={matchDetails?.id}
+            newData={matchDetails?.apiSessionActive}
+            matchOddsData={matchDetails?.apiSessionActive}
+            typeOfBet={matchDetails?.type
+            }
             title={"Session Market"}
             type={MatchType.API_SESSION_MARKET}
             data={matchDetails?.apiSession}
           />
         )}
       </>
-
       <>
-
-        {matchDetails?.sessionBettings && matchDetails?.sessionBettings?.map((item: any, index: any) => {
-          let value = JSON.parse(item)
-          console.log(value,matchDetails?.sessionBettings)
-          return (
-            <QuickSessionMarket
-              title={"Quick Session Market"}
-              type={MatchType.SESSION_MARKET}
-              data={matchDetails?.sessionBettings}
-              name={value.name}
-              // betLock={true}
-              newData={matchDetails.sessionBettings}
-              minBet={matchDetails?.betFairSessionMinBet}
-              maxBet={matchDetails?.betFairSessionMaxBet}
-            />
-          )
-        })}
-
-        {/* )} */}
+        {matchDetails?.sessionBettings && matchDetails.sessionBettings.length > 0 && (
+          <QuickSessionMarket
+            key={matchDetails?.id}
+            title={"Quick Session Market"}
+            type={MatchType.SESSION_MARKET}
+            matchOddsData={matchDetails?.sessionBettings}
+            name={JSON.parse(matchDetails.sessionBettings[0]).name}
+            newData={matchDetails.sessionBettings}
+            eventType={matchDetails?.matchType}
+            minBet={matchDetails?.betFairSessionMinBet}
+            maxBet={matchDetails?.betFairSessionMaxBet}
+            typeOfBet={matchDetails?.type
+            }
+          />
+        )}
       </>
-
     </Box>
+
   );
 };
 
