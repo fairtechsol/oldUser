@@ -520,7 +520,9 @@ const MarketOdds = ({
                                 <BoxComponent
                                     livestatus={newData?.statusTeamA === "suspended" ? true : false}
                                     setPlaceBetData={setPlaceBetData}
-                                    name={teamA}
+                                    placeBetData={placeBetData}
+                                    fastRate={fastRate}
+                                    name={data?.teamA}
                                     color={backTeamA <= 0 ? "#FF4D4D" : "#319E5B"}
                                     eventType={eventType}
                                     ballStatus={
@@ -532,16 +534,21 @@ const MarketOdds = ({
                                         back: newData?.backTeamA,
                                         lay: newData?.layTeamA,
                                     }}
-
+                                    typeOfBet={typeOfBet}
+                                    newData={newData}
                                 />
 
                                 <Divider />
 
                                 <BoxComponent
+                                 newData={newData}
+                                 placeBetData={placeBetData}
+                                 fastRate={fastRate}
+                                 name={data?.teamB}
                                     livestatus={newData?.statusTeamB === "suspended" ? true : false}
                                     setPlaceBetData={setPlaceBetData}
                                     color={backTeamB <= 0 ? "#FF4D4D" : "#319E5B"}
-                                    name={teamB}
+                              
                                     ballStatus={
                                         newData?.statusTeamB == "ball start"
                                           ? true
@@ -551,26 +558,32 @@ const MarketOdds = ({
                                         back: newData?.backTeamB,
                                         lay: newData?.layTeamB,
                                     }}
+                                    typeOfBet={typeOfBet}
 
                                 />
                                 {newData?.teamC && (
                                     <>
                                         <Divider />
                                         <BoxComponent
+                                         newData={newData}
+                                         placeBetData={placeBetData}
+                                         fastRate={fastRate}
+                                         name={data?.teamAC}
                                             livestatus={newData?.statusTeamC === "suspended" ? true : false}
                                             setPlaceBetData={setPlaceBetData}
                                             color={backTeamC <= 0 ? "#FF4D4D" : "#319E5B"}
                                             eventType={eventType}
-                                            name={teamC}
+                                           
                                             ballStatus={
-                                                newData?.statusTeamC == "ball start"
+                                                newData?.statusTeamA == "ball start"
                                                   ? true
                                                   : false
                                               }
                                             matchOddsData={{
-                                                back: newData?.backTeamB,
-                                                lay: newData?.layTeamB,
+                                                back: newData?.backTeamA,
+                                                lay: newData?.layTeamA,
                                             }}
+                                            typeOfBet={typeOfBet}
                                         />
                                     </>
                                 )}
