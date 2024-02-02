@@ -4,17 +4,22 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ArrowDown, drawerBackground } from "../../../assets/index";
 
-const SideBar = ({ mobileShow, }:any) => {
+const SideBar = ({ mobileShow }: any) => {
   const [showSideBarMobile, setShowSideBarMobile] = useState(false);
   const location = useLocation();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [selected, setSelected] = useState("All Sports");
   const data = [
     {
       title: "All Sports",
       data: [
         { title: "In Play", url: "/inplay", activeTab: "INPLAY" },
-        { title: "Cricket", url: "/matches", activeTab: "CRICKET" },
+        {
+          title: "Cricket",
+          url: "/matches",
+          activeTab: "CRICKET",
+          matchType: "cricket",
+        },
         { title: "Live Casino", url: "/comingsoon", activeTab: "LIVE CASINO" },
         { title: "Live Card", url: "/comingsoon", activeTab: "LIVE CARD" },
         { title: "soccer", url: "/comingsoon", activeTab: "SOCCER" },
@@ -22,7 +27,7 @@ const SideBar = ({ mobileShow, }:any) => {
         { title: "Ice Hockey", url: "/comingsoon", activeTab: "ICE HOCKEY" },
         { title: "Volleyball", url: "/comingsoon" },
         { title: "Politics", url: "/comingsoon" },
-        { title: "Table", url: "/comingsoon", },
+        { title: "Table", url: "/comingsoon" },
         { title: "Darts", url: "/comingsoon" },
         { title: "Snooker", url: "/comingsoon", activeTab: "SNOOKER" },
         { title: "Golf", url: "/comingsoon", activeTab: "GOLF" },
@@ -70,7 +75,7 @@ const SideBar = ({ mobileShow, }:any) => {
             }}
           >
             <Typography
-            //   variant="menuListHeader"
+              //   variant="menuListHeader"
               sx={{
                 fontSize: {
                   lg: showSideBarMobile ? "18px" : "16px",
@@ -109,7 +114,7 @@ const SideBar = ({ mobileShow, }:any) => {
     return (
       <Box
         onClick={() => {
-          navigate(item?.url, { state: { activeTab: item?.activeTab } })
+          navigate(item?.url, { state: { activeTab: item?.activeTab } });
           // handleDrawerToggle()
         }}
         sx={{
@@ -135,7 +140,7 @@ const SideBar = ({ mobileShow, }:any) => {
           }}
         ></Box>
         <Typography
-        //   variant="menuListItem"
+          //   variant="menuListItem"
           sx={{
             fontSize: {
               lg: showSideBarMobile ? "15px" : "13px",

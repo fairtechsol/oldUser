@@ -14,7 +14,7 @@ const FastTime = ({
   data1,
   setSelectedItem,
   selectedItem,
-}:any) => {
+}: any) => {
   return (
     <Box
       title="Faster Bet"
@@ -26,13 +26,8 @@ const FastTime = ({
         width: "60%",
       }}
     >
-     
       {!data && (
-        <img
-          style={{ width: "30px", height: "30px" }}
-          src={FASTTIME}
-         
-        />
+        <img style={{ width: "30px", height: "30px" }} src={FASTTIME} />
       )}
     </Box>
   );

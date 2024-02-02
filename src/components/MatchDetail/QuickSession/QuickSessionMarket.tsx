@@ -1,18 +1,14 @@
 import React, { useEffect } from "react";
 
-
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { ARROWUP } from "../../../assets";
 
-import { } from "@emotion/react";
+import {} from "@emotion/react";
 import SmallBoxSeason from "../QuickSession/SmallBoxSeason";
 import { memo } from "react";
 import { useState } from "react";
 
 import { LockIcon } from "../../../assets";
-
-
-
 
 import { useLocation } from "react-router-dom";
 import Divider from "../../../helper/Divider";
@@ -42,7 +38,7 @@ const QuickSessionMarket = ({
   minBet,
   typeOfBet,
 
-  eventType
+  eventType,
 }: any) => {
   const theme = useTheme();
   const [showFastTimeBox, setShowFastTimeBox] = useState(false);
@@ -52,11 +48,7 @@ const QuickSessionMarket = ({
   const location = useLocation();
   const id = location?.state?.matchId;
 
-
   const [visible, setVisible] = useState(true);
-
-
-
 
   return (
     <>
@@ -326,46 +318,43 @@ const QuickSessionMarket = ({
                 overflowY: "visible",
               }}
             >
-
               {newData?.length > 0 &&
-
-                newData
-                  ?.map((item: any) => {
-                    let element = JSON.parse(item)
-                    return (
-                      <Box
-                        key={element?.id}
-                        sx={{
-                          width: "100%",
-                          display: element?.betStatus === 2 ? "none" : "block",
+                newData?.map((item: any) => {
+                  let element = JSON.parse(item);
+                  return (
+                    <Box
+                      key={element?.id}
+                      sx={{
+                        width: "100%",
+                        display: element?.betStatus === 2 ? "none" : "block",
+                      }}
+                    >
+                      <QuickSessionMarketBox
+                        betStatus={false}
+                        upcoming={upcoming}
+                        closeModal={true}
+                        typeOfBet={typeOfBet}
+                        // setFastBetLoading={setFastBetLoading}
+                        data={element}
+                        sessionMain={session}
+                        setShowFastTimeBox={setShowFastTimeBox}
+                        selectedFastAmount={fastAmount}
+                        setFastAmount={setFastAmount}
+                        showFastTimeBox={showFastTimeBox}
+                        setSelectedItem={setSelectedItem}
+                        selectedItem={selectedItem}
+                        allRates={{
+                          teamA: backTeamA,
+                          teamB: backTeamB,
+                          teamC: backTeamC,
                         }}
-                      >
-                        <QuickSessionMarketBox
-                          betStatus={false}
-                          upcoming={upcoming}
-                          closeModal={true}
-                          typeOfBet={typeOfBet}
-                          // setFastBetLoading={setFastBetLoading}
-                          data={element}
-                          sessionMain={session}
-                          setShowFastTimeBox={setShowFastTimeBox}
-                          selectedFastAmount={fastAmount}
-                          setFastAmount={setFastAmount}
-                          showFastTimeBox={showFastTimeBox}
-                          setSelectedItem={setSelectedItem}
-                          selectedItem={selectedItem}
-                          allRates={{
-                            teamA: backTeamA,
-                            teamB: backTeamB,
-                            teamC: backTeamC,
-                          }}
-                          handleRateChange={handleRateChange}
-                          eventType={eventType}
-                        />
-                        <Divider />
-                      </Box>
-                    );
-                  })}
+                        handleRateChange={handleRateChange}
+                        eventType={eventType}
+                      />
+                      <Divider />
+                    </Box>
+                  );
+                })}
             </Box>
           </Box>
         )}

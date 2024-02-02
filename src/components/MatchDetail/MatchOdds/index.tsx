@@ -1,71 +1,92 @@
 import { Pagination, Box } from "@mui/material";
-import { memo, useState } from "react";
-import { } from "@mui/material";
-
+import { memo, useEffect, useState } from "react";
+import {} from "@mui/material";
 import Odds from "./Odds";
-import { useDispatch } from "react-redux";
 
 import { Constants } from "../../../utils/Constants";
 
-
 import CustomLoader from "../../Loader/index";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../store/store";
+import { AppDispatch, RootState } from "../../../store/store";
+import { expertSocketService } from "../../../socketManager";
+import { useDispatch } from "react-redux";
+import { updateMatchOddRates } from "../../../store/actions/match/matchListAction";
 
-const MatchesComponent = ({
-    loader, item, doNavigateWithState
-}: any) => {
-    // const classes=useStyle()
-    const [matchData, setMatchData] = useState([]);
-    const [pageCount, setPageCount] = useState(Constants.pageCount);
-    const [currentPage, setCurrentPage] = useState(1);
+const MatchesComponent = () => {
+  const dispatch: AppDispatch = useDispatch();
+  const [pageCount, setPageCount] = useState(Constants.pageCount);
+  const [currentPage, setCurrentPage] = useState(1);
 
-    const [pageLimit, setPageLimit] = useState(Constants.customPageLimit);
-    const dispatch = useDispatch();
+  const { matchList, loading } = useSelector(
+    (state: RootState) => state.match.matchList
+  );
+  const { getProfile } = useSelector((state: RootState) => state.user.profile);
 
-    const { matchList } = useSelector(
-        (state: RootState) => state.match.matchList
-    );
+  const setMatchOddRatesInRedux = (event: any) => {
+    dispatch(updateMatchOddRates(event));
+  };
 
+  useEffect(() => {
+    if (matchList && getProfile?.roleName) {
+      matchList?.forEach((element: any) => {
+        expertSocketService.match.joinMatchRoom(
+          element?.id,
+          getProfile?.roleName
+        );
+      });
+      matchList?.forEach((element: any) => {
+        expertSocketService.match.getMatchRates(
+          element?.id,
+          setMatchOddRatesInRedux
+        );
+      });
+    }
 
-    return (
-        <>
-            {matchList &&
-                matchList?.map((match: any, item: any, index: number) => {
-                    return (
+    return () => {
+      expertSocketService.match.leaveAllRooms();
+      matchList?.forEach((element: any) => {
+        expertSocketService.match.leaveMatchRoom(element?.id);
+      });
+    };
+  }, [matchList?.length, getProfile?.roleName]);
 
-                        <Odds
-                            item={item}
-                            key={index}
-                            top={true}
-                            blur={false}
-                            match={match}
-                        />
-                    );
-                })}
-
-            <Pagination
-                page={currentPage}
-                className="whiteTextPagination d-flex justify-content-center"
-                count={pageCount}
-                color="primary"
+  return (
+    <>
+      {matchList &&
+        matchList?.map((match: any) => {
+          return (
+            <Odds
+              key={match?.id}
+              top={true}
+              blur={false}
+              match={match}
+              data={match?.matchOdds}
             />
+          );
+        })}
 
-            {loader && <CustomLoader text="" />}
-            {loader && (
-                <Box
-                    sx={{
-                        minHeight: "90vh",
-                        width: "100%",
-                        justifyContent: "center",
-                        alignItems: "center",
-                    }}
-                >
-                    <CustomLoader height={"70vh"} text={""} />
-                </Box>
-            )}
-        </>
-    );
+      <Pagination
+        page={currentPage}
+        className="whiteTextPagination d-flex justify-content-center"
+        count={pageCount}
+        color="primary"
+      />
+
+      {loading && <CustomLoader text="" />}
+      {loading && (
+        <Box
+          sx={{
+            minHeight: "90vh",
+            width: "100%",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <CustomLoader height={"70vh"} text={""} />
+        </Box>
+      )}
+    </>
+  );
 };
 
 export default memo(MatchesComponent);

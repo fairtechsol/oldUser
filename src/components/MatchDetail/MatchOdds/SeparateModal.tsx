@@ -1,5 +1,4 @@
-
-import { Box, Typography, useMediaQuery, useTheme, } from "@mui/material";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import React, { memo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -9,16 +8,13 @@ import MUIModal from "@mui/material/Modal";
 // import BetPlaced from "..";
 import { Modal } from "react-bootstrap";
 
-
 import { Lock } from "../../../assets/index";
 import { useState } from "react";
 import OddsPlaceBet from "./Bets/OddsPlacebet";
 import { AppDispatch, RootState } from "../../../store/store";
 import { selectedBetAction } from "../../../store/actions/match/matchListAction";
 
-
 // import NotificationModal from "../NotificationModal";
-
 
 const SeparateModal = ({
   color,
@@ -48,12 +44,11 @@ const SeparateModal = ({
   handleRateChange,
   updateRate,
   matchDetails,
-  eventType
+  eventType,
+  bettingOn,
+  marketDetails,
 }: any) => {
-
-  console.log(name, "type")
   const theme = useTheme();
-  // console.log(data);
 
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const dispatch: AppDispatch = useDispatch();
@@ -76,13 +71,10 @@ const SeparateModal = ({
     type: false,
   });
 
-
   const [previousValue, setPreviousValue] = useState(false);
-
 
   useEffect(() => {
     if (closeModal || lock) {
-      // console.log("closeModal", closeModal);
       setShowSuccessModal(false);
     }
   }, [closeModal, lock]);
@@ -95,7 +87,6 @@ const SeparateModal = ({
       })
     );
   };
-  // console.log(matchDetails, "data")
   return (
     <>
       <Box
@@ -108,7 +99,7 @@ const SeparateModal = ({
         }}
       >
         <Box
-          onClick={(e) => {
+          onClick={(e: any) => {
             if (lock || [0, "0"].includes(value)) {
               return false;
             }
@@ -119,7 +110,6 @@ const SeparateModal = ({
                 setFastBetLoading(true);
 
                 let payload = {
-
                   id: currentMatch?.id,
                   matchType: currentMatch?.gameType,
 
@@ -148,44 +138,45 @@ const SeparateModal = ({
                 }
               } else {
                 setIsPopoverOpen(true);
-                if (typeOfBet !== "session") {
-                  handleClick({
-                    name: data?.name,
-                    rate: value,
-                    type: betType,
-                    stake: 0,
-                    teamA:
-                      data?.typeOfBet === "completeMatch" ||
-                        data?.typeOfBet === "tiedMatch1"
-                        ? "YES"
-                        : matchDetails?.teamA,
-                    teamB:
-                      data?.type === "completeMatch" ||
-                        data?.type === "tiedMatch1"
-                        ? "NO"
-                        : matchDetails?.teamB,
-                    teamC: matchDetails?.teamC
-                      ? matchDetails?.teamC
-                      : "",
-                    betId: data?.id,
-                    eventType: eventType,
-                  
-                    placeIndex: 0,
-                    matchBetType: data?.type,
-                    matchId: data?.matchId,
-                  }, data)
-                 
+                if (bettingOn === "session") {
+                  handleClick(
+                    {
+                      betId: data?.id,
+                      name: data?.name,
+                      rate: value,
+                      type: betType,
+                      stake: 0,
+                      percent: value2,
+                      eventType: eventType,
+                      matchId: data?.matchId,
+                    },
+                    data
+                  );
+                } else {
+                  handleClick(
+                    {
+                      betOnTeam: name,
+                      rate: value,
+                      type: betType,
+                      stake: 0,
+                      teamA:
+                        marketDetails?.type === "tiedMatch2"
+                          ? "YES"
+                          : data?.teamA,
+                      teamB:
+                        marketDetails?.type === "tiedMatch2"
+                          ? "NO"
+                          : data?.teamB,
+                      teamC: matchDetails?.teamC ? matchDetails?.teamC : "",
+                      betId: marketDetails?.id,
+                      eventType: marketDetails?.eventType,
+                      matchId: data?.id,
+                      placeIndex: po,
+                      matchBetType: marketDetails?.type,
+                    },
+                    data
+                  );
                 }
-                handleClick({
-                  betId: data?.id,
-                  name: data?.name,
-                  rate: value,
-                  type: betType,
-                  stake: 0,
-                  percent: value2,
-                  eventType: eventType,
-                  matchId: data?.matchId,
-                }, data)
                 setSelectedCountry(name);
                 setSelectedValue(value);
                 type?.type === "BL"
@@ -208,7 +199,6 @@ const SeparateModal = ({
             cursor: !empty && !lock && value && value2 && "pointer",
           }}
         >
-       {  console.log(data?.matchId)}
           {!empty && !lock && ![0, "0"].includes(value) && (
             <Box sx={{ alignItems: "center", justifyContent: "space-around" }}>
               <Typography
@@ -245,7 +235,6 @@ const SeparateModal = ({
           )}
         </Box>
 
-
         <MUIModal
           open={isPopoverOpen}
           onClose={() => {
@@ -263,7 +252,6 @@ const SeparateModal = ({
               justifyContent: "center",
             }}
           >
-
             <OddsPlaceBet
               betPlaceLoading={betPlaceLoading}
               name={"name"}
@@ -313,9 +301,7 @@ const SeparateModal = ({
             userPG={true}
           />
         )}
-
       </Box>
-
     </>
   );
 };

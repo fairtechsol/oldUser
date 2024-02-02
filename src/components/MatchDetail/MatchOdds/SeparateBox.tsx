@@ -1,9 +1,8 @@
-
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import React, { memo } from "react";
 import { Lock } from "../../../assets";
 
-const SeparateBox = ({ color, empty, value, value2, lock }:any) => {
+const SeparateBox = ({ color, empty, value, value2, lock }: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
@@ -34,14 +33,16 @@ const SeparateBox = ({ color, empty, value, value2, lock }:any) => {
     lockImage: { width: "10px", height: "15px" },
   };
 
-
-  
   return (
     <Box sx={classes.container}>
       {!empty && !lock && (
         <Box sx={classes.emptylockWrapper}>
           <Typography sx={classes.value1}>{value}</Typography>
-          <Typography sx={classes.value2}>{value2}</Typography>
+          <Typography sx={classes.value2}>
+            {value2 >= 1000
+              ? (value2 / 1000)?.toFixed(1) + "k"
+              : value2?.toString()}
+          </Typography>
         </Box>
       )}
       {lock && <img src={Lock} style={classes.lockImage} alt="Lock" />}
