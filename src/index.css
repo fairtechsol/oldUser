@@ -22,3 +22,7 @@ code {
 .MuiTypography-root.MuiTypography-body1.css-gv9xp0-MuiTypography-root {
   line-height: 1 !important; /* Adjust the line height as needed */
 }
+
+.activeEventTab .eventTab{ 
+  background-color: #F8C851;
+}

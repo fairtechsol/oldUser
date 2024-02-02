@@ -112,7 +112,7 @@ const MatchOdds = ({
       ))}
 
 
-      {matchDetails?.bookmaker && (
+      {matchDetails?.bookmaker?.isActive && (
         <MarketOdds
           key={matchDetails?.id}
           newData={matchDetails?.bookmaker}
@@ -131,7 +131,7 @@ const MatchOdds = ({
 
       )}
 
-      {matchDetails?.apiTideMatch && (
+      {matchDetails?.apiTideMatch?.isActive && (
         <MarketOdds
           key={matchDetails?.id}
           newData={matchDetails?.apiTideMatch}
@@ -149,7 +149,7 @@ const MatchOdds = ({
         />
       )}
 
-      {matchDetails?.manualTiedMatch && (
+      {matchDetails?.manualTiedMatch?.isActive && (
         <MarketOdds
           key={matchDetails?.id}
           newData={matchDetails?.manualTiedMatch}
@@ -171,7 +171,7 @@ const MatchOdds = ({
       )}
 
 
-      {matchDetails?.marketCompleteMatch && (
+      {matchDetails?.marketCompleteMatch?.isActive && (
         <MarketOdds
           key={matchDetails?.id}
           newData={matchDetails?.marketCompleteMatch}
@@ -193,7 +193,7 @@ const MatchOdds = ({
 
 
       <>
-        {matchDetails?.apiSessionActive && (
+        {matchDetails?.apiSessionActive?.isActive && (
           <SessionMarket
             key={matchDetails?.id}
             newData={matchDetails?.apiSessionActive}
@@ -207,7 +207,7 @@ const MatchOdds = ({
         )}
       </>
       <>
-        {matchDetails?.sessionBettings && matchDetails.sessionBettings.length > 0 && (
+        {matchDetails?.sessionBettings?.isActive && matchDetails.sessionBettings.length > 0 && (
           <QuickSessionMarket
             key={matchDetails?.id}
             title={"Quick Session Market"}
