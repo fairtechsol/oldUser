@@ -341,6 +341,7 @@ const ManualBoxComponent = ({
                   selectedFastAmount={selectedFastAmount}
                   back={true}
                   currentMatch={newData}
+                  betType={"back"}
                   // lock={lock}
                   lock={matchOddsData?.back > 0 ? false : true}
                   rates={allRates}
@@ -452,9 +453,11 @@ const ManualBoxComponent = ({
               </Box>
             </>
           )}
+          {console.log(matchOddsData)}
         </>
       )}
     </Box>
+    
   );
 };
 

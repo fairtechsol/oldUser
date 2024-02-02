@@ -50,6 +50,8 @@ const SeparateModal = ({
   matchDetails,
   eventType
 }: any) => {
+
+  console.log(name, "type")
   const theme = useTheme();
   // console.log(data);
 
@@ -119,7 +121,7 @@ const SeparateModal = ({
                 let payload = {
 
                   id: currentMatch?.id,
-                  matchType: currentMatch?.matchType,
+                  matchType: currentMatch?.gameType,
 
                   betType: type?.color === "#A7DCFF" ? "back" : "lay",
                   odds: Number(value),
@@ -139,28 +141,50 @@ const SeparateModal = ({
                   payload.matchType = data?.matchType;
                   payload.teamA_name = mainData?.teamA;
                   payload.teamB_name = mainData?.teamB;
-                  payload.id = data?.match_id;
+                  payload.id = data?.matchId;
                   payload.betType = type?.color === "#A7DCFF" ? "yes" : "no";
                   payload.marketType = typeOfBet;
                   payload.odds = Number(value);
                 }
               } else {
                 setIsPopoverOpen(true);
+                if (typeOfBet !== "session") {
+                  handleClick({
+                    name: data?.name,
+                    rate: value,
+                    type: betType,
+                    stake: 0,
+                    teamA:
+                      data?.typeOfBet === "completeMatch" ||
+                        data?.typeOfBet === "tiedMatch1"
+                        ? "YES"
+                        : matchDetails?.teamA,
+                    teamB:
+                      data?.type === "completeMatch" ||
+                        data?.type === "tiedMatch1"
+                        ? "NO"
+                        : matchDetails?.teamB,
+                    teamC: matchDetails?.teamC
+                      ? matchDetails?.teamC
+                      : "",
+                    betId: data?.id,
+                    eventType: eventType,
+                  
+                    placeIndex: 0,
+                    matchBetType: data?.type,
+                    matchId: data?.matchId,
+                  }, data)
+                 
+                }
                 handleClick({
-                  betOnTeam:
-                  data?.type === "completeMatch" ||
-                  data?.type === "tiedMatch1" ||
-                  data?.type === "bookmaker" ||
-                  data?.type === "quickBookmaker",
                   betId: data?.id,
                   name: data?.name,
                   rate: value,
                   type: betType,
                   stake: 0,
                   percent: value2,
-                  eventType: matchDetails?.matchType,
+                  eventType: eventType,
                   matchId: data?.matchId,
-                  matchBetType: data?.type,
                 }, data)
                 setSelectedCountry(name);
                 setSelectedValue(value);
@@ -184,6 +208,7 @@ const SeparateModal = ({
             cursor: !empty && !lock && value && value2 && "pointer",
           }}
         >
+       {  console.log(data?.matchId)}
           {!empty && !lock && ![0, "0"].includes(value) && (
             <Box sx={{ alignItems: "center", justifyContent: "space-around" }}>
               <Typography

@@ -279,9 +279,12 @@ import { ApiConstants } from "../../../../utils/Constants";
                   teamA: selectedBet?.team?.teamA,
                   teamB: selectedBet?.team?.teamB,
                   teamC: selectedBet?.team?.teamC,
-                  bettingType: selectedBet?.team?.type.toUpperCase(),
-                  browserDetail: browserInfo?.userAgent,
+                  eventName: selectedBet?.team?.name,
+                  eventType: selectedBet?.team?.eventType,
                   matchId: selectedBet?.team?.matchId,
+                  betType: selectedBet?.team?.type.toUpperCase(),
+                  browserDetail: browserInfo?.userAgent,
+             
                   ipAddress:
                     ipAddress === "Not found" || !ipAddress
                       ? "192.168.1.100"
