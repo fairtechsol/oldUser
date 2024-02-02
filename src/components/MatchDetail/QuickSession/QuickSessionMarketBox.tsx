@@ -1,4 +1,3 @@
-
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 
 import { memo } from "react";
@@ -10,7 +9,6 @@ import FastTimePlaceBet from "../MatchOdds/Bets/FastTimePlaceBet";
 import FastTime from "../MatchOdds/FastTime";
 import PlaceBetComponent from "../MatchOdds/Bets/PlaceBetComponent";
 import MoneyBox from "../MatchOdds/MoneyBox";
-
 
 const QuickSessionMarketBox = ({
   index,
@@ -33,8 +31,8 @@ const QuickSessionMarketBox = ({
   betStatus,
   suspended,
   matchDetails,
-  eventType
-}:any) => {
+  eventType,
+}: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
@@ -93,15 +91,12 @@ const QuickSessionMarketBox = ({
               marginLeft: "7px",
               fontWeight: "600",
               textAlign: "start",
-              width: '100%'
+              width: "100%",
             }}
           >
             {data?.name}
           </Typography>
-       <MoneyBox
-      
-       rates={data?.rates ? data?.rates : 0}
-       />
+          <MoneyBox rates={data?.rates ? data?.rates : 0} />
         </Box>
         {/* {matchesMobile && (
           <PlaceBetComponent amount={index == 2} profitLoss={data} />
@@ -109,8 +104,8 @@ const QuickSessionMarketBox = ({
         {!matchesMobile && (
           <PlaceBetComponentWeb amount={index === 2} profitLoss={data} />
         )}
-        {!["ACTIVE", "", undefined, null, ""].includes(data?.suspended) ||
-        (data.yes_rate === null && data.no_rate === null) ? (
+        {!["active", "", undefined, null, ""].includes(data?.status) ||
+        (data.yesRate === null && data.noRate === null) ? (
           <Box
             sx={{
               background: "rgba(0,0,0,1)",
@@ -126,7 +121,7 @@ const QuickSessionMarketBox = ({
               zIndex: 1,
             }}
           >
-            {data?.suspended == "Ball Started" ? (
+            {data?.status == "ball start" ? (
               <img src={BallStart} style={{ width: "113px", height: "32px" }} />
             ) : (
               <Typography
@@ -139,7 +134,7 @@ const QuickSessionMarketBox = ({
                   fontWeight: "400",
                 }}
               >
-                {data?.suspended}
+                {data?.status}
               </Typography>
             )}
           </Box>
@@ -178,6 +173,7 @@ const QuickSessionMarketBox = ({
               ></Box>
               {!matchesMobile && <SeparateModal po={6} color={"white"} />}
               <SeparateModal
+                bettingOn={"session"}
                 closeModal={closeModal}
                 setFastBetLoading={setFastBetLoading}
                 po={2}
@@ -202,6 +198,7 @@ const QuickSessionMarketBox = ({
                 sx={{ width: ".45%", display: "flex", background: "pink" }}
               ></Box>
               <SeparateModal
+                bettingOn={"session"}
                 closeModal={closeModal}
                 setFastBetLoading={setFastBetLoading}
                 po={1}

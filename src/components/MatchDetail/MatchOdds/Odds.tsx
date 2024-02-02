@@ -1,4 +1,3 @@
-
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { memo, useEffect, useState } from "react";
 import SeparateBox from "./SeparateBox";
@@ -7,7 +6,8 @@ import moment from "moment-timezone";
 import { useDispatch } from "react-redux";
 
 import { useNavigate } from "react-router-dom";
-
+import MatchRatesCommonComp from "./MatchRatesCommonComp";
+import Upcomings from "../../Common/Upcomings";
 
 interface TimeLeft {
   days: string;
@@ -16,46 +16,33 @@ interface TimeLeft {
   seconds?: string;
 }
 
-
-
-
-
-
 const Odds = ({ onClick, top, blur, match, data, item, title }: any) => {
-  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
   const theme = useTheme();
   const navigate = useNavigate();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
-
   const dispatch = useDispatch();
 
-
-
-
-
-  // useEffect(() => {
-  //   const timer = setInterval(() => {
-  //     setTimeLeft(calculateTimeLeft());
-  //   }, 100);
-  //   return () => clearInterval(timer);
-  // }, []);
   function calculateTimeLeft(): TimeLeft {
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    const targetDate = moment(data?.startAt).tz(timezone);
+    const targetDate = moment(match?.startAt).tz(timezone);
     const difference = targetDate.diff(moment().tz(timezone), "milliseconds");
     let timeLeft: TimeLeft = {
       days: "",
       hours: "",
-      minutes: ""
+      minutes: "",
     }; // Initialize with the defined type
-  
+
     if (difference > 0) {
       timeLeft = {
-        days: ("0" + Math.floor(difference / (1000 * 60 * 60 * 24))).slice(-2) || "00",
-        hours: ("0" + Math.floor((difference / (1000 * 60 * 60)) % 24)).slice(-2) || "00",
-        minutes: ("0" + Math.floor((difference / 1000 / 60) % 60)).slice(-2) || "00",
+        days:
+          ("0" + Math.floor(difference / (1000 * 60 * 60 * 24))).slice(-2) ||
+          "00",
+        hours:
+          ("0" + Math.floor((difference / (1000 * 60 * 60)) % 24)).slice(-2) ||
+          "00",
+        minutes:
+          ("0" + Math.floor((difference / 1000 / 60) % 60)).slice(-2) || "00",
         seconds: ("0" + Math.floor((difference / 1000) % 60)).slice(-2) || "00",
       };
     } else {
@@ -65,16 +52,16 @@ const Odds = ({ onClick, top, blur, match, data, item, title }: any) => {
         minutes: "00",
       };
     }
-  
+
     return timeLeft;
   }
-  
+
   const timeLeft = calculateTimeLeft();
-  
-  const upcoming = Number(timeLeft.days) === 0 && Number(timeLeft.hours) === 0 && Number(timeLeft.minutes) <= 10;
 
-
-
+  const upcoming =
+    Number(timeLeft.days) === 0 &&
+    Number(timeLeft.hours) === 0 &&
+    Number(timeLeft.minutes) <= 30;
 
   return (
     <>
@@ -175,8 +162,8 @@ const Odds = ({ onClick, top, blur, match, data, item, title }: any) => {
         onClick={(e) => {
           navigate("/matchDetail", {
             state: {
-              matchId: match?.id
-            }
+              matchId: match?.id,
+            },
           });
           e.stopPropagation();
         }}
@@ -188,7 +175,7 @@ const Odds = ({ onClick, top, blur, match, data, item, title }: any) => {
               position: "absolute",
               cursor: "pointer",
               zIndex: 2,
-              //   background: "rgba(0,0,0,0.5)",
+              background: "rgba(0,0,0,0.5)",
               width: "100%",
               right: 0,
               height: "100%",
@@ -266,210 +253,13 @@ const Odds = ({ onClick, top, blur, match, data, item, title }: any) => {
                   fontSize: { lg: "10px", xs: "10px" },
                   fontWeight: "600",
                   color: "white",
-                  // border: '1px solid linear-gradient(90deg, rgba(233,254,234,1) 1%, rgba(206,255,209,1) 100%)'
                 }}
               >
                 LIVE NOW
               </Typography>
             </Box>
           )}
-          <Box
-            sx={{
-              display: "flex",
-              height: "38px",
-              flexDirection: "row",
-              width: "99.7%",
-              alignSelf: "center",
-            }}
-          >
-
-            <Box
-              sx={{
-                flex: 1.2,
-                background: "#f1c550",
-                overflow: "hidden",
-                alignItems: { lg: "center", xs: "flex-end" },
-                display: "flex",
-              }}
-
-            >
-
-              <Typography
-
-                noWrap={true}
-                sx={{
-                  overflow: "hidden",
-                  marginBottom: "2px",
-                  fontSize: { lg: "14px", xs: "10px" },
-                  fontWeight: "bold",
-                  marginLeft: "7px",
-                }}
-              >
-                {match.teamA} vs {match?.teamB}{" "}
-
-                <span style={{ fontWeight: "500" }}>
-                ({moment(match.startAt).format("LL")})
-                </span>
-              </Typography>{" "}
-
-            </Box>
-
-
-            <Box
-              sx={{
-                flex: 0.1,
-                background: "#262626",
-                // '#262626'
-              }}
-            >
-              <div className="slanted"></div>
-            </Box>
-
-            <Box
-              sx={{
-                flex: 1,
-                background: "#262626",
-                display: "flex",
-
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Box
-                sx={{
-                  height: "80%",
-                  marginRight: "3px",
-                  borderRadius: "4px",
-                  width: "110px",
-                  background: "white",
-                  justifyContent: "space-evenly",
-                  display: "flex",
-                  alignSelf: "flex-end",
-                  visibility:
-                    Number(timeLeft) === 0 &&
-                      Number(timeLeft) === 0 &&
-                      Number(timeLeft) === 0
-                      ? "hidden"
-                      : "visible",
-                }}
-              >
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    flexDirection: "column",
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      fontSize: "12px",
-                      fontWeight: "bold",
-                      color: "#0B4F26",
-                    }}
-                  >
-                    {timeLeft?.days || 0}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "8px",
-                      fontWeight: "400",
-                      color: "#0B4F26",
-                    }}
-                  >
-                    Days
-                  </Typography>
-                </Box>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    flexDirection: "column",
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      fontSize: "25px",
-                      fontWeight: "bold",
-                      color: "#0B4F26",
-                    }}
-                  >
-                    :
-                  </Typography>
-                </Box>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    flexDirection: "column",
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      fontSize: "12px",
-                      fontWeight: "bold",
-                      color: "#0B4F26",
-                    }}
-                  >
-                    {timeLeft?.hours || 0}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "8px",
-                      fontWeight: "400",
-                      color: "#0B4F26",
-                    }}
-                  >
-                    Hrs
-                  </Typography>
-                </Box>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    flexDirection: "column",
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      fontSize: "25px",
-                      fontWeight: "bold",
-                      color: "#0B4F26",
-                    }}
-                  >
-                    :
-                  </Typography>
-                </Box>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    flexDirection: "column",
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      fontSize: "12px",
-                      fontWeight: "bold",
-                      color: "#0B4F26",
-                    }}
-                  >
-                    {timeLeft?.minutes || 0}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      fontSize: "8px",
-                      fontWeight: "400",
-                      color: "#0B4F26",
-                    }}
-                  >
-                    Min
-                  </Typography>
-                </Box>
-              </Box>
-            </Box>
-          </Box>
-
+          <Upcomings match={match} timeLeft={timeLeft} />
           {
             <Box
               sx={{
@@ -564,7 +354,6 @@ const Odds = ({ onClick, top, blur, match, data, item, title }: any) => {
                 alignItems: "center",
               }}
             >
-
               {/* <img
                
                   style={{ width: "25px", height: "25px", marginLeft: "10px" }}
@@ -582,85 +371,7 @@ const Odds = ({ onClick, top, blur, match, data, item, title }: any) => {
                 {match?.teamA}
               </Typography>
             </Box>
-            <Box
-              sx={{
-                display: "flex",
-                background: "white",
-                height: "40px",
-                width: { lg: "60%", xs: "80%" },
-                justifyContent: { xs: "flex-end", lg: "center" },
-                alignItems: "center",
-              }}
-            >
-              {!matchesMobile && (
-                <SeparateBox
-                  value={
-                    0
-                  }
-                  value2={0
-                  }
-                  color={matchesMobile ? "white" : "#CEEBFF"}
-                />
-              )}
-              <Box
-                sx={{ width: ".25%", display: "flex", background: "pink", justifyContent: "stretch" }}
-              ></Box>
-              {!matchesMobile && (
-                <SeparateBox
-                  value={
-                    0
-                  }
-                  value2={0
-                  }
-                  color={matchesMobile ? "white" : "#C2E6FF"}
-                />
-              )}
-              <Box
-                sx={{ width: ".25%", display: "flex", background: "pink" }}
-              ></Box>
-              <SeparateBox
-                value={
-                  0
-                }
-                value2={0}
-                color={matchesMobile ? "#A7DCFF" : "#A7DCFF"}
-              />
-              <Box
-                sx={{ width: ".25%", display: "flex", background: "pink" }}
-              ></Box>
-              <SeparateBox
-                value={
-                  0
-                }
-                value2={0}
-                color={matchesMobile ? "#FFB5B5" : "#FFB5B5"}
-              />
-              <Box
-                sx={{ width: ".25%", display: "flex", background: "pink" }}
-              ></Box>
-              {!matchesMobile && (
-                <SeparateBox
-                  value={0
-                  }
-                  value2={0}
-                  color={matchesMobile ? "white" : "#F2CBCB"}
-                />
-              )}
-              <Box
-                sx={{ width: ".25%", display: "flex", background: "pink" }}
-              ></Box>
-              {!matchesMobile && (
-                <SeparateBox
-                  value={0
-                  }
-                  value2={0}
-                  color={matchesMobile ? "white" : "#ECD6D6"}
-                />
-              )}
-              <Box
-                sx={{ width: ".25%", display: "flex", background: "pink" }}
-              ></Box>
-            </Box>
+            <MatchRatesCommonComp data={data} runnerPosition={0} />
           </Box>
           <Divider />
           <Box
@@ -681,13 +392,6 @@ const Odds = ({ onClick, top, blur, match, data, item, title }: any) => {
                 alignItems: "center",
               }}
             >
-
-              {/* <img
-                 
-                  style={{ width: "25px", height: "25px", marginLeft: "10px" }}
-                  alt={"match?.teamB"}
-                /> */}
-
               <Typography
                 sx={{
                   color: "black",
@@ -699,191 +403,45 @@ const Odds = ({ onClick, top, blur, match, data, item, title }: any) => {
                 {match.teamB}
               </Typography>
             </Box>
-            <Box
-              sx={{
-                display: "flex",
-                background: "white",
-                height: "40px",
-                width: { lg: "60%", xs: "80%" },
-                justifyContent: { xs: "flex-end", lg: "center" },
-                alignItems: "center",
-              }}
-            >
-              {!matchesMobile && (
-                <SeparateBox
-                  value={0}
-                  value2={0}
-                  color={matchesMobile ? "white" : "#CEEBFF"}
-                />
-              )}
-              <Box
-                sx={{ width: ".25%", display: "flex", background: "pink" }}
-              ></Box>
-              {!matchesMobile && (
-                <SeparateBox
-                  value={
-                    0
-                  }
-                  value2={0}
-                  color={matchesMobile ? "white" : "#C2E6FF"}
-                />
-              )}
-              <Box
-                sx={{ width: ".25%", display: "flex", background: "pink" }}
-              ></Box>
-              <SeparateBox
-                value={0
-                }
-                value2={0}
-                color={matchesMobile ? "#A7DCFF" : "#A7DCFF"}
-              />
-              <Box
-                sx={{ width: ".25%", display: "flex", background: "pink" }}
-              ></Box>
-              <SeparateBox
-                value={
-                  0
-                }
-                value2={0}
-                color={matchesMobile ? "#FFB5B5" : "#FFB5B5"}
-              />
-              <Box
-                sx={{ width: ".25%", display: "flex", background: "pink" }}
-              ></Box>
-              {!matchesMobile && (
-                <SeparateBox
-                  value={0
-                  }
-                  value2={0}
-                  color={matchesMobile ? "white" : "#F2CBCB"}
-                />
-              )}
-              <Box
-                sx={{ width: ".25%", display: "flex", background: "pink" }}
-              ></Box>
-              {!matchesMobile && (
-                <SeparateBox
-                  value={0
-                  }
-                  value2={0}
-                  color={matchesMobile ? "white" : "#ECD6D6"}
-                />
-              )}
-              <Box
-                sx={{ width: ".25%", display: "flex", background: "pink" }}
-              ></Box>
-            </Box>
+            <MatchRatesCommonComp data={data} runnerPosition={1} />
           </Box>
 
           <>
             <Divider />
-            {match.teamC && ( 
-            <Box
-              sx={{
-                display: "flex",
-                background: "white",
-                height: "40px",
-                width: "100%",
-                alignItems: "center",
-              }}
-            >
+            {match.teamC && (
               <Box
                 sx={{
                   display: "flex",
                   background: "white",
                   height: "40px",
-                  width: "40%",
+                  width: "100%",
                   alignItems: "center",
                 }}
               >
-                <Typography
+                <Box
                   sx={{
-                    color: "black",
-                    fontSize: { lg: "12px", xs: "11px" },
-                    marginLeft: "7px",
-                    fontWeight: "600",
+                    display: "flex",
+                    background: "white",
+                    height: "40px",
+                    width: "40%",
+                    alignItems: "center",
                   }}
                 >
-                  {match.teamC}
-                </Typography>
+                  <Typography
+                    sx={{
+                      color: "black",
+                      fontSize: { lg: "12px", xs: "11px" },
+                      marginLeft: "7px",
+                      fontWeight: "600",
+                    }}
+                  >
+                    {match.teamC}
+                  </Typography>
+                </Box>
+                <MatchRatesCommonComp data={data} runnerPosition={2} />
               </Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  background: "white",
-                  height: "40px",
-                  width: { lg: "60%", xs: "80%" },
-                  justifyContent: { xs: "flex-end", lg: "center" },
-                  alignItems: "center",
-                }}
-              >
-                {!matchesMobile && (
-                  <SeparateBox
-                    value={0
-                    }
-                    value2={0}
-                    color={matchesMobile ? "white" : "#CEEBFF"}
-                  />
-                )}
-                <Box
-                  sx={{ width: ".25%", display: "flex", background: "pink" }}
-                ></Box>
-                {!matchesMobile && (
-                  <SeparateBox
-                    value={
-                      0
-                    }
-                    value2={0}
-                    color={matchesMobile ? "white" : "#C2E6FF"}
-                  />
-                )}
-                <Box
-                  sx={{ width: ".25%", display: "flex", background: "pink" }}
-                ></Box>
-                <SeparateBox
-                  value={0
-                  }
-                  value2={0}
-                  color={matchesMobile ? "#A7DCFF" : "#A7DCFF"}
-                />
-                <Box
-                  sx={{ width: ".25%", display: "flex", background: "pink" }}
-                ></Box>
-                <SeparateBox
-                  value={0}
-                  value2={0}
-                  color={matchesMobile ? "#FFB5B5" : "#FFB5B5"}
-                />
-                <Box
-                  sx={{ width: ".25%", display: "flex", background: "pink" }}
-                ></Box>
-                {!matchesMobile && (
-                  <SeparateBox
-                    value={0
-                    }
-                    value2={0}
-                    color={matchesMobile ? "white" : "#F2CBCB"}
-                  />
-                )}
-                <Box
-                  sx={{ width: ".25%", display: "flex", background: "pink" }}
-                ></Box>
-                {!matchesMobile && (
-                  <SeparateBox
-                    value={0
-                    }
-                    value2={0}
-                    color={matchesMobile ? "white" : "#ECD6D6"}
-                  />
-                )}
-                <Box
-                  sx={{ width: ".25%", display: "flex", background: "pink" }}
-                ></Box>
-              </Box>
-            </Box>
             )}
           </>
-
         </Box>
       </Box>
     </>

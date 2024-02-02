@@ -1,51 +1,27 @@
 import { Box } from "@mui/material";
 import MarketOdds from "./MarketOdds";
-import { memo } from "react";
-import moment from "moment-timezone";
+import { memo, useEffect, useState } from "react";
 import QuickSessionMarket from "../QuickSession/QuickSessionMarket";
 import SessionMarket from "../SessionOdds/SessionMarket";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../store/store";
 import { MatchType } from "../../../utils/enum";
+import moment from "moment-timezone";
 
-
-
-
-interface TimeLeft {
-  days: string;
-  hours: string;
-  minutes: string;
-  seconds?: string;
-}
-const MatchOdds = ({
-  data,
-  newData,
-  allRates,
-  backTeamA,
-  backTeamB,
-  backTeamC
-
-}: any) => {
-
-
-
-
-  function calculateTimeLeft(): TimeLeft {
+const MatchOdds = ({ matchDetails, data, teamRates }: any) => {
+  function calculateTimeLeft() {
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     const targetDate = moment(data?.startAt).tz(timezone);
     const difference = targetDate.diff(moment().tz(timezone), "milliseconds");
-    let timeLeft: TimeLeft = {
-      days: "",
-      hours: "",
-      minutes: ""
-    }; // Initialize with the defined type
-
+    let timeLeft = {};
     if (difference > 0) {
       timeLeft = {
-        days: ("0" + Math.floor(difference / (1000 * 60 * 60 * 24))).slice(-2) || "00",
-        hours: ("0" + Math.floor((difference / (1000 * 60 * 60)) % 24)).slice(-2) || "00",
-        minutes: ("0" + Math.floor((difference / 1000 / 60) % 60)).slice(-2) || "00",
-        seconds: ("0" + Math.floor((difference / 1000) % 60)).slice(-2) || "00",
+        days:
+          ("0" + Math.floor(difference / (1000 * 60 * 60 * 24))).slice(-2) || 0,
+        hours:
+          ("0" + Math.floor((difference / (1000 * 60 * 60)) % 24)).slice(-2) ||
+          0,
+        minutes:
+          ("0" + Math.floor((difference / 1000 / 60) % 60)).slice(-2) || 0,
+        seconds: ("0" + Math.floor((difference / 1000) % 60)).slice(-2) || 0,
       };
     } else {
       timeLeft = {
@@ -58,139 +34,188 @@ const MatchOdds = ({
     return timeLeft;
   }
 
-  const { matchDetails } = useSelector(
-    (state: RootState) => state.match.matchList
-  );
+  const [timeLeft, setTimeLeft] = useState<any>(calculateTimeLeft());
 
+  const upcoming =
+    Number(timeLeft.days) === 0 &&
+    Number(timeLeft.hours) === 0 &&
+    Number(timeLeft.minutes) <= 30;
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setTimeLeft(calculateTimeLeft());
+    }, 0);
+    return () => clearTimeout(timer);
+  });
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
-
-
       {matchDetails?.matchOdd?.isActive && (
-
         <MarketOdds
-          teamA={matchDetails?.teamA}
-          title={matchDetails?.matchOdd.name}
-          teamB={matchDetails?.teamB}
-          minBet={matchDetails?.matchOdd?.minBet}
-          maxBet={matchDetails?.matchOdd?.maxBet}
-          valueA={matchDetails?.profitLossDataMatch?.teamRateA}
-          valueB={matchDetails?.profitLossDataMatch?.teamRateB}
-          key={matchDetails?.id}
-          newData={matchDetails?.matchOdd}
-          matchOddsData={matchDetails?.matchOdd}
-          data={matchDetails}
-          typeOfBet={matchDetails?.type
+          // upcoming={!upcoming}
+          betLock={data?.blockMarket?.MATCH_ODDS?.block}
+          showDely={true}
+          showBox={!matchDetails?.matchOdd}
+          newData={data}
+          data={
+            matchDetails?.matchOdd?.runners?.length > 0
+              ? matchDetails?.matchOdd?.runners
+              : []
           }
-          type={MatchType.MATCH_ODDS}
-          
+          lock={matchDetails?.matchOdd.activeStatus !== "live" ? true : false}
+          teamARates={teamRates?.teamA}
+          teamBRates={teamRates?.teamB}
+          teamCRates={teamRates?.teamC}
+          min={matchDetails?.matchOdd?.minBet || 0}
+          max={matchDetails?.matchOdd?.maxBet || 0}
+          title={matchDetails?.matchOdd?.name}
+          typeOfBet={"MATCH ODDS"}
+          marketDetails={matchDetails?.matchOdd}
+          // handleRateChange={handleRateChange}
         />
-
       )}
 
-      {matchDetails?.quickBookmaker?.map((item: any) => (
+      {matchDetails?.bookmaker?.isActive && (
         <MarketOdds
-          key={item?.id}
-          newData={item}
+          betLock={data?.blockMarket?.BOOKMAKER?.block}
+          showBox={!matchDetails?.bookmaker}
+          newData={data}
+          showFast={false}
+          showDely={true}
+          lock={
+            data?.bookmakerLive?.length > 0 &&
+            data?.bookmakerLive[0]?.betStatus === 0
+              ? true
+              : false
+          }
+          data={
+            matchDetails?.bookmaker?.runners?.length > 0
+              ? matchDetails?.bookmaker?.runners
+              : []
+          }
+          teamARates={teamRates?.teamA}
+          teamBRates={teamRates?.teamB}
+          teamCRates={teamRates?.teamC}
+          min={matchDetails?.bookmaker?.minBet || 0}
+          max={matchDetails?.bookmaker?.maxBet || 0}
+          title={matchDetails?.bookmaker?.name}
+          isRound={false}
+          session={"bookmaker"}
+          typeOfBet={"BOOKMAKER"}
+          marketDetails={matchDetails?.bookmaker}
+        />
+      )}
+
+      {matchDetails?.apiTideMatch?.isActive && (
+        <MarketOdds
+          betLock={data?.blockMarket?.BOOKMAKER?.block}
+          showBox={!matchDetails?.apiTideMatch}
+          newData={data}
+          showFast={false}
+          showDely={true}
+          lock={
+            data?.bookmakerLive?.length > 0 &&
+            data?.bookmakerLive[0]?.betStatus === 0
+              ? true
+              : false
+          }
+          data={
+            matchDetails?.apiTideMatch?.runners?.length > 0
+              ? matchDetails?.apiTideMatch?.runners
+              : []
+          }
+          // suspended={false}
+          teamARates={teamRates?.teamA}
+          teamBRates={teamRates?.teamB}
+          teamCRates={teamRates?.teamC}
+          min={matchDetails?.apiTideMatch?.minBet || 0}
+          max={matchDetails?.apiTideMatch?.maxBet || 0}
+          title={matchDetails?.apiTideMatch?.name}
+          isRound={false}
+          session={"bookmaker"}
+          typeOfBet={"BOOKMAKER"}
+          marketDetails={matchDetails?.apiTideMatch}
+        />
+      )}
+
+      {matchDetails?.quickBookmaker?.map((bookmaker: any) => (
+        <MarketOdds
+          key={bookmaker?.id}
+          upcoming={!upcoming}
+          betLock={data?.blockMarket?.MANUALBOOKMAKER?.block}
+          newData={data}
           lock={false}
           showDely={false}
           session={"manualBookMaker"}
           showFast={true}
           suspended={false}
-          data={matchDetails}
-          min={item?.minBet || 0}
-          max={item?.maxBet || 0}
-          title={item?.name}
-          typeOfBet={item?.type
-          }
-          matchOddsData={item}
-          type={MatchType.BOOKMAKER}
-           eventType={matchDetails?.matchType}
+          data={data}
+          teamARates={teamRates?.teamA}
+          teamBRates={teamRates?.teamB}
+          teamCRates={teamRates?.teamC}
+          min={bookmaker?.minBet || 0}
+          max={bookmaker?.maxBet || 0}
+          title={bookmaker?.name}
+          typeOfBet={"MANUAL BOOKMAKER"}
+          matchOddsData={bookmaker}
+          marketDetails={bookmaker}
         />
-
       ))}
 
-
-      {matchDetails?.bookmaker && (
+      {matchDetails?.manualTiedMatch?.isActive && (
         <MarketOdds
-          key={matchDetails?.id}
-          newData={matchDetails?.bookmaker}
-          matchOddsData={matchDetails?.bookmaker}
-          data={matchDetails}
-          title={matchDetails?.bookmaker.name}
-          teamA={matchDetails?.teamA}
-          teamB={matchDetails?.teamB}
-          minBet={matchDetails?.bookmaker?.minBet}
-          maxBet={matchDetails?.bookmaker?.maxBet}
-          valueA={matchDetails?.profitLossDataMatch?.teamRateA}
-          valueB={matchDetails?.profitLossDataMatch?.teamRateB}
-          typeOfBet={matchDetails?.type
-          }
-        />
-
-      )}
-
-      {matchDetails?.apiTideMatch && (
-        <MarketOdds
-          key={matchDetails?.id}
-          newData={matchDetails?.apiTideMatch}
-          matchOddsData={matchDetails?.apiTideMatch}
-          data={matchDetails}
-          title={matchDetails?.apiTideMatch.name}
-          teamA={"Yes"}
-          teamB={"No"}
-          minBet={matchDetails?.apiTideMatch?.minBet}
-          maxBet={matchDetails?.apiTideMatch?.maxBet}
-          valueA={matchDetails?.profitLossDataMatch?.yesRateTie}
-          valueB={matchDetails?.profitLossDataMatch?.noRateTie}
-          typeOfBet={matchDetails?.type
-          }
-        />
-      )}
-
-      {matchDetails?.manualTiedMatch && (
-        <MarketOdds
-          key={matchDetails?.id}
-          newData={matchDetails?.manualTiedMatch}
+          upcoming={!upcoming}
+          betLock={data?.blockMarket?.MANUALBOOKMAKER?.block}
+          newData={data}
+          lock={false}
+          showDely={false}
+          session={"manualBookMaker"}
+          showFast={true}
+          suspended={false}
+          data={data}
+          teamARates={teamRates?.teamA}
+          teamBRates={teamRates?.teamB}
+          teamCRates={teamRates?.teamC}
+          min={matchDetails?.manualTiedMatch?.minBet || 0}
+          max={matchDetails?.manualTiedMatch?.maxBet || 0}
+          title={matchDetails?.manualTiedMatch?.name}
+          typeOfBet={"MANUAL BOOKMAKER"}
           matchOddsData={matchDetails?.manualTiedMatch}
-          data={matchDetails}
-          title={matchDetails?.manualTiedMatch.name}
-          teamA={"Yes"}
-          teamB={"No"}
-          minBet={matchDetails?.manualTiedMatch?.minBet}
-          maxBet={matchDetails?.manualTiedMatch?.maxBet}
-          valueA={matchDetails?.profitLossDataMatch?.yesRateTie}
-          valueB={matchDetails?.profitLossDataMatch?.noRateTie}
-          statusTeamA={matchDetails?.manualTiedMatch?.statusTeamA}
-          statusTeamB={matchDetails?.manualTiedMatch?.statusTeamB}
-          statusTeamC={matchDetails?.manualTiedMatch?.statusTeamC}
-          typeOfBet={matchDetails?.type
-          }
+          marketDetails={matchDetails?.manualTiedMatch}
         />
       )}
 
-
-      {matchDetails?.marketCompleteMatch && (
+      {matchDetails?.marketCompleteMatch?.isActive && (
         <MarketOdds
-          key={matchDetails?.id}
-          newData={matchDetails?.marketCompleteMatch}
-          matchOddsData={matchDetails?.marketCompleteMatch}
-          data={matchDetails}
-          title={matchDetails?.marketCompleteMatch.name}
-          teamA={"Yes"}
-          teamB={"No"}
-          typeOfBet={matchDetails?.type
+          betLock={data?.blockMarket?.BOOKMAKER?.block}
+          showBox={!matchDetails?.marketCompleteMatch}
+          newData={data}
+          showFast={false}
+          showDely={true}
+          lock={
+            data?.bookmakerLive?.length > 0 &&
+            data?.bookmakerLive[0]?.betStatus === 0
+              ? true
+              : false
           }
-          minBet={matchDetails?.marketCompleteMatch?.minBet}
-          maxBet={matchDetails?.marketCompleteMatch?.maxBet}
-          valueA={matchDetails?.profitLossDataMatch?.yesRateTie}
-          valueB={matchDetails?.profitLossDataMatch?.noRateTie}
+          data={
+            matchDetails?.marketCompleteMatch?.runners?.length > 0
+              ? matchDetails?.marketCompleteMatch?.runners
+              : []
+          }
+          // suspended={false}
+          teamARates={teamRates?.teamA}
+          teamBRates={teamRates?.teamB}
+          teamCRates={teamRates?.teamC}
+          min={matchDetails?.marketCompleteMatch?.minBet || 0}
+          max={matchDetails?.marketCompleteMatch?.maxBet || 0}
+          title={matchDetails?.marketCompleteMatch?.name}
+          isRound={false}
+          session={"bookmaker"}
+          typeOfBet={"BOOKMAKER"}
+          marketDetails={matchDetails?.marketCompleteMatch}
         />
       )}
-
-
-
 
       <>
         {matchDetails?.apiSessionActive && (
@@ -198,8 +223,7 @@ const MatchOdds = ({
             key={matchDetails?.id}
             newData={matchDetails?.apiSessionActive}
             matchOddsData={matchDetails?.apiSessionActive}
-            typeOfBet={matchDetails?.type
-            }
+            typeOfBet={matchDetails?.type}
             title={"Session Market"}
             type={MatchType.API_SESSION_MARKET}
             data={matchDetails?.apiSession}
@@ -207,24 +231,21 @@ const MatchOdds = ({
         )}
       </>
       <>
-        {matchDetails?.sessionBettings && matchDetails.sessionBettings.length > 0 && (
+        {matchDetails?.manualSessionActive && (
           <QuickSessionMarket
             key={matchDetails?.id}
             title={"Quick Session Market"}
             type={MatchType.SESSION_MARKET}
             matchOddsData={matchDetails?.sessionBettings}
-            name={JSON.parse(matchDetails.sessionBettings[0]).name}
             newData={matchDetails.sessionBettings}
             eventType={matchDetails?.matchType}
             minBet={matchDetails?.betFairSessionMinBet}
             maxBet={matchDetails?.betFairSessionMaxBet}
-            typeOfBet={matchDetails?.type
-            }
+            typeOfBet={matchDetails?.type}
           />
         )}
       </>
     </Box>
-
   );
 };
 

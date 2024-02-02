@@ -5,7 +5,7 @@ import { ApiConstants } from "../../../utils/Constants";
 
 export const marqueeNotification = createAsyncThunk<any>(
   "user/notification",
-  async (__, thunkApi) => {
+  async (_, thunkApi) => {
     try {
       const resp = await service.get(`${ApiConstants.USER.MARQUEE}`);
       if (resp) {
@@ -18,21 +18,21 @@ export const marqueeNotification = createAsyncThunk<any>(
   }
 );
 
-export const getProfile = createAsyncThunk<any>("/user/profile", async (__, thunkApi) => {
-  try {
-    const resp = await service.get(`${ApiConstants.USER.GET_PROFILE}`);
-    // console.log("API Request user: Success", resp.data);
-    if (resp) {
-      return resp?.data;
-
-      
+export const getProfile = createAsyncThunk<any>(
+  "/user/profile",
+  async (_, thunkApi) => {
+    try {
+      const resp = await service.get(`${ApiConstants.USER.GET_PROFILE}`);
+      // console.log("API Request user: Success", resp.data);
+      if (resp) {
+        return resp?.data;
+      }
+    } catch (error: any) {
+      const err = error as AxiosError;
+      return thunkApi.rejectWithValue(err.response?.status);
     }
-   
-  } catch (error: any) {
-    const err = error as AxiosError;
-    return thunkApi.rejectWithValue(err.response?.status);
   }
-});
+);
 
 export const updateBalance = createAsyncThunk<any, any>(
   "/user/balance",
@@ -50,7 +50,7 @@ export const betDataFromSocket = createAsyncThunk<any, any>(
 
 export const getAccountStatement = createAsyncThunk<any, any>(
   "user/account/statement",
-  async ({ userId, page, limit, searchBy, keyword, filter },thunkApi) => {
+  async ({ userId, page, limit, searchBy, keyword, filter }, thunkApi) => {
     try {
       const resp = await service.get(
         `${ApiConstants.USER.ACCOUNT_STATEMENT}${userId}?page=${
@@ -73,8 +73,10 @@ export const getButtonValue = createAsyncThunk<any, string>(
   "user/getButtonValue",
   async (requestData, thunkApi) => {
     try {
-      const resp = await service.get(`${ApiConstants.USER.GET_BTN_VALUE}?type=${requestData}`);
-      
+      const resp = await service.get(
+        `${ApiConstants.USER.GET_BTN_VALUE}?type=${requestData}`
+      );
+
       if (resp) {
         return resp?.data;
       }

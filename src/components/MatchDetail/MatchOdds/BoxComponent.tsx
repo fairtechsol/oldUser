@@ -1,11 +1,9 @@
-
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 
 import MoneyBox from "./MoneyBox";
 import SeparateModal from "./SeparateModal";
 
 import { formatNumber } from "../../../helper/index";
-
 
 import { useEffect } from "react";
 import { memo } from "react";
@@ -25,7 +23,6 @@ const BoxComponent = ({
   lock,
   teamImage,
   newData,
-  suspendedData,
   showBox,
   livestatus,
   isRound,
@@ -38,8 +35,9 @@ const BoxComponent = ({
   placeBetData,
   setFastBetLoading,
   handleRateChange,
-  title
-}:any) => {
+  title,
+  marketDetails,
+}: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const { ex, status } = data ?? {};
@@ -48,7 +46,6 @@ const BoxComponent = ({
       setPlaceBetData(null);
     }
   }, [livestatus, status, showBox]);
-
 
   return (
     <Box
@@ -80,7 +77,6 @@ const BoxComponent = ({
             alignItems: "center",
           }}
         >
-
           {teamImage != null && (
             <>
               <img
@@ -109,7 +105,7 @@ const BoxComponent = ({
               width: { xs: "113px", md: "100%", lg: "100%" },
             }}
           >
-        {name}
+            {name}
           </Typography>
         </Box>
         <MoneyBox color={color} rates={rate} />
@@ -130,8 +126,8 @@ const BoxComponent = ({
         ></Box>
       )}
       {!["ACTIVE", "", undefined, null].includes(status) ||
-        newData?.bettings?.length === 0 ||
-        livestatus ? (
+      newData?.bettings?.length === 0 ||
+      livestatus ? (
         <Box
           sx={{
             background: "rgba(0,0,0,1)",
@@ -183,15 +179,18 @@ const BoxComponent = ({
                   key: 1,
                   match: "back",
                   team: name,
-                  value: typeOfBet == "MATCH ODDS" ? isRound
-                    ? Math.round(
-                      ex?.availableToBack?.length > 0
+                  value:
+                    typeOfBet == "MATCH ODDS"
+                      ? isRound
+                        ? Math.round(
+                            ex?.availableToBack?.length > 0
+                              ? ex?.availableToBack[2]?.price
+                              : 0
+                          )
+                        : ex?.availableToBack?.length > 0
                         ? ex?.availableToBack[2]?.price
                         : 0
-                    )
-                    : ex?.availableToBack?.length > 0
-                      ? ex?.availableToBack[2]?.price
-                      : 0 : null
+                      : null,
                 }}
                 placeBetData={placeBetData}
                 setFastRate={setFastRate}
@@ -208,13 +207,13 @@ const BoxComponent = ({
                 value={
                   isRound
                     ? Math.round(
-                      ex?.availableToBack?.length > 0
-                        ? ex?.availableToBack[2]?.price
-                        : 0
-                    )
+                        ex?.availableToBack?.length > 0
+                          ? ex?.availableToBack[2]?.price
+                          : 0
+                      )
                     : ex?.availableToBack?.length > 0
-                      ? ex?.availableToBack[2]?.price
-                      : 0
+                    ? ex?.availableToBack[2]?.price
+                    : 0
                 }
                 value2={formatNumber(
                   ex?.availableToBack?.length > 0
@@ -228,6 +227,7 @@ const BoxComponent = ({
                 data={data}
                 typeOfBet={typeOfBet}
                 handleRateChange={handleRateChange}
+                marketDetails={marketDetails}
               />
             )}
             <Box
@@ -246,15 +246,18 @@ const BoxComponent = ({
                   key: 2,
                   match: "back",
                   team: name,
-                  value: typeOfBet == "MATCH ODDS" ? isRound
-                    ? Math.round(
-                      ex?.availableToBack?.length > 0
+                  value:
+                    typeOfBet == "MATCH ODDS"
+                      ? isRound
+                        ? Math.round(
+                            ex?.availableToBack?.length > 0
+                              ? ex?.availableToBack[1]?.price
+                              : 0
+                          )
+                        : ex?.availableToBack?.length > 0
                         ? ex?.availableToBack[1]?.price
                         : 0
-                    )
-                    : ex?.availableToBack?.length > 0
-                      ? ex?.availableToBack[1]?.price
-                      : 0 : null
+                      : null,
                 }}
                 placeBetData={placeBetData}
                 setFastRate={setFastRate}
@@ -271,13 +274,13 @@ const BoxComponent = ({
                 value={
                   isRound
                     ? Math.round(
-                      ex?.availableToBack?.length > 0
-                        ? ex?.availableToBack[1]?.price
-                        : 0
-                    )
+                        ex?.availableToBack?.length > 0
+                          ? ex?.availableToBack[1]?.price
+                          : 0
+                      )
                     : ex?.availableToBack?.length > 0
-                      ? ex?.availableToBack[1]?.price
-                      : 0
+                    ? ex?.availableToBack[1]?.price
+                    : 0
                 }
                 value2={formatNumber(
                   ex?.availableToBack?.length > 0
@@ -291,6 +294,7 @@ const BoxComponent = ({
                 data={data}
                 typeOfBet={typeOfBet}
                 handleRateChange={handleRateChange}
+                marketDetails={marketDetails}
               />
             )}
             <Box
@@ -309,15 +313,18 @@ const BoxComponent = ({
                 key: 3,
                 match: "back",
                 team: name,
-                value: typeOfBet == "MATCH ODDS" ? isRound
-                  ? Math.round(
-                    ex?.availableToBack?.length > 0
+                value:
+                  typeOfBet == "MATCH ODDS"
+                    ? isRound
+                      ? Math.round(
+                          ex?.availableToBack?.length > 0
+                            ? ex?.availableToBack[0]?.price
+                            : 0
+                        )
+                      : ex?.availableToBack?.length > 0
                       ? ex?.availableToBack[0]?.price
                       : 0
-                  )
-                  : ex?.availableToBack?.length > 0
-                    ? ex?.availableToBack[0]?.price
-                    : 0 : null
+                    : null,
               }}
               placeBetData={placeBetData}
               setFastRate={setFastRate}
@@ -334,13 +341,13 @@ const BoxComponent = ({
               value={
                 isRound
                   ? Math.round(
-                    ex?.availableToBack?.length > 0
-                      ? ex?.availableToBack[0]?.price
-                      : 0
-                  )
+                      ex?.availableToBack?.length > 0
+                        ? ex?.availableToBack[0]?.price
+                        : 0
+                    )
                   : ex?.availableToBack?.length > 0
-                    ? ex?.availableToBack[0]?.price
-                    : 0
+                  ? ex?.availableToBack[0]?.price
+                  : 0
               }
               value2={formatNumber(
                 ex?.availableToBack?.length > 0
@@ -354,6 +361,7 @@ const BoxComponent = ({
               data={data}
               typeOfBet={typeOfBet}
               handleRateChange={handleRateChange}
+              marketDetails={marketDetails}
             />
 
             <Box
@@ -372,15 +380,18 @@ const BoxComponent = ({
                 key: 4,
                 match: "lay",
                 team: name,
-                value: typeOfBet == "MATCH ODDS" ? isRound
-                  ? Math.round(
-                    ex?.availableToLay?.length > 0
+                value:
+                  typeOfBet == "MATCH ODDS"
+                    ? isRound
+                      ? Math.round(
+                          ex?.availableToLay?.length > 0
+                            ? ex?.availableToLay[0]?.price
+                            : 0
+                        )
+                      : ex?.availableToLay?.length > 0
                       ? ex?.availableToLay[0]?.price
                       : 0
-                  )
-                  : ex?.availableToLay?.length > 0
-                    ? ex?.availableToLay[0]?.price
-                    : 0 : null
+                    : null,
               }}
               placeBetData={placeBetData}
               setFastRate={setFastRate}
@@ -397,13 +408,13 @@ const BoxComponent = ({
               value={
                 isRound
                   ? Math.round(
-                    ex?.availableToLay?.length > 0
-                      ? ex?.availableToLay[0]?.price
-                      : 0
-                  )
+                      ex?.availableToLay?.length > 0
+                        ? ex?.availableToLay[0]?.price
+                        : 0
+                    )
                   : ex?.availableToLay?.length > 0
-                    ? ex?.availableToLay[0]?.price
-                    : 0
+                  ? ex?.availableToLay[0]?.price
+                  : 0
               }
               value2={formatNumber(
                 ex?.availableToLay?.length > 0
@@ -417,6 +428,7 @@ const BoxComponent = ({
               data={data}
               typeOfBet={typeOfBet}
               handleRateChange={handleRateChange}
+              marketDetails={marketDetails}
             />
             {!matchesMobile && (
               <SeparateModal
@@ -431,15 +443,18 @@ const BoxComponent = ({
                   key: 5,
                   match: "lay",
                   team: name,
-                  value: typeOfBet == "MATCH ODDS" ? isRound
-                    ? Math.round(
-                      ex?.availableToLay?.length > 0
+                  value:
+                    typeOfBet == "MATCH ODDS"
+                      ? isRound
+                        ? Math.round(
+                            ex?.availableToLay?.length > 0
+                              ? ex?.availableToLay[1]?.price
+                              : 0
+                          )
+                        : ex?.availableToLay?.length > 0
                         ? ex?.availableToLay[1]?.price
                         : 0
-                    )
-                    : ex?.availableToLay?.length > 0
-                      ? ex?.availableToLay[1]?.price
-                      : 0 : null
+                      : null,
                 }}
                 placeBetData={placeBetData}
                 setFastRate={setFastRate}
@@ -456,13 +471,13 @@ const BoxComponent = ({
                 value={
                   isRound
                     ? Math.round(
-                      ex?.availableToLay?.length > 0
-                        ? ex?.availableToLay[1]?.price
-                        : 0
-                    )
+                        ex?.availableToLay?.length > 0
+                          ? ex?.availableToLay[1]?.price
+                          : 0
+                      )
                     : ex?.availableToLay?.length > 0
-                      ? ex?.availableToLay[1]?.price
-                      : 0
+                    ? ex?.availableToLay[1]?.price
+                    : 0
                 }
                 value2={formatNumber(
                   ex?.availableToLay?.length > 0
@@ -476,6 +491,7 @@ const BoxComponent = ({
                 data={data}
                 typeOfBet={typeOfBet}
                 handleRateChange={handleRateChange}
+                marketDetails={marketDetails}
               />
             )}
             {!matchesMobile && (
@@ -491,15 +507,18 @@ const BoxComponent = ({
                   key: 6,
                   match: "lay",
                   team: name,
-                  value: typeOfBet == "MATCH ODDS" ? isRound
-                    ? Math.round(
-                      ex?.availableToLay?.length > 0
+                  value:
+                    typeOfBet == "MATCH ODDS"
+                      ? isRound
+                        ? Math.round(
+                            ex?.availableToLay?.length > 0
+                              ? ex?.availableToLay[2]?.price
+                              : 0
+                          )
+                        : ex?.availableToLay?.length > 0
                         ? ex?.availableToLay[2]?.price
                         : 0
-                    )
-                    : ex?.availableToLay?.length > 0
-                      ? ex?.availableToLay[2]?.price
-                      : 0 : null
+                      : null,
                 }}
                 placeBetData={placeBetData}
                 setFastRate={setFastRate}
@@ -516,13 +535,13 @@ const BoxComponent = ({
                 value={
                   isRound
                     ? Math.round(
-                      ex?.availableToLay?.length > 0
-                        ? ex?.availableToLay[2]?.price
-                        : 0
-                    )
+                        ex?.availableToLay?.length > 0
+                          ? ex?.availableToLay[2]?.price
+                          : 0
+                      )
                     : ex?.availableToLay?.length > 0
-                      ? ex?.availableToLay[2]?.price
-                      : 0
+                    ? ex?.availableToLay[2]?.price
+                    : 0
                 }
                 value2={formatNumber(
                   ex?.availableToLay?.length > 0
@@ -536,6 +555,7 @@ const BoxComponent = ({
                 data={data}
                 typeOfBet={typeOfBet}
                 handleRateChange={handleRateChange}
+                marketDetails={marketDetails}
               />
             )}
             <Box

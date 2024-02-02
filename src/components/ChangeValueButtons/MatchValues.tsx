@@ -1,20 +1,20 @@
-import { useEffect, useState } from 'react'
-import { AppDispatch, RootState } from '../../store/store';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
-import { useFormik } from 'formik';
-import { getButtonValue, setButtonValue } from '../../store/actions/user/userAction';
-import { Box, Typography, Button, CircularProgress } from '@mui/material';
-import LabelButton from './LabelButton';
-import ValueButton from './ValueButton';
-
-
+import { useEffect, useState } from "react";
+import { AppDispatch, RootState } from "../../store/store";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { useFormik } from "formik";
+import {
+  getButtonValue,
+  setButtonValue,
+} from "../../store/actions/user/userAction";
+import { Box, Typography, Button, CircularProgress } from "@mui/material";
+import LabelButton from "./LabelButton";
+import ValueButton from "./ValueButton";
 
 interface ButtonProps {
   label: string;
   value: string;
 }
-
 
 const MatchValues = () => {
   const [loader, setLoader] = useState(false);
@@ -88,15 +88,13 @@ const MatchValues = () => {
 
   const { handleSubmit, setValues, values, setFieldValue } = formik;
 
-
-
   useEffect(() => {
-    if (buttonValues?.value) {
+    if (buttonValues[0]?.value) {
       setValues(
-        Object.keys(JSON.parse(buttonValues?.value))?.map((item) => {
+        Object.keys(JSON.parse(buttonValues[0]?.value))?.map((item) => {
           return {
             label: item,
-            value: JSON.parse(buttonValues?.value)[item],
+            value: JSON.parse(buttonValues[0]?.value)[item],
           };
         })
       );
@@ -120,7 +118,6 @@ const MatchValues = () => {
               marginTop: "10px",
               marginX: { xs: "2vw", lg: "1vw" },
             }}
-
           >
             <Typography
               sx={{
@@ -140,7 +137,6 @@ const MatchValues = () => {
                 padding: "20px",
                 marginTop: "10px",
               }}
-
             >
               <Box sx={{ display: "flex" }}>
                 <Box sx={{ flex: 1 }}>
@@ -225,13 +221,10 @@ const MatchValues = () => {
                     />
                   ) : (
                     "Update"
-
                   )}
                 </Typography>
               </Button>
-
             </Box>
-
           </Box>
         </form>
       </>
