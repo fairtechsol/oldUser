@@ -2,7 +2,7 @@ import { Box, MenuItem, Typography } from "@mui/material";
 
 import { useNavigate } from "react-router-dom";
 
-const MyAccount = ({ selected }: any) => {
+const MyAccount = () => {
   const navigate = useNavigate();
   const classes = {
     Menusx: {

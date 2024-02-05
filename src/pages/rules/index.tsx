@@ -1,8 +1,6 @@
 import { Box, Typography } from "@mui/material";
-import BackgroundLayout from "../../components/Common/BackgroundLayout";
-// import { Background } from "../../components";
 
-const Rules = ({userPadding}:any) => {
+const Rules = ({ userPadding }: any) => {
   const ListHeader = () => {
     return (
       <Box
@@ -54,7 +52,7 @@ const Rules = ({userPadding}:any) => {
       </Box>
     );
   };
-  const RowComponent = ({ index }:any) => {
+  const RowComponent = ({ index }: any) => {
     let flag = index % 2 != 0;
     return (
       <Box
@@ -110,8 +108,7 @@ const Rules = ({userPadding}:any) => {
     );
   };
   return (
-<>
-
+    <>
       <Typography
         sx={{
           fontSize: { xs: "12px", lg: "15px" },
@@ -120,17 +117,16 @@ const Rules = ({userPadding}:any) => {
           marginBottom: "5px",
           color: "white",
           fontWeight: "bold",
-          paddingTop:userPadding,
+          paddingTop: userPadding,
         }}
       >
         {"RULES"}
       </Typography>
       <ListHeader />
-      {["", "", "", ""].map((value, index) => {
+      {["", "", "", ""].map((_, index) => {
         return <RowComponent key={index} index={index} />;
       })}{" "}
-
-</>
+    </>
   );
 };
 

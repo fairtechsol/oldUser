@@ -1,5 +1,5 @@
 import { Box, Button, CircularProgress, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { AppDispatch, RootState } from "../../store/store";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -17,7 +17,7 @@ interface ButtonProps {
 }
 
 const SessionValue = () => {
-  const [loader, setLoader] = useState(false);
+  const [loader] = useState(false);
 
   const initialValues = [
     {

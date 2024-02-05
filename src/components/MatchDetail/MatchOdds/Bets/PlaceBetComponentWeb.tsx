@@ -1,22 +1,20 @@
 import React from "react";
-
 import { UD } from "../../../../assets";
 import { Box, Typography } from "@mui/material";
 import { useEffect } from "react";
-
 import { useState } from "react";
 import DropDownMenu from "../../../../layout/main/header/DropdownMenu";
 
-const PlaceBetComponentWeb = ({ amount, profitLoss }:any) => {
+const PlaceBetComponentWeb = ({ profitLoss }: any) => {
   const [proLoss, setProfitLoss] = useState(profitLoss?.profitLoss);
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClose = () => {
     setAnchorEl(null);
   };
   const [show, setShow] = React.useState(false);
-//   const innerRef = useOuterClick((ev:any) => {
-//     setShow(false);
-//   });
+  //   const innerRef = useOuterClick((ev:any) => {
+  //     setShow(false);
+  //   });
 
   ///ddd
   useEffect(() => {
@@ -24,11 +22,12 @@ const PlaceBetComponentWeb = ({ amount, profitLoss }:any) => {
       setProfitLoss(profitLoss?.profitLoss);
     }
   }, [profitLoss]);
+
   return (
     <>
       <Box
         // ref={innerRef}
-        onClick={(e) => setShow(!show)}
+        onClick={() => setShow(!show)}
         sx={{
           background: "#0B4F26",
           flexDirection: "row",
@@ -53,7 +52,7 @@ const PlaceBetComponentWeb = ({ amount, profitLoss }:any) => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-       
+
             flexDirection: "column",
           }}
         >
@@ -73,7 +72,8 @@ const PlaceBetComponentWeb = ({ amount, profitLoss }:any) => {
               color: "#0B4F26",
             }}
           >
-            {proLoss?.total_bet < 10 ? 0 : ""}{proLoss?.total_bet || 0}
+            {proLoss?.total_bet < 10 ? 0 : ""}
+            {proLoss?.total_bet || 0}
             {/* {profitLoss?.total_bet || 0} */}
           </Typography>
         </Box>
@@ -82,19 +82,21 @@ const PlaceBetComponentWeb = ({ amount, profitLoss }:any) => {
             width: "100%",
             alignItems: "center",
             justifyContent: "center",
-            display: "flex"
+            display: "flex",
           }}
         >
           <Typography
             sx={{
-              fontSize: { lg: !profitLoss?.profitLoss?.max_loss ? ".65vw" : ".65vw" },
+              fontSize: {
+                lg: !profitLoss?.profitLoss?.max_loss ? ".65vw" : ".65vw",
+              },
               fontWeight: !profitLoss?.profitLoss?.max_loss ? "bold" : "bold",
               color: "white",
             }}
           >
-            {!profitLoss?.profitLoss?.max_loss ? "Profit/Loss" : profitLoss?.profitLoss?.max_loss}
-
-
+            {!profitLoss?.profitLoss?.max_loss
+              ? "Profit/Loss"
+              : profitLoss?.profitLoss?.max_loss}
           </Typography>
           <img
             src={UD}

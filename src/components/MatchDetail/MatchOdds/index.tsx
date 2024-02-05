@@ -2,9 +2,7 @@ import { Pagination, Box } from "@mui/material";
 import { memo, useEffect, useState } from "react";
 import {} from "@mui/material";
 import Odds from "./Odds";
-
 import { Constants } from "../../../utils/Constants";
-
 import CustomLoader from "../../Loader/index";
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../store/store";
@@ -12,10 +10,10 @@ import { expertSocketService } from "../../../socketManager";
 import { useDispatch } from "react-redux";
 import { updateMatchOddRates } from "../../../store/actions/match/matchListAction";
 
-const MatchesComponent = () => {
+const MatchesComponent = (_: any) => {
   const dispatch: AppDispatch = useDispatch();
-  const [pageCount, setPageCount] = useState(Constants.pageCount);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [pageCount] = useState(Constants.pageCount);
+  const [currentPage] = useState(1);
 
   const { matchList, loading } = useSelector(
     (state: RootState) => state.match.matchList

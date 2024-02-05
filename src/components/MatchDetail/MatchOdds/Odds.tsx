@@ -1,9 +1,7 @@
-import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
-import { memo, useEffect, useState } from "react";
-import SeparateBox from "./SeparateBox";
+import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 import Divider from "../../../helper/Divider";
 import moment from "moment-timezone";
-import { useDispatch } from "react-redux";
 
 import { useNavigate } from "react-router-dom";
 import MatchRatesCommonComp from "./MatchRatesCommonComp";
@@ -16,12 +14,8 @@ interface TimeLeft {
   seconds?: string;
 }
 
-const Odds = ({ onClick, top, blur, match, data, item, title }: any) => {
-  const theme = useTheme();
+const Odds = ({ onClick, top, blur, match, data }: any) => {
   const navigate = useNavigate();
-  const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
-
-  const dispatch = useDispatch();
 
   function calculateTimeLeft(): TimeLeft {
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;

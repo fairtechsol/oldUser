@@ -6,14 +6,11 @@ const BoxInput = ({
   stakeValue,
   containerStyle,
   valueContainerStyle,
-  valueTextStyle,
-  trendingUp,
   getLatestBetAmount,
-  trendingDown,
   setStakeValue,
   selectedColorBox,
-}:any) => {
-  const handleInputChange = (e:any) => {
+}: any) => {
+  const handleInputChange = (e: any) => {
     let value = e.target.value.trim();
 
     // Remove non-numeric and non-decimal characters
@@ -69,7 +66,7 @@ const BoxInput = ({
           valueContainerStyle,
         ]}
       >
-        <TextField 
+        <TextField
           value={stakeValue}
           // autoFocus
           variant="standard"

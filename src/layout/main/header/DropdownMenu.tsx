@@ -8,18 +8,15 @@ import {
 } from "@mui/material";
 import StyledImage from "../../../components/Common/StyledImages";
 import Logout from "../../../assets/images/logout.png";
-
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
 import { memo } from "react";
-
 import { useState } from "react";
 import { logout } from "../../../store/actions/auth/authAction";
 import { AppDispatch } from "../../../store/store";
 
 const DropdownMenu = ({ anchorEl, open, handleClose }: any) => {
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
 
   const theme = useTheme();
   const navigate = useNavigate();

@@ -17,16 +17,9 @@ import {
   updateMatchRates,
 } from "../../store/actions/match/matchListAction";
 import { getPlacedBets } from "../../store/actions/betPlace/betPlaceActions";
-import { expertSocketService, socketService } from "../../socketManager";
+import { expertSocketService } from "../../socketManager";
 
-interface BetTableProps {
-  title: string;
-  type: string;
-  data: any;
-  backLayCount?: number;
-}
-
-const MatchDetail = ({ backLayCount }: BetTableProps) => {
+const MatchDetail = () => {
   const dispatch: AppDispatch = useDispatch();
   const { state } = useLocation();
   const [IObets] = useState([]);
@@ -143,7 +136,7 @@ const MatchDetail = ({ backLayCount }: BetTableProps) => {
 
                 {IObets.length > 0 && (
                   <AllRateSeperate
-                    allBetsData={IObets?.filter((v) => [
+                    allBetsData={IObets?.filter(() => [
                       "MATCH ODDS",
                       "BOOKMAKER",
                       "MANUAL BOOKMAKER",
@@ -152,7 +145,7 @@ const MatchDetail = ({ backLayCount }: BetTableProps) => {
                       "QuickBookmaker2",
                     ])}
                     count={
-                      IObets?.filter((v) => [
+                      IObets?.filter(() => [
                         "MATCH ODDS",
                         "BOOKMAKER",
                         "MANUAL BOOKMAKER",

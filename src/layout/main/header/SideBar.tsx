@@ -1,12 +1,11 @@
-import { Drawer, TextField, Typography, useTheme } from "@mui/material";
+import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { ArrowDown, drawerBackground } from "../../../assets/index";
 
 const SideBar = ({ mobileShow }: any) => {
   const [showSideBarMobile, setShowSideBarMobile] = useState(false);
-  const location = useLocation();
   const navigate = useNavigate();
   const [selected, setSelected] = useState("All Sports");
   const data = [
@@ -126,7 +125,6 @@ const SideBar = ({ mobileShow }: any) => {
     );
   };
   const ListItem = ({ item }: any) => {
-    const theme = useTheme();
     return (
       <Box
         onClick={() => {

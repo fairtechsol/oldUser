@@ -3,13 +3,13 @@ import { useState } from "react";
 import Loader from "../../components/Loader";
 import AllRateSeperate from "../../components/MatchDetail/AllRateBets/AllRateSeperate";
 import SessionBetSeperate from "../../components/MatchDetail/SessionOdds/SessionBetSeperate";
-import { Constants } from "../../utils/Constants";
+// import { Constants } from "../../utils/Constants";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
 
 const BetHistory = () => {
   const [allBets] = useState([]);
-  const [pageCount, setPageCount] = useState(Constants.pageLimit);
+  // const [pageCount, setPageCount] = useState(Constants.pageLimit);
   const [loading] = useState(false);
   const { placedBets } = useSelector((state: RootState) => state.bets);
 
@@ -68,7 +68,7 @@ const BetHistory = () => {
                     (b: any) => !["session"].includes(b?.marketType)
                   ).length || 0
                 }
-                setPageCountOuter={setPageCount}
+                // setPageCountOuter={setPageCount}
                 //   callPage={callPage}
               />
               <Box sx={{ width: { lg: "1vw", xs: 0 } }}></Box>

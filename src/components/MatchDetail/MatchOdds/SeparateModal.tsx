@@ -1,7 +1,6 @@
-import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import React, { memo, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 // import Modal from '@mui/material/Modal';
 import MUIModal from "@mui/material/Modal";
 // import PlaceBet from "../PlaceBet";
@@ -11,7 +10,7 @@ import { Modal } from "react-bootstrap";
 import { Lock } from "../../../assets/index";
 import { useState } from "react";
 import OddsPlaceBet from "./Bets/OddsPlacebet";
-import { AppDispatch, RootState } from "../../../store/store";
+import { AppDispatch } from "../../../store/store";
 import { selectedBetAction } from "../../../store/actions/match/matchListAction";
 
 // import NotificationModal from "../NotificationModal";
@@ -33,45 +32,35 @@ const SeparateModal = ({
   mainData,
   rates,
   betType,
-  setFastAmount,
   selectedFastAmount,
   fromOdds,
-  sessionMain,
-  setFastRate,
-  placeBetData,
   setFastBetLoading,
   closeModal,
-  handleRateChange,
-  updateRate,
   matchDetails,
   eventType,
   bettingOn,
   marketDetails,
 }: any) => {
-  const theme = useTheme();
-
-  const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const dispatch: AppDispatch = useDispatch();
-  const navigate = useNavigate();
   const [isBack, setIsBack] = React.useState(false);
   const [isSessionYes, setIsSessionYes] = React.useState(false);
   const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
-  const [visible, setVisible] = React.useState(false);
+  // const [visible, setVisible] = React.useState(false);
 
   const [showSuccessModal, setShowSuccessModal] = useState(true);
-  const [showModalMessage, setShowModalMessage] = useState("");
+  const [showModalMessage] = useState("");
   const [selectedValue, setSelectedValue] = useState("");
-  const [selectedCountry, setSelectedCountry] = useState("");
-  const [betPalaceError, setBetPalaceError] = useState(false);
+  // const [selectedCountry, setSelectedCountry] = useState("");
+  // const [betPalaceError, setBetPalaceError] = useState(false);
   const [betPlaceLoading, setBetPlaceLoading] = useState(false);
-  const [canceled, setCanceled] = useState({
-    value: false,
-    msg: "",
-    loading: false,
-    type: false,
-  });
+  // const [canceled, setCanceled] = useState({
+  //   value: false,
+  //   msg: "",
+  //   loading: false,
+  //   type: false,
+  // });
 
-  const [previousValue, setPreviousValue] = useState(false);
+  // const [previousValue, setPreviousValue] = useState(false);
 
   useEffect(() => {
     if (closeModal || lock) {
@@ -99,7 +88,7 @@ const SeparateModal = ({
         }}
       >
         <Box
-          onClick={(e: any) => {
+          onClick={() => {
             if (lock || [0, "0"].includes(value)) {
               return false;
             }
@@ -177,7 +166,7 @@ const SeparateModal = ({
                     data
                   );
                 }
-                setSelectedCountry(name);
+                // setSelectedCountry(name);
                 setSelectedValue(value);
                 type?.type === "BL"
                   ? setIsBack(type?.color === "#A7DCFF")
@@ -265,7 +254,7 @@ const SeparateModal = ({
               //   }
               // }}
               onCancel={() => {
-                setVisible(true);
+                // setVisible(true);
                 setIsPopoverOpen(false);
                 setBetPlaceLoading(false);
               }}

@@ -17,7 +17,7 @@ interface ButtonProps {
 }
 
 const MatchValues = () => {
-  const [loader, setLoader] = useState(false);
+  const [loader] = useState(false);
 
   const initialValues = [
     {

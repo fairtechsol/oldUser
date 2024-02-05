@@ -4,17 +4,13 @@ import "react-datepicker/dist/react-datepicker.css";
 import Calendar from "../Common/Calendar";
 import CustomButton from "../Common/CustomButton";
 
-import { AppDispatch } from "../../store/store";
-import { useDispatch } from "react-redux";
-
-
 const YellowHeader = (props: any) => {
   const { getAccountStatement, fromDate, toDate, setFromDate, setToDate } =
     props;
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const tab = useMediaQuery(theme.breakpoints.between("xs", "lg"));
-  const dispatch: AppDispatch = useDispatch();
+
   return (
     <Box
       sx={{
@@ -74,7 +70,6 @@ const YellowHeader = (props: any) => {
             <Calendar
               sx={{ width: "50%" }}
               title={"From"}
-
               startDate={fromDate}
               setStartDate={setFromDate}
             />
@@ -99,7 +94,8 @@ const YellowHeader = (props: any) => {
                 marginTop: matchesMobile ? "25px" : 0,
                 marginLeft: matchesMobile ? "10px" : "20px",
                 // marginBottom: matchesMobile ? "15px" : tab ? "28px" : "15px",
-              }} onClick={() => {
+              }}
+              onClick={() => {
                 getAccountStatement();
               }}
               getAccountStatement={getAccountStatement}
@@ -132,6 +128,5 @@ const YellowHeader = (props: any) => {
     </Box>
   );
 };
-
 
 export default YellowHeader;

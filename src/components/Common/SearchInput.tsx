@@ -1,6 +1,5 @@
 import { Box, TextField, Typography, debounce } from "@mui/material";
 import { useState } from "react";
-import ARROWDROPDOWN  from "../../assets/images/arrowDropDown.png";
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { useDispatch } from "react-redux";
@@ -17,12 +16,12 @@ const SearchInput = (props: any) => {
     pageLimit,
     search,
     data,
-    containerStyle
+    containerStyle,
   } = props;
-  const [value, setValue] = useState("All");
+
   const [open, setOpen] = useState(false);
 
-  const Item = ({ item }:any) => {
+  const Item = ({ item }: any) => {
     return (
       <>
         <Typography
@@ -47,15 +46,11 @@ const SearchInput = (props: any) => {
       </>
     );
   };
-  const Block = ({ i }:any) => {
+  const Block = ({ i }: any) => {
     return <Item item={i} />;
   };
 
-
-
-  const { getProfile } = useSelector(
-    (state: RootState) => state.user.profile
-  );
+  const { getProfile } = useSelector((state: RootState) => state.user.profile);
   const dispatch: AppDispatch = useDispatch();
 
   const handleInputChange = debounce(async (event: any) => {
@@ -79,7 +74,6 @@ const SearchInput = (props: any) => {
       console.log(e);
     }
   }, 500);
-
 
   return (
     <Box
@@ -124,14 +118,14 @@ const SearchInput = (props: any) => {
             style: { fontSize: "11px", fontWeight: "500" },
           }}
           sx={{
-            textTransform:"lowercase",
+            textTransform: "lowercase",
             borderColor: "white",
             display: "flex",
             flex: 1,
             fontSize: { lg: "10px", xs: "8px" },
           }}
         />
-         <Box
+        <Box
           sx={[
             {
               height: "30px",
@@ -145,14 +139,9 @@ const SearchInput = (props: any) => {
               marginRight: -0.3,
               cursor: "pointer",
             },
-           
           ]}
-          
         >
-          <StyledImage
-            src={Search}
-            sx={{ height: "40%", width: "auto" }}
-          />
+          <StyledImage src={Search} sx={{ height: "40%", width: "auto" }} />
         </Box>
       </Box>
       {search && search.length > 0 && open && (
@@ -172,10 +161,10 @@ const SearchInput = (props: any) => {
           }}
         >
           {data
-            ?.filter((k:any) =>
+            ?.filter((k: any) =>
               k?.userName?.toLowerCase().includes(search.toLowerCase())
             )
-            .map((i:any, idx:any) => {
+            .map((i: any, idx: any) => {
               return <Block key={idx} i={i} />;
             })}
         </Box>

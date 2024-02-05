@@ -1,11 +1,4 @@
-import {
-  Button,
-  Box,
-  useTheme,
-  CircularProgress,
-  Card,
-  useMediaQuery,
-} from "@mui/material";
+import { Button, Box, useTheme, CircularProgress } from "@mui/material";
 import { mail, eye, eyeLock } from "../../../assets";
 
 import Input from "../../../components/login/input";
@@ -39,13 +32,9 @@ const Login = () => {
 
   const { handleSubmit, touched, errors } = formik;
 
-  const {
-    success,
-    forceChangePassword,
-    userRole,
-    isTransPasswordCreated,
-    loading,
-  } = useSelector((state: RootState) => state.auth);
+  const { success, forceChangePassword, loading } = useSelector(
+    (state: RootState) => state.auth
+  );
 
   useEffect(() => {
     if (success) {
@@ -58,8 +47,6 @@ const Login = () => {
       dispatch(authReset());
     }
   }, [success]);
-
-  const matchesMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
     <form

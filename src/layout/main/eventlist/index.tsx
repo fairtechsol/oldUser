@@ -1,5 +1,4 @@
 import { Box } from "@mui/system";
-import { useState } from "react";
 import {
   BASKETBALL,
   Card,
@@ -18,7 +17,6 @@ import {
 import EventComponent from "./EventComponent";
 
 const EventListing = ({ selected }: any) => {
-  const [anchor, setAnchor] = useState(null);
   const data = [
     {
       title: "INPLAY",
@@ -106,7 +104,7 @@ const EventListing = ({ selected }: any) => {
               key={idx}
               data={i}
               selected={selected}
-              setAnchor={setAnchor}
+              setAnchor={() => {}}
             />
           );
         })}
