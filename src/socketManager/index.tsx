@@ -2,7 +2,7 @@ import io from "socket.io-client";
 import { authSocketService } from "./authSocket";
 import { matchSocketService } from "./matchSocket";
 import { userBalanceSocketService } from "./userBalance";
-import { baseUrls } from "../../utils/Constants";
+import { baseUrls } from "../utils/Constants";
 
 export let socket: any = null;
 export let expertSocket: any = null;

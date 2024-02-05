@@ -6,39 +6,33 @@ import {
   AppBar,
 } from "@mui/material";
 import { useState, useEffect } from "react";
-import "./index.css"
+import "./index.css";
 import { useNavigate } from "react-router-dom";
 import MobileSideBar from "./MobileSideBar";
 import StyledImage from "../../../components/Common/StyledImages";
-
-
 
 import { memo } from "react";
 import NewBoxData from "./NewBoxData";
 import { Draw, logo } from "../../../assets";
 import { useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../../store/store";
-import { useDispatch } from "react-redux";
+import { RootState } from "../../../store/store";
 
-
-const CustomHeader = ({match}:any) => {
+const CustomHeader = ({ match }: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
-  const { getProfile } = useSelector((state: RootState) => state.user.profile);
+  const { getProfile, marqueeNotification } = useSelector(
+    (state: RootState) => state.user.profile
+  );
   const navigate = useNavigate();
-  const [notificationData, setNotificationData] = useState("Hello, this is a notification!");
   const [showSideBarMobile, setShowSideBarMobile] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(true);
   const [isOnline, setIsOnline] = useState(navigator.onLine);
-
 
   useEffect(() => {
     if (!matchesMobile) {
       setMobileOpen(false);
     }
   }, [matchesMobile]);
-
-
 
   return (
     <>
@@ -61,7 +55,6 @@ const CustomHeader = ({match}:any) => {
                 fontSize: "13px",
                 fontWeight: "bold",
                 textAlign: "center",
-
               }}
             >
               {!isOnline && "Your are currently offline"}
@@ -170,13 +163,11 @@ const CustomHeader = ({match}:any) => {
               <NewBoxData
                 showDropDown={true}
                 title={getProfile?.userName}
-
                 valueStyle={{ color: "white" }}
                 titleStyle={{ color: "white" }}
                 value={getProfile?.userBal?.currentBalance}
                 containerStyle={{ background: "#0B4F26" }}
               />
-
             </Box>
           </Box>
         </Box>
@@ -189,22 +180,6 @@ const CustomHeader = ({match}:any) => {
             alignItems: "center",
           }}
         >
-          {/* <marquee loop={true} scrollamount="3">
-            <Typography
-              sx={{
-                color: "text.white",
-                fontSize: "10px",
-                fontStyle: "italic",
-                letterSpacing: "1px",
-                overflow: "hidden",
-                whiteSpace: "nowrap",
-                textTransform: "capitalize",
-                textOverflow: "ellipsis",
-              }}
-            >
-              {notificationData}
-            </Typography>
-          </marquee> */}
           <div className="marquee-container">
             <Typography
               sx={{
@@ -218,7 +193,7 @@ const CustomHeader = ({match}:any) => {
                 textOverflow: "ellipsis",
               }}
             >
-              {notificationData}
+              {marqueeNotification?.value}
             </Typography>
           </div>
         </Box>
@@ -235,11 +210,7 @@ const CustomHeader = ({match}:any) => {
   );
 };
 
-
-
-
 export default memo(CustomHeader);
 function dispatch(arg0: any) {
   throw new Error("Function not implemented.");
 }
-

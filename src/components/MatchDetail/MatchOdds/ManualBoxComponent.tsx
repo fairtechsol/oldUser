@@ -1,11 +1,9 @@
-
-import { Box, Typography, useMediaQuery,useTheme } from "@mui/material";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { BallStart } from "../../../assets";
 import { useEffect } from "react";
 import { memo } from "react";
 import MoneyBox from "./MoneyBox";
 import SeparateModal from "./SeparateModal";
-
 
 const ManualBoxComponent = ({
   name,
@@ -37,8 +35,9 @@ const ManualBoxComponent = ({
   placeBetData,
   setFastBetLoading,
   isTeamC,
-  handleRateChange
-}:any) => {
+  handleRateChange,
+  marketDetails,
+}: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const { ex, status } = data ?? {};
@@ -48,7 +47,7 @@ const ManualBoxComponent = ({
     }
   }, [livestatus, status, showBox]);
 
-  const handleDecimal = (value:any, gap:any, type:any) => {
+  const handleDecimal = (value: any, gap: any, type: any) => {
     // alert(type)
     let checkDecimal = value % 1; // get the decimal portion of the number
     // alert(checkDecimal)
@@ -61,8 +60,8 @@ const ManualBoxComponent = ({
             ? 0
             : Math.round(getValue)
           : getValue >= 100
-            ? 100
-            : Math.round(getValue);
+          ? 100
+          : Math.round(getValue);
       let returnValue;
       if (type == "back") {
         let check = value % 1;
@@ -84,8 +83,8 @@ const ManualBoxComponent = ({
             ? 0
             : Math.round(getValue)
           : getValue >= 100
-            ? 100
-            : Math.round(getValue);
+          ? 100
+          : Math.round(getValue);
       let returnValue;
       if (type == "back") {
         let check = value % 1;
@@ -168,7 +167,7 @@ const ManualBoxComponent = ({
               marginLeft: "10px",
               marginRight: "10px",
               width: { xs: "113px", md: "100%", lg: "100%" },
-              textTransform: "capitalize"
+              textTransform: "capitalize",
             }}
           >
             {name}
@@ -214,8 +213,7 @@ const ManualBoxComponent = ({
               }}
             ></Box>
           )}
-          {
-            livestatus ? (
+          {livestatus ? (
             <Box
               sx={{
                 background: "rgba(0,0,0,1)",
@@ -238,9 +236,7 @@ const ManualBoxComponent = ({
                     fontWeight: "400",
                   }}
                 >
-                  {livestatus
-                    ? "SUSPENDED"
-                    : status}
+                  {livestatus ? "SUSPENDED" : status}
                 </Typography>
               )}
             </Box>
@@ -272,11 +268,26 @@ const ManualBoxComponent = ({
                     back={true}
                     currentMatch={newData}
                     backTeamA={backTeamA}
-                    lock={matchOddsData?.back ? handleDecimal(matchOddsData?.back, 2, "back") > 0 ? false : true : true}
+                    betType={"back"}
+                    lock={
+                      matchOddsData?.back
+                        ? handleDecimal(
+                            Math.round(matchOddsData?.back),
+                            2,
+                            "back"
+                          ) > 0
+                          ? false
+                          : true
+                        : true
+                    }
                     rates={allRates}
                     value={
                       matchOddsData?.back
-                        ? handleDecimal(matchOddsData?.back, 2, "back")
+                        ? handleDecimal(
+                            Math.round(matchOddsData?.back),
+                            2,
+                            "back"
+                          )
                         : 0
                     }
                     value2={""}
@@ -286,6 +297,7 @@ const ManualBoxComponent = ({
                     data={data}
                     typeOfBet={typeOfBet}
                     handleRateChange={handleRateChange}
+                    marketDetails={marketDetails}
                   />
                 )}
                 <Box
@@ -293,7 +305,7 @@ const ManualBoxComponent = ({
                 ></Box>
                 {!matchesMobile && (
                   <SeparateModal
-                  backTeamB={backTeamB}
+                    backTeamB={backTeamB}
                     closeModal={ballStatus}
                     setFastBetLoading={setFastBetLoading}
                     placeBetData={placeBetData}
@@ -305,9 +317,20 @@ const ManualBoxComponent = ({
                     setFastAmount={setFastAmount}
                     selectedFastAmount={selectedFastAmount}
                     back={true}
+                    betType={"back"}
                     currentMatch={newData}
                     // lock={lock}
-                    lock={matchOddsData?.back ? handleDecimal(matchOddsData?.back, 1, "back") > 0 ? false : true : true}
+                    lock={
+                      matchOddsData?.back
+                        ? handleDecimal(
+                            Math.round(matchOddsData?.back),
+                            1,
+                            "back"
+                          ) > 0
+                          ? false
+                          : true
+                        : true
+                    }
                     rates={allRates}
                     // value={matchOddsData?.back ? matchOddsData?.back - 1 : 0}
                     value={
@@ -322,6 +345,7 @@ const ManualBoxComponent = ({
                     data={data}
                     typeOfBet={typeOfBet}
                     handleRateChange={handleRateChange}
+                    marketDetails={marketDetails}
                   />
                 )}
                 <Box
@@ -345,7 +369,9 @@ const ManualBoxComponent = ({
                   // lock={lock}
                   lock={matchOddsData?.back > 0 ? false : true}
                   rates={allRates}
-                  value={matchOddsData?.back ? matchOddsData?.back : 0}
+                  value={
+                    matchOddsData?.back ? Math.round(matchOddsData?.back) : 0
+                  }
                   value2={""}
                   color={matchesMobile ? "#B3E0FF" : "#A7DCFF"}
                   type={{ color: "#A7DCFF", type: "BL" }}
@@ -353,6 +379,7 @@ const ManualBoxComponent = ({
                   data={data}
                   typeOfBet={typeOfBet}
                   handleRateChange={handleRateChange}
+                  marketDetails={marketDetails}
                 />
 
                 <Box
@@ -372,10 +399,12 @@ const ManualBoxComponent = ({
                   selectedFastAmount={selectedFastAmount}
                   back={true}
                   currentMatch={newData}
-                  // lock={lock}
+                  betType={"lay"}
                   lock={matchOddsData?.lay > 0 ? false : true}
                   rates={allRates}
-                  value={matchOddsData?.lay ? matchOddsData?.lay : 0}
+                  value={
+                    matchOddsData?.lay ? Math.round(matchOddsData?.lay) : 0
+                  }
                   value2={""}
                   color={matchesMobile ? "#F6D0CB" : "#FFB5B5"}
                   type={{ color: "#FFB5B5", type: "BL" }}
@@ -383,6 +412,7 @@ const ManualBoxComponent = ({
                   data={data}
                   typeOfBet={typeOfBet}
                   handleRateChange={handleRateChange}
+                  marketDetails={marketDetails}
                 />
                 {!matchesMobile && (
                   <SeparateModal
@@ -399,11 +429,18 @@ const ManualBoxComponent = ({
                     back={true}
                     currentMatch={newData}
                     rates={allRates}
-                    // lock={lock}
-                    lock={matchOddsData?.lay ? handleDecimal(matchOddsData?.lay, 1, "") > 0 ? false : true : true}
+                    betType={"lay"}
+                    lock={
+                      matchOddsData?.lay
+                        ? handleDecimal(Math.round(matchOddsData?.lay), 1, "") >
+                          0
+                          ? false
+                          : true
+                        : true
+                    }
                     value={
                       matchOddsData?.lay
-                        ? handleDecimal(matchOddsData?.lay, 1, "")
+                        ? handleDecimal(Math.round(matchOddsData?.lay), 1, "")
                         : 0
                     }
                     value2={""}
@@ -413,6 +450,7 @@ const ManualBoxComponent = ({
                     data={data}
                     typeOfBet={typeOfBet}
                     handleRateChange={handleRateChange}
+                    marketDetails={marketDetails}
                   />
                 )}
                 {!matchesMobile && (
@@ -430,12 +468,19 @@ const ManualBoxComponent = ({
                     back={true}
                     currentMatch={newData}
                     allRates={allRates}
-                    // lock={lock}
-                    lock={matchOddsData?.lay ? handleDecimal(matchOddsData?.lay, 2, "") > 0 ? false : true : true}
+                    betType={"lay"}
+                    lock={
+                      matchOddsData?.lay
+                        ? handleDecimal(Math.round(matchOddsData?.lay), 2, "") >
+                          0
+                          ? false
+                          : true
+                        : true
+                    }
                     // value={matchOddsData?.lay ? matchOddsData?.lay + 2 : 0}
                     value={
                       matchOddsData?.lay
-                        ? handleDecimal(matchOddsData?.lay, 2, "")
+                        ? handleDecimal(Math.round(matchOddsData?.lay), 2, "")
                         : 0
                     }
                     value2={""}
@@ -445,6 +490,7 @@ const ManualBoxComponent = ({
                     data={data}
                     typeOfBet={typeOfBet}
                     handleRateChange={handleRateChange}
+                    marketDetails={marketDetails}
                   />
                 )}
                 <Box
@@ -453,11 +499,9 @@ const ManualBoxComponent = ({
               </Box>
             </>
           )}
-          {console.log(matchOddsData)}
         </>
       )}
     </Box>
-    
   );
 };
 

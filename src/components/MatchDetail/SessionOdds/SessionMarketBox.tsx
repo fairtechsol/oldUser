@@ -1,5 +1,5 @@
-import {  } from "@emotion/react";
-import { Box, Typography, useMediaQuery,useTheme } from "@mui/material";
+import {} from "@emotion/react";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 
 import { memo } from "react";
 import { formatNumber } from "../../../helper/index";
@@ -20,8 +20,8 @@ const SessionMarketBox = ({
   closeModal,
   setFastBetLoading,
   handleRateChange,
-  upcoming
-}:any) => {
+  upcoming,
+}: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
@@ -36,7 +36,7 @@ const SessionMarketBox = ({
         justifyContent: "flex-start",
       }}
     >
-     {data?.betStatus === 0 && (
+      {data?.betStatus === 0 && (
         <Box
           sx={{
             margin: "1px",
@@ -49,7 +49,7 @@ const SessionMarketBox = ({
           }}
         ></Box>
       )}
-     {data?.betStatus === 1 &&  upcoming  && (
+      {data?.betStatus === 1 && upcoming && (
         <Box
           sx={{
             margin: "1px",
@@ -90,7 +90,8 @@ const SessionMarketBox = ({
       {!matchesMobile && (
         <PlaceBetComponentWeb amount={index === 2} profitLoss={data} />
       )}
-      {!["ACTIVE", "", undefined, null,""].includes(data?.suspended) || data.yes_rate===null && data.no_rate===null ? (
+      {!["ACTIVE", "", undefined, null, ""].includes(data?.suspended) ||
+      (data.yes_rate === null && data.no_rate === null) ? (
         <Box
           sx={{
             background: "rgba(0,0,0,1)",
@@ -158,6 +159,7 @@ const SessionMarketBox = ({
             ></Box>
             {!matchesMobile && <SeparateModal po={6} color={"white"} />}
             <SeparateModal
+              bettingOn={"session"}
               closeModal={closeModal}
               setFastBetLoading={setFastBetLoading}
               po={2}
@@ -168,8 +170,8 @@ const SessionMarketBox = ({
               selectedFastAmount={selectedFastAmount}
               betType={"no"}
               value={data?.no_rate}
-            //   value2={formatNumber("100%")}
-              lock={[null,0,"0"].includes(data?.no_rate) ? true : false}
+              //   value2={formatNumber("100%")}
+              lock={[null, 0, "0"].includes(data?.no_rate) ? true : false}
               color={"#F6D0CB"}
               type={{ color: "#FFB5B5", type: "YN" }}
               typeOfBet={typeOfBet}
@@ -181,6 +183,7 @@ const SessionMarketBox = ({
               sx={{ width: ".45%", display: "flex", background: "pink" }}
             ></Box>
             <SeparateModal
+              bettingOn={"session"}
               closeModal={closeModal}
               setFastBetLoading={setFastBetLoading}
               po={1}
@@ -191,8 +194,8 @@ const SessionMarketBox = ({
               session={true}
               betType={"yes"}
               value={data?.yes_rate}
-            //   value2={formatNumber("data?.rate_percent?.split("-")[1]")}
-              lock={[null,0,"0"].includes(data?.yes_rate) ? true : false}
+              //   value2={formatNumber("data?.rate_percent?.split("-")[1]")}
+              lock={[null, 0, "0"].includes(data?.yes_rate) ? true : false}
               color={"#B3E0FF"}
               type={{ color: "#A7DCFF", type: "YN" }}
               typeOfBet={typeOfBet}

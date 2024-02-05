@@ -8,11 +8,11 @@ export const getMatchList = createAsyncThunk<any, any>(
   async ({ type, searchKeyword, matchType }, thunkApi) => {
     try {
       const resp = await service.get(
-        `${ApiConstants.MATCH.MATCHLIST}${
+        `${ApiConstants.MATCH.MATCHLIST}?sort=match.startAt:ASC${
           type == "search"
-            ? `?searchBy=title&keyword=${searchKeyword || ""}`
+            ? `&searchBy=title&keyword=${searchKeyword || ""}`
             : ""
-        }${matchType ? `?match.matchType=${matchType}` : ""}`
+        }${matchType ? `&match.matchType=${matchType}` : ""}`
       );
       if (resp) {
         return { data: resp?.data?.matches, type: type };
@@ -62,7 +62,6 @@ export const matchDetailAction = createAsyncThunk<any, any>(
   "/match/details",
   async (matchId, thunkApi) => {
     try {
-
       // console.log("API Request: Start");
       const resp = await service.get(
         `${ApiConstants.MATCH.MATCHDETAILS}${matchId}`
@@ -199,6 +198,13 @@ export const getCompetitionMatches = createAsyncThunk<any, any>(
 
 export const updateMatchRates = createAsyncThunk<any, any>(
   "/match/rates",
+  async (matchDetails) => {
+    return matchDetails;
+  }
+);
+
+export const updateMatchOddRates = createAsyncThunk<any, any>(
+  "/matchOdd/rates",
   async (matchDetails) => {
     return matchDetails;
   }

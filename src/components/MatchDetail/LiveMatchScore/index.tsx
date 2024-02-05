@@ -200,7 +200,7 @@ const LiveScore = ({ currentMatch, liveScoreData, submit }:any) => {
                                     fontWeight: "600",
                                 }}
                             >
-                                {"innings?.[0]?.Team"}
+                                {/* {"innings?.[0]?.Team"} */}
                                 {/* {innings?.[0]?.Team || currentMatch?.teamA} */}
                                 {/* {currentMatch?.teamA} */}
                             </Typography>

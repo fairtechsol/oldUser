@@ -1,17 +1,36 @@
-import {
-    Box,
-  } from "@mui/material";
-  import {useTheme,useMediaQuery} from "@mui/material";
+import { Box } from "@mui/material";
+import { useTheme, useMediaQuery } from "@mui/material";
 import MatchesComponent from "../../components/MatchDetail/MatchOdds/index";
-  
-  const Inplay = () => {
+import { AppDispatch } from "../../store/store";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { getMatchList } from "../../store/actions/match/matchListAction";
+// import { expertSocketService } from "../../socketManager";
 
-    const theme = useTheme();
-    const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
+const Inplay = () => {
+  const theme = useTheme();
+  const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
-    return (
-      <>
-         
+  const dispatch: AppDispatch = useDispatch();
+
+  // const getMatchListService = () => {
+  //   dispatch(getMatchList({}));
+  // };
+
+  // useEffect(() => {
+  //   try {
+  //     expertSocketService.match.matchAdded(getMatchListService);
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // }, []);
+
+  useEffect(() => {
+    dispatch(getMatchList({}));
+  }, []);
+
+  return (
+    <>
       {!matchesMobile ? (
         <Box
           sx={{
@@ -26,18 +45,15 @@ import MatchesComponent from "../../components/MatchDetail/MatchOdds/index";
           }}
         >
           <div style={{ height: "1vh" }} />
-          <MatchesComponent
-          />
+          <MatchesComponent />
         </Box>
       ) : (
         <Box sx={{ overflowX: "hidden", minHeight: "100vh", width: "100%" }}>
-          <MatchesComponent
-          />
+          <MatchesComponent />
+        </Box>
+      )}
+    </>
+  );
+};
 
-        </Box>)}
-      </>
-    );
-  };
-  
-  export default Inplay;
-  
+export default Inplay;
