@@ -15,8 +15,9 @@ import {
 } from "../../../assets";
 
 import EventComponent from "./EventComponent";
+import { NavLink } from "react-router-dom";
 
-const EventListing = ({ selected }: any) => {
+const EventListing = () => {
   const data = [
     {
       title: "INPLAY",
@@ -98,7 +99,7 @@ const EventListing = ({ selected }: any) => {
           },
         ]}
       >
-        {data?.map((i: any, idx: any) => {
+        {/* {data?.map((i: any, idx: any) => {
           return (
             <EventComponent
               key={idx}
@@ -106,6 +107,20 @@ const EventListing = ({ selected }: any) => {
               selected={selected}
               setAnchor={() => {}}
             />
+          );
+        })} */}
+        {data?.map((i: any, idx: any) => {
+          return (
+            <NavLink
+              key={idx}
+              to={`${i.url}`}
+              className={({ isActive }) =>
+                [isActive ? "activeEventTab" : ""].join(" ")
+              }
+              style={{ textDecoration: "none" }}
+            >
+              <EventComponent data={i} setAnchor={() => {}} />
+            </NavLink>
           );
         })}
       </Box>
