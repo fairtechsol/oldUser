@@ -14,6 +14,7 @@ const Loader = ({ text, height, width }: LoaderInterface) => {
         height: height ? height : "74%",
         alignItems: "center",
         flexDirection: "column",
+        marginTop: "70px"
       }}
     >
       

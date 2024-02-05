@@ -3,12 +3,13 @@ import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import { eye, eyeLock } from "../../assets";
 import Input from "../../components/login/input";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../store/store";
-import { useState } from "react";
-import { changePassword, logout } from "../../store/actions/auth/authAction";
+import { AppDispatch, RootState } from "../../store/store";
+import { useEffect, useState } from "react";
+import { changePassword } from "../../store/actions/auth/authAction";
 import NavigateModal from "../../components/Common/NavigateModal";
 import { useFormik } from "formik";
 import { newPasswordValidationSchema } from "../../utils/Validations";
+import { useSelector } from "react-redux";
 
 const initialValues: any = {
   oldPassword: "",
@@ -21,6 +22,10 @@ const ChangePassword = (props: any) => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const dispatch: AppDispatch = useDispatch();
 
+
+  const { success, transactionPassword } = useSelector(
+    (state: RootState) => state.user.profile
+  );
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema: newPasswordValidationSchema,
@@ -37,12 +42,12 @@ const ChangePassword = (props: any) => {
 
   const { handleSubmit } = formik;
 
-  // useEffect(() => {
-  //   if (success) {
-  //     dispatch(changePasswordReset());
-  //     setShowModal(true);
-  //   }
-  // }, [success]);
+  useEffect(() => {
+    if (success) {
+
+      setShowModal(true);
+    }
+  }, [success]);
 
   return (
     <>
@@ -183,12 +188,12 @@ const ChangePassword = (props: any) => {
           </Box>
         </Box>
       </form>
-      {showModal && (
+      {!showModal && (
         <NavigateModal
           modalTitle="Your password has been changed sucessfully"
+          message={transactionPassword}
           setShowModal={setShowModal}
           showModal={showModal}
-          functionDispatch={() => dispatch(logout())}
           buttonMessage={"Navigate To Login"}
           navigateTo={"/old/login"}
         />

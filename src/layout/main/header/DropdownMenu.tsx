@@ -1,10 +1,7 @@
 import {
   Box,
   CircularProgress,
-  Menu,
   MenuItem,
-  useMediaQuery,
-  useTheme,
 } from "@mui/material";
 import StyledImage from "../../../components/Common/StyledImages";
 import Logout from "../../../assets/images/logout.png";
@@ -15,33 +12,27 @@ import { useState } from "react";
 import { logout } from "../../../store/actions/auth/authAction";
 import { AppDispatch } from "../../../store/store";
 
-const DropdownMenu = ({ anchorEl, open, handleClose }: any) => {
-  const [loading] = useState(false);
-
-  const theme = useTheme();
+const DropdownMenu = ({ handleClose }: any) => {
+  const [loading,] = useState(false);
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
-
-  const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const menutItems = [{ title: "Rules", link: "/rules" }];
   return (
-    <Menu
-      id="basic-menu"
-      anchorEl={anchorEl}
-      open={open}
-      onClose={handleClose}
-      MenuListProps={{
-        "aria-labelledby": "basic-button",
-      }}
+    <Box
+      // ref={innerRef}
       sx={{
-        marginLeft: matchesMobile ? "7px" : "2px",
-      }}
-      anchorOrigin={{
-        vertical: "top",
-        horizontal: "right",
+        position: "absolute",
+        background: "white",
+        top: { lg: "60px", xs: "35px" },
+        right: 0,
+        paddingY: "10px",
+        paddingX: "2px",
+        borderRadius: "5px",
+        marginTop: "2px",
+        marginRight: "10px",
       }}
     >
-      {menutItems?.map((x, idx) => (
+      {menutItems.map((x, idx) => (
         <MenuItem
           key={idx}
           dense={true}
@@ -49,8 +40,10 @@ const DropdownMenu = ({ anchorEl, open, handleClose }: any) => {
             fontSize: { lg: "12px", xs: "10px" },
             fontWeight: "500",
             marginX: "5px",
+
             width: { lg: "200px", xs: "200px" },
             borderBottomWidth: 1,
+            color: "black",
             borderColor: "#EAEFEC",
             paddingY: "2px",
             borderStyle: "solid",
@@ -63,10 +56,10 @@ const DropdownMenu = ({ anchorEl, open, handleClose }: any) => {
             },
           }}
           onClick={() => {
+            handleClose();
             if (x.link) {
               navigate(x.link);
             }
-            handleClose();
           }}
         >
           {x.title}
@@ -114,7 +107,7 @@ const DropdownMenu = ({ anchorEl, open, handleClose }: any) => {
           />
         )}
       </Box>
-    </Menu>
+    </Box>
   );
 };
 
