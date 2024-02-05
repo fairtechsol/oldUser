@@ -40,9 +40,9 @@ const Login = () => {
     if (success) {
       if (forceChangePassword) {
         sessionStorage.setItem("forceChangePassword", "true");
-        navigate("/fgUser/change-password");
+        navigate("/old/change-password");
       } else {
-        navigate("/fgUser/match");
+        navigate("/old/match");
       }
       dispatch(authReset());
     }

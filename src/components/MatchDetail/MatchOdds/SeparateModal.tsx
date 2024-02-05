@@ -286,7 +286,7 @@ const SeparateModal = ({
             setShowSuccessModal={true}
             showSuccessModal={showSuccessModal}
             buttonMessage={"OK"}
-            navigateTo={"matchDetail"}
+            navigateTo={"old/matchDetail"}
             userPG={true}
           />
         )}

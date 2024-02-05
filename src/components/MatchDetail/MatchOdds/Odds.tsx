@@ -154,7 +154,7 @@ const Odds = ({ onClick, top, blur, match, data }: any) => {
           background: "white",
         }}
         onClick={(e) => {
-          navigate("/matchDetail", {
+          navigate("/old/matchDetail", {
             state: {
               matchId: match?.id,
             },

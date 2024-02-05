@@ -44,7 +44,7 @@ export const changePassword = createAsyncThunk<any, ChangePassword>(
       );
       if (resp) {
         sessionStorage.clear();
-        window.location.replace("/fgUser/login");
+        window.location.replace("/old/login");
       }
     } catch (error: any) {
       const err = error as AxiosError;
@@ -59,7 +59,7 @@ export const logout = createAsyncThunk<any>(
     try {
       const response = await service.post(`${ApiConstants.AUTH.LOGOUT}`);
       sessionStorage.clear();
-      window.location.replace("/fgUser/login");
+      window.location.replace("/old/login");
       return response;
     } catch (error) {
       const err = error as AxiosError;

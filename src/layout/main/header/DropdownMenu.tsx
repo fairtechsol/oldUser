@@ -109,7 +109,7 @@ const DropdownMenu = ({ anchorEl, open, handleClose }: any) => {
             onClick={(e) => {
               e.stopPropagation();
               dispatch(logout());
-              navigate("/fgUser/login");
+              navigate("/old/login");
             }}
           />
         )}

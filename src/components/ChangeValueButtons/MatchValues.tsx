@@ -65,7 +65,7 @@ const MatchValues = () => {
   const { buttonValues } = useSelector(
     (state: RootState) => state.user.profile
   );
-// console.log(buttonValues, "butnvalues")
+  // console.log(buttonValues, "butnvalues")
   const formik = useFormik({
     initialValues: initialValues,
     onSubmit: (value: any) => {
@@ -74,7 +74,7 @@ const MatchValues = () => {
         result = { ...result, [item?.label]: item?.value };
       });
       const payload = {
-        id: buttonValues?.id,
+        id: buttonValues[0]?.id,
         type: "match",
         value: result,
       };

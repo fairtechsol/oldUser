@@ -53,7 +53,7 @@ service.interceptors.response.use(
       toast.error(error.response.data.message, toastOptions);
     } else if (error.response.status === 401) {
       toast.error(error.response.data.message, toastOptions);
-      window.location.replace("/fgUser/login");
+      window.location.replace("/old/login");
       sessionStorage.clear();
     }
 

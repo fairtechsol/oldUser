@@ -22,62 +22,62 @@ const EventListing = () => {
     {
       title: "INPLAY",
       image: Play,
-      url: "/fgUser/inplay",
+      url: "/old/inplay",
     },
     {
       title: "MY ACCOUNT",
       image: MYACCOUNT,
-      url: "/fgUser/my-account",
+      url: "/old/my-account",
     },
     {
       title: "CRICKET",
       image: Cricket,
-      url: "/fgUser/match",
+      url: "/old/match",
     },
     {
       title: "LIVE CASINO",
       image: Slot,
-      url: "/fgUser/comingsoon",
+      url: "/old/comingsoon",
     },
     {
       title: "LIVE CARD",
       image: Card,
-      url: "/fgUser/comingsoon",
+      url: "/old/comingsoon",
     },
     {
       title: "SOCCER",
       image: Football,
-      url: "/fgUser/comingsoon",
+      url: "/old/comingsoon",
     },
     {
       title: "TENNIS",
       image: Tennis,
-      url: "/fgUser/comingsoon",
+      url: "/old/comingsoon",
     },
     {
       title: "ICE HOCKEY",
       image: Hockey,
-      url: "/fgUser/comingsoon",
+      url: "/old/comingsoon",
     },
     {
       title: "SNOOKER",
       image: SNOOKER,
-      url: "/fgUser/comingsoon",
+      url: "/old/comingsoon",
     },
     {
       title: "GOLF",
       image: GOLF,
-      url: "/fgUser/comingsoon",
+      url: "/old/comingsoon",
     },
     {
       title: "CHESS",
       image: CHESS,
-      url: "/fgUser/comingsoon",
+      url: "/old/comingsoon",
     },
     {
       title: "BASKETBALL",
       image: BASKETBALL,
-      url: "/fgUser/comingsoon",
+      url: "/old/comingsoon",
     },
   ];
 
