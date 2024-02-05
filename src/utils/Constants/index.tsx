@@ -35,12 +35,12 @@ export const Constants = {
   pageLimit: 10,
   AuthPaths: {
     root: "/",
-    login: "login",
-    changePassword: "change-password",
+    login: "fgUser/login",
+    changePassword: "fgUser/change-password",
   },
 
   MainPaths: {
-    root: "/",
+    root: "/fgUser",
     match: "match",
     comingSoon: "comingsoon",
     liveMarketMatches: "matchDetail",
@@ -51,15 +51,8 @@ export const Constants = {
     changePassword: "change_password",
     secureAuth: "secure-auth",
   },
-
-  WalletSettingsPaths: {
-    root: "/wallet/walletSettings",
-    deposit: "deposit",
-    withdraw: "withdraw",
-    creditReference: "credit_reference",
-  },
   ReportsPaths: {
-    root: "/",
+    root: "/fgUser",
     profitLoss: "profit_loss",
     accountStatement: "account_statement",
     currentBet: "current_bet",
