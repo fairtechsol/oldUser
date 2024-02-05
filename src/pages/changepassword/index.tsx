@@ -5,7 +5,7 @@ import Input from "../../components/login/input";
 import { useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { useEffect, useState } from "react";
-import { changePassword,logout } from "../../store/actions/auth/authAction";
+import { changePassword } from "../../store/actions/auth/authAction";
 import NavigateModal from "../../components/Common/NavigateModal";
 import { useFormik } from "formik";
 import { newPasswordValidationSchema } from "../../utils/Validations";
@@ -16,7 +16,6 @@ const initialValues: any = {
   newPassword: "",
   confirmPassword: "",
 };
-
 
 const ChangePassword = (props: any) => {
   const { passLoader, width } = props;
@@ -37,12 +36,11 @@ const ChangePassword = (props: any) => {
         oldPassword: values.oldPassword,
       };
       dispatch(changePassword(payload));
-      setShowModal(true);
+      // setShowModal(true);
     },
   });
 
-  const { handleSubmit, touched, errors} = formik;
-
+  const { handleSubmit } = formik;
 
   useEffect(() => {
     if (success) {
@@ -53,7 +51,7 @@ const ChangePassword = (props: any) => {
 
   return (
     <>
-      <form  onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <Box
           sx={{
             width: { xs: "96vw", lg: "19vw", md: "19vw" },
@@ -197,6 +195,7 @@ const ChangePassword = (props: any) => {
           setShowModal={setShowModal}
           showModal={showModal}
           buttonMessage={"Navigate To Login"}
+          navigateTo={"/old/login"}
         />
       )}
     </>

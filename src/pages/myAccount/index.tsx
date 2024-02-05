@@ -2,20 +2,30 @@ import { Box, MenuItem, Typography } from "@mui/material";
 
 import { useNavigate } from "react-router-dom";
 
-const MyAccount = ({ selected }:any) => {
+const MyAccount = () => {
   const navigate = useNavigate();
   const classes = {
-    Menusx: { marginTop: { xs: "15px", lg: "30px", md: "18px" }, marginLeft: { xs: "5px", lg: "0", md: "0" }, paddingY: "0px", padding: "0px", width: { xs: "105%", lg: "100%", md: "100%" }, top: { xs: "-260px" }, md: "-460px", lg: "-460px" },
+    Menusx: {
+      marginTop: { xs: "15px", lg: "30px", md: "18px" },
+      marginLeft: { xs: "5px", lg: "0", md: "0" },
+      paddingY: "0px",
+      padding: "0px",
+      width: { xs: "105%", lg: "100%", md: "100%" },
+      top: { xs: "-260px" },
+      md: "-460px",
+      lg: "-460px",
+    },
     MenuListProps: { "aria-labelledby": "basic-button" },
     MenuPaperProps: {
       sx: {
-        paddingY: "0px", padding: "0px", 
+        paddingY: "0px",
+        padding: "0px",
         width: "100%",
         left: "1px !important",
         minHeight: "220px",
         background: "url(/static/media/back.00d2deda3616019e96ee.png)",
-        boxShadow: "none",  
-      }
+        boxShadow: "none",
+      },
     },
     MenuItemsx: {
       width: "100%",
@@ -43,12 +53,12 @@ const MyAccount = ({ selected }:any) => {
   };
 
   const menutItems1 = [
-    { title: "Account Statement", link: "/account_statement" },
-    { title: "Profile/Loss Report", link: "/profit_loss" },
-    { title: "Bet History", link: "/bet_history" },
-    { title: "Set Button Values", link: "/change_button_value" },
-    { title: "Security Auth Verification", link: "/comingsoon" },
-    { title: "Change Password", link: "/change_password" },
+    { title: "Account Statement", link: "/old/account_statement" },
+    { title: "Profile/Loss Report", link: "/old/profit_loss" },
+    { title: "Bet History", link: "/old/bet_history" },
+    { title: "Set Button Values", link: "/old/change_button_value" },
+    { title: "Security Auth Verification", link: "/old/comingsoon" },
+    { title: "Change Password", link: "/old/change_password" },
   ];
 
   return (
@@ -75,16 +85,22 @@ const MyAccount = ({ selected }:any) => {
                 padding: "10px 13px",
                 paddingBottom: "15px",
                 color: "#fff",
-                textTransform: "uppercase"
+                textTransform: "uppercase",
               },
-
             ]}
           >
             My Account
           </Typography>
         </Box>
-        <Box sx={{ background: "#F8C851", marginLeft: "13px", marginRight: "20px", padding: "10px", borderRadius: "5px" }}>
-
+        <Box
+          sx={{
+            background: "#F8C851",
+            marginLeft: "13px",
+            marginRight: "20px",
+            padding: "10px",
+            borderRadius: "5px",
+          }}
+        >
           {menutItems1.map((x, index) => (
             <MenuItem
               key={index}

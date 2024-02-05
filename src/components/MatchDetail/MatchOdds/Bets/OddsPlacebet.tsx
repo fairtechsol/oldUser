@@ -21,10 +21,11 @@ import {
 import axios from "axios";
 import { ApiConstants } from "../../../../utils/Constants";
 
-const OddsPlaceBet = ({ handleClose, season, type, data }: any) => {
+const OddsPlaceBet = ({ handleClose, season, type }: any) => {
   const [stakeValue, setStakeValue] = useState(0);
-  const [betPlaceLoading, setBetPlaceLoading] = useState(false);
+  const [betPlaceLoading] = useState(false);
   const [stake, setStake] = useState<any>(0);
+  console.log(stake);
   const [newRates, setNewRates] = useState({
     loss_amount: 0,
     win_amount: 0,

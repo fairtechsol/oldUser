@@ -1,38 +1,53 @@
-import { Drawer, TextField, Typography, useTheme } from "@mui/material";
+import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { ArrowDown, drawerBackground } from "../../../assets/index";
 
 const SideBar = ({ mobileShow }: any) => {
   const [showSideBarMobile, setShowSideBarMobile] = useState(false);
-  const location = useLocation();
   const navigate = useNavigate();
   const [selected, setSelected] = useState("All Sports");
   const data = [
     {
       title: "All Sports",
       data: [
-        { title: "In Play", url: "/inplay", activeTab: "INPLAY" },
+        { title: "In Play", url: "/old/inplay", activeTab: "INPLAY" },
         {
           title: "Cricket",
-          url: "/matches",
+          url: "/old/match",
           activeTab: "CRICKET",
           matchType: "cricket",
         },
-        { title: "Live Casino", url: "/comingsoon", activeTab: "LIVE CASINO" },
-        { title: "Live Card", url: "/comingsoon", activeTab: "LIVE CARD" },
-        { title: "soccer", url: "/comingsoon", activeTab: "SOCCER" },
-        { title: "Tennis", url: "/comingsoon", activeTab: "TENNIS" },
-        { title: "Ice Hockey", url: "/comingsoon", activeTab: "ICE HOCKEY" },
-        { title: "Volleyball", url: "/comingsoon" },
-        { title: "Politics", url: "/comingsoon" },
-        { title: "Table", url: "/comingsoon" },
-        { title: "Darts", url: "/comingsoon" },
-        { title: "Snooker", url: "/comingsoon", activeTab: "SNOOKER" },
-        { title: "Golf", url: "/comingsoon", activeTab: "GOLF" },
-        { title: "Chess", url: "/comingsoon", activeTab: "CHESS" },
-        { title: "Basketball", url: "/comingsoon", activeTab: "BASKETBALL" },
+        {
+          title: "Live Casino",
+          url: "/old/comingsoon",
+          activeTab: "LIVE CASINO",
+        },
+        {
+          title: "Live Card",
+          url: "/old/comingsoon",
+          activeTab: "LIVE CARD",
+        },
+        { title: "soccer", url: "/old/comingsoon", activeTab: "SOCCER" },
+        { title: "Tennis", url: "/old/comingsoon", activeTab: "TENNIS" },
+        {
+          title: "Ice Hockey",
+          url: "/old/comingsoon",
+          activeTab: "ICE HOCKEY",
+        },
+        { title: "Volleyball", url: "/old/comingsoon" },
+        { title: "Politics", url: "/old/comingsoon" },
+        { title: "Table", url: "/old/comingsoon" },
+        { title: "Darts", url: "/old/comingsoon" },
+        { title: "Snooker", url: "/old/comingsoon", activeTab: "SNOOKER" },
+        { title: "Golf", url: "/old/comingsoon", activeTab: "GOLF" },
+        { title: "Chess", url: "/old/comingsoon", activeTab: "CHESS" },
+        {
+          title: "Basketball",
+          url: "/old/comingsoon",
+          activeTab: "BASKETBALL",
+        },
       ],
     },
     {
@@ -111,7 +126,6 @@ const SideBar = ({ mobileShow }: any) => {
     );
   };
   const ListItem = ({ item }: any) => {
-    const theme = useTheme();
     return (
       <Box
         onClick={() => {

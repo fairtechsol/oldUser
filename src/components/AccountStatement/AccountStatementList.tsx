@@ -13,9 +13,8 @@ import moment from "moment-timezone";
 import { useDispatch } from "react-redux";
 import { getAccountStatement } from "../../store/actions/user/userAction";
 
-
 const AccountStatementList = () => {
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
 
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [pageLimit, setPageLimit] = useState<number>(15);
@@ -23,7 +22,6 @@ const AccountStatementList = () => {
   const [toDate, setToDate] = useState<any>();
 
   const dispatch: AppDispatch = useDispatch();
-
 
   const { transactions, getProfile } = useSelector(
     (state: RootState) => state.user.profile
@@ -60,9 +58,7 @@ const AccountStatementList = () => {
                 "YYYY-MM-DD"
               )}`;
             } else if (toDate) {
-              filter += `&createdAt=lte${moment(toDate)?.format(
-                "YYYY-MM-DD"
-              )}`;
+              filter += `&createdAt=lte${moment(toDate)?.format("YYYY-MM-DD")}`;
             }
             dispatch(
               getAccountStatement({
@@ -121,27 +117,26 @@ const AccountStatementList = () => {
             <Box sx={{ overflowX: "scroll", width: "100%" }}>
               <ListHeaderT />
               {transactions?.transactions?.length === 0 ? ( // Check if no records
-        <EmptyRow containerStyle={{ background: "#FFE094" }} />
-      ) : (
-        transactions?.transactions?.map((item: any) => (
-                <TableRow
-                  key={item?.id}
-                  index={item?.id}
-                  containerStyle={{ background: "#FFE094" }}
-                  profit={true}
-                  fContainerStyle={{ background: "#0B4F26" }}
-                  fTextStyle={{ color: "white" }}
-                  date={moment(item?.createdAt)}
-                  description={item?.description}
-                  closing={item?.closingBalance}
-                  trans_type={item?.transType}
-                  amount={item?.amount}
-                  fromuserName={item?.actionByUser?.userName}
-                  touserName={item?.user?.userName}
-                />
+                <EmptyRow containerStyle={{ background: "#FFE094" }} />
+              ) : (
+                transactions?.transactions?.map((item: any) => (
+                  <TableRow
+                    key={item?.id}
+                    index={item?.id}
+                    containerStyle={{ background: "#FFE094" }}
+                    profit={true}
+                    fContainerStyle={{ background: "#0B4F26" }}
+                    fTextStyle={{ color: "white" }}
+                    date={moment(item?.createdAt)}
+                    description={item?.description}
+                    closing={item?.closingBalance}
+                    trans_type={item?.transType}
+                    amount={item?.amount}
+                    fromuserName={item?.actionByUser?.userName}
+                    touserName={item?.user?.userName}
+                  />
                 ))
-                )}
-
+              )}
             </Box>
             <Footer
               currentPage={currentPage}
@@ -158,10 +153,5 @@ const AccountStatementList = () => {
     </Box>
   );
 };
-
-
-
-
-
 
 export default AccountStatementList;

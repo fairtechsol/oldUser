@@ -390,7 +390,7 @@ const SessionBetSeperate = ({
   );
 };
 // value2 = { formatNumber(newData?.rate_percent?.split("-")[0])}
-const RowComponent = ({ header, data, placeBets }: any) => {
+const RowComponent = ({ header, data }: any) => {
   const { getProfile } = useSelector((state: RootState) => state.user.profile);
   const getTime = (date: any) => {
     const now = new Date(date);

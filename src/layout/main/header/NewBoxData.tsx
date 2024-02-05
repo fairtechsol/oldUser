@@ -1,10 +1,9 @@
-import React, { memo, useEffect, useRef, useState } from "react";
+import  { memo, useEffect, useRef, useState } from "react";
 
 import StyledImage from "../../../components/Common/StyledImages";
-import DownIcon  from "../../../assets/images/down.svg";
-import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import DownIcon from "../../../assets/images/down.svg";
+import { Box, Typography } from "@mui/material";
 import DropDownMenu from "./DropdownMenu";
-
 
 const NewBoxData = ({
   title,
@@ -14,8 +13,6 @@ const NewBoxData = ({
   valueStyle,
   titleStyle,
 }: any) => {
-  const theme = useTheme();
-  const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const [open, setOpen] = useState(false);
 
   const [anchorEl, setAnchorEl] = useState<number | null>(null);
@@ -38,8 +35,8 @@ const NewBoxData = ({
 
   const handleClick = () => {
     if (title !== "Exposure") {
-        setAnchorEl((prev) => (prev === null ? 0 : null));
-      }
+      setAnchorEl((prev) => (prev === null ? 0 : null));
+    }
   };
 
   return (
@@ -74,7 +71,6 @@ const NewBoxData = ({
             justifyContent: { xs: "center" },
             display: "flex",
             flexDirection: "column",
-      
           }}
         >
           <Typography
@@ -123,7 +119,6 @@ const NewBoxData = ({
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}
         handleClose={handleClose}
-
       />
       )}
     </Box>

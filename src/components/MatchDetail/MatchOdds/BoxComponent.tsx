@@ -1,26 +1,18 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
-
 import MoneyBox from "./MoneyBox";
 import SeparateModal from "./SeparateModal";
-
 import { formatNumber } from "../../../helper/index";
-
 import { useEffect } from "react";
 import { memo } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../store/store";
 
 const BoxComponent = ({
   name,
   color,
   data,
-  team,
   typeOfBet,
-  align,
   selectedFastAmount,
   rate,
   allRates,
-  lock,
   teamImage,
   newData,
   showBox,
@@ -35,7 +27,6 @@ const BoxComponent = ({
   placeBetData,
   setFastBetLoading,
   handleRateChange,
-  title,
   marketDetails,
 }: any) => {
   const theme = useTheme();

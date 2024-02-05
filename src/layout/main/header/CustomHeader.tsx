@@ -17,16 +17,16 @@ import { Draw, logo } from "../../../assets";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 
-const CustomHeader = ({ match }: any) => {
+const CustomHeader = () => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const { getProfile, marqueeNotification } = useSelector(
     (state: RootState) => state.user.profile
   );
   const navigate = useNavigate();
-  const [showSideBarMobile, setShowSideBarMobile] = useState(false);
+  const [showSideBarMobile] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(true);
-  const [isOnline, setIsOnline] = useState(navigator.onLine);
+  const [isOnline] = useState(navigator.onLine);
 
   useEffect(() => {
     if (!matchesMobile) {
@@ -211,6 +211,6 @@ const CustomHeader = ({ match }: any) => {
 };
 
 export default memo(CustomHeader);
-function dispatch(arg0: any) {
-  throw new Error("Function not implemented.");
-}
+// function dispatch(arg0: any) {
+//   throw new Error("Function not implemented.");
+// }

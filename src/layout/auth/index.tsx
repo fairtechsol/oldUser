@@ -1,6 +1,5 @@
-
 import { Box, Card, useMediaQuery, useTheme } from "@mui/material";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 // import AuthBackground from "../../pages/auth/AuthBackground";
 import StyledImage from "../../components/Common/StyledImages";
 import { FgLogo } from "../../assets";
@@ -9,10 +8,7 @@ const AuthLayout = () => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("md"));
 
-
-
   return (
-
     <Box style={{ position: "relative" }}>
       <AuthBackground />
       <Box
@@ -49,8 +45,7 @@ const AuthLayout = () => {
           <Outlet />
         </Card>
       </Box>
-
-    </Box >
+    </Box>
   );
 };
 

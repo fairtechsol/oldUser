@@ -1,16 +1,9 @@
-import React, { useEffect } from "react";
-
-import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { ARROWUP } from "../../../assets";
-
-import {} from "@emotion/react";
 import SmallBoxSeason from "../QuickSession/SmallBoxSeason";
 import { memo } from "react";
 import { useState } from "react";
-
 import { LockIcon } from "../../../assets";
-
-import { useLocation } from "react-router-dom";
 import Divider from "../../../helper/Divider";
 import QuickSessionMarketBox from "./QuickSessionMarketBox";
 
@@ -19,14 +12,9 @@ const QuickSessionMarket = ({
   backTeamA,
   backTeamB,
   backTeamC,
-  teamARates,
-  teamBRates,
-  teamCRates,
   allBetsData,
   sessionExposer,
-
   sessionBets,
-
   setFastAmount,
   fastAmount,
   session,
@@ -37,16 +25,11 @@ const QuickSessionMarket = ({
   maxBet,
   minBet,
   typeOfBet,
-
   eventType,
 }: any) => {
-  const theme = useTheme();
   const [showFastTimeBox, setShowFastTimeBox] = useState(false);
 
   const [selectedItem, setSelectedItem] = useState("");
-
-  const location = useLocation();
-  const id = location?.state?.matchId;
 
   const [visible, setVisible] = useState(true);
 

@@ -6,15 +6,14 @@ import { useEffect } from "react";
 import { useState } from "react";
 import DropDownMenu from "../../../../layout/main/header/DropdownMenu";
 
-const PlaceBetComponent = ({ amount, profitLoss }:any) => {
+const PlaceBetComponent = ({ profitLoss }: any) => {
   const [proLoss, setProfitLoss] = useState(profitLoss?.profitLoss);
-  const [anchorEl, setAnchorEl] = useState(null);
-  const handleClick = (event:any) => {
-    setAnchorEl(event.currentTarget);
-  };
+  const [anchorEl] = useState(null);
+  // const handleClick = (event:any) => {
+  //   setAnchorEl(event.currentTarget);
+  // };
 
   const [show, setShow] = React.useState(false);
-
 
   useEffect(() => {
     if (profitLoss) {
@@ -27,8 +26,7 @@ const PlaceBetComponent = ({ amount, profitLoss }:any) => {
       sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
     >
       <Box
-
-        onClick={(e) => {
+        onClick={() => {
           setShow(!show);
         }}
         sx={{
@@ -94,7 +92,7 @@ const PlaceBetComponent = ({ amount, profitLoss }:any) => {
           list={proLoss?.betData}
           open={Boolean(anchorEl)}
           anchorEl={anchorEl}
-        //   handleClose={handleClose}
+          //   handleClose={handleClose}
         />
       )}
     </Box>

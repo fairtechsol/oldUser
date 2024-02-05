@@ -1,229 +1,228 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import SingleBox from "./SingleBox";
 
 const RowComponent = ({ header, data }: any) => {
-    const getTime = (date: any) => {
-        const now = new Date(date);
-        const timeString = now.toLocaleTimeString("en-US", {
-            hour: "numeric",
-            minute: "numeric",
-            hour12: true,
-        });
-        return timeString;
-    };
-    const getColor = () => {
-        if (header) {
-            return "black";
-        } else if (data?.bet_type === "back" || data?.bet_type === "yes") {
-            // return "#FF9292";
-            // return "#00C0F9";
-            return "#CEEBFF";
-        } else if (data?.bet_type === "lay" || data?.bet_type === "no") {
-            return "#F2CBCB";
-            // return "#FF9292";
-            // return "#B3E0FF";
-        }
-    };
-    return (
-        <Box
-            sx={{
-                width: "100%",
-                height: header ? "25px" : "40px",
-                background: "white",
-                justifyContent: "space-between",
-                alignItems: "center",
-                display: "flex",
-                gap: "1px",
-                marginBottom: { xs: "1px", lg: "1px" },
-            }}
-        >
-            {!header && (
-                <>
-                    <SingleBox
-                        color={getColor}
-                        data={
-                            data?.marketType == "MANUAL BOOKMAKER"
-                                ? "Quick Bookmaker"
-                                : data?.marketType
-                        }
-                        first={true}
-                        header={header}
-                    />
-                    <SingleBox
-                        color={getColor()}
-                        data={data?.username || data?.userName || data?.user?.userName}
-                        header={header}
-                        boxWidth="50%"
-                    />
-                    <SingleBox
-                        color={getColor()}
-                        data={data}
-                        up={true}
-                        header={header}
-                        time={getTime(data.createAt)}
-                    />
-                    <SingleBox
-                        color={getColor()}
-                        data={data?.bet_type || data?.betType}
-                        header={header}
-                        boxWidth="50%"
-                    />
-                    <SingleBox
-                        color={getColor()}
-                        data={data?.odds}
-                        header={header}
-                        boxWidth="50%"
-                    />
-                    <SingleBox
-                        color={getColor()}
-                        data={data?.rate || data?.amount}
-                        header={header}
-                        width={"50%"}
-                        boxWidth="100%"
-                    />
-                </>
-            )}
-            {header && (
-                <>
-                    <SingleBox
-                        color={getColor}
-                        data={data[0]}
-                        header={header}
-                        boxWidth="100%"
-                    />
-                    <SingleBox
-                        color={getColor()}
-                        data={data[1]}
-                        header={header}
-                        boxWidth="50%"
-                    />
-                    <SingleBox
-                        color={getColor()}
-                        data={data[2]}
-                        header={header}
-                        boxWidth="100%"
-                    />
-                    <SingleBox
-                        color={getColor()}
-                        data={data[3]}
-                        header={header}
-                        boxWidth="50%"
-                    />
-                    <SingleBox
-                        color={getColor()}
-                        data={data[4]}
-                        header={header}
-                        boxWidth="50%"
-                    />
-                    <SingleBox
-                        color={getColor()}
-                        data={data[5]}
-                        header={header}
-                        boxWidth="100%"
-                    />
-                </>
-            )}
-        </Box>
-    );
+  const getTime = (date: any) => {
+    const now = new Date(date);
+    const timeString = now.toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    });
+    return timeString;
+  };
+  const getColor = () => {
+    if (header) {
+      return "black";
+    } else if (data?.bet_type === "back" || data?.bet_type === "yes") {
+      // return "#FF9292";
+      // return "#00C0F9";
+      return "#CEEBFF";
+    } else if (data?.bet_type === "lay" || data?.bet_type === "no") {
+      return "#F2CBCB";
+      // return "#FF9292";
+      // return "#B3E0FF";
+    }
+  };
+  return (
+    <Box
+      sx={{
+        width: "100%",
+        height: header ? "25px" : "40px",
+        background: "white",
+        justifyContent: "space-between",
+        alignItems: "center",
+        display: "flex",
+        gap: "1px",
+        marginBottom: { xs: "1px", lg: "1px" },
+      }}
+    >
+      {!header && (
+        <>
+          <SingleBox
+            color={getColor}
+            data={
+              data?.marketType == "MANUAL BOOKMAKER"
+                ? "Quick Bookmaker"
+                : data?.marketType
+            }
+            first={true}
+            header={header}
+          />
+          <SingleBox
+            color={getColor()}
+            data={data?.username || data?.userName || data?.user?.userName}
+            header={header}
+            boxWidth="50%"
+          />
+          <SingleBox
+            color={getColor()}
+            data={data}
+            up={true}
+            header={header}
+            time={getTime(data.createAt)}
+          />
+          <SingleBox
+            color={getColor()}
+            data={data?.bet_type || data?.betType}
+            header={header}
+            boxWidth="50%"
+          />
+          <SingleBox
+            color={getColor()}
+            data={data?.odds}
+            header={header}
+            boxWidth="50%"
+          />
+          <SingleBox
+            color={getColor()}
+            data={data?.rate || data?.amount}
+            header={header}
+            width={"50%"}
+            boxWidth="100%"
+          />
+        </>
+      )}
+      {header && (
+        <>
+          <SingleBox
+            color={getColor}
+            data={data[0]}
+            header={header}
+            boxWidth="100%"
+          />
+          <SingleBox
+            color={getColor()}
+            data={data[1]}
+            header={header}
+            boxWidth="50%"
+          />
+          <SingleBox
+            color={getColor()}
+            data={data[2]}
+            header={header}
+            boxWidth="100%"
+          />
+          <SingleBox
+            color={getColor()}
+            data={data[3]}
+            header={header}
+            boxWidth="50%"
+          />
+          <SingleBox
+            color={getColor()}
+            data={data[4]}
+            header={header}
+            boxWidth="50%"
+          />
+          <SingleBox
+            color={getColor()}
+            data={data[5]}
+            header={header}
+            boxWidth="100%"
+          />
+        </>
+      )}
+    </Box>
+  );
 };
 
-const Footer = ({ currentPage, pages, callPage, currentPageNo }: any) => {
-    return (
-        <Box
-            sx={{
-                height: "35px",
-                display: "flex",
-                alignItems: "center",
-                px: { xs: "5px", lg: "10px" },
-                justifyContent: "space-between",
-                background: "#FAFAFA",
-                // marginX: "0%",
-                // marginBottom: "10px",
-            }}
-        >
-            <Typography
-                sx={{ fontSize: { xs: "10px", lg: "12px" }, fontWeight: "600" }}
-            >
-                Showing 1 to {pages}
-            </Typography>
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-                <Box
-                    sx={{
-                        height: "25px",
-                        width: { xs: "60px", lg: "80px" },
-                        background: "#0B4F26",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        borderRadius: "5px",
-                    }}
-                    onClick={() => {
-                        callPage(
-                            parseInt(currentPage) - 1 === -1 ? 0 : parseInt(currentPage) - 1
-                        );
-                    }}
-                >
-                    <Typography
-                        sx={{
-                            color: "white",
-                            fontSize: { lg: "12px", xs: "10px" },
-                        }}
-                    >
-                        Previous
-                    </Typography>
-                </Box>
-                <Box
-                    sx={{
-                        height: "25px",
-                        marginX: { lg: "8px", xs: "3.5px" },
-                        width: "40px",
-                        background: "#262626",
-                        display: "flex",
-                        borderRadius: "5px",
-                        justifyContent: "center",
-                        alignItems: "center",
-                    }}
-                >
-                    <Typography
-                        sx={{
-                            color: "white",
-                            fontSize: { lg: "12px", xs: "12px" },
-                        }}
-                    >
-                        {currentPageNo + 1}
-                    </Typography>
-                </Box>
-                <Box
-                    sx={{
-                        height: "25px",
-                        width: { xs: "60px", lg: "80px" },
-                        background: "#0B4F26",
-                        display: "flex",
-                        borderRadius: "5px",
-                        justifyContent: "center",
-                        alignItems: "center",
-                    }}
-                    onClick={() => {
-                        callPage(
-                            parseInt(currentPage) === pages - 1
-                                ? pages - 1
-                                : parseInt(currentPage) + 1
-                        );
-                    }}
-                >
-                    <Typography
-                        sx={{
-                            color: "white",
-                            fontSize: { lg: "14px", xs: "12px" },
-                        }}
-                    >
-                        Next
-                    </Typography>
-                </Box>
-            </Box>
-        </Box>
-    );
-};
-
+// const Footer = ({ currentPage, pages, callPage, currentPageNo }: any) => {
+//     return (
+//         <Box
+//             sx={{
+//                 height: "35px",
+//                 display: "flex",
+//                 alignItems: "center",
+//                 px: { xs: "5px", lg: "10px" },
+//                 justifyContent: "space-between",
+//                 background: "#FAFAFA",
+//                 // marginX: "0%",
+//                 // marginBottom: "10px",
+//             }}
+//         >
+//             <Typography
+//                 sx={{ fontSize: { xs: "10px", lg: "12px" }, fontWeight: "600" }}
+//             >
+//                 Showing 1 to {pages}
+//             </Typography>
+//             <Box sx={{ display: "flex", alignItems: "center" }}>
+//                 <Box
+//                     sx={{
+//                         height: "25px",
+//                         width: { xs: "60px", lg: "80px" },
+//                         background: "#0B4F26",
+//                         display: "flex",
+//                         justifyContent: "center",
+//                         alignItems: "center",
+//                         borderRadius: "5px",
+//                     }}
+//                     onClick={() => {
+//                         callPage(
+//                             parseInt(currentPage) - 1 === -1 ? 0 : parseInt(currentPage) - 1
+//                         );
+//                     }}
+//                 >
+//                     <Typography
+//                         sx={{
+//                             color: "white",
+//                             fontSize: { lg: "12px", xs: "10px" },
+//                         }}
+//                     >
+//                         Previous
+//                     </Typography>
+//                 </Box>
+//                 <Box
+//                     sx={{
+//                         height: "25px",
+//                         marginX: { lg: "8px", xs: "3.5px" },
+//                         width: "40px",
+//                         background: "#262626",
+//                         display: "flex",
+//                         borderRadius: "5px",
+//                         justifyContent: "center",
+//                         alignItems: "center",
+//                     }}
+//                 >
+//                     <Typography
+//                         sx={{
+//                             color: "white",
+//                             fontSize: { lg: "12px", xs: "12px" },
+//                         }}
+//                     >
+//                         {currentPageNo + 1}
+//                     </Typography>
+//                 </Box>
+//                 <Box
+//                     sx={{
+//                         height: "25px",
+//                         width: { xs: "60px", lg: "80px" },
+//                         background: "#0B4F26",
+//                         display: "flex",
+//                         borderRadius: "5px",
+//                         justifyContent: "center",
+//                         alignItems: "center",
+//                     }}
+//                     onClick={() => {
+//                         callPage(
+//                             parseInt(currentPage) === pages - 1
+//                                 ? pages - 1
+//                                 : parseInt(currentPage) + 1
+//                         );
+//                     }}
+//                 >
+//                     <Typography
+//                         sx={{
+//                             color: "white",
+//                             fontSize: { lg: "14px", xs: "12px" },
+//                         }}
+//                     >
+//                         Next
+//                     </Typography>
+//                 </Box>
+//             </Box>
+//         </Box>
+//     );
+// };
 
 export default RowComponent;

@@ -1,10 +1,6 @@
+import { Box, Typography } from "@mui/material";
 
-import { Box, Typography,useTheme , useMediaQuery } from '@mui/material';
-
-
-const MoneyBox = ({ color, rates }:any) => {
-  const theme = useTheme();
-  const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
+const MoneyBox = ({ color, rates }: any) => {
   return (
     <Box
       sx={{
@@ -27,4 +23,4 @@ const MoneyBox = ({ color, rates }:any) => {
     </Box>
   );
 };
-export default MoneyBox
+export default MoneyBox;

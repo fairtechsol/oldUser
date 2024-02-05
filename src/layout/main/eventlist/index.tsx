@@ -1,5 +1,4 @@
 import { Box } from "@mui/system";
-import { useState } from "react";
 import {
   BASKETBALL,
   Card,
@@ -18,74 +17,70 @@ import {
 import EventComponent from "./EventComponent";
 import { NavLink } from "react-router-dom";
 
+const EventListing = () => {
+  const data = [
+    {
+      title: "INPLAY",
+      image: Play,
+      url: "/old/inplay",
+    },
+    {
+      title: "MY ACCOUNT",
+      image: MYACCOUNT,
+      url: "/old/my-account",
+    },
+    {
+      title: "CRICKET",
+      image: Cricket,
+      url: "/old/match",
+    },
+    {
+      title: "LIVE CASINO",
+      image: Slot,
+      url: "/old/comingsoon",
+    },
+    {
+      title: "LIVE CARD",
+      image: Card,
+      url: "/old/comingsoon",
+    },
+    {
+      title: "SOCCER",
+      image: Football,
+      url: "/old/comingsoon",
+    },
+    {
+      title: "TENNIS",
+      image: Tennis,
+      url: "/old/comingsoon",
+    },
+    {
+      title: "ICE HOCKEY",
+      image: Hockey,
+      url: "/old/comingsoon",
+    },
+    {
+      title: "SNOOKER",
+      image: SNOOKER,
+      url: "/old/comingsoon",
+    },
+    {
+      title: "GOLF",
+      image: GOLF,
+      url: "/old/comingsoon",
+    },
+    {
+      title: "CHESS",
+      image: CHESS,
+      url: "/old/comingsoon",
+    },
+    {
+      title: "BASKETBALL",
+      image: BASKETBALL,
+      url: "/old/comingsoon",
+    },
+  ];
 
-
-  const EventListing = ({selected }: any) => {
-    const [anchor, setAnchor] = useState(null);
-
-    const data = [
-        {
-          title: "INPLAY",
-          image: Play,
-          url: "inplay",
-        },
-        {
-          title: "MY ACCOUNT",
-          image: MYACCOUNT,
-          url: "my-account",
-        },
-        {
-          title: "CRICKET",
-          image: Cricket,
-          url: "match",
-        },
-        {
-          title: "LIVE CASINO",
-          image: Slot,
-          url: "comingsoon",
-        },
-        {
-          title: "LIVE CARD",
-          image: Card,
-          url: "comingsoon",
-        },
-        {
-          title: "SOCCER",
-          image: Football,
-          url: "comingsoon",
-        },
-        {
-          title: "TENNIS",
-          image: Tennis,
-          url: "comingsoon",
-        },
-        {
-          title: "ICE HOCKEY",
-          image: Hockey,
-          url: "comingsoon",
-        },
-        {
-          title: "SNOOKER",
-          image: SNOOKER,
-          url: "comingsoon",
-        },
-        {
-          title: "GOLF",
-          image: GOLF,
-          url: "comingsoon",
-        },
-        {
-          title: "CHESS",
-          image: CHESS,
-          url: "comingsoon",
-        },
-        {
-          title: "BASKETBALL",
-          image: BASKETBALL,
-          url: "comingsoon",
-        },
-      ];
-      const [newData, setNewData] = useState<any>(data);
   return (
     <>
       <Box
@@ -110,27 +105,24 @@ import { NavLink } from "react-router-dom";
               key={idx}
               data={i}
               selected={selected}
-              className={({ selected }:any) =>
-              [selected ? "activeEventTab" : ""].join(" ")
-            }
-              setAnchor={setAnchor}
+              setAnchor={() => {}}
             />
           );
         })} */}
-            {newData?.map((i: any, idx: any) => {
-        return (
-          <NavLink
-            key={idx}
-            to={`${i.url}`}
-            className={({ isActive }) =>
-              [isActive ? "activeEventTab" : ""].join(" ")
-            }
-            style={{ textDecoration: "none" }}
-          >
-            <EventComponent data={i}  setAnchor={setAnchor}/>
-          </NavLink>
-        );
-      })}
+        {data?.map((i: any, idx: any) => {
+          return (
+            <NavLink
+              key={idx}
+              to={`${i.url}`}
+              className={({ isActive }) =>
+                [isActive ? "activeEventTab" : ""].join(" ")
+              }
+              style={{ textDecoration: "none" }}
+            >
+              <EventComponent data={i} setAnchor={() => {}} />
+            </NavLink>
+          );
+        })}
       </Box>
     </>
   );

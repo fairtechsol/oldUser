@@ -1,34 +1,24 @@
 import {
-    Box,
-    CircularProgress,
-    Menu,
-    MenuItem,
-    useMediaQuery,
-    useTheme,
-  } from "@mui/material";
-  import StyledImage from "../../../components/Common/StyledImages";
-  import Logout  from "../../../assets/images/logout.png";
-
-  import { useDispatch } from "react-redux";
-  import { useNavigate } from "react-router-dom";
-  
-  import { memo } from "react";
-
-  import { useState } from "react";
+  Box,
+  CircularProgress,
+  MenuItem,
+} from "@mui/material";
+import StyledImage from "../../../components/Common/StyledImages";
+import Logout from "../../../assets/images/logout.png";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { memo } from "react";
+import { useState } from "react";
 import { logout } from "../../../store/actions/auth/authAction";
 import { AppDispatch } from "../../../store/store";
-  
-  const DropdownMenu = ({ anchorEl, open, handleClose}:any) => {
-    const [loading, setLoading] = useState(false);
 
-    const theme = useTheme();
-    const navigate = useNavigate();
-    const dispatch: AppDispatch = useDispatch();
-
-    const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
-    const menutItems = [{ title: "Rules", link: "/rules" }];
-    return (
-      <Box
+const DropdownMenu = ({ handleClose }: any) => {
+  const [loading,] = useState(false);
+  const navigate = useNavigate();
+  const dispatch: AppDispatch = useDispatch();
+  const menutItems = [{ title: "Rules", link: "/rules" }];
+  return (
+    <Box
       // ref={innerRef}
       sx={{
         position: "absolute",
@@ -77,7 +67,10 @@ import { AppDispatch } from "../../../store/store";
       ))}
       <Box
         onClick={() => {
-          dispatch(logout());
+          if (!loading) {
+          } else {
+            return false;
+          }
         }}
         sx={{
           borderRadius: "5px",
@@ -87,17 +80,35 @@ import { AppDispatch } from "../../../store/store";
           marginTop: "10px",
           backgroundColor: "#F1C550",
           display: "flex",
+          border: "2px solid #2626264D",
           justifyContent: "center",
           alignItems: "center",
-          border: "2px solid #2626264D",
           cursor: "pointer",
         }}
       >
-        <StyledImage src={Logout} sx={{ width: "35%", height: "auto" }} />
+        {loading ? (
+          <CircularProgress
+            sx={{
+              color: "#FFF",
+            }}
+            size={20}
+            thickness={4}
+            value={60}
+          />
+        ) : (
+          <StyledImage
+            src={Logout}
+            sx={{ width: "35%", height: "auto" }}
+            onClick={(e) => {
+              e.stopPropagation();
+              dispatch(logout());
+              navigate("/old/login");
+            }}
+          />
+        )}
       </Box>
     </Box>
-    );
-  };
-  
-  export default memo(DropdownMenu);
-  
+  );
+};
+
+export default memo(DropdownMenu);

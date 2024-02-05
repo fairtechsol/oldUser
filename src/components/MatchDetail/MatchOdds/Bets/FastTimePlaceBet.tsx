@@ -1,165 +1,157 @@
-import { TextField, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Typography, useMediaQuery, useTheme } from "@mui/material";
 import { Box } from "@mui/system";
-import { useEffect, useState, useRef } from "react";
-
-
-import { toast } from "react-toastify";
+import { useState, useRef } from "react";
 import { currencyFormatter } from "../../../../helper/index";
-
 
 const FastTimePlaceBet = ({
   session,
-  setFastAmount,
-  selectedValue,
   setShowFastTimeBox,
-  fromOdds,
   selectedFastAmount,
   typeOfBet,
   matchOddsData,
   data,
-}:any) => {
-
+}: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
-  const [canceled, setCanceled] = useState({
-    value: false,
-    msg: "",
-    loading: false,
-    type: false,
-  });
+  // const [canceled, setCanceled] = useState({
+  //   value: false,
+  //   msg: "",
+  //   loading: false,
+  //   type: false,
+  // });
 
-
-  const [matchButtonList, setMatchButtonList] = useState(["0"]);
-  const [sessionButtonList, setSessionButtonList] = useState(["0"]);
+  const [matchButtonList] = useState(["0"]);
+  const [sessionButtonList] = useState(["0"]);
 
   const myDivRef = useRef(null);
 
-//   useEffect(() => {
-//     if (!fromOdds) {
-//       // scrollToBottom();
-//       scrollToFullDiv();
-//       setMatchButtonList(matchButtonData);
-//       setSessionButtonList(sessionButtonData);
-//     }
-//   }, [selectedValue, fromOdds]);
+  //   useEffect(() => {
+  //     if (!fromOdds) {
+  //       // scrollToBottom();
+  //       scrollToFullDiv();
+  //       setMatchButtonList(matchButtonData);
+  //       setSessionButtonList(sessionButtonData);
+  //     }
+  //   }, [selectedValue, fromOdds]);
 
-//   const [ip, setIP] = useState(geoLocation);
-//   useEffect(() => {
-//     if (geoLocation) {
-//       setIP(geoLocation);
-//     }
-//   }, [geoLocation]);
+  //   const [ip, setIP] = useState(geoLocation);
+  //   useEffect(() => {
+  //     if (geoLocation) {
+  //       setIP(geoLocation);
+  //     }
+  //   }, [geoLocation]);
 
-//   const scrollToFullDiv = () => {
-//     if (myDivRef.current) {
-//       const { scrollTop, offsetHeight, scrollHeight } = myDivRef.current;
-//       const scrollPosition = scrollTop + offsetHeight;
+  //   const scrollToFullDiv = () => {
+  //     if (myDivRef.current) {
+  //       const { scrollTop, offsetHeight, scrollHeight } = myDivRef.current;
+  //       const scrollPosition = scrollTop + offsetHeight;
 
-//       if (scrollPosition < scrollHeight) {
-//         myDivRef.current.scrollTop = scrollHeight;
-//       }
-//     }
-//   };
+  //       if (scrollPosition < scrollHeight) {
+  //         myDivRef.current.scrollTop = scrollHeight;
+  //       }
+  //     }
+  //   };
 
-//   const handleAmountClick = async (payload, session, odds, teamSuspend) => {
-//     if ([null, 0, "", "0"].includes(odds) || odds <= 0) {
-//       setCanceled({
-//         value: true,
-//         msg: "Market Suspended",
-//         loading: false,
-//         type: false,
-//       });
-//       setTimeout(() => {
-//         setCanceled({
-//           value: false,
-//           msg: "",
-//           loading: false,
-//           type: false,
-//         });
-//       }, 1500);
-//       return;
-//     }
-//     try {
-//       setCanceled({
-//         value: true,
-//         msg: "Rate changed",
-//         loading: true,
-//         type: false,
-//       });
-//       let newPayload = {
-//         ...payload,
-//         country: ip?.country_name || null,
-//         ip_address: ip?.IPv4 || null,
-//       };
-//       let response = await axios.post(`/betting/placeBet`, newPayload);
-//       console.log("responseresponse", response);
-//       setCanceled({
-//         value: true,
-//         msg: response?.data?.message,
-//         loading: false,
-//         type: true,
-//       });
-//       setTimeout(() => {
-//         setCanceled({
-//           value: false,
-//           msg: "",
-//           loading: false,
-//           type: false,
-//         });
-//       }, 1500);
-//     } catch (e) {
-//       console.log(e);
-//       setCanceled({
-//         value: true,
+  //   const handleAmountClick = async (payload, session, odds, teamSuspend) => {
+  //     if ([null, 0, "", "0"].includes(odds) || odds <= 0) {
+  //       setCanceled({
+  //         value: true,
+  //         msg: "Market Suspended",
+  //         loading: false,
+  //         type: false,
+  //       });
+  //       setTimeout(() => {
+  //         setCanceled({
+  //           value: false,
+  //           msg: "",
+  //           loading: false,
+  //           type: false,
+  //         });
+  //       }, 1500);
+  //       return;
+  //     }
+  //     try {
+  //       setCanceled({
+  //         value: true,
+  //         msg: "Rate changed",
+  //         loading: true,
+  //         type: false,
+  //       });
+  //       let newPayload = {
+  //         ...payload,
+  //         country: ip?.country_name || null,
+  //         ip_address: ip?.IPv4 || null,
+  //       };
+  //       let response = await axios.post(`/betting/placeBet`, newPayload);
+  //       console.log("responseresponse", response);
+  //       setCanceled({
+  //         value: true,
+  //         msg: response?.data?.message,
+  //         loading: false,
+  //         type: true,
+  //       });
+  //       setTimeout(() => {
+  //         setCanceled({
+  //           value: false,
+  //           msg: "",
+  //           loading: false,
+  //           type: false,
+  //         });
+  //       }, 1500);
+  //     } catch (e) {
+  //       console.log(e);
+  //       setCanceled({
+  //         value: true,
 
-//         loading: false,
-//         type: false,
-//       });
-//       setTimeout(() => {
-//         setCanceled({
-//           value: false,
-//           msg: "",
-//           loading: false,
-//           type: false,
-//         });
-//       }, 1500);
-//     }
-//   };
+  //         loading: false,
+  //         type: false,
+  //       });
+  //       setTimeout(() => {
+  //         setCanceled({
+  //           value: false,
+  //           msg: "",
+  //           loading: false,
+  //           type: false,
+  //         });
+  //       }, 1500);
+  //     }
+  //   };
 
-  const handleChange = (e:any) => {
-    const value = e.target.value.trim();
+  // const handleChange = (e: any) => {
+  //   const value = e.target.value.trim();
 
-    if (value === "") {
-      if (session === "sessionOdds") {
-        setFastAmount((prev:any) => ({ ...prev, sessionOdds: 0 }));
-      } else if (session === "manualBookMaker") {
-        setFastAmount((prev:any) => ({ ...prev, [typeOfBet]: 0 }));
-      } else if (session === "bookmaker") {
-        setFastAmount((prev:any) => ({ ...prev, bookMaker: 0 }));
-      }
-    } else {
-      if (Number(value) <= 500000) {
-        if (session === "sessionOdds") {
-          setFastAmount((prev:any) => ({ ...prev, sessionOdds: Number(value) }));
-        } else if (session === "manualBookMaker") {
-          setFastAmount((prev:any) => ({
-            ...prev,
-            [typeOfBet]: Number(value),
-          }));
-        } else if (session === "bookmaker") {
-          setFastAmount((prev:any) => ({ ...prev, bookMaker: Number(value) }));
-        }
-      } else {
-        toast.warning(
-          `Value must be between less then 500000
-          `
-        );
-      }
-    }
-  };
-
-
+  //   if (value === "") {
+  //     if (session === "sessionOdds") {
+  //       setFastAmount((prev: any) => ({ ...prev, sessionOdds: 0 }));
+  //     } else if (session === "manualBookMaker") {
+  //       setFastAmount((prev: any) => ({ ...prev, [typeOfBet]: 0 }));
+  //     } else if (session === "bookmaker") {
+  //       setFastAmount((prev: any) => ({ ...prev, bookMaker: 0 }));
+  //     }
+  //   } else {
+  //     if (Number(value) <= 500000) {
+  //       if (session === "sessionOdds") {
+  //         setFastAmount((prev: any) => ({
+  //           ...prev,
+  //           sessionOdds: Number(value),
+  //         }));
+  //       } else if (session === "manualBookMaker") {
+  //         setFastAmount((prev: any) => ({
+  //           ...prev,
+  //           [typeOfBet]: Number(value),
+  //         }));
+  //       } else if (session === "bookmaker") {
+  //         setFastAmount((prev: any) => ({ ...prev, bookMaker: Number(value) }));
+  //       }
+  //     } else {
+  //       toast.warning(
+  //         `Value must be between less then 500000
+  //         `
+  //       );
+  //     }
+  //   }
+  // };
 
   return (
     <>
@@ -257,7 +249,7 @@ const FastTimePlaceBet = ({
                         }}
                       >
                         {matchButtonList.length > 0 &&
-                          matchButtonList?.map((v:any, index:any) => (
+                          matchButtonList?.map((v: any, index: any) => (
                             <NumberData
                               key={index}
                               containerStyle={{
@@ -286,7 +278,7 @@ const FastTimePlaceBet = ({
                               }
                               backgroundColor={"#A7DCFF"}
                               matchOddsData={matchOddsData}
-                            //   handleAmountClick={handleAmountClick}
+                              //   handleAmountClick={handleAmountClick}
                             />
                           ))}
                       </Box>
@@ -344,7 +336,7 @@ const FastTimePlaceBet = ({
                         }}
                       >
                         {matchButtonList.length > 0 &&
-                          matchButtonList?.map((v:any, index:any) => (
+                          matchButtonList?.map((v: any, index: any) => (
                             <NumberData
                               key={index}
                               containerStyle={{
@@ -373,7 +365,7 @@ const FastTimePlaceBet = ({
                               }
                               backgroundColor={"#A7DCFF"}
                               matchOddsData={matchOddsData}
-                            //   handleAmountClick={handleAmountClick}
+                              //   handleAmountClick={handleAmountClick}
                             />
                           ))}
                       </Box>
@@ -432,7 +424,7 @@ const FastTimePlaceBet = ({
                           }}
                         >
                           {matchButtonList.length > 0 &&
-                            matchButtonList?.map((v:any, index:any) => (
+                            matchButtonList?.map((v: any, index: any) => (
                               <NumberData
                                 key={index}
                                 containerStyle={{
@@ -483,7 +475,7 @@ const FastTimePlaceBet = ({
                       }}
                     >
                       {matchButtonList.length > 0 &&
-                        matchButtonList?.map((v:any, index:any) => (
+                        matchButtonList?.map((v: any, index: any) => (
                           <NumberData
                             key={index}
                             containerStyle={{
@@ -551,7 +543,7 @@ const FastTimePlaceBet = ({
                       }}
                     >
                       {matchButtonList.length > 0 &&
-                        matchButtonList?.map((v:any, index:any) => (
+                        matchButtonList?.map((v: any, index: any) => (
                           <NumberData
                             key={index}
                             containerStyle={{
@@ -657,7 +649,7 @@ const FastTimePlaceBet = ({
                     }}
                   >
                     {sessionButtonList.length > 0 &&
-                      sessionButtonList?.map((v:any, index:any) => (
+                      sessionButtonList?.map((v: any, index: any) => (
                         <NumberData
                           key={index}
                           containerStyle={{
@@ -678,7 +670,7 @@ const FastTimePlaceBet = ({
                           matchOddsData={matchOddsData}
                           data={data}
                           placeIndex={2}
-                        //   handleAmountClick={handleAmountClick}
+                          //   handleAmountClick={handleAmountClick}
                           setShowFastTimeBox={setShowFastTimeBox}
                         />
                       ))}
@@ -695,7 +687,7 @@ const FastTimePlaceBet = ({
                     }}
                   >
                     {sessionButtonList.length > 0 &&
-                      sessionButtonList?.map((v:any, index:any) => (
+                      sessionButtonList?.map((v: any, index: any) => (
                         <NumberData
                           key={index}
                           containerStyle={{
@@ -716,13 +708,12 @@ const FastTimePlaceBet = ({
                           matchOddsData={matchOddsData}
                           data={data}
                           placeIndex={1}
-                        //   handleAmountClick={handleAmountClick}
+                          //   handleAmountClick={handleAmountClick}
                           setShowFastTimeBox={setShowFastTimeBox}
                         />
                       ))}
                   </Box>
                 </>
-               
               </>
             }
           </Box>
@@ -753,25 +744,11 @@ const FastTimePlaceBet = ({
 };
 
 const NumberData = ({
-  value,
   lable,
-  typeOfBet,
   containerStyle,
-  setFastAmount,
-  setShowFastTimeBox,
-  session,
   backgroundColor,
-  type,
-  betOnTeam,
-  matchOddsData,
-  // setFastAmountQuickBet,
-  handleAmountClick,
-  odds,
   setMinWidth,
-  placeIndex,
-  teamSuspend,
-  data,
-}:any) => {
+}: any) => {
   return (
     <Box
       sx={[

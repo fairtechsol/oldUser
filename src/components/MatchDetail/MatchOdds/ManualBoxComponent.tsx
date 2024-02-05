@@ -9,20 +9,15 @@ const ManualBoxComponent = ({
   name,
   color,
   data,
-  team,
   typeOfBet,
-  align,
   rate,
   allRates,
-  lock,
   teamImage,
   newData,
   backTeamA,
   backTeamB,
-  backTeamC,
   showBox,
   livestatus,
-  isRound,
   matchOddsData,
   ballStatus,
   isBall,
@@ -40,7 +35,7 @@ const ManualBoxComponent = ({
 }: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
-  const { ex, status } = data ?? {};
+  const { status } = data ?? {};
   useEffect(() => {
     if (livestatus || status !== "ACTIVE" || showBox) {
       setPlaceBetData(null);
