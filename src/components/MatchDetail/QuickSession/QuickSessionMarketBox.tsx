@@ -1,13 +1,10 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 
 import { memo } from "react";
-import { currencyFormatter, formatNumber } from "../../../helper/index";
 import { BallStart } from "../../../assets";
 import SeparateModal from "../MatchOdds/SeparateModal";
 import PlaceBetComponentWeb from "../MatchOdds/Bets/PlaceBetComponentWeb";
 import FastTimePlaceBet from "../MatchOdds/Bets/FastTimePlaceBet";
-import FastTime from "../MatchOdds/FastTime";
-import PlaceBetComponent from "../MatchOdds/Bets/PlaceBetComponent";
 import MoneyBox from "../MatchOdds/MoneyBox";
 
 const QuickSessionMarketBox = ({
@@ -26,11 +23,7 @@ const QuickSessionMarketBox = ({
   showFastTimeBox,
   upcoming,
   fastAmount,
-  setSelectedItem,
   selectedItem,
-  betStatus,
-  suspended,
-  matchDetails,
   eventType,
 }: any) => {
   const theme = useTheme();

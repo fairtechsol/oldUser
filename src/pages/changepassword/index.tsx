@@ -3,12 +3,11 @@ import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import { eye, eyeLock } from "../../assets";
 import Input from "../../components/login/input";
 import { useDispatch } from "react-redux";
-import { AppDispatch, RootState } from "../../store/store";
-import { useEffect, useState } from "react";
-import { changePassword, changePasswordReset, logout } from "../../store/actions/auth/authAction";
+import { AppDispatch } from "../../store/store";
+import { useState } from "react";
+import { changePassword, logout } from "../../store/actions/auth/authAction";
 import NavigateModal from "../../components/Common/NavigateModal";
 import { useFormik } from "formik";
-import { useSelector } from "react-redux";
 import { newPasswordValidationSchema } from "../../utils/Validations";
 
 const initialValues: any = {
@@ -17,12 +16,10 @@ const initialValues: any = {
   confirmPassword: "",
 };
 
-
 const ChangePassword = (props: any) => {
   const { passLoader, width } = props;
   const [showModal, setShowModal] = useState<boolean>(false);
   const dispatch: AppDispatch = useDispatch();
-  // const { success } = useSelector((state: RootState) => state.auth.authReducer);
 
   const formik = useFormik({
     initialValues: initialValues,
@@ -34,12 +31,11 @@ const ChangePassword = (props: any) => {
         oldPassword: values.oldPassword,
       };
       dispatch(changePassword(payload));
-      setShowModal(true);
+      // setShowModal(true);
     },
   });
 
-  const { handleSubmit, touched, errors } = formik;
-
+  const { handleSubmit } = formik;
 
   // useEffect(() => {
   //   if (success) {
@@ -50,7 +46,7 @@ const ChangePassword = (props: any) => {
 
   return (
     <>
-      <form  onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <Box
           sx={{
             width: { xs: "96vw", lg: "19vw", md: "19vw" },
@@ -189,13 +185,12 @@ const ChangePassword = (props: any) => {
       </form>
       {showModal && (
         <NavigateModal
-    
           modalTitle="Your password has been changed sucessfully"
           setShowModal={setShowModal}
           showModal={showModal}
           functionDispatch={() => dispatch(logout())}
           buttonMessage={"Navigate To Login"}
-          navigateTo={"/login"}
+          navigateTo={"/old/login"}
         />
       )}
     </>

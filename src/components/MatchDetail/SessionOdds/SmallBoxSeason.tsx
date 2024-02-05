@@ -1,19 +1,19 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
 
-const SmallBoxSeason = ({ color, allBetsData, sessionBets, totalAmount }:any) => {
-//   function countObjectsWithNullDeletedReason(array:any) {
-//     let count = 0;
-//     for (const obj of array) {
-//       if (obj?.deleted_reason === null) {
-//         count++;
-//       }
-//     }
-//     return count;
-//   }
-  
+const SmallBoxSeason = ({ totalAmount }: any) => {
+  //   function countObjectsWithNullDeletedReason(array:any) {
+  //     let count = 0;
+  //     for (const obj of array) {
+  //       if (obj?.deleted_reason === null) {
+  //         count++;
+  //       }
+  //     }
+  //     return count;
+  //   }
+
   // Call the function and get the count
-//   const countNullDeletedReason = countObjectsWithNullDeletedReason(sessionBets);
+  //   const countNullDeletedReason = countObjectsWithNullDeletedReason(sessionBets);
   return (
     <Box
       sx={{
@@ -52,7 +52,11 @@ const SmallBoxSeason = ({ color, allBetsData, sessionBets, totalAmount }:any) =>
           Session Bet
         </Typography>
         <Typography
-          sx={{ fontSize: { xs: "10px", md: "10px", lg: "12px" }, fontWeight: "bold", color: "#319E5B" }}
+          sx={{
+            fontSize: { xs: "10px", md: "10px", lg: "12px" },
+            fontWeight: "bold",
+            color: "#319E5B",
+          }}
         >
           {0}
         </Typography>
@@ -76,8 +80,8 @@ const SmallBoxSeason = ({ color, allBetsData, sessionBets, totalAmount }:any) =>
             fontSize: { xs: "7px", md: "8px", lg: "8px" },
             fontWeight: "bold",
             color: "#FF4D4D",
-            textAlign: 'center',
-            lineHeight: '1'
+            textAlign: "center",
+            lineHeight: "1",
           }}
         >
           Total Amount
@@ -87,10 +91,14 @@ const SmallBoxSeason = ({ color, allBetsData, sessionBets, totalAmount }:any) =>
             fontSize: { xs: "10px", md: "10px", lg: "12px" },
             fontWeight: "bold",
             color: "#319E5B",
-            lineHeight: '1.5',
+            lineHeight: "1.5",
           }}
         >
-          {totalAmount > 0 ?  totalAmount : totalAmount == undefined ? 0 : totalAmount}
+          {totalAmount > 0
+            ? totalAmount
+            : totalAmount == undefined
+            ? 0
+            : totalAmount}
         </Typography>
       </Box>
     </Box>

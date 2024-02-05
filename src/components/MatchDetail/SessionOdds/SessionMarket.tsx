@@ -1,35 +1,25 @@
-
 import Divider from "../../../helper/Divider";
 import SessionMarketBox from "./SessionMarketBox";
-import { Box, Typography, useMediaQuery ,useTheme} from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { ARROWUP } from "../../../assets";
-
-import {  } from "@emotion/react";
-
 import { memo } from "react";
 import { useState } from "react";
-
-import { currencyFormatter, formatNumber } from "../../../helper/index";
-
+import { currencyFormatter } from "../../../helper/index";
 import { LockIcon } from "../../../assets";
-
 import { customSort } from "../../../helper/index";
-
 import FastTime from "../MatchOdds/FastTime";
 import FastTimePlaceBet from "../MatchOdds/Bets/FastTimePlaceBet";
 import SmallboxSeason from "./SmallBoxSeason";
+
 const SessionMarket = ({
   data,
-  newData,
   showFast,
   teamARates,
   teamBRates,
   teamCRates,
   allBetsData,
   sessionExposer,
-  dataProfit,
   sessionBets,
-  sessionOffline,
   setFastAmount,
   fastAmount,
   session,
@@ -40,23 +30,16 @@ const SessionMarket = ({
   max,
   min,
   typeOfBet,
-  apiSessionActive,
-  manualSessionActive,
-}:any) => {
-  const theme = useTheme();
+}: any) => {
   const [showFastTimeBox, setShowFastTimeBox] = useState(false);
-  const [fastBetLoading, setFastBetLoading] = useState(false);
-
-  const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
-  const [localSessionBettings, setLocalSessionBettings] = useState([]);
+  // const [fastBetLoading, setFastBetLoading] = useState(false);
+  const [localSessionBettings] = useState([]);
   // const [localData, setLocalData] = useState(newData);
   // useEffect(() => {
   //   setLocalData(newData);
   // }, [newData]);
 
   const [visible, setVisible] = useState(true);
-
-
 
   return (
     <>
@@ -355,7 +338,7 @@ const SessionMarket = ({
                 localSessionBettings
                   ?.slice()
                   .sort(customSort)
-                  ?.map((element:any) => {
+                  ?.map((element: any) => {
                     return (
                       <Box
                         key={element?.id}
@@ -366,11 +349,11 @@ const SessionMarket = ({
                       >
                         <SessionMarketBox
                           upcoming={upcoming}
-                        //   closeModal={
-                        //     [0, 2]?.includes("element?.betStatus") ? true : false
-                        //   }
+                          //   closeModal={
+                          //     [0, 2]?.includes("element?.betStatus") ? true : false
+                          //   }
                           typeOfBet={typeOfBet}
-                          setFastBetLoading={setFastBetLoading}
+                          setFastBetLoading={() => {}}
                           data={element}
                           sessionMain={session}
                           selectedFastAmount={fastAmount}

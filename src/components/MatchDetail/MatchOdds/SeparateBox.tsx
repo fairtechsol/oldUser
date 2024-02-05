@@ -1,11 +1,8 @@
-import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
-import React, { memo } from "react";
+import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 import { Lock } from "../../../assets";
 
 const SeparateBox = ({ color, empty, value, value2, lock }: any) => {
-  const theme = useTheme();
-  const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
-
   const classes = {
     container: {
       background: color,

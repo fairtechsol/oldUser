@@ -1,11 +1,11 @@
-import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { memo, useEffect, useState } from "react";
 import OddsPlaceBet from "./Bets/OddsPlacebet";
 import FastTimePlaceBet from "./Bets/FastTimePlaceBet";
 import BoxComponent from "./BoxComponent";
 import Divider from "../../../helper/Divider";
 import ManualBoxComponent from "./ManualBoxComponent";
-import { ARROWUP, LockIcon, TIME } from "../../../assets";
+import { ARROWUP, LockIcon } from "../../../assets";
 import { currencyFormatter } from "../../../helper";
 import FastTime from "./FastTime";
 
@@ -97,23 +97,23 @@ const SmallBox = ({ valueA, valueB }: any) => {
   );
 };
 
-const Time = (data: any) => {
-  return (
-    <Box sx={{ display: "flex", alignItems: "center" }}>
-      <Typography
-        sx={{
-          fontSize: { xs: "8px", lg: "12px" },
-          fontWeight: "bold",
-          color: "#black",
-          width: { xs: "50px", lg: "80px" },
-        }}
-      >
-        {data.time} sec Delay
-      </Typography>
-      <img style={{ width: "20px", height: "20px" }} src={TIME} />
-    </Box>
-  );
-};
+// const Time = (data: any) => {
+//   return (
+//     <Box sx={{ display: "flex", alignItems: "center" }}>
+//       <Typography
+//         sx={{
+//           fontSize: { xs: "8px", lg: "12px" },
+//           fontWeight: "bold",
+//           color: "#black",
+//           width: { xs: "50px", lg: "80px" },
+//         }}
+//       >
+//         {data.time} sec Delay
+//       </Typography>
+//       <img style={{ width: "20px", height: "20px" }} src={TIME} />
+//     </Box>
+//   );
+// };
 
 const MarketOdds = ({
   data,
@@ -124,7 +124,6 @@ const MarketOdds = ({
   min,
   max,
   showBox,
-  showDely,
   newData,
   isRound,
   typeOfBet,
@@ -138,11 +137,11 @@ const MarketOdds = ({
   handleRateChange,
   marketDetails,
 }: any) => {
-  const theme = useTheme();
   const [showFastTimeBox, setShowFastTimeBox] = useState(false);
   const [placeBetData, setPlaceBetData] = useState<any>(null);
   const [fastRate, setFastRate] = useState(null);
   const [fastBetLoading, setFastBetLoading] = useState(false);
+  console.log(fastBetLoading);
   // const [canceled, setCanceled] = useState({
   //   value: false,
   //   msg: "",
@@ -154,7 +153,6 @@ const MarketOdds = ({
       setPlaceBetData(null);
     }
   }, [betLock]);
-  const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const bookRatioB = (() => {
     if (teamARates === 0) {
       return 0;

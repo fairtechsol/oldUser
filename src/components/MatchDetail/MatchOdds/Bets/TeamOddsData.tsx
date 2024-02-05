@@ -9,7 +9,6 @@ const TeamsOdssData = ({
     valueContainerStyle,
     valueTextStyle,
     bet_condition,
-    placeBetData,
     season
   }:any) => {
     const [oddValue, setOddValue] = useState(value);

@@ -2,7 +2,6 @@ import {} from "@emotion/react";
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 
 import { memo } from "react";
-import { formatNumber } from "../../../helper/index";
 import { BallStart } from "../../../assets";
 import SeparateModal from "../MatchOdds/SeparateModal";
 import PlaceBetComponent from "../MatchOdds/Bets/PlaceBetComponent";

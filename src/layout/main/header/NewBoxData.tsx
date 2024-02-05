@@ -1,10 +1,9 @@
-import React, { memo, useEffect, useState } from "react";
+import { memo, useState } from "react";
 
 import StyledImage from "../../../components/Common/StyledImages";
-import DownIcon  from "../../../assets/images/down.svg";
-import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import DownIcon from "../../../assets/images/down.svg";
+import { Box, Typography } from "@mui/material";
 import DropDownMenu from "./DropdownMenu";
-
 
 const NewBoxData = ({
   title,
@@ -14,10 +13,6 @@ const NewBoxData = ({
   valueStyle,
   titleStyle,
 }: any) => {
-  const theme = useTheme();
-  const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
-
-
   const [anchorEl, setAnchorEl] = useState<number | null>(null);
   const handleClose = () => {
     setAnchorEl(null);
@@ -25,14 +20,14 @@ const NewBoxData = ({
 
   const handleClick = () => {
     if (title !== "Exposure") {
-        setAnchorEl((prev) => (prev === null ? 0 : null));
-      }
+      setAnchorEl((prev) => (prev === null ? 0 : null));
+    }
   };
 
   return (
     <Box>
       <Box
-       onClick={handleClick}
+        onClick={handleClick}
         sx={[
           {
             backgroundColor: "white",
@@ -57,7 +52,6 @@ const NewBoxData = ({
             justifyContent: { xs: "center" },
             display: "flex",
             flexDirection: "column",
-      
           }}
         >
           <Typography
@@ -102,10 +96,9 @@ const NewBoxData = ({
         )}
       </Box>
       <DropDownMenu
-          open={anchorEl !== null}
+        open={anchorEl !== null}
         anchorEl={anchorEl}
         handleClose={handleClose}
-
       />
     </Box>
   );

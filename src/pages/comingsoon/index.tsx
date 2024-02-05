@@ -1,11 +1,8 @@
-
-import { Box} from "@mui/material";
-import { memo} from "react";
+import { Box } from "@mui/material";
+import { memo } from "react";
 
 import Loader from "../../components/Loader";
-const ComingSoon = (props: any) => {
-
-
+const ComingSoon = () => {
   return (
     <Box
       sx={{
@@ -30,8 +27,6 @@ const ComingSoon = (props: any) => {
         <Loader height={"70vh"} text={"Coming Soon"} />
       </Box>
     </Box>
-    
-
   );
 };
 export default memo(ComingSoon);
