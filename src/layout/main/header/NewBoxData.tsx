@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 
 import StyledImage from "../../../components/Common/StyledImages";
 import DownIcon  from "../../../assets/images/down.svg";
@@ -16,11 +16,24 @@ const NewBoxData = ({
 }: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
-
+  const [open, setOpen] = useState(false);
 
   const [anchorEl, setAnchorEl] = useState<number | null>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    };
+
+    window.addEventListener('click', handleClickOutside);
+    return () => window.removeEventListener('click', handleClickOutside);
+  }, []);
+
   const handleClose = () => {
-    setAnchorEl(null);
+    setOpen(false);
   };
 
   const handleClick = () => {
@@ -32,7 +45,11 @@ const NewBoxData = ({
   return (
     <Box>
       <Box
-       onClick={handleClick}
+    onClick={(event) => {
+      setOpen(!open);
+      event?.stopPropagation();
+    }}
+    ref={dropdownRef}
         sx={[
           {
             backgroundColor: "white",
@@ -101,12 +118,14 @@ const NewBoxData = ({
           </Box>
         )}
       </Box>
+      {open && (
       <DropDownMenu
-          open={anchorEl !== null}
+        open={Boolean(anchorEl)}
         anchorEl={anchorEl}
         handleClose={handleClose}
 
       />
+      )}
     </Box>
   );
 };

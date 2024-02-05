@@ -5,11 +5,11 @@ import Input from "../../components/login/input";
 import { useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { useEffect, useState } from "react";
-import { changePassword, changePasswordReset, logout } from "../../store/actions/auth/authAction";
+import { changePassword,logout } from "../../store/actions/auth/authAction";
 import NavigateModal from "../../components/Common/NavigateModal";
 import { useFormik } from "formik";
-import { useSelector } from "react-redux";
 import { newPasswordValidationSchema } from "../../utils/Validations";
+import { useSelector } from "react-redux";
 
 const initialValues: any = {
   oldPassword: "",
@@ -22,8 +22,11 @@ const ChangePassword = (props: any) => {
   const { passLoader, width } = props;
   const [showModal, setShowModal] = useState<boolean>(false);
   const dispatch: AppDispatch = useDispatch();
-  // const { success } = useSelector((state: RootState) => state.auth.authReducer);
 
+
+  const { success, transactionPassword } = useSelector(
+    (state: RootState) => state.user.profile
+  );
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema: newPasswordValidationSchema,
@@ -38,15 +41,15 @@ const ChangePassword = (props: any) => {
     },
   });
 
-  const { handleSubmit, touched, errors } = formik;
+  const { handleSubmit, touched, errors} = formik;
 
 
-  // useEffect(() => {
-  //   if (success) {
-  //     dispatch(changePasswordReset());
-  //     setShowModal(true);
-  //   }
-  // }, [success]);
+  useEffect(() => {
+    if (success) {
+
+      setShowModal(true);
+    }
+  }, [success]);
 
   return (
     <>
@@ -187,15 +190,13 @@ const ChangePassword = (props: any) => {
           </Box>
         </Box>
       </form>
-      {showModal && (
+      {!showModal && (
         <NavigateModal
-    
           modalTitle="Your password has been changed sucessfully"
+          message={transactionPassword}
           setShowModal={setShowModal}
           showModal={showModal}
-          functionDispatch={() => dispatch(logout())}
           buttonMessage={"Navigate To Login"}
-          navigateTo={"/login"}
         />
       )}
     </>
