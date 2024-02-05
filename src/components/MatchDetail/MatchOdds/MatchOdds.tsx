@@ -235,7 +235,7 @@ const MatchOdds = ({ matchDetails, data, teamRates }: any) => {
       </>
       <>
         {matchDetails?.manualSessionActive && (
-        {matchDetails?.sessionBettings?.isActive && matchDetails.sessionBettings.length > 0 && (
+  
           <QuickSessionMarket
             key={matchDetails?.id}
             title={"Quick Session Market"}
