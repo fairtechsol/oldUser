@@ -217,8 +217,11 @@ const MatchOdds = ({ matchDetails, data, teamRates }: any) => {
         />
       )}
 
+
+
+
       <>
-        {matchDetails?.apiSessionActive && (
+        {matchDetails?.apiSessionActive?.isActive && (
           <SessionMarket
             key={matchDetails?.id}
             newData={matchDetails?.apiSessionActive}
@@ -232,6 +235,7 @@ const MatchOdds = ({ matchDetails, data, teamRates }: any) => {
       </>
       <>
         {matchDetails?.manualSessionActive && (
+  
           <QuickSessionMarket
             key={matchDetails?.id}
             title={"Quick Session Market"}

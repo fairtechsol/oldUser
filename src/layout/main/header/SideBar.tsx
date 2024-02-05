@@ -83,6 +83,7 @@ const SideBar = ({ mobileShow }: any) => {
                 },
                 fontWeight: { xs: "500", lg: "600" },
               }}
+              color={"white"}
             >
               {title}
             </Typography>

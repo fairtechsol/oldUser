@@ -16,11 +16,13 @@ import {
 } from "../../../assets";
 
 import EventComponent from "./EventComponent";
+import { NavLink } from "react-router-dom";
 
 
 
   const EventListing = ({selected }: any) => {
     const [anchor, setAnchor] = useState(null);
+
     const data = [
         {
           title: "INPLAY",
@@ -83,7 +85,7 @@ import EventComponent from "./EventComponent";
           url: "comingsoon",
         },
       ];
-
+      const [newData, setNewData] = useState<any>(data);
   return (
     <>
       <Box
@@ -102,16 +104,33 @@ import EventComponent from "./EventComponent";
           },
         ]}
       >
-        {data?.map((i: any, idx: any) => {
+        {/* {data?.map((i: any, idx: any) => {
           return (
             <EventComponent
               key={idx}
               data={i}
               selected={selected}
+              className={({ selected }:any) =>
+              [selected ? "activeEventTab" : ""].join(" ")
+            }
               setAnchor={setAnchor}
             />
           );
-        })}
+        })} */}
+            {newData?.map((i: any, idx: any) => {
+        return (
+          <NavLink
+            key={idx}
+            to={`${i.url}`}
+            className={({ isActive }) =>
+              [isActive ? "activeEventTab" : ""].join(" ")
+            }
+            style={{ textDecoration: "none" }}
+          >
+            <EventComponent data={i}  setAnchor={setAnchor}/>
+          </NavLink>
+        );
+      })}
       </Box>
     </>
   );
