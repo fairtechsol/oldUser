@@ -22,62 +22,62 @@ const EventListing = () => {
     {
       title: "INPLAY",
       image: Play,
-      url: "fgUser/inplay",
+      url: "/fgUser/inplay",
     },
     {
       title: "MY ACCOUNT",
       image: MYACCOUNT,
-      url: "fgUser/my-account",
+      url: "/fgUser/my-account",
     },
     {
       title: "CRICKET",
       image: Cricket,
-      url: "fgUser/match",
+      url: "/fgUser/match",
     },
     {
       title: "LIVE CASINO",
       image: Slot,
-      url: "fgUser/comingsoon",
+      url: "/fgUser/comingsoon",
     },
     {
       title: "LIVE CARD",
       image: Card,
-      url: "fgUser/comingsoon",
+      url: "/fgUser/comingsoon",
     },
     {
       title: "SOCCER",
       image: Football,
-      url: "fgUser/comingsoon",
+      url: "/fgUser/comingsoon",
     },
     {
       title: "TENNIS",
       image: Tennis,
-      url: "fgUser/comingsoon",
+      url: "/fgUser/comingsoon",
     },
     {
       title: "ICE HOCKEY",
       image: Hockey,
-      url: "fgUser/comingsoon",
+      url: "/fgUser/comingsoon",
     },
     {
       title: "SNOOKER",
       image: SNOOKER,
-      url: "fgUser/comingsoon",
+      url: "/fgUser/comingsoon",
     },
     {
       title: "GOLF",
       image: GOLF,
-      url: "fgUser/comingsoon",
+      url: "/fgUser/comingsoon",
     },
     {
       title: "CHESS",
       image: CHESS,
-      url: "fgUser/comingsoon",
+      url: "/fgUser/comingsoon",
     },
     {
       title: "BASKETBALL",
       image: BASKETBALL,
-      url: "fgUser/comingsoon",
+      url: "/fgUser/comingsoon",
     },
   ];
 
