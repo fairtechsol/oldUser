@@ -40,7 +40,7 @@ const ChangePassword = (props: any) => {
     },
   });
 
-  const { handleSubmit } = formik;
+  const { handleSubmit, touched, errors } = formik;
 
   useEffect(() => {
     if (success) {
@@ -101,9 +101,9 @@ const ChangePassword = (props: any) => {
               type="password"
               onChange={formik.handleChange}
             />
-            {/* {touched.oldPassword && errors.oldPassword && (
+            {touched.oldPassword && errors.oldPassword && (
               <p style={{ color: "#fa1e1e" }}>{errors.oldPassword as string}</p>
-            )} */}
+            )}
             <Input
               required={true}
               placeholder={"Enter New Password"}
@@ -122,9 +122,9 @@ const ChangePassword = (props: any) => {
               type="password"
               onChange={formik.handleChange}
             />
-            {/* {touched.newPassword && errors.newPassword && (
+            {touched.newPassword && errors.newPassword && (
               <p style={{ color: "#fa1e1e" }}>{errors.newPassword as string}</p>
-            )} */}
+            )}
             <Input
               required={true}
               placeholder={"Enter Confirm Password"}
@@ -143,11 +143,11 @@ const ChangePassword = (props: any) => {
               type="password"
               onChange={formik.handleChange}
             />
-            {/* {touched.confirmPassword && errors.confirmPassword && (
+            {touched.confirmPassword && errors.confirmPassword && (
               <p style={{ color: "#fa1e1e" }}>
                 {errors.confirmPassword as string}
               </p>
-            )} */}
+            )}
             <Button
               type="submit"
               sx={{

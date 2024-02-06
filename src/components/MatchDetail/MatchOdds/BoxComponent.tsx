@@ -99,7 +99,7 @@ const BoxComponent = ({
             {name}
           </Typography>
         </Box>
-        <MoneyBox color={color} rates={rate} />
+        <MoneyBox color={"white"} rates={rate} />
       </Box>
       {showBox && (
         <Box

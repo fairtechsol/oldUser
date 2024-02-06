@@ -16,7 +16,7 @@ const DropdownMenu = ({ handleClose }: any) => {
   const [loading,] = useState(false);
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
-  const menutItems = [{ title: "Rules", link: "/rules" }];
+  const menutItems = [{ title: "Rules", link: "/old/rules" }];
   return (
     <Box
       // ref={innerRef}

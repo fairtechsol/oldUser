@@ -40,7 +40,7 @@ const AuthLayout = () => {
           <StyledImage
             src={FgLogo}
             alt="Fairgame"
-            sx={{ height: "8%", width: "300px" }}
+            sx={{ height: "8%", width: "58%" }}
           />
           <Outlet />
         </Card>

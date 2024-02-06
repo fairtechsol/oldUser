@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 
-import ARROWUP from "../../../assets/images/arrowup.png";
+import ARROWUP from "../../../assets/images/arrowup1.png";
 import { useState, useEffect } from "react";
 // import { apiBasePath } from "./helper/constants";
 

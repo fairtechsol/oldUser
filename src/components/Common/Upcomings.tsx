@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import moment from "moment-timezone";
+import { Cricket } from "../../assets";
 
 const Upcomings = (props: any) => {
   const { match, timeLeft } = props;
@@ -37,8 +38,13 @@ const Upcomings = (props: any) => {
             ({moment(match.startAt).format("LL")})
           </span>
         </Typography>{" "}
+        
       </Box>
-
+      <div style={{background: "#f1c40f"}}>
+      {location.pathname === '/old/inplay' && (
+        <img className="inplayicon" src={Cricket} alt="Inplay Icon" />
+      )}
+    </div>
       <Box
         sx={{
           flex: 0.1,

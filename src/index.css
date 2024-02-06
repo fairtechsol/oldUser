@@ -26,3 +26,26 @@ code {
 .activeEventTab .eventTab{ 
   background-color: #F8C851;
 }
+
+.slanted {
+
+  background: "#f1c550";
+  position: relative;
+}
+
+.slanted:after {
+  content: "";
+  position: absolute;
+  align-self: 'center';
+  border-left: 38px solid #f1c550;
+  border-bottom: 38px solid #262626;
+  /* page background color */
+}
+
+.inplayicon {
+  width: 20px;
+display: flex;
+
+  margin-top: 15px;
+  
+}
