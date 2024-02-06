@@ -5,7 +5,7 @@ import FastTimePlaceBet from "./Bets/FastTimePlaceBet";
 import BoxComponent from "./BoxComponent";
 import Divider from "../../../helper/Divider";
 import ManualBoxComponent from "./ManualBoxComponent";
-import { ARROWUP, LockIcon } from "../../../assets";
+import { ARROWUP, LockIcon, TIME } from "../../../assets";
 import { currencyFormatter } from "../../../helper";
 import FastTime from "./FastTime";
 
@@ -97,23 +97,23 @@ const SmallBox = ({ valueA, valueB }: any) => {
   );
 };
 
-// const Time = (data: any) => {
-//   return (
-//     <Box sx={{ display: "flex", alignItems: "center" }}>
-//       <Typography
-//         sx={{
-//           fontSize: { xs: "8px", lg: "12px" },
-//           fontWeight: "bold",
-//           color: "#black",
-//           width: { xs: "50px", lg: "80px" },
-//         }}
-//       >
-//         {data.time} sec Delay
-//       </Typography>
-//       <img style={{ width: "20px", height: "20px" }} src={TIME} />
-//     </Box>
-//   );
-// };
+const Time = (data: any) => {
+  return (
+    <Box sx={{ display: "flex", alignItems: "center" }}>
+      <Typography
+        sx={{
+          fontSize: { xs: "8px", lg: "12px" },
+          fontWeight: "bold",
+          color: "#black",
+          width: { xs: "50px", lg: "80px" },
+        }}
+      >
+        {data.time} sec Delay
+      </Typography>
+      <img style={{ width: "20px", height: "20px" }} src={TIME} />
+    </Box>
+  );
+};
 
 const MarketOdds = ({
   data,
@@ -122,6 +122,7 @@ const MarketOdds = ({
   teamCRates,
   title,
   min,
+  showDely,
   max,
   showBox,
   newData,
@@ -224,9 +225,9 @@ const MarketOdds = ({
             >
               {title}
             </Typography>
-            {/* {showDely && typeOfBet === "MATCH ODDS" && (
+            {showDely && typeOfBet === "MATCH ODDS" && (
               <Time time={newData.delaySecond ? newData?.delaySecond : 0} />
-            )} */}
+            )}
             {showFast && (
               <FastTime
                 session={session}

@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { useState } from "react";
-import ARROWUP from "../../../assets/images/arrowup.png";
+import ARROWUP from "../../../assets/images/arrowup1.png";
 
 import StyledImage from "../../Common/StyledImages";
 

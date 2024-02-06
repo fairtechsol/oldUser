@@ -125,13 +125,12 @@ export const FgAdminValidation = Yup.object({
 
 export const newPasswordValidationSchema = Yup.object({
   oldPassword: Yup.string().required("Password is required"),
-  newPassword: Yup.string().required("Password is required"),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref("newPassword"), ""], "Passwords must match")
-    .required("Password is required"),
-  // transactionPassword: Yup.string().required(
-  //   "Transaction Password is required"
-  // ),
+  newPassword: Yup.string()
+  .required("New password is required"),
+  // .notOneOf([Yup.ref('oldPassword'), null], 'New password must be different from old password'),
+confirmPassword: Yup.string()
+  .oneOf([Yup.ref("newPassword"), ""], "Passwords must match")
+  .required("Confirm password is required"),
 });
 
 export const oldPasswordValidationSchema = Yup.object({

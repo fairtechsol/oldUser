@@ -21,14 +21,15 @@ import {
 import axios from "axios";
 import { ApiConstants } from "../../../../utils/Constants";
 
-const OddsPlaceBet = ({ handleClose, season, type }: any) => {
-  const [stakeValue, setStakeValue] = useState(0);
+const OddsPlaceBet = ({ handleClose, season, type, color }: any) => {
+  const [stakeValue, setStakeValue] = useState(" ");
   const [betPlaceLoading] = useState(false);
+
   const [stake, setStake] = useState<any>(0);
-  console.log(stake);
+  // console.log(stake);
   const [newRates, setNewRates] = useState({
-    loss_amount: 0,
-    win_amount: 0,
+    lossAmount: 0,
+    winAmount: 0,
   });
   const { selectedBet } = useSelector(
     (state: RootState) => state.match.matchList
@@ -110,17 +111,18 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
           >
             Place Bet
           </Typography>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Box sx={{ display: "flex", alignItems: "center" ,}}>
             <MoneyBox
+         
               trendingUp={false}
-              rate={Number(newRates?.win_amount)?.toFixed(2)}
+              rate={Number(newRates?.winAmount)?.toFixed(2)}
               color={"#10DC61"}
             />
             <Box sx={{ width: "5px" }}></Box>
             <MoneyBox
               trendingDown={false}
-              rate={Number(newRates?.loss_amount).toFixed(2)}
-              color="#FF4D4D"
+              rate={Number(newRates?.lossAmount).toFixed(2)}
+              color={"#FF4D4D"}
             />
             <Box sx={{ width: "5px", marginRight: "20px" }}></Box>
             <StyledImage
@@ -174,6 +176,9 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
             selectedColorBox={type?.color}
             containerStyle={{ marginLeft: "2px", flex: 1.3 }}
             title={"Stake"}
+            selectedBetAction={(value:any) =>
+              value && selectedBetAction(selectedBet?.data)
+            }
           />
         </Box>
         {matchesMobile && (
@@ -194,6 +199,9 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
                   key={idx}
                   containerStyle={{ marginLeft: "2px", flex: 1 }}
                   value={v}
+                  selectedBetAction={(value:any) =>
+                    value && selectedBetAction(selectedBet?.data)
+                  }
                   setStakeValue={setStakeValue}
                 />
               ))}
@@ -204,6 +212,9 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
                   key={idx}
                   containerStyle={{ marginLeft: "2px", flex: 1 }}
                   value={v}
+                  selectedBetAction={(value:any) =>
+                    value && selectedBetAction(selectedBet?.data)
+                  }
                   setStakeValue={setStakeValue}
                 />
               ))}
@@ -231,10 +242,10 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
               border: "2px solid white",
             }}
             onClick={() => {
-              setStakeValue(0);
+              setStakeValue(" ");
               setNewRates({
-                loss_amount: 0,
-                win_amount: 0,
+                lossAmount: 0,
+                winAmount: 0,
               });
             }}
           >
@@ -343,13 +354,13 @@ const NumberData = ({
   value,
   containerStyle,
   setStakeValue,
-  getLatestBetAmount,
+  selectedBetAction,
 }: any) => {
   return (
     <Box
       onClick={() => {
         setStakeValue(value);
-        getLatestBetAmount(value);
+        selectedBetAction(value);
       }}
       sx={[
         {
