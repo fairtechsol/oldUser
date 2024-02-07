@@ -112,8 +112,8 @@ const MatchDetail = () => {
             <div style={{ width: "100%" }}>
               <MatchOdds
                 // data={data}
-                matchDetails={matchDetails}
-                data={matchDetails}
+                matchDetails={matchDetails && matchDetails}
+                data={matchDetails && matchDetails}
               />
             </div>
             <Box
@@ -178,7 +178,7 @@ const MatchDetail = () => {
                 width: "70%",
               }}
             >
-              <MatchOdds matchDetails={matchDetails} data={matchDetails} />
+              <MatchOdds matchDetails={matchDetails && matchDetails} data={matchDetails && matchDetails} />
             </Box>
             <Box sx={{ width: "30%", paddingRight: "1%" }}>
               <LiveScore />

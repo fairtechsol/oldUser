@@ -36,7 +36,6 @@ const SeparateModal = ({
   fromOdds,
   setFastBetLoading,
   closeModal,
-  matchDetails,
   eventType,
   bettingOn,
   marketDetails,
@@ -137,7 +136,7 @@ const SeparateModal = ({
                       stake: 0,
                       percent: value2,
                       eventType: eventType,
-                      matchId: data?.matchId,
+                      matchId: currentMatch?.id,
                     },
                     data
                   );
@@ -151,15 +150,15 @@ const SeparateModal = ({
                       teamA:
                         marketDetails?.type === "tiedMatch2"
                           ? "YES"
-                          : data?.teamA,
+                          : currentMatch?.teamA,
                       teamB:
                         marketDetails?.type === "tiedMatch2"
                           ? "NO"
-                          : data?.teamB,
-                      teamC: matchDetails?.teamC ? matchDetails?.teamC : "",
+                          : currentMatch?.teamB,
+                      teamC: currentMatch?.teamC ? currentMatch?.teamC : "",
                       betId: marketDetails?.id,
                       eventType: marketDetails?.eventType,
-                      matchId: data?.id,
+                      matchId: currentMatch?.id,
                       placeIndex: po,
                       matchBetType: marketDetails?.type,
                     },
