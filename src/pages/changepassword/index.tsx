@@ -3,13 +3,13 @@ import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import { eye, eyeLock } from "../../assets";
 import Input from "../../components/login/input";
 import { useDispatch } from "react-redux";
-import { AppDispatch, RootState } from "../../store/store";
-import { useEffect, useState } from "react";
+import { AppDispatch } from "../../store/store";
+// import { useEffect, useState } from "react";
 import { changePassword } from "../../store/actions/auth/authAction";
-import NavigateModal from "../../components/Common/NavigateModal";
+// import NavigateModal from "../../components/Common/NavigateModal";
 import { useFormik } from "formik";
 import { newPasswordValidationSchema } from "../../utils/Validations";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 
 const initialValues: any = {
   oldPassword: "",
@@ -19,13 +19,12 @@ const initialValues: any = {
 
 const ChangePassword = (props: any) => {
   const { passLoader, width } = props;
-  const [showModal, setShowModal] = useState<boolean>(false);
+  // const [showModal, setShowModal] = useState<boolean>(false);
   const dispatch: AppDispatch = useDispatch();
 
-
-  const { success, transactionPassword } = useSelector(
-    (state: RootState) => state.user.profile
-  );
+  // const { transactionPassword } = useSelector(
+  //   (state: RootState) => state.user.profile
+  // );
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema: newPasswordValidationSchema,
@@ -42,12 +41,11 @@ const ChangePassword = (props: any) => {
 
   const { handleSubmit, touched, errors } = formik;
 
-  useEffect(() => {
-    if (success) {
-
-      setShowModal(true);
-    }
-  }, [success]);
+  // useEffect(() => {
+  //   if (success) {
+  //     setShowModal(true);
+  //   }
+  // }, [success]);
 
   return (
     <>
@@ -188,16 +186,17 @@ const ChangePassword = (props: any) => {
           </Box>
         </Box>
       </form>
-      {!showModal && (
+      {/* {showModal && (
         <NavigateModal
           modalTitle="Your password has been changed sucessfully"
           message={transactionPassword}
           setShowModal={setShowModal}
+          functionDispatch={() => {}}
           showModal={showModal}
           buttonMessage={"Navigate To Login"}
           navigateTo={"/old/login"}
         />
-      )}
+      )} */}
     </>
   );
 };

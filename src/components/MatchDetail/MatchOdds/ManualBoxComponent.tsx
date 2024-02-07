@@ -7,7 +7,6 @@ import SeparateModal from "./SeparateModal";
 
 const ManualBoxComponent = ({
   name,
-  color,
   data,
   typeOfBet,
   rate,

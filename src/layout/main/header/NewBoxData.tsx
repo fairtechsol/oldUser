@@ -1,4 +1,4 @@
-import  { memo, useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 
 import StyledImage from "../../../components/Common/StyledImages";
 import DownIcon from "../../../assets/images/down.svg";
@@ -15,38 +15,41 @@ const NewBoxData = ({
 }: any) => {
   const [open, setOpen] = useState(false);
 
-  const [anchorEl, setAnchorEl] = useState<number | null>(null);
+  const [anchorEl] = useState<number | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setOpen(false);
       }
     };
 
-    window.addEventListener('click', handleClickOutside);
-    return () => window.removeEventListener('click', handleClickOutside);
+    window.addEventListener("click", handleClickOutside);
+    return () => window.removeEventListener("click", handleClickOutside);
   }, []);
 
   const handleClose = () => {
     setOpen(false);
   };
 
-  const handleClick = () => {
-    if (title !== "Exposure") {
-      setAnchorEl((prev) => (prev === null ? 0 : null));
-    }
-  };
+  // const handleClick = () => {
+  //   if (title !== "Exposure") {
+  //     setAnchorEl((prev) => (prev === null ? 0 : null));
+  //   }
+  // };
 
   return (
     <Box>
       <Box
-    onClick={(event) => {
-      setOpen(!open);
-      event?.stopPropagation();
-    }}
-    ref={dropdownRef}
+        onClick={(event) => {
+          setOpen(!open);
+          event?.stopPropagation();
+        }}
+        ref={dropdownRef}
         sx={[
           {
             backgroundColor: "white",
@@ -115,11 +118,11 @@ const NewBoxData = ({
         )}
       </Box>
       {open && (
-      <DropDownMenu
-        open={Boolean(anchorEl)}
-        anchorEl={anchorEl}
-        handleClose={handleClose}
-      />
+        <DropDownMenu
+          open={Boolean(anchorEl)}
+          anchorEl={anchorEl}
+          handleClose={handleClose}
+        />
       )}
     </Box>
   );

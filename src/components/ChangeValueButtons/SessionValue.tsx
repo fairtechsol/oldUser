@@ -90,13 +90,23 @@ const SessionValue = () => {
 
   useEffect(() => {
     if (buttonValues[0]?.value) {
+      const response = JSON.parse(buttonValues[0]?.value);
+      const keys = Object.keys(response);
+      const additionalFieldsCount = Math.max(0, 8 - keys.length);
+      const additionalFields = Array.from({
+        length: additionalFieldsCount,
+      }).map((_) => ({
+        label: "",
+        value: "",
+      }));
+
       setValues(
-        Object.keys(JSON.parse(buttonValues[0]?.value))?.map((item) => {
-          return {
+        keys
+          .map((item) => ({
             label: item,
-            value: JSON.parse(buttonValues[0]?.value)[item],
-          };
-        })
+            value: response[item],
+          }))
+          .concat(additionalFields)
       );
     }
   }, [buttonValues]);
