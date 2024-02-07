@@ -7,6 +7,7 @@ import { memo } from "react";
 
 const BoxComponent = ({
   name,
+  color,
   data,
   typeOfBet,
   selectedFastAmount,
@@ -98,7 +99,7 @@ const BoxComponent = ({
             {name}
           </Typography>
         </Box>
-        <MoneyBox color={"white"} rates={rate} />
+        <MoneyBox color={color} rates={rate} />
       </Box>
       {showBox && (
         <Box
@@ -194,6 +195,7 @@ const BoxComponent = ({
                 currentMatch={newData}
                 lock={ex?.availableToBack?.length > 0 ? false : true}
                 rates={allRates}
+                betType={"back"}
                 value={
                   isRound
                     ? Math.round(
@@ -249,6 +251,7 @@ const BoxComponent = ({
                         : 0
                       : null,
                 }}
+                betType={"back"}
                 placeBetData={placeBetData}
                 setFastRate={setFastRate}
                 fastRate={fastRate}
@@ -299,6 +302,7 @@ const BoxComponent = ({
               }
               setFastBetLoading={setFastBetLoading}
               po={0}
+              betType={"back"}
               updateRate={{
                 key: 3,
                 match: "back",
@@ -348,7 +352,7 @@ const BoxComponent = ({
               color={matchesMobile ? "#B3E0FF" : "#A7DCFF"}
               type={{ color: "#A7DCFF", type: "BL" }}
               name={name}
-              data={data}
+              data={marketDetails}
               typeOfBet={typeOfBet}
               handleRateChange={handleRateChange}
               marketDetails={marketDetails}
@@ -366,6 +370,7 @@ const BoxComponent = ({
               }
               setFastBetLoading={setFastBetLoading}
               po={0}
+              betType={"lay"}
               updateRate={{
                 key: 4,
                 match: "lay",
@@ -415,13 +420,14 @@ const BoxComponent = ({
               color={matchesMobile ? "#F6D0CB" : "#FFB5B5"}
               type={{ color: "#FFB5B5", type: "BL" }}
               name={name}
-              data={data}
+              data={marketDetails}
               typeOfBet={typeOfBet}
               handleRateChange={handleRateChange}
               marketDetails={marketDetails}
             />
             {!matchesMobile && (
               <SeparateModal
+                betType={"lay"}
                 closeModal={
                   !["ACTIVE", "", undefined, null].includes(status) ||
                   newData?.bettings?.length === 0 ||
@@ -486,6 +492,7 @@ const BoxComponent = ({
             )}
             {!matchesMobile && (
               <SeparateModal
+                betType={"lay"}
                 closeModal={
                   !["ACTIVE", "", undefined, null].includes(status) ||
                   newData?.bettings?.length === 0 ||

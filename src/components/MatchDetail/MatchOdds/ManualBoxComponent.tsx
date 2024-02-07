@@ -31,6 +31,7 @@ const ManualBoxComponent = ({
   isTeamC,
   handleRateChange,
   marketDetails,
+  color,
 }: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -167,7 +168,7 @@ const ManualBoxComponent = ({
             {name}
           </Typography>
         </Box>
-        <MoneyBox color={"white"} rates={rate} />
+        <MoneyBox color={color} rates={rate} />
       </Box>
       {ballStatus ? (
         <>

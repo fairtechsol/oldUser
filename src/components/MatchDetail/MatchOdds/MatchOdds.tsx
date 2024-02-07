@@ -63,9 +63,9 @@ const MatchOdds = ({ matchDetails, data, teamRates }: any) => {
               : []
           }
           lock={matchDetails?.matchOdd.activeStatus !== "live" ? true : false}
-          teamARates={teamRates?.teamA}
-          teamBRates={teamRates?.teamB}
-          teamCRates={teamRates?.teamC}
+          teamARates={matchDetails?.teamRates?.teamARate || 0}
+          teamBRates={matchDetails?.teamRates?.teamBRate || 0}
+          teamCRates={matchDetails?.teamRates?.teamCRate || 0}
           min={matchDetails?.matchOdd?.minBet || 0}
           max={matchDetails?.matchOdd?.maxBet || 0}
           title={matchDetails?.matchOdd?.name}
@@ -93,9 +93,9 @@ const MatchOdds = ({ matchDetails, data, teamRates }: any) => {
               ? matchDetails?.bookmaker?.runners
               : []
           }
-          teamARates={teamRates?.teamA}
-          teamBRates={teamRates?.teamB}
-          teamCRates={teamRates?.teamC}
+          teamARates={matchDetails?.teamRates?.teamARate || 0}
+          teamBRates={matchDetails?.teamRates?.teamBRate || 0}
+          teamCRates={matchDetails?.teamRates?.teamCRate || 0}
           min={matchDetails?.bookmaker?.minBet || 0}
           max={matchDetails?.bookmaker?.maxBet || 0}
           title={matchDetails?.bookmaker?.name}
@@ -125,9 +125,8 @@ const MatchOdds = ({ matchDetails, data, teamRates }: any) => {
               : []
           }
           // suspended={false}
-          teamARates={teamRates?.teamA}
-          teamBRates={teamRates?.teamB}
-          teamCRates={teamRates?.teamC}
+          teamARates={matchDetails?.teamRates?.yesRateTie || 0}
+          teamBRates={matchDetails?.teamRates?.noRateTie || 0}
           min={matchDetails?.apiTideMatch?.minBet || 0}
           max={matchDetails?.apiTideMatch?.maxBet || 0}
           title={matchDetails?.apiTideMatch?.name}
@@ -150,9 +149,9 @@ const MatchOdds = ({ matchDetails, data, teamRates }: any) => {
           showFast={true}
           suspended={false}
           data={data}
-          teamARates={teamRates?.teamA}
-          teamBRates={teamRates?.teamB}
-          teamCRates={teamRates?.teamC}
+          teamARates={matchDetails?.teamRates?.teamARate || 0}
+          teamBRates={matchDetails?.teamRates?.teamBRate || 0}
+          teamCRates={matchDetails?.teamRates?.teamCRate || 0}
           min={bookmaker?.minBet || 0}
           max={bookmaker?.maxBet || 0}
           title={bookmaker?.name}
@@ -173,9 +172,8 @@ const MatchOdds = ({ matchDetails, data, teamRates }: any) => {
           showFast={true}
           suspended={false}
           data={data}
-          teamARates={teamRates?.teamA}
-          teamBRates={teamRates?.teamB}
-          teamCRates={teamRates?.teamC}
+          teamARates={matchDetails?.teamRates?.yesRateTie || 0}
+          teamBRates={matchDetails?.teamRates?.noRateTie || 0}
           min={matchDetails?.manualTiedMatch?.minBet || 0}
           max={matchDetails?.manualTiedMatch?.maxBet || 0}
           title={matchDetails?.manualTiedMatch?.name}
@@ -204,9 +202,9 @@ const MatchOdds = ({ matchDetails, data, teamRates }: any) => {
               : []
           }
           // suspended={false}
-          teamARates={teamRates?.teamA}
-          teamBRates={teamRates?.teamB}
-          teamCRates={teamRates?.teamC}
+          teamARates={matchDetails?.teamRates?.teamARate || 0}
+          teamBRates={matchDetails?.teamRates?.teamBRate || 0}
+          teamCRates={matchDetails?.teamRates?.teamCRate || 0}
           min={matchDetails?.marketCompleteMatch?.minBet || 0}
           max={matchDetails?.marketCompleteMatch?.maxBet || 0}
           title={matchDetails?.marketCompleteMatch?.name}
@@ -216,9 +214,6 @@ const MatchOdds = ({ matchDetails, data, teamRates }: any) => {
           marketDetails={matchDetails?.marketCompleteMatch}
         />
       )}
-
-
-
 
       <>
         {matchDetails?.apiSessionActive?.isActive && (
@@ -235,7 +230,6 @@ const MatchOdds = ({ matchDetails, data, teamRates }: any) => {
       </>
       <>
         {matchDetails?.manualSessionActive && (
-  
           <QuickSessionMarket
             key={matchDetails?.id}
             title={"Quick Session Market"}

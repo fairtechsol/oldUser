@@ -111,9 +111,8 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
           >
             Place Bet
           </Typography>
-          <Box sx={{ display: "flex", alignItems: "center" ,}}>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
             <MoneyBox
-         
               trendingUp={false}
               rate={Number(newRates?.winAmount)?.toFixed(2)}
               color={"#10DC61"}
@@ -176,7 +175,7 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
             selectedColorBox={type?.color}
             containerStyle={{ marginLeft: "2px", flex: 1.3 }}
             title={"Stake"}
-            selectedBetAction={(value:any) =>
+            selectedBetAction={(value: any) =>
               value && selectedBetAction(selectedBet?.data)
             }
           />
@@ -199,7 +198,7 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
                   key={idx}
                   containerStyle={{ marginLeft: "2px", flex: 1 }}
                   value={v}
-                  selectedBetAction={(value:any) =>
+                  selectedBetAction={(value: any) =>
                     value && selectedBetAction(selectedBet?.data)
                   }
                   setStakeValue={setStakeValue}
@@ -212,7 +211,7 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
                   key={idx}
                   containerStyle={{ marginLeft: "2px", flex: 1 }}
                   value={v}
-                  selectedBetAction={(value:any) =>
+                  selectedBetAction={(value: any) =>
                     value && selectedBetAction(selectedBet?.data)
                   }
                   setStakeValue={setStakeValue}
