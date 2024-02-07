@@ -7,7 +7,6 @@ import { memo } from "react";
 
 const BoxComponent = ({
   name,
-  color,
   data,
   typeOfBet,
   selectedFastAmount,
