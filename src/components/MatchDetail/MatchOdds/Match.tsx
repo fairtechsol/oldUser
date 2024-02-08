@@ -9,7 +9,7 @@ const Match = () => {
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
   const doNavigateWithState = (e: any) => {
-    navigate("/old/matchDetail", { state: { matchId: e, activeTab: "CRICKET" } });
+    navigate("/matchDetail", { state: { matchId: e, activeTab: "CRICKET" } });
     sessionStorage.setItem("matchId", e);
   };
 

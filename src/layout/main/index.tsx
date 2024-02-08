@@ -22,7 +22,7 @@ const MainLayout = () => {
 
   useEffect(() => {
     if (!sessionStorage.getItem("userToken")) {
-      navigate("/old/login");
+      navigate("/login");
       sessionStorage.clear();
     }
     dispatch(getProfile());
