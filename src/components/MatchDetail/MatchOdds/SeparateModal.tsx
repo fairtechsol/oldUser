@@ -136,7 +136,7 @@ const SeparateModal = ({
                       stake: 0,
                       percent: value2,
                       eventType: eventType,
-                      matchId: currentMatch?.id,
+                      matchId: data.matchId,
                     },
                     data
                   );

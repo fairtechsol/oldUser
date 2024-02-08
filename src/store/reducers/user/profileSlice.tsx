@@ -6,6 +6,7 @@ import {
   marqueeNotification,
   setButtonValue,
   updateBalance,
+  updateMaxLossForBet,
 } from "../../actions/user/userAction";
 
 interface InitialState {
@@ -19,6 +20,7 @@ interface InitialState {
   buttonValues: any;
   setButtonValue: any;
   transactions: any;
+  matchDetails: any;
 }
 
 const initialState: InitialState = {
@@ -26,6 +28,7 @@ const initialState: InitialState = {
   marqueeNotification: null,
   transactionPassword: "",
   buttonValues: [],
+  matchDetails: null,
   setButtonValue: null,
   profileDetail: null,
   transactions: null,
@@ -116,6 +119,28 @@ const profileSlice = createSlice({
             exposure: action.payload.newUserExposure ?? action.payload.exposure,
           },
         };
+      })
+      .addCase(updateMaxLossForBet.fulfilled, (state, action) => {
+        const { betPlaced, profitLossData } = action.payload;
+        if (state?.matchDetails?.id === betPlaced?.placedBet?.matchId) {
+          const updatedProfitLossDataSession =
+            state.matchDetails?.profitLossDataSession.map((item: any) => {
+              if (item?.betId === betPlaced?.placedBet?.betId) {
+                return {
+                  ...item,
+                  maxLoss: JSON.parse(profitLossData)?.maxLoss,
+                };
+              }
+              return item;
+            });
+
+          state.matchDetails = {
+            ...state.matchDetails,
+            profitLossDataSession: updatedProfitLossDataSession,
+          };
+        } else {
+          return state.matchDetails;
+        }
       });
   },
 });

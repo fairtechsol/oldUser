@@ -1,7 +1,12 @@
 import { Box } from "@mui/material";
 import SingleBox from "./SingleBox";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store/store";
+import { getProfile } from "../../../store/actions/user/userAction";
 
 const RowComponent = ({ header, data }: any) => {
+  const { getProfile } = useSelector((state: RootState) => state.user.profile);
+
   const getTime = (date: any) => {
     const now = new Date(date);
     const timeString = now.toLocaleTimeString("en-US", {
@@ -14,11 +19,11 @@ const RowComponent = ({ header, data }: any) => {
   const getColor = () => {
     if (header) {
       return "black";
-    } else if (data?.bet_type === "back" || data?.bet_type === "yes") {
+    } else if (data?.betType === "BACK" || data?.betType === "YES") {
       // return "#FF9292";
       // return "#00C0F9";
       return "#CEEBFF";
-    } else if (data?.bet_type === "lay" || data?.bet_type === "no") {
+    } else if (data?.betType === "LAY" || data?.betType === "NO") {
       return "#F2CBCB";
       // return "#FF9292";
       // return "#B3E0FF";
@@ -51,7 +56,12 @@ const RowComponent = ({ header, data }: any) => {
           />
           <SingleBox
             color={getColor()}
-            data={data?.username || data?.userName || data?.user?.userName}
+            data={
+              data?.username ||
+              data?.userName ||
+              data?.user?.userName ||
+              getProfile?.userName
+            }
             header={header}
             boxWidth="50%"
           />
@@ -60,7 +70,7 @@ const RowComponent = ({ header, data }: any) => {
             data={data}
             up={true}
             header={header}
-            time={getTime(data.createAt)}
+            time={getTime(data.createdAt)}
           />
           <SingleBox
             color={getColor()}

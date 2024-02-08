@@ -1,9 +1,6 @@
-
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { useState } from "react";
 import { DELETE, ARROWUP } from "../../../assets";
-
-
 
 import StyledImage from "../../Common/StyledImages";
 import RowComponent from "./RowComponent";
@@ -18,7 +15,6 @@ const AllRateSeperate = ({
 }: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
-
 
   const [visible, setVisible] = useState(true);
 
@@ -200,16 +196,15 @@ const AllRateSeperate = ({
                 ...new Set(
                   allBetsData?.filter(
                     (v: any) =>
-                      v.bet_type === "back" ||
-                      v.bet_type === "lay" ||
-                      v.bet_type === "no" ||
-                      v.bet_type === "yes"
+                      v.betType === "BACK" ||
+                      v.betType === "LAY" ||
+                      v.betType === "NO" ||
+                      v.betType === "YES"
                   )
                 ),
-              ]?.map((i, k) => {
-                const num = allBetsData.length - k;
+              ]?.map((i: any, k: number) => {
+                const num = allBetsData?.length - k;
                 const formattedNum = num < 10 ? "0" + num : num.toString();
-                // console.log("profit", i, k);
                 return (
                   <Box
                     key={k}
@@ -253,7 +248,7 @@ const AllRateSeperate = ({
                           display: "flex",
                           lg: profit ? "100 % " : "100% ",
                         },
-                        background: "rgba(0, 0, 0, 0.6)",
+                        // background: "rgba(0, 0, 0, 0.6)",
                         height: "100%",
                         position: "absolute",
                       }}
@@ -262,7 +257,7 @@ const AllRateSeperate = ({
                     </Box>
                     {/* )} */}
                     {/* {i?.deleted_reason && betHistory === undefined && ( */}
-                    <Box
+                    {/* <Box
                       sx={{
                         width: {
                           xs: profit ? "100%" : "100%",
@@ -302,7 +297,7 @@ const AllRateSeperate = ({
                           </Typography>
                         )}
                       </Box>
-                    </Box>
+                    </Box> */}
                     {/* // )} */}
                     {/* {i?.deleted_reason && profit && ( */}
                     <Box
@@ -314,7 +309,7 @@ const AllRateSeperate = ({
                           display: "flex",
                           lg: profit ? "100 % " : "100% ",
                         },
-                        background: "rgba(0, 0, 0, 0.6)",
+                        // background: "rgba(0, 0, 0, 0.6)",
                         height: "100%",
                         position: "absolute",
                       }}
@@ -323,14 +318,13 @@ const AllRateSeperate = ({
                     </Box>
                     {/* // )} */}
                     {/* {profit && !i?.deleted_reason && ( */}
-                    <Box
+                    {/* <Box
                       sx={{
                         height: "40px",
                         width: "30%",
                         // margin: { xs: "1px", lg: "1px" },
                         // display: "flex",
-                        background:
-                          "#E32A2A",
+                        background: "#E32A2A",
                         // justifyContent: "center",
                         // alignItems: "center",
                       }}
@@ -359,7 +353,7 @@ const AllRateSeperate = ({
                           ) : (
                             Number("i.myProfitLoss").toFixed(2)
                           )}
-                          {/* {Number(i?.myProfitLoss).toFixed(2) || ""} */}
+                          {Number(i?.myProfitLoss).toFixed(2) || ""}
                         </Typography>
 
                         {!matchesMobile && !isArrow && (
@@ -368,16 +362,14 @@ const AllRateSeperate = ({
                               width: { xs: "12px", lg: "15px" },
                               height: { xs: "5px", lg: "7px" },
                             }}
-                            src={
-                              ARROWUP
-                            }
+                            src={ARROWUP}
                           />
                         )}
                       </Box>
-                    </Box>
+                    </Box> */}
                     {/* )} */}
                     {/* {profit && i?.deleted_reason && ( */}
-                    <Box
+                    {/* <Box
                       sx={{
                         height: "40px",
                         width: "30%",
@@ -409,7 +401,7 @@ const AllRateSeperate = ({
                         Bet <span style={{ color: "#e41b23" }}>Deleted</span>{" "}
                         Due {"\n"} {"i?.deleted_reason"}
                       </Typography>
-                    </Box>
+                    </Box> */}
                     {/* // )} */}
                     {/* {i?.deleted_reason && betHistory && ( */}
                     <Box
@@ -426,7 +418,7 @@ const AllRateSeperate = ({
                         right: 0,
                       }}
                     >
-                      <StyledImage
+                      {/* <StyledImage
                         sx={{
                           width: { xs: "15px", lg: "20px" },
                           height: { lg: "20px", xs: "14px" },
@@ -445,7 +437,7 @@ const AllRateSeperate = ({
                       >
                         Bet <span style={{ color: "#e41b23" }}>Deleted</span>{" "}
                         Due {"\n"} {"i?.deleted_reason"}
-                      </Typography>
+                      </Typography> */}
                     </Box>
                     {/* )} */}
                   </Box>
