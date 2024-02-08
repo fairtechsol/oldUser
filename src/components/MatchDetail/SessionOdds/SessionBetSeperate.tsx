@@ -194,7 +194,7 @@ const SessionBetSeperate = ({
                       </Typography>
                     </Box>
                     <RowComponent header={false} data={i} />
-                    {i?.deleted_reason && (
+                    {i?.deleteReason && (
                       <Box
                         sx={{
                           width: {
@@ -212,7 +212,7 @@ const SessionBetSeperate = ({
                         <Box sx={{ width: mark2 ? "35%" : "35%" }}></Box>
                       </Box>
                     )}
-                    {i?.deleted_reason && betHistory === undefined && (
+                    {i?.deleteReason && betHistory === undefined && (
                       <Box
                         sx={{
                           width: {
@@ -255,7 +255,7 @@ const SessionBetSeperate = ({
                         </Box>
                       </Box>
                     )}
-                    {profit && !i?.deleted_reason && (
+                    {profit && !i?.deleteReason && (
                       <Box
                         sx={{
                           height: "40px",

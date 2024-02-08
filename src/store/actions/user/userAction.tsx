@@ -47,7 +47,12 @@ export const betDataFromSocket = createAsyncThunk<any, any>(
     return data;
   }
 );
-
+export const updateMaxLossForBet = createAsyncThunk<any, any>(
+  "/maxLoss/update",
+  async (data) => {
+    return data;
+  }
+);
 export const getAccountStatement = createAsyncThunk<any, any>(
   "user/account/statement",
   async ({ userId, page, limit, searchBy, keyword, filter }, thunkApi) => {

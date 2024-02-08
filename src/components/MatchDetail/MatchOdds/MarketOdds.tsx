@@ -142,7 +142,7 @@ const MarketOdds = ({
   const [placeBetData, setPlaceBetData] = useState<any>(null);
   const [fastRate, setFastRate] = useState(null);
   const [fastBetLoading, setFastBetLoading] = useState(false);
-  console.log(fastBetLoading);
+  // console.log(fastBetLoading);
   // const [canceled, setCanceled] = useState({
   //   value: false,
   //   msg: "",
