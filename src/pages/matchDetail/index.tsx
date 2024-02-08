@@ -53,9 +53,8 @@ const MatchDetail = () => {
     }
   };
   const setSessionBetsPlaced = (event: any) => {
-    console.log("event", event);
     try {
-      if (event?.betPlaced?.placedBet?.matchId === id) {
+      if (event?.betPlaced?.placedBet?.matchId === state?.matchId) {
         dispatch(updateBetsPlaced(event?.betPlaced?.placedBet));
         dispatch(updateBalance(event));
         dispatch(betDataFromSocket(event));
@@ -68,7 +67,7 @@ const MatchDetail = () => {
 
   const setMatchBetsPlaced = (event: any) => {
     try {
-      if (event?.jobData?.matchId === id) {
+      if (event?.jobData?.matchId === state?.matchId) {
         dispatch(updateBetsPlaced(event?.jobData?.newBet));
         dispatch(updateBalance(event?.jobData));
       }
@@ -79,9 +78,9 @@ const MatchDetail = () => {
 
   const betDeleted = (event: any) => {
     try {
-      if (event?.matchId === id) {
-        dispatch(matchDetailAction(id));
-        dispatch(getPlacedBets(id));
+      if (event?.matchId === state?.matchId) {
+        dispatch(matchDetailAction(state?.matchId));
+        dispatch(getPlacedBets(state?.matchId));
         dispatch(updateBalance(event));
       }
     } catch (e) {
@@ -91,7 +90,7 @@ const MatchDetail = () => {
 
   const resultDeclared = (event: any) => {
     try {
-      if (event?.matchId === id) {
+      if (event?.matchId === state?.matchId) {
         navigate("/match");
       }
     } catch (e) {

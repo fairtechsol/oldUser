@@ -63,9 +63,9 @@ const MatchOdds = ({ matchDetails, data }: any) => {
               : []
           }
           lock={matchDetails?.matchOdd.activeStatus !== "live" ? true : false}
-          teamARates={matchDetails?.teamRates?.teamARate || 0}
-          teamBRates={matchDetails?.teamRates?.teamBRate || 0}
-          teamCRates={matchDetails?.teamRates?.teamCRate || 0}
+          teamARates={matchDetails?.profitLossDataMatch?.teamARate || 0}
+          teamBRates={matchDetails?.profitLossDataMatch?.teamBRate || 0}
+          teamCRates={matchDetails?.profitLossDataMatch?.teamCRate || 0}
           min={matchDetails?.matchOdd?.minBet || 0}
           max={matchDetails?.matchOdd?.maxBet || 0}
           title={matchDetails?.matchOdd?.name}
@@ -93,9 +93,9 @@ const MatchOdds = ({ matchDetails, data }: any) => {
               ? matchDetails?.bookmaker?.runners
               : []
           }
-          teamARates={matchDetails?.teamRates?.teamARate || 0}
-          teamBRates={matchDetails?.teamRates?.teamBRate || 0}
-          teamCRates={matchDetails?.teamRates?.teamCRate || 0}
+          teamARates={matchDetails?.profitLossDataMatch?.teamARate || 0}
+          teamBRates={matchDetails?.profitLossDataMatch?.teamBRate || 0}
+          teamCRates={matchDetails?.profitLossDataMatch?.teamCRate || 0}
           min={matchDetails?.bookmaker?.minBet || 0}
           max={matchDetails?.bookmaker?.maxBet || 0}
           title={matchDetails?.bookmaker?.name}
@@ -125,8 +125,8 @@ const MatchOdds = ({ matchDetails, data }: any) => {
               : []
           }
           // suspended={false}
-          teamARates={matchDetails?.teamRates?.yesRateTie || 0}
-          teamBRates={matchDetails?.teamRates?.noRateTie || 0}
+          teamARates={matchDetails?.profitLossDataMatch?.yesRateTie || 0}
+          teamBRates={matchDetails?.profitLossDataMatch?.noRateTie || 0}
           min={matchDetails?.apiTideMatch?.minBet || 0}
           max={matchDetails?.apiTideMatch?.maxBet || 0}
           title={matchDetails?.apiTideMatch?.name}
@@ -149,9 +149,9 @@ const MatchOdds = ({ matchDetails, data }: any) => {
           showFast={true}
           suspended={false}
           data={data}
-          teamARates={matchDetails?.teamRates?.teamARate || 0}
-          teamBRates={matchDetails?.teamRates?.teamBRate || 0}
-          teamCRates={matchDetails?.teamRates?.teamCRate || 0}
+          teamARates={matchDetails?.profitLossDataMatch?.teamARate || 0}
+          teamBRates={matchDetails?.profitLossDataMatch?.teamBRate || 0}
+          teamCRates={matchDetails?.profitLossDataMatch?.teamCRate || 0}
           min={bookmaker?.minBet || 0}
           max={bookmaker?.maxBet || 0}
           title={bookmaker?.name}
@@ -172,8 +172,8 @@ const MatchOdds = ({ matchDetails, data }: any) => {
           showFast={true}
           suspended={false}
           data={data}
-          teamARates={matchDetails?.teamRates?.yesRateTie || 0}
-          teamBRates={matchDetails?.teamRates?.noRateTie || 0}
+          teamARates={matchDetails?.profitLossDataMatch?.yesRateTie || 0}
+          teamBRates={matchDetails?.profitLossDataMatch?.noRateTie || 0}
           min={matchDetails?.manualTiedMatch?.minBet || 0}
           max={matchDetails?.manualTiedMatch?.maxBet || 0}
           title={matchDetails?.manualTiedMatch?.name}
@@ -202,9 +202,9 @@ const MatchOdds = ({ matchDetails, data }: any) => {
               : []
           }
           // suspended={false}
-          teamARates={matchDetails?.teamRates?.teamARate || 0}
-          teamBRates={matchDetails?.teamRates?.teamBRate || 0}
-          teamCRates={matchDetails?.teamRates?.teamCRate || 0}
+          teamARates={matchDetails?.profitLossDataMatch?.teamARate || 0}
+          teamBRates={matchDetails?.profitLossDataMatch?.teamBRate || 0}
+          teamCRates={matchDetails?.profitLossDataMatch?.teamCRate || 0}
           min={matchDetails?.marketCompleteMatch?.minBet || 0}
           max={matchDetails?.marketCompleteMatch?.maxBet || 0}
           title={matchDetails?.marketCompleteMatch?.name}
