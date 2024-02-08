@@ -25,6 +25,7 @@ import {
   updateBalance,
   betDataFromSocket,
   updateMaxLossForBet,
+  getButtonValue,
 } from "../../store/actions/user/userAction";
 
 const MatchDetail = () => {
@@ -40,6 +41,7 @@ const MatchDetail = () => {
   const { matchDetails } = useSelector(
     (state: RootState) => state.match.matchList
   );
+ 
 
   const { placedBets } = useSelector((state: RootState) => state.bets);
 
@@ -47,13 +49,14 @@ const MatchDetail = () => {
     try {
       if (state?.matchId === event?.id) {
         dispatch(updateMatchRates(event));
+        dispatch(getButtonValue())
       }
     } catch (e) {
       console.log(e);
     }
   };
   const setSessionBetsPlaced = (event: any) => {
-    console.log("event", event);
+    // console.log("event", event);
     try {
       if (event?.betPlaced?.placedBet?.matchId === id) {
         dispatch(updateBetsPlaced(event?.betPlaced?.placedBet));
@@ -103,10 +106,12 @@ const MatchDetail = () => {
     try {
       if (state?.matchId) {
         dispatch(getPlacedBets(state?.matchId));
+       dispatch(getButtonValue());
       }
     } catch (e) {
       console.log(e);
     }
+    
   }, [state?.matchId]);
 
   useEffect(() => {
