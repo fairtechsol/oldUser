@@ -26,7 +26,7 @@ const AuthRoutes = {
     },
     {
       path: "*",
-      element: <Navigate to={"/old/login"} replace />,
+      element: <Navigate to={"/login"} replace />,
     },
   ],
 };

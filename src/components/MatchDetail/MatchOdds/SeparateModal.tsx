@@ -136,7 +136,7 @@ const SeparateModal = ({
                       stake: 0,
                       percent: value2,
                       eventType: eventType,
-                      matchId: data.matchId,
+                      matchId: data?.matchId,
                     },
                     data
                   );
@@ -285,7 +285,7 @@ const SeparateModal = ({
             setShowSuccessModal={true}
             showSuccessModal={showSuccessModal}
             buttonMessage={"OK"}
-            navigateTo={"old/matchDetail"}
+            navigateTo={"/matchDetail"}
             userPG={true}
           />
         )}

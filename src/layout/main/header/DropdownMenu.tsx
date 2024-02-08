@@ -16,7 +16,7 @@ const DropdownMenu = ({ handleClose }: any) => {
   const [loading,] = useState(false);
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
-  const menutItems = [{ title: "Rules", link: "/old/rules" }];
+  const menutItems = [{ title: "Rules", link: "/rules" }];
   return (
     <Box
       // ref={innerRef}
@@ -102,7 +102,7 @@ const DropdownMenu = ({ handleClose }: any) => {
             onClick={(e) => {
               e.stopPropagation();
               dispatch(logout());
-              navigate("/old/login");
+              navigate("/login");
             }}
           />
         )}

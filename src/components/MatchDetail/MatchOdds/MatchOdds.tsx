@@ -6,7 +6,7 @@ import SessionMarket from "../SessionOdds/SessionMarket";
 import { MatchType } from "../../../utils/enum";
 import moment from "moment-timezone";
 
-const MatchOdds = ({ matchDetails, data, teamRates }: any) => {
+const MatchOdds = ({ matchDetails, data }: any) => {
   function calculateTimeLeft() {
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     const targetDate = moment(data?.startAt).tz(timezone);
