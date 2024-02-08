@@ -4,7 +4,7 @@ export const authSocketService = {
   logout: () => {
     socket.on("logoutUserForce", () => {
       sessionStorage.clear();
-      window.location.replace("/old/login");
+      window.location.replace("/login");
     });
   },
 };

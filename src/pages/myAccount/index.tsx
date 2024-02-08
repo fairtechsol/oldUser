@@ -53,12 +53,12 @@ const MyAccount = () => {
   };
 
   const menutItems1 = [
-    { title: "Account Statement", link: "/old/account_statement" },
-    { title: "Profile/Loss Report", link: "/old/profit_loss" },
-    { title: "Bet History", link: "/old/bet_history" },
-    { title: "Set Button Values", link: "/old/change_button_value" },
-    { title: "Security Auth Verification", link: "/old/comingsoon" },
-    { title: "Change Password", link: "/old/change_password" },
+    { title: "Account Statement", link: "/account_statement" },
+    { title: "Profile/Loss Report", link: "/profit_loss" },
+    { title: "Bet History", link: "/bet_history" },
+    { title: "Set Button Values", link: "/change_button_value" },
+    { title: "Security Auth Verification", link: "/comingsoon" },
+    { title: "Change Password", link: "/change_password" },
   ];
 
   return (

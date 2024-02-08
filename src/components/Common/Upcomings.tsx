@@ -41,7 +41,7 @@ const Upcomings = (props: any) => {
         
       </Box>
       <div style={{background: "#f1c40f"}}>
-      {location.pathname === '/old/inplay' && (
+      {location.pathname === '/inplay' && (
         <img className="inplayicon" src={Cricket} alt="Inplay Icon" />
       )}
     </div>
