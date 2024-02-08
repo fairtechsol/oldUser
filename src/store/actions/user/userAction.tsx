@@ -69,13 +69,11 @@ export const getAccountStatement = createAsyncThunk<any, any>(
   }
 );
 
-export const getButtonValue = createAsyncThunk<any, string>(
+export const getButtonValue = createAsyncThunk<any>(
   "user/getButtonValue",
-  async (requestData, thunkApi) => {
+  async (_, thunkApi) => {
     try {
-      const resp = await service.get(
-        `${ApiConstants.USER.GET_BTN_VALUE}?type=${requestData}`
-      );
+      const resp = await service.get(`${ApiConstants.USER.GET_BTN_VALUE}`);
 
       if (resp) {
         return resp?.data;

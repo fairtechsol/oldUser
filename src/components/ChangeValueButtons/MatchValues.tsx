@@ -3,10 +3,7 @@ import { AppDispatch, RootState } from "../../store/store";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useFormik } from "formik";
-import {
-  getButtonValue,
-  setButtonValue,
-} from "../../store/actions/user/userAction";
+import { setButtonValue } from "../../store/actions/user/userAction";
 import { Box, Typography, Button, CircularProgress } from "@mui/material";
 import LabelButton from "./LabelButton";
 import ValueButton from "./ValueButton";
@@ -17,8 +14,6 @@ interface ButtonProps {
 }
 
 const MatchValues = () => {
-  const [loader] = useState(false);
-
   const initialValues = [
     {
       label: "",
@@ -61,11 +56,15 @@ const MatchValues = () => {
       value: "",
     },
   ];
+  interface ButtonValue {
+    id: string;
+    type: string;
+    value: any;
+  }
   const dispatch: AppDispatch = useDispatch();
-  const { buttonValues } = useSelector(
+  const { buttonValues, loading } = useSelector(
     (state: RootState) => state.user.profile
   );
-  // console.log(buttonValues, "butnvalues")
   const formik = useFormik({
     initialValues: initialValues,
     onSubmit: (value: any) => {
@@ -73,24 +72,36 @@ const MatchValues = () => {
       value.forEach((item: ButtonProps) => {
         result = { ...result, [item?.label]: item?.value };
       });
+      const typeToSearch = "Match";
+
+      const matchEntry = buttonValues.find(
+        (entry: ButtonValue) => entry.type === typeToSearch
+      );
+
       const payload = {
-        id: buttonValues[0]?.id,
-        type: "match",
+        id: matchEntry?.id,
+        type: typeToSearch,
         value: result,
       };
+
       dispatch(setButtonValue(payload));
     },
   });
 
-  useEffect(() => {
-    dispatch(getButtonValue("match"));
-  }, []);
-
   const { handleSubmit, setValues, values, setFieldValue } = formik;
 
   useEffect(() => {
-    if (buttonValues[0]?.value) {
-      const response = JSON.parse(buttonValues[0]?.value);
+    const typeIndexMap: Record<string, number> = {};
+
+    for (let i = 0; i < buttonValues.length; i++) {
+      const entry = buttonValues[i];
+      const type = entry.type;
+
+      typeIndexMap[type] = i;
+    }
+    const indexOfTypeMatch = typeIndexMap["Match"];
+    if (buttonValues[indexOfTypeMatch]?.value) {
+      const response = JSON.parse(buttonValues[indexOfTypeMatch]?.value);
       const keys = Object.keys(response);
       const additionalFieldsCount = Math.max(0, 8 - keys.length);
       const additionalFields = Array.from({
@@ -99,7 +110,6 @@ const MatchValues = () => {
         label: "",
         value: "",
       }));
-
       setValues(
         keys
           .map((item) => ({
@@ -220,7 +230,7 @@ const MatchValues = () => {
                   sx={{ fontSize: { lg: "18px", xs: "20px" } }}
                   color={"white"}
                 >
-                  {loader ? (
+                  {loading ? (
                     <CircularProgress
                       sx={{
                         color: "#FFF",
