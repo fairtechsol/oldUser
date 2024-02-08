@@ -1,6 +1,6 @@
 import { Box, useMediaQuery, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useLocation, useParams, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import MatchOdds from "../../components/MatchDetail/MatchOdds/MatchOdds";
 import LiveMatchHome from "../../components/MatchDetail/LiveMatchScore/LiveMatchHome";
 import AllRateSeperate from "../../components/MatchDetail/AllRateBets/AllRateSeperate";
@@ -25,13 +25,13 @@ import {
   updateBalance,
   betDataFromSocket,
   updateMaxLossForBet,
+  updateProfitLossForBet,
 } from "../../store/actions/user/userAction";
 
 const MatchDetail = () => {
   const dispatch: AppDispatch = useDispatch();
   const { state } = useLocation();
   const navigate = useNavigate();
-  const { id } = useParams();
   const [visible, setVisible] = useState(true);
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -70,6 +70,7 @@ const MatchDetail = () => {
       if (event?.jobData?.matchId === state?.matchId) {
         dispatch(updateBetsPlaced(event?.jobData?.newBet));
         dispatch(updateBalance(event?.jobData));
+        dispatch(updateProfitLossForBet(event));
       }
     } catch (e) {
       console.log(e);
