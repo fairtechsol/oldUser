@@ -1,6 +1,5 @@
 import { Pagination, Box } from "@mui/material";
 import { memo, useEffect, useState } from "react";
-import { } from "@mui/material";
 import Odds from "./Odds";
 import { Constants } from "../../../utils/Constants";
 import CustomLoader from "../../Loader/index";
@@ -47,9 +46,9 @@ const MatchesComponent = (_: any) => {
     };
   }, [matchList?.matches?.length, getProfile?.roleName]);
 
-  function callPage(e: any, value: any) {
-    setCurrentPage(parseInt(value));
-  }
+  // function callPage(e: any, value: any) {
+  //   setCurrentPage(parseInt(value));
+  // }
   return (
     <>
       {matchList &&

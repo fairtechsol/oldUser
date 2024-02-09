@@ -6,7 +6,6 @@ import {
   marqueeNotification,
   setButtonValue,
   updateBalance,
-  updateMaxLossForBet,
 } from "../../actions/user/userAction";
 
 interface InitialState {
