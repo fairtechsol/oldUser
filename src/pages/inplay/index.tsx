@@ -21,6 +21,7 @@ const Inplay = () => {
     try {
       expertSocketService.match.matchAdded(getMatchListService);
       socketService.userBalance.matchResultDeclared(getMatchListService);
+      socketService.userBalance.matchResultUnDeclared(getMatchListService);
     } catch (e) {
       console.log(e);
     }
