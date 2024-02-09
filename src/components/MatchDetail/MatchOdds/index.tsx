@@ -64,7 +64,7 @@ const MatchesComponent = (_: any) => {
             />
           );
         })}
-      {matchList.length != 0 && (
+      {matchList && matchList.length >0 && (
         <Pagination
           page={currentPage}
           className="whiteTextPagination d-flex justify-content-center"
