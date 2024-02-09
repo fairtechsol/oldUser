@@ -48,14 +48,12 @@ const MatchDetail = () => {
     try {
       if (state?.matchId === event?.id) {
         dispatch(updateMatchRates(event));
-        dispatch(getButtonValue());
       }
     } catch (e) {
       console.log(e);
     }
   };
   const setSessionBetsPlaced = (event: any) => {
-    // console.log("event", event);
     try {
       if (event?.betPlaced?.placedBet?.matchId === state?.matchId) {
         dispatch(updateBetsPlaced(event?.betPlaced?.placedBet));

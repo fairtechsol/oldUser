@@ -121,27 +121,6 @@ const profileSlice = createSlice({
           },
         };
       })
-      .addCase(updateProfitLossForBet.fulfilled, (state, action) => {
-        // const { betPlaced, profitLossData } = action.payload;
-        // if (state?.matchDetails?.id === betPlaced?.placedBet?.matchId) {
-        //   const updatedProfitLossDataSession =
-        //     state.matchDetails?.profitLossDataSession.map((item: any) => {
-        //       if (item?.betId === betPlaced?.placedBet?.betId) {
-        //         return {
-        //           ...item,
-        //           maxLoss: JSON.parse(profitLossData)?.maxLoss,
-        //         };
-        //       }
-        //       return item;
-        //     });
-        //   state.matchDetails = {
-        //     ...state.matchDetails,
-        //     profitLossDataSession: updatedProfitLossDataSession,
-        //   };
-        // } else {
-        //   return state.matchDetails;
-        // }
-      })
       .addCase(updateMaxLossForBet.fulfilled, (state, action) => {
         const { betPlaced, profitLossData } = action.payload;
         if (state?.matchDetails?.id === betPlaced?.placedBet?.matchId) {
