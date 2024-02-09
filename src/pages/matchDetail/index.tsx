@@ -26,6 +26,7 @@ import {
   betDataFromSocket,
   updateMaxLossForBet,
   updateProfitLossForBet,
+  getButtonValue,
 } from "../../store/actions/user/userAction";
 
 const MatchDetail = () => {
@@ -47,12 +48,14 @@ const MatchDetail = () => {
     try {
       if (state?.matchId === event?.id) {
         dispatch(updateMatchRates(event));
+        dispatch(getButtonValue());
       }
     } catch (e) {
       console.log(e);
     }
   };
   const setSessionBetsPlaced = (event: any) => {
+    // console.log("event", event);
     try {
       if (event?.betPlaced?.placedBet?.matchId === state?.matchId) {
         dispatch(updateBetsPlaced(event?.betPlaced?.placedBet));
@@ -103,6 +106,7 @@ const MatchDetail = () => {
     try {
       if (state?.matchId) {
         dispatch(getPlacedBets(state?.matchId));
+        dispatch(getButtonValue());
       }
     } catch (e) {
       console.log(e);
