@@ -1,6 +1,6 @@
 import { Box, useMediaQuery, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useLocation, useParams, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import MatchOdds from "../../components/MatchDetail/MatchOdds/MatchOdds";
 import LiveMatchHome from "../../components/MatchDetail/LiveMatchScore/LiveMatchHome";
 import AllRateSeperate from "../../components/MatchDetail/AllRateBets/AllRateSeperate";
@@ -25,6 +25,7 @@ import {
   updateBalance,
   betDataFromSocket,
   updateMaxLossForBet,
+  updateProfitLossForBet,
   getButtonValue,
 } from "../../store/actions/user/userAction";
 
@@ -32,7 +33,6 @@ const MatchDetail = () => {
   const dispatch: AppDispatch = useDispatch();
   const { state } = useLocation();
   const navigate = useNavigate();
-  const { id } = useParams();
   const [visible, setVisible] = useState(true);
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -41,7 +41,6 @@ const MatchDetail = () => {
   const { matchDetails } = useSelector(
     (state: RootState) => state.match.matchList
   );
- 
 
   const { placedBets } = useSelector((state: RootState) => state.bets);
 
@@ -49,16 +48,14 @@ const MatchDetail = () => {
     try {
       if (state?.matchId === event?.id) {
         dispatch(updateMatchRates(event));
-        dispatch(getButtonValue())
       }
     } catch (e) {
       console.log(e);
     }
   };
   const setSessionBetsPlaced = (event: any) => {
-    // console.log("event", event);
     try {
-      if (event?.betPlaced?.placedBet?.matchId === id) {
+      if (event?.betPlaced?.placedBet?.matchId === state?.matchId) {
         dispatch(updateBetsPlaced(event?.betPlaced?.placedBet));
         dispatch(updateBalance(event));
         dispatch(betDataFromSocket(event));
@@ -71,9 +68,10 @@ const MatchDetail = () => {
 
   const setMatchBetsPlaced = (event: any) => {
     try {
-      if (event?.jobData?.matchId === id) {
+      if (event?.jobData?.matchId === state?.matchId) {
         dispatch(updateBetsPlaced(event?.jobData?.newBet));
         dispatch(updateBalance(event?.jobData));
+        dispatch(updateProfitLossForBet(event));
       }
     } catch (e) {
       console.log(e);
@@ -82,9 +80,9 @@ const MatchDetail = () => {
 
   const betDeleted = (event: any) => {
     try {
-      if (event?.matchId === id) {
-        dispatch(matchDetailAction(id));
-        dispatch(getPlacedBets(id));
+      if (event?.matchId === state?.matchId) {
+        dispatch(matchDetailAction(state?.matchId));
+        dispatch(getPlacedBets(state?.matchId));
         dispatch(updateBalance(event));
       }
     } catch (e) {
@@ -94,7 +92,7 @@ const MatchDetail = () => {
 
   const resultDeclared = (event: any) => {
     try {
-      if (event?.matchId === id) {
+      if (event?.matchId === state?.matchId) {
         navigate("/match");
       }
     } catch (e) {
@@ -106,12 +104,11 @@ const MatchDetail = () => {
     try {
       if (state?.matchId) {
         dispatch(getPlacedBets(state?.matchId));
-       dispatch(getButtonValue());
+        dispatch(getButtonValue());
       }
     } catch (e) {
       console.log(e);
     }
-    
   }, [state?.matchId]);
 
   useEffect(() => {

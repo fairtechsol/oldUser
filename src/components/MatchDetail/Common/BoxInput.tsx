@@ -80,7 +80,7 @@ const BoxInput = ({
             style: {
               fontSize: "12px",
               fontWeight: "600",
-              color: "white",
+              color: "black",
             },
           }}
           onChange={handleInputChange}
