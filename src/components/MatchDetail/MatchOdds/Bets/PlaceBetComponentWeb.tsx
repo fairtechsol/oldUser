@@ -4,6 +4,7 @@ import { Box, Typography } from "@mui/material";
 import { useEffect } from "react";
 import { useState } from "react";
 import DropDownMenu from "../../../../layout/main/header/DropdownMenu";
+import RunsDropDown from "./RunsDropDown";
 
 const PlaceBetComponentWeb = ({ profitLoss }: any) => {
   const [proLoss, setProfitLoss] = useState(profitLoss?.profitLoss);
@@ -104,7 +105,7 @@ const PlaceBetComponentWeb = ({ profitLoss }: any) => {
           />
         </Box>
         {show && (
-          <DropDownMenu
+          <RunsDropDown
             open={Boolean(anchorEl)}
             anchorEl={anchorEl}
             list={proLoss?.betData}

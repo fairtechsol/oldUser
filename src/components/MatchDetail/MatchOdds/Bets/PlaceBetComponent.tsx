@@ -5,6 +5,7 @@ import { useEffect } from "react";
 
 import { useState } from "react";
 import DropDownMenu from "../../../../layout/main/header/DropdownMenu";
+import RunsDropDown from "./RunsDropDown";
 
 const PlaceBetComponent = ({ profitLoss }: any) => {
   const [proLoss, setProfitLoss] = useState(profitLoss?.profitLoss);
@@ -87,7 +88,7 @@ const PlaceBetComponent = ({ profitLoss }: any) => {
         </Box>
       </Box>
       {show && (
-        <DropDownMenu
+        <RunsDropDown
           style={{ zIbnex: 10 }}
           list={proLoss?.betData}
           open={Boolean(anchorEl)}

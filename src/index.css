@@ -23,6 +23,11 @@ code {
   line-height: 1 !important; /* Adjust the line height as needed */
 }
 
+.whiteTextPagination li .MuiPaginationItem-root,
+.whiteTextPagination li button{
+  color: #fff;
+}
+
 .activeEventTab .eventTab{ 
   background-color: #F8C851;
 }
@@ -43,9 +48,9 @@ code {
 }
 
 .inplayicon {
-  width: 20px;
+  width: 25px;
 display: flex;
 
-  margin-top: 15px;
+  margin-top: 10px;
   
 }

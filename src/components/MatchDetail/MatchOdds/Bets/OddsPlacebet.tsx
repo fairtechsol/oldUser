@@ -1,15 +1,9 @@
 import { Typography, useMediaQuery, useTheme } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
-//   import {
-//     CancelDark,
-//     HourGlass,
-//   } from "../assets";
-//   import "../components/index.css";
 import StyledImage from "../../../Common/StyledImages";
 import { useDispatch, useSelector } from "react-redux";
 import BoxInput from "../../Common/BoxInput";
-import MoneyBox from "../MoneyBox";
 import TeamsOdssData from "./TeamOddsData";
 import { CancelDark } from "../../../../assets";
 import { AppDispatch, RootState } from "../../../../store/store";
@@ -20,6 +14,7 @@ import {
 } from "../../../../store/actions/betPlace/betPlaceActions";
 import axios from "axios";
 import { ApiConstants } from "../../../../utils/Constants";
+import PlaceBetMoneyBox from "../PlaceBetMoneyBox";
 
 const OddsPlaceBet = ({ handleClose, season, type }: any) => {
   const [stakeValue, setStakeValue] = useState(" ");
@@ -141,13 +136,13 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
             Place Bet
           </Typography>
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            <MoneyBox
+            <PlaceBetMoneyBox
               trendingUp={false}
               rate={Number(newRates?.winAmount)?.toFixed(2)}
               color={"#10DC61"}
             />
             <Box sx={{ width: "5px" }}></Box>
-            <MoneyBox
+            <PlaceBetMoneyBox
               trendingDown={false}
               rate={Number(newRates?.lossAmount).toFixed(2)}
               color={"#FF4D4D"}
@@ -182,14 +177,14 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
             }}
             value={selectedBet?.team?.rate}
             containerStyle={{ marginLeft: "2px", flex: 1 }}
-            // onChange={(e:any) => {
-            //   dispatch(
-            //     selectedBetAction({
-            //       ...selectedBet,
-            //       team: { ...selectedBet?.team, stake: +e.target.value },
-            //     })
-            //   );
-            // }}
+          // onChange={(e:any) => {
+          //   dispatch(
+          //     selectedBetAction({
+          //       ...selectedBet,
+          //       team: { ...selectedBet?.team, stake: +e.target.value },
+          //     })
+          //   );
+          // }}
           />
           <TeamsOdssData
             title={"Back/Lay"}
@@ -333,12 +328,12 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
                 placeBet({
                   url:
                     selectedBet?.data?.type === "session" ||
-                    selectedBet?.data?.SelectionId
+                      selectedBet?.data?.SelectionId
                       ? ApiConstants.BET.PLACEBETSESSION
                       : ApiConstants.BET.PLACEBETMATCHBETTING,
                   data:
                     selectedBet?.data?.type === "session" ||
-                    selectedBet?.data?.SelectionId
+                      selectedBet?.data?.SelectionId
                       ? JSON.stringify(payloadForSession)
                       : JSON.stringify(payloadForBettings),
                 })

@@ -13,14 +13,15 @@ const MoneyBox = ({ color, rates }: any) => {
         display: "flex",
         height: "25px",
         background: "#F6F6F6",
-
+        // borderRadius: "7px",
         zIndex: 100,
       }}
     >
       <Typography sx={{ fontSize: "10px", fontWeight: "bold", color: color }}>
-        {rates || 0}
+        {rates}
       </Typography>
     </Box>
   );
+
 };
 export default MoneyBox;
