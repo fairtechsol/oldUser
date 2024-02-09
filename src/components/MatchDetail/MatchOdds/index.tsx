@@ -1,6 +1,6 @@
 import { Pagination, Box } from "@mui/material";
 import { memo, useEffect, useState } from "react";
-import {} from "@mui/material";
+import { } from "@mui/material";
 import Odds from "./Odds";
 import { Constants } from "../../../utils/Constants";
 import CustomLoader from "../../Loader/index";
@@ -13,8 +13,7 @@ import { updateMatchOddRates } from "../../../store/actions/match/matchListActio
 const MatchesComponent = (_: any) => {
   const dispatch: AppDispatch = useDispatch();
   const [pageCount] = useState(Constants.pageCount);
-  const [currentPage] = useState(1);
-
+  const [currentPage, setCurrentPage] = useState(1);
   const { matchList, loading } = useSelector(
     (state: RootState) => state.match.matchList
   );
@@ -48,6 +47,9 @@ const MatchesComponent = (_: any) => {
     };
   }, [matchList?.length, getProfile?.roleName]);
 
+  function callPage(e: any, value: any) {
+    setCurrentPage(parseInt(value));
+  }
   return (
     <>
       {matchList &&
@@ -62,14 +64,15 @@ const MatchesComponent = (_: any) => {
             />
           );
         })}
-
-      <Pagination
-        page={currentPage}
-        className="whiteTextPagination d-flex justify-content-center"
-        count={pageCount}
-        color="primary"
-      />
-
+      {matchList.length != 0 && (
+        <Pagination
+          page={currentPage}
+          className="whiteTextPagination d-flex justify-content-center"
+          count={pageCount}
+          color="primary"
+          onChange={callPage}
+        />
+      )}
       {loading && <CustomLoader text="" />}
       {loading && (
         <Box
