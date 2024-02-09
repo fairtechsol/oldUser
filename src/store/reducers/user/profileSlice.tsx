@@ -7,7 +7,6 @@ import {
   setButtonValue,
   updateBalance,
   updateMaxLossForBet,
-  updateProfitLossForBet,
 } from "../../actions/user/userAction";
 
 interface InitialState {
