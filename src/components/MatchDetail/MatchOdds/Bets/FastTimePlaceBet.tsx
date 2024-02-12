@@ -4,7 +4,6 @@ import { useState, useRef, useEffect } from "react";
 import { currencyFormatter } from "../../../../helper/index";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../store/store";
-import { getButtonValue } from "../../../../store/actions/user/userAction";
 const FastTimePlaceBet = ({
   session,
   setShowFastTimeBox,
@@ -24,16 +23,16 @@ const FastTimePlaceBet = ({
   //   loading: false,
   //   type: false,
   // });
-  const button = [
-    { value: "Value1", lable: "Price1" },
-    { value: "Value2", lable: "Price2" },
-    { value: "Value3", lable: "Price3" },
-    { value: "Value4", lable: "Price4" },
-    { value: "Value5", lable: "Price5" },
-    { value: "Value6", label: "Price6" },
-    { value: "Value7", label: "Price7" },
-    { value: "Value8", label: "Price8" }
-  ];
+  // const button = [
+  //   { value: "Value1", lable: "Price1" },
+  //   { value: "Value2", lable: "Price2" },
+  //   { value: "Value3", lable: "Price3" },
+  //   { value: "Value4", lable: "Price4" },
+  //   { value: "Value5", lable: "Price5" },
+  //   { value: "Value6", label: "Price6" },
+  //   { value: "Value7", label: "Price7" },
+  //   { value: "Value8", label: "Price8" }
+  // ];
 
   const { buttonValues } = useSelector(
     (state: RootState) => state.user.profile
@@ -46,7 +45,6 @@ const FastTimePlaceBet = ({
   // console.log(buttonValues, "values")
 
   const [matchButtonList, setMatchButtonList] = useState<any>([]);
-  const [sessionButtonList, setSessionButtonList] = useState(button);
 
   useEffect(() => {
     const typeIndexMap: Record<string, number> = {};

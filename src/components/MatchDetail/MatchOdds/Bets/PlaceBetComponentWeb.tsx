@@ -3,7 +3,6 @@ import { UD } from "../../../../assets";
 import { Box, Typography } from "@mui/material";
 import { useEffect } from "react";
 import { useState } from "react";
-import DropDownMenu from "../../../../layout/main/header/DropdownMenu";
 import RunsDropDown from "./RunsDropDown";
 
 const PlaceBetComponentWeb = ({ profitLoss }: any) => {

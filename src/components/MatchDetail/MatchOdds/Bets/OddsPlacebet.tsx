@@ -20,15 +20,44 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
   const [stakeValue, setStakeValue] = useState(" ");
   const [betPlaceLoading] = useState(false);
 
+  const { buttonValues } = useSelector(
+    (state: RootState) => state.user.profile
+  );
+  const { selectedBet } = useSelector(
+    (state: RootState) => state.match.matchList
+  );
+
+  let sessionButtonValues: any = [];
+  let matchButtonValues: any = [];
+
+  buttonValues.forEach((item: any) => {
+    const parsedValue = JSON.parse(item.value);
+
+    const buttonValuesArray = Object.entries(parsedValue).map(
+      ([label, value]) => ({
+        label,
+        value,
+      })
+    );
+
+    if (item.type === "Match") {
+      matchButtonValues = buttonValuesArray;
+    } else if (item.type === "Session") {
+      sessionButtonValues = buttonValuesArray;
+    }
+  });
+
+  const buttonToShow: any =
+    selectedBet?.data?.type === "session"
+      ? sessionButtonValues
+      : matchButtonValues;
+
   const [stake, setStake] = useState<any>(0);
   console.log(stake);
   const [newRates, setNewRates] = useState({
     lossAmount: 0,
     winAmount: 0,
   });
-  const { selectedBet } = useSelector(
-    (state: RootState) => state.match.matchList
-  );
   const { success } = useSelector((state: RootState) => state.match.bet);
   const dispatch: AppDispatch = useDispatch();
   const theme = useTheme();
@@ -188,7 +217,7 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
                 border: "2px solid white",
               }}
             >
-              {["2000", "3000", "5000", "10000"]?.map((v, idx) => (
+              {buttonToShow?.slice(0, 4)?.map((v: any, idx: number) => (
                 <NumberData
                   key={idx}
                   containerStyle={{ marginLeft: "2px", flex: 1 }}
@@ -201,7 +230,7 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
               ))}
             </Box>
             <Box sx={{ display: "flex", marginTop: "2px", marginX: "2px" }}>
-              {["20000", "100000", "200000", "500000"]?.map((v, idx) => (
+              {buttonToShow?.slice(4, 8)?.map((v: any, idx: number) => (
                 <NumberData
                   key={idx}
                   containerStyle={{ marginLeft: "2px", flex: 1 }}
@@ -353,7 +382,7 @@ const NumberData = ({
   return (
     <Box
       onClick={() => {
-        setStakeValue(value);
+        setStakeValue(value?.value);
         selectedBetAction(value);
       }}
       sx={[
@@ -377,7 +406,7 @@ const NumberData = ({
           fontWeight: "500",
         }}
       >
-        {value}
+        {value?.label}
       </Typography>
     </Box>
   );

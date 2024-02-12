@@ -4,11 +4,9 @@ import { Navigate } from "react-router-dom";
 import { Constants } from "../utils/Constants";
 import SecureAuthVerification from "../pages/auth/secureAuthverification";
 
-
-
-
-
-const ChangeButtonValue = Loadable(lazy(() => import("../pages/changeButtonValue")));
+const ChangeButtonValue = Loadable(
+  lazy(() => import("../pages/changeButtonValue"))
+);
 const Rules = Loadable(lazy(() => import("../pages/rules")));
 
 const MyAccount = Loadable(lazy(() => import("../pages/myAccount")));
@@ -18,6 +16,11 @@ const Match = Loadable(lazy(() => import("../pages/match")));
 const MatchDetail = Loadable(lazy(() => import("../pages/matchDetail")));
 const Inplay = Loadable(lazy(() => import("../pages/inplay")));
 const ChangePassword = Loadable(lazy(() => import("../pages/changepassword")));
+const ProfitLoss = Loadable(lazy(() => import("../pages/reports/ProfitLoss")));
+const BetHistory = Loadable(lazy(() => import("../pages/betHistory")));
+const AccountStatement = Loadable(
+  lazy(() => import("../pages/reports/AccountStatement"))
+);
 
 const MainRoutes = {
   path: Constants.MainPaths.root,
@@ -64,10 +67,22 @@ const MainRoutes = {
       element: <SecureAuthVerification />,
     },
     {
+      path: Constants.ReportsPaths.profitLoss,
+      element: <ProfitLoss />,
+    },
+    {
+      path: Constants.ReportsPaths.betHistory,
+      element: <BetHistory />,
+    },
+    {
+      path: Constants.ReportsPaths.accountStatement,
+      element: <AccountStatement />,
+    },
+    {
       path: "*",
       element: <Navigate to={"/match"} replace />,
     },
   ],
 };
 
-export default  MainRoutes;
+export default MainRoutes;

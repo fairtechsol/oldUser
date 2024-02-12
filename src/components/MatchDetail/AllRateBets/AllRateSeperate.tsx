@@ -1,21 +1,9 @@
-import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useState } from "react";
-import { DELETE, ARROWUP } from "../../../assets";
-
-import StyledImage from "../../Common/StyledImages";
+import { ARROWUP } from "../../../assets";
 import RowComponent from "./RowComponent";
 
-const AllRateSeperate = ({
-  profit,
-  mark,
-  mark2,
-  allBetsData,
-  count,
-  isArrow,
-}: any) => {
-  const theme = useTheme();
-  const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
-
+const AllRateSeperate = ({ profit, mark2, allBetsData, count }: any) => {
   const [visible, setVisible] = useState(true);
 
   return (

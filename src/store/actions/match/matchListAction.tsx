@@ -15,7 +15,7 @@ export const getMatchList = createAsyncThunk<any, any>(
         }${matchType ? `&match.matchType=${matchType}` : ""}`
       );
       if (resp) {
-        return { data: resp?.data?.matches, type: type };
+        return { data: resp?.data, type: type };
       }
     } catch (error: any) {
       const err = error as AxiosError;

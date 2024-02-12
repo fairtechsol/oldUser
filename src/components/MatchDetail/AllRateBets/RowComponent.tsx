@@ -2,7 +2,6 @@ import { Box } from "@mui/material";
 import SingleBox from "./SingleBox";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
-import { getProfile } from "../../../store/actions/user/userAction";
 
 const RowComponent = ({ header, data }: any) => {
   const { getProfile } = useSelector((state: RootState) => state.user.profile);

@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-const LiveMarket = ({ title, boxStyle, titleStyle, onClick }:any) => {
+const LiveMarket = ({ title, boxStyle, titleStyle, onClick }: any) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const colors = [
     "#ff0000",
@@ -40,7 +40,7 @@ const LiveMarket = ({ title, boxStyle, titleStyle, onClick }:any) => {
     ],
     mainBoxTypography: [
       {
-        fontSize: boxStyle?.fontSize?  boxStyle?.fontSize: "11px",
+        fontSize: boxStyle?.fontSize ? boxStyle?.fontSize : "11px",
         lineHeight: "12px",
         fontWeight: "bold",
         color: colors[currentIndex],
@@ -49,10 +49,10 @@ const LiveMarket = ({ title, boxStyle, titleStyle, onClick }:any) => {
       titleStyle,
     ],
   };
-  
+
   return (
     <Box
-      onClick={(e) => {
+      onClick={() => {
         onClick();
       }}
       sx={classes.mainBoxsx}

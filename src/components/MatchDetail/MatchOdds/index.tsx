@@ -1,6 +1,5 @@
 import { Pagination, Box } from "@mui/material";
 import { memo, useEffect, useState } from "react";
-import { } from "@mui/material";
 import Odds from "./Odds";
 import { Constants } from "../../../utils/Constants";
 import CustomLoader from "../../Loader/index";
@@ -12,8 +11,8 @@ import { updateMatchOddRates } from "../../../store/actions/match/matchListActio
 
 const MatchesComponent = (_: any) => {
   const dispatch: AppDispatch = useDispatch();
-  const [pageCount] = useState(Constants.pageCount);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+
   const { matchList, loading } = useSelector(
     (state: RootState) => state.match.matchList
   );
@@ -24,14 +23,14 @@ const MatchesComponent = (_: any) => {
   };
 
   useEffect(() => {
-    if (matchList && getProfile?.roleName) {
-      matchList?.forEach((element: any) => {
+    if (matchList?.matches && getProfile?.roleName) {
+      matchList?.matches?.forEach((element: any) => {
         expertSocketService.match.joinMatchRoom(
           element?.id,
           getProfile?.roleName
         );
       });
-      matchList?.forEach((element: any) => {
+      matchList?.matches?.forEach((element: any) => {
         expertSocketService.match.getMatchRates(
           element?.id,
           setMatchOddRatesInRedux
@@ -41,19 +40,19 @@ const MatchesComponent = (_: any) => {
 
     return () => {
       expertSocketService.match.leaveAllRooms();
-      matchList?.forEach((element: any) => {
+      matchList?.matches?.forEach((element: any) => {
         expertSocketService.match.leaveMatchRoom(element?.id);
       });
     };
-  }, [matchList?.length, getProfile?.roleName]);
+  }, [matchList?.matches?.length, getProfile?.roleName]);
 
-  function callPage(e: any, value: any) {
-    setCurrentPage(parseInt(value));
-  }
+  // function callPage(e: any, value: any) {
+  //   setCurrentPage(parseInt(value));
+  // }
   return (
     <>
       {matchList &&
-        matchList?.map((match: any) => {
+        matchList?.matches?.map((match: any) => {
           return (
             <Odds
               key={match?.id}
@@ -64,15 +63,20 @@ const MatchesComponent = (_: any) => {
             />
           );
         })}
-      {matchList && matchList.length >0 && (
-        <Pagination
-          page={currentPage}
-          className="whiteTextPagination d-flex justify-content-center"
-          count={pageCount}
-          color="primary"
-          onChange={callPage}
-        />
-      )}
+
+      <Pagination
+        page={currentPage}
+        className="whiteTextPagination d-flex justify-content-center"
+        onChange={(_, page) => {
+          setCurrentPage(page);
+        }}
+        count={Math.ceil(
+          parseInt(matchList?.count ? matchList?.count : 1) /
+            Constants.pageLimit
+        )}
+        color="primary"
+      />
+
       {loading && <CustomLoader text="" />}
       {loading && (
         <Box
