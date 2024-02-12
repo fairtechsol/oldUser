@@ -102,6 +102,7 @@ const matchListSlice = createSlice({
           manualTideMatch,
           quickbookmaker,
         } = action.payload;
+        let newSessionBettings = sessionBettings;
         state.matchDetails = {
           ...state.matchDetails,
           manualSessionActive: sessionBettings?.length >= 0 ? true : false,
@@ -114,8 +115,8 @@ const matchListSlice = createSlice({
           matchOdd: matchOdd,
           quickBookmaker: quickbookmaker,
           sessionBettings:
-            state.matchDetails.sessionBettings.length > 0 &&
-            state.matchDetails.sessionBettings.map((item: any) => {
+            newSessionBettings &&
+            newSessionBettings.map((item: any) => {
               if (!JSON.parse(item)?.selectionId) {
                 const parsedItem = JSON.parse(item);
                 let id = parsedItem?.id;

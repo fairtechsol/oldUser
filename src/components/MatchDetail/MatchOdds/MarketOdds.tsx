@@ -469,7 +469,7 @@ const MarketOdds = ({
                   }}
                   rate={teamARates}
                   name={
-                    ["tied_manual"].includes(title) ? "Yes" : newData?.teamA
+                    ["tied_manual"].includes(title) ? "YES" : newData?.teamA
                   }
                   data={data}
                   team={"teamA"}
@@ -510,7 +510,7 @@ const MarketOdds = ({
                       : false
                   }
                   color={teamBRates <= 0 ? "#FF4D4D" : "#319E5B"}
-                  name={["tied_manual"].includes(title) ? "No" : newData?.teamB}
+                  name={["tied_manual"].includes(title) ? "NO" : newData?.teamB}
                   data={data}
                   rate={teamBRates}
                   allRates={{
@@ -610,7 +610,7 @@ const MarketOdds = ({
                   rate={teamARates}
                   name={
                     ["tied_match", "complete_match"].includes(title)
-                      ? "Yes"
+                      ? "YES"
                       : newData?.teamA
                   }
                   data={data?.length > 0 ? data[0] : []}
@@ -642,7 +642,7 @@ const MarketOdds = ({
                   color={teamBRates <= 0 ? "#FF4D4D" : "#319E5B"}
                   name={
                     ["tied_match", "complete_match"].includes(title)
-                      ? "No"
+                      ? "NO"
                       : newData?.teamB
                   }
                   data={data?.length > 0 ? data[1] : []}
