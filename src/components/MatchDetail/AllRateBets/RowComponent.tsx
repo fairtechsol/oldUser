@@ -19,13 +19,9 @@ const RowComponent = ({ header, data }: any) => {
     if (header) {
       return "black";
     } else if (data?.betType === "BACK" || data?.betType === "YES") {
-      // return "#FF9292";
-      // return "#00C0F9";
       return "#CEEBFF";
     } else if (data?.betType === "LAY" || data?.betType === "NO") {
       return "#F2CBCB";
-      // return "#FF9292";
-      // return "#B3E0FF";
     }
   };
   return (
@@ -37,59 +33,64 @@ const RowComponent = ({ header, data }: any) => {
         justifyContent: "space-between",
         alignItems: "center",
         display: "flex",
-        gap: "1px",
+        gap: "2px",
         marginBottom: { xs: "1px", lg: "1px" },
       }}
     >
       {!header && (
         <>
-          <SingleBox
-            color={getColor}
-            data={
-              data?.marketType == "MANUAL BOOKMAKER"
-                ? "Quick Bookmaker"
-                : data?.marketType
-            }
-            first={true}
-            header={header}
-          />
-          <SingleBox
-            color={getColor()}
-            data={
-              data?.username ||
-              data?.userName ||
-              data?.user?.userName ||
-              getProfile?.userName
-            }
-            header={header}
-            boxWidth="50%"
-          />
-          <SingleBox
-            color={getColor()}
-            data={data}
-            up={true}
-            header={header}
-            time={getTime(data.createdAt)}
-          />
-          <SingleBox
-            color={getColor()}
-            data={data?.bet_type || data?.betType}
-            header={header}
-            boxWidth="50%"
-          />
-          <SingleBox
-            color={getColor()}
-            data={data?.odds}
-            header={header}
-            boxWidth="50%"
-          />
-          <SingleBox
-            color={getColor()}
-            data={data?.rate || data?.amount}
-            header={header}
-            width={"50%"}
-            boxWidth="100%"
-          />
+          <Box sx={{ width: "54%", minWidth: "22%" }}>
+            <SingleBox
+              color={getColor}
+              data={
+                data?.marketType == "MANUAL BOOKMAKER"
+                  ? "Quick Bookmaker"
+                  : data?.marketType
+              }
+              first={true}
+              header={header}
+              time={getTime(data.createdAt)}
+            />
+          </Box>
+          <Box sx={{ width: "20%", minWidth: "15%" }}>
+            <SingleBox
+              color={getColor()}
+              data={
+                data?.username ||
+                data?.userName ||
+                data?.user?.userName ||
+                getProfile?.userName
+              }
+              header={header}
+              // boxWidth={"50%"}
+            />
+          </Box>
+          <Box sx={{ width: "52%", minWidth: "19%" }}>
+            <SingleBox
+              color={getColor()}
+              data={data.teamName}
+              up={true}
+              header={header}
+              // time={data.teamName}
+            />
+          </Box>
+          <Box sx={{ width: "30%" }}>
+            <SingleBox
+              color={getColor()}
+              data={data?.bet_type || data?.betType}
+              header={header}
+            />
+          </Box>
+          <Box sx={{ width: "30%" }}>
+            <SingleBox color={getColor()} data={data?.odds} header={header} />
+          </Box>
+          <Box sx={{ width: "41%" }}>
+            <SingleBox
+              color={getColor()}
+              data={data?.rate || data?.amount}
+              header={header}
+            />
+          </Box>
         </>
       )}
       {header && (
