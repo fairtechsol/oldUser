@@ -8,6 +8,7 @@ import ManualBoxComponent from "./ManualBoxComponent";
 import { ARROWUP, LockIcon, TIME } from "../../../assets";
 import { currencyFormatter } from "../../../helper";
 import FastTime from "./FastTime";
+import NotificationModal from "../../Common/NotificationModal";
 
 const SmallBox = ({ valueA, valueB }: any) => {
   return (
@@ -142,12 +143,12 @@ const MarketOdds = ({
   const [placeBetData, setPlaceBetData] = useState<any>(null);
   const [fastRate, setFastRate] = useState(null);
   const [fastBetLoading, setFastBetLoading] = useState(false);
-  console.log(fastBetLoading);
-  // const [canceled, setCanceled] = useState({
-  //   value: false,
-  //   msg: "",
-  //   type: false,
-  // });
+  // console.log(fastBetLoading);
+  const [canceled, setCanceled] = useState({
+    value: false,
+    msg: "",
+    type: false,
+  });
 
   useEffect(() => {
     if (betLock) {
@@ -435,7 +436,6 @@ const MarketOdds = ({
                 }}
               ></Box>
             )}
-
             {session === "manualBookMaker" ? (
               <>
                 <ManualBoxComponent
@@ -732,6 +732,7 @@ const MarketOdds = ({
           ></Box>
           <Box sx={{ width: { xs: "98%", lg: "58%", md: "98%" } }}>
             <OddsPlaceBet
+                  setCanceled={setCanceled}
               setPlaceBetData={setPlaceBetData}
               placeBetData={placeBetData}
               handleClose={() => setPlaceBetData(null)}
@@ -749,14 +750,14 @@ const MarketOdds = ({
               handleRateChange={handleRateChange}
             />
           </Box>
-          {/* {canceled.value && (
+          {canceled.value && (
             <NotificationModal
               open={canceled}
               handleClose={() =>
                 setCanceled({ value: false, msg: "", type: false })
               }
             />
-          )} */}
+          )}
         </Box>
       )}
 

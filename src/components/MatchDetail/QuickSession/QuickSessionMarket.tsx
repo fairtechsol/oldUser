@@ -8,6 +8,7 @@ import Divider from "../../../helper/Divider";
 import QuickSessionMarketBox from "./QuickSessionMarketBox";
 
 const QuickSessionMarket = ({
+  data,
   newData,
   backTeamA,
   backTeamB,
@@ -28,7 +29,7 @@ const QuickSessionMarket = ({
   eventType,
 }: any) => {
   const [showFastTimeBox, setShowFastTimeBox] = useState(false);
-
+  const [fastBetLoading, setFastBetLoading] = useState(false);
   const [selectedItem, setSelectedItem] = useState("");
 
   const [visible, setVisible] = useState(true);
@@ -313,11 +314,13 @@ const QuickSessionMarket = ({
                       }}
                     >
                       <QuickSessionMarketBox
-                        betStatus={false}
+                        // betStatus={false}
                         upcoming={upcoming}
-                        closeModal={true}
+                        closeModal={
+                          [0, 2]?.includes(element?.betStatus) ? true : false
+                        }
                         typeOfBet={typeOfBet}
-                        // setFastBetLoading={setFastBetLoading}
+                        setFastBetLoading={setFastBetLoading}
                         data={element}
                         sessionMain={session}
                         setShowFastTimeBox={setShowFastTimeBox}
@@ -326,6 +329,7 @@ const QuickSessionMarket = ({
                         showFastTimeBox={showFastTimeBox}
                         setSelectedItem={setSelectedItem}
                         selectedItem={selectedItem}
+                        mainData={data}
                         allRates={{
                           teamA: backTeamA,
                           teamB: backTeamB,

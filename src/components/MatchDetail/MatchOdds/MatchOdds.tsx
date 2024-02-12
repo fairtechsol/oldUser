@@ -233,6 +233,11 @@ const MatchOdds = ({ matchDetails, data }: any) => {
           <QuickSessionMarket
             key={matchDetails?.id}
             title={"Quick Session Market"}
+            // showFast={true}
+            session={"sessionOdds"}
+            // sessionBets={sessionBets}
+            // typeOfBet={"session"}
+            upcoming={!upcoming}
             type={MatchType.SESSION_MARKET}
             matchOddsData={matchDetails?.sessionBettings}
             newData={matchDetails.sessionBettings}

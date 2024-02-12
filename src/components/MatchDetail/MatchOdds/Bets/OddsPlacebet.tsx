@@ -13,7 +13,7 @@ import {
   placeBet,
 } from "../../../../store/actions/betPlace/betPlaceActions";
 import axios from "axios";
-import { ApiConstants } from "../../../../utils/Constants";
+import { ApiConstants, matchBettingType } from "../../../../utils/Constants";
 import PlaceBetMoneyBox from "../PlaceBetMoneyBox";
 
 const OddsPlaceBet = ({ handleClose, season, type }: any) => {
@@ -26,6 +26,7 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
   const { selectedBet } = useSelector(
     (state: RootState) => state.match.matchList
   );
+  console.log(selectedBet, "bets")
 
   let sessionButtonValues: any = [];
   let matchButtonValues: any = [];
@@ -53,7 +54,7 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
       : matchButtonValues;
 
   const [stake, setStake] = useState<any>(0);
-  console.log(stake);
+  // console.log(stake);
   const [newRates, setNewRates] = useState({
     lossAmount: 0,
     winAmount: 0,
@@ -94,7 +95,7 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
       handleClose();
     }
   }, [success]);
-
+  console.log(selectedBet, "amot")
   return (
     <Box
       sx={[
@@ -135,30 +136,32 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
           >
             Place Bet
           </Typography>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
+          <Box sx={{ display: "flex", alignItems: "center", marginLeft: "60px" }}>
             <PlaceBetMoneyBox
               trendingUp={false}
-              rate={Number(newRates?.winAmount)?.toFixed(2)}
+              // rate={selectedBet?.team?.type == 'back' ? Number((stake* ((Odds- 1) * 100)) / 100) : Number(stake)}
+              // rate={Number(newRates?.winAmount)?.toFixed(2)}
               color={"#10DC61"}
             />
             <Box sx={{ width: "5px" }}></Box>
             <PlaceBetMoneyBox
               trendingDown={false}
-              rate={Number(newRates?.lossAmount).toFixed(2)}
+              // rate={selectedBet?.team?.type == 'back' ? Number(stake) : Number((stake* ((Odds- 1) * 100)) / 100)}
               color={"#FF4D4D"}
             />
             <Box sx={{ width: "5px", marginRight: "20px" }}></Box>
-            <StyledImage
-              onClick={handleClose}
-              src={CancelDark}
-              sx={{
-                padding: "10px",
-                height: "50px",
-                width: "50px",
-                cursor: "pointer",
-              }}
-            />
+
           </Box>
+          <StyledImage
+            onClick={handleClose}
+            src={CancelDark}
+            sx={{
+              padding: "10px",
+              height: "50px",
+              width: "50px",
+              cursor: "pointer",
+            }}
+          />
         </Box>
         <Box sx={{ display: "flex", marginTop: "2px", marginX: "2px" }}>
           <TeamsOdssData
@@ -226,8 +229,10 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
                     value && selectedBetAction(selectedBet?.data)
                   }
                   setStakeValue={setStakeValue}
+                  setNewRatesValue={setNewRates}
                 />
               ))}
+              {console.log(selectedBet?.data)}
             </Box>
             <Box sx={{ display: "flex", marginTop: "2px", marginX: "2px" }}>
               {buttonToShow?.slice(4, 8)?.map((v: any, idx: number) => (
@@ -239,6 +244,7 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
                     value && selectedBetAction(selectedBet?.data)
                   }
                   setStakeValue={setStakeValue}
+                  setNewRatesValue={setNewRates}
                 />
               ))}
             </Box>
@@ -378,13 +384,23 @@ const NumberData = ({
   containerStyle,
   setStakeValue,
   selectedBetAction,
+  setNewRatesValue,
 }: any) => {
   return (
     <Box
       onClick={() => {
+        // setNewRatesValue(
+        //   value?.value
+        // );
+        setNewRatesValue({
+          lossAmount:  value?.value,
+          winAmount:  value?.value,
+        });
         setStakeValue(value?.value);
+
         selectedBetAction(value);
       }}
+
       sx={[
         {
           display: "flex",

@@ -6,6 +6,9 @@ import SeparateModal from "../MatchOdds/SeparateModal";
 import PlaceBetComponentWeb from "../MatchOdds/Bets/PlaceBetComponentWeb";
 import FastTimePlaceBet from "../MatchOdds/Bets/FastTimePlaceBet";
 import MoneyBox from "../MatchOdds/MoneyBox";
+import PlaceBetComponent from "../MatchOdds/Bets/PlaceBetComponent";
+import FastTime from "../MatchOdds/FastTime";
+import { currencyFormatter } from "../../../helper";
 
 const QuickSessionMarketBox = ({
   index,
@@ -24,6 +27,7 @@ const QuickSessionMarketBox = ({
   upcoming,
   fastAmount,
   selectedItem,
+  setSelectedItem,
   eventType,
 }: any) => {
   const theme = useTheme();
@@ -89,16 +93,27 @@ const QuickSessionMarketBox = ({
           >
             {data?.name}
           </Typography>
-          <MoneyBox rates={data?.rates ? data?.rates : 0} />
+          {/* {true && (
+            <FastTime
+              session={sessionMain}
+              setFastAmount={setFastAmount}
+              setShowFastTimeBox={setShowFastTimeBox}
+              data1={data}
+              typeOfBet={typeOfBet}
+              setSelectedItem={setSelectedItem}
+              selectedItem={selectedItem}
+              data={fastAmount ? currencyFormatter(fastAmount) : ""}
+            />
+          )} */}
         </Box>
-        {/* {matchesMobile && (
+        {matchesMobile && (
           <PlaceBetComponent amount={index == 2} profitLoss={data} />
-        )} */}
+        )}
         {!matchesMobile && (
           <PlaceBetComponentWeb amount={index === 2} profitLoss={data} />
         )}
         {!["active", "", undefined, null, ""].includes(data?.status) ||
-        (data.yesRate === null && data.noRate === null) ? (
+          (data.yesRate === null && data.noRate === null) ? (
           <Box
             sx={{
               background: "rgba(0,0,0,1)",

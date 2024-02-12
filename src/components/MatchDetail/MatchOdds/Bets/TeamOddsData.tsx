@@ -88,7 +88,7 @@ const TeamsOdssData = ({
                 border: "1px solid #FFF",
                 // border: "0px solid #C7B6B6",
                 display: "flex",
-                justifyContent: season ? "center" : "space-between",
+                justifyContent: "center",
                 paddingX: "4px",
                 alignItems: "center",
                 height: "32px",
@@ -97,7 +97,7 @@ const TeamsOdssData = ({
               valueContainerStyle,
             ]}
           >
-            {!season && (
+            {/* {!season && (
               <Box
                 onClick={() => {
                   setOddValue((i:any) => Number(i) - 1);
@@ -118,7 +118,7 @@ const TeamsOdssData = ({
                   -
                 </Typography>
               </Box>
-            )}
+            )} */}
             <Box
               sx={{
                 width: "30px",
@@ -140,7 +140,7 @@ const TeamsOdssData = ({
                 {oddValue}
               </Typography>
             </Box>
-            {!season && (
+            {/* {!season && (
               <Box
                 onClick={() => {
                   setOddValue((i:any) => Number(i) + 1);
@@ -161,7 +161,7 @@ const TeamsOdssData = ({
                   +
                 </Typography>
               </Box>
-            )}
+            )} */}
           </Box>
         )}
       </Box>

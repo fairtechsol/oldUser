@@ -3,7 +3,13 @@ import { Box } from "@mui/system";
 import { useState, useRef, useEffect } from "react";
 import { currencyFormatter } from "../../../../helper/index";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../store/store";
+import { AppDispatch, RootState } from "../../../../store/store";
+import { getButtonValue } from "../../../../store/actions/user/userAction";
+import NotificationModal from "../../../Common/NotificationModal";
+import axios from "axios";
+import { ApiConstants } from "../../../../utils/Constants";
+import { useDispatch } from "react-redux";
+import { placeBet } from "../../../../store/actions/betPlace/betPlaceActions";
 const FastTimePlaceBet = ({
   session,
   setShowFastTimeBox,
@@ -16,39 +22,31 @@ const FastTimePlaceBet = ({
 }: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
+  const [ipAddress, setIpAddress] = useState(null);
+  const [canceled, setCanceled] = useState({
+    value: false,
+    msg: "",
+    loading: false,
+    type: false,
+  });
+  const dispatch: AppDispatch = useDispatch();
 
-  // const [canceled, setCanceled] = useState({
-  //   value: false,
-  //   msg: "",
-  //   loading: false,
-  //   type: false,
-  // });
-  // const button = [
-  //   { value: "Value1", lable: "Price1" },
-  //   { value: "Value2", lable: "Price2" },
-  //   { value: "Value3", lable: "Price3" },
-  //   { value: "Value4", lable: "Price4" },
-  //   { value: "Value5", lable: "Price5" },
-  //   { value: "Value6", label: "Price6" },
-  //   { value: "Value7", label: "Price7" },
-  //   { value: "Value8", label: "Price8" }
-  // ];
-
+  const [browserInfo, setBrowserInfo] = useState<any>(null);
+  const { matchDetails } = useSelector(
+    (state: RootState) => state.match.matchList
+  );
+console.log('matchOddsData',matchOddsData)
   const { buttonValues } = useSelector(
     (state: RootState) => state.user.profile
   );
-
-  // useEffect(() => {
-  //   getButtonValue();
-  // }, [buttonValues]);
-
-  // console.log(buttonValues, "values")
 
   const [matchButtonList, setMatchButtonList] = useState<any>([]);
 
   useEffect(() => {
     const typeIndexMap: Record<string, number> = {};
-
+    const { userAgent, appName, appVersion, platform } = navigator;
+    const info: any = { userAgent, appName, appVersion, platform };
+    setBrowserInfo(info);
     for (let i = 0; i < buttonValues.length; i++) {
       const entry = buttonValues[i];
       const type = entry.type;
@@ -80,91 +78,74 @@ const FastTimePlaceBet = ({
 
   useEffect(() => {
     if (!fromOdds) {
-      // scrollToBottom();
-      // scrollToFullDiv();
-      // setMatchButtonList(buttonValues);
-
     }
   }, [selectedValue, fromOdds]);
 
 
+   const handleBet=(stake:any,data:any,type:string,index:any)=> {
+    let betTeam ; 
+    if( matchOddsData?.statusTeamA === 'active' && matchOddsData?.statusTeamB === 'suspended'){
+      betTeam = matchDetails?.teamA
+    }else if(matchOddsData?.statusTeamA === 'suspended' && matchOddsData?.statusTeamB === 'active'){
+      betTeam = matchDetails?.teamB
+    }else if(matchOddsData?.statusTeamA === 'active' && matchOddsData?.statusTeamB === 'active'){
+      if(index==0){
+        betTeam = matchDetails?.teamA
+      }else{
+        betTeam = matchDetails?.teamB
+      }
+    }
 
-  // const scrollToFullDiv = () => {
-  //   if (myDivRef.current) {
-  //     const { scrollTop, offsetHeight, scrollHeight } = myDivRef.current;
-  //     const scrollPosition = scrollTop + offsetHeight;
+    let payloadForSession: any = {
+      betId: matchOddsData?.id,
+    betOnTeam : betTeam,
+      bettingType: type,
+      browserDetail: browserInfo?.userAgent,
+      matchId: matchOddsData?.matchId,
+      ipAddress:
+        ipAddress === "Not found" || !ipAddress
+          ? "192.168.1.100"
+          : ipAddress,
+      odd: type ==="BACK"? matchOddsData?.backTeamA : matchOddsData?.layTeamA,
+      matchBetType : matchOddsData?.type,
+      stake: stake ,
+      placeIndex : 0,
+      teamA :matchDetails?.teamA,
+      teamB :matchDetails?.teamB,
+      teamC :matchDetails?.teamC,
+    };
 
-  //     if (scrollPosition < scrollHeight) {
-  //       myDivRef.current.scrollTop = scrollHeight;
-  //     }
-  //   }
-  // };
 
-  //   const handleAmountClick = async (payload, session, odds, teamSuspend) => {
-  //     if ([null, 0, "", "0"].includes(odds) || odds <= 0) {
-  //       setCanceled({
-  //         value: true,
-  //         msg: "Market Suspended",
-  //         loading: false,
-  //         type: false,
-  //       });
-  //       setTimeout(() => {
-  //         setCanceled({
-  //           value: false,
-  //           msg: "",
-  //           loading: false,
-  //           type: false,
-  //         });
-  //       }, 1500);
-  //       return;
-  //     }
-  //     try {
-  //       setCanceled({
-  //         value: true,
-  //         msg: "Rate changed",
-  //         loading: true,
-  //         type: false,
-  //       });
-  //       let newPayload = {
-  //         ...payload,
-  //         country: ip?.country_name || null,
-  //         ip_address: ip?.IPv4 || null,
-  //       };
-  //       let response = await axios.post(`/betting/placeBet`, newPayload);
-  //       console.log("responseresponse", response);
-  //       setCanceled({
-  //         value: true,
-  //         msg: response?.data?.message,
-  //         loading: false,
-  //         type: true,
-  //       });
-  //       setTimeout(() => {
-  //         setCanceled({
-  //           value: false,
-  //           msg: "",
-  //           loading: false,
-  //           type: false,
-  //         });
-  //       }, 1500);
-  //     } catch (e) {
-  //       console.log(e);
-  //       setCanceled({
-  //         value: true,
+    // let payloadForBettings: any = {
+    //   betId: matchOddsData?.id,
+    //   teamA: matchOddsData?.teamA,
+    //   teamB: matchOddsData?.teamB,
+    //   teamC: matchOddsData?.teamC,
+    //   eventName: selectedBet?.team?.name,
+    //   eventType: selectedBet?.team?.eventType,
+    //   matchId: selectedBet?.team?.matchId,
+    //   bettingType: selectedBet?.team?.type.toUpperCase(),
+    //   browserDetail: browserInfo?.userAgent,
 
-  //         loading: false,
-  //         type: false,
-  //       });
-  //       setTimeout(() => {
-  //         setCanceled({
-  //           value: false,
-  //           msg: "",
-  //           loading: false,
-  //           type: false,
-  //         });
-  //       }, 1500);
-  //     }
-  //   };
-
+    //   ipAddress:
+    //     ipAddress === "Not found" || !ipAddress
+    //       ? "192.168.1.100"
+    //       : ipAddress,
+    //   odd: selectedBet?.team?.rate,
+    //   stake: stake || selectedBet?.team?.stake,
+    //   matchBetType: selectedBet?.team?.matchBetType,
+    //   betOnTeam: selectedBet?.team?.betOnTeam,
+    //   placeIndex: selectedBet?.team?.placeIndex,
+    // };
+    dispatch(
+      placeBet({
+        url:ApiConstants.BET.PLACEBETMATCHBETTING,
+        data:JSON.stringify(payloadForSession),
+      })
+    );
+console.log(data, "1>>>>>>>>>>>>>>")
+    }
+ 
   // const handleChange = (e: any) => {
   //   const value = e.target.value.trim();
 
@@ -295,11 +276,12 @@ const FastTimePlaceBet = ({
                           gap: { xs: "3px", lg: 1, md: 1 },
                         }}
                       >
-                        {
+                        {/* {
                           matchButtonList && matchButtonList?.map((v: any, index: any) => {
                             return (
                               <>
                                 <NumberData
+                                handleBet={handleBet}
                                   key={index}
                                   containerStyle={{
                                     marginLeft: "2px",
@@ -327,13 +309,13 @@ const FastTimePlaceBet = ({
                                   }
                                   backgroundColor={"#A7DCFF"}
                                   matchOddsData={matchOddsData}
-                                //   handleAmountClick={handleAmountClick}
+                               
                                 />
                               </>
                             )
 
 
-                          })}
+                          })} */}
                       </Box>
                     </Box>
 
@@ -388,11 +370,12 @@ const FastTimePlaceBet = ({
                           gap: { xs: "3px", lg: 1, md: 1 },
                         }}
                       >
-                        {matchButtonList.length > 0 &&
+                        {/* {matchButtonList.length > 0 &&
                           matchButtonList?.map((v: any, index: any) => {
                             return (
 
                               <NumberData
+                            
                                 key={index}
                                 containerStyle={{
                                   marginLeft: "2px",
@@ -420,10 +403,9 @@ const FastTimePlaceBet = ({
                                 }
                                 backgroundColor={"#A7DCFF"}
                                 matchOddsData={matchOddsData}
-                              //   handleAmountClick={handleAmountClick}
                               />
                             )
-                          })}
+                          })} */}
                       </Box>
                     </Box>
                     {matchOddsData?.teamC && (
@@ -479,9 +461,10 @@ const FastTimePlaceBet = ({
                             gap: { xs: "3px", lg: 1, md: 1 },
                           }}
                         >
-                          {matchButtonList.length > 0 &&
+                          {/* {matchButtonList.length > 0 &&
                             matchButtonList?.map((v: any, index: any) => (
                               <NumberData
+                              
                                 key={index}
                                 containerStyle={{
                                   marginLeft: "2px",
@@ -510,9 +493,8 @@ const FastTimePlaceBet = ({
                                 }
                                 backgroundColor={"#A7DCFF"}
                                 matchOddsData={matchOddsData}
-                              // handleAmountClick={handleAmountClick}
                               />
-                            ))}
+                            ))} */}
                         </Box>
                       </Box>
                     )}
@@ -533,6 +515,7 @@ const FastTimePlaceBet = ({
                       {matchButtonList.length > 0 &&
                         matchButtonList?.map((v: any, index: any) => (
                           <NumberData
+                          handleBet={()=> {handleBet(v.value,matchOddsData,"BACK",index)}}
                             key={index}
                             containerStyle={{
                               marginLeft: "2px",
@@ -583,7 +566,7 @@ const FastTimePlaceBet = ({
                                   ? 1
                                   : 2
                             }
-                          // handleAmountClick={handleAmountClick}
+                            data={data}
                           />
                         ))}
                     </Box>
@@ -601,6 +584,7 @@ const FastTimePlaceBet = ({
                       {matchButtonList.length > 0 &&
                         matchButtonList?.map((v: any, index: any) => (
                           <NumberData
+                          handleBet={()=> {handleBet(v.value,matchOddsData,"LAY",index)}}
                             key={index}
                             containerStyle={{
                               marginLeft: "2px",
@@ -647,7 +631,7 @@ const FastTimePlaceBet = ({
                                   ? 1
                                   : 2
                             }
-                          // handleAmountClick={handleAmountClick}
+                            data={data}
                           />
                         ))}
                     </Box>
@@ -704,7 +688,7 @@ const FastTimePlaceBet = ({
                       gap: { xs: "3px", lg: 1, md: 1 },
                     }}
                   >
-                    {matchButtonList.length > 0 &&
+                    {/* {matchButtonList.length > 0 &&
                       matchButtonList?.map((v: any, index: any) => (
                         <NumberData
                           key={index}
@@ -726,10 +710,10 @@ const FastTimePlaceBet = ({
                           matchOddsData={matchOddsData}
                           data={data}
                           placeIndex={2}
-                          //   handleAmountClick={handleAmountClick}
+                            handleAmountClick={handleAmountClick}
                           setShowFastTimeBox={setShowFastTimeBox}
                         />
-                      ))}
+                      ))} */}
                   </Box>
                   <Box
                     sx={{
@@ -742,7 +726,7 @@ const FastTimePlaceBet = ({
                       gap: { xs: "3px", lg: 1, md: 1 },
                     }}
                   >
-                    {matchButtonList.length > 0 &&
+                    {/* {matchButtonList.length > 0 &&
                       matchButtonList?.map((v: any, index: any) => (
                         <NumberData
                           key={index}
@@ -764,10 +748,10 @@ const FastTimePlaceBet = ({
                           matchOddsData={matchOddsData}
                           data={data}
                           placeIndex={1}
-                          //   handleAmountClick={handleAmountClick}
+                            handleAmountClick={handleAmountClick}
                           setShowFastTimeBox={setShowFastTimeBox}
                         />
-                      ))}
+                      ))} */}
                   </Box>
                 </>
               </>
@@ -775,7 +759,7 @@ const FastTimePlaceBet = ({
           </Box>
         </Box>
       )}
-      {/* {canceled.value && (
+      {canceled.value && (
         <NotificationModal
           // time={
           //   typeOfBet == "MATCH ODDS"
@@ -794,7 +778,7 @@ const FastTimePlaceBet = ({
             })
           }
         />
-      )} */}
+      )}
     </>
   );
 };
@@ -804,7 +788,9 @@ const NumberData = ({
   containerStyle,
   backgroundColor,
   setMinWidth,
+  handleBet
 }: any) => {
+  
   return (
     <Box
       sx={[
@@ -820,6 +806,7 @@ const NumberData = ({
         },
         containerStyle,
       ]}
+      onClick={handleBet}
     >
       <Typography
         sx={{

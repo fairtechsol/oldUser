@@ -17,6 +17,8 @@ export { default as TIME } from './images/time.png'
 export { default as SEARCH } from './images/search1.png'
 export { default as Search } from './images/search.png'
 export { default as CancelDark } from './images/cancel.png'
+export { default as BETPLACED } from './images/betplaced.png'
+export { default as NOT } from './images/not.png'
 
 export { default as ArrowDown } from './images/arrow_down.png'
 export { default as BallStart } from './images/ballStart.png'

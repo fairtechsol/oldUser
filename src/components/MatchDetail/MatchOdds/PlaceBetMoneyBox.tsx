@@ -13,7 +13,9 @@ const PlaceBetMoneyBox = ({ color, trendingDown, rate, trendingUp }: any) => {
                 background: color,
                 borderRadius: "4px",
                 display: "flex",
-                marginRight: "50px"
+                // marginRight: "50px"
+                // paddingRight: "50px"
+
             }}
         >
             <Typography
