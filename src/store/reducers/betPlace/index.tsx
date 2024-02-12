@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   betsSuccessReset,
+  getCurrentBets,
   getPlacedBets,
   getRunAmount,
   updateBetsPlaced,
@@ -32,6 +33,7 @@ const placedBet = createSlice({
         state.loading = true;
         state.success = false;
         state.error = null;
+        state.placedBets = [];
       })
       .addCase(getPlacedBets.fulfilled, (state, action) => {
         state.loading = false;
@@ -39,6 +41,21 @@ const placedBet = createSlice({
         state.placedBets = action.payload;
       })
       .addCase(getPlacedBets.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action?.error?.message;
+      })
+      .addCase(getCurrentBets.pending, (state) => {
+        state.loading = true;
+        state.success = false;
+        state.error = null;
+        state.placedBets = [];
+      })
+      .addCase(getCurrentBets.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = true;
+        state.placedBets = action.payload;
+      })
+      .addCase(getCurrentBets.rejected, (state, action) => {
         state.loading = false;
         state.error = action?.error?.message;
       })
@@ -59,7 +76,10 @@ const placedBet = createSlice({
       .addCase(updateBetsPlaced.fulfilled, (state, action) => {
         const betId = action.payload.betId;
 
-        if (!state.placedBets.some((item: any) => item.id === betId)) {
+        const isBetAlreadyPlaced = state.placedBets.some(
+          (item: any) => item.id === betId
+        );
+        if (!isBetAlreadyPlaced) {
           state.placedBets = [action.payload, ...state.placedBets];
         }
       })

@@ -219,6 +219,7 @@ const MatchOdds = ({ matchDetails, data }: any) => {
         {matchDetails?.apiSessionActive?.isActive && (
           <SessionMarket
             key={matchDetails?.id}
+            allBetsData={matchDetails?.profitLossDataSession}
             newData={matchDetails?.apiSessionActive}
             matchOddsData={matchDetails?.apiSessionActive}
             typeOfBet={matchDetails?.type}
@@ -232,6 +233,7 @@ const MatchOdds = ({ matchDetails, data }: any) => {
         {matchDetails?.manualSessionActive && (
           <QuickSessionMarket
             key={matchDetails?.id}
+            allBetsData={matchDetails?.profitLossDataSession}
             title={"Quick Session Market"}
             type={MatchType.SESSION_MARKET}
             matchOddsData={matchDetails?.sessionBettings}
