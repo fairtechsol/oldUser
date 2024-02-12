@@ -56,8 +56,7 @@ const AllRateSeperate = ({ profit, mark2, allBetsData, count }: any) => {
                 marginLeft: "7px",
               }}
             >
-              All Rate Bets: {count < 10 ? 0 : ""}
-              {count || 0}
+              All Rate Bets: {count ? count : allBetsData?.length}
             </Typography>
           </Box>
           <Box
