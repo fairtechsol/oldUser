@@ -149,7 +149,7 @@ const LiveScore = ({ currentMatch, liveScoreData, submit }: any) => {
                   fontWeight: "bold",
                 }}
               >
-                CRR: {"90"}
+                CRR: {""}
               </Typography>
               <Typography
                 sx={{
@@ -158,7 +158,7 @@ const LiveScore = ({ currentMatch, liveScoreData, submit }: any) => {
                   fontWeight: "bold",
                 }}
               >
-                RRR: {"89"}
+                RRR: {""}
               </Typography>
             </Box>
             <Box
