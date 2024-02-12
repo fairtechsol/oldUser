@@ -5,7 +5,6 @@ import { BallStart } from "../../../assets";
 import SeparateModal from "../MatchOdds/SeparateModal";
 import PlaceBetComponentWeb from "../MatchOdds/Bets/PlaceBetComponentWeb";
 import FastTimePlaceBet from "../MatchOdds/Bets/FastTimePlaceBet";
-import MoneyBox from "../MatchOdds/MoneyBox";
 
 const QuickSessionMarketBox = ({
   index,
@@ -25,6 +24,7 @@ const QuickSessionMarketBox = ({
   fastAmount,
   selectedItem,
   eventType,
+  profitLossData,
 }: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -89,13 +89,20 @@ const QuickSessionMarketBox = ({
           >
             {data?.name}
           </Typography>
-          <MoneyBox rates={data?.rates ? data?.rates : 0} />
+          {/* <MoneyBox
+            rates={maxLoss ?? 0}
+            color={(maxLoss || 0) > 0 ? "#319E5B" : "#FF4D4D"}
+          /> */}
         </Box>
         {/* {matchesMobile && (
           <PlaceBetComponent amount={index == 2} profitLoss={data} />
         )} */}
         {!matchesMobile && (
-          <PlaceBetComponentWeb amount={index === 2} profitLoss={data} />
+          <PlaceBetComponentWeb
+            amount={index === 2}
+            data={data}
+            profitLoss={(profitLossData && profitLossData[0]) ?? {}}
+          />
         )}
         {!["active", "", undefined, null, ""].includes(data?.status) ||
         (data.yesRate === null && data.noRate === null) ? (
@@ -229,7 +236,11 @@ const QuickSessionMarketBox = ({
               )}
             </Box>
             {!matchesMobile && (
-              <PlaceBetComponentWeb amount={index === 2} profitLoss={data} />
+              <PlaceBetComponentWeb
+                amount={index === 2}
+                data={data}
+                profitLoss={(profitLossData && profitLossData[0]) ?? {}}
+              />
             )}
           </>
         )}
