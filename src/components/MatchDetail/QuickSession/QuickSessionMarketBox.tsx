@@ -55,7 +55,7 @@ const QuickSessionMarketBox = ({
             }}
           ></Box>
         )}
-        {data?.betStatus === 1 && upcoming && (
+        {upcoming && (
           <Box
             sx={{
               margin: "1px",
@@ -106,7 +106,7 @@ const QuickSessionMarketBox = ({
           />
         )}
         {!["active", "", undefined, null, ""].includes(data?.status) ||
-          (data.yesRate === null && data.noRate === null) ? (
+        (data.yesRate === null && data.noRate === null) ? (
           <Box
             sx={{
               background: "rgba(0,0,0,1)",

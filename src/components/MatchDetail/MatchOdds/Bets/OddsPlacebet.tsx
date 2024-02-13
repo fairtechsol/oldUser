@@ -5,7 +5,7 @@ import StyledImage from "../../../Common/StyledImages";
 import { useDispatch, useSelector } from "react-redux";
 import BoxInput from "../../Common/BoxInput";
 import TeamsOdssData from "./TeamOddsData";
-import { CancelDark } from "../../../../assets";
+import { CancelDark, HourGlass } from "../../../../assets";
 import { AppDispatch, RootState } from "../../../../store/store";
 import { selectedBetAction } from "../../../../store/actions/match/matchListAction";
 import {
@@ -13,14 +13,16 @@ import {
   placeBet,
 } from "../../../../store/actions/betPlace/betPlaceActions";
 import axios from "axios";
-import { ApiConstants} from "../../../../utils/Constants";
+import { ApiConstants } from "../../../../utils/Constants";
 import PlaceBetMoneyBox from "../PlaceBetMoneyBox";
+import NumberData from "./NumberDataOdds";
+import Lottie from "lottie-react";
 
 const OddsPlaceBet = ({ handleClose, season, type }: any) => {
-  const [stakeValue, setStakeValue] = useState<any>();
-  const [betPlaceLoading] = useState(false);
+  const [stakeValue, setStakeValue] = useState<any>(" ");
+  const [betPlaceLoading, setBetPlaceLoading] = useState(false);
 
-  const { buttonValues } = useSelector(
+  const { buttonValues, getProfile } = useSelector(
     (state: RootState) => state.user.profile
   );
   const { selectedBet } = useSelector(
@@ -89,17 +91,13 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
 
   useEffect(() => {
     if (success) {
+      setBetPlaceLoading(false);
       dispatch(selectedBetAction(null));
       dispatch(betPlaceSuccessReset());
       handleClose();
     }
   }, [success]);
 
-  console.log(
-    Number((stake * ((selectedBet?.team?.rate - 1) * 100)) / 100),
-    "stakepro"
-  );
-  console.log(Number(newRates?.lossAmount), "stakepro2", newRates);
   return (
     <Box
       sx={[
@@ -163,7 +161,6 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
               }
               color={"#FF4D4D"}
             />
-
             <Box sx={{ width: "5px", marginRight: "20px" }}></Box>
           </Box>
           <StyledImage
@@ -307,57 +304,80 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
               border: "2px solid white",
             }}
             onClick={() => {
-              let payloadForSession: any = {
-                betId: selectedBet?.team?.betId,
-                betType: selectedBet?.team?.type.toUpperCase(),
-                browserDetail: browserInfo?.userAgent,
-                eventName: selectedBet?.team?.name,
-                eventType: selectedBet?.team?.eventType,
-                matchId: selectedBet?.team?.matchId,
-                ipAddress:
-                  ipAddress === "Not found" || !ipAddress
-                    ? "192.168.1.100"
-                    : ipAddress,
-                odds: selectedBet?.team?.rate,
-                ratePercent: selectedBet?.team?.percent,
-                stake: stakeValue || selectedBet?.team?.stake,
-              };
-              let payloadForBettings: any = {
-                betId: selectedBet?.team?.betId,
-                teamA: selectedBet?.team?.teamA,
-                teamB: selectedBet?.team?.teamB,
-                teamC: selectedBet?.team?.teamC,
-                eventName: selectedBet?.team?.name,
-                eventType: selectedBet?.team?.eventType,
-                matchId: selectedBet?.team?.matchId,
-                bettingType: selectedBet?.team?.type.toUpperCase(),
-                browserDetail: browserInfo?.userAgent,
+              if (betPlaceLoading) {
+                return;
+              } else {
+                setBetPlaceLoading(true);
+                let payloadForSession: any = {
+                  betId: selectedBet?.team?.betId,
+                  betType: selectedBet?.team?.type.toUpperCase(),
+                  browserDetail: browserInfo?.userAgent,
+                  eventName: selectedBet?.team?.name,
+                  eventType: selectedBet?.team?.eventType,
+                  matchId: selectedBet?.team?.matchId,
+                  ipAddress:
+                    ipAddress === "Not found" || !ipAddress
+                      ? "192.168.1.100"
+                      : ipAddress,
+                  odds: selectedBet?.team?.rate,
+                  ratePercent: selectedBet?.team?.percent,
+                  stake: stakeValue || selectedBet?.team?.stake,
+                };
+                let payloadForBettings: any = {
+                  betId: selectedBet?.team?.betId,
+                  teamA: selectedBet?.team?.teamA,
+                  teamB: selectedBet?.team?.teamB,
+                  teamC: selectedBet?.team?.teamC,
+                  eventName: selectedBet?.team?.name,
+                  eventType: selectedBet?.team?.eventType,
+                  matchId: selectedBet?.team?.matchId,
+                  bettingType: selectedBet?.team?.type.toUpperCase(),
+                  browserDetail: browserInfo?.userAgent,
 
-                ipAddress:
-                  ipAddress === "Not found" || !ipAddress
-                    ? "192.168.1.100"
-                    : ipAddress,
-                odd: selectedBet?.team?.rate,
-                stake: stakeValue || selectedBet?.team?.stake,
-                matchBetType: selectedBet?.team?.matchBetType,
-                betOnTeam: selectedBet?.team?.betOnTeam,
-                placeIndex: selectedBet?.team?.placeIndex,
-              };
-              dispatch(
-                placeBet({
-                  url:
-                    selectedBet?.data?.type === "session" ||
-                    selectedBet?.data?.SelectionId
-                      ? ApiConstants.BET.PLACEBETSESSION
-                      : ApiConstants.BET.PLACEBETMATCHBETTING,
-                  data:
-                    selectedBet?.data?.type === "session" ||
-                    selectedBet?.data?.SelectionId
-                      ? JSON.stringify(payloadForSession)
-                      : JSON.stringify(payloadForBettings),
-                })
-              );
-              // handleClose()
+                  ipAddress:
+                    ipAddress === "Not found" || !ipAddress
+                      ? "192.168.1.100"
+                      : ipAddress,
+                  odd: selectedBet?.team?.rate,
+                  stake: stakeValue || selectedBet?.team?.stake,
+                  matchBetType: selectedBet?.team?.matchBetType,
+                  betOnTeam: selectedBet?.team?.betOnTeam,
+                  placeIndex: selectedBet?.team?.placeIndex,
+                };
+                if (selectedBet?.data?.type === "matchOdd") {
+                  setTimeout(() => {
+                    dispatch(
+                      placeBet({
+                        url:
+                          selectedBet?.data?.type === "session" ||
+                          selectedBet?.data?.SelectionId
+                            ? ApiConstants.BET.PLACEBETSESSION
+                            : ApiConstants.BET.PLACEBETMATCHBETTING,
+                        data:
+                          selectedBet?.data?.type === "session" ||
+                          selectedBet?.data?.SelectionId
+                            ? JSON.stringify(payloadForSession)
+                            : JSON.stringify(payloadForBettings),
+                      })
+                    );
+                  }, (getProfile && getProfile?.delayTime) ?? 0);
+                } else {
+                  dispatch(
+                    placeBet({
+                      url:
+                        selectedBet?.data?.type === "session" ||
+                        selectedBet?.data?.SelectionId
+                          ? ApiConstants.BET.PLACEBETSESSION
+                          : ApiConstants.BET.PLACEBETMATCHBETTING,
+                      data:
+                        selectedBet?.data?.type === "session" ||
+                        selectedBet?.data?.SelectionId
+                          ? JSON.stringify(payloadForSession)
+                          : JSON.stringify(payloadForBettings),
+                    })
+                  );
+                }
+              }
             }}
           >
             Submit
@@ -377,66 +397,19 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
             background: "rgba(0, 0, 0, .5)",
           }}
         >
-          {/* <Lottie
-              animationData={HourGlass}
-              style={{
-                display: "flex",
-                alignSelf: "center",
-                width: "50px",
-                height: "50px",
-              }}
-            /> */}
+          <Lottie
+            animationData={HourGlass}
+            style={{
+              display: "flex",
+              alignSelf: "center",
+              width: "50px",
+              height: "50px",
+            }}
+          />
         </Box>
       )}
     </Box>
   );
 };
 
-const NumberData = ({
-  value,
-  containerStyle,
-  setStakeValue,
-  selectedBetAction,
-  setNewRatesValue,
-}: any) => {
-  return (
-    <Box
-      onClick={() => {
-        // setNewRatesValue(
-        //   value?.value
-        // );
-        setNewRatesValue({
-          lossAmount: value?.value,
-          winAmount: value?.value,
-        });
-        setStakeValue(value?.value);
-
-        selectedBetAction(value);
-      }}
-      sx={[
-        {
-          display: "flex",
-          cursor: "pointer",
-          borderRadius: "3px",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "35px",
-          minWidth: "18%",
-          background: "#0B4F26",
-        },
-        containerStyle,
-      ]}
-    >
-      <Typography
-        sx={{
-          color: "white",
-          fontSize: "13px",
-          fontWeight: "500",
-        }}
-      >
-        {value?.label}
-      </Typography>
-    </Box>
-  );
-};
 export default OddsPlaceBet;

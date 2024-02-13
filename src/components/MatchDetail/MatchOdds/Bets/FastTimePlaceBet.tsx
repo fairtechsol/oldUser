@@ -1,14 +1,13 @@
 import { Typography, useMediaQuery, useTheme } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState, useRef, useEffect } from "react";
-import { currencyFormatter } from "../../../../helper/index";
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../../store/store";
 import NotificationModal from "../../../Common/NotificationModal";
-
 import { ApiConstants } from "../../../../utils/Constants";
 import { useDispatch } from "react-redux";
 import { placeBet } from "../../../../store/actions/betPlace/betPlaceActions";
+import NumberData from "./NumberDataFastTime";
 const FastTimePlaceBet = ({
   session,
 
@@ -34,7 +33,7 @@ const FastTimePlaceBet = ({
   const { matchDetails } = useSelector(
     (state: RootState) => state.match.matchList
   );
-  console.log(matchDetails, "matchOddsData", matchOddsData);
+  console.log("matchOddsData", matchOddsData);
   const { buttonValues } = useSelector(
     (state: RootState) => state.user.profile
   );
@@ -123,7 +122,6 @@ const FastTimePlaceBet = ({
       teamC: matchDetails?.teamC,
     };
 
-    console.log("payloadForSession", payloadForSession);
     // let payloadForBettings: any = {
     //   betId: matchOddsData?.id,
     //   teamA: matchOddsData?.teamA,
@@ -795,40 +793,4 @@ const FastTimePlaceBet = ({
   );
 };
 
-const NumberData = ({
-  lable,
-  containerStyle,
-  backgroundColor,
-  setMinWidth,
-  handleBet,
-}: any) => {
-  return (
-    <Box
-      sx={[
-        {
-          display: "flex",
-          cursor: "pointer",
-          borderRadius: "3px",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "35px",
-          minWidth: { lg: "22%", xs: setMinWidth == "no" ? "" : "47%" },
-          background: `${backgroundColor}`,
-        },
-        containerStyle,
-      ]}
-      onClick={handleBet}
-    >
-      <Typography
-        sx={{
-          color: "white",
-          fontSize: "13px",
-          fontWeight: "600",
-        }}
-      >
-        {currencyFormatter(lable)}
-      </Typography>
-    </Box>
-  );
-};
 export default FastTimePlaceBet;
