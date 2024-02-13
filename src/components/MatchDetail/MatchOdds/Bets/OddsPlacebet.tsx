@@ -53,13 +53,13 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
       ? sessionButtonValues
       : matchButtonValues;
 
-  const [setStake] = useState<any>(0);
-  // console.log(stake);
+  const [stake, setStake] = useState<any>(0);
+  console.log(stake);
   const [newRates, setNewRates] = useState({
     lossAmount: 0,
     winAmount: 0,
   });
-  console.log(newRates)
+  console.log(newRates);
   const { success } = useSelector((state: RootState) => state.match.bet);
   const dispatch: AppDispatch = useDispatch();
   const theme = useTheme();
