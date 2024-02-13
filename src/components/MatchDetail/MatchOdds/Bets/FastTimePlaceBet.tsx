@@ -18,7 +18,7 @@ const FastTimePlaceBet = ({
   matchOddsData,
   data,
   fromOdds,
-  selectedValue
+  selectedValue,
 }: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -35,7 +35,7 @@ const FastTimePlaceBet = ({
   const { matchDetails } = useSelector(
     (state: RootState) => state.match.matchList
   );
-console.log('matchOddsData',matchOddsData)
+  console.log(matchDetails, "matchOddsData", matchOddsData);
   const { buttonValues } = useSelector(
     (state: RootState) => state.user.profile
   );
@@ -64,14 +64,15 @@ console.log('matchOddsData',matchOddsData)
         label: "",
         value: "",
       }));
-      setMatchButtonList(keys
-        .map((item) => ({
-          label: item,
-          value: response[item],
-        }))
-        .concat(additionalFields))
+      setMatchButtonList(
+        keys
+          .map((item) => ({
+            label: item,
+            value: response[item],
+          }))
+          .concat(additionalFields)
+      );
     }
-
   }, [buttonValues]);
 
   const myDivRef = useRef(null);
@@ -81,41 +82,62 @@ console.log('matchOddsData',matchOddsData)
     }
   }, [selectedValue, fromOdds]);
 
-
-   const handleBet=(stake:any,data:any,type:string,index:any)=> {
-    let betTeam ; 
-    if( matchOddsData?.statusTeamA === 'active' && matchOddsData?.statusTeamB === 'suspended'){
-      betTeam = matchDetails?.teamA
-    }else if(matchOddsData?.statusTeamA === 'suspended' && matchOddsData?.statusTeamB === 'active'){
-      betTeam = matchDetails?.teamB
-    }else if(matchOddsData?.statusTeamA === 'active' && matchOddsData?.statusTeamB === 'active'){
-      if(index==0){
-        betTeam = matchDetails?.teamA
-      }else{
-        betTeam = matchDetails?.teamB
+  const handleBet = (stake: any, data: any, type: string, index: any) => {
+    let betTeam;
+    if (
+      matchOddsData?.type === "quickbookmaker1" &&
+      matchOddsData?.statusTeamA === "active" &&
+      matchOddsData?.statusTeamB === "suspended"
+    ) {
+      betTeam = matchDetails?.teamA;
+    } else if (
+      matchOddsData?.type === "quickbookmaker1" &&
+      matchOddsData?.statusTeamA === "suspended" &&
+      matchOddsData?.statusTeamB === "active"
+    ) {
+      betTeam = matchDetails?.teamB;
+    } else if (
+      matchOddsData?.type === "quickbookmaker1" &&
+      matchOddsData?.statusTeamA === "active" &&
+      matchOddsData?.statusTeamB === "active"
+    ) {
+      if (index == 0) {
+        betTeam = matchDetails?.teamA;
+      } else {
+        betTeam = matchDetails?.teamB;
       }
+    } else if (
+      matchOddsData?.type === "tiedMatch2" &&
+      matchOddsData?.statusTeamA === "active" &&
+      matchOddsData?.statusTeamB === "suspended"
+    ) {
+      betTeam = "Yes";
+    } else if (
+      matchOddsData?.type === "tiedMatch2" &&
+      matchOddsData?.statusTeamA === "suspended" &&
+      matchOddsData?.statusTeamB === "active"
+    ) {
+      betTeam = "No";
     }
 
     let payloadForSession: any = {
       betId: matchOddsData?.id,
-    betOnTeam : betTeam,
+      betOnTeam: betTeam,
       bettingType: type,
       browserDetail: browserInfo?.userAgent,
       matchId: matchOddsData?.matchId,
       ipAddress:
-        ipAddress === "Not found" || !ipAddress
-          ? "192.168.1.100"
-          : ipAddress,
-      odd: type ==="BACK"? matchOddsData?.backTeamA : matchOddsData?.layTeamA,
-      matchBetType : matchOddsData?.type,
-      stake: stake ,
-      placeIndex : 0,
-      teamA :matchDetails?.teamA,
-      teamB :matchDetails?.teamB,
-      teamC :matchDetails?.teamC,
+        ipAddress === "Not found" || !ipAddress ? "192.168.1.100" : ipAddress,
+      odd: type === "BACK" ? matchOddsData?.backTeamA : matchOddsData?.layTeamA,
+      matchBetType: matchOddsData?.type,
+      stake: stake,
+      placeIndex: 0,
+      teamA: matchDetails?.teamA,
+      teamB: matchDetails?.teamB,
+      teamC: matchDetails?.teamC,
     };
 
-
+    console.log("payloadForSession", payloadForSession);
     // let payloadForBettings: any = {
     //   betId: matchOddsData?.id,
     //   teamA: matchOddsData?.teamA,
@@ -139,13 +161,13 @@ console.log('matchOddsData',matchOddsData)
     // };
     dispatch(
       placeBet({
-        url:ApiConstants.BET.PLACEBETMATCHBETTING,
-        data:JSON.stringify(payloadForSession),
+        url: ApiConstants.BET.PLACEBETMATCHBETTING,
+        data: JSON.stringify(payloadForSession),
       })
     );
-console.log(data, "1>>>>>>>>>>>>>>")
-    }
- 
+    console.log(data, "1>>>>>>>>>>>>>>");
+  };
+
   // const handleChange = (e: any) => {
   //   const value = e.target.value.trim();
 
@@ -219,8 +241,8 @@ console.log(data, "1>>>>>>>>>>>>>>")
               <>
                 {/* {matchOddsData?.isSingle === false || matchOddsData?.teamB_suspend !== "suspended" ? ( */}
                 {matchOddsData?.isSingle === false ||
-                  (matchOddsData.teamA_suspend === null &&
-                    matchOddsData.teamB_suspend === null) ? (
+                (matchOddsData.teamA_suspend === null &&
+                  matchOddsData.teamB_suspend === null) ? (
                   // ||
                   //   ((matchOddsData?.teamA_suspend === null || false) &&
                   //     (matchOddsData?.teamB_suspend === null || false))
@@ -515,7 +537,9 @@ console.log(data, "1>>>>>>>>>>>>>>")
                       {matchButtonList.length > 0 &&
                         matchButtonList?.map((v: any, index: any) => (
                           <NumberData
-                          handleBet={()=> {handleBet(v.value,matchOddsData,"BACK",index)}}
+                            handleBet={() => {
+                              handleBet(v.value, matchOddsData, "BACK", index);
+                            }}
                             key={index}
                             containerStyle={{
                               marginLeft: "2px",
@@ -532,28 +556,28 @@ console.log(data, "1>>>>>>>>>>>>>>")
                               ![null, ""].includes(matchOddsData?.teamA_Back)
                                 ? matchOddsData?.teamA
                                 : ![null, ""].includes(
-                                  matchOddsData?.teamB_Back
-                                )
-                                  ? matchOddsData?.teamB
-                                  : matchOddsData?.teamC
+                                    matchOddsData?.teamB_Back
+                                  )
+                                ? matchOddsData?.teamB
+                                : matchOddsData?.teamC
                             }
                             teamSuspend={
                               ![null, ""].includes(matchOddsData?.teamA_Back)
                                 ? matchOddsData?.teamA_suspend
                                 : ![null, ""].includes(
-                                  matchOddsData?.teamB_Back
-                                )
-                                  ? matchOddsData?.teamB_suspend
-                                  : matchOddsData?.teamC_suspend
+                                    matchOddsData?.teamB_Back
+                                  )
+                                ? matchOddsData?.teamB_suspend
+                                : matchOddsData?.teamC_suspend
                             }
                             odds={
                               ![null, ""].includes(matchOddsData?.teamA_Back)
                                 ? matchOddsData?.teamA_Back
                                 : ![null, ""].includes(
-                                  matchOddsData?.teamB_Back
-                                )
-                                  ? matchOddsData?.teamB_Back
-                                  : matchOddsData?.teamC_Back
+                                    matchOddsData?.teamB_Back
+                                  )
+                                ? matchOddsData?.teamB_Back
+                                : matchOddsData?.teamC_Back
                             }
                             typeOfBet={typeOfBet}
                             backgroundColor={"#A7DCFF"}
@@ -563,8 +587,8 @@ console.log(data, "1>>>>>>>>>>>>>>")
                                 ? 0
                                 : matchOddsData?.marketType ===
                                   "QuickBookmaker1"
-                                  ? 1
-                                  : 2
+                                ? 1
+                                : 2
                             }
                             data={data}
                           />
@@ -584,7 +608,9 @@ console.log(data, "1>>>>>>>>>>>>>>")
                       {matchButtonList.length > 0 &&
                         matchButtonList?.map((v: any, index: any) => (
                           <NumberData
-                          handleBet={()=> {handleBet(v.value,matchOddsData,"LAY",index)}}
+                            handleBet={() => {
+                              handleBet(v.value, matchOddsData, "LAY", index);
+                            }}
                             key={index}
                             containerStyle={{
                               marginLeft: "2px",
@@ -601,24 +627,24 @@ console.log(data, "1>>>>>>>>>>>>>>")
                               ![null, ""].includes(matchOddsData?.teamA_lay)
                                 ? matchOddsData?.teamA
                                 : ![null, ""].includes(matchOddsData?.teamB_lay)
-                                  ? matchOddsData?.teamB
-                                  : matchOddsData?.teamC
+                                ? matchOddsData?.teamB
+                                : matchOddsData?.teamC
                             }
                             teamSuspend={
                               ![null, ""].includes(matchOddsData?.teamA_lay)
                                 ? matchOddsData?.teamA_suspend
                                 : ![null, ""].includes(matchOddsData?.teamB_lay)
-                                  ? matchOddsData?.teamB_suspend
-                                  : matchOddsData?.teamC_suspend
+                                ? matchOddsData?.teamB_suspend
+                                : matchOddsData?.teamC_suspend
                             }
                             odds={
                               ![null, ""].includes(matchOddsData?.teamA_lay)
                                 ? matchOddsData?.teamA_lay
                                 : ![null, ""].includes(
-                                  matchOddsData?.teamB_Back
-                                )
-                                  ? matchOddsData?.teamB_lay
-                                  : matchOddsData?.teamC_lay
+                                    matchOddsData?.teamB_Back
+                                  )
+                                ? matchOddsData?.teamB_lay
+                                : matchOddsData?.teamC_lay
                             }
                             typeOfBet={typeOfBet}
                             backgroundColor={"#FFB5B5"}
@@ -628,8 +654,8 @@ console.log(data, "1>>>>>>>>>>>>>>")
                                 ? 0
                                 : matchOddsData?.marketType ===
                                   "QuickBookmaker1"
-                                  ? 1
-                                  : 2
+                                ? 1
+                                : 2
                             }
                             data={data}
                           />
@@ -788,9 +814,8 @@ const NumberData = ({
   containerStyle,
   backgroundColor,
   setMinWidth,
-  handleBet
+  handleBet,
 }: any) => {
-  
   return (
     <Box
       sx={[
