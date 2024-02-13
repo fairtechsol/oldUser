@@ -5,6 +5,7 @@ import { BallStart } from "../../../assets";
 import SeparateModal from "../MatchOdds/SeparateModal";
 import PlaceBetComponentWeb from "../MatchOdds/Bets/PlaceBetComponentWeb";
 import FastTimePlaceBet from "../MatchOdds/Bets/FastTimePlaceBet";
+import PlaceBetComponent from "../MatchOdds/Bets/PlaceBetComponent";
 
 const QuickSessionMarketBox = ({
   index,
@@ -23,6 +24,7 @@ const QuickSessionMarketBox = ({
   upcoming,
   fastAmount,
   selectedItem,
+  setSelectedItem,
   eventType,
   profitLossData,
 }: any) => {
@@ -94,9 +96,9 @@ const QuickSessionMarketBox = ({
             color={(maxLoss || 0) > 0 ? "#319E5B" : "#FF4D4D"}
           /> */}
         </Box>
-        {/* {matchesMobile && (
+        {matchesMobile && (
           <PlaceBetComponent amount={index == 2} profitLoss={data} />
-        )} */}
+        )}
         {!matchesMobile && (
           <PlaceBetComponentWeb
             amount={index === 2}
@@ -105,7 +107,7 @@ const QuickSessionMarketBox = ({
           />
         )}
         {!["active", "", undefined, null, ""].includes(data?.status) ||
-        (data.yesRate === null && data.noRate === null) ? (
+          (data.yesRate === null && data.noRate === null) ? (
           <Box
             sx={{
               background: "rgba(0,0,0,1)",

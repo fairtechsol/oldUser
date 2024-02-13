@@ -8,6 +8,7 @@ import ManualBoxComponent from "./ManualBoxComponent";
 import { ARROWUP, LockIcon, TIME } from "../../../assets";
 import { currencyFormatter } from "../../../helper";
 import FastTime from "./FastTime";
+import NotificationModal from "../../Common/NotificationModal";
 
 const SmallBox = ({ valueA, valueB }: any) => {
   return (
@@ -433,7 +434,6 @@ const MarketOdds = ({
                 }}
               ></Box>
             )}
-
             {session === "manualBookMaker" ? (
               <>
                 <ManualBoxComponent
@@ -730,6 +730,7 @@ const MarketOdds = ({
           ></Box>
           <Box sx={{ width: { xs: "98%", lg: "58%", md: "98%" } }}>
             <OddsPlaceBet
+                  // setCanceled={setCanceled}
               setPlaceBetData={setPlaceBetData}
               placeBetData={placeBetData}
               handleClose={() => setPlaceBetData(null)}

@@ -41,7 +41,6 @@ const MatchDetail = () => {
   const { matchDetails } = useSelector(
     (state: RootState) => state.match.matchList
   );
-
   const { placedBets } = useSelector((state: RootState) => state.bets);
 
   const setMatchRatesInRedux = (event: any) => {
