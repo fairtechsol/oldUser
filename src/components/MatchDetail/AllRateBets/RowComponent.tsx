@@ -113,7 +113,7 @@ const RowComponent = ({ header, data }: any) => {
             color={getColor()}
             data={data[1]}
             header={header}
-            boxWidth="50%"
+            boxWidth="68%"
           />
           <SingleBox
             color={getColor()}
