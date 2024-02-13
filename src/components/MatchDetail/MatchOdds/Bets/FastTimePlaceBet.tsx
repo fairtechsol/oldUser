@@ -84,40 +84,27 @@ const FastTimePlaceBet = ({
 
   const handleBet = (stake: any, data: any, type: string, index: any) => {
     let betTeam;
-    if (
-      matchOddsData?.type === "quickbookmaker1" &&
-      matchOddsData?.statusTeamA === "active" &&
-      matchOddsData?.statusTeamB === "suspended"
-    ) {
-      betTeam = matchDetails?.teamA;
-    } else if (
-      matchOddsData?.type === "quickbookmaker1" &&
-      matchOddsData?.statusTeamA === "suspended" &&
-      matchOddsData?.statusTeamB === "active"
-    ) {
-      betTeam = matchDetails?.teamB;
-    } else if (
-      matchOddsData?.type === "quickbookmaker1" &&
-      matchOddsData?.statusTeamA === "active" &&
-      matchOddsData?.statusTeamB === "active"
-    ) {
-      if (index == 0) {
-        betTeam = matchDetails?.teamA;
-      } else {
-        betTeam = matchDetails?.teamB;
-      }
-    } else if (
-      matchOddsData?.type === "tiedMatch2" &&
-      matchOddsData?.statusTeamA === "active" &&
-      matchOddsData?.statusTeamB === "suspended"
-    ) {
-      betTeam = "Yes";
-    } else if (
-      matchOddsData?.type === "tiedMatch2" &&
-      matchOddsData?.statusTeamA === "suspended" &&
-      matchOddsData?.statusTeamB === "active"
-    ) {
-      betTeam = "No";
+
+    if (type === "tiedMatch2") {
+      betTeam =
+        matchOddsData?.statusTeamA === "active" &&
+        matchOddsData?.statusTeamB === "active"
+          ? index === 0
+            ? "Yes"
+            : "No"
+          : matchOddsData?.statusTeamA === "active"
+          ? "Yes"
+          : "No";
+    } else {
+      betTeam =
+        matchOddsData?.statusTeamA === "active" &&
+        matchOddsData?.statusTeamB === "active"
+          ? index === 0
+            ? matchDetails?.teamA
+            : matchDetails?.teamB
+          : matchOddsData?.statusTeamA === "active"
+          ? matchDetails?.teamA
+          : matchDetails?.teamB;
     }
 
     let payloadForSession: any = {
