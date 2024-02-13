@@ -164,11 +164,11 @@ const matchListSlice = createSlice({
       })
       .addCase(updateMatchOddRates.fulfilled, (state, action) => {
         const { id, matchOdd } = action.payload;
-        const indexOfItemToUpdate = state.matchList.findIndex(
+        const indexOfItemToUpdate = state.matchList.matches.findIndex(
           (item: any) => item?.id === id
         );
         if (indexOfItemToUpdate !== -1) {
-          state.matchList[indexOfItemToUpdate].matchOdds[0] = matchOdd;
+          state.matchList.matches[indexOfItemToUpdate].matchOdds[0] = matchOdd;
         } else {
           return state.matchList;
         }
