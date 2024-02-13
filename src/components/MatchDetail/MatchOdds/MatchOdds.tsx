@@ -188,6 +188,7 @@ const MatchOdds = ({ matchDetails, data }: any) => {
           betLock={data?.blockMarket?.BOOKMAKER?.block}
           showBox={matchDetails?.marketCompleteMatch?.activeStatus === "save"}
           newData={data}
+          
           showFast={false}
           showDely={true}
           lock={
@@ -202,8 +203,8 @@ const MatchOdds = ({ matchDetails, data }: any) => {
               : []
           }
           // suspended={false}
-          teamARates={matchDetails?.profitLossDataMatch?.teamARate || 0}
-          teamBRates={matchDetails?.profitLossDataMatch?.teamBRate || 0}
+          teamARates={matchDetails?.profitLossDataMatch?.yesRateComplete || 0}
+          teamBRates={matchDetails?.profitLossDataMatch?.noRateComplete || 0}
           teamCRates={matchDetails?.profitLossDataMatch?.teamCRate || 0}
           min={matchDetails?.marketCompleteMatch?.minBet || 0}
           max={matchDetails?.marketCompleteMatch?.maxBet || 0}

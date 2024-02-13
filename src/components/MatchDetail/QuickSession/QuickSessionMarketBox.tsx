@@ -24,7 +24,6 @@ const QuickSessionMarketBox = ({
   upcoming,
   fastAmount,
   selectedItem,
-  setSelectedItem,
   eventType,
   profitLossData,
 }: any) => {

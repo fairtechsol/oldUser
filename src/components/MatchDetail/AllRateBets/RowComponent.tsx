@@ -33,13 +33,13 @@ const RowComponent = ({ header, data }: any) => {
         justifyContent: "space-between",
         alignItems: "center",
         display: "flex",
-        gap: "2px",
+        gap: "1px",
         marginBottom: { xs: "1px", lg: "1px" },
       }}
     >
       {!header && (
         <>
-          <Box sx={{ width: "54%", minWidth: "22%" }}>
+          {/* <Box sx={{ width: "48%", minWidth: "22%" }}> */}
             <SingleBox
               color={getColor}
               data={
@@ -51,8 +51,8 @@ const RowComponent = ({ header, data }: any) => {
               header={header}
               time={getTime(data.createdAt)}
             />
-          </Box>
-          <Box sx={{ width: "20%", minWidth: "15%" }}>
+          {/* </Box> */}
+          <Box sx={{ maxWidth: "12%" , minWidth: "14%"}}>
             <SingleBox
               color={getColor()}
               data={
@@ -62,10 +62,10 @@ const RowComponent = ({ header, data }: any) => {
                 getProfile?.userName
               }
               header={header}
-              // boxWidth={"50%"}
+              boxWidth="100%"
             />
           </Box>
-          <Box sx={{ width: "52%", minWidth: "19%" }}>
+          {/* <Box sx={{ width: "52%", minWidth: "19%" }}> */}
             <SingleBox
               color={getColor()}
               data={data.teamName}
@@ -73,24 +73,32 @@ const RowComponent = ({ header, data }: any) => {
               header={header}
               // time={data.teamName}
             />
-          </Box>
-          <Box sx={{ width: "30%" }}>
+          {/* </Box>
+          <Box sx={{ width: "30%" }}> */}
             <SingleBox
               color={getColor()}
               data={data?.bet_type || data?.betType}
               header={header}
+              boxWidth="50%"
             />
-          </Box>
-          <Box sx={{ width: "30%" }}>
-            <SingleBox color={getColor()} data={data?.odds} header={header} />
-          </Box>
-          <Box sx={{ width: "41%" }}>
+          {/* </Box>
+          <Box sx={{ width: "30%" }}> */}
+            <SingleBox 
+            color={getColor()} 
+            data={data?.odds} 
+            header={header}
+            boxWidth="50%"
+             />
+          {/* </Box>
+          <Box sx={{ width: "41%" }}> */}
             <SingleBox
               color={getColor()}
               data={data?.rate || data?.amount}
               header={header}
+              width={"50%"}
+              boxWidth="100%"
             />
-          </Box>
+          {/* </Box> */}
         </>
       )}
       {header && (
@@ -105,7 +113,7 @@ const RowComponent = ({ header, data }: any) => {
             color={getColor()}
             data={data[1]}
             header={header}
-            boxWidth="50%"
+            boxWidth="68%"
           />
           <SingleBox
             color={getColor()}

@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
 
-const SmallBoxSeason = ({ totalAmount, allBetsData }: any) => {
+const SmallBoxSeason = ({ allBetsData }: any) => {
   // function countObjectsWithNullDeletedReason(array:any) {
   //   let count = 0;
   //   for (const obj of array) {

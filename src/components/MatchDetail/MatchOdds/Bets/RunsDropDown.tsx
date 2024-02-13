@@ -1,11 +1,4 @@
 import { Box, Typography } from "@mui/material";
-import {
-  ReactElement,
-  JSXElementConstructor,
-  ReactNode,
-  ReactPortal,
-  Key,
-} from "react";
 import StyledImage from "../../../Common/StyledImages";
 
 const RunsDropDown = ({ list }: any) => {

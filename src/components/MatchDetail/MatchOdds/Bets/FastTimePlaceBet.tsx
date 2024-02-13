@@ -4,15 +4,14 @@ import { useState, useRef, useEffect } from "react";
 import { currencyFormatter } from "../../../../helper/index";
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../../store/store";
-import { getButtonValue } from "../../../../store/actions/user/userAction";
 import NotificationModal from "../../../Common/NotificationModal";
-import axios from "axios";
+
 import { ApiConstants } from "../../../../utils/Constants";
 import { useDispatch } from "react-redux";
 import { placeBet } from "../../../../store/actions/betPlace/betPlaceActions";
 const FastTimePlaceBet = ({
   session,
-  setShowFastTimeBox,
+
   selectedFastAmount,
   typeOfBet,
   matchOddsData,
@@ -22,7 +21,7 @@ const FastTimePlaceBet = ({
 }: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
-  const [ipAddress, setIpAddress] = useState(null);
+  const [ipAddress] = useState(null);
   const [canceled, setCanceled] = useState({
     value: false,
     msg: "",
