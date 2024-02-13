@@ -4,9 +4,15 @@ import { Box, Typography } from "@mui/material";
 import { useEffect } from "react";
 import { useState } from "react";
 import RunsDropDown from "./RunsDropDown";
+import { AppDispatch, RootState } from "../../../../store/store";
+import { useDispatch } from "react-redux";
+import { getRunAmount } from "../../../../store/actions/betPlace/betPlaceActions";
+import { useSelector } from "react-redux";
 
-const PlaceBetComponentWeb = ({ profitLoss }: any) => {
-  const [proLoss, setProfitLoss] = useState(profitLoss?.profitLoss);
+const PlaceBetComponentWeb = ({ profitLoss, data }: any) => {
+  const dispatch: AppDispatch = useDispatch();
+  const { runAmount } = useSelector((state: RootState) => state.bets);
+  const [proLoss, setProfitLoss] = useState(profitLoss);
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClose = () => {
     setAnchorEl(null);
@@ -19,7 +25,7 @@ const PlaceBetComponentWeb = ({ profitLoss }: any) => {
   ///ddd
   useEffect(() => {
     if (profitLoss) {
-      setProfitLoss(profitLoss?.profitLoss);
+      setProfitLoss(profitLoss);
     }
   }, [profitLoss]);
 
@@ -27,7 +33,10 @@ const PlaceBetComponentWeb = ({ profitLoss }: any) => {
     <>
       <Box
         // ref={innerRef}
-        onClick={() => setShow(!show)}
+        onClick={() => {
+          dispatch(getRunAmount(data?.id));
+          setShow(!show);
+        }}
         sx={{
           background: "#0B4F26",
           flexDirection: "row",
@@ -72,9 +81,8 @@ const PlaceBetComponentWeb = ({ profitLoss }: any) => {
               color: "#0B4F26",
             }}
           >
-            {proLoss?.total_bet < 10 ? 0 : ""}
-            {proLoss?.total_bet || 0}
-            {/* {profitLoss?.total_bet || 0} */}
+            {proLoss?.totalBet < 10 ? 0 : ""}
+            {proLoss?.totalBet || 0}
           </Typography>
         </Box>
         <Box
@@ -88,15 +96,13 @@ const PlaceBetComponentWeb = ({ profitLoss }: any) => {
           <Typography
             sx={{
               fontSize: {
-                lg: !profitLoss?.profitLoss?.max_loss ? ".65vw" : ".65vw",
+                lg: !profitLoss?.maxLoss ? ".65vw" : ".65vw",
               },
-              fontWeight: !profitLoss?.profitLoss?.max_loss ? "bold" : "bold",
+              fontWeight: !profitLoss?.maxLoss ? "bold" : "bold",
               color: "white",
             }}
           >
-            {!profitLoss?.profitLoss?.max_loss
-              ? "Profit/Loss"
-              : profitLoss?.profitLoss?.max_loss}
+            {!profitLoss?.maxLoss ? "Profit/Loss" : profitLoss?.maxLoss}
           </Typography>
           <img
             src={UD}
@@ -107,7 +113,7 @@ const PlaceBetComponentWeb = ({ profitLoss }: any) => {
           <RunsDropDown
             open={Boolean(anchorEl)}
             anchorEl={anchorEl}
-            list={proLoss?.betData}
+            list={runAmount && runAmount}
             // list={profitLoss?.betData}
             handleClose={handleClose}
           />

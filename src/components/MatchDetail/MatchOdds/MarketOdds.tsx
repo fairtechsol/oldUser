@@ -142,13 +142,11 @@ const MarketOdds = ({
   const [showFastTimeBox, setShowFastTimeBox] = useState(false);
   const [placeBetData, setPlaceBetData] = useState<any>(null);
   const [fastRate, setFastRate] = useState(null);
-  const [fastBetLoading, setFastBetLoading] = useState(false);
-  // console.log(fastBetLoading);
-  const [canceled, setCanceled] = useState({
-    value: false,
-    msg: "",
-    type: false,
-  });
+  // const [canceled, setCanceled] = useState({
+  //   value: false,
+  //   msg: "",
+  //   type: false,
+  // });
 
   useEffect(() => {
     if (betLock) {
@@ -439,7 +437,7 @@ const MarketOdds = ({
             {session === "manualBookMaker" ? (
               <>
                 <ManualBoxComponent
-                  setFastBetLoading={setFastBetLoading}
+                  setFastBetLoading={() => {}}
                   placeBetData={placeBetData}
                   setFastRate={(val: any) => setFastRate(val)}
                   fastRate={fastRate}
@@ -486,7 +484,7 @@ const MarketOdds = ({
                 />
                 <Divider />
                 <ManualBoxComponent
-                  setFastBetLoading={setFastBetLoading}
+                  setFastBetLoading={() => {}}
                   placeBetData={placeBetData}
                   setFastRate={(val: any) => setFastRate(val)}
                   fastRate={fastRate}
@@ -534,7 +532,7 @@ const MarketOdds = ({
                   <>
                     <Divider />
                     <ManualBoxComponent
-                      setFastBetLoading={setFastBetLoading}
+                      setFastBetLoading={() => {}}
                       placeBetData={placeBetData}
                       setFastRate={(val: any) => setFastRate(val)}
                       fastRate={fastRate}
@@ -586,7 +584,7 @@ const MarketOdds = ({
             ) : (
               <>
                 <BoxComponent
-                  setFastBetLoading={setFastBetLoading}
+                  setFastBetLoading={() => {}}
                   placeBetData={placeBetData}
                   setFastRate={(val: any) => setFastRate(val)}
                   fastRate={fastRate}
@@ -622,7 +620,7 @@ const MarketOdds = ({
                 />
                 <Divider />
                 <BoxComponent
-                  setFastBetLoading={setFastBetLoading}
+                  setFastBetLoading={() => {}}
                   placeBetData={placeBetData}
                   setFastRate={(val: any) => {
                     setFastRate(val);
@@ -663,7 +661,7 @@ const MarketOdds = ({
                     <>
                       <Divider />
                       <BoxComponent
-                        setFastBetLoading={setFastBetLoading}
+                        setFastBetLoading={() => {}}
                         placeBetData={placeBetData}
                         setFastRate={(val: any) => setFastRate(val)}
                         fastRate={fastRate}

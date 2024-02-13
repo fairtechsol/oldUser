@@ -3,7 +3,6 @@ import service from "../../../service";
 import { AxiosError } from "axios";
 import { ApiConstants } from "../../../utils/Constants";
 
-
 export const placeBet = createAsyncThunk<any, any>(
   "/placeBet",
   async (requestData, thunkApi) => {
@@ -26,6 +25,20 @@ export const getPlacedBets = createAsyncThunk<any, any>(
       const resp = await service.get(
         `${ApiConstants.BET.GETPLACEDBETS}?status=PENDING&betPlaced.matchId=${id}`
       );
+      if (resp) {
+        return resp?.data?.rows;
+      }
+    } catch (error: any) {
+      const err = error as AxiosError;
+      return thunkApi.rejectWithValue(err.response?.status);
+    }
+  }
+);
+export const getCurrentBets = createAsyncThunk<any>(
+  "current/bet",
+  async (_, thunkApi) => {
+    try {
+      const resp = await service.get(`${ApiConstants.BET.GETPLACEDBETS}`);
       if (resp) {
         return resp?.data?.rows;
       }

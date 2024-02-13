@@ -1,17 +1,23 @@
 import { Box, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Loader from "../../components/Loader";
 import AllRateSeperate from "../../components/MatchDetail/AllRateBets/AllRateSeperate";
 import SessionBetSeperate from "../../components/MatchDetail/SessionOdds/SessionBetSeperate";
 // import { Constants } from "../../utils/Constants";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store/store";
+import { getCurrentBets } from "../../store/actions/betPlace/betPlaceActions";
 
 const BetHistory = () => {
+  const dispatch: AppDispatch = useDispatch();
   const [allBets] = useState([]);
   // const [pageCount, setPageCount] = useState(Constants.pageLimit);
   const [loading] = useState(false);
   const { placedBets } = useSelector((state: RootState) => state.bets);
+
+  useEffect(() => {
+    dispatch(getCurrentBets());
+  }, []);
 
   return (
     <>

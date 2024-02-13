@@ -55,7 +55,7 @@ const MatchOdds = ({ matchDetails, data }: any) => {
           // upcoming={!upcoming}
           betLock={data?.blockMarket?.MATCH_ODDS?.block}
           showDely={true}
-          showBox={!matchDetails?.matchOdd}
+          showBox={matchDetails?.matchOdd?.activeStatus === "save"}
           newData={data}
           data={
             matchDetails?.matchOdd?.runners?.length > 0
@@ -78,7 +78,7 @@ const MatchOdds = ({ matchDetails, data }: any) => {
       {matchDetails?.bookmaker?.isActive && (
         <MarketOdds
           betLock={data?.blockMarket?.BOOKMAKER?.block}
-          showBox={!matchDetails?.bookmaker}
+          showBox={matchDetails?.bookmaker?.activeStatus === "save"}
           newData={data}
           showFast={false}
           showDely={true}
@@ -109,7 +109,7 @@ const MatchOdds = ({ matchDetails, data }: any) => {
       {matchDetails?.apiTideMatch?.isActive && (
         <MarketOdds
           betLock={data?.blockMarket?.BOOKMAKER?.block}
-          showBox={!matchDetails?.apiTideMatch}
+          showBox={matchDetails?.apiTideMatch?.activeStatus === "save"}
           newData={data}
           showFast={false}
           showDely={true}
@@ -186,7 +186,7 @@ const MatchOdds = ({ matchDetails, data }: any) => {
       {matchDetails?.marketCompleteMatch?.isActive && (
         <MarketOdds
           betLock={data?.blockMarket?.BOOKMAKER?.block}
-          showBox={!matchDetails?.marketCompleteMatch}
+          showBox={matchDetails?.marketCompleteMatch?.activeStatus === "save"}
           newData={data}
           showFast={false}
           showDely={true}
@@ -219,6 +219,7 @@ const MatchOdds = ({ matchDetails, data }: any) => {
         {matchDetails?.apiSessionActive?.isActive && (
           <SessionMarket
             key={matchDetails?.id}
+            allBetsData={matchDetails?.profitLossDataSession}
             newData={matchDetails?.apiSessionActive}
             matchOddsData={matchDetails?.apiSessionActive}
             typeOfBet={matchDetails?.type}
@@ -232,6 +233,7 @@ const MatchOdds = ({ matchDetails, data }: any) => {
         {matchDetails?.manualSessionActive && (
           <QuickSessionMarket
             key={matchDetails?.id}
+            allBetsData={matchDetails?.profitLossDataSession}
             title={"Quick Session Market"}
             // showFast={true}
             session={"sessionOdds"}
