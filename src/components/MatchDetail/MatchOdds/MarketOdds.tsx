@@ -730,7 +730,7 @@ const MarketOdds = ({
           ></Box>
           <Box sx={{ width: { xs: "98%", lg: "58%", md: "98%" } }}>
             <OddsPlaceBet
-                  setCanceled={setCanceled}
+                  // setCanceled={setCanceled}
               setPlaceBetData={setPlaceBetData}
               placeBetData={placeBetData}
               handleClose={() => setPlaceBetData(null)}
@@ -748,14 +748,14 @@ const MarketOdds = ({
               handleRateChange={handleRateChange}
             />
           </Box>
-          {canceled.value && (
+          {/* {canceled.value && (
             <NotificationModal
               open={canceled}
               handleClose={() =>
                 setCanceled({ value: false, msg: "", type: false })
               }
             />
-          )}
+          )} */}
         </Box>
       )}
 

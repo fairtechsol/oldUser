@@ -5,6 +5,7 @@ import { BallStart } from "../../../assets";
 import SeparateModal from "../MatchOdds/SeparateModal";
 import PlaceBetComponentWeb from "../MatchOdds/Bets/PlaceBetComponentWeb";
 import FastTimePlaceBet from "../MatchOdds/Bets/FastTimePlaceBet";
+import PlaceBetComponent from "../MatchOdds/Bets/PlaceBetComponent";
 
 const QuickSessionMarketBox = ({
   index,
