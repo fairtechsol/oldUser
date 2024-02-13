@@ -8,14 +8,14 @@ const FastTime = ({
   setShowFastTimeBox,
   session,
   setFastAmount,
-  setPlaceBetData,
+  // setPlaceBetData,
   typeOfBet,
-  data1,
-  setSelectedItem,
-  selectedItem,
+  // data1,
+  // setSelectedItem,
+  // selectedItem,
   matchOddsData,
 }: any) => {
-  console.log(matchOddsData);
+  // console.log(matchOddsData, "matchOddsData");
   return (
     <Box
       title="Faster Bet"
@@ -56,15 +56,20 @@ const FastTime = ({
           style={{ width: "30px", height: "30px" }}
           src={FASTTIME}
           onClick={() => {
-            if (setPlaceBetData !== undefined) {
-              setPlaceBetData(null);
+            if (
+              matchOddsData?.statusTeamA === "active" ||
+              matchOddsData?.statusTeamb === "active" ||
+              matchOddsData?.statusTeamC === "active"
+            ) {
+              setShowFastTimeBox((prev: boolean) => !prev);
             }
-            if (selectedItem == data1?.id) {
-              setShowFastTimeBox((prev: any) => !prev);
-            } else {
-              setShowFastTimeBox(true);
-              setSelectedItem(data1?.id);
-            }
+            // if (setPlaceBetData !== undefined) {
+            //   setPlaceBetData(null);
+            // }
+            // setSelectedItem(data1?.id);
+            // else {
+            // setShowFastTimeBox((prev: any) => !prev);
+            // }
           }}
         />
       )}
