@@ -3,9 +3,6 @@ import { FASTTIME } from "../../../assets";
 import { memo } from "react";
 import LiveMarket from "../Common/LiveMarket";
 
-
-
-
 const FastTime = ({
   data,
   setShowFastTimeBox,
@@ -16,7 +13,9 @@ const FastTime = ({
   data1,
   setSelectedItem,
   selectedItem,
-}:any) => {
+  matchOddsData,
+}: any) => {
+  console.log(matchOddsData);
   return (
     <Box
       title="Faster Bet"
@@ -74,4 +73,3 @@ const FastTime = ({
 };
 
 export default memo(FastTime);
-

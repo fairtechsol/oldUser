@@ -80,19 +80,23 @@ const FastTimePlaceBet = ({
     }
   }, [selectedValue, fromOdds]);
 
-  const handleBet = (stake: any, data: any, type: string, index: any) => {
+  const handleBet = (stake: any, type: string, index: any) => {
     let betTeam;
 
-    if (type === "tiedMatch2") {
+    if (matchOddsData?.type === "tiedMatch2") {
       betTeam =
         matchOddsData?.statusTeamA === "active" &&
         matchOddsData?.statusTeamB === "active"
           ? index === 0
             ? "Yes"
             : "No"
-          : matchOddsData?.statusTeamA === "active"
+          : matchOddsData?.statusTeamA === "active" &&
+            matchOddsData?.statusTeamB === "suspended"
           ? "Yes"
-          : "No";
+          : matchOddsData?.statusTeamA === "suspended" &&
+            matchOddsData?.statusTeamB === "active"
+          ? "No"
+          : "";
     } else {
       betTeam =
         matchOddsData?.statusTeamA === "active" &&
@@ -100,9 +104,13 @@ const FastTimePlaceBet = ({
           ? index === 0
             ? matchDetails?.teamA
             : matchDetails?.teamB
-          : matchOddsData?.statusTeamA === "active"
+          : matchOddsData?.statusTeamA === "active" &&
+            matchOddsData?.statusTeamB === "suspended"
           ? matchDetails?.teamA
-          : matchDetails?.teamB;
+          : matchOddsData?.statusTeamA === "suspended" &&
+            matchOddsData?.statusTeamB === "active"
+          ? matchDetails?.teamB
+          : "";
     }
 
     let payloadForSession: any = {
@@ -143,13 +151,13 @@ const FastTimePlaceBet = ({
     //   betOnTeam: selectedBet?.team?.betOnTeam,
     //   placeIndex: selectedBet?.team?.placeIndex,
     // };
-    dispatch(
-      placeBet({
-        url: ApiConstants.BET.PLACEBETMATCHBETTING,
-        data: JSON.stringify(payloadForSession),
-      })
-    );
-    console.log(data, "1>>>>>>>>>>>>>>");
+    // dispatch(
+    //   placeBet({
+    //     url: ApiConstants.BET.PLACEBETMATCHBETTING,
+    //     data: JSON.stringify(payloadForSession),
+    //   })
+    // );
+    console.log("payloadForSession", payloadForSession);
   };
 
   // const handleChange = (e: any) => {
@@ -522,7 +530,7 @@ const FastTimePlaceBet = ({
                         matchButtonList?.map((v: any, index: any) => (
                           <NumberData
                             handleBet={() => {
-                              handleBet(v.value, matchOddsData, "BACK", index);
+                              handleBet(v.value, "BACK", index);
                             }}
                             key={index}
                             containerStyle={{
@@ -593,7 +601,7 @@ const FastTimePlaceBet = ({
                         matchButtonList?.map((v: any, index: any) => (
                           <NumberData
                             handleBet={() => {
-                              handleBet(v.value, matchOddsData, "LAY", index);
+                              handleBet(v.value, "LAY", index);
                             }}
                             key={index}
                             containerStyle={{

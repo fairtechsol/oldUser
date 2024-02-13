@@ -149,7 +149,7 @@ const MarketOdds = ({
   //   msg: "",
   //   type: false,
   // });
-
+  // console.log(matchOddsData);
   useEffect(() => {
     if (betLock) {
       setPlaceBetData(null);
@@ -237,6 +237,7 @@ const MarketOdds = ({
                 setShowFastTimeBox={setShowFastTimeBox}
                 typeOfBet={typeOfBet}
                 data={fastAmount ? currencyFormatter(fastAmount) : ""}
+                matchOddsData={matchOddsData}
               />
             )}
           </Box>
