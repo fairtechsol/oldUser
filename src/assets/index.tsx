@@ -45,3 +45,4 @@ export { default as ARROWDROPDOWN } from './images/arrowDropDown.png'
 export { default as LockIcon } from './images/lock.svg'
 export { default as ARROWUPs } from './images/arrowUp.png'
 export { default as UD } from './images/UD.png'
+export { default as HourGlass } from "./hourglass.json";

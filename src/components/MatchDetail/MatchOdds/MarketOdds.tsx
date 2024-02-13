@@ -8,6 +8,8 @@ import ManualBoxComponent from "./ManualBoxComponent";
 import { ARROWUP, LockIcon, TIME } from "../../../assets";
 import { currencyFormatter } from "../../../helper";
 import FastTime from "./FastTime";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../store/store";
 
 const SmallBox = ({ valueA, valueB }: any) => {
   return (
@@ -138,6 +140,7 @@ const MarketOdds = ({
   handleRateChange,
   marketDetails,
 }: any) => {
+  const { getProfile } = useSelector((state: RootState) => state.user.profile);
   const [showFastTimeBox, setShowFastTimeBox] = useState(false);
   const [placeBetData, setPlaceBetData] = useState<any>(null);
   const [fastRate, setFastRate] = useState(null);
@@ -224,7 +227,7 @@ const MarketOdds = ({
               {title}
             </Typography>
             {showDely && typeOfBet === "MATCH ODDS" && (
-              <Time time={newData.delaySecond ? newData?.delaySecond : 0} />
+              <Time time={(getProfile && getProfile?.delayTime) ?? 0} />
             )}
             {showFast && (
               <FastTime
@@ -729,7 +732,7 @@ const MarketOdds = ({
           ></Box>
           <Box sx={{ width: { xs: "98%", lg: "58%", md: "98%" } }}>
             <OddsPlaceBet
-                  // setCanceled={setCanceled}
+              // setCanceled={setCanceled}
               setPlaceBetData={setPlaceBetData}
               placeBetData={placeBetData}
               handleClose={() => setPlaceBetData(null)}

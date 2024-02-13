@@ -48,7 +48,7 @@ const SessionMarketBox = ({
           }}
         ></Box>
       )}
-      {data?.betStatus === 1 && upcoming && (
+      {upcoming && (
         <Box
           sx={{
             margin: "1px",
