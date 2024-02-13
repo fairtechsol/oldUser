@@ -238,6 +238,7 @@ const SeparateModal = ({
               top: "33%",
               overflow: "hidden",
               justifyContent: "center",
+              outline: "none",
             }}
           >
             <OddsPlaceBet

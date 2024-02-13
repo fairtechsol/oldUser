@@ -17,7 +17,7 @@ import { ApiConstants} from "../../../../utils/Constants";
 import PlaceBetMoneyBox from "../PlaceBetMoneyBox";
 
 const OddsPlaceBet = ({ handleClose, season, type }: any) => {
-  const [stakeValue, setStakeValue] = useState(" ");
+  const [stakeValue, setStakeValue] = useState<any>();
   const [betPlaceLoading] = useState(false);
 
   const { buttonValues } = useSelector(
@@ -26,8 +26,6 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
   const { selectedBet } = useSelector(
     (state: RootState) => state.match.matchList
   );
-  console.log(selectedBet, "bets")
-
   let sessionButtonValues: any = [];
   let matchButtonValues: any = [];
 
@@ -96,7 +94,12 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
       handleClose();
     }
   }, [success]);
-  console.log(selectedBet, "amot")
+
+  console.log(
+    Number((stake * ((selectedBet?.team?.rate - 1) * 100)) / 100),
+    "stakepro"
+  );
+  console.log(Number(newRates?.lossAmount), "stakepro2", newRates);
   return (
     <Box
       sx={[
@@ -137,21 +140,31 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
           >
             Place Bet
           </Typography>
-          <Box sx={{ display: "flex", alignItems: "center", marginLeft: "60px" }}>
+          <Box
+            sx={{ display: "flex", alignItems: "center", marginLeft: "60px" }}
+          >
             <PlaceBetMoneyBox
               trendingUp={false}
-              // rate={selectedBet?.team?.type == 'back' ? Number((stake* ((Odds- 1) * 100)) / 100) : Number(stake)}
+              rate={
+                selectedBet?.team?.type == "back"
+                  ? Number((stakeValue * selectedBet?.team?.rate) / 100)
+                  : Number(stakeValue)
+              }
               // rate={Number(newRates?.winAmount)?.toFixed(2)}
               color={"#10DC61"}
             />
             <Box sx={{ width: "5px" }}></Box>
             <PlaceBetMoneyBox
               trendingDown={false}
-              // rate={selectedBet?.team?.type == 'back' ? Number(stake) : Number((stake* ((Odds- 1) * 100)) / 100)}
+              rate={
+                selectedBet?.team?.type == "back"
+                  ? Number(stakeValue)
+                  : Number((stakeValue * selectedBet?.team?.rate) / 100)
+              }
               color={"#FF4D4D"}
             />
-            <Box sx={{ width: "5px", marginRight: "20px" }}></Box>
 
+            <Box sx={{ width: "5px", marginRight: "20px" }}></Box>
           </Box>
           <StyledImage
             onClick={handleClose}
@@ -181,14 +194,14 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
             }}
             value={selectedBet?.team?.rate}
             containerStyle={{ marginLeft: "2px", flex: 1 }}
-          // onChange={(e:any) => {
-          //   dispatch(
-          //     selectedBetAction({
-          //       ...selectedBet,
-          //       team: { ...selectedBet?.team, stake: +e.target.value },
-          //     })
-          //   );
-          // }}
+            // onChange={(e:any) => {
+            //   dispatch(
+            //     selectedBetAction({
+            //       ...selectedBet,
+            //       team: { ...selectedBet?.team, stake: +e.target.value },
+            //     })
+            //   );
+            // }}
           />
           <TeamsOdssData
             title={"Back/Lay"}
@@ -233,7 +246,6 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
                   setNewRatesValue={setNewRates}
                 />
               ))}
-              {console.log(selectedBet?.data)}
             </Box>
             <Box sx={{ display: "flex", marginTop: "2px", marginX: "2px" }}>
               {buttonToShow?.slice(4, 8)?.map((v: any, idx: number) => (
@@ -335,12 +347,12 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
                 placeBet({
                   url:
                     selectedBet?.data?.type === "session" ||
-                      selectedBet?.data?.SelectionId
+                    selectedBet?.data?.SelectionId
                       ? ApiConstants.BET.PLACEBETSESSION
                       : ApiConstants.BET.PLACEBETMATCHBETTING,
                   data:
                     selectedBet?.data?.type === "session" ||
-                      selectedBet?.data?.SelectionId
+                    selectedBet?.data?.SelectionId
                       ? JSON.stringify(payloadForSession)
                       : JSON.stringify(payloadForBettings),
                 })
@@ -394,14 +406,13 @@ const NumberData = ({
         //   value?.value
         // );
         setNewRatesValue({
-          lossAmount:  value?.value,
-          winAmount:  value?.value,
+          lossAmount: value?.value,
+          winAmount: value?.value,
         });
         setStakeValue(value?.value);
 
         selectedBetAction(value);
       }}
-
       sx={[
         {
           display: "flex",
