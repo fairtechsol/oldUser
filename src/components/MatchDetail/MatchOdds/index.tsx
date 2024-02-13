@@ -77,7 +77,7 @@ const MatchesComponent = (_: any) => {
         color="primary"
       />
 
-      {loading && <CustomLoader text="" />}
+      {/* {loading && <CustomLoader text="" />} */}
       {loading && (
         <Box
           sx={{

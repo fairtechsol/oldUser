@@ -29,7 +29,7 @@ const QuickSessionMarket = ({
   eventType,
 }: any) => {
   const [showFastTimeBox, setShowFastTimeBox] = useState(false);
-  const [fastBetLoading, setFastBetLoading] = useState(false);
+  const [ setFastBetLoading] = useState(false);
   const [selectedItem, setSelectedItem] = useState("");
 
   const [visible, setVisible] = useState(true);

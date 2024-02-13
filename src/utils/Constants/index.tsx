@@ -74,7 +74,7 @@ export const Constants = {
   apiBasePath: "http://54.208.19.89:5001",
   thirdParty: "http://54.208.19.89:3200",
   expertPath: "http://54.208.19.89:6060",
-  localPath: "http://localhost:5001",
+  localPath: "http://localhost:5000",
   localPathThird: "http://localhost:3200",
   localPathExpert: "http://localhost:6060",
 };

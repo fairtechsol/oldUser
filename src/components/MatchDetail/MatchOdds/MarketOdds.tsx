@@ -8,7 +8,6 @@ import ManualBoxComponent from "./ManualBoxComponent";
 import { ARROWUP, LockIcon, TIME } from "../../../assets";
 import { currencyFormatter } from "../../../helper";
 import FastTime from "./FastTime";
-import NotificationModal from "../../Common/NotificationModal";
 
 const SmallBox = ({ valueA, valueB }: any) => {
   return (

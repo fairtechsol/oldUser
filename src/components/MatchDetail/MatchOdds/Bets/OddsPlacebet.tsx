@@ -13,7 +13,7 @@ import {
   placeBet,
 } from "../../../../store/actions/betPlace/betPlaceActions";
 import axios from "axios";
-import { ApiConstants, matchBettingType } from "../../../../utils/Constants";
+import { ApiConstants} from "../../../../utils/Constants";
 import PlaceBetMoneyBox from "../PlaceBetMoneyBox";
 
 const OddsPlaceBet = ({ handleClose, season, type }: any) => {
@@ -53,12 +53,13 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
       ? sessionButtonValues
       : matchButtonValues;
 
-  const [stake, setStake] = useState<any>(0);
+  const [setStake] = useState<any>(0);
   // console.log(stake);
   const [newRates, setNewRates] = useState({
     lossAmount: 0,
     winAmount: 0,
   });
+  console.log(newRates)
   const { success } = useSelector((state: RootState) => state.match.bet);
   const dispatch: AppDispatch = useDispatch();
   const theme = useTheme();

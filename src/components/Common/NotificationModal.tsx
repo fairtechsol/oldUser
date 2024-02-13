@@ -1,13 +1,12 @@
 import { Box, Typography } from "@mui/material";
 import MUIModal from "@mui/material/Modal";
-import React, { useEffect } from "react";
 
 import Loader from "../Loader";
 import { BETPLACED, NOT } from "../../assets";
 
 
 
-const NotificationModal = ({ open, handleClose, time }:any) => {
+const NotificationModal = ({ open, handleClose }:any) => {
   try {
     // useEffect(() => {
     //   let TimeVal = (time * 1000) + 2000;
