@@ -144,11 +144,6 @@ const MarketOdds = ({
   const [showFastTimeBox, setShowFastTimeBox] = useState(false);
   const [placeBetData, setPlaceBetData] = useState<any>(null);
   const [fastRate, setFastRate] = useState(null);
-  // const [canceled, setCanceled] = useState({
-  //   value: false,
-  //   msg: "",
-  //   type: false,
-  // });
 
   useEffect(() => {
     if (betLock) {
@@ -237,6 +232,7 @@ const MarketOdds = ({
                 setShowFastTimeBox={setShowFastTimeBox}
                 typeOfBet={typeOfBet}
                 data={fastAmount ? currencyFormatter(fastAmount) : ""}
+                matchOddsData={matchOddsData}
               />
             )}
           </Box>
