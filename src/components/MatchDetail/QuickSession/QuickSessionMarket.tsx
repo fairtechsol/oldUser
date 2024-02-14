@@ -29,7 +29,7 @@ const QuickSessionMarket = ({
   eventType,
 }: any) => {
   const [showFastTimeBox, setShowFastTimeBox] = useState(false);
-  const [ setFastBetLoading] = useState(false);
+  const [setFastBetLoading] = useState(false);
   const [selectedItem, setSelectedItem] = useState("");
 
   const [visible, setVisible] = useState(true);
@@ -337,7 +337,7 @@ const QuickSessionMarket = ({
                         }}
                         handleRateChange={handleRateChange}
                         eventType={eventType}
-                        profitLossData={allBetsData.filter(
+                        profitLossData={allBetsData?.filter(
                           (item: any) => item?.betId === element?.id
                         )}
                       />
