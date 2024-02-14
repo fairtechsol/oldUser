@@ -1,13 +1,17 @@
 import React from "react";
-
+import { useDispatch } from "react-redux";
 import { Box, Typography } from "@mui/material";
 import { useEffect } from "react";
-
+import { getRunAmount } from "../../../../store/actions/betPlace/betPlaceActions";
 import { useState } from "react";
 import RunsDropDown from "./RunsDropDown";
+import { AppDispatch, RootState } from "../../../../store/store";
+import { useSelector } from "react-redux";
 
-const PlaceBetComponent = ({ profitLoss }: any) => {
-  const [proLoss, setProfitLoss] = useState(profitLoss?.profitLoss);
+const PlaceBetComponent = ({ profitLoss, data }: any) => {
+  const dispatch: AppDispatch = useDispatch();
+  const [proLoss, setProfitLoss] = useState(profitLoss);
+  const { runAmount } = useSelector((state: RootState) => state.bets);
   const [anchorEl] = useState(null);
   // const handleClick = (event:any) => {
   //   setAnchorEl(event.currentTarget);
@@ -17,7 +21,7 @@ const PlaceBetComponent = ({ profitLoss }: any) => {
 
   useEffect(() => {
     if (profitLoss) {
-      setProfitLoss(profitLoss?.profitLoss);
+      setProfitLoss(profitLoss);
     }
   }, [profitLoss]);
 
@@ -27,6 +31,7 @@ const PlaceBetComponent = ({ profitLoss }: any) => {
     >
       <Box
         onClick={() => {
+          dispatch(getRunAmount(data?.id));
           setShow(!show);
         }}
         sx={{
@@ -64,7 +69,8 @@ const PlaceBetComponent = ({ profitLoss }: any) => {
             }}
           >
             Total Bet :{" "}
-            <span style={{ color: "#0B4F26" }}>{proLoss?.total_bet || 0}</span>
+            <span style={{ color: "#0B4F26" }}>  {proLoss?.totalBet < 10 ? 0 : ""}
+            {proLoss?.totalBet || 0}</span>
           </Typography>
         </Box>
         <Box sx={{ zIndex: 100, display: "flex", flexDirection: "column" }}>
@@ -72,24 +78,22 @@ const PlaceBetComponent = ({ profitLoss }: any) => {
             sx={{
               marginTop: "2px",
               fontSize: {
-                lg: !profitLoss?.profitLoss?.max_loss ? "8px" : "8px",
-                md: "8px",
-                xs: "8px",
+                lg: !profitLoss?.maxLoss ? "8px" : "8px",
+                md: !profitLoss?.maxLoss ? "8px" : "8px",
+                xs: !profitLoss?.maxLoss ? "8px" : "8px",
               },
               fontWeight: !profitLoss?.profitLoss?.max_loss ? "500" : "500",
               color: "white",
             }}
           >
-            {!profitLoss?.profitLoss?.max_loss
-              ? "Profit/Loss"
-              : profitLoss?.profitLoss?.max_loss}
+          {!profitLoss?.maxLoss ? "Profit/Loss" : profitLoss?.maxLoss}
           </Typography>
         </Box>
       </Box>
       {show && (
         <RunsDropDown
           style={{ zIbnex: 10 }}
-          list={proLoss?.betData}
+          list={runAmount && runAmount}
           open={Boolean(anchorEl)}
           anchorEl={anchorEl}
           //   handleClose={handleClose}
