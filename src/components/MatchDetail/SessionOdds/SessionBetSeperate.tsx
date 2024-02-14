@@ -158,7 +158,7 @@ const SessionBetSeperate = ({
             >
               {placedBets?.map((i: any, k: any) => {
                 // console.log(placedBets, "placedBets");
-                const num = placedBets.length - k;
+                const num = placedBets?.length - k;
                 const formattedNum = num < 10 ? "0" + num : num.toString();
                 return (
                   <Box
@@ -248,7 +248,7 @@ const SessionBetSeperate = ({
                             >
                               Bet{" "}
                               <span style={{ color: "#e41b23" }}>deleted</span>{" "}
-                              due to ${i?.deleted_reason}
+                              due to ${i?.deleteReason}
                             </Typography>
                           )}
                         </Box>
@@ -260,8 +260,7 @@ const SessionBetSeperate = ({
                           height: "40px",
                           width: "30%",
                           // margin: { xs: "1px", lg: "1px", my: 0 },
-                          background:
-                            i.myProfitLoss > 0 ? "#10DC61" : "#E32A2A",
+                          background: i.totalLoss > 0 ? "#10DC61" : "#E32A2A",
                         }}
                       >
                         <Box
@@ -280,15 +279,15 @@ const SessionBetSeperate = ({
                               fontWeight: "700",
                             }}
                           >
-                            {Number(i.myProfitLoss) >= 0 ? (
+                            {Number(i.totalLoss) >= 0 ? (
                               <>
                                 <span style={{ visibility: "hidden" }}>-</span>
-                                {Number(i.myProfitLoss).toFixed(2)}
+                                {Number(i.totalLoss).toFixed(2)}
                               </>
                             ) : (
-                              Number(i.myProfitLoss).toFixed(2)
+                              Number(i.totalLoss).toFixed(2)
                             )}
-                            {/* {Number(i.myProfitLoss).toFixed(2)} */}
+                            {/* {Number(i.totalLoss).toFixed(2)} */}
                           </Typography>
                           {!isArrow && (
                             <StyledImage
@@ -296,13 +295,13 @@ const SessionBetSeperate = ({
                                 width: { xs: "12px", lg: "15px" },
                                 height: { xs: "12px", lg: "15px" },
                               }}
-                              src={i.myProfitLoss > 0 ? ARROWUP : ArrowDown}
+                              src={i.totalLoss > 0 ? ARROWUP : ArrowDown}
                             />
                           )}
                         </Box>
                       </Box>
                     )}
-                    {profit && i?.deleted_reason && (
+                    {profit && i?.deletedReason && (
                       <Box
                         sx={{
                           height: "40px",
@@ -335,11 +334,11 @@ const SessionBetSeperate = ({
                         >
                           Bet <span style={{ color: "#e41b23" }}>Deleted</span>{" "}
                           Due {"\n"}
-                          {i?.deleted_reason}
+                          {i?.deleteReason}
                         </Typography>
                       </Box>
                     )}
-                    {i?.deleted_reason && betHistory && (
+                    {i?.deleteReason && betHistory && (
                       <Box
                         sx={{
                           height: "40px",
@@ -374,7 +373,7 @@ const SessionBetSeperate = ({
                         >
                           Bet <span style={{ color: "#e41b23" }}>Deleted</span>{" "}
                           Due {"\n"}
-                          {i?.deleted_reason}
+                          {i?.deleteReason}
                         </Typography>
                       </Box>
                     )}
@@ -388,6 +387,5 @@ const SessionBetSeperate = ({
     </>
   );
 };
-// value2 = { formatNumber(newData?.rate_percent?.split("-")[0])}
 
 export default SessionBetSeperate;

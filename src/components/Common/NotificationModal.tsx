@@ -1,12 +1,10 @@
 import { Box, Typography } from "@mui/material";
 import MUIModal from "@mui/material/Modal";
 
-import Loader from "../Loader";
 import { BETPLACED, NOT } from "../../assets";
+import Loader from "../Loader";
 
-
-
-const NotificationModal = ({ open, handleClose }:any) => {
+const NotificationModal = ({ open, handleClose }: any) => {
   try {
     // useEffect(() => {
     //   let TimeVal = (time * 1000) + 2000;
@@ -68,7 +66,7 @@ const NotificationModal = ({ open, handleClose }:any) => {
 
               <Typography
                 sx={{
-                  fontSize: { mobile: "10px", laptop: "14px", tablet: "14px" },
+                  fontSize: { xs: "10px", lg: "14px", md: "14px" },
                   fontWeight: "500",
                   marginY: ".7vh",
                   width: "70%",
@@ -83,7 +81,7 @@ const NotificationModal = ({ open, handleClose }:any) => {
         </Box>
       </MUIModal>
     );
-  } catch (e:any) {
+  } catch (e: any) {
     console.log(e.message);
   }
 };

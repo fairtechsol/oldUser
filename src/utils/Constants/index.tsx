@@ -17,6 +17,10 @@ export const ApiConstants = {
     GET_PROFILE: "/user/profile",
     ACCOUNT_STATEMENT: "/transaction/get/",
     LIST: "/user/list",
+    MATCH_WISE_PROFITLOSS: "user/total/matchWise/profitLoss",
+    TOTAL_PROFITLOSS: "user/totalProfitLoss",
+    TOTAL_BET_PROFITLOSS: "user/total/bet/profitLoss",
+    TOTAL_SESSION_PROFITLOSS: "user/total/session/profitLoss",
   },
   EXPERT: {
     COMPETITIONLIST: "/expert/match/competitionList/",

@@ -1,21 +1,15 @@
 import { Box, Typography } from "@mui/material";
-import SearchInputWallet from "../../Common/SearchInput";
 import Calendar from "../../../components/Common/Calendar";
 import CustomButton from "../../../components/Common/CustomButton";
 
-
 const YellowHeaderProfitLoss = ({
-  type,
-  clientData,
-  setShowSearch,
-  search,
   startDate,
   setEndDate,
   setStartDate,
   endDate,
   onClick,
-  title
-}:any) => {
+  title,
+}: any) => {
   return (
     <Box
       sx={{
@@ -38,7 +32,7 @@ const YellowHeaderProfitLoss = ({
           alignSelf: "start",
         }}
       >
-       {title}
+        {title}
       </Typography>
       <Box
         sx={{
@@ -60,32 +54,10 @@ const YellowHeaderProfitLoss = ({
             padding: "10px 20px",
           }}
         >
-          {type !== "user" && (
-            <Box
-              sx={{
-                display: "block",
-                width: { xs: "100%", lg: "40%" },
-              }}
-            >
-              <Box sx={{ width: "10px" }}></Box>
-              <SearchInputWallet
-                containerStyle={{ width: "100% !important " }}
-                data={clientData}
-                title={"Search By Client Name"}
-                setShowSearch={setShowSearch}
-                search={search}
-              />
-            </Box>
-          )}
-
           <Box sx={{ width: "10px" }}></Box>
 
-          <Box
-            sx={{ display: "flex", width: { xs: "100%", lg: "60%" } }}
-          >
-            <Box
-              sx={{ display: "flex", width: { lg: "70%", xs: "60%" } }}
-            >
+          <Box sx={{ display: "flex", width: { xs: "100%", lg: "60%" } }}>
+            <Box sx={{ display: "flex", width: { lg: "70%", xs: "60%" } }}>
               <Calendar
                 title={"From"}
                 startDate={startDate}
