@@ -8,11 +8,11 @@ const FastTime = ({
   setShowFastTimeBox,
   session,
   setFastAmount,
-  setPlaceBetData,
+  // setPlaceBetData,
   typeOfBet,
-  data1,
-  setSelectedItem,
-  selectedItem,
+  // data1,
+  // setSelectedItem,
+  // selectedItem,
   matchOddsData,
 }: any) => {
   console.log(matchOddsData);
@@ -56,15 +56,22 @@ const FastTime = ({
           style={{ width: "30px", height: "30px" }}
           src={FASTTIME}
           onClick={() => {
-            if (setPlaceBetData !== undefined) {
-              setPlaceBetData(null);
-            }
-            if (selectedItem == data1?.id) {
+            if (
+              matchOddsData?.statusTeamA === "active" ||
+              matchOddsData?.statusTeamB === "active" ||
+              matchOddsData?.statusTeamC === "active"
+            ) {
               setShowFastTimeBox((prev: any) => !prev);
-            } else {
-              setShowFastTimeBox(true);
-              setSelectedItem(data1?.id);
             }
+            // if (setPlaceBetData !== undefined) {
+            //   setPlaceBetData(null);
+            // }
+            // if (selectedItem == data1?.id) {
+            //   setShowFastTimeBox((prev: any) => !prev);
+            // } else {
+            //   setShowFastTimeBox(true);
+            //   setSelectedItem(data1?.id);
+            // }
           }}
         />
       )}
