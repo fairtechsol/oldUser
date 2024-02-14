@@ -3,98 +3,98 @@ import { PaginationInterface } from "../../interface/common";
 
 const Footer = (props: PaginationInterface) => {
   const { currentPage, pages, setCurrentPage } = props;
-    return (
-      <Box
+  return (
+    <Box
+      sx={{
+        height: "40px",
+        display: "flex",
+        alignItems: "center",
+        px: { xs: "5px", lg: "10px" },
+        justifyContent: "space-between",
+        background: "#FAFAFA",
+      }}
+    >
+      <Typography
         sx={{
-          height: "40px",
-          display: "flex",
-          alignItems: "center",
-          px: { xs: "5px", lg: "10px" },
-          justifyContent: "space-between",
-          background: "#FAFAFA",
+          fontSize: { xs: "12px", lg: "14px" },
+          fontWeight: "600",
         }}
       >
-        <Typography
+        Showing 1 to {pages}
+      </Typography>
+      <Box sx={{ display: "flex", alignItems: "center" }}>
+        <Box
           sx={{
-            fontSize: { xs: "12px", lg: "14px" },
-            fontWeight: "600",
+            height: "35px",
+            width: { xs: "80px", lg: "100px" },
+            background: "#0B4F26",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            borderRadius: "5px",
+            cursor: "pointer",
+          }}
+          onClick={() => {
+            setCurrentPage(+currentPage - 1 === 0 ? 1 : +currentPage - 1);
           }}
         >
-          Showing 1 to {pages}
-        </Typography>
-        <Box sx={{ display: "flex", alignItems: "center" }}>
-          <Box
+          <Typography
             sx={{
-              height: "35px",
-              width: { xs: "80px", lg: "100px" },
-              background: "#0B4F26",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              borderRadius: "5px",
-              cursor: "pointer",
-            }}
-            onClick={() => {
-              setCurrentPage(+currentPage - 1 === 0 ? 1 : +currentPage - 1);
+              color: "white",
+              fontSize: { lg: "14px", xs: "12px" },
             }}
           >
-            <Typography
-              sx={{
-                color: "white",
-                fontSize: { lg: "14px", xs: "12px" },
-              }}
-            >
-              Previous
-            </Typography>
-          </Box>
-          <Box
+            Previous
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            height: "35px",
+            marginX: { lg: "10px", xs: "5px" },
+            width: "40px",
+            background: "#262626",
+            display: "flex",
+            borderRadius: "5px",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Typography
             sx={{
-              height: "35px",
-              marginX: { lg: "10px", xs: "5px" },
-              width: "40px",
-              background: "#262626",
-              display: "flex",
-              borderRadius: "5px",
-              justifyContent: "center",
-              alignItems: "center",
+              color: "white",
+              fontSize: { lg: "14px", xs: "12px" },
             }}
           >
-            <Typography
-              sx={{
-                color: "white",
-                fontSize: { lg: "14px", xs: "12px" },
-              }}
-            >
-              {currentPage}
-            </Typography>
-          </Box>
-          <Box
+            {currentPage}
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            height: "35px",
+            width: { xs: "80px", lg: "100px" },
+            background: "#0B4F26",
+            display: "flex",
+            borderRadius: "5px",
+            justifyContent: "center",
+            alignItems: "center",
+            cursor: "pointer",
+          }}
+          onClick={() => {
+            setCurrentPage(+currentPage === pages ? pages : +currentPage + 1);
+          }}
+        >
+          <Typography
             sx={{
-              height: "35px",
-              width: { xs: "80px", lg: "100px" },
-              background: "#0B4F26",
-              display: "flex",
-              borderRadius: "5px",
-              justifyContent: "center",
-              alignItems: "center",
-              cursor: "pointer",
-            }}
-            onClick={() => {
-              setCurrentPage(+currentPage === pages ? pages : +currentPage + 1);
+              color: "white",
+              fontSize: { lg: "14px", xs: "12px" },
             }}
           >
-            <Typography
-              sx={{
-                color: "white",
-                fontSize: { lg: "14px", xs: "12px" },
-              }}
-            >
-              Next
-            </Typography>
-          </Box>
+            Next
+          </Typography>
         </Box>
       </Box>
-    );
-  };
+    </Box>
+  );
+};
 
-  export default Footer;
+export default Footer;

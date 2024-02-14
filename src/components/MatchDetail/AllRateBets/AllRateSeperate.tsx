@@ -1,10 +1,22 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { useState } from "react";
-import { ARROWUP } from "../../../assets";
+import { ARROWUP, DELETE } from "../../../assets";
 import RowComponent from "./RowComponent";
+import StyledImage from "../../Common/StyledImages";
 
-const AllRateSeperate = ({ profit, mark2, allBetsData, count }: any) => {
+const AllRateSeperate = ({
+  profit,
+  mark,
+  mark2,
+  betHistory,
+  allBetsData,
+  count,
+  isArrow,
+}: any) => {
   const [visible, setVisible] = useState(true);
+
+  const theme = useTheme();
+  const matchesMobile = theme.breakpoints.down("lg");
 
   return (
     <>
@@ -225,7 +237,7 @@ const AllRateSeperate = ({ profit, mark2, allBetsData, count }: any) => {
                       </Typography>
                     </Box>
                     <RowComponent header={false} data={i} />
-                    {/* {i?.deleted_reason && betHistory && ( */}
+                    {/* {i?.deleteReason && betHistory && ( */}
                     <Box
                       sx={{
                         width: {
@@ -243,132 +255,168 @@ const AllRateSeperate = ({ profit, mark2, allBetsData, count }: any) => {
                       <Box sx={{ width: mark2 ? "20%" : "35%" }}></Box>
                     </Box>
                     {/* )} */}
-                    {/* {i?.deleted_reason && betHistory === undefined && ( */}
-                    {/* <Box
-                      sx={{
-                        width: {
-                          xs: profit ? "100%" : "100%",
-                          alignItems: "flex-end",
-                          justifyContent: "center",
-                          display: "flex",
-                          lg: profit ? "100 % " : "100% ",
-                        },
-                        background: "rgba(0, 0, 0, 0.5)",
-                        height: "42px",
-                        position: "absolute",
-                      }}
-                    >
-                      <Box sx={{ width: mark2 ? "20%" : "35%" }}></Box>
+                    {i?.deleteReason && betHistory === undefined && (
                       <Box
                         sx={{
-                          width: mark2 ? "80%" : "65%",
-                          height: "100%",
-                          display: "flex",
-                          justifyContent: "center",
-                          alignItems: "flex-end",
-                          alignSelf: "flex-end",
+                          width: {
+                            xs: profit ? "100%" : "100%",
+                            alignItems: "flex-end",
+                            justifyContent: "center",
+                            display: "flex",
+                            lg: profit ? "100 % " : "100% ",
+                          },
+                          background: "rgba(0, 0, 0, 0.5)",
+                          height: "42px",
+                          position: "absolute",
                         }}
                       >
-                        {mark && (
-                          <Typography
-                            sx={{
-                              fontSize: "10px",
-                              fontWeight: "700",
-                              color: "white",
-                              textTransform: "uppercase",
-                            }}
-                          >
-                            Bet{" "}
-                            <span style={{ color: "#e41b23" }}>deleted</span>{" "}
-                            due to ${"i?.deleted_reason"}
-                          </Typography>
-                        )}
-                      </Box>
-                    </Box> */}
-                    {/* // )} */}
-                    {/* {i?.deleted_reason && profit && ( */}
-                    <Box
-                      sx={{
-                        width: {
-                          xs: profit ? "100%" : "100%",
-                          alignItems: "flex-end",
-                          justifyContent: "center",
-                          display: "flex",
-                          lg: profit ? "100 % " : "100% ",
-                        },
-                        // background: "rgba(0, 0, 0, 0.6)",
-                        height: "100%",
-                        position: "absolute",
-                      }}
-                    >
-                      <Box sx={{ width: mark2 ? "20%" : "35%" }}></Box>
-                    </Box>
-                    {/* // )} */}
-                    {/* {profit && !i?.deleted_reason && ( */}
-                    {/* <Box
-                      sx={{
-                        height: "40px",
-                        width: "30%",
-                        // margin: { xs: "1px", lg: "1px" },
-                        // display: "flex",
-                        background: "#E32A2A",
-                        // justifyContent: "center",
-                        // alignItems: "center",
-                      }}
-                    >
-                      <Box
-                        sx={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          height: "100%",
-                          px: "5px",
-                        }}
-                      >
-                        <Typography
+                        <Box sx={{ width: mark2 ? "20%" : "35%" }}></Box>
+                        <Box
                           sx={{
-                            fontSize: { xs: "9px", lg: "14px" },
-                            color: "white",
-                            fontWeight: "700",
+                            width: mark2 ? "80%" : "65%",
+                            height: "100%",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "flex-end",
+                            alignSelf: "flex-end",
                           }}
                         >
-                          {Number("i.myProfitLoss") >= 0 ? (
-                            <>
-                              <span style={{ visibility: "hidden" }}>-</span>
-                              {Number("i.myProfitLoss").toFixed(2)}
-                            </>
-                          ) : (
-                            Number("i.myProfitLoss").toFixed(2)
+                          {mark && (
+                            <Typography
+                              sx={{
+                                fontSize: "10px",
+                                fontWeight: "700",
+                                color: "white",
+                                textTransform: "uppercase",
+                              }}
+                            >
+                              Bet{" "}
+                              <span style={{ color: "#e41b23" }}>deleted</span>{" "}
+                              due to ${"i?.deleteReason"}
+                            </Typography>
                           )}
-                          {Number(i?.myProfitLoss).toFixed(2) || ""}
-                        </Typography>
-
-                        {!matchesMobile && !isArrow && (
-                          <StyledImage
-                            sx={{
-                              width: { xs: "12px", lg: "15px" },
-                              height: { xs: "5px", lg: "7px" },
-                            }}
-                            src={ARROWUP}
-                          />
-                        )}
+                        </Box>
                       </Box>
-                    </Box> */}
-                    {/* )} */}
-                    {/* {profit && i?.deleted_reason && ( */}
-                    {/* <Box
-                      sx={{
-                        height: "40px",
-                        width: "30%",
-                        // margin: { xs: "1px", lg: "1px" },
-                        display: "flex",
-                        background: "black",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        zIndex: 999,
-                      }}
-                    >
-                      <StyledImage
+                    )}
+                    {i?.deleteReason && profit && (
+                      <Box
+                        sx={{
+                          width: {
+                            xs: profit ? "100%" : "100%",
+                            alignItems: "flex-end",
+                            justifyContent: "center",
+                            display: "flex",
+                            lg: profit ? "100 % " : "100% ",
+                          },
+                          // background: "rgba(0, 0, 0, 0.6)",
+                          height: "100%",
+                          position: "absolute",
+                        }}
+                      >
+                        <Box sx={{ width: mark2 ? "20%" : "35%" }}></Box>
+                      </Box>
+                    )}
+                    {profit && !i?.deleteReason && (
+                      <Box
+                        sx={{
+                          height: "40px",
+                          width: "30%",
+                          // margin: { xs: "1px", lg: "1px" },
+                          display: "flex",
+                          background: i?.totalLoss > 0 ? "#10DC61" : "#E32A2A",
+                          justifyContent: "center",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Box
+                          sx={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            height: "100%",
+                            px: "5px",
+                          }}
+                        >
+                          <Typography
+                            sx={{
+                              fontSize: { xs: "9px", lg: "14px" },
+                              color: "white",
+                              fontWeight: "700",
+                            }}
+                          >
+                            {Number(i.totalLoss) >= 0 ? (
+                              <>
+                                <span style={{ visibility: "hidden" }}>-</span>
+                                {Number(i.totalLoss).toFixed(2)}
+                              </>
+                            ) : (
+                              Number(i.totalLoss).toFixed(2)
+                            )}
+                          </Typography>
+
+                          {!matchesMobile && !isArrow && (
+                            <StyledImage
+                              sx={{
+                                width: { xs: "12px", lg: "15px" },
+                                height: { xs: "5px", lg: "7px" },
+                              }}
+                              src={ARROWUP}
+                            />
+                          )}
+                        </Box>
+                      </Box>
+                    )}
+                    {profit && i?.deleteReason && (
+                      <Box
+                        sx={{
+                          height: "40px",
+                          width: "30%",
+                          // margin: { xs: "1px", lg: "1px" },
+                          display: "flex",
+                          background: "black",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          zIndex: 999,
+                        }}
+                      >
+                        <StyledImage
+                          sx={{
+                            width: { xs: "15px", lg: "20px" },
+                            height: { lg: "20px", xs: "14px" },
+                            marginRight: "5px",
+                          }}
+                          src={DELETE}
+                        />
+                        <Typography
+                          sx={{
+                            fontSize: { xs: "7px", lg: ".5vw" },
+                            color: "white",
+                            fontWeight: "700",
+                            width: { lg: "65%", xs: "55%" },
+                            textTransform: "uppercase",
+                          }}
+                        >
+                          Bet <span style={{ color: "#e41b23" }}>Deleted</span>{" "}
+                          Due {"\n"} {"i?.deleteReason"}
+                        </Typography>
+                      </Box>
+                    )}
+                    {i?.deleteReason && betHistory && (
+                      <Box
+                        sx={{
+                          height: "40px",
+                          width: "30%",
+                          // margin: { xs: "1px", lg: "1px" },
+                          display: "flex",
+                          // background: "black",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          zIndex: 999,
+                          position: "absolute",
+                          right: 0,
+                        }}
+                      >
+                        {/* <StyledImage
                         sx={{
                           width: { xs: "15px", lg: "20px" },
                           height: { lg: "20px", xs: "14px" },
@@ -386,47 +434,10 @@ const AllRateSeperate = ({ profit, mark2, allBetsData, count }: any) => {
                         }}
                       >
                         Bet <span style={{ color: "#e41b23" }}>Deleted</span>{" "}
-                        Due {"\n"} {"i?.deleted_reason"}
-                      </Typography>
-                    </Box> */}
-                    {/* // )} */}
-                    {/* {i?.deleted_reason && betHistory && ( */}
-                    <Box
-                      sx={{
-                        height: "40px",
-                        width: "30%",
-                        // margin: { xs: "1px", lg: "1px" },
-                        display: "flex",
-                        // background: "black",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        zIndex: 999,
-                        position: "absolute",
-                        right: 0,
-                      }}
-                    >
-                      {/* <StyledImage
-                        sx={{
-                          width: { xs: "15px", lg: "20px" },
-                          height: { lg: "20px", xs: "14px" },
-                          marginRight: "5px",
-                        }}
-                        src={DELETE}
-                      />
-                      <Typography
-                        sx={{
-                          fontSize: { xs: "7px", lg: ".5vw" },
-                          color: "white",
-                          fontWeight: "700",
-                          width: { lg: "65%", xs: "55%" },
-                          textTransform: "uppercase",
-                        }}
-                      >
-                        Bet <span style={{ color: "#e41b23" }}>Deleted</span>{" "}
-                        Due {"\n"} {"i?.deleted_reason"}
+                        Due {"\n"} {"i?.deleteReason"}
                       </Typography> */}
-                    </Box>
-                    {/* )} */}
+                      </Box>
+                    )}
                   </Box>
                 );
               })}
