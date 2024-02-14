@@ -96,6 +96,30 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
     }
   }, [success]);
 
+
+  const handleProfit=(value:any)=>{
+    let profit ;
+    if(selectedBet?.data?.type==="session"){
+      profit = selectedBet?.team?.type === "no" ? value : (value * selectedBet?.team?.percent) / 100;
+    }else if(selectedBet?.data?.type==="matchOdd"){
+      profit = selectedBet?.team?.type === "back" ? (value * (selectedBet?.team?.rate - 1)) / 100 : value;
+    }else{
+      profit = selectedBet?.team?.type === "back" ? (value * selectedBet?.team?.rate) / 100 : value;
+    }
+    return Number(profit).toFixed(2)
+  }
+  const handleLoss=(value:any)=>{
+    let profit ;
+    if(selectedBet?.data?.type==="session"){
+
+      profit = selectedBet?.team?.type === "yes" ? value : (value * selectedBet?.team?.percent) / 100;
+    }else if(selectedBet?.data?.type==="matchOdd"){
+      profit = selectedBet?.team?.type === "lay" ? (value * (selectedBet?.team?.rate - 1)) / 100 : value;
+    }else{
+      profit = selectedBet?.team?.type === "lay" ? (value * selectedBet?.team?.rate) / 100 : value;
+    }
+    return Number(profit).toFixed(2)
+  }
   return (
     <Box
       sx={[
@@ -141,22 +165,14 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
           >
             <PlaceBetMoneyBox
               trendingUp={false}
-              rate={
-                selectedBet?.team?.type == "back"
-                  ? Number((stakeValue * selectedBet?.team?.rate) / 100)
-                  : Number(stakeValue)
-              }
+              rate={handleProfit(stakeValue)}
               // rate={Number(newRates?.winAmount)?.toFixed(2)}
               color={"#10DC61"}
             />
             <Box sx={{ width: "5px" }}></Box>
             <PlaceBetMoneyBox
               trendingDown={false}
-              rate={
-                selectedBet?.team?.type == "back"
-                  ? Number(stakeValue)
-                  : Number((stakeValue * selectedBet?.team?.rate) / 100)
-              }
+              rate={handleLoss(stakeValue)}
               color={"#FF4D4D"}
             />
             <Box sx={{ width: "5px", marginRight: "20px" }}></Box>
