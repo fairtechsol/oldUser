@@ -6,7 +6,10 @@ import { AppDispatch, RootState } from "../../../../store/store";
 import NotificationModal from "../../../Common/NotificationModal";
 import { ApiConstants } from "../../../../utils/Constants";
 import { useDispatch } from "react-redux";
-import { placeBet } from "../../../../store/actions/betPlace/betPlaceActions";
+import {
+  betPlaceSuccessReset,
+  placeBet,
+} from "../../../../store/actions/betPlace/betPlaceActions";
 import NumberData from "./NumberDataFastTime";
 const FastTimePlaceBet = ({
   session,
@@ -20,6 +23,7 @@ const FastTimePlaceBet = ({
 }: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
+  const { success } = useSelector((state: RootState) => state.match.bet);
   const [ipAddress] = useState(null);
   const [canceled, setCanceled] = useState({
     value: false,
@@ -182,6 +186,13 @@ const FastTimePlaceBet = ({
   //     }
   //   }
   // };
+
+  useEffect(() => {
+    if (success) {
+      setShowFastTimeBox(false);
+      dispatch(betPlaceSuccessReset());
+    }
+  }, [success]);
 
   return (
     <>

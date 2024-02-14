@@ -54,8 +54,8 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
       ? sessionButtonValues
       : matchButtonValues;
 
-  const [stake, setStake] = useState<any>(0);
-  const [newRates, setNewRates] = useState({
+  const [_, setStake] = useState<any>(0);
+  const [__, setNewRates] = useState({
     lossAmount: 0,
     winAmount: 0,
   });
