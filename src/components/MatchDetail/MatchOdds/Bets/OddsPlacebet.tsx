@@ -20,7 +20,6 @@ import Lottie from "lottie-react";
 
 const OddsPlaceBet = ({ handleClose, season, type }: any) => {
   const [stakeValue, setStakeValue] = useState<any>(" ");
-  const [betPlaceLoading, setBetPlaceLoading] = useState(false);
 
   const { buttonValues, getProfile } = useSelector(
     (state: RootState) => state.user.profile
@@ -28,7 +27,6 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
   const { selectedBet } = useSelector(
     (state: RootState) => state.match.matchList
   );
-  // console.log( selectedBet);
   let sessionButtonValues: any = [];
   let matchButtonValues: any = [];
 
@@ -54,12 +52,14 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
       ? sessionButtonValues
       : matchButtonValues;
 
-  const [_, setStake] = useState<any>(0);
-  const [__, setNewRates] = useState({
+  const [stake, setStake] = useState<any>(0);
+  console.log(stake);
+  const [newRates, setNewRates] = useState({
     lossAmount: 0,
     winAmount: 0,
   });
-  const { success } = useSelector((state: RootState) => state.match.bet);
+  console.log(newRates);
+  const { success, loading } = useSelector((state: RootState) => state.match.bet);
   const dispatch: AppDispatch = useDispatch();
   const theme = useTheme();
   const [browserInfo, setBrowserInfo] = useState<any>(null);
@@ -90,36 +90,12 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
 
   useEffect(() => {
     if (success) {
-      setBetPlaceLoading(false);
       dispatch(selectedBetAction(null));
       dispatch(betPlaceSuccessReset());
       handleClose();
     }
   }, [success]);
-  const handleProfit=(value:any)=>{
-    let profit ;
-    if(selectedBet?.data?.type==="session"){
-      profit = selectedBet?.team?.type === "no" ? value : (value * selectedBet?.team?.percent) / 100;
-    }else if(selectedBet?.data?.type==="matchOdd"){
-      profit = selectedBet?.team?.type === "back" ? (value * (selectedBet?.team?.rate - 1)) / 100 : value;
-    }else{
-      profit = selectedBet?.team?.type === "back" ? (value * selectedBet?.team?.rate) / 100 : value;
-    }
-    return Number(profit)
-  }
-  const handleLoss=(value:any)=>{
-    let profit ;
-    if(selectedBet?.data?.type==="session"){
-    
-      profit = selectedBet?.team?.type === "yes" ? value : (value * selectedBet?.team?.percent) / 100;
-    }else if(selectedBet?.data?.type==="matchOdd"){
-      profit = selectedBet?.team?.type === "lay" ? (value * (selectedBet?.team?.rate - 1)) / 100 : value;
-    }else{
-      profit = selectedBet?.team?.type === "lay" ? (value * selectedBet?.team?.rate) / 100 : value;
-    }
-    return Number(profit)
-  }
-  // handleLoss()
+
   return (
     <Box
       sx={[
@@ -165,14 +141,22 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
           >
             <PlaceBetMoneyBox
               trendingUp={false}
-              rate={handleProfit(stakeValue)}
+              rate={
+                selectedBet?.team?.type == "back"
+                  ? Number((stakeValue * selectedBet?.team?.rate) / 100)
+                  : Number(stakeValue)
+              }
               // rate={Number(newRates?.winAmount)?.toFixed(2)}
               color={"#10DC61"}
             />
             <Box sx={{ width: "5px" }}></Box>
             <PlaceBetMoneyBox
               trendingDown={false}
-              rate={handleLoss(stakeValue)}
+              rate={
+                selectedBet?.team?.type == "back"
+                  ? Number(stakeValue)
+                  : Number((stakeValue * selectedBet?.team?.rate) / 100)
+              }
               color={"#FF4D4D"}
             />
             <Box sx={{ width: "5px", marginRight: "20px" }}></Box>
@@ -311,17 +295,16 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
               color: "#fff",
               backgroundColor: "#262626",
               width: "150px",
-              cursor: betPlaceLoading ? "not-allowed" : "pointer",
+              cursor: loading ? "not-allowed" : "pointer",
               // width: { lg: "150px", xs: "130px" },
               height: "35px",
               borderRadius: "5px",
               border: "2px solid white",
             }}
             onClick={() => {
-              if (betPlaceLoading) {
+              if (loading) {
                 return;
               } else {
-                setBetPlaceLoading(true);
                 let payloadForSession: any = {
                   betId: selectedBet?.team?.betId,
                   betType: selectedBet?.team?.type.toUpperCase(),
@@ -399,7 +382,7 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
         </Box>
       </Box>
 
-      {betPlaceLoading && (
+      {loading && (
         <Box
           sx={{
             position: "absolute",

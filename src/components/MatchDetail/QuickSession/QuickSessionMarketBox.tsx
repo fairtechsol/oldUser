@@ -96,7 +96,10 @@ const QuickSessionMarketBox = ({
           /> */}
         </Box>
         {matchesMobile && (
-          <PlaceBetComponent amount={index == 2} profitLoss={data} />
+          <PlaceBetComponent 
+          amount={index == 2}
+          data={data}
+            profitLoss={(profitLossData && profitLossData[0]) ?? {}} />
         )}
         {!matchesMobile && (
           <PlaceBetComponentWeb
