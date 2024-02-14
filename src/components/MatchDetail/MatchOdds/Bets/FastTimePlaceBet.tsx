@@ -10,13 +10,13 @@ import { placeBet } from "../../../../store/actions/betPlace/betPlaceActions";
 import NumberData from "./NumberDataFastTime";
 const FastTimePlaceBet = ({
   session,
-
   selectedFastAmount,
   typeOfBet,
   matchOddsData,
   data,
   fromOdds,
   selectedValue,
+  setShowFastTimeBox,
 }: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -113,7 +113,7 @@ const FastTimePlaceBet = ({
           : "";
     }
 
-    let payloadForSession: any = {
+    let payload: any = {
       betId: matchOddsData?.id,
       betOnTeam: betTeam,
       bettingType: type,
@@ -121,7 +121,18 @@ const FastTimePlaceBet = ({
       matchId: matchOddsData?.matchId,
       ipAddress:
         ipAddress === "Not found" || !ipAddress ? "192.168.1.100" : ipAddress,
-      odd: type === "BACK" ? matchOddsData?.backTeamA : matchOddsData?.layTeamA,
+      odd:
+        matchOddsData?.statusTeamA === "active"
+          ? type === "BACK"
+            ? matchOddsData?.backTeamA
+            : matchOddsData?.layTeamA
+          : matchOddsData?.statusTeamB === "active"
+          ? type === "BACK"
+            ? matchOddsData?.backTeamB
+            : matchOddsData?.layTeamB
+          : type === "BACK"
+          ? matchOddsData?.backTeamC
+          : matchOddsData?.layTeamC,
       matchBetType: matchOddsData?.type,
       stake: stake,
       placeIndex: 0,
@@ -129,35 +140,12 @@ const FastTimePlaceBet = ({
       teamB: matchDetails?.teamB,
       teamC: matchDetails?.teamC,
     };
-
-    // let payloadForBettings: any = {
-    //   betId: matchOddsData?.id,
-    //   teamA: matchOddsData?.teamA,
-    //   teamB: matchOddsData?.teamB,
-    //   teamC: matchOddsData?.teamC,
-    //   eventName: selectedBet?.team?.name,
-    //   eventType: selectedBet?.team?.eventType,
-    //   matchId: selectedBet?.team?.matchId,
-    //   bettingType: selectedBet?.team?.type.toUpperCase(),
-    //   browserDetail: browserInfo?.userAgent,
-
-    //   ipAddress:
-    //     ipAddress === "Not found" || !ipAddress
-    //       ? "192.168.1.100"
-    //       : ipAddress,
-    //   odd: selectedBet?.team?.rate,
-    //   stake: stake || selectedBet?.team?.stake,
-    //   matchBetType: selectedBet?.team?.matchBetType,
-    //   betOnTeam: selectedBet?.team?.betOnTeam,
-    //   placeIndex: selectedBet?.team?.placeIndex,
-    // };
-    // dispatch(
-    //   placeBet({
-    //     url: ApiConstants.BET.PLACEBETMATCHBETTING,
-    //     data: JSON.stringify(payloadForSession),
-    //   })
-    // );
-    console.log("payloadForSession", payloadForSession);
+    dispatch(
+      placeBet({
+        url: ApiConstants.BET.PLACEBETMATCHBETTING,
+        data: JSON.stringify(payload),
+      })
+    );
   };
 
   // const handleChange = (e: any) => {
