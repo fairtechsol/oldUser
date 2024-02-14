@@ -337,7 +337,7 @@ const QuickSessionMarket = ({
                         }}
                         handleRateChange={handleRateChange}
                         eventType={eventType}
-                        profitLossData={allBetsData.filter(
+                        profitLossData={allBetsData?.filter(
                           (item: any) => item?.betId === element?.id
                         )}
                       />
