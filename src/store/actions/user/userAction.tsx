@@ -40,6 +40,12 @@ export const updateBalance = createAsyncThunk<any, any>(
     return balance;
   }
 );
+export const updateBalanceFromSocket = createAsyncThunk<any, any>(
+  "/user/balanceFromSocket",
+  async (balance) => {
+    return balance;
+  }
+);
 
 export const betDataFromSocket = createAsyncThunk<any, any>(
   "/betData/update",

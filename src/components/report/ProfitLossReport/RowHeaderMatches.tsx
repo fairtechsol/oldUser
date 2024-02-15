@@ -1,12 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { memo } from "react";
-import {
-  ARROW_DOWN,
-  ARROWUP,
-  ARROW_UP,
-  ArrowDown,
-  Cricket,
-} from "../../../assets";
+import { ARROW_DOWN, ARROW_UP, ArrowDown, Cricket } from "../../../assets";
 import StyledImage from "../../Common/StyledImages";
 
 const RowHeaderMatches = ({ item, getHandleReport, show }: any) => {
