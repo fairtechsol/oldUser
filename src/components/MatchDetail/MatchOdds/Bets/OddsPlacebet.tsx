@@ -101,24 +101,24 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
     let profit ;
     if(selectedBet?.data?.type==="session"){
       profit = selectedBet?.team?.type === "no" ? value : (value * selectedBet?.team?.percent) / 100;
-    }else if(selectedBet?.data?.type==="matchOdd"){
-      profit = selectedBet?.team?.type === "back" ? (value * (selectedBet?.team?.rate - 1)) / 100 : value;
+    }else if(selectedBet?.data?.type==="matchOdd" || selectedBet?.data?.type==="tiedMatch1" || selectedBet?.data?.type==="completeMatch"){
+      profit = selectedBet?.team?.type === "back" ? (value * ((selectedBet?.team?.rate - 1) * 100)) / 100 : value;
     }else{
       profit = selectedBet?.team?.type === "back" ? (value * selectedBet?.team?.rate) / 100 : value;
     }
-    return Number(profit).toFixed(2)
+    return Number(+profit).toFixed(2)
   }
   const handleLoss=(value:any)=>{
     let profit ;
     if(selectedBet?.data?.type==="session"){
 
       profit = selectedBet?.team?.type === "yes" ? value : (value * selectedBet?.team?.percent) / 100;
-    }else if(selectedBet?.data?.type==="matchOdd"){
-      profit = selectedBet?.team?.type === "lay" ? (value * (selectedBet?.team?.rate - 1)) / 100 : value;
+    }else if(selectedBet?.data?.type==="matchOdd" || selectedBet?.data?.type==="tiedMatch1" || selectedBet?.data?.type==="completeMatch"){
+      profit = selectedBet?.team?.type === "lay" ? (value * ((selectedBet?.team?.rate - 1) * 100)) / 100 : value;
     }else{
       profit = selectedBet?.team?.type === "lay" ? (value * selectedBet?.team?.rate) / 100 : value;
     }
-    return Number(profit).toFixed(2)
+    return Number(+profit).toFixed(2)
   }
   return (
     <Box

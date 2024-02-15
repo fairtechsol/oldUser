@@ -52,7 +52,7 @@ const RowComponent = ({ header, data }: any) => {
               time={getTime(data.createdAt)}
             />
           {/* </Box> */}
-          <Box sx={{ maxWidth: "12%" , minWidth: "14%"}}>
+          <Box sx={{ maxWidth: "14%" , minWidth: "15%", overflow: "hidden", textWrap: "nowrap",display: "flex"}}>
             <SingleBox
               color={getColor()}
               data={
@@ -113,7 +113,7 @@ const RowComponent = ({ header, data }: any) => {
             color={getColor()}
             data={data[1]}
             header={header}
-            boxWidth="68%"
+            boxWidth="70%"
           />
           <SingleBox
             color={getColor()}
