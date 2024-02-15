@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react";
+import  { lazy, Suspense } from "react";
 import Loader from "../components/Loader";
 
 const Loadable = (importFunc: any) => {

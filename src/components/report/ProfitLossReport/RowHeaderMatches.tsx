@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import { memo } from "react";
 import {
   ARROW_DOWN,
-  ARROWUP,
+  // ARROWUP,
   ARROW_UP,
   ArrowDown,
   Cricket,
