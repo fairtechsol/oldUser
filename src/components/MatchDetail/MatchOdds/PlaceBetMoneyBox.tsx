@@ -3,6 +3,7 @@ import StyledImage from "../../Common/StyledImages";
 
 
 const PlaceBetMoneyBox = ({ color, trendingDown, rate, trendingUp }: any) => {
+    
     return (
         <Box
             sx={{
@@ -13,6 +14,7 @@ const PlaceBetMoneyBox = ({ color, trendingDown, rate, trendingUp }: any) => {
                 background: color,
                 borderRadius: "4px",
                 display: "flex",
+                overflow: "hidden", 
                 // marginRight: "50px"
                 // paddingRight: "50px"
 
