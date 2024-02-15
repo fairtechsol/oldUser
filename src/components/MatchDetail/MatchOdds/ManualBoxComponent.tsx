@@ -47,16 +47,15 @@ const ManualBoxComponent = ({
     let checkDecimal = value % 1; // get the decimal portion of the number
     // alert(checkDecimal)
     if (checkDecimal >= 0.5) {
-      let getValue =
-        type == "back" ? Math.round(value) - gap : Math.round(value - 1) + gap;
+      let getValue = type == "back" ? value - gap : value - 1 + gap;
       let checkZeroHundred =
         type == "back"
           ? getValue < 1
             ? 0
-            : Math.round(getValue)
+            : getValue
           : getValue >= 100
           ? 100
-          : Math.round(getValue);
+          : getValue;
       let returnValue;
       if (type == "back") {
         let check = value % 1;
@@ -76,10 +75,10 @@ const ManualBoxComponent = ({
         type == "back"
           ? getValue < 1
             ? 0
-            : Math.round(getValue)
+            : getValue
           : getValue >= 100
           ? 100
-          : Math.round(getValue);
+          : getValue;
       let returnValue;
       if (type == "back") {
         let check = value % 1;
@@ -266,11 +265,7 @@ const ManualBoxComponent = ({
                     betType={"back"}
                     lock={
                       matchOddsData?.back
-                        ? handleDecimal(
-                            Math.round(matchOddsData?.back),
-                            2,
-                            "back"
-                          ) > 0
+                        ? handleDecimal(+matchOddsData?.back, 2, "back") > 0
                           ? false
                           : true
                         : true
@@ -278,11 +273,7 @@ const ManualBoxComponent = ({
                     rates={allRates}
                     value={
                       matchOddsData?.back
-                        ? handleDecimal(
-                            Math.round(matchOddsData?.back),
-                            2,
-                            "back"
-                          )
+                        ? handleDecimal(+matchOddsData?.back, 2, "back")
                         : 0
                     }
                     value2={""}
@@ -317,11 +308,7 @@ const ManualBoxComponent = ({
                     // lock={lock}
                     lock={
                       matchOddsData?.back
-                        ? handleDecimal(
-                            Math.round(matchOddsData?.back),
-                            1,
-                            "back"
-                          ) > 0
+                        ? handleDecimal(+matchOddsData?.back, 1, "back") > 0
                           ? false
                           : true
                         : true
@@ -330,7 +317,7 @@ const ManualBoxComponent = ({
                     // value={matchOddsData?.back ? matchOddsData?.back - 1 : 0}
                     value={
                       matchOddsData?.back
-                        ? handleDecimal(matchOddsData?.back, 1, "back")
+                        ? handleDecimal(+matchOddsData?.back, 1, "back")
                         : 0
                     }
                     value2={""}
@@ -364,9 +351,7 @@ const ManualBoxComponent = ({
                   // lock={lock}
                   lock={matchOddsData?.back > 0 ? false : true}
                   rates={allRates}
-                  value={
-                    matchOddsData?.back ? Math.round(matchOddsData?.back) : 0
-                  }
+                  value={matchOddsData?.back ? +matchOddsData?.back : 0}
                   value2={""}
                   color={matchesMobile ? "#B3E0FF" : "#A7DCFF"}
                   type={{ color: "#A7DCFF", type: "BL" }}
@@ -397,9 +382,7 @@ const ManualBoxComponent = ({
                   betType={"lay"}
                   lock={matchOddsData?.lay > 0 ? false : true}
                   rates={allRates}
-                  value={
-                    matchOddsData?.lay ? Math.round(matchOddsData?.lay) : 0
-                  }
+                  value={matchOddsData?.lay ? +matchOddsData?.lay : 0}
                   value2={""}
                   color={matchesMobile ? "#F6D0CB" : "#FFB5B5"}
                   type={{ color: "#FFB5B5", type: "BL" }}
@@ -427,15 +410,14 @@ const ManualBoxComponent = ({
                     betType={"lay"}
                     lock={
                       matchOddsData?.lay
-                        ? handleDecimal(Math.round(matchOddsData?.lay), 1, "") >
-                          0
+                        ? handleDecimal(+matchOddsData?.lay, 1, "") > 0
                           ? false
                           : true
                         : true
                     }
                     value={
                       matchOddsData?.lay
-                        ? handleDecimal(Math.round(matchOddsData?.lay), 1, "")
+                        ? handleDecimal(+matchOddsData?.lay, 1, "")
                         : 0
                     }
                     value2={""}
@@ -466,8 +448,7 @@ const ManualBoxComponent = ({
                     betType={"lay"}
                     lock={
                       matchOddsData?.lay
-                        ? handleDecimal(Math.round(matchOddsData?.lay), 2, "") >
-                          0
+                        ? handleDecimal(+matchOddsData?.lay, 2, "") > 0
                           ? false
                           : true
                         : true
@@ -475,7 +456,7 @@ const ManualBoxComponent = ({
                     // value={matchOddsData?.lay ? matchOddsData?.lay + 2 : 0}
                     value={
                       matchOddsData?.lay
-                        ? handleDecimal(Math.round(matchOddsData?.lay), 2, "")
+                        ? handleDecimal(+matchOddsData?.lay, 2, "")
                         : 0
                     }
                     value2={""}

@@ -188,7 +188,6 @@ const MatchOdds = ({ matchDetails, data }: any) => {
           betLock={data?.blockMarket?.BOOKMAKER?.block}
           showBox={matchDetails?.marketCompleteMatch?.activeStatus === "save"}
           newData={data}
-          
           showFast={false}
           showDely={true}
           lock={
