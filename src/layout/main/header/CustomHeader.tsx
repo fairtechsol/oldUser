@@ -25,7 +25,7 @@ const CustomHeader = () => {
   );
   const navigate = useNavigate();
   const [showSideBarMobile] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(true);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const [isOnline] = useState(navigator.onLine);
 
   useEffect(() => {

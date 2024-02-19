@@ -56,9 +56,9 @@ const FastTime = ({
           style={{ width: "30px", height: "30px" }}
           src={FASTTIME}
           onClick={() => {
-            if (
+                     if (
               matchOddsData?.statusTeamA === "active" ||
-              matchOddsData?.statusTeamb === "active" ||
+              matchOddsData?.statusTeamB === "active" ||
               matchOddsData?.statusTeamC === "active"
             ) {
               setShowFastTimeBox((prev: boolean) => !prev);
