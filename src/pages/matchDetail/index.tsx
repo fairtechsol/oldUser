@@ -56,7 +56,6 @@ const MatchDetail = () => {
     try {
       if (event?.betPlaced?.placedBet?.matchId === state?.matchId) {
         dispatch(updateBetsPlaced(event?.betPlaced?.placedBet));
-        dispatch(updateBalance(event));
         dispatch(betDataFromSocket(event));
         dispatch(updateMaxLossForBet(event));
       }
