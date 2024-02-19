@@ -20,7 +20,6 @@ import Lottie from "lottie-react";
 
 const OddsPlaceBet = ({ handleClose, season, type }: any) => {
   const [stakeValue, setStakeValue] = useState<any>(" ");
-
   const { buttonValues, getProfile } = useSelector(
     (state: RootState) => state.user.profile
   );
@@ -52,14 +51,14 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
       ? sessionButtonValues
       : matchButtonValues;
 
-  const [stake, setStake] = useState<any>(0);
-  console.log(stake);
-  const [newRates, setNewRates] = useState({
+  const [_, setStake] = useState<any>(0);
+  const [__, setNewRates] = useState({
     lossAmount: 0,
     winAmount: 0,
   });
-  console.log(newRates);
-  const { success, loading } = useSelector((state: RootState) => state.match.bet);
+  const { success, loading } = useSelector(
+    (state: RootState) => state.match.bet
+  );
   const dispatch: AppDispatch = useDispatch();
   const theme = useTheme();
   const [browserInfo, setBrowserInfo] = useState<any>(null);
@@ -96,30 +95,54 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
     }
   }, [success]);
 
-
-  const handleProfit=(value:any)=>{
-    let profit ;
-    if(selectedBet?.data?.type==="session"){
-      profit = selectedBet?.team?.type === "no" ? value : (value * selectedBet?.team?.percent) / 100;
-    }else if(selectedBet?.data?.type==="matchOdd" || selectedBet?.data?.type==="tiedMatch1" || selectedBet?.data?.type==="completeMatch"){
-      profit = selectedBet?.team?.type === "back" ? (value * ((selectedBet?.team?.rate - 1) * 100)) / 100 : value;
-    }else{
-      profit = selectedBet?.team?.type === "back" ? (value * selectedBet?.team?.rate) / 100 : value;
+  const handleProfit = (value: any) => {
+    let profit;
+    if (selectedBet?.data?.type === "session") {
+      profit =
+        selectedBet?.team?.type === "no"
+          ? value
+          : (value * selectedBet?.team?.percent) / 100;
+    } else if (
+      selectedBet?.data?.type === "matchOdd" ||
+      selectedBet?.data?.type === "tiedMatch1" ||
+      selectedBet?.data?.type === "completeMatch"
+    ) {
+      profit =
+        selectedBet?.team?.type === "back"
+          ? (value * ((selectedBet?.team?.rate - 1) * 100)) / 100
+          : value;
+    } else {
+      profit =
+        selectedBet?.team?.type === "back"
+          ? (value * selectedBet?.team?.rate) / 100
+          : value;
     }
-    return Number(+profit).toFixed(2)
-  }
-  const handleLoss=(value:any)=>{
-    let profit ;
-    if(selectedBet?.data?.type==="session"){
-
-      profit = selectedBet?.team?.type === "yes" ? value : (value * selectedBet?.team?.percent) / 100;
-    }else if(selectedBet?.data?.type==="matchOdd" || selectedBet?.data?.type==="tiedMatch1" || selectedBet?.data?.type==="completeMatch"){
-      profit = selectedBet?.team?.type === "lay" ? (value * ((selectedBet?.team?.rate - 1) * 100)) / 100 : value;
-    }else{
-      profit = selectedBet?.team?.type === "lay" ? (value * selectedBet?.team?.rate) / 100 : value;
+    return Number(+profit).toFixed(2);
+  };
+  const handleLoss = (value: any) => {
+    let profit;
+    if (selectedBet?.data?.type === "session") {
+      profit =
+        selectedBet?.team?.type === "yes"
+          ? value
+          : (value * selectedBet?.team?.percent) / 100;
+    } else if (
+      selectedBet?.data?.type === "matchOdd" ||
+      selectedBet?.data?.type === "tiedMatch1" ||
+      selectedBet?.data?.type === "completeMatch"
+    ) {
+      profit =
+        selectedBet?.team?.type === "lay"
+          ? (value * ((selectedBet?.team?.rate - 1) * 100)) / 100
+          : value;
+    } else {
+      profit =
+        selectedBet?.team?.type === "lay"
+          ? (value * selectedBet?.team?.rate) / 100
+          : value;
     }
-    return Number(+profit).toFixed(2)
-  }
+    return Number(+profit).toFixed(2);
+  };
   return (
     <Box
       sx={[

@@ -26,7 +26,7 @@ const betPlace = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(placeBet.pending, (state) => {
-        state.loading = false;
+        state.loading = true;
         state.success = false;
         state.error = null;
       })
