@@ -16,6 +16,7 @@ const SessionMarketBox = ({
   allRates,
   sessionMain,
   setFastAmount,
+  eventType,
   closeModal,
   setFastBetLoading,
   handleRateChange,
@@ -80,7 +81,7 @@ const SessionMarketBox = ({
             textAlign: "start",
           }}
         >
-          {data?.bet_condition}
+          {data?.name}
         </Typography>
       </Box>
       {matchesMobile && (
@@ -89,8 +90,8 @@ const SessionMarketBox = ({
       {!matchesMobile && (
         <PlaceBetComponentWeb amount={index === 2} profitLoss={data} />
       )}
-      {!["ACTIVE", "", undefined, null, ""].includes(data?.suspended) ||
-      (data.yes_rate === null && data.no_rate === null) ? (
+      {!["ACTIVE", "active", "", undefined, null, ""].includes(data?.status) ||
+      (data.yesRate === null && data.noRate === null) ? (
         <Box
           sx={{
             background: "rgba(0,0,0,1)",
@@ -106,7 +107,7 @@ const SessionMarketBox = ({
             zIndex: 1,
           }}
         >
-          {data?.suspended == "Ball Started" ? (
+          {data?.status == "Ball Running" ? (
             <img src={BallStart} style={{ width: "113px", height: "32px" }} />
           ) : (
             <Typography
@@ -119,7 +120,7 @@ const SessionMarketBox = ({
                 fontWeight: "400",
               }}
             >
-              {data?.suspended}
+              {data?.status}
             </Typography>
           )}
         </Box>
@@ -162,15 +163,16 @@ const SessionMarketBox = ({
               closeModal={closeModal}
               setFastBetLoading={setFastBetLoading}
               po={2}
+              eventType={eventType}
               setFastAmount={setFastAmount}
               rates={allRates}
               session={true}
               sessionMain={sessionMain}
               selectedFastAmount={selectedFastAmount}
               betType={"no"}
-              value={data?.no_rate}
-              //   value2={formatNumber("100%")}
-              lock={[null, 0, "0"].includes(data?.no_rate) ? true : false}
+              value={data?.noRate}
+              value2={data?.noPercent}
+              lock={[null, 0, "0"].includes(data?.noRate) ? true : false}
               color={"#F6D0CB"}
               type={{ color: "#FFB5B5", type: "YN" }}
               typeOfBet={typeOfBet}
@@ -186,15 +188,16 @@ const SessionMarketBox = ({
               closeModal={closeModal}
               setFastBetLoading={setFastBetLoading}
               po={1}
+              eventType={eventType}
               sessionMain={sessionMain}
               rates={allRates}
               setFastAmount={setFastAmount}
               selectedFastAmount={selectedFastAmount}
               session={true}
               betType={"yes"}
-              value={data?.yes_rate}
-              //   value2={formatNumber("data?.rate_percent?.split("-")[1]")}
-              lock={[null, 0, "0"].includes(data?.yes_rate) ? true : false}
+              value={data?.yesRate}
+              value2={data?.yesPercent}
+              lock={[null, 0, "0"].includes(data?.yesRate) ? true : false}
               color={"#B3E0FF"}
               type={{ color: "#A7DCFF", type: "YN" }}
               typeOfBet={typeOfBet}

@@ -142,6 +142,7 @@ const matchListSlice = createSlice({
                   yesRate: matchingApiSession.LayPrice1,
                   yesPercent: matchingApiSession.LaySize1,
                   activeStatus: "live",
+                  status: matchingApiSession?.status,
                 });
               } else {
                 return JSON.stringify({

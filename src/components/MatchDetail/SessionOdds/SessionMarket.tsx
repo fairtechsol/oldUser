@@ -21,19 +21,20 @@ const SessionMarket = ({
   sessionExposer,
   sessionBets,
   setFastAmount,
+  newData,
   fastAmount,
   session,
   betLock,
   upcoming,
   handleRateChange,
   title,
+  eventType,
   max,
   min,
   typeOfBet,
 }: any) => {
   const [showFastTimeBox, setShowFastTimeBox] = useState(false);
   // const [fastBetLoading, setFastBetLoading] = useState(false);
-  const [localSessionBettings] = useState([]);
   // const [localData, setLocalData] = useState(newData);
   // useEffect(() => {
   //   setLocalData(newData);
@@ -307,8 +308,8 @@ const SessionMarket = ({
                 </Box>
               </Box>
             )}
-            {/* 
-            {upcoming && matchSessionData?.length > 0 && (
+
+            {upcoming && (
               <Box
                 sx={{
                   position: "absolute",
@@ -322,7 +323,7 @@ const SessionMarket = ({
                   background: "rgba(0, 0, 0, .5)",
                 }}
               ></Box>
-            )} */}
+            )}
 
             <Box
               sx={{
@@ -334,8 +335,8 @@ const SessionMarket = ({
                 // overflowY: "visible",
               }}
             >
-              {localSessionBettings?.length > 0 &&
-                localSessionBettings
+              {newData?.length > 0 &&
+                newData
                   ?.slice()
                   .sort(customSort)
                   ?.map((element: any) => {
@@ -349,12 +350,10 @@ const SessionMarket = ({
                       >
                         <SessionMarketBox
                           upcoming={upcoming}
-                          //   closeModal={
-                          //     [0, 2]?.includes("element?.betStatus") ? true : false
-                          //   }
                           typeOfBet={typeOfBet}
                           setFastBetLoading={() => {}}
-                          data={element}
+                          eventType={eventType}
+                          data={JSON.parse(element)}
                           sessionMain={session}
                           selectedFastAmount={fastAmount}
                           setFastAmount={setFastAmount}
