@@ -10,6 +10,7 @@ import SecureAuthVerification from "../../pages/auth/secureAuthverification";
 import {
   getProfile,
   marqueeNotification,
+  updateBalanceFromSocket,
 } from "../../store/actions/user/userAction";
 import { AppDispatch } from "../../store/store";
 import { useDispatch } from "react-redux";
@@ -19,6 +20,10 @@ const MainLayout = () => {
   const location = useLocation();
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
+
+  const updateLoggedUserBalance = (event: any) => {
+    dispatch(updateBalanceFromSocket(event));
+  };
 
   useEffect(() => {
     if (!sessionStorage.getItem("userToken")) {
@@ -33,6 +38,7 @@ const MainLayout = () => {
     if (sessionStorage.getItem("userToken")) {
       socketService.connect();
       socketService.auth.logout();
+      socketService.userBalance.updateUserBalance(updateLoggedUserBalance);
     } else {
       socketService.disconnect();
     }

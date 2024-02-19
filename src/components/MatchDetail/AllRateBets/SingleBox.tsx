@@ -134,10 +134,11 @@ const SingleBox = ({
         <Typography
           sx={{
             fontWeight: "700",
+            overflow: "hidden",
             fontSize: {
-              xs: "10px",
+              xs: "8px",
               md: "10px",
-              lg: "12px",
+              lg: "10px",
               textTransform: "capitalize",
             },
             color: "black",

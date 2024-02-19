@@ -13,7 +13,6 @@ const ProfitLossComponent = ({
   betData,
   sessionBetData,
   handleReport,
-  // handleBet,
   currentPage,
   pageCount,
   setCurrentPage,
