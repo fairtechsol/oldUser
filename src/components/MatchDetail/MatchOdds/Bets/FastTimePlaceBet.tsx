@@ -37,7 +37,6 @@ const FastTimePlaceBet = ({
   const { matchDetails } = useSelector(
     (state: RootState) => state.match.matchList
   );
-  console.log("matchOddsData", matchOddsData);
   const { buttonValues } = useSelector(
     (state: RootState) => state.user.profile
   );
