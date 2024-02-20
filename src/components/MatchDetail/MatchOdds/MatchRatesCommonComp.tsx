@@ -20,12 +20,12 @@ const MatchRatesCommonComp = (props: any) => {
         <SeparateBox
           value={
             data && data[0]?.runners
-              ? data[0]?.runners[runnerPosition]?.ex?.availableToBack[2].price
+              ? data[0]?.runners[runnerPosition]?.ex?.availableToBack[2]?.price
               : 0
           }
           value2={
             data && data[0]?.runners
-              ? data[0]?.runners[runnerPosition]?.ex?.availableToBack[2].price
+              ? data[0]?.runners[runnerPosition]?.ex?.availableToBack[2]?.price
               : 0
           }
           color={matchesMobile ? "white" : "#CEEBFF"}
@@ -43,12 +43,12 @@ const MatchRatesCommonComp = (props: any) => {
         <SeparateBox
           value={
             data && data[0]?.runners
-              ? data[0]?.runners[runnerPosition]?.ex?.availableToBack[1].price
+              ? data[0]?.runners[runnerPosition]?.ex?.availableToBack[1]?.price
               : 0
           }
           value2={
             data && data[0]?.runners
-              ? data[0]?.runners[runnerPosition]?.ex?.availableToBack[1].price
+              ? data[0]?.runners[runnerPosition]?.ex?.availableToBack[1]?.price
               : 0
           }
           color={matchesMobile ? "white" : "#C2E6FF"}
@@ -58,12 +58,12 @@ const MatchRatesCommonComp = (props: any) => {
       <SeparateBox
         value={
           data && data[0]?.runners
-            ? data[0]?.runners[runnerPosition]?.ex?.availableToBack[0].price
+            ? data[0]?.runners[runnerPosition]?.ex?.availableToBack[0]?.price
             : 0
         }
         value2={
           data && data[0]?.runners
-            ? data[0]?.runners[runnerPosition]?.ex?.availableToBack[0].size
+            ? data[0]?.runners[runnerPosition]?.ex?.availableToBack[0]?.size
             : 0
         }
         color={matchesMobile ? "#A7DCFF" : "#A7DCFF"}
@@ -72,12 +72,12 @@ const MatchRatesCommonComp = (props: any) => {
       <SeparateBox
         value={
           data && data[0]?.runners
-            ? data[0]?.runners[runnerPosition]?.ex?.availableToLay[0].price
+            ? data[0]?.runners[runnerPosition]?.ex?.availableToLay[0]?.price
             : 0
         }
         value2={
           data && data[0]?.runners
-            ? data[0]?.runners[runnerPosition]?.ex?.availableToLay[0].size
+            ? data[0]?.runners[runnerPosition]?.ex?.availableToLay[0]?.size
             : 0
         }
         color={matchesMobile ? "#FFB5B5" : "#FFB5B5"}
@@ -87,12 +87,12 @@ const MatchRatesCommonComp = (props: any) => {
         <SeparateBox
           value={
             data && data[0]?.runners
-              ? data[0]?.runners[runnerPosition]?.ex?.availableToLay[1].price
+              ? data[0]?.runners[runnerPosition]?.ex?.availableToLay[1]?.price
               : 0
           }
           value2={
             data && data[0]?.runners
-              ? data[0]?.runners[runnerPosition]?.ex?.availableToLay[1].price
+              ? data[0]?.runners[runnerPosition]?.ex?.availableToLay[1]?.price
               : 0
           }
           color={matchesMobile ? "white" : "#F2CBCB"}
@@ -103,12 +103,12 @@ const MatchRatesCommonComp = (props: any) => {
         <SeparateBox
           value={
             data && data[0]?.runners
-              ? data[0]?.runners[runnerPosition]?.ex?.availableToLay[2].price
+              ? data[0]?.runners[runnerPosition]?.ex?.availableToLay[2]?.price
               : 0
           }
           value2={
             data && data[0]?.runners
-              ? data[0]?.runners[runnerPosition]?.ex?.availableToLay[2].price
+              ? data[0]?.runners[runnerPosition]?.ex?.availableToLay[2]?.price
               : 0
           }
           color={matchesMobile ? "white" : "#ECD6D6"}

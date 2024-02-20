@@ -1,17 +1,22 @@
-import { Pagination, Box } from "@mui/material";
+import { Box, Pagination } from "@mui/material";
 import { memo, useEffect, useState } from "react";
-import Odds from "./Odds";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { expertSocketService, socketService } from "../../../socketManager";
+import {
+  getMatchList,
+  updateMatchOddRates,
+} from "../../../store/actions/match/matchListAction";
+import { AppDispatch, RootState } from "../../../store/store";
 import { Constants } from "../../../utils/Constants";
 import CustomLoader from "../../Loader/index";
-import { useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../../store/store";
-import { expertSocketService } from "../../../socketManager";
-import { useDispatch } from "react-redux";
-import { updateMatchOddRates } from "../../../store/actions/match/matchListAction";
+import Odds from "./Odds";
 
 const MatchesComponent = (_: any) => {
   const dispatch: AppDispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [selectedMatchId, setSelectedMatchId] = useState("");
+  const navigate = useNavigate();
 
   const { matchList, loading } = useSelector(
     (state: RootState) => state.match.matchList
@@ -20,6 +25,10 @@ const MatchesComponent = (_: any) => {
 
   const setMatchOddRatesInRedux = (event: any) => {
     dispatch(updateMatchOddRates(event));
+  };
+
+  const getMatchListService = () => {
+    dispatch(getMatchList({}));
   };
 
   useEffect(() => {
@@ -36,15 +45,67 @@ const MatchesComponent = (_: any) => {
           setMatchOddRatesInRedux
         );
       });
+      expertSocketService.match.matchAdded(getMatchListService);
+      socketService.userBalance.matchResultDeclared(getMatchListService);
+      socketService.userBalance.matchResultUnDeclared(getMatchListService);
     }
 
     return () => {
-      expertSocketService.match.leaveAllRooms();
+      // expertSocketService.match.leaveAllRooms();
+      expertSocketService.match.matchAddedOff(getMatchListService);
       matchList?.matches?.forEach((element: any) => {
-        expertSocketService.match.leaveMatchRoom(element?.id);
+        expertSocketService.match.getMatchRatesOff(
+          element?.id,
+          setMatchOddRatesInRedux
+        );
       });
     };
   }, [matchList?.matches?.length, getProfile?.roleName]);
+
+  useEffect(() => {
+    if (selectedMatchId !== "")
+      navigate("/matchDetail", {
+        state: {
+          matchId: selectedMatchId,
+        },
+      });
+    return () => {
+      if (selectedMatchId !== "") {
+        matchList?.matches?.forEach((element: any) => {
+          if (element?.id !== selectedMatchId) {
+            expertSocketService.match.leaveMatchRoom(element?.id);
+          }
+        });
+      }
+    };
+  }, [selectedMatchId]);
+
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        dispatch(getMatchList({}));
+      }
+    };
+    if (matchList?.matches && getProfile?.roleName) {
+      matchList?.matches?.forEach((element: any) => {
+        expertSocketService.match.joinMatchRoom(
+          element?.id,
+          getProfile?.roleName
+        );
+      });
+      matchList?.matches?.forEach((element: any) => {
+        expertSocketService.match.getMatchRates(
+          element?.id,
+          setMatchOddRatesInRedux
+        );
+      });
+    }
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, []);
 
   // function callPage(e: any, value: any) {
   //   setCurrentPage(parseInt(value));
@@ -60,6 +121,8 @@ const MatchesComponent = (_: any) => {
               blur={false}
               match={match}
               data={match?.matchOdds}
+              selectedMatchId={selectedMatchId}
+              setSelectedMatchId={setSelectedMatchId}
             />
           );
         })}

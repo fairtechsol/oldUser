@@ -1,11 +1,10 @@
 import { Box, Typography } from "@mui/material";
+import moment from "moment-timezone";
 import { memo } from "react";
 import Divider from "../../../helper/Divider";
-import moment from "moment-timezone";
 
-import { useNavigate } from "react-router-dom";
-import MatchRatesCommonComp from "./MatchRatesCommonComp";
 import Upcomings from "../../Common/Upcomings";
+import MatchRatesCommonComp from "./MatchRatesCommonComp";
 
 interface TimeLeft {
   days: string;
@@ -14,9 +13,7 @@ interface TimeLeft {
   seconds?: string;
 }
 
-const Odds = ({ onClick, top, blur, match, data }: any) => {
-  const navigate = useNavigate();
-
+const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
   function calculateTimeLeft(): TimeLeft {
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     const targetDate = moment(match?.startAt).tz(timezone);
@@ -154,12 +151,8 @@ const Odds = ({ onClick, top, blur, match, data }: any) => {
           background: "white",
         }}
         onClick={(e) => {
-          navigate("/matchDetail", {
-            state: {
-              matchId: match?.id,
-            },
-          });
           e.stopPropagation();
+          setSelectedMatchId(match?.id);
         }}
       >
         {!upcoming && (

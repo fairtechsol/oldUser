@@ -1,20 +1,20 @@
 import { memo, useEffect } from "react";
 
-import CustomHeader from "./header/CustomHeader";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import BackgroundLayout from "../../components/Common/BackgroundLayout";
-import Rules from "../../pages/rules";
 import { Box } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { BACKIMAGE } from "../../assets";
+import BackgroundLayout from "../../components/Common/BackgroundLayout";
 import SecureAuthVerification from "../../pages/auth/secureAuthverification";
+import Rules from "../../pages/rules";
+import { socketService } from "../../socketManager";
 import {
   getProfile,
   marqueeNotification,
   updateBalanceFromSocket,
 } from "../../store/actions/user/userAction";
 import { AppDispatch } from "../../store/store";
-import { useDispatch } from "react-redux";
-import { socketService } from "../../socketManager";
+import CustomHeader from "./header/CustomHeader";
 
 const MainLayout = () => {
   const location = useLocation();

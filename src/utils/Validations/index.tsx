@@ -13,133 +13,22 @@ export const depositAmountValidations = Yup.object({
     "Transaction Password is required"
   ),
 });
-export const userChangePasswordValidations = Yup.object({
-  // newPassword: Yup.string().required("Amount is required"),
-  newPassword: Yup.string()
-    .required("New Password is required")
-    .min(8, "Password must be at least 8 characters long")
-    .matches(
-      /^(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&]).*$/,
-      "Password must contain at least one uppercase letter, one number,and one special character (@ $ ! % * ? &)"
-    ),
-  transactionPassword: Yup.string().required(
-    "Transaction Password is required"
-  ),
-});
-
-export const changePasswordSchema = Yup.object({
-  oldPassword: Yup.string().required("Old Password is required"),
-  newPassword: Yup.string()
-    .required("New Password is required")
-    .min(8, "Password must be at least 8 characters long")
-    .matches(
-      /^(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&]).*$/,
-      "Password must contain at least one uppercase letter, one number, and one special character (@ $ ! % * ? &)"
-    ),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref("newPassword"), ""], "Passwords must match")
-    .required("Confirm Password is required"),
-});
-
-export const addUserValidation = Yup.object({
-  userName: Yup.string().required("Username is required"),
-  password: Yup.string()
-    .required("Password is required")
-    .min(8, "Password must be at least 8 characters long")
-    .matches(
-      /^(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&]).*$/,
-      "Password must contain at least one uppercase letter, one number, and one special character (@ $ ! % * ? &)"
-    ),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref("password"), ""], "Passwords must match")
-    .required("Confirm Password is required"),
-  fullName: Yup.string()
-    .notRequired()
-    .matches(
-      /^[a-zA-Z\s]*$/,
-      "Full Name should only contain letters and spaces"
-    )
-    .max(20, "Full Name must be at most 20 characters"),
-  roleName: Yup.object().shape({
-    value: Yup.string().required("Please select an option"),
-    label: Yup.string().required("Please select an option"),
-  }),
-  // domain: Yup.string().matches(/^http:\/\/localhost:5000$/, "Invalid URL"),
-  // matchCommissionType: Yup.string().required(
-  //   "Match Commission Type is required"
-  // ),
-  // matchCommission: Yup.number().required("Match Commission is required"),
-  // sessionCommission: Yup.number().required("Session Commission is required"),
-  adminTransPassword: Yup.string().required(
-    "Admin Transaction Password is required"
-  ),
-});
-
-export const SuperURLValidation = Yup.object({
-  userName: Yup.string().required("Username is required"),
-  password: Yup.string()
-    .required("Password is required")
-    .min(8, "Password must be at least 8 characters long")
-    .matches(
-      /^(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&]).*$/,
-      "Password must contain at least one uppercase letter, one number, and one special character (@ $ ! % * ? &)"
-    ),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref("password"), ""], "Passwords must match")
-    .required("Confirm Password is required"),
-  domain: Yup.string().required("Domain is required"),
-  creditRefrence: Yup.string().required("Credit Reference is required"),
-  myPartnership: Yup.string().required("My Partnership is required"),
-  adminTransPassword: Yup.string().required(
-    "Admin Transaction Password is required"
-  ),
-});
-
-export const FgAdminValidation = Yup.object({
-  userName: Yup.string().required("Username is required"),
-  password: Yup.string()
-    .required("Password is required")
-    .min(8, "Password must be at least 8 characters long")
-    .matches(
-      /^(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!%*?&]).*$/,
-      "Password must contain at least one uppercase letter, one number, and one special character (@ $ ! % * ? &)"
-    ),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref("password"), ""], "Passwords must match")
-    .required("Confirm Password is required"),
-
-  creditRefrence: Yup.string().required("Credit Reference is required"),
-
-  matchCommission: Yup.number().required("Match Commission is required"),
-  sessionCommission: Yup.number().required("Session Commission is required"),
-  // remarks: Yup.string(),
-  adminTransPassword: Yup.string().required(
-    "Admin Transaction Password is required"
-  ),
-  // session: Yup.boolean(),
-  // bookmaker: Yup.boolean(),
-});
-
-
-
 
 export const newPasswordValidationSchema = Yup.object({
   oldPassword: Yup.string().required("Password is required"),
   newPassword: Yup.string()
-  .required("New password is required"),
+  .required("New password is required")
+  .matches(
+    /^(?=.*[A-Z])/, "Password must contain at least one uppercase letter"
+  )
+  .matches(
+    /^(?=.*[a-zA-Z].*[a-zA-Z].*[a-zA-Z].*[a-zA-Z])/, "Password must contain at least four alphabet letters"
+  )
+  .matches(
+    /^(?=.*\d.*\d.*\d.*\d)/, "Password must contain at least four numbers"
+  ),
   // .notOneOf([Yup.ref('oldPassword'), null], 'New password must be different from old password'),
 confirmPassword: Yup.string()
   .oneOf([Yup.ref("newPassword"), ""], "Passwords must match")
   .required("Confirm password is required"),
-});
-
-export const oldPasswordValidationSchema = Yup.object({
-  oldPassword: Yup.string().required("Password is required"),
-  newPassword: Yup.string().required("Password is required"),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref("newPassword"), ""], "Passwords must match")
-    .required("Password is required"),
-  transactionPassword: Yup.string().required(
-    "Transaction Password is required"
-  ),
 });

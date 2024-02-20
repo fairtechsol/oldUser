@@ -96,10 +96,11 @@ const QuickSessionMarketBox = ({
           /> */}
         </Box>
         {matchesMobile && (
-          <PlaceBetComponent 
-          amount={index == 2}
-          data={data}
-            profitLoss={(profitLossData && profitLossData[0]) ?? {}} />
+          <PlaceBetComponent
+            amount={index == 2}
+            data={data}
+            profitLoss={(profitLossData && profitLossData[0]) ?? {}}
+          />
         )}
         {!matchesMobile && (
           <PlaceBetComponentWeb
@@ -125,7 +126,7 @@ const QuickSessionMarketBox = ({
               zIndex: 1,
             }}
           >
-            {data?.status == "ball start" ? (
+            {data?.status == "Ball Running" ? (
               <img src={BallStart} style={{ width: "113px", height: "32px" }} />
             ) : (
               <Typography
