@@ -137,29 +137,31 @@ const MatchOdds = ({ matchDetails, data }: any) => {
         />
       )}
 
-      {matchDetails?.quickBookmaker?.map((bookmaker: any) => (
-        <MarketOdds
-          key={bookmaker?.id}
-          upcoming={!upcoming}
-          betLock={data?.blockMarket?.MANUALBOOKMAKER?.block}
-          newData={data}
-          lock={false}
-          showDely={false}
-          session={"manualBookMaker"}
-          showFast={true}
-          suspended={false}
-          data={data}
-          teamARates={matchDetails?.profitLossDataMatch?.teamARate || 0}
-          teamBRates={matchDetails?.profitLossDataMatch?.teamBRate || 0}
-          teamCRates={matchDetails?.profitLossDataMatch?.teamCRate || 0}
-          min={bookmaker?.minBet || 0}
-          max={bookmaker?.maxBet || 0}
-          title={bookmaker?.name}
-          typeOfBet={"MANUAL BOOKMAKER"}
-          matchOddsData={bookmaker}
-          marketDetails={bookmaker}
-        />
-      ))}
+      {matchDetails?.quickBookmaker
+        ?.filter((item: any) => item?.isActive)
+        ?.map((bookmaker: any) => (
+          <MarketOdds
+            key={bookmaker?.id}
+            upcoming={!upcoming}
+            betLock={data?.blockMarket?.MANUALBOOKMAKER?.block}
+            newData={data}
+            lock={false}
+            showDely={false}
+            session={"manualBookMaker"}
+            showFast={true}
+            suspended={false}
+            data={data}
+            teamARates={matchDetails?.profitLossDataMatch?.teamARate || 0}
+            teamBRates={matchDetails?.profitLossDataMatch?.teamBRate || 0}
+            teamCRates={matchDetails?.profitLossDataMatch?.teamCRate || 0}
+            min={bookmaker?.minBet || 0}
+            max={bookmaker?.maxBet || 0}
+            title={bookmaker?.name}
+            typeOfBet={"MANUAL BOOKMAKER"}
+            matchOddsData={bookmaker}
+            marketDetails={bookmaker}
+          />
+        ))}
 
       {matchDetails?.manualTiedMatch?.isActive && (
         <MarketOdds
