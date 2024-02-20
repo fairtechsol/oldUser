@@ -1,33 +1,32 @@
 import { Box, useMediaQuery, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import MatchOdds from "../../components/MatchDetail/MatchOdds/MatchOdds";
-import LiveMatchHome from "../../components/MatchDetail/LiveMatchScore/LiveMatchHome";
 import AllRateSeperate from "../../components/MatchDetail/AllRateBets/AllRateSeperate";
-import SessionBetSeperate from "../../components/MatchDetail/SessionOdds/SessionBetSeperate";
 import BetPlaced from "../../components/MatchDetail/Common/BetPlaced";
-import { memo } from "react";
 import LiveScore from "../../components/MatchDetail/LiveMatchScore";
-import { useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../store/store";
-import { useDispatch } from "react-redux";
-import {
-  matchDetailAction,
-  selectedBetAction,
-  updateMatchRates,
-} from "../../store/actions/match/matchListAction";
+import LiveMatchHome from "../../components/MatchDetail/LiveMatchScore/LiveMatchHome";
+import MatchOdds from "../../components/MatchDetail/MatchOdds/MatchOdds";
+import SessionBetSeperate from "../../components/MatchDetail/SessionOdds/SessionBetSeperate";
+import { expertSocketService, socketService } from "../../socketManager";
 import {
   getPlacedBets,
   updateBetsPlaced,
 } from "../../store/actions/betPlace/betPlaceActions";
-import { expertSocketService, socketService } from "../../socketManager";
 import {
-  updateBalance,
+  matchDetailAction,
+  matchDetailReset,
+  selectedBetAction,
+  updateMatchRates,
+} from "../../store/actions/match/matchListAction";
+import {
   betDataFromSocket,
+  getButtonValue,
+  updateBalance,
   updateMaxLossForBet,
   updateProfitLossForBet,
-  getButtonValue,
 } from "../../store/actions/user/userAction";
+import { AppDispatch, RootState } from "../../store/store";
 
 const MatchDetail = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -56,7 +55,6 @@ const MatchDetail = () => {
     try {
       if (event?.betPlaced?.placedBet?.matchId === state?.matchId) {
         dispatch(updateBetsPlaced(event?.betPlaced?.placedBet));
-        dispatch(updateBalance(event));
         dispatch(betDataFromSocket(event));
         dispatch(updateMaxLossForBet(event));
       }
@@ -111,6 +109,7 @@ const MatchDetail = () => {
   }, [state?.matchId]);
 
   useEffect(() => {
+    dispatch(matchDetailReset());
     try {
       if (state?.matchId && getProfile?.roleName) {
         dispatch(selectedBetAction(null));
@@ -135,6 +134,11 @@ const MatchDetail = () => {
     return () => {
       expertSocketService.match.leaveAllRooms();
       expertSocketService.match.leaveMatchRoom(state?.matchId);
+      expertSocketService.match.getMatchRatesOff(
+        state?.matchId,
+        setMatchRatesInRedux
+      );
+      dispatch(matchDetailReset());
     };
   }, [state?.matchId, getProfile?.roleName]);
   // console.log("placedBets", placedBets);
@@ -250,4 +254,4 @@ const MatchDetail = () => {
   );
 };
 
-export default memo(MatchDetail);
+export default MatchDetail;

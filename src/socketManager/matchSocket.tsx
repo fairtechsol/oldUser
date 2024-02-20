@@ -12,7 +12,7 @@ export const matchSocketService = {
     });
   },
   leaveAllRooms: () => {
-    expertSocket.emit("leaveAll");
+    expertSocket.emit("leaveAllRoom");
   },
   leaveMatchRoom: (matchId: any) => {
     matchSocket.emit("disconnectCricketData", {
@@ -24,5 +24,11 @@ export const matchSocketService = {
   },
   getMatchRates: (matchId: string, callback: any) => {
     matchSocket.on(`liveData${matchId}`, callback);
+  },
+  matchAddedOff: (callback: any) => {
+    expertSocket.off("addMatch", callback);
+  },
+  getMatchRatesOff: (matchId: string, callback: any) => {
+    matchSocket.off(`liveData${matchId}`, callback);
   },
 };

@@ -1,10 +1,10 @@
 import { Box } from "@mui/material";
-import MarketOdds from "./MarketOdds";
+import moment from "moment-timezone";
 import { memo, useEffect, useState } from "react";
+import { MatchType } from "../../../utils/enum";
 import QuickSessionMarket from "../QuickSession/QuickSessionMarket";
 import SessionMarket from "../SessionOdds/SessionMarket";
-import { MatchType } from "../../../utils/enum";
-import moment from "moment-timezone";
+import MarketOdds from "./MarketOdds";
 
 const MatchOdds = ({ matchDetails, data }: any) => {
   function calculateTimeLeft() {
@@ -188,7 +188,6 @@ const MatchOdds = ({ matchDetails, data }: any) => {
           betLock={data?.blockMarket?.BOOKMAKER?.block}
           showBox={matchDetails?.marketCompleteMatch?.activeStatus === "save"}
           newData={data}
-          
           showFast={false}
           showDely={true}
           lock={
@@ -217,16 +216,20 @@ const MatchOdds = ({ matchDetails, data }: any) => {
       )}
 
       <>
-        {matchDetails?.apiSessionActive?.isActive && (
+        {matchDetails?.apiSessionActive && (
           <SessionMarket
             key={matchDetails?.id}
             allBetsData={matchDetails?.profitLossDataSession}
-            newData={matchDetails?.apiSessionActive}
-            matchOddsData={matchDetails?.apiSessionActive}
+            newData={matchDetails?.sessionBettings?.filter(
+              (betting: any) => JSON.parse(betting)?.selectionId !== null
+            )}
+            matchOddsData={matchDetails?.sessionBettings}
             typeOfBet={matchDetails?.type}
             title={"Session Market"}
             type={MatchType.API_SESSION_MARKET}
             data={matchDetails?.apiSession}
+            eventType={matchDetails?.matchType}
+            upcoming={!upcoming}
           />
         )}
       </>
@@ -243,7 +246,9 @@ const MatchOdds = ({ matchDetails, data }: any) => {
             upcoming={!upcoming}
             type={MatchType.SESSION_MARKET}
             matchOddsData={matchDetails?.sessionBettings}
-            newData={matchDetails.sessionBettings}
+            newData={matchDetails?.sessionBettings?.filter(
+              (betting: any) => JSON.parse(betting)?.selectionId === null
+            )}
             eventType={matchDetails?.matchType}
             minBet={matchDetails?.betFairSessionMinBet}
             maxBet={matchDetails?.betFairSessionMaxBet}

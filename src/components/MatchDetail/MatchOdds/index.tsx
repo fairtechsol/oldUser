@@ -5,9 +5,12 @@ import { Constants } from "../../../utils/Constants";
 import CustomLoader from "../../Loader/index";
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../store/store";
-import { expertSocketService } from "../../../socketManager";
+import { expertSocketService, socketService } from "../../../socketManager";
 import { useDispatch } from "react-redux";
-import { updateMatchOddRates } from "../../../store/actions/match/matchListAction";
+import {
+  getMatchList,
+  updateMatchOddRates,
+} from "../../../store/actions/match/matchListAction";
 
 const MatchesComponent = (_: any) => {
   const dispatch: AppDispatch = useDispatch();
@@ -20,6 +23,10 @@ const MatchesComponent = (_: any) => {
 
   const setMatchOddRatesInRedux = (event: any) => {
     dispatch(updateMatchOddRates(event));
+  };
+
+  const getMatchListService = () => {
+    dispatch(getMatchList({}));
   };
 
   useEffect(() => {
@@ -36,12 +43,22 @@ const MatchesComponent = (_: any) => {
           setMatchOddRatesInRedux
         );
       });
+      expertSocketService.match.matchAdded(getMatchListService);
+      socketService.userBalance.matchResultDeclared(getMatchListService);
+      socketService.userBalance.matchResultUnDeclared(getMatchListService);
     }
 
     return () => {
       expertSocketService.match.leaveAllRooms();
       matchList?.matches?.forEach((element: any) => {
         expertSocketService.match.leaveMatchRoom(element?.id);
+      });
+      expertSocketService.match.matchAddedOff(getMatchListService);
+      matchList?.matches?.forEach((element: any) => {
+        expertSocketService.match.getMatchRatesOff(
+          element?.id,
+          setMatchOddRatesInRedux
+        );
       });
     };
   }, [matchList?.matches?.length, getProfile?.roleName]);

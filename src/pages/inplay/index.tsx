@@ -5,27 +5,12 @@ import { AppDispatch } from "../../store/store";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getMatchList } from "../../store/actions/match/matchListAction";
-import { expertSocketService, socketService } from "../../socketManager";
 
 const Inplay = () => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
   const dispatch: AppDispatch = useDispatch();
-
-  const getMatchListService = () => {
-    dispatch(getMatchList({}));
-  };
-
-  useEffect(() => {
-    try {
-      expertSocketService.match.matchAdded(getMatchListService);
-      socketService.userBalance.matchResultDeclared(getMatchListService);
-      socketService.userBalance.matchResultUnDeclared(getMatchListService);
-    } catch (e) {
-      console.log(e);
-    }
-  }, []);
 
   useEffect(() => {
     dispatch(getMatchList({}));

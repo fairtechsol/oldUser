@@ -4,6 +4,7 @@ import {
   SearchListReset,
   getMatchList,
   matchDetailAction,
+  matchDetailReset,
   matchListReset,
   searchListReset,
   selectedBetAction,
@@ -91,6 +92,9 @@ const matchListSlice = createSlice({
         state.success = true;
         state.matchDetails = action.payload;
       })
+      .addCase(matchDetailReset, (state) => {
+        return { ...state, matchDetails: null };
+      })
       .addCase(updateMatchRates.fulfilled, (state, action) => {
         const {
           apiSession,
@@ -142,6 +146,7 @@ const matchListSlice = createSlice({
                   yesRate: matchingApiSession.LayPrice1,
                   yesPercent: matchingApiSession.LaySize1,
                   activeStatus: "live",
+                  status: matchingApiSession?.status,
                 });
               } else {
                 return JSON.stringify({
