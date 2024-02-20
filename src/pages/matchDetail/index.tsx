@@ -142,6 +142,31 @@ const MatchDetail = () => {
     };
   }, [state?.matchId, getProfile?.roleName]);
   // console.log("placedBets", placedBets);
+
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        if (state?.matchId && getProfile?.roleName) {
+          dispatch(selectedBetAction(null));
+          dispatch(matchDetailAction(state?.matchId));
+          expertSocketService.match.joinMatchRoom(
+            state?.matchId,
+            getProfile?.roleName
+          );
+          expertSocketService.match.getMatchRates(
+            state?.matchId,
+            setMatchRatesInRedux
+          );
+        }
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, []);
+
   return (
     <Box
       sx={{
