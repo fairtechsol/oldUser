@@ -353,7 +353,7 @@ const SessionMarket = ({
                           typeOfBet={typeOfBet}
                           setFastBetLoading={() => {}}
                           eventType={eventType}
-                          data={JSON.parse(element)}
+                          data={element}
                           sessionMain={session}
                           selectedFastAmount={fastAmount}
                           setFastAmount={setFastAmount}

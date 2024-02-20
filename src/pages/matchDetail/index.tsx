@@ -35,6 +35,7 @@ const MatchDetail = () => {
   const [visible, setVisible] = useState(true);
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
+  const { getProfile } = useSelector((state: RootState) => state.user.profile);
 
   const { matchDetails } = useSelector(
     (state: RootState) => state.match.matchList
@@ -110,10 +111,13 @@ const MatchDetail = () => {
   useEffect(() => {
     dispatch(matchDetailReset());
     try {
-      if (state?.matchId) {
+      if (state?.matchId && getProfile?.roleName) {
         dispatch(selectedBetAction(null));
         dispatch(matchDetailAction(state?.matchId));
-        expertSocketService.match.joinMatchRoom(state?.matchId, "user");
+        expertSocketService.match.joinMatchRoom(
+          state?.matchId,
+          getProfile?.roleName
+        );
         expertSocketService.match.getMatchRates(
           state?.matchId,
           setMatchRatesInRedux
@@ -136,23 +140,25 @@ const MatchDetail = () => {
       );
       dispatch(matchDetailReset());
     };
-  }, [state?.matchId]);
+  }, [state?.matchId, getProfile?.roleName]);
   // console.log("placedBets", placedBets);
 
   useEffect(() => {
     const handleVisibilityChange = () => {
       if (document.visibilityState === "visible") {
-        if (state?.matchId) {
+        if (state?.matchId && getProfile?.roleName) {
           dispatch(selectedBetAction(null));
           dispatch(matchDetailAction(state?.matchId));
-          expertSocketService.match.joinMatchRoom(state?.matchId, "user");
+          expertSocketService.match.joinMatchRoom(
+            state?.matchId,
+            getProfile?.roleName
+          );
           expertSocketService.match.getMatchRates(
             state?.matchId,
             setMatchRatesInRedux
           );
         }
       } else if (document.visibilityState === "hidden") {
-        expertSocketService.match.leaveMatchRoom(state?.matchId);
         expertSocketService.match.getMatchRatesOff(
           state?.matchId,
           setMatchRatesInRedux

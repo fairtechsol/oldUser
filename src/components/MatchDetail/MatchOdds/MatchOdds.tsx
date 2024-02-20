@@ -222,16 +222,14 @@ const MatchOdds = ({ matchDetails, data }: any) => {
           <SessionMarket
             key={matchDetails?.id}
             allBetsData={matchDetails?.profitLossDataSession}
-            newData={matchDetails?.sessionBettings?.filter(
-              (betting: any) => JSON.parse(betting)?.selectionId !== null
-            )}
-            matchOddsData={matchDetails?.sessionBettings}
+            newData={matchDetails?.apiSession}
+            matchOddsData={matchDetails?.apiSession}
             typeOfBet={matchDetails?.type}
             title={"Session Market"}
             type={MatchType.API_SESSION_MARKET}
             data={matchDetails?.apiSession}
             eventType={matchDetails?.matchType}
-            upcoming={!upcoming}
+            // upcoming={!upcoming}
           />
         )}
       </>
@@ -245,7 +243,7 @@ const MatchOdds = ({ matchDetails, data }: any) => {
             session={"sessionOdds"}
             // sessionBets={sessionBets}
             // typeOfBet={"session"}
-            upcoming={!upcoming}
+            // upcoming={!upcoming}
             type={MatchType.SESSION_MARKET}
             matchOddsData={matchDetails?.sessionBettings}
             newData={matchDetails?.sessionBettings?.filter(

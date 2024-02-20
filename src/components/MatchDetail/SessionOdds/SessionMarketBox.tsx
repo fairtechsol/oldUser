@@ -81,7 +81,7 @@ const SessionMarketBox = ({
             textAlign: "start",
           }}
         >
-          {data?.name}
+          {data?.RunnerName}
         </Typography>
       </Box>
       {matchesMobile && (
@@ -107,7 +107,7 @@ const SessionMarketBox = ({
             zIndex: 1,
           }}
         >
-          {data?.status == "Ball Running" ? (
+          {data?.GameStatus == "Ball Running" ? (
             <img src={BallStart} style={{ width: "113px", height: "32px" }} />
           ) : (
             <Typography
@@ -120,7 +120,7 @@ const SessionMarketBox = ({
                 fontWeight: "400",
               }}
             >
-              {data?.status}
+              {data?.GameStatus}
             </Typography>
           )}
         </Box>
@@ -170,9 +170,9 @@ const SessionMarketBox = ({
               sessionMain={sessionMain}
               selectedFastAmount={selectedFastAmount}
               betType={"no"}
-              value={data?.noRate}
-              value2={data?.noPercent}
-              lock={[null, 0, "0"].includes(data?.noRate) ? true : false}
+              value={data?.LayPrice1}
+              value2={data?.LaySize1}
+              lock={[null, 0, "0"].includes(data?.LayPrice1) ? true : false}
               color={"#F6D0CB"}
               type={{ color: "#FFB5B5", type: "YN" }}
               typeOfBet={typeOfBet}
@@ -195,9 +195,9 @@ const SessionMarketBox = ({
               selectedFastAmount={selectedFastAmount}
               session={true}
               betType={"yes"}
-              value={data?.yesRate}
-              value2={data?.yesPercent}
-              lock={[null, 0, "0"].includes(data?.yesRate) ? true : false}
+              value={data?.BackPrice1}
+              value2={data?.BackSize1}
+              lock={[null, 0, "0"].includes(data?.BackPrice1) ? true : false}
               color={"#B3E0FF"}
               type={{ color: "#A7DCFF", type: "YN" }}
               typeOfBet={typeOfBet}
