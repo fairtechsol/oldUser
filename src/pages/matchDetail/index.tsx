@@ -158,6 +158,12 @@ const MatchDetail = () => {
             setMatchRatesInRedux
           );
         }
+      } else if (document.visibilityState === "hidden") {
+        expertSocketService.match.leaveMatchRoom(state?.matchId);
+        expertSocketService.match.getMatchRatesOff(
+          state?.matchId,
+          setMatchRatesInRedux
+        );
       }
     };
 
