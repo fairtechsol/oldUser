@@ -85,21 +85,21 @@ const MatchesComponent = (_: any) => {
       if (document.visibilityState === "visible") {
         dispatch(getMatchList({}));
       }
+      if (matchList?.matches && getProfile?.roleName) {
+        matchList?.matches?.forEach((element: any) => {
+          expertSocketService.match.joinMatchRoom(
+            element?.id,
+            getProfile?.roleName
+          );
+        });
+        matchList?.matches?.forEach((element: any) => {
+          expertSocketService.match.getMatchRates(
+            element?.id,
+            setMatchOddRatesInRedux
+          );
+        });
+      }
     };
-    if (matchList?.matches && getProfile?.roleName) {
-      matchList?.matches?.forEach((element: any) => {
-        expertSocketService.match.joinMatchRoom(
-          element?.id,
-          getProfile?.roleName
-        );
-      });
-      matchList?.matches?.forEach((element: any) => {
-        expertSocketService.match.getMatchRates(
-          element?.id,
-          setMatchOddRatesInRedux
-        );
-      });
-    }
 
     document.addEventListener("visibilitychange", handleVisibilityChange);
     return () => {
