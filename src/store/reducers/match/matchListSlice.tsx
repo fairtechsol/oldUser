@@ -4,6 +4,7 @@ import {
   SearchListReset,
   getMatchList,
   matchDetailAction,
+  matchDetailReset,
   matchListReset,
   searchListReset,
   selectedBetAction,
@@ -90,6 +91,9 @@ const matchListSlice = createSlice({
         state.loading = false;
         state.success = true;
         state.matchDetails = action.payload;
+      })
+      .addCase(matchDetailReset, (state) => {
+        return { ...state, matchDetails: null };
       })
       .addCase(updateMatchRates.fulfilled, (state, action) => {
         const {

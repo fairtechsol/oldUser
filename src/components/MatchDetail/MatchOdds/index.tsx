@@ -53,6 +53,13 @@ const MatchesComponent = (_: any) => {
       matchList?.matches?.forEach((element: any) => {
         expertSocketService.match.leaveMatchRoom(element?.id);
       });
+      expertSocketService.match.matchAddedOff(getMatchListService);
+      matchList?.matches?.forEach((element: any) => {
+        expertSocketService.match.getMatchRatesOff(
+          element?.id,
+          setMatchOddRatesInRedux
+        );
+      });
     };
   }, [matchList?.matches?.length, getProfile?.roleName]);
 

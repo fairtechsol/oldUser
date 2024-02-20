@@ -2,7 +2,6 @@ import { Box, Typography } from "@mui/material";
 import StyledImage from "../../../Common/StyledImages";
 
 const RunsDropDown = ({ list }: any) => {
-  console.log(list, "list");
   return (
     <Box
       sx={{
