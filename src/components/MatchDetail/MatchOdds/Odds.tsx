@@ -1,9 +1,8 @@
 import { Box, Typography } from "@mui/material";
 import moment from "moment-timezone";
-import { memo, useEffect } from "react";
+import { memo } from "react";
 import Divider from "../../../helper/Divider";
 
-import { useNavigate } from "react-router-dom";
 import Upcomings from "../../Common/Upcomings";
 import MatchRatesCommonComp from "./MatchRatesCommonComp";
 
@@ -14,15 +13,7 @@ interface TimeLeft {
   seconds?: string;
 }
 
-const Odds = ({
-  onClick,
-  top,
-  blur,
-  match,
-  data,
-  setSelectedMatchId,
-}: any) => {
-  
+const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
   function calculateTimeLeft(): TimeLeft {
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     const targetDate = moment(match?.startAt).tz(timezone);
