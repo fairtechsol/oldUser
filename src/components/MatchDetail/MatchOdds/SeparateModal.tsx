@@ -130,7 +130,7 @@ const SeparateModal = ({
                   handleClick(
                     {
                       betId: data?.id,
-                      name: data?.name,
+                      name: data?.name ?? data?.RunnerName,
                       rate: value,
                       type: betType,
                       stake: 0,

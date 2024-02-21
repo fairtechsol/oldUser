@@ -36,20 +36,7 @@ const SessionMarketBox = ({
         justifyContent: "flex-start",
       }}
     >
-      {data?.betStatus === 0 && (
-        <Box
-          sx={{
-            margin: "1px",
-            width: "100%",
-            height: "100%",
-            position: "absolute",
-            right: 0,
-            background: "rgba(0,0,0,0.5)",
-            zIndex: 2,
-          }}
-        ></Box>
-      )}
-      {upcoming && (
+      {(upcoming || data?.activeStatus === "save") && (
         <Box
           sx={{
             margin: "1px",
@@ -91,7 +78,7 @@ const SessionMarketBox = ({
         <PlaceBetComponentWeb amount={index === 2} profitLoss={data} />
       )}
       {!["ACTIVE", "active", "", undefined, null, ""].includes(data?.status) ||
-      (data.yesRate === null && data.noRate === null) ? (
+      (data.BackSize1 === null && data.LaySize1 === null) ? (
         <Box
           sx={{
             background: "rgba(0,0,0,1)",
@@ -170,9 +157,11 @@ const SessionMarketBox = ({
               sessionMain={sessionMain}
               selectedFastAmount={selectedFastAmount}
               betType={"no"}
-              value={data?.LayPrice1}
-              value2={data?.LaySize1}
-              lock={[null, 0, "0"].includes(data?.LayPrice1) ? true : false}
+              value={data?.LayPrice1 ?? 0}
+              value2={data?.LaySize1 ?? 0}
+              lock={
+                [null, 0, "0"].includes(data?.LayPrice1 ?? 0) ? true : false
+              }
               color={"#F6D0CB"}
               type={{ color: "#FFB5B5", type: "YN" }}
               typeOfBet={typeOfBet}
@@ -195,9 +184,11 @@ const SessionMarketBox = ({
               selectedFastAmount={selectedFastAmount}
               session={true}
               betType={"yes"}
-              value={data?.BackPrice1}
-              value2={data?.BackSize1}
-              lock={[null, 0, "0"].includes(data?.BackPrice1) ? true : false}
+              value={data?.BackPrice1 ?? 0}
+              value2={data?.BackSize1 ?? 0}
+              lock={
+                [null, 0, "0"].includes(data?.BackPrice1 ?? 0) ? true : false
+              }
               color={"#B3E0FF"}
               type={{ color: "#A7DCFF", type: "YN" }}
               typeOfBet={typeOfBet}

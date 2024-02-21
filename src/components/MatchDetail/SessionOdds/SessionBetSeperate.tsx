@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { useState } from "react";
-import { DELETE, ARROWUP, ArrowDown } from "../../../assets";
+import { ARROWUP, ArrowDown, DELETE } from "../../../assets";
 
 import StyledImage from "../../Common/StyledImages";
 import RowComponent from "./RowComponent";
@@ -156,7 +156,7 @@ const SessionBetSeperate = ({
                 overflowY: "auto",
               }}
             >
-              {placedBets?.map((i: any, k: any) => {
+              {Array.from(new Set(placedBets))?.map((i: any, k: any) => {
                 // console.log(placedBets, "placedBets");
                 const num = placedBets?.length - k;
                 const formattedNum = num < 10 ? "0" + num : num.toString();

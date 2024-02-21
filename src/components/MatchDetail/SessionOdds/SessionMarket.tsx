@@ -32,6 +32,7 @@ const SessionMarket = ({
   max,
   min,
   typeOfBet,
+  matchDetails,
 }: any) => {
   const [showFastTimeBox, setShowFastTimeBox] = useState(false);
   // const [fastBetLoading, setFastBetLoading] = useState(false);
@@ -308,12 +309,12 @@ const SessionMarket = ({
                 </Box>
               </Box>
             )}
-
+            {/* 
             {upcoming && (
               <Box
                 sx={{
                   position: "absolute",
-                  height: "90%",
+                  height: "100%",
                   // top: "29%",
                   width: "100%",
                   display: "flex",
@@ -323,7 +324,7 @@ const SessionMarket = ({
                   background: "rgba(0, 0, 0, .5)",
                 }}
               ></Box>
-            )}
+            )} */}
 
             <Box
               sx={{
@@ -353,7 +354,7 @@ const SessionMarket = ({
                           typeOfBet={typeOfBet}
                           setFastBetLoading={() => {}}
                           eventType={eventType}
-                          data={element}
+                          data={{ ...element, matchId: matchDetails?.id }}
                           sessionMain={session}
                           selectedFastAmount={fastAmount}
                           setFastAmount={setFastAmount}

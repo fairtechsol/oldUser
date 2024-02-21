@@ -34,7 +34,7 @@ const MatchOdds = ({ matchDetails, data }: any) => {
     return timeLeft;
   }
 
-  const [timeLeft, setTimeLeft] = useState<any>(calculateTimeLeft());
+  const [timeLeft, setTimeLeft] = useState<any>(calculateTimeLeft);
 
   const upcoming =
     Number(timeLeft.days) === 0 &&
@@ -43,7 +43,7 @@ const MatchOdds = ({ matchDetails, data }: any) => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setTimeLeft(calculateTimeLeft());
+      setTimeLeft(calculateTimeLeft);
     }, 0);
     return () => clearTimeout(timer);
   });
@@ -71,7 +71,7 @@ const MatchOdds = ({ matchDetails, data }: any) => {
           title={matchDetails?.matchOdd?.name}
           typeOfBet={"MATCH ODDS"}
           marketDetails={matchDetails?.matchOdd}
-        // handleRateChange={handleRateChange}
+          // handleRateChange={handleRateChange}
         />
       )}
 
@@ -84,7 +84,7 @@ const MatchOdds = ({ matchDetails, data }: any) => {
           showDely={true}
           lock={
             data?.bookmakerLive?.length > 0 &&
-              data?.bookmakerLive[0]?.betStatus === 0
+            data?.bookmakerLive[0]?.betStatus === 0
               ? true
               : false
           }
@@ -140,7 +140,7 @@ const MatchOdds = ({ matchDetails, data }: any) => {
           showDely={true}
           lock={
             data?.bookmakerLive?.length > 0 &&
-              data?.bookmakerLive[0]?.betStatus === 0
+            data?.bookmakerLive[0]?.betStatus === 0
               ? true
               : false
           }
@@ -161,8 +161,6 @@ const MatchOdds = ({ matchDetails, data }: any) => {
           marketDetails={matchDetails?.apiTideMatch}
         />
       )}
-
-
 
       {matchDetails?.manualTiedMatch?.isActive && (
         <MarketOdds
@@ -195,7 +193,7 @@ const MatchOdds = ({ matchDetails, data }: any) => {
           showDely={true}
           lock={
             data?.bookmakerLive?.length > 0 &&
-              data?.bookmakerLive[0]?.betStatus === 0
+            data?.bookmakerLive[0]?.betStatus === 0
               ? true
               : false
           }
@@ -230,7 +228,8 @@ const MatchOdds = ({ matchDetails, data }: any) => {
             type={MatchType.API_SESSION_MARKET}
             data={matchDetails?.apiSession}
             eventType={matchDetails?.matchType}
-          // upcoming={!upcoming}
+            upcoming={!upcoming}
+            matchDetails={matchDetails}
           />
         )}
       </>
@@ -244,7 +243,7 @@ const MatchOdds = ({ matchDetails, data }: any) => {
             session={"sessionOdds"}
             // sessionBets={sessionBets}
             // typeOfBet={"session"}
-            // upcoming={!upcoming}
+            upcoming={!upcoming}
             type={MatchType.SESSION_MARKET}
             matchOddsData={matchDetails?.sessionBettings}
             newData={matchDetails?.sessionBettings?.filter(

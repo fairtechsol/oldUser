@@ -5,6 +5,7 @@ import {
   getMatchList,
   matchDetailAction,
   matchDetailReset,
+  matchDetailSuccessReset,
   matchListReset,
   searchListReset,
   selectedBetAction,
@@ -95,6 +96,9 @@ const matchListSlice = createSlice({
       .addCase(matchDetailReset, (state) => {
         return { ...state, matchDetails: null };
       })
+      .addCase(matchDetailSuccessReset, (state) => {
+        return { ...state, success: false };
+      })
       .addCase(updateMatchRates.fulfilled, (state, action) => {
         const {
           apiSession,
@@ -106,7 +110,6 @@ const matchListSlice = createSlice({
           manualTideMatch,
           quickbookmaker,
         } = action.payload;
-        let newSessionBettings = sessionBettings;
         state.matchDetails = {
           ...state.matchDetails,
           manualSessionActive: sessionBettings?.length >= 0 ? true : false,
@@ -118,56 +121,12 @@ const matchListSlice = createSlice({
           marketCompleteMatch: marketCompleteMatch,
           matchOdd: matchOdd,
           quickBookmaker: quickbookmaker,
-          sessionBettings: newSessionBettings?.map((item: any) => {
-            if (!JSON.parse(item)?.selectionId) {
-              const parsedItem = JSON.parse(item);
-              let id = parsedItem?.id;
-              const matchingSession = sessionBettings.find(
-                (sessionItem: any) => JSON.parse(sessionItem).id === id
-              );
-              const parsedSession = JSON.parse(matchingSession);
-              if (parsedSession) {
-                return JSON.stringify({
-                  ...parsedItem,
-                  ...parsedSession,
-                });
-              } else return JSON.stringify(parsedItem);
-            } else {
-              const parsedItem = JSON.parse(item);
-              let id = parsedItem?.id;
-              const matchingApiSession = apiSession.find(
-                (sessionItem: any) => sessionItem.id === id
-              );
-              if (matchingApiSession) {
-                return JSON.stringify({
-                  ...parsedItem,
-                  noRate: matchingApiSession.LayPrice1,
-                  noPercent: matchingApiSession.LaySize1,
-                  yesRate: matchingApiSession.BackPrice1,
-                  yesPercent: matchingApiSession.BackSize1,
-                  activeStatus: "live",
-                  status: matchingApiSession?.GameStatus,
-                });
-              } else {
-                return JSON.stringify({
-                  ...parsedItem,
-                  noRate: 0,
-                  yesRate: 0,
-                  yesPercent: 0,
-                  noPercent: 0,
-                  activeStatus:
-                    parsedItem.activeStatus === "live"
-                      ? "save"
-                      : parsedItem.activeStatus,
-                });
-              }
-            }
-          }),
+          sessionBettings: sessionBettings,
         };
       })
       .addCase(updateMatchOddRates.fulfilled, (state, action) => {
         const { id, matchOdd } = action.payload;
-        const indexOfItemToUpdate = state.matchList.matches.findIndex(
+        const indexOfItemToUpdate = state.matchList?.matches?.findIndex(
           (item: any) => item?.id === id
         );
         if (indexOfItemToUpdate !== -1) {
