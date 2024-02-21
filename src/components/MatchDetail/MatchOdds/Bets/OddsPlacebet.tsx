@@ -1,22 +1,22 @@
 import { Typography, useMediaQuery, useTheme } from "@mui/material";
 import { Box } from "@mui/system";
+import axios from "axios";
 import { useEffect, useState } from "react";
-import StyledImage from "../../../Common/StyledImages";
 import { useDispatch, useSelector } from "react-redux";
-import BoxInput from "../../Common/BoxInput";
-import TeamsOdssData from "./TeamOddsData";
-import { CancelDark, HourGlass } from "../../../../assets";
-import { AppDispatch, RootState } from "../../../../store/store";
-import { selectedBetAction } from "../../../../store/actions/match/matchListAction";
+import { CancelDark } from "../../../../assets";
 import {
   betPlaceSuccessReset,
   placeBet,
 } from "../../../../store/actions/betPlace/betPlaceActions";
-import axios from "axios";
+import { selectedBetAction } from "../../../../store/actions/match/matchListAction";
+import { AppDispatch, RootState } from "../../../../store/store";
 import { ApiConstants } from "../../../../utils/Constants";
+import StyledImage from "../../../Common/StyledImages";
+import BoxInput from "../../Common/BoxInput";
 import PlaceBetMoneyBox from "../PlaceBetMoneyBox";
 import NumberData from "./NumberDataOdds";
-import Lottie from "lottie-react";
+import TeamsOdssData from "./TeamOddsData";
+import SmallCustomLoader from "../../../Loader/smallLoader";
 
 const OddsPlaceBet = ({ handleClose, season, type }: any) => {
   const [stakeValue, setStakeValue] = useState<any>(" ");
@@ -433,15 +433,25 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
             background: "rgba(0, 0, 0, .5)",
           }}
         >
-          <Lottie
-            animationData={HourGlass}
-            style={{
-              display: "flex",
+          <Box
+            sx={{
+              width: "190px",
+              minHeight: "150px",
+              borderRadius: "6px",
+              paddingY: "10px",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+              background: "white",
               alignSelf: "center",
-              width: "50px",
-              height: "50px",
+              display: "flex",
+              position: "absolute",
+              top: "45%",
+              zIndex: 999,
             }}
-          />
+          >
+            <SmallCustomLoader text={""} />
+          </Box>
         </Box>
       )}
     </Box>

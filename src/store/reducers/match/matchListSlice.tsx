@@ -141,12 +141,12 @@ const matchListSlice = createSlice({
               if (matchingApiSession) {
                 return JSON.stringify({
                   ...parsedItem,
-                  noRate: matchingApiSession.BackPrice1,
-                  noPercent: matchingApiSession.BackSize1,
-                  yesRate: matchingApiSession.LayPrice1,
-                  yesPercent: matchingApiSession.LaySize1,
+                  noRate: matchingApiSession.LayPrice1,
+                  noPercent: matchingApiSession.LaySize1,
+                  yesRate: matchingApiSession.BackPrice1,
+                  yesPercent: matchingApiSession.BackSize1,
                   activeStatus: "live",
-                  status: matchingApiSession?.status,
+                  status: matchingApiSession?.GameStatus,
                 });
               } else {
                 return JSON.stringify({

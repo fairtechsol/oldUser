@@ -57,7 +57,7 @@ const CustomHeader = () => {
                 textAlign: "center",
               }}
             >
-              {!isOnline && "Your are currently offline"}
+              {!isOnline && "You are currently offline"}
             </Typography>
           </Box>
         )}
@@ -84,7 +84,7 @@ const CustomHeader = () => {
                 textAlign: "center",
               }}
             >
-              {!isOnline && "Your are currently offline"}
+              {!isOnline && "You are currently offline"}
             </Typography>
           </Box>
         )}
