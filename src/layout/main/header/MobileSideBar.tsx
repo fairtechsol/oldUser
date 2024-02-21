@@ -6,10 +6,10 @@ const MobileSideBar = ({ mobileOpen, setMobileOpen, showSideBarMobile, }: any) =
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
-    const container =
+        const container =
         window !== undefined ? () => window.document.body : undefined;
 
-    return (
+        return (
         <Drawer
             container={container}
             variant="temporary"
@@ -24,11 +24,11 @@ const MobileSideBar = ({ mobileOpen, setMobileOpen, showSideBarMobile, }: any) =
                 keepMounted: true, // Better open performance on xs.
             }}
             sx={{
-                display: { xs: "block", sm: "none" },
+                display: { xs: "block", sm: "block", md: "block" },
                 "& .MuiDrawer-paper": {
                     boxSizing: "border-box",
                     width: { lg: "300px", xs: "190px" },
-                },
+                                    },
             }}
         >
             <Box
