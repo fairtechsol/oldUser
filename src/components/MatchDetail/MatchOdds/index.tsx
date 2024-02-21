@@ -113,7 +113,9 @@ const MatchesComponent = (_: any) => {
   return (
     <>
       {matchList &&
-        matchList?.matches?.map((match: any) => {
+         matchList?.matches
+         .slice((currentPage - 1) * Constants.pageLimit, currentPage * Constants.pageLimit)
+         .map((match: any) => {
           return (
             <Odds
               key={match?.id}
