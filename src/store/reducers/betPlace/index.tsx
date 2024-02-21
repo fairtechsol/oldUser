@@ -75,7 +75,6 @@ const placedBet = createSlice({
       })
       .addCase(updateBetsPlaced.fulfilled, (state, action) => {
         const betId = action.payload.betId;
-        
         const isBetAlreadyPlaced = state.placedBets.find(
           (item: any) => item.id === betId
         );
