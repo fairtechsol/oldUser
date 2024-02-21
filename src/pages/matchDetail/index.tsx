@@ -37,7 +37,7 @@ const MatchDetail = () => {
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const { getProfile } = useSelector((state: RootState) => state.user.profile);
 
-  const { matchDetails } = useSelector(
+  const { matchDetails, success } = useSelector(
     (state: RootState) => state.match.matchList
   );
   const { placedBets } = useSelector((state: RootState) => state.bets);
@@ -114,6 +114,15 @@ const MatchDetail = () => {
       if (state?.matchId && getProfile?.roleName) {
         dispatch(selectedBetAction(null));
         dispatch(matchDetailAction(state?.matchId));
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }, [state?.matchId, getProfile?.roleName]);
+
+  useEffect(() => {
+    try {
+      if (success) {
         expertSocketService.match.joinMatchRoom(
           state?.matchId,
           getProfile?.roleName
@@ -138,25 +147,24 @@ const MatchDetail = () => {
         state?.matchId,
         setMatchRatesInRedux
       );
-      dispatch(matchDetailReset());
     };
-  }, [state?.matchId, getProfile?.roleName]);
+  }, [success]);
   // console.log("placedBets", placedBets);
 
   useEffect(() => {
     const handleVisibilityChange = () => {
       if (document.visibilityState === "visible") {
-        if (state?.matchId && getProfile?.roleName) {
+        if (state?.matchId) {
           dispatch(selectedBetAction(null));
           dispatch(matchDetailAction(state?.matchId));
-          expertSocketService.match.joinMatchRoom(
-            state?.matchId,
-            getProfile?.roleName
-          );
-          expertSocketService.match.getMatchRates(
-            state?.matchId,
-            setMatchRatesInRedux
-          );
+          // expertSocketService.match.joinMatchRoom(
+          //   state?.matchId,
+          //   getProfile?.roleName
+          // );
+          // expertSocketService.match.getMatchRates(
+          //   state?.matchId,
+          //   setMatchRatesInRedux
+          // );
         }
       } else if (document.visibilityState === "hidden") {
         expertSocketService.match.getMatchRatesOff(

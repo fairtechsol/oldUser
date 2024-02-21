@@ -18,7 +18,7 @@ const MatchesComponent = (_: any) => {
   const [selectedMatchId, setSelectedMatchId] = useState("");
   const navigate = useNavigate();
 
-  const { matchList, loading } = useSelector(
+  const { matchList, loading, success } = useSelector(
     (state: RootState) => state.match.matchList
   );
   const { getProfile } = useSelector((state: RootState) => state.user.profile);
@@ -32,22 +32,28 @@ const MatchesComponent = (_: any) => {
   };
 
   useEffect(() => {
-    if (matchList?.matches && getProfile?.roleName) {
-      matchList?.matches?.forEach((element: any) => {
-        expertSocketService.match.joinMatchRoom(
-          element?.id,
-          getProfile?.roleName
-        );
-      });
-      matchList?.matches?.forEach((element: any) => {
-        expertSocketService.match.getMatchRates(
-          element?.id,
-          setMatchOddRatesInRedux
-        );
-      });
-      expertSocketService.match.matchAdded(getMatchListService);
-      socketService.userBalance.matchResultDeclared(getMatchListService);
-      socketService.userBalance.matchResultUnDeclared(getMatchListService);
+    try {
+      if (success) {
+        if (matchList?.matches && getProfile?.roleName) {
+          matchList?.matches?.forEach((element: any) => {
+            expertSocketService.match.joinMatchRoom(
+              element?.id,
+              getProfile?.roleName
+            );
+          });
+          matchList?.matches?.forEach((element: any) => {
+            expertSocketService.match.getMatchRates(
+              element?.id,
+              setMatchOddRatesInRedux
+            );
+          });
+          expertSocketService.match.matchAdded(getMatchListService);
+          socketService.userBalance.matchResultDeclared(getMatchListService);
+          socketService.userBalance.matchResultUnDeclared(getMatchListService);
+        }
+      }
+    } catch (e) {
+      console.log(e);
     }
 
     return () => {
@@ -113,21 +119,24 @@ const MatchesComponent = (_: any) => {
   return (
     <>
       {matchList &&
-         matchList?.matches
-         .slice((currentPage - 1) * Constants.pageLimit, currentPage * Constants.pageLimit)
-         .map((match: any) => {
-          return (
-            <Odds
-              key={match?.id}
-              top={true}
-              blur={false}
-              match={match}
-              data={match?.matchOdds}
-              selectedMatchId={selectedMatchId}
-              setSelectedMatchId={setSelectedMatchId}
-            />
-          );
-        })}
+        matchList?.matches
+          .slice(
+            (currentPage - 1) * Constants.pageLimit,
+            currentPage * Constants.pageLimit
+          )
+          .map((match: any) => {
+            return (
+              <Odds
+                key={match?.id}
+                top={true}
+                blur={false}
+                match={match}
+                data={match?.matchOdds}
+                selectedMatchId={selectedMatchId}
+                setSelectedMatchId={setSelectedMatchId}
+              />
+            );
+          })}
 
       <Pagination
         page={currentPage}

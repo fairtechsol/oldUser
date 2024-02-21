@@ -229,7 +229,8 @@ const MatchOdds = ({ matchDetails, data }: any) => {
             type={MatchType.API_SESSION_MARKET}
             data={matchDetails?.apiSession}
             eventType={matchDetails?.matchType}
-            // upcoming={!upcoming}
+            upcoming={!upcoming}
+            matchDetails={matchDetails}
           />
         )}
       </>
@@ -243,7 +244,7 @@ const MatchOdds = ({ matchDetails, data }: any) => {
             session={"sessionOdds"}
             // sessionBets={sessionBets}
             // typeOfBet={"session"}
-            // upcoming={!upcoming}
+            upcoming={!upcoming}
             type={MatchType.SESSION_MARKET}
             matchOddsData={matchDetails?.sessionBettings}
             newData={matchDetails?.sessionBettings?.filter(

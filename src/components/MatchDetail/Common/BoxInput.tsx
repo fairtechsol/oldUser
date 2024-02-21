@@ -6,7 +6,6 @@ const BoxInput = ({
   stakeValue,
   containerStyle,
   valueContainerStyle,
-  getLatestBetAmount,
   setStakeValue,
   selectedColorBox,
 }: any) => {
@@ -24,10 +23,8 @@ const BoxInput = ({
 
     if (value === "") {
       setStakeValue(" "); // Set your desired default value here
-      getLatestBetAmount(" ");
     } else {
       setStakeValue(value);
-      getLatestBetAmount(value);
     }
   };
   return (

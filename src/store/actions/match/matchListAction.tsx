@@ -213,3 +213,4 @@ export const updateMatchOddRates = createAsyncThunk<any, any>(
 export const searchListReset = createAction("search/list");
 export const matchListReset = createAction("matchList/reset");
 export const matchDetailReset = createAction("matchDetail/reset");
+export const matchDetailSuccessReset = createAction("matchDetailSuccess/reset");
