@@ -52,7 +52,7 @@ const MatchOdds = ({ matchDetails, data }: any) => {
     <Box sx={{ display: "flex", flexDirection: "column" }}>
       {matchDetails?.matchOdd?.isActive && (
         <MarketOdds
-          // upcoming={!upcoming}
+          upcoming={!upcoming}
           betLock={data?.blockMarket?.MATCH_ODDS?.block}
           showDely={true}
           showBox={matchDetails?.matchOdd?.activeStatus === "save"}
@@ -77,6 +77,7 @@ const MatchOdds = ({ matchDetails, data }: any) => {
 
       {matchDetails?.bookmaker?.isActive && (
         <MarketOdds
+          upcoming={!upcoming}
           betLock={data?.blockMarket?.BOOKMAKER?.block}
           showBox={matchDetails?.bookmaker?.activeStatus === "save"}
           newData={data}
@@ -133,6 +134,7 @@ const MatchOdds = ({ matchDetails, data }: any) => {
 
       {matchDetails?.apiTideMatch?.isActive && (
         <MarketOdds
+          upcoming={!upcoming}
           betLock={data?.blockMarket?.BOOKMAKER?.block}
           showBox={matchDetails?.apiTideMatch?.activeStatus === "save"}
           newData={data}
@@ -186,6 +188,7 @@ const MatchOdds = ({ matchDetails, data }: any) => {
 
       {matchDetails?.marketCompleteMatch?.isActive && (
         <MarketOdds
+          upcoming={!upcoming}
           betLock={data?.blockMarket?.BOOKMAKER?.block}
           showBox={matchDetails?.marketCompleteMatch?.activeStatus === "save"}
           newData={data}
