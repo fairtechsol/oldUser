@@ -88,7 +88,7 @@ const SeparateModal = ({
       >
         <Box
           onClick={() => {
-            if (lock || [0, "0"].includes(value)) {
+            if (lock || [0, "0", null, undefined].includes(value)) {
               return false;
             }
             if (betPlaceLoading) {
@@ -187,7 +187,7 @@ const SeparateModal = ({
             cursor: !empty && !lock && value && value2 && "pointer",
           }}
         >
-          {!empty && !lock && ![0, "0"].includes(value) && (
+          {!empty && !lock && ![0, "0", null, undefined].includes(value) && (
             <Box sx={{ alignItems: "center", justifyContent: "space-around" }}>
               <Typography
                 sx={{
