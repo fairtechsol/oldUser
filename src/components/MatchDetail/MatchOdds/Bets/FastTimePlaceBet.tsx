@@ -42,7 +42,6 @@ const FastTimePlaceBet = ({
   );
 
   const [matchButtonList, setMatchButtonList] = useState<any>([]);
-
   useEffect(() => {
     const typeIndexMap: Record<string, number> = {};
     const { userAgent, appName, appVersion, platform } = navigator;
@@ -192,7 +191,7 @@ const FastTimePlaceBet = ({
       dispatch(betPlaceSuccessReset());
     }
   }, [success]);
-
+  console.log(matchDetails)
   return (
     <>
       {session === "manualBookMaker" && (
@@ -230,9 +229,9 @@ const FastTimePlaceBet = ({
             {
               <>
                 {/* {matchOddsData?.isSingle === false || matchOddsData?.teamB_suspend !== "suspended" ? ( */}
-                {matchOddsData?.isSingle === false ||
-                (matchOddsData.teamA_suspend === null &&
-                  matchOddsData.teamB_suspend === null) ? (
+                {matchOddsData?.statusTeamC === "active" ||
+                (matchOddsData.statusTeamA === "active" &&
+                  matchOddsData.statusTeamB === "active") ? (
                   // ||
                   //   ((matchOddsData?.teamA_suspend === null || false) &&
                   //     (matchOddsData?.teamB_suspend === null || false))
@@ -272,7 +271,7 @@ const FastTimePlaceBet = ({
                             width: "100%",
                           }}
                         >
-                          {matchOddsData?.teamA}
+                          {matchDetails?.teamA}
                         </Typography>
                       </Box>
                       <Box
@@ -288,12 +287,14 @@ const FastTimePlaceBet = ({
                           gap: { xs: "3px", lg: 1, md: 1 },
                         }}
                       >
-                        {/* {
+                        {
                           matchButtonList && matchButtonList?.map((v: any, index: any) => {
                             return (
                               <>
                                 <NumberData
-                                handleBet={handleBet}
+                                 handleBet={() => {
+                                  handleBet(v.value, "BACK", index);
+                                }}
                                   key={index}
                                   containerStyle={{
                                     marginLeft: "2px",
@@ -327,7 +328,7 @@ const FastTimePlaceBet = ({
                             )
 
 
-                          })} */}
+                          })}
                       </Box>
                     </Box>
 
@@ -366,7 +367,7 @@ const FastTimePlaceBet = ({
                             width: "100%",
                           }}
                         >
-                          {matchOddsData?.teamB}
+                          {matchDetails?.teamB}
                         </Typography>
                       </Box>
                       <Box
@@ -382,12 +383,14 @@ const FastTimePlaceBet = ({
                           gap: { xs: "3px", lg: 1, md: 1 },
                         }}
                       >
-                        {/* {matchButtonList.length > 0 &&
+                        {matchButtonList.length > 0 &&
                           matchButtonList?.map((v: any, index: any) => {
                             return (
 
                               <NumberData
-                            
+                              handleBet={() => {
+                                handleBet(v.value, "BACK", index);
+                              }}
                                 key={index}
                                 containerStyle={{
                                   marginLeft: "2px",
@@ -417,10 +420,10 @@ const FastTimePlaceBet = ({
                                 matchOddsData={matchOddsData}
                               />
                             )
-                          })} */}
+                          })}
                       </Box>
                     </Box>
-                    {matchOddsData?.teamC && (
+                    {matchOddsData?.statusTeamC && (
                       <Box
                         sx={{
                           // display: "flex",
@@ -457,7 +460,7 @@ const FastTimePlaceBet = ({
                               width: "100%",
                             }}
                           >
-                            {matchOddsData?.teamC}
+                            {matchDetails?.teamC}
                           </Typography>
                         </Box>
                         <Box
@@ -473,10 +476,12 @@ const FastTimePlaceBet = ({
                             gap: { xs: "3px", lg: 1, md: 1 },
                           }}
                         >
-                          {/* {matchButtonList.length > 0 &&
+                          {matchButtonList.length > 0 &&
                             matchButtonList?.map((v: any, index: any) => (
                               <NumberData
-                              
+                              handleBet={() => {
+                                handleBet(v.value, "BACK", index);
+                              }}
                                 key={index}
                                 containerStyle={{
                                   marginLeft: "2px",
@@ -506,7 +511,7 @@ const FastTimePlaceBet = ({
                                 backgroundColor={"#A7DCFF"}
                                 matchOddsData={matchOddsData}
                               />
-                            ))} */}
+                            ))}
                         </Box>
                       </Box>
                     )}
@@ -583,6 +588,7 @@ const FastTimePlaceBet = ({
                             data={data}
                           />
                         ))}
+                        
                     </Box>
                     <Box
                       sx={{
