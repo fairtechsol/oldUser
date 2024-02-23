@@ -38,7 +38,7 @@ const MatchDetail = () => {
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const { getProfile } = useSelector((state: RootState) => state.user.profile);
 
-  const { matchDetails, success, loading } = useSelector(
+  const { matchDetails, success, matchDetailloading } = useSelector(
     (state: RootState) => state.match.matchList
   );
   const { placedBets } = useSelector((state: RootState) => state.bets);
@@ -183,8 +183,8 @@ const MatchDetail = () => {
 
   return (
     <>
-      {loading && <Loader text="" />}
-      {!loading && (
+      {matchDetailloading && <Loader text="" />}
+      {!matchDetailloading && (
         <Box
           sx={{
             display: "flex",

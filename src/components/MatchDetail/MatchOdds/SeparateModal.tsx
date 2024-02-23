@@ -148,14 +148,25 @@ const SeparateModal = ({
                       type: betType,
                       stake: 0,
                       teamA:
-                        marketDetails?.type === "tiedMatch2"
+                        marketDetails?.type === "tiedMatch2" ||
+                        marketDetails?.type === "tiedMatch1" ||
+                        marketDetails?.type === "completeMatch"
                           ? "YES"
                           : currentMatch?.teamA,
                       teamB:
-                        marketDetails?.type === "tiedMatch2"
+                        marketDetails?.type === "tiedMatch2" ||
+                        marketDetails?.type === "tiedMatch1" ||
+                        marketDetails?.type === "completeMatch"
                           ? "NO"
                           : currentMatch?.teamB,
-                      teamC: currentMatch?.teamC ? currentMatch?.teamC : "",
+                      teamC:
+                        marketDetails?.type === "tiedMatch2" ||
+                        marketDetails?.type === "tiedMatch1" ||
+                        marketDetails?.type === "completeMatch"
+                          ? ""
+                          : currentMatch?.teamC
+                          ? currentMatch?.teamC
+                          : "",
                       betId: marketDetails?.id,
                       eventType: marketDetails?.eventType,
                       matchId: currentMatch?.id,
