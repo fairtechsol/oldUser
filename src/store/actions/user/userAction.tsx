@@ -40,6 +40,12 @@ export const updateBalance = createAsyncThunk<any, any>(
     return balance;
   }
 );
+export const updateBalanceSession = createAsyncThunk<any, any>(
+  "/user/balanceSession",
+  async (balance) => {
+    return balance;
+  }
+);
 export const updateBalanceFromSocket = createAsyncThunk<any, any>(
   "/user/balanceFromSocket",
   async (balance) => {

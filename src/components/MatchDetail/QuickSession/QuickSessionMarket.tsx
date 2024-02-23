@@ -14,8 +14,6 @@ const QuickSessionMarket = ({
   backTeamB,
   backTeamC,
   allBetsData,
-  sessionExposer,
-  sessionBets,
   setFastAmount,
   fastAmount,
   session,
@@ -27,11 +25,12 @@ const QuickSessionMarket = ({
   minBet,
   typeOfBet,
   eventType,
+  setShow,
+  show,
 }: any) => {
   const [showFastTimeBox, setShowFastTimeBox] = useState(false);
   const [setFastBetLoading] = useState(false);
   const [selectedItem, setSelectedItem] = useState("");
-
   const [visible, setVisible] = useState(true);
 
   return (
@@ -116,11 +115,7 @@ const QuickSessionMarket = ({
             }}
           >
             {/* {console.warn("newData11 ",newData)} */}
-            <SmallBoxSeason
-              allBetsData={allBetsData}
-              sessionBets={sessionBets}
-              totalAmount={sessionExposer}
-            />
+            <SmallBoxSeason allBetsData={Array.from(new Set(allBetsData))} />
             <Box
               className="arrowUpCollaps"
               sx={{
@@ -335,11 +330,13 @@ const QuickSessionMarket = ({
                           teamB: backTeamB,
                           teamC: backTeamC,
                         }}
+                        show={show}
+                        setShow={setShow}
                         handleRateChange={handleRateChange}
                         eventType={eventType}
-                        profitLossData={allBetsData?.filter(
-                          (item: any) => item?.betId === element?.id
-                        )}
+                        profitLossData={Array.from(
+                          new Set(allBetsData)
+                        )?.filter((item: any) => item?.betId === element?.id)}
                       />
                       <Divider />
                     </Box>

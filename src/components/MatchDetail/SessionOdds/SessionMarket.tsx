@@ -18,8 +18,8 @@ const SessionMarket = ({
   teamBRates,
   teamCRates,
   allBetsData,
-  sessionExposer,
-  sessionBets,
+  show,
+  setShow,
   setFastAmount,
   newData,
   fastAmount,
@@ -40,7 +40,6 @@ const SessionMarket = ({
   // useEffect(() => {
   //   setLocalData(newData);
   // }, [newData]);
-
   const [visible, setVisible] = useState(true);
 
   return (
@@ -124,12 +123,7 @@ const SessionMarket = ({
               },
             }}
           >
-            {/* {console.warn("newData11 ",newData)} */}
-            <SmallboxSeason
-              allBetsData={allBetsData}
-              sessionBets={sessionBets}
-              totalAmount={sessionExposer}
-            />
+            <SmallboxSeason allBetsData={Array.from(new Set(allBetsData))} />
             <Box
               className="arrowUpCollaps"
               sx={{
@@ -364,7 +358,12 @@ const SessionMarket = ({
                             teamB: teamBRates,
                             teamC: teamCRates,
                           }}
+                          show={show}
+                          setShow={setShow}
                           handleRateChange={handleRateChange}
+                          profitLossData={Array.from(
+                            new Set(allBetsData)
+                          )?.filter((item: any) => item?.betId === element?.id)}
                         />
                         <Divider />
                       </Box>

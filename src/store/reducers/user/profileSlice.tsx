@@ -7,6 +7,7 @@ import {
   setButtonValue,
   updateBalance,
   updateBalanceFromSocket,
+  updateBalanceSession,
 } from "../../actions/user/userAction";
 
 interface InitialState {
@@ -112,6 +113,15 @@ const profileSlice = createSlice({
         state.error = action?.error?.message;
       })
       .addCase(updateBalance.fulfilled, (state, action) => {
+        state.getProfile = {
+          ...state.getProfile,
+          userBal: {
+            ...state?.getProfile?.userBal,
+            exposure: action.payload.newUserExposure ?? action.payload.exposure,
+          },
+        };
+      })
+      .addCase(updateBalanceSession.fulfilled, (state, action) => {
         state.getProfile = {
           ...state.getProfile,
           userBal: {

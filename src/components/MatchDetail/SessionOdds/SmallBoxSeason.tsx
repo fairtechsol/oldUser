@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
 
-const SmallBoxSeason = ({ totalAmount }: any) => {
+const SmallBoxSeason = ({ allBetsData }: any) => {
   //   function countObjectsWithNullDeletedReason(array:any) {
   //     let count = 0;
   //     for (const obj of array) {
@@ -58,7 +58,9 @@ const SmallBoxSeason = ({ totalAmount }: any) => {
             color: "#319E5B",
           }}
         >
-          {0}
+          {allBetsData?.reduce((accumulator: any, bet: any) => {
+            return accumulator + (+bet?.totalBet || 0);
+          }, 0)}
         </Typography>
       </Box>
       <Box
@@ -94,11 +96,9 @@ const SmallBoxSeason = ({ totalAmount }: any) => {
             lineHeight: "1.5",
           }}
         >
-          {totalAmount > 0
-            ? totalAmount
-            : totalAmount == undefined
-            ? 0
-            : totalAmount}
+          {allBetsData?.reduce((accumulator: any, bet: any) => {
+            return accumulator + (+bet?.maxLoss || 0);
+          }, 0)}
         </Typography>
       </Box>
     </Box>

@@ -23,6 +23,7 @@ import {
   betDataFromSocket,
   getButtonValue,
   updateBalance,
+  updateBalanceSession,
   updateMaxLossForBet,
   updateProfitLossForBet,
 } from "../../store/actions/user/userAction";
@@ -57,6 +58,7 @@ const MatchDetail = () => {
       if (event?.betPlaced?.placedBet?.matchId === state?.matchId) {
         dispatch(updateBetsPlaced(event?.betPlaced?.placedBet));
         dispatch(betDataFromSocket(event));
+        dispatch(updateBalanceSession(event));
         dispatch(updateMaxLossForBet(event));
       }
     } catch (e) {
@@ -148,6 +150,11 @@ const MatchDetail = () => {
         state?.matchId,
         setMatchRatesInRedux
       );
+      socketService.userBalance.userSessionBetPlacedOff(setSessionBetsPlaced);
+      socketService.userBalance.userMatchBetPlacedOff(setMatchBetsPlaced);
+      socketService.userBalance.matchResultDeclaredOff(resultDeclared);
+      socketService.userBalance.matchDeleteBetOff(betDeleted);
+      socketService.userBalance.sessionDeleteBetOff(betDeleted);
     };
   }, [success]);
   // console.log("placedBets", placedBets);
@@ -233,14 +240,14 @@ const MatchDetail = () => {
                     }}
                   >
                     <SessionBetSeperate
-                      placedBets={placedBets.filter(
+                      placedBets={Array.from(new Set(placedBets)).filter(
                         (bet: any) => bet?.marketType === "session"
                       )}
                       mark
                     />
 
                     <AllRateSeperate
-                      allBetsData={placedBets.filter(
+                      allBetsData={Array.from(new Set(placedBets)).filter(
                         (bet: any) => bet?.marketType != "session"
                       )}
                       mark
@@ -276,12 +283,12 @@ const MatchDetail = () => {
                   <LiveMatchHome />
                   <AllRateSeperate
                     mark
-                    allBetsData={placedBets.filter(
+                    allBetsData={Array.from(new Set(placedBets)).filter(
                       (bet: any) => bet?.marketType !== "session"
                     )}
                   />
                   <SessionBetSeperate
-                    placedBets={placedBets.filter(
+                    placedBets={Array.from(new Set(placedBets)).filter(
                       (bet: any) => bet?.marketType === "session"
                     )}
                     mark
