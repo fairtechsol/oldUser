@@ -84,7 +84,7 @@ const FastTimePlaceBet = ({
 
   const handleBet = (stake: any, type: string, index: any, team: string) => {
     let betTeam;
-    
+
     if (matchOddsData?.type === "tiedMatch2") {
       betTeam =
         matchOddsData?.statusTeamA === "active" &&
@@ -117,7 +117,7 @@ const FastTimePlaceBet = ({
 
     let payload: any = {
       betId: matchOddsData?.id,
-      betOnTeam: team === ''? betTeam : team,
+      betOnTeam: team === "" ? betTeam : team,
       bettingType: type,
       browserDetail: browserInfo?.userAgent,
       matchId: matchOddsData?.matchId,
@@ -150,48 +150,12 @@ const FastTimePlaceBet = ({
     );
   };
 
-  // const handleChange = (e: any) => {
-  //   const value = e.target.value.trim();
-
-  //   if (value === "") {
-  //     if (session === "sessionOdds") {
-  //       setFastAmount((prev: any) => ({ ...prev, sessionOdds: 0 }));
-  //     } else if (session === "manualBookMaker") {
-  //       setFastAmount((prev: any) => ({ ...prev, [typeOfBet]: 0 }));
-  //     } else if (session === "bookmaker") {
-  //       setFastAmount((prev: any) => ({ ...prev, bookMaker: 0 }));
-  //     }
-  //   } else {
-  //     if (Number(value) <= 500000) {
-  //       if (session === "sessionOdds") {
-  //         setFastAmount((prev: any) => ({
-  //           ...prev,
-  //           sessionOdds: Number(value),
-  //         }));
-  //       } else if (session === "manualBookMaker") {
-  //         setFastAmount((prev: any) => ({
-  //           ...prev,
-  //           [typeOfBet]: Number(value),
-  //         }));
-  //       } else if (session === "bookmaker") {
-  //         setFastAmount((prev: any) => ({ ...prev, bookMaker: Number(value) }));
-  //       }
-  //     } else {
-  //       toast.warning(
-  //         `Value must be between less then 500000
-  //         `
-  //       );
-  //     }
-  //   }
-  // };
-
   useEffect(() => {
     if (success) {
       setShowFastTimeBox(false);
       dispatch(betPlaceSuccessReset());
     }
   }, [success]);
-  // console.log(matchDetails)
   return (
     <>
       {session === "manualBookMaker" && (
@@ -431,7 +395,7 @@ const FastTimePlaceBet = ({
                           })}
                       </Box>
                     </Box>
-                    {matchOddsData?.statusTeamC === "active" && (
+                    {matchDetails?.teamC && (
                       <Box
                         sx={{
                           // display: "flex",
