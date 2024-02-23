@@ -27,6 +27,7 @@ import {
   updateProfitLossForBet,
 } from "../../store/actions/user/userAction";
 import { AppDispatch, RootState } from "../../store/store";
+import Loader from "../../components/Loader";
 
 const MatchDetail = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -37,7 +38,7 @@ const MatchDetail = () => {
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const { getProfile } = useSelector((state: RootState) => state.user.profile);
 
-  const { matchDetails, success } = useSelector(
+  const { matchDetails, success, matchDetailloading } = useSelector(
     (state: RootState) => state.match.matchList
   );
   const { placedBets } = useSelector((state: RootState) => state.bets);
@@ -181,114 +182,117 @@ const MatchDetail = () => {
   }, []);
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        flex: 1,
-        width: "100%",
-        justifyContent: "flex-start",
-        alignItems: "flex-start",
-      }}
-    >
-      <BetPlaced visible={visible} setVisible={setVisible} />
+    <>
+      {matchDetailloading && <Loader text="" />}
+      {!matchDetailloading && (
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            flex: 1,
+            width: "100%",
+            justifyContent: "flex-start",
+            alignItems: "flex-start",
+          }}
+        >
+          <BetPlaced visible={visible} setVisible={setVisible} />
+          <>
+            {matchesMobile && (
+              <div
+                style={{
+                  width: "100%",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  display: "flex",
+                  // gap: { lg: "8px", xs: "0px", md: "0px" },
+                  marginTop: "2%",
+                  flexDirection: "column",
+                }}
+              >
+                <LiveScore />
+                <div style={{ width: "100%" }}>
+                  <MatchOdds
+                    matchDetails={matchDetails && matchDetails}
+                    data={matchDetails && matchDetails}
+                  />
+                </div>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    width: "100%",
+                    alignSelf: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      width: "98%",
+                    }}
+                  >
+                    <SessionBetSeperate
+                      placedBets={placedBets.filter(
+                        (bet: any) => bet?.marketType === "session"
+                      )}
+                      mark
+                    />
 
-      <>
-        {matchesMobile && (
-          <div
-            style={{
-              width: "100%",
-              alignItems: "center",
-              justifyContent: "center",
-              display: "flex",
-              // gap: { lg: "8px", xs: "0px", md: "0px" },
-              marginTop: "2%",
-              flexDirection: "column",
-            }}
-          >
-            <LiveScore />
-            <div style={{ width: "100%" }}>
-              <MatchOdds
-                // data={data}
-                matchDetails={matchDetails && matchDetails}
-                data={matchDetails && matchDetails}
-              />
-            </div>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                width: "100%",
-                alignSelf: "center",
-                alignItems: "center",
-              }}
-            >
+                    <AllRateSeperate
+                      allBetsData={placedBets.filter(
+                        (bet: any) => bet?.marketType != "session"
+                      )}
+                      mark
+                    />
+                  </Box>
+                  <LiveMatchHome />
+                </Box>
+              </div>
+            )}
+            {!matchesMobile && (
               <Box
                 sx={{
                   display: "flex",
-                  flexDirection: "column",
-                  width: "98%",
+                  width: "100%",
+                  gap: "8px",
+                  marginTop: "1%",
                 }}
               >
-                <SessionBetSeperate
-                  placedBets={placedBets.filter(
-                    (bet: any) => bet?.marketType === "session"
-                  )}
-                  mark
-                />
-
-                <AllRateSeperate
-                  allBetsData={placedBets.filter(
-                    (bet: any) => bet?.marketType != "session"
-                  )}
-                  mark
-                />
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    width: "70%",
+                  }}
+                >
+                  <MatchOdds
+                    matchDetails={matchDetails && matchDetails}
+                    data={matchDetails && matchDetails}
+                  />
+                </Box>
+                <Box sx={{ width: "30%", paddingRight: "1%" }}>
+                  <LiveScore />
+                  <LiveMatchHome />
+                  <AllRateSeperate
+                    mark
+                    allBetsData={placedBets.filter(
+                      (bet: any) => bet?.marketType !== "session"
+                    )}
+                  />
+                  <SessionBetSeperate
+                    placedBets={placedBets.filter(
+                      (bet: any) => bet?.marketType === "session"
+                    )}
+                    mark
+                  />
+                </Box>
               </Box>
-              <LiveMatchHome />
-            </Box>
-          </div>
-        )}
-        {!matchesMobile && (
-          <Box
-            sx={{
-              display: "flex",
-              width: "100%",
-              gap: "8px",
-              marginTop: "1%",
-            }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                width: "70%",
-              }}
-            >
-              <MatchOdds
-                matchDetails={matchDetails && matchDetails}
-                data={matchDetails && matchDetails}
-              />
-            </Box>
-            <Box sx={{ width: "30%", paddingRight: "1%" }}>
-              <LiveScore />
-              <LiveMatchHome />
-              <AllRateSeperate
-                mark
-                allBetsData={placedBets.filter(
-                  (bet: any) => bet?.marketType !== "session"
-                )}
-              />
-              <SessionBetSeperate
-                placedBets={placedBets.filter(
-                  (bet: any) => bet?.marketType === "session"
-                )}
-                mark
-              />
-            </Box>
-          </Box>
-        )}
-      </>
-    </Box>
+            )}
+          </>
+        </Box>
+      )}
+    </>
   );
 };
 

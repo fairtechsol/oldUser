@@ -88,7 +88,7 @@ const SeparateModal = ({
       >
         <Box
           onClick={() => {
-            if (lock || [0, "0"].includes(value)) {
+            if (lock || [0, "0", null, undefined].includes(value)) {
               return false;
             }
             if (betPlaceLoading) {
@@ -148,14 +148,25 @@ const SeparateModal = ({
                       type: betType,
                       stake: 0,
                       teamA:
-                        marketDetails?.type === "tiedMatch2"
+                        marketDetails?.type === "tiedMatch2" ||
+                        marketDetails?.type === "tiedMatch1" ||
+                        marketDetails?.type === "completeMatch"
                           ? "YES"
                           : currentMatch?.teamA,
                       teamB:
-                        marketDetails?.type === "tiedMatch2"
+                        marketDetails?.type === "tiedMatch2" ||
+                        marketDetails?.type === "tiedMatch1" ||
+                        marketDetails?.type === "completeMatch"
                           ? "NO"
                           : currentMatch?.teamB,
-                      teamC: currentMatch?.teamC ? currentMatch?.teamC : "",
+                      teamC:
+                        marketDetails?.type === "tiedMatch2" ||
+                        marketDetails?.type === "tiedMatch1" ||
+                        marketDetails?.type === "completeMatch"
+                          ? ""
+                          : currentMatch?.teamC
+                          ? currentMatch?.teamC
+                          : "",
                       betId: marketDetails?.id,
                       eventType: marketDetails?.eventType,
                       matchId: currentMatch?.id,
@@ -187,7 +198,7 @@ const SeparateModal = ({
             cursor: !empty && !lock && value && value2 && "pointer",
           }}
         >
-          {!empty && !lock && ![0, "0"].includes(value) && (
+          {!empty && !lock && ![0, "0", null, undefined].includes(value) && (
             <Box sx={{ alignItems: "center", justifyContent: "space-around" }}>
               <Typography
                 sx={{

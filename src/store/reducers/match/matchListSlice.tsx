@@ -20,6 +20,7 @@ import {
 interface InitialState {
   success: boolean;
   loading: boolean;
+  matchDetailloading: boolean;
   error: any;
   matchList: any;
   getMatchListBySearch: any;
@@ -32,6 +33,7 @@ const initialState: InitialState = {
   matchList: null,
   getMatchListBySearch: [],
   loading: false,
+  matchDetailloading: false,
   success: false,
   error: null,
   matchDetails: null,
@@ -82,16 +84,20 @@ const matchListSlice = createSlice({
         return { ...state, success: false, getMatchListBySearch: [] };
       })
       .addCase(matchDetailAction.pending, (state) => {
-        state.loading = true;
+        state.matchDetailloading = true;
         state.success = false;
         state.matchDetails = null;
         state.error = null;
       })
       .addCase(matchDetailAction.fulfilled, (state, action) => {
         // console.log("Fulfilled action payload:", action.payload);
-        state.loading = false;
+        state.matchDetailloading = false;
         state.success = true;
         state.matchDetails = action.payload;
+      })
+      .addCase(matchDetailAction.rejected, (state, action) => {
+        state.matchDetailloading = false;
+        state.error = action?.error?.message;
       })
       .addCase(matchDetailReset, (state) => {
         return { ...state, matchDetails: null };
@@ -137,10 +143,6 @@ const matchListSlice = createSlice({
       })
       .addCase(matchListReset, (state) => {
         return { ...state, matchList: null };
-      })
-      .addCase(matchDetailAction.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action?.error?.message;
       })
       .addCase(selectedBetAction.fulfilled, (state, action) => {
         state.selectedBet = action.payload;
