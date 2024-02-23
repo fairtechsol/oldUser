@@ -82,9 +82,9 @@ const FastTimePlaceBet = ({
     }
   }, [selectedValue, fromOdds]);
 
-  const handleBet = (stake: any, type: string, index: any) => {
+  const handleBet = (stake: any, type: string, index: any, team: string) => {
     let betTeam;
-
+    
     if (matchOddsData?.type === "tiedMatch2") {
       betTeam =
         matchOddsData?.statusTeamA === "active" &&
@@ -117,7 +117,7 @@ const FastTimePlaceBet = ({
 
     let payload: any = {
       betId: matchOddsData?.id,
-      betOnTeam: betTeam,
+      betOnTeam: team === ''? betTeam : team,
       bettingType: type,
       browserDetail: browserInfo?.userAgent,
       matchId: matchOddsData?.matchId,
@@ -191,7 +191,7 @@ const FastTimePlaceBet = ({
       dispatch(betPlaceSuccessReset());
     }
   }, [success]);
-  console.log(matchDetails)
+  // console.log(matchDetails)
   return (
     <>
       {session === "manualBookMaker" && (
@@ -287,14 +287,19 @@ const FastTimePlaceBet = ({
                           gap: { xs: "3px", lg: 1, md: 1 },
                         }}
                       >
-                        {
-                          matchButtonList && matchButtonList?.map((v: any, index: any) => {
+                        {matchButtonList &&
+                          matchButtonList?.map((v: any, index: any) => {
                             return (
                               <>
                                 <NumberData
-                                 handleBet={() => {
-                                  handleBet(v.value, "BACK", index);
-                                }}
+                                  handleBet={() => {
+                                    handleBet(
+                                      v.value,
+                                      "BACK",
+                                      index,
+                                      matchDetails?.teamA
+                                    );
+                                  }}
                                   key={index}
                                   containerStyle={{
                                     marginLeft: "2px",
@@ -313,21 +318,19 @@ const FastTimePlaceBet = ({
                                   odds={matchOddsData?.teamA_Back}
                                   typeOfBet={typeOfBet}
                                   placeIndex={
-                                    matchOddsData?.marketType === "QuickBookmaker0"
+                                    matchOddsData?.marketType ===
+                                    "QuickBookmaker0"
                                       ? 0
                                       : matchOddsData?.marketType ===
                                         "QuickBookmaker1"
-                                        ? 1
-                                        : 2
+                                      ? 1
+                                      : 2
                                   }
                                   backgroundColor={"#A7DCFF"}
                                   matchOddsData={matchOddsData}
-                               
                                 />
                               </>
-                            )
-
-
+                            );
                           })}
                       </Box>
                     </Box>
@@ -386,11 +389,15 @@ const FastTimePlaceBet = ({
                         {matchButtonList.length > 0 &&
                           matchButtonList?.map((v: any, index: any) => {
                             return (
-
                               <NumberData
-                              handleBet={() => {
-                                handleBet(v.value, "BACK", index);
-                              }}
+                                handleBet={() => {
+                                  handleBet(
+                                    v.value,
+                                    "BACK",
+                                    index,
+                                    matchDetails?.teamB
+                                  );
+                                }}
                                 key={index}
                                 containerStyle={{
                                   marginLeft: "2px",
@@ -409,21 +416,22 @@ const FastTimePlaceBet = ({
                                 odds={matchOddsData?.teamB_Back}
                                 typeOfBet={typeOfBet}
                                 placeIndex={
-                                  matchOddsData?.marketType === "QuickBookmaker0"
+                                  matchOddsData?.marketType ===
+                                  "QuickBookmaker0"
                                     ? 0
                                     : matchOddsData?.marketType ===
                                       "QuickBookmaker1"
-                                      ? 1
-                                      : 2
+                                    ? 1
+                                    : 2
                                 }
                                 backgroundColor={"#A7DCFF"}
                                 matchOddsData={matchOddsData}
                               />
-                            )
+                            );
                           })}
                       </Box>
                     </Box>
-                    {matchOddsData?.statusTeamC && (
+                    {matchOddsData?.statusTeamC === "active" && (
                       <Box
                         sx={{
                           // display: "flex",
@@ -479,9 +487,14 @@ const FastTimePlaceBet = ({
                           {matchButtonList.length > 0 &&
                             matchButtonList?.map((v: any, index: any) => (
                               <NumberData
-                              handleBet={() => {
-                                handleBet(v.value, "BACK", index);
-                              }}
+                                handleBet={() => {
+                                  handleBet(
+                                    v.value,
+                                    "BACK",
+                                    index,
+                                    matchDetails?.teamC
+                                  );
+                                }}
                                 key={index}
                                 containerStyle={{
                                   marginLeft: "2px",
@@ -501,12 +514,12 @@ const FastTimePlaceBet = ({
                                 typeOfBet={typeOfBet}
                                 placeIndex={
                                   matchOddsData?.marketType ===
-                                    "QuickBookmaker0"
+                                  "QuickBookmaker0"
                                     ? 0
                                     : matchOddsData?.marketType ===
                                       "QuickBookmaker1"
-                                      ? 1
-                                      : 2
+                                    ? 1
+                                    : 2
                                 }
                                 backgroundColor={"#A7DCFF"}
                                 matchOddsData={matchOddsData}
@@ -533,7 +546,7 @@ const FastTimePlaceBet = ({
                         matchButtonList?.map((v: any, index: any) => (
                           <NumberData
                             handleBet={() => {
-                              handleBet(v.value, "BACK", index);
+                              handleBet(v.value, "BACK", index, "");
                             }}
                             key={index}
                             containerStyle={{
@@ -588,7 +601,6 @@ const FastTimePlaceBet = ({
                             data={data}
                           />
                         ))}
-                        
                     </Box>
                     <Box
                       sx={{
@@ -605,7 +617,7 @@ const FastTimePlaceBet = ({
                         matchButtonList?.map((v: any, index: any) => (
                           <NumberData
                             handleBet={() => {
-                              handleBet(v.value, "LAY", index);
+                              handleBet(v.value, "LAY", index, "");
                             }}
                             key={index}
                             containerStyle={{
