@@ -1,6 +1,4 @@
-import {} from "@emotion/react";
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
-
 import { memo } from "react";
 import { BallStart } from "../../../assets";
 import SeparateModal from "../MatchOdds/SeparateModal";
@@ -21,6 +19,9 @@ const SessionMarketBox = ({
   setFastBetLoading,
   handleRateChange,
   upcoming,
+  profitLossData,
+  show,
+  setShow,
 }: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -72,12 +73,26 @@ const SessionMarketBox = ({
         </Typography>
       </Box>
       {matchesMobile && (
-        <PlaceBetComponent amount={index == 2} profitLoss={data} />
+        <PlaceBetComponent
+          amount={index == 2}
+          data={data}
+          show={show}
+          setShow={setShow}
+          profitLoss={(profitLossData && profitLossData[0]) ?? {}}
+        />
       )}
       {!matchesMobile && (
-        <PlaceBetComponentWeb amount={index === 2} profitLoss={data} />
+        <PlaceBetComponentWeb
+          amount={index === 2}
+          data={data}
+          show={show}
+          setShow={setShow}
+          profitLoss={(profitLossData && profitLossData[0]) ?? {}}
+        />
       )}
-      {!["ACTIVE", "active", "", undefined, null, ""].includes(data?.status) ||
+      {!["ACTIVE", "active", "", undefined, null, ""].includes(
+        data?.GameStatus
+      ) ||
       (data.BackSize1 === null && data.LaySize1 === null) ? (
         <Box
           sx={{
@@ -213,7 +228,13 @@ const SessionMarketBox = ({
             )}
           </Box>
           {!matchesMobile && (
-            <PlaceBetComponentWeb amount={index === 2} profitLoss={data} />
+            <PlaceBetComponentWeb
+              amount={index === 2}
+              data={data}
+              show={show}
+              setShow={setShow}
+              profitLoss={(profitLossData && profitLossData[0]) ?? {}}
+            />
           )}
         </>
       )}

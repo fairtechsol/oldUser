@@ -1,5 +1,4 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
-
 import { memo } from "react";
 import { BallStart } from "../../../assets";
 import SeparateModal from "../MatchOdds/SeparateModal";
@@ -26,6 +25,8 @@ const QuickSessionMarketBox = ({
   selectedItem,
   eventType,
   profitLossData,
+  show,
+  setShow,
 }: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -99,6 +100,8 @@ const QuickSessionMarketBox = ({
           <PlaceBetComponent
             amount={index == 2}
             data={data}
+            show={show}
+            setShow={setShow}
             profitLoss={(profitLossData && profitLossData[0]) ?? {}}
           />
         )}
@@ -106,6 +109,8 @@ const QuickSessionMarketBox = ({
           <PlaceBetComponentWeb
             amount={index === 2}
             data={data}
+            show={show}
+            setShow={setShow}
             profitLoss={(profitLossData && profitLossData[0]) ?? {}}
           />
         )}
@@ -244,6 +249,8 @@ const QuickSessionMarketBox = ({
               <PlaceBetComponentWeb
                 amount={index === 2}
                 data={data}
+                show={show}
+                setShow={setShow}
                 profitLoss={(profitLossData && profitLossData[0]) ?? {}}
               />
             )}

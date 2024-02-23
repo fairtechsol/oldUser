@@ -1,15 +1,13 @@
-import React from "react";
-import { UD } from "../../../../assets";
 import { Box, Typography } from "@mui/material";
-import { useEffect } from "react";
-import { useState } from "react";
-import RunsDropDown from "./RunsDropDown";
-import { AppDispatch, RootState } from "../../../../store/store";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { UD } from "../../../../assets";
 import { getRunAmount } from "../../../../store/actions/betPlace/betPlaceActions";
-import { useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../../store/store";
+import RunsDropDown from "./RunsDropDown";
+// import useOuterClick from "../../../../utils/outerClick";
 
-const PlaceBetComponentWeb = ({ profitLoss, data }: any) => {
+const PlaceBetComponentWeb = ({ profitLoss, data, show, setShow }: any) => {
   const dispatch: AppDispatch = useDispatch();
   const { runAmount } = useSelector((state: RootState) => state.bets);
   const [proLoss, setProfitLoss] = useState(profitLoss);
@@ -17,25 +15,24 @@ const PlaceBetComponentWeb = ({ profitLoss, data }: any) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const [show, setShow] = React.useState(false);
-  //   const innerRef = useOuterClick((ev:any) => {
-  //     setShow(false);
-  //   });
+  // const innerRef = useOuterClick((ev: any) => {
+  //   setShow({ open: false, id: "" });
+  // });
 
-  ///ddd
   useEffect(() => {
     if (profitLoss) {
       setProfitLoss(profitLoss);
     }
   }, [profitLoss]);
-
   return (
     <>
       <Box
         // ref={innerRef}
         onClick={() => {
-          dispatch(getRunAmount(data?.id));
-          setShow(!show);
+          if (!show.open && show?.id !== data?.id) {
+            dispatch(getRunAmount(data?.id));
+            setShow({ open: true, id: data?.id });
+          } else setShow({ open: false, id: "" });
         }}
         sx={{
           background: "#0B4F26",
@@ -109,7 +106,7 @@ const PlaceBetComponentWeb = ({ profitLoss, data }: any) => {
             style={{ width: "12px", height: "12px", marginLeft: "5px" }}
           />
         </Box>
-        {show && (
+        {show.open && show?.id === data?.id && (
           <RunsDropDown
             open={Boolean(anchorEl)}
             anchorEl={anchorEl}

@@ -10,6 +10,7 @@ const MatchOdds = ({ matchDetails, data }: any) => {
   function calculateTimeLeft() {
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     const targetDate = moment(data?.startAt).tz(timezone);
+
     const difference = targetDate.diff(moment().tz(timezone), "milliseconds");
     let timeLeft = {};
     if (difference > 0) {
@@ -35,6 +36,7 @@ const MatchOdds = ({ matchDetails, data }: any) => {
   }
 
   const [timeLeft, setTimeLeft] = useState<any>(calculateTimeLeft);
+  const [show, setShow] = useState({ open: false, id: "" });
 
   const upcoming =
     Number(timeLeft.days) === 0 &&
@@ -228,9 +230,13 @@ const MatchOdds = ({ matchDetails, data }: any) => {
             matchOddsData={matchDetails?.apiSession}
             typeOfBet={matchDetails?.type}
             title={"Session Market"}
+            setShow={setShow}
+            show={show}
             type={MatchType.API_SESSION_MARKET}
             data={matchDetails?.apiSession}
             eventType={matchDetails?.matchType}
+            min={matchDetails?.betFairSessionMinBet}
+            max={matchDetails?.betFairSessionMaxBet}
             upcoming={!upcoming}
             matchDetails={matchDetails}
           />
@@ -246,6 +252,8 @@ const MatchOdds = ({ matchDetails, data }: any) => {
             session={"sessionOdds"}
             // sessionBets={sessionBets}
             // typeOfBet={"session"}
+            setShow={setShow}
+            show={show}
             upcoming={!upcoming}
             type={MatchType.SESSION_MARKET}
             matchOddsData={matchDetails?.sessionBettings}
