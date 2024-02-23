@@ -90,14 +90,14 @@ const FastTimePlaceBet = ({
         matchOddsData?.statusTeamA === "active" &&
         matchOddsData?.statusTeamB === "active"
           ? index === 0
-            ? "Yes"
-            : "No"
+            ? "YES"
+            : "NO"
           : matchOddsData?.statusTeamA === "active" &&
             matchOddsData?.statusTeamB === "suspended"
-          ? "Yes"
+          ? "YES"
           : matchOddsData?.statusTeamA === "suspended" &&
             matchOddsData?.statusTeamB === "active"
-          ? "No"
+          ? "NO"
           : "";
     } else {
       betTeam =
@@ -138,8 +138,8 @@ const FastTimePlaceBet = ({
       matchBetType: matchOddsData?.type,
       stake: stake,
       placeIndex: 0,
-      teamA: matchDetails?.teamA,
-      teamB: matchDetails?.teamB,
+      teamA: matchOddsData?.type === "tiedMatch2" ? "YES" : matchDetails?.teamA,
+      teamB: matchOddsData?.type === "tiedMatch2" ? "NO" : matchDetails?.teamB,
       teamC: matchDetails?.teamC,
     };
     dispatch(
@@ -235,7 +235,9 @@ const FastTimePlaceBet = ({
                             width: "100%",
                           }}
                         >
-                          {matchDetails?.teamA}
+                          {matchOddsData?.type === "tiedMatch2"
+                            ? "YES"
+                            : matchDetails?.teamA}
                         </Typography>
                       </Box>
                       <Box
@@ -261,7 +263,9 @@ const FastTimePlaceBet = ({
                                       v.value,
                                       "BACK",
                                       index,
-                                      matchDetails?.teamA
+                                      matchOddsData?.type === "tiedMatch2"
+                                        ? "YES"
+                                        : matchDetails?.teamA
                                     );
                                   }}
                                   key={index}
@@ -334,7 +338,9 @@ const FastTimePlaceBet = ({
                             width: "100%",
                           }}
                         >
-                          {matchDetails?.teamB}
+                          {matchOddsData?.type === "tiedMatch2"
+                            ? "NO"
+                            : matchDetails?.teamB}
                         </Typography>
                       </Box>
                       <Box
@@ -359,7 +365,9 @@ const FastTimePlaceBet = ({
                                     v.value,
                                     "BACK",
                                     index,
-                                    matchDetails?.teamB
+                                    matchOddsData?.type === "tiedMatch2"
+                                      ? "NO"
+                                      : matchDetails?.teamB
                                   );
                                 }}
                                 key={index}
@@ -740,7 +748,7 @@ const FastTimePlaceBet = ({
                           type={"lay"}
                           session={session}
                           teamSuspend={data?.suspended}
-                          odds={data?.yes_rate}
+                          odds={data?.YES_rate}
                           typeOfBet={typeOfBet}
                           backgroundColor={"#A7DCFF"}
                           matchOddsData={matchOddsData}
