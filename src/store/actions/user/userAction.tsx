@@ -65,6 +65,12 @@ export const updateMaxLossForBet = createAsyncThunk<any, any>(
     return data;
   }
 );
+export const updateRunAmount = createAsyncThunk<any, any>(
+  "/runAmount/update",
+  async (data) => {
+    return data;
+  }
+);
 export const updateProfitLossForBet = createAsyncThunk<any, any>(
   "/profitLoss/update",
   async (data) => {

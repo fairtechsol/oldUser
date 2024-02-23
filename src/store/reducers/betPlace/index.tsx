@@ -6,6 +6,7 @@ import {
   getRunAmount,
   updateBetsPlaced,
 } from "../../actions/betPlace/betPlaceActions";
+import { updateRunAmount } from "../../actions/user/userAction";
 
 interface InitialState {
   placedBets: any;
@@ -73,6 +74,9 @@ const placedBet = createSlice({
       .addCase(getRunAmount.rejected, (state, action) => {
         state.loading = false;
         state.error = action?.error?.message;
+      })
+      .addCase(updateRunAmount.fulfilled, (state, action) => {
+        state.runAmount = JSON.parse(action.payload).betPlaced;
       })
       .addCase(updateBetsPlaced.fulfilled, (state, action) => {
         const betId = action.payload.betId;

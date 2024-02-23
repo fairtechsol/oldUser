@@ -1,4 +1,3 @@
-
 import { useDispatch } from "react-redux";
 import { Box, Typography } from "@mui/material";
 import { useEffect } from "react";
@@ -31,12 +30,10 @@ const PlaceBetComponent = ({ profitLoss, data, show, setShow }: any) => {
     >
       <Box
         onClick={() => {
-          if (!show) {
+          if (!show.open && show?.id !== data?.id) {
             dispatch(getRunAmount(data?.id));
-            setShow(true);
-          } else {
-            setShow(false);
-          }
+            setShow({ open: true, id: data?.id });
+          } else setShow({ open: false, id: "" });
         }}
         sx={{
           background: "#0B4F26",
@@ -97,7 +94,7 @@ const PlaceBetComponent = ({ profitLoss, data, show, setShow }: any) => {
           </Typography>
         </Box>
       </Box>
-      {show && (
+      {show.open && show?.id === data?.id && (
         <RunsDropDown
           style={{ zIndex: 10 }}
           list={runAmount && runAmount}
