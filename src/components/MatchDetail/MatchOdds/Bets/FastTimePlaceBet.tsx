@@ -403,7 +403,7 @@ const FastTimePlaceBet = ({
                           })}
                       </Box>
                     </Box>
-                    {matchDetails?.teamC && (
+                    {matchDetails?.teamC && matchOddsData?.type !== "tiedMatch2" && (
                       <Box
                         sx={{
                           // display: "flex",
