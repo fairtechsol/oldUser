@@ -26,6 +26,7 @@ import {
   updateBalanceSession,
   updateMaxLossForBet,
   updateProfitLossForBet,
+  updateRunAmount,
 } from "../../store/actions/user/userAction";
 import { AppDispatch, RootState } from "../../store/store";
 import Loader from "../../components/Loader";
@@ -59,6 +60,7 @@ const MatchDetail = () => {
         dispatch(updateBetsPlaced(event?.betPlaced?.placedBet));
         dispatch(betDataFromSocket(event));
         dispatch(updateBalanceSession(event));
+        dispatch(updateRunAmount(event?.profitLossData));
         dispatch(updateMaxLossForBet(event));
       }
     } catch (e) {
