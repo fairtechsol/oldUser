@@ -10,21 +10,13 @@ export let matchSocket: any = null;
 
 export const initialiseSocket = () => {
   socket = io(baseUrls.socket, {
-    transports: [
-      process.env.NODE_ENV === "production"
-        ? `${Constants.POLLING}`
-        : `${Constants.WEBSOCKET}`,
-    ],
+    transports: [`${Constants.WEBSOCKET}`],
     auth: {
       token: `${sessionStorage.getItem("userToken")}`,
     },
   });
   expertSocket = io(baseUrls.expertSocket, {
-    transports: [
-      process.env.NODE_ENV === "production"
-        ? `${Constants.POLLING}`
-        : `${Constants.WEBSOCKET}`,
-    ],
+    transports: [`${Constants.WEBSOCKET}`],
     auth: {
       token: `${sessionStorage.getItem("userToken")}`,
     },

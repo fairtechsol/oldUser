@@ -159,7 +159,6 @@ const MatchDetail = () => {
       socketService.userBalance.sessionDeleteBetOff(betDeleted);
     };
   }, [success]);
-  // console.log("placedBets", placedBets);
 
   useEffect(() => {
     const handleVisibilityChange = () => {
@@ -167,14 +166,6 @@ const MatchDetail = () => {
         if (state?.matchId) {
           dispatch(selectedBetAction(null));
           dispatch(matchDetailAction(state?.matchId));
-          // expertSocketService.match.joinMatchRoom(
-          //   state?.matchId,
-          //   getProfile?.roleName
-          // );
-          // expertSocketService.match.getMatchRates(
-          //   state?.matchId,
-          //   setMatchRatesInRedux
-          // );
         }
       } else if (document.visibilityState === "hidden") {
         expertSocketService.match.getMatchRatesOff(

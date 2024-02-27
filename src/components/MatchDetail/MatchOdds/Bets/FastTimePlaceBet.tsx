@@ -19,11 +19,13 @@ const FastTimePlaceBet = ({
   data,
   fromOdds,
   selectedValue,
-  setShowFastTimeBox,
-}: any) => {
+}: // setShowFastTimeBox,
+any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
-  const { success } = useSelector((state: RootState) => state.match.bet);
+  const { success, loading } = useSelector(
+    (state: RootState) => state.match.bet
+  );
   const [ipAddress] = useState(null);
   const [canceled, setCanceled] = useState({
     value: false,
@@ -83,76 +85,85 @@ const FastTimePlaceBet = ({
   }, [selectedValue, fromOdds]);
 
   const handleBet = (stake: any, type: string, index: any, team: string) => {
-    let betTeam;
+    try {
+      if (loading) {
+        return;
+      }
+      let betTeam;
 
-    if (matchOddsData?.type === "tiedMatch2") {
-      betTeam =
-        matchOddsData?.statusTeamA === "active" &&
-        matchOddsData?.statusTeamB === "active"
-          ? index === 0
+      if (matchOddsData?.type === "tiedMatch2") {
+        betTeam =
+          matchOddsData?.statusTeamA === "active" &&
+          matchOddsData?.statusTeamB === "active"
+            ? index === 0
+              ? "YES"
+              : "NO"
+            : matchOddsData?.statusTeamA === "active" &&
+              matchOddsData?.statusTeamB === "suspended"
             ? "YES"
-            : "NO"
-          : matchOddsData?.statusTeamA === "active" &&
-            matchOddsData?.statusTeamB === "suspended"
-          ? "YES"
-          : matchOddsData?.statusTeamA === "suspended" &&
-            matchOddsData?.statusTeamB === "active"
-          ? "NO"
-          : "";
-    } else {
-      betTeam =
-        matchOddsData?.statusTeamA === "active" &&
-        matchOddsData?.statusTeamB === "active"
-          ? index === 0
+            : matchOddsData?.statusTeamA === "suspended" &&
+              matchOddsData?.statusTeamB === "active"
+            ? "NO"
+            : "";
+      } else {
+        betTeam =
+          matchOddsData?.statusTeamA === "active" &&
+          matchOddsData?.statusTeamB === "active"
+            ? index === 0
+              ? matchDetails?.teamA
+              : matchDetails?.teamB
+            : matchOddsData?.statusTeamA === "active" &&
+              matchOddsData?.statusTeamB === "suspended"
             ? matchDetails?.teamA
-            : matchDetails?.teamB
-          : matchOddsData?.statusTeamA === "active" &&
-            matchOddsData?.statusTeamB === "suspended"
-          ? matchDetails?.teamA
-          : matchOddsData?.statusTeamA === "suspended" &&
-            matchOddsData?.statusTeamB === "active"
-          ? matchDetails?.teamB
-          : "";
-    }
+            : matchOddsData?.statusTeamA === "suspended" &&
+              matchOddsData?.statusTeamB === "active"
+            ? matchDetails?.teamB
+            : "";
+      }
 
-    let payload: any = {
-      betId: matchOddsData?.id,
-      betOnTeam: team === "" ? betTeam : team,
-      bettingType: type,
-      browserDetail: browserInfo?.userAgent,
-      matchId: matchOddsData?.matchId,
-      ipAddress:
-        ipAddress === "Not found" || !ipAddress ? "192.168.1.100" : ipAddress,
-      odd:
-        matchOddsData?.statusTeamA === "active"
-          ? type === "BACK"
-            ? matchOddsData?.backTeamA
-            : matchOddsData?.layTeamA
-          : matchOddsData?.statusTeamB === "active"
-          ? type === "BACK"
-            ? matchOddsData?.backTeamB
-            : matchOddsData?.layTeamB
-          : type === "BACK"
-          ? matchOddsData?.backTeamC
-          : matchOddsData?.layTeamC,
-      matchBetType: matchOddsData?.type,
-      stake: stake,
-      placeIndex: 0,
-      teamA: matchOddsData?.type === "tiedMatch2" ? "YES" : matchDetails?.teamA,
-      teamB: matchOddsData?.type === "tiedMatch2" ? "NO" : matchDetails?.teamB,
-      teamC: matchDetails?.teamC,
-    };
-    dispatch(
-      placeBet({
-        url: ApiConstants.BET.PLACEBETMATCHBETTING,
-        data: JSON.stringify(payload),
-      })
-    );
+      let payload: any = {
+        betId: matchOddsData?.id,
+        betOnTeam: team === "" ? betTeam : team,
+        bettingType: type,
+        browserDetail: browserInfo?.userAgent,
+        matchId: matchOddsData?.matchId,
+        ipAddress:
+          ipAddress === "Not found" || !ipAddress ? "192.168.1.100" : ipAddress,
+        odd:
+          matchOddsData?.statusTeamA === "active"
+            ? type === "BACK"
+              ? matchOddsData?.backTeamA
+              : matchOddsData?.layTeamA
+            : matchOddsData?.statusTeamB === "active"
+            ? type === "BACK"
+              ? matchOddsData?.backTeamB
+              : matchOddsData?.layTeamB
+            : type === "BACK"
+            ? matchOddsData?.backTeamC
+            : matchOddsData?.layTeamC,
+        matchBetType: matchOddsData?.type,
+        stake: stake,
+        placeIndex: 0,
+        teamA:
+          matchOddsData?.type === "tiedMatch2" ? "YES" : matchDetails?.teamA,
+        teamB:
+          matchOddsData?.type === "tiedMatch2" ? "NO" : matchDetails?.teamB,
+        teamC: matchDetails?.teamC,
+      };
+      dispatch(
+        placeBet({
+          url: ApiConstants.BET.PLACEBETMATCHBETTING,
+          data: JSON.stringify(payload),
+        })
+      );
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   useEffect(() => {
     if (success) {
-      setShowFastTimeBox(false);
+      // setShowFastTimeBox(false);
       dispatch(betPlaceSuccessReset());
     }
   }, [success]);
@@ -403,103 +414,104 @@ const FastTimePlaceBet = ({
                           })}
                       </Box>
                     </Box>
-                    {matchDetails?.teamC && matchOddsData?.type !== "tiedMatch2" && (
-                      <Box
-                        sx={{
-                          // display: "flex",
-                          // marginTop: "15px",
-                          marginX: "2px",
-                          flexWrap: "wrap",
-                          width: { lg: "49.1%", xs: "48%" },
-                          flex: "0 0 auto",
-                          border: "1px solid #cc9f30",
-                          padding: "0.5rem",
-                          marginTop: "6px",
-                          gap: { xs: "3px", lg: 1, md: 1 },
-                        }}
-                      >
+                    {matchDetails?.teamC &&
+                      matchOddsData?.type !== "tiedMatch2" && (
                         <Box
                           sx={{
-                            display: "flex",
-                            // marginTop: "15px",
-                            ml: "6px",
-                            flexWrap: "wrap",
-                            maxWidth: "100%",
-                            flex: 1,
-                            // border: "1px solid black",
-                            // padding: "0.5rem",
-                            marginBottom: "5px",
-                            textAlign: "center",
-                          }}
-                        >
-                          <Typography
-                            sx={{
-                              fontSize: "14px",
-                              color: "black",
-                              fontWeight: "bold",
-                              width: "100%",
-                            }}
-                          >
-                            {matchDetails?.teamC}
-                          </Typography>
-                        </Box>
-                        <Box
-                          sx={{
-                            display: "flex",
+                            // display: "flex",
                             // marginTop: "15px",
                             marginX: "2px",
                             flexWrap: "wrap",
-                            maxWidth: "100%",
-                            flex: 1,
-                            // border: "1px solid black",
-                            // padding: "0.5rem",
+                            width: { lg: "49.1%", xs: "48%" },
+                            flex: "0 0 auto",
+                            border: "1px solid #cc9f30",
+                            padding: "0.5rem",
+                            marginTop: "6px",
                             gap: { xs: "3px", lg: 1, md: 1 },
                           }}
                         >
-                          {matchButtonList.length > 0 &&
-                            matchButtonList?.map((v: any, index: any) => (
-                              <NumberData
-                                handleBet={() => {
-                                  handleBet(
-                                    v.value,
-                                    "BACK",
-                                    index,
-                                    matchDetails?.teamC
-                                  );
-                                }}
-                                key={index}
-                                containerStyle={{
-                                  marginLeft: "2px",
-                                  flex: 1,
-                                  background:
-                                    selectedFastAmount === v && "#FF4949",
-                                  borderRadius: "5px",
-                                  border: "2px solid white",
-                                }}
-                                value={v.value}
-                                lable={v.label}
-                                type={"back"}
-                                session={session}
-                                betOnTeam={matchOddsData?.teamC}
-                                teamSuspend={matchOddsData?.teamC_suspend}
-                                odds={matchOddsData?.teamC_Back}
-                                typeOfBet={typeOfBet}
-                                placeIndex={
-                                  matchOddsData?.marketType ===
-                                  "QuickBookmaker0"
-                                    ? 0
-                                    : matchOddsData?.marketType ===
-                                      "QuickBookmaker1"
-                                    ? 1
-                                    : 2
-                                }
-                                backgroundColor={"#A7DCFF"}
-                                matchOddsData={matchOddsData}
-                              />
-                            ))}
+                          <Box
+                            sx={{
+                              display: "flex",
+                              // marginTop: "15px",
+                              ml: "6px",
+                              flexWrap: "wrap",
+                              maxWidth: "100%",
+                              flex: 1,
+                              // border: "1px solid black",
+                              // padding: "0.5rem",
+                              marginBottom: "5px",
+                              textAlign: "center",
+                            }}
+                          >
+                            <Typography
+                              sx={{
+                                fontSize: "14px",
+                                color: "black",
+                                fontWeight: "bold",
+                                width: "100%",
+                              }}
+                            >
+                              {matchDetails?.teamC}
+                            </Typography>
+                          </Box>
+                          <Box
+                            sx={{
+                              display: "flex",
+                              // marginTop: "15px",
+                              marginX: "2px",
+                              flexWrap: "wrap",
+                              maxWidth: "100%",
+                              flex: 1,
+                              // border: "1px solid black",
+                              // padding: "0.5rem",
+                              gap: { xs: "3px", lg: 1, md: 1 },
+                            }}
+                          >
+                            {matchButtonList.length > 0 &&
+                              matchButtonList?.map((v: any, index: any) => (
+                                <NumberData
+                                  handleBet={() => {
+                                    handleBet(
+                                      v.value,
+                                      "BACK",
+                                      index,
+                                      matchDetails?.teamC
+                                    );
+                                  }}
+                                  key={index}
+                                  containerStyle={{
+                                    marginLeft: "2px",
+                                    flex: 1,
+                                    background:
+                                      selectedFastAmount === v && "#FF4949",
+                                    borderRadius: "5px",
+                                    border: "2px solid white",
+                                  }}
+                                  value={v.value}
+                                  lable={v.label}
+                                  type={"back"}
+                                  session={session}
+                                  betOnTeam={matchOddsData?.teamC}
+                                  teamSuspend={matchOddsData?.teamC_suspend}
+                                  odds={matchOddsData?.teamC_Back}
+                                  typeOfBet={typeOfBet}
+                                  placeIndex={
+                                    matchOddsData?.marketType ===
+                                    "QuickBookmaker0"
+                                      ? 0
+                                      : matchOddsData?.marketType ===
+                                        "QuickBookmaker1"
+                                      ? 1
+                                      : 2
+                                  }
+                                  backgroundColor={"#A7DCFF"}
+                                  matchOddsData={matchOddsData}
+                                />
+                              ))}
+                          </Box>
                         </Box>
-                      </Box>
-                    )}
+                      )}
                   </>
                 ) : (
                   <>
