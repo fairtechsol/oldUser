@@ -20,6 +20,7 @@ import TeamsOdssData from "./TeamOddsData";
 
 const OddsPlaceBet = ({ handleClose, season, type }: any) => {
   const [stakeValue, setStakeValue] = useState<any>(" ");
+  const [matchOddLoading, setMatchOddLoading] = useState<any>(false);
   const { buttonValues, getProfile } = useSelector(
     (state: RootState) => state.user.profile
   );
@@ -56,7 +57,7 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
     lossAmount: 0,
     winAmount: 0,
   });
-  const { success, loading } = useSelector(
+  const { success, loading, error } = useSelector(
     (state: RootState) => state.match.bet
   );
   const dispatch: AppDispatch = useDispatch();
@@ -91,9 +92,13 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
     if (success) {
       dispatch(selectedBetAction(null));
       dispatch(betPlaceSuccessReset());
+      setMatchOddLoading(false);
       handleClose();
     }
-  }, [success]);
+    if (error) {
+      setMatchOddLoading(false);
+    }
+  }, [success, error]);
 
   const handleProfit = (value: any) => {
     let profit;
@@ -381,7 +386,11 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
                   betOnTeam: selectedBet?.team?.betOnTeam,
                   placeIndex: selectedBet?.team?.placeIndex,
                 };
-                if (selectedBet?.data?.type === "matchOdd") {
+                if (
+                  selectedBet?.data?.type === "matchOdd" ||
+                  selectedBet?.team?.matchBetType === "matchOdd"
+                ) {
+                  setMatchOddLoading(true);
                   setTimeout(() => {
                     dispatch(
                       placeBet({
@@ -397,7 +406,7 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
                             : JSON.stringify(payloadForBettings),
                       })
                     );
-                  }, (getProfile && getProfile?.delayTime) ?? 0);
+                  }, getProfile?.delayTime * 1000);
                 } else {
                   dispatch(
                     placeBet({
@@ -422,7 +431,7 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
         </Box>
       </Box>
 
-      {loading && (
+      {(loading || matchOddLoading) && (
         <Box
           sx={{
             position: "absolute",
