@@ -12,11 +12,11 @@ import { selectedBetAction } from "../../../../store/actions/match/matchListActi
 import { AppDispatch, RootState } from "../../../../store/store";
 import { ApiConstants } from "../../../../utils/Constants";
 import StyledImage from "../../../Common/StyledImages";
+import SmallCustomLoader from "../../../Loader/smallLoader";
 import BoxInput from "../../Common/BoxInput";
 import PlaceBetMoneyBox from "../PlaceBetMoneyBox";
 import NumberData from "./NumberDataOdds";
 import TeamsOdssData from "./TeamOddsData";
-import SmallCustomLoader from "../../../Loader/smallLoader";
 
 const OddsPlaceBet = ({ handleClose, season, type }: any) => {
   const [stakeValue, setStakeValue] = useState<any>(" ");
@@ -330,6 +330,7 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
 
           <button
             type="submit"
+            disabled={loading}
             style={{
               color: "#fff",
               backgroundColor: "#262626",
