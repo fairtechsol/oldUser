@@ -19,6 +19,12 @@ export const userBalanceSocketService = {
   matchDeleteBet: (callback: any) => {
     socket.on("matchDeleteBet", callback);
   },
+  sessionResult: (callBack: any) => {
+    socket.on("sessionResult", callBack);
+  },
+  sessionResultUnDeclare: (callBack: any) => {
+    socket.on("sessionResultUnDeclare", callBack);
+  },
   sessionDeleteBet: (callback: any) => {
     socket.on("sessionDeleteBet", callback);
   },
@@ -39,6 +45,12 @@ export const userBalanceSocketService = {
   },
   matchDeleteBetOff: (callback: any) => {
     socket.off("matchDeleteBet", callback);
+  },
+  sessionResultOff: (callBack: any) => {
+    socket.off("sessionResult", callBack);
+  },
+  sessionResultUnDeclareOff: (callBack: any) => {
+    socket.off("sessionResultUnDeclare", callBack);
   },
   sessionDeleteBetOff: (callback: any) => {
     socket.off("sessionDeleteBet", callback);
