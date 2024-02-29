@@ -301,7 +301,7 @@ const SessionBetSeperate = ({
                         </Box>
                       </Box>
                     )}
-                    {profit && i?.deletedReason && (
+                    {profit && i?.deleteReason && (
                       <Box
                         sx={{
                           height: "40px",

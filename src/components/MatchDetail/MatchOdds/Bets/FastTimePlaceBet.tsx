@@ -86,7 +86,13 @@ any) => {
     }
   }, [selectedValue, fromOdds]);
 
-  const handleBet = (stake: any, type: string, index: any, team: string) => {
+  const handleBet = (
+    stake: any,
+    type: string,
+    index: any,
+    team: string,
+    bettingName?: string
+  ) => {
     try {
       if (loading) {
         return;
@@ -126,6 +132,7 @@ any) => {
       let payload: any = {
         betId: matchOddsData?.id,
         betOnTeam: team === "" ? betTeam : team,
+        bettingName: bettingName,
         bettingType: type,
         browserDetail: browserInfo?.userAgent,
         matchId: matchOddsData?.matchId,
@@ -170,216 +177,107 @@ any) => {
     }
   }, [success]);
   return (
-  
     <>
-      {loading && <SmallCustomLoader height="100%"/>}
+      {loading && <SmallCustomLoader height="100%" />}
+      <Box
+        // ref={refs}
+        ref={myDivRef}
+        sx={[
+          {
+            display: "flex",
+            flexDirection: "column",
+            border: "1px solid white",
+            borderRadius: "5px",
+            gap: 1,
+            overflow: "hidden",
+            width: "100%",
+          },
+        ]}
+      >
         <Box
-          // ref={refs}
-          ref={myDivRef}
-          sx={[
-            {
-              display: "flex",
-              flexDirection: "column",
-              border: "1px solid white",
-              borderRadius: "5px",
-              gap: 1,
-              overflow: "hidden",
-              width: "100%",
-            },
-          ]}
+          sx={{
+            background: "#F8C851",
+            width: { xs: "100%", lg: "100%" },
+            overflow: "hidden",
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            flexDirection: "row",
+            alignItems: "center",
+            paddingY: "8px",
+          }}
         >
-         
-          <Box
-            sx={{
-              background: "#F8C851",
-              width: { xs: "100%", lg: "100%" },
-              overflow: "hidden",
-              display: "flex",
-              flexWrap: "wrap",
-              justifyContent: "center",
-              flexDirection: "row",
-              alignItems: "center",
-              paddingY: "8px",
-            }}
-          >
-           
-            {matchesMobile && (
-              <Box sx={{ display: "flex", marginTop: "2px", marginX: "2px" }} />
-              
-            )}
-      
-            {
-              <>
-                {/* {matchOddsData?.isSingle === false || matchOddsData?.teamB_suspend !== "suspended" ? ( */}
-                {matchOddsData?.statusTeamC === "active" ||
-                (matchOddsData.statusTeamA === "active" &&
-                  matchOddsData.statusTeamB === "active") ? (
-                  // ||
-                  //   ((matchOddsData?.teamA_suspend === null || false) &&
-                  //     (matchOddsData?.teamB_suspend === null || false))
-                  <>
-                   
-                    <Box
-                      sx={{
-                        // display: "flex",
-                        // marginTop: "15px",
-                        marginX: "2px",
-                        flexWrap: "wrap",
-                        width: { lg: "49.1%", xs: "48%" },
-                        flex: "0 0 auto",
-                        border: "1px solid #cc9f30",
-                        padding: "0.5rem",
-                        gap: { xs: "3px", lg: 1, md: 1 },
-                      }}
-                    >
-                          
-                    
-                      <Box
-                        sx={{
-                          display: "flex",
-                          // marginTop: "15px",
-                          ml: "6px",
-                          flexWrap: "wrap",
-                          maxWidth: "100%",
-                          flex: 1,
-                          // border: "1px solid black",
-                          // padding: "0.5rem",
-                          marginBottom: "5px",
-                          textAlign: "center",
-                        }}
-                      >
-                        <Typography
-                          sx={{
-                            fontSize: "14px",
-                            color: "black",
-                            fontWeight: "bold",
-                            width: "100%",
-                          }}
-                        >
-                          {matchOddsData?.type === "tiedMatch2"
-                            ? "YES"
-                            : matchDetails?.teamA}
-                        </Typography>
-                      </Box>
-                      <Box
-                        sx={{
-                          display: "flex",
-                          // marginTop: "15px",
-                          marginX: "2px",
-                          flexWrap: "wrap",
-                          maxWidth: "100%",
-                          flex: 1,
-                          // border: "1px solid black",
-                          // padding: "0.5rem",
-                          gap: { xs: "3px", lg: 1, md: 1 },
-                        }}
-                      >
-                        {matchButtonList &&
-                          matchButtonList?.map((v: any, index: any) => {
-                            return (
-                              <>
-                                <NumberData
-                                  handleBet={() => {
-                                    handleBet(
-                                      v.value,
-                                      "BACK",
-                                      index,
-                                      matchOddsData?.type === "tiedMatch2"
-                                        ? "YES"
-                                        : matchDetails?.teamA
-                                    );
-                                  }}
-                                  key={index}
-                                  containerStyle={{
-                                    marginLeft: "2px",
-                                    flex: 1,
-                                    background:
-                                      selectedFastAmount === v && "#FF4949",
-                                    borderRadius: "5px",
-                                    border: "2px solid white",
-                                  }}
-                                  value={v.value}
-                                  lable={v.label}
-                                  type={"back"}
-                                  session={session}
-                                  betOnTeam={matchOddsData?.teamA}
-                                  teamSuspend={matchOddsData?.teamA_suspend}
-                                  odds={matchOddsData?.teamA_Back}
-                                  typeOfBet={typeOfBet}
-                                  placeIndex={
-                                    matchOddsData?.marketType ===
-                                    "QuickBookmaker0"
-                                      ? 0
-                                      : matchOddsData?.marketType ===
-                                        "QuickBookmaker1"
-                                      ? 1
-                                      : 2
-                                  }
-                                  backgroundColor={"#A7DCFF"}
-                                  matchOddsData={matchOddsData}
-                                />
-                              </>
-                            );
-                          })}
-                      </Box>
-                    </Box>
+          {matchesMobile && (
+            <Box sx={{ display: "flex", marginTop: "2px", marginX: "2px" }} />
+          )}
 
+          {
+            <>
+              {/* {matchOddsData?.isSingle === false || matchOddsData?.teamB_suspend !== "suspended" ? ( */}
+              {matchOddsData?.statusTeamC === "active" ||
+              (matchOddsData.statusTeamA === "active" &&
+                matchOddsData.statusTeamB === "active") ? (
+                // ||
+                //   ((matchOddsData?.teamA_suspend === null || false) &&
+                //     (matchOddsData?.teamB_suspend === null || false))
+                <>
+                  <Box
+                    sx={{
+                      // display: "flex",
+                      // marginTop: "15px",
+                      marginX: "2px",
+                      flexWrap: "wrap",
+                      width: { lg: "49.1%", xs: "48%" },
+                      flex: "0 0 auto",
+                      border: "1px solid #cc9f30",
+                      padding: "0.5rem",
+                      gap: { xs: "3px", lg: 1, md: 1 },
+                    }}
+                  >
                     <Box
                       sx={{
-                        // display: "flex",
+                        display: "flex",
+                        // marginTop: "15px",
+                        ml: "6px",
+                        flexWrap: "wrap",
+                        maxWidth: "100%",
+                        flex: 1,
+                        // border: "1px solid black",
+                        // padding: "0.5rem",
+                        marginBottom: "5px",
+                        textAlign: "center",
+                      }}
+                    >
+                      <Typography
+                        sx={{
+                          fontSize: "14px",
+                          color: "black",
+                          fontWeight: "bold",
+                          width: "100%",
+                        }}
+                      >
+                        {matchOddsData?.type === "tiedMatch2"
+                          ? "YES"
+                          : matchDetails?.teamA}
+                      </Typography>
+                    </Box>
+                    <Box
+                      sx={{
+                        display: "flex",
                         // marginTop: "15px",
                         marginX: "2px",
                         flexWrap: "wrap",
-                        width: { lg: "49.1%", xs: "48%" },
-                        flex: "0 0 auto",
-                        border: "1px solid #cc9f30",
-                        padding: "0.5rem",
+                        maxWidth: "100%",
+                        flex: 1,
+                        // border: "1px solid black",
+                        // padding: "0.5rem",
                         gap: { xs: "3px", lg: 1, md: 1 },
                       }}
                     >
-                      <Box
-                        sx={{
-                          display: "flex",
-                          // marginTop: "15px",
-                          ml: "6px",
-                          flexWrap: "wrap",
-                          maxWidth: "100%",
-                          flex: 1,
-                          // border: "1px solid black",
-                          // padding: "0.5rem",
-                          marginBottom: "5px",
-                          textAlign: "center",
-                        }}
-                      >
-                        <Typography
-                          sx={{
-                            fontSize: "14px",
-                            color: "black",
-                            fontWeight: "bold",
-                            width: "100%",
-                          }}
-                        >
-                          {matchOddsData?.type === "tiedMatch2"
-                            ? "NO"
-                            : matchDetails?.teamB}
-                        </Typography>
-                      </Box>
-                      <Box
-                        sx={{
-                          display: "flex",
-                          // marginTop: "15px",
-                          marginX: "2px",
-                          flexWrap: "wrap",
-                          maxWidth: "100%",
-                          flex: 1,
-                          // border: "1px solid black",
-                          // padding: "0.5rem",
-                          gap: { xs: "3px", lg: 1, md: 1 },
-                        }}
-                      >
-                        {matchButtonList.length > 0 &&
-                          matchButtonList?.map((v: any, index: any) => {
-                            return (
+                      {matchButtonList &&
+                        matchButtonList?.map((v: any, index: any) => {
+                          return (
+                            <>
                               <NumberData
                                 handleBet={() => {
                                   handleBet(
@@ -387,8 +285,9 @@ any) => {
                                     "BACK",
                                     index,
                                     matchOddsData?.type === "tiedMatch2"
-                                      ? "NO"
-                                      : matchDetails?.teamB
+                                      ? "YES"
+                                      : matchDetails?.teamA,
+                                    matchOddsData?.name
                                   );
                                 }}
                                 key={index}
@@ -404,9 +303,9 @@ any) => {
                                 lable={v.label}
                                 type={"back"}
                                 session={session}
-                                betOnTeam={matchOddsData?.teamB}
-                                teamSuspend={matchOddsData?.teamB_suspend}
-                                odds={matchOddsData?.teamB_Back}
+                                betOnTeam={matchOddsData?.teamA}
+                                teamSuspend={matchOddsData?.teamA_suspend}
+                                odds={matchOddsData?.teamA_Back}
                                 typeOfBet={typeOfBet}
                                 placeIndex={
                                   matchOddsData?.marketType ===
@@ -420,260 +319,361 @@ any) => {
                                 backgroundColor={"#A7DCFF"}
                                 matchOddsData={matchOddsData}
                               />
-                            );
-                          })}
-                      </Box>
+                            </>
+                          );
+                        })}
                     </Box>
-                    {matchDetails?.teamC &&
-                      matchOddsData?.type !== "tiedMatch2" && (
-                        <Box
-                          sx={{
-                            // display: "flex",
-                            // marginTop: "15px",
-                            marginX: "2px",
-                            flexWrap: "wrap",
-                            width: { lg: "49.1%", xs: "48%" },
-                            flex: "0 0 auto",
-                            border: "1px solid #cc9f30",
-                            padding: "0.5rem",
-                            marginTop: "6px",
-                            gap: { xs: "3px", lg: 1, md: 1 },
-                          }}
-                        >
-                          <Box
-                            sx={{
-                              display: "flex",
-                              // marginTop: "15px",
-                              ml: "6px",
-                              flexWrap: "wrap",
-                              maxWidth: "100%",
-                              flex: 1,
-                              // border: "1px solid black",
-                              // padding: "0.5rem",
-                              marginBottom: "5px",
-                              textAlign: "center",
-                            }}
-                          >
-                            <Typography
-                              sx={{
-                                fontSize: "14px",
-                                color: "black",
-                                fontWeight: "bold",
-                                width: "100%",
-                              }}
-                            >
-                              {matchDetails?.teamC}
-                            </Typography>
-                          </Box>
-                          <Box
-                            sx={{
-                              display: "flex",
-                              // marginTop: "15px",
-                              marginX: "2px",
-                              flexWrap: "wrap",
-                              maxWidth: "100%",
-                              flex: 1,
-                              // border: "1px solid black",
-                              // padding: "0.5rem",
-                              gap: { xs: "3px", lg: 1, md: 1 },
-                            }}
-                          >
-                            {matchButtonList.length > 0 &&
-                              matchButtonList?.map((v: any, index: any) => (
-                                <NumberData
-                                  handleBet={() => {
-                                    handleBet(
-                                      v.value,
-                                      "BACK",
-                                      index,
-                                      matchDetails?.teamC
-                                    );
-                                  }}
-                                  key={index}
-                                  containerStyle={{
-                                    marginLeft: "2px",
-                                    flex: 1,
-                                    background:
-                                      selectedFastAmount === v && "#FF4949",
-                                    borderRadius: "5px",
-                                    border: "2px solid white",
-                                  }}
-                                  value={v.value}
-                                  lable={v.label}
-                                  type={"back"}
-                                  session={session}
-                                  betOnTeam={matchOddsData?.teamC}
-                                  teamSuspend={matchOddsData?.teamC_suspend}
-                                  odds={matchOddsData?.teamC_Back}
-                                  typeOfBet={typeOfBet}
-                                  placeIndex={
-                                    matchOddsData?.marketType ===
-                                    "QuickBookmaker0"
-                                      ? 0
-                                      : matchOddsData?.marketType ===
-                                        "QuickBookmaker1"
-                                      ? 1
-                                      : 2
-                                  }
-                                  backgroundColor={"#A7DCFF"}
-                                  matchOddsData={matchOddsData}
-                                />
-                              ))}
-                          </Box>
-                        </Box>
-                      )}
-                  </>
-                ) : (
-                  <>
+                  </Box>
+
+                  <Box
+                    sx={{
+                      // display: "flex",
+                      // marginTop: "15px",
+                      marginX: "2px",
+                      flexWrap: "wrap",
+                      width: { lg: "49.1%", xs: "48%" },
+                      flex: "0 0 auto",
+                      border: "1px solid #cc9f30",
+                      padding: "0.5rem",
+                      gap: { xs: "3px", lg: 1, md: 1 },
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        display: "flex",
+                        // marginTop: "15px",
+                        ml: "6px",
+                        flexWrap: "wrap",
+                        maxWidth: "100%",
+                        flex: 1,
+                        // border: "1px solid black",
+                        // padding: "0.5rem",
+                        marginBottom: "5px",
+                        textAlign: "center",
+                      }}
+                    >
+                      <Typography
+                        sx={{
+                          fontSize: "14px",
+                          color: "black",
+                          fontWeight: "bold",
+                          width: "100%",
+                        }}
+                      >
+                        {matchOddsData?.type === "tiedMatch2"
+                          ? "NO"
+                          : matchDetails?.teamB}
+                      </Typography>
+                    </Box>
                     <Box
                       sx={{
                         display: "flex",
                         // marginTop: "15px",
                         marginX: "2px",
                         flexWrap: "wrap",
-                        maxWidth: "50%",
+                        maxWidth: "100%",
                         flex: 1,
+                        // border: "1px solid black",
+                        // padding: "0.5rem",
                         gap: { xs: "3px", lg: 1, md: 1 },
                       }}
                     >
                       {matchButtonList.length > 0 &&
-                        matchButtonList?.map((v: any, index: any) => (
-                          <NumberData
-                            handleBet={() => {
-                              handleBet(v.value, "BACK", index, "");
-                            }}
-                            key={index}
-                            containerStyle={{
-                              marginLeft: "2px",
-                              flex: 1,
-                              background: selectedFastAmount === v && "#FF4949",
-                              borderRadius: "5px",
-                              border: "2px solid white",
-                            }}
-                            value={v.value}
-                            lable={v.label}
-                            type={"back"}
-                            session={session}
-                            betOnTeam={
-                              ![null, ""].includes(matchOddsData?.teamA_Back)
-                                ? matchOddsData?.teamA
-                                : ![null, ""].includes(
-                                    matchOddsData?.teamB_Back
-                                  )
-                                ? matchOddsData?.teamB
-                                : matchOddsData?.teamC
-                            }
-                            teamSuspend={
-                              ![null, ""].includes(matchOddsData?.teamA_Back)
-                                ? matchOddsData?.teamA_suspend
-                                : ![null, ""].includes(
-                                    matchOddsData?.teamB_Back
-                                  )
-                                ? matchOddsData?.teamB_suspend
-                                : matchOddsData?.teamC_suspend
-                            }
-                            odds={
-                              ![null, ""].includes(matchOddsData?.teamA_Back)
-                                ? matchOddsData?.teamA_Back
-                                : ![null, ""].includes(
-                                    matchOddsData?.teamB_Back
-                                  )
-                                ? matchOddsData?.teamB_Back
-                                : matchOddsData?.teamC_Back
-                            }
-                            typeOfBet={typeOfBet}
-                            backgroundColor={"#A7DCFF"}
-                            matchOddsData={matchOddsData}
-                            placeIndex={
-                              matchOddsData?.marketType === "QuickBookmaker0"
-                                ? 0
-                                : matchOddsData?.marketType ===
-                                  "QuickBookmaker1"
-                                ? 1
-                                : 2
-                            }
-                            data={data}
-                          />
-                        ))}
+                        matchButtonList?.map((v: any, index: any) => {
+                          return (
+                            <NumberData
+                              handleBet={() => {
+                                handleBet(
+                                  v.value,
+                                  "BACK",
+                                  index,
+                                  matchOddsData?.type === "tiedMatch2"
+                                    ? "NO"
+                                    : matchDetails?.teamB,
+                                  matchOddsData?.name
+                                );
+                              }}
+                              key={index}
+                              containerStyle={{
+                                marginLeft: "2px",
+                                flex: 1,
+                                background:
+                                  selectedFastAmount === v && "#FF4949",
+                                borderRadius: "5px",
+                                border: "2px solid white",
+                              }}
+                              value={v.value}
+                              lable={v.label}
+                              type={"back"}
+                              session={session}
+                              betOnTeam={matchOddsData?.teamB}
+                              teamSuspend={matchOddsData?.teamB_suspend}
+                              odds={matchOddsData?.teamB_Back}
+                              typeOfBet={typeOfBet}
+                              placeIndex={
+                                matchOddsData?.marketType === "QuickBookmaker0"
+                                  ? 0
+                                  : matchOddsData?.marketType ===
+                                    "QuickBookmaker1"
+                                  ? 1
+                                  : 2
+                              }
+                              backgroundColor={"#A7DCFF"}
+                              matchOddsData={matchOddsData}
+                            />
+                          );
+                        })}
                     </Box>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        // marginY: "8px",
-                        marginX: "2px",
-                        flexWrap: "wrap",
-                        maxWidth: "50%",
-                        flex: 1,
-                        gap: { xs: "3px", lg: 1, md: 1 },
-                      }}
-                    >
-                      {matchButtonList.length > 0 &&
-                        matchButtonList?.map((v: any, index: any) => (
-                          <NumberData
-                            handleBet={() => {
-                              handleBet(v.value, "LAY", index, "");
+                  </Box>
+                  {matchDetails?.teamC &&
+                    matchOddsData?.type !== "tiedMatch2" && (
+                      <Box
+                        sx={{
+                          // display: "flex",
+                          // marginTop: "15px",
+                          marginX: "2px",
+                          flexWrap: "wrap",
+                          width: { lg: "49.1%", xs: "48%" },
+                          flex: "0 0 auto",
+                          border: "1px solid #cc9f30",
+                          padding: "0.5rem",
+                          marginTop: "6px",
+                          gap: { xs: "3px", lg: 1, md: 1 },
+                        }}
+                      >
+                        <Box
+                          sx={{
+                            display: "flex",
+                            // marginTop: "15px",
+                            ml: "6px",
+                            flexWrap: "wrap",
+                            maxWidth: "100%",
+                            flex: 1,
+                            // border: "1px solid black",
+                            // padding: "0.5rem",
+                            marginBottom: "5px",
+                            textAlign: "center",
+                          }}
+                        >
+                          <Typography
+                            sx={{
+                              fontSize: "14px",
+                              color: "black",
+                              fontWeight: "bold",
+                              width: "100%",
                             }}
-                            key={index}
-                            containerStyle={{
-                              marginLeft: "2px",
-                              flex: 1,
-                              background: selectedFastAmount === v && "#FF4949",
-                              borderRadius: "5px",
-                              border: "2px solid white",
-                            }}
-                            value={v.value}
-                            lable={v.label}
-                            type={"lay"}
-                            session={session}
-                            betOnTeam={
-                              ![null, ""].includes(matchOddsData?.teamA_lay)
-                                ? matchOddsData?.teamA
-                                : ![null, ""].includes(matchOddsData?.teamB_lay)
-                                ? matchOddsData?.teamB
-                                : matchOddsData?.teamC
-                            }
-                            teamSuspend={
-                              ![null, ""].includes(matchOddsData?.teamA_lay)
-                                ? matchOddsData?.teamA_suspend
-                                : ![null, ""].includes(matchOddsData?.teamB_lay)
-                                ? matchOddsData?.teamB_suspend
-                                : matchOddsData?.teamC_suspend
-                            }
-                            odds={
-                              ![null, ""].includes(matchOddsData?.teamA_lay)
-                                ? matchOddsData?.teamA_lay
-                                : ![null, ""].includes(
-                                    matchOddsData?.teamB_Back
-                                  )
-                                ? matchOddsData?.teamB_lay
-                                : matchOddsData?.teamC_lay
-                            }
-                            typeOfBet={typeOfBet}
-                            backgroundColor={"#FFB5B5"}
-                            matchOddsData={matchOddsData}
-                            placeIndex={
-                              matchOddsData?.marketType === "QuickBookmaker0"
-                                ? 0
-                                : matchOddsData?.marketType ===
-                                  "QuickBookmaker1"
-                                ? 1
-                                : 2
-                            }
-                            data={data}
-                          />
-                        ))}
-                    </Box>
-                  </>
-                )}
-                
-              </>
-      
-            }
-          </Box>
+                          >
+                            {matchDetails?.teamC}
+                          </Typography>
+                        </Box>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            // marginTop: "15px",
+                            marginX: "2px",
+                            flexWrap: "wrap",
+                            maxWidth: "100%",
+                            flex: 1,
+                            // border: "1px solid black",
+                            // padding: "0.5rem",
+                            gap: { xs: "3px", lg: 1, md: 1 },
+                          }}
+                        >
+                          {matchButtonList.length > 0 &&
+                            matchButtonList?.map((v: any, index: any) => (
+                              <NumberData
+                                handleBet={() => {
+                                  handleBet(
+                                    v.value,
+                                    "BACK",
+                                    index,
+                                    matchDetails?.teamC,
+                                    matchOddsData?.name
+                                  );
+                                }}
+                                key={index}
+                                containerStyle={{
+                                  marginLeft: "2px",
+                                  flex: 1,
+                                  background:
+                                    selectedFastAmount === v && "#FF4949",
+                                  borderRadius: "5px",
+                                  border: "2px solid white",
+                                }}
+                                value={v.value}
+                                lable={v.label}
+                                type={"back"}
+                                session={session}
+                                betOnTeam={matchOddsData?.teamC}
+                                teamSuspend={matchOddsData?.teamC_suspend}
+                                odds={matchOddsData?.teamC_Back}
+                                typeOfBet={typeOfBet}
+                                placeIndex={
+                                  matchOddsData?.marketType ===
+                                  "QuickBookmaker0"
+                                    ? 0
+                                    : matchOddsData?.marketType ===
+                                      "QuickBookmaker1"
+                                    ? 1
+                                    : 2
+                                }
+                                backgroundColor={"#A7DCFF"}
+                                matchOddsData={matchOddsData}
+                              />
+                            ))}
+                        </Box>
+                      </Box>
+                    )}
+                </>
+              ) : (
+                <>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      // marginTop: "15px",
+                      marginX: "2px",
+                      flexWrap: "wrap",
+                      maxWidth: "50%",
+                      flex: 1,
+                      gap: { xs: "3px", lg: 1, md: 1 },
+                    }}
+                  >
+                    {matchButtonList.length > 0 &&
+                      matchButtonList?.map((v: any, index: any) => (
+                        <NumberData
+                          handleBet={() => {
+                            handleBet(
+                              v.value,
+                              "BACK",
+                              index,
+                              "",
+                              matchOddsData?.name
+                            );
+                          }}
+                          key={index}
+                          containerStyle={{
+                            marginLeft: "2px",
+                            flex: 1,
+                            background: selectedFastAmount === v && "#FF4949",
+                            borderRadius: "5px",
+                            border: "2px solid white",
+                          }}
+                          value={v.value}
+                          lable={v.label}
+                          type={"back"}
+                          session={session}
+                          betOnTeam={
+                            ![null, ""].includes(matchOddsData?.teamA_Back)
+                              ? matchOddsData?.teamA
+                              : ![null, ""].includes(matchOddsData?.teamB_Back)
+                              ? matchOddsData?.teamB
+                              : matchOddsData?.teamC
+                          }
+                          teamSuspend={
+                            ![null, ""].includes(matchOddsData?.teamA_Back)
+                              ? matchOddsData?.teamA_suspend
+                              : ![null, ""].includes(matchOddsData?.teamB_Back)
+                              ? matchOddsData?.teamB_suspend
+                              : matchOddsData?.teamC_suspend
+                          }
+                          odds={
+                            ![null, ""].includes(matchOddsData?.teamA_Back)
+                              ? matchOddsData?.teamA_Back
+                              : ![null, ""].includes(matchOddsData?.teamB_Back)
+                              ? matchOddsData?.teamB_Back
+                              : matchOddsData?.teamC_Back
+                          }
+                          typeOfBet={typeOfBet}
+                          backgroundColor={"#A7DCFF"}
+                          matchOddsData={matchOddsData}
+                          placeIndex={
+                            matchOddsData?.marketType === "QuickBookmaker0"
+                              ? 0
+                              : matchOddsData?.marketType === "QuickBookmaker1"
+                              ? 1
+                              : 2
+                          }
+                          data={data}
+                        />
+                      ))}
+                  </Box>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      // marginY: "8px",
+                      marginX: "2px",
+                      flexWrap: "wrap",
+                      maxWidth: "50%",
+                      flex: 1,
+                      gap: { xs: "3px", lg: 1, md: 1 },
+                    }}
+                  >
+                    {matchButtonList.length > 0 &&
+                      matchButtonList?.map((v: any, index: any) => (
+                        <NumberData
+                          handleBet={() => {
+                            handleBet(
+                              v.value,
+                              "LAY",
+                              index,
+                              "",
+                              matchOddsData?.name
+                            );
+                          }}
+                          key={index}
+                          containerStyle={{
+                            marginLeft: "2px",
+                            flex: 1,
+                            background: selectedFastAmount === v && "#FF4949",
+                            borderRadius: "5px",
+                            border: "2px solid white",
+                          }}
+                          value={v.value}
+                          lable={v.label}
+                          type={"lay"}
+                          session={session}
+                          betOnTeam={
+                            ![null, ""].includes(matchOddsData?.teamA_lay)
+                              ? matchOddsData?.teamA
+                              : ![null, ""].includes(matchOddsData?.teamB_lay)
+                              ? matchOddsData?.teamB
+                              : matchOddsData?.teamC
+                          }
+                          teamSuspend={
+                            ![null, ""].includes(matchOddsData?.teamA_lay)
+                              ? matchOddsData?.teamA_suspend
+                              : ![null, ""].includes(matchOddsData?.teamB_lay)
+                              ? matchOddsData?.teamB_suspend
+                              : matchOddsData?.teamC_suspend
+                          }
+                          odds={
+                            ![null, ""].includes(matchOddsData?.teamA_lay)
+                              ? matchOddsData?.teamA_lay
+                              : ![null, ""].includes(matchOddsData?.teamB_Back)
+                              ? matchOddsData?.teamB_lay
+                              : matchOddsData?.teamC_lay
+                          }
+                          typeOfBet={typeOfBet}
+                          backgroundColor={"#FFB5B5"}
+                          matchOddsData={matchOddsData}
+                          placeIndex={
+                            matchOddsData?.marketType === "QuickBookmaker0"
+                              ? 0
+                              : matchOddsData?.marketType === "QuickBookmaker1"
+                              ? 1
+                              : 2
+                          }
+                          data={data}
+                        />
+                      ))}
+                  </Box>
+                </>
+              )}
+            </>
+          }
         </Box>
-         
-  
-    
+      </Box>
+
       {session === "sessionOdds" && (
         <Box
           // ref={refs}
@@ -790,7 +790,6 @@ any) => {
             }
           </Box>
         </Box>
-      
       )}
 
       {canceled.value && (
@@ -812,11 +811,8 @@ any) => {
             })
           }
         />
-    
       )}
-        
     </>
-        
   );
 };
 
