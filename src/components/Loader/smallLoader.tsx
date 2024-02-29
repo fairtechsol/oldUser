@@ -6,6 +6,7 @@ const SmallCustomLoader = ({ text }: any) => {
       style={{
         display: "flex",
         justifyContent: "center",
+        alignItems: "center",
         flex: 1,
       }}
     >

@@ -11,6 +11,8 @@ import {
   placeBet,
 } from "../../../../store/actions/betPlace/betPlaceActions";
 import NumberData from "./NumberDataFastTime";
+import Loader from "../../../Loader";
+import SmallCustomLoader from "../../../Loader/smallLoader";
 const FastTimePlaceBet = ({
   session,
   selectedFastAmount,
@@ -168,8 +170,9 @@ any) => {
     }
   }, [success]);
   return (
+  
     <>
-      {session === "manualBookMaker" && (
+      {loading && <SmallCustomLoader height="100%"/>}
         <Box
           // ref={refs}
           ref={myDivRef}
@@ -185,6 +188,7 @@ any) => {
             },
           ]}
         >
+         
           <Box
             sx={{
               background: "#F8C851",
@@ -198,9 +202,12 @@ any) => {
               paddingY: "8px",
             }}
           >
+           
             {matchesMobile && (
               <Box sx={{ display: "flex", marginTop: "2px", marginX: "2px" }} />
+              
             )}
+      
             {
               <>
                 {/* {matchOddsData?.isSingle === false || matchOddsData?.teamB_suspend !== "suspended" ? ( */}
@@ -211,6 +218,7 @@ any) => {
                   //   ((matchOddsData?.teamA_suspend === null || false) &&
                   //     (matchOddsData?.teamB_suspend === null || false))
                   <>
+                   
                     <Box
                       sx={{
                         // display: "flex",
@@ -224,6 +232,8 @@ any) => {
                         gap: { xs: "3px", lg: 1, md: 1 },
                       }}
                     >
+                          
+                    
                       <Box
                         sx={{
                           display: "flex",
@@ -655,11 +665,15 @@ any) => {
                     </Box>
                   </>
                 )}
+                
               </>
+      
             }
           </Box>
         </Box>
-      )}
+         
+  
+    
       {session === "sessionOdds" && (
         <Box
           // ref={refs}
@@ -776,7 +790,9 @@ any) => {
             }
           </Box>
         </Box>
+      
       )}
+
       {canceled.value && (
         <NotificationModal
           // time={
@@ -796,8 +812,11 @@ any) => {
             })
           }
         />
+    
       )}
+        
     </>
+        
   );
 };
 
