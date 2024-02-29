@@ -172,6 +172,7 @@ const SeparateModal = ({
                       matchId: currentMatch?.id,
                       placeIndex: po,
                       matchBetType: marketDetails?.type,
+                      bettingName: marketDetails?.name,
                     },
                     data
                   );

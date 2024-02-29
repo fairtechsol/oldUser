@@ -40,19 +40,23 @@ const RowComponent = ({ header, data }: any) => {
       {!header && (
         <>
           {/* <Box sx={{ width: "48%", minWidth: "22%" }}> */}
-            <SingleBox
-              color={getColor}
-              data={
-                data?.marketType == "MANUAL BOOKMAKER"
-                  ? "Quick Bookmaker"
-                  : data?.marketType
-              }
-              first={true}
-              header={header}
-              time={getTime(data.createdAt)}
-            />
+          <SingleBox
+            color={getColor}
+            data={data?.bettingName}
+            first={true}
+            header={header}
+            time={getTime(data.createdAt)}
+          />
           {/* </Box> */}
-          <Box sx={{ maxWidth: "14%" , minWidth: "15%", overflow: "hidden", textWrap: "nowrap",display: "flex"}}>
+          <Box
+            sx={{
+              maxWidth: "14%",
+              minWidth: "15%",
+              overflow: "hidden",
+              textWrap: "nowrap",
+              display: "flex",
+            }}
+          >
             <SingleBox
               color={getColor()}
               data={
@@ -66,38 +70,38 @@ const RowComponent = ({ header, data }: any) => {
             />
           </Box>
           {/* <Box sx={{ width: "52%", minWidth: "19%" }}> */}
-            <SingleBox
-              color={getColor()}
-              data={data.teamName}
-              up={true}
-              header={header}
-              // time={data.teamName}
-            />
+          <SingleBox
+            color={getColor()}
+            data={data.teamName}
+            up={true}
+            header={header}
+            // time={data.teamName}
+          />
           {/* </Box>
           <Box sx={{ width: "30%" }}> */}
-            <SingleBox
-              color={getColor()}
-              data={data?.bet_type || data?.betType}
-              header={header}
-              boxWidth="50%"
-            />
-          {/* </Box>
-          <Box sx={{ width: "30%" }}> */}
-            <SingleBox 
-            color={getColor()} 
-            data={data?.odds} 
+          <SingleBox
+            color={getColor()}
+            data={data?.bet_type || data?.betType}
             header={header}
             boxWidth="50%"
-             />
+          />
+          {/* </Box>
+          <Box sx={{ width: "30%" }}> */}
+          <SingleBox
+            color={getColor()}
+            data={data?.odds}
+            header={header}
+            boxWidth="50%"
+          />
           {/* </Box>
           <Box sx={{ width: "41%" }}> */}
-            <SingleBox
-              color={getColor()}
-              data={data?.amount}
-              header={header}
-              width={"50%"}
-              boxWidth="100%"
-            />
+          <SingleBox
+            color={getColor()}
+            data={data?.amount}
+            header={header}
+            width={"50%"}
+            boxWidth="100%"
+          />
           {/* </Box> */}
         </>
       )}

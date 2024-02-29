@@ -370,6 +370,7 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
                   teamA: selectedBet?.team?.teamA,
                   teamB: selectedBet?.team?.teamB,
                   teamC: selectedBet?.team?.teamC,
+                  bettingName: selectedBet?.team?.bettingName,
                   eventName: selectedBet?.team?.name,
                   eventType: selectedBet?.team?.eventType,
                   matchId: selectedBet?.team?.matchId,
