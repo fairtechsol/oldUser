@@ -211,7 +211,7 @@ const SessionBetSeperate = ({
                         <Box sx={{ width: mark2 ? "35%" : "35%" }}></Box>
                       </Box>
                     )}
-                    {i?.deleteReason && betHistory === undefined && (
+                    {i?.deleteReason && (
                       <Box
                         sx={{
                           width: {
@@ -237,7 +237,7 @@ const SessionBetSeperate = ({
                             alignSelf: "flex-end",
                           }}
                         >
-                          {mark && (
+                          {/* {mark && ( */}
                             <Typography
                               sx={{
                                 fontSize: "10px",
@@ -248,9 +248,9 @@ const SessionBetSeperate = ({
                             >
                               Bet{" "}
                               <span style={{ color: "#e41b23" }}>deleted</span>{" "}
-                              due to ${i?.deleteReason}
+                              due to {i?.deleteReason}
                             </Typography>
-                          )}
+                          {/* )} */}
                         </Box>
                       </Box>
                     )}
