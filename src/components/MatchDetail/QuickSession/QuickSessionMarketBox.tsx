@@ -131,7 +131,7 @@ const QuickSessionMarketBox = ({
               zIndex: 1,
             }}
           >
-            {data?.status == "Ball Running" ? (
+            {data?.status == "ball start" ? (
               <img src={BallStart} style={{ width: "113px", height: "32px" }} />
             ) : (
               <Typography

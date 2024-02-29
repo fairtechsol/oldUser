@@ -7,6 +7,7 @@ import {
   setButtonValue,
   updateBalance,
   updateBalanceFromSocket,
+  updateBalanceOnSessionResult,
   updateBalanceSession,
 } from "../../actions/user/userAction";
 
@@ -118,6 +119,17 @@ const profileSlice = createSlice({
           userBal: {
             ...state?.getProfile?.userBal,
             exposure: action.payload.newUserExposure ?? action.payload.exposure,
+            // currentBalance: action.payload.userCurrentBalance,
+          },
+        };
+      })
+      .addCase(updateBalanceOnSessionResult.fulfilled, (state, action) => {
+        state.getProfile = {
+          ...state.getProfile,
+          userBal: {
+            ...state?.getProfile?.userBal,
+            exposure: action.payload.exposure,
+            currentBalance: action.payload.currentBalance,
           },
         };
       })
@@ -127,6 +139,9 @@ const profileSlice = createSlice({
           userBal: {
             ...state?.getProfile?.userBal,
             exposure: action.payload.newUserExposure ?? action.payload.exposure,
+            // currentBalance:
+            //   action.payload.newUserCurrentBalance ??
+            //   action.payload.currentBalance,
           },
         };
       })

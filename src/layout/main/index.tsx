@@ -12,6 +12,7 @@ import {
   getProfile,
   marqueeNotification,
   updateBalanceFromSocket,
+  updateBalanceOnSessionResult,
 } from "../../store/actions/user/userAction";
 import { AppDispatch } from "../../store/store";
 import CustomHeader from "./header/CustomHeader";
@@ -23,6 +24,14 @@ const MainLayout = () => {
 
   const updateLoggedUserBalance = (event: any) => {
     dispatch(updateBalanceFromSocket(event));
+  };
+
+  const sessionResultDeclared = (event: any) => {
+    try {
+      dispatch(updateBalanceOnSessionResult(event?.userBalanceData));
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   useEffect(() => {
@@ -39,6 +48,8 @@ const MainLayout = () => {
       socketService.connect();
       socketService.auth.logout();
       socketService.userBalance.updateUserBalance(updateLoggedUserBalance);
+      socketService.userBalance.sessionResult(sessionResultDeclared);
+      socketService.userBalance.sessionResultUnDeclare(sessionResultDeclared);
     } else {
       socketService.disconnect();
     }
