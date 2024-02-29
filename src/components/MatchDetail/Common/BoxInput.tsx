@@ -79,6 +79,9 @@ const BoxInput = ({
               fontWeight: "600",
               color: "black",
             },
+            inputProps: {
+              inputMode: "numeric",
+            },
           }}
           onChange={handleInputChange}
           sx={{ textAlign: "center", alignItems: "center" }}

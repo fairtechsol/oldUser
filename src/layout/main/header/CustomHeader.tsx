@@ -158,14 +158,18 @@ const CustomHeader = () => {
                 containerStyle={{ marginTop: matchesMobile ? "5px" : "0px" }}
                 valueStyle={{}}
                 title={"Exposure"}
-                value={getProfile?.userBal?.exposure}
+                value={getProfile?.userBal?.exposure &&
+                  new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(getProfile.userBal.exposure)
+                }
               />
               <NewBoxData
                 showDropDown={true}
                 title={getProfile?.userName}
                 valueStyle={{ color: "white" }}
                 titleStyle={{ color: "white" }}
-                value={getProfile?.userBal?.currentBalance}
+                value={getProfile?.userBal?.currentBalance &&
+                  new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(getProfile.userBal.currentBalance)
+                }
                 containerStyle={{ background: "#0B4F26" }}
               />
             </Box>

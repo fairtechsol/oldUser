@@ -150,20 +150,6 @@ const MatchesComponent = (_: any) => {
         )}
         color="primary"
       />
-
-      {/* {loading && <CustomLoader text="" />} */}
-      {loading && (
-        <Box
-          sx={{
-            minHeight: "90vh",
-            width: "100%",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <CustomLoader height={"70vh"} text={""} />
-        </Box>
-      )}
     </>
   );
 };
