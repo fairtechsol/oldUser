@@ -83,9 +83,10 @@ const MatchDetail = () => {
   const betDeleted = (event: any) => {
     try {
       if (event?.matchId === state?.matchId) {
+        dispatch(getProfile());
+        dispatch(updateBalance(event));
         dispatch(matchDetailAction(state?.matchId));
         dispatch(getPlacedBets(state?.matchId));
-        dispatch(updateBalance(event));
       }
     } catch (e) {
       console.log(e);
@@ -235,19 +236,27 @@ const MatchDetail = () => {
                       width: "98%",
                     }}
                   >
-                    <SessionBetSeperate
-                      placedBets={Array.from(new Set(placedBets)).filter(
-                        (bet: any) => bet?.marketType === "session"
-                      )}
-                      mark
-                    />
+                    {Array.from(new Set(placedBets)).filter(
+                      (bet: any) => bet?.marketType === "session"
+                    ).length > 0 && (
+                      <SessionBetSeperate
+                        placedBets={Array.from(new Set(placedBets)).filter(
+                          (bet: any) => bet?.marketType === "session"
+                        )}
+                        mark
+                      />
+                    )}
 
-                    <AllRateSeperate
-                      allBetsData={Array.from(new Set(placedBets)).filter(
-                        (bet: any) => bet?.marketType != "session"
-                      )}
-                      mark
-                    />
+                    {Array.from(new Set(placedBets)).filter(
+                      (bet: any) => bet?.marketType !== "session"
+                    ).length > 0 && (
+                      <AllRateSeperate
+                        allBetsData={Array.from(new Set(placedBets)).filter(
+                          (bet: any) => bet?.marketType != "session"
+                        )}
+                        mark
+                      />
+                    )}
                   </Box>
                   <LiveMatchHome />
                 </Box>
@@ -277,18 +286,26 @@ const MatchDetail = () => {
                 <Box sx={{ width: "30%", paddingRight: "1%" }}>
                   <LiveScore />
                   <LiveMatchHome />
-                  <AllRateSeperate
-                    mark
-                    allBetsData={Array.from(new Set(placedBets)).filter(
-                      (bet: any) => bet?.marketType !== "session"
-                    )}
-                  />
-                  <SessionBetSeperate
-                    placedBets={Array.from(new Set(placedBets)).filter(
-                      (bet: any) => bet?.marketType === "session"
-                    )}
-                    mark
-                  />
+                  {Array.from(new Set(placedBets)).filter(
+                    (bet: any) => bet?.marketType !== "session"
+                  ).length > 0 && (
+                    <AllRateSeperate
+                      mark
+                      allBetsData={Array.from(new Set(placedBets)).filter(
+                        (bet: any) => bet?.marketType !== "session"
+                      )}
+                    />
+                  )}
+                  {Array.from(new Set(placedBets)).filter(
+                    (bet: any) => bet?.marketType === "session"
+                  ).length > 0 && (
+                    <SessionBetSeperate
+                      placedBets={Array.from(new Set(placedBets)).filter(
+                        (bet: any) => bet?.marketType === "session"
+                      )}
+                      mark
+                    />
+                  )}
                 </Box>
               </Box>
             )}

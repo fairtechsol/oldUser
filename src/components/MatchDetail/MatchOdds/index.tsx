@@ -1,4 +1,4 @@
-import { Box, Pagination } from "@mui/material";
+import { Pagination } from "@mui/material";
 import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -9,7 +9,6 @@ import {
 } from "../../../store/actions/match/matchListAction";
 import { AppDispatch, RootState } from "../../../store/store";
 import { Constants } from "../../../utils/Constants";
-import CustomLoader from "../../Loader/index";
 import Odds from "./Odds";
 
 const MatchesComponent = (_: any) => {
@@ -18,7 +17,7 @@ const MatchesComponent = (_: any) => {
   const [selectedMatchId, setSelectedMatchId] = useState("");
   const navigate = useNavigate();
 
-  const { matchList, loading, success } = useSelector(
+  const { matchList, success } = useSelector(
     (state: RootState) => state.match.matchList
   );
   const { getProfile } = useSelector((state: RootState) => state.user.profile);
