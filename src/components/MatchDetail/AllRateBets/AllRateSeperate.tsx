@@ -292,7 +292,7 @@ const AllRateSeperate = ({
                             >
                               Bet{" "}
                               <span style={{ color: "#e41b23" }}>deleted</span>{" "}
-                              due to ${"i?.deleteReason"}
+                              due to {i?.deleteReason}
                             </Typography>
                           )}
                         </Box>
@@ -397,7 +397,7 @@ const AllRateSeperate = ({
                           }}
                         >
                           Bet <span style={{ color: "#e41b23" }}>Deleted</span>{" "}
-                          Due {"\n"} {"i?.deleteReason"}
+                          Due {"\n"} {i?.deleteReason}
                         </Typography>
                       </Box>
                     )}

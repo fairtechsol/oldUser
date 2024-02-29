@@ -248,7 +248,7 @@ const SessionBetSeperate = ({
                             >
                               Bet{" "}
                               <span style={{ color: "#e41b23" }}>deleted</span>{" "}
-                              due to ${i?.deleteReason}
+                              due to {i?.deleteReason}
                             </Typography>
                           )}
                         </Box>
@@ -301,7 +301,7 @@ const SessionBetSeperate = ({
                         </Box>
                       </Box>
                     )}
-                    {profit && i?.deletedReason && (
+                    {profit && i?.deleteReason && (
                       <Box
                         sx={{
                           height: "40px",

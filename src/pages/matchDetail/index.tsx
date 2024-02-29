@@ -145,6 +145,9 @@ const MatchDetail = () => {
     } catch (e) {
       console.log(e);
     }
+  }, [success]);
+
+  useEffect(() => {
     return () => {
       expertSocketService.match.leaveAllRooms();
       expertSocketService.match.leaveMatchRoom(state?.matchId);
@@ -158,7 +161,7 @@ const MatchDetail = () => {
       socketService.userBalance.matchDeleteBetOff(betDeleted);
       socketService.userBalance.sessionDeleteBetOff(betDeleted);
     };
-  }, [success]);
+  }, []);
 
   useEffect(() => {
     const handleVisibilityChange = () => {
