@@ -22,6 +22,7 @@ const TableRow = ({
     day: "2-digit",
     hour: "2-digit",
     minute: "2-digit",
+    second: "2-digit"
   });
 
   return (
@@ -61,7 +62,7 @@ const TableRow = ({
             fTextStyle,
           ]}
         >
-          {moment(formattedDate).format("DD-MM-YYYY HH:mm")}
+          {moment(formattedDate).format("DD-MM-YYYY HH:mm:ss")}
         </Typography>
       </Box>
       <Box
@@ -78,7 +79,7 @@ const TableRow = ({
         <Typography
           sx={{ fontSize: "12px", fontWeight: "600", color: "white" }}
         >
-          {amount > 0 ? amount : ""}
+           {amount > 0 ? new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(amount) : ""}
         </Typography>
       </Box>
       <Box
@@ -95,7 +96,7 @@ const TableRow = ({
         <Typography
           sx={{ fontSize: "12px", fontWeight: "600", color: "white" }}
         >
-          {amount < 0 ? amount : ""}
+        {amount > 0 ? new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(amount) : ""}
         </Typography>
       </Box>
       <Box
@@ -110,7 +111,7 @@ const TableRow = ({
         }}
       >
         <Typography sx={{ fontSize: "12px", fontWeight: "600" }}>
-          {closing}
+          {closing !== null ? new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(closing) : ""}
         </Typography>
       </Box>
       <Box
