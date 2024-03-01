@@ -96,6 +96,7 @@ const MatchDetail = () => {
   const resultDeclared = (event: any) => {
     try {
       if (event?.matchId === state?.matchId) {
+        dispatch(getProfile());
         navigate("/match");
       }
     } catch (e) {
