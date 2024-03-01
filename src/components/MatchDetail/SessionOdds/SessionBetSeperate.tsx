@@ -6,7 +6,6 @@ import StyledImage from "../../Common/StyledImages";
 import RowComponent from "./RowComponent";
 const SessionBetSeperate = ({
   profit,
-  mark,
   mark2,
   placedBets,
   betHistory,
@@ -238,18 +237,18 @@ const SessionBetSeperate = ({
                           }}
                         >
                           {/* {mark && ( */}
-                            <Typography
-                              sx={{
-                                fontSize: "10px",
-                                fontWeight: "700",
-                                color: "white",
-                                textTransform: "uppercase",
-                              }}
-                            >
-                              Bet{" "}
-                              <span style={{ color: "#e41b23" }}>deleted</span>{" "}
-                              due to {i?.deleteReason}
-                            </Typography>
+                          <Typography
+                            sx={{
+                              fontSize: "10px",
+                              fontWeight: "700",
+                              color: "white",
+                              textTransform: "uppercase",
+                            }}
+                          >
+                            Bet{" "}
+                            <span style={{ color: "#e41b23" }}>deleted</span>{" "}
+                            due to {i?.deleteReason}
+                          </Typography>
                           {/* )} */}
                         </Box>
                       </Box>

@@ -11,7 +11,6 @@ import {
   placeBet,
 } from "../../../../store/actions/betPlace/betPlaceActions";
 import NumberData from "./NumberDataFastTime";
-import Loader from "../../../Loader";
 import SmallCustomLoader from "../../../Loader/smallLoader";
 const FastTimePlaceBet = ({
   session,

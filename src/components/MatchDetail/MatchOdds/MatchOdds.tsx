@@ -222,50 +222,51 @@ const MatchOdds = ({ matchDetails, data }: any) => {
       )}
 
       <>
-        {matchDetails?.apiSessionActive && (
-          <SessionMarket
-            key={matchDetails?.id}
-            allBetsData={matchDetails?.profitLossDataSession}
-            newData={matchDetails?.apiSession}
-            matchOddsData={matchDetails?.apiSession}
-            typeOfBet={matchDetails?.type}
-            title={"Session Market"}
-            setShow={setShow}
-            show={show}
-            type={MatchType.API_SESSION_MARKET}
-            data={matchDetails?.apiSession}
-            eventType={matchDetails?.matchType}
-            min={matchDetails?.betFairSessionMinBet}
-            max={matchDetails?.betFairSessionMaxBet}
-            upcoming={!upcoming}
-            matchDetails={matchDetails}
-          />
-        )}
+        {matchDetails?.apiSessionActive &&
+          matchDetails?.apiSession?.length > 0 && (
+            <SessionMarket
+              key={matchDetails?.id}
+              allBetsData={matchDetails?.profitLossDataSession}
+              newData={matchDetails?.apiSession}
+              matchOddsData={matchDetails?.apiSession}
+              typeOfBet={matchDetails?.type}
+              title={"Session Market"}
+              setShow={setShow}
+              show={show}
+              type={MatchType.API_SESSION_MARKET}
+              data={matchDetails?.apiSession}
+              eventType={matchDetails?.matchType}
+              min={matchDetails?.betFairSessionMinBet}
+              max={matchDetails?.betFairSessionMaxBet}
+              upcoming={!upcoming}
+              matchDetails={matchDetails}
+            />
+          )}
       </>
       <>
-        {matchDetails?.manualSessionActive && (
-          <QuickSessionMarket
-            key={matchDetails?.id}
-            allBetsData={matchDetails?.profitLossDataSession}
-            title={"Quick Session Market"}
-            // showFast={true}
-            session={"sessionOdds"}
-            // sessionBets={sessionBets}
-            // typeOfBet={"session"}
-            setShow={setShow}
-            show={show}
-            upcoming={!upcoming}
-            type={MatchType.SESSION_MARKET}
-            matchOddsData={matchDetails?.sessionBettings}
-            newData={matchDetails?.sessionBettings?.filter(
-              (betting: any) => JSON.parse(betting)?.selectionId === null
-            )}
-            eventType={matchDetails?.matchType}
-            minBet={matchDetails?.betFairSessionMinBet}
-            maxBet={matchDetails?.betFairSessionMaxBet}
-            typeOfBet={matchDetails?.type}
-          />
-        )}
+        {matchDetails?.manualSessionActive &&
+          matchDetails?.sessionBettings?.filter(
+            (betting: any) => JSON.parse(betting)?.selectionId === null
+          ).length > 0 && (
+            <QuickSessionMarket
+              key={matchDetails?.id}
+              allBetsData={matchDetails?.profitLossDataSession}
+              title={"Quick Session Market"}
+              session={"sessionOdds"}
+              setShow={setShow}
+              show={show}
+              upcoming={!upcoming}
+              type={MatchType.SESSION_MARKET}
+              matchOddsData={matchDetails?.sessionBettings}
+              newData={matchDetails?.sessionBettings?.filter(
+                (betting: any) => JSON.parse(betting)?.selectionId === null
+              )}
+              eventType={matchDetails?.matchType}
+              minBet={matchDetails?.betFairSessionMinBet}
+              maxBet={matchDetails?.betFairSessionMaxBet}
+              typeOfBet={matchDetails?.type}
+            />
+          )}
       </>
     </Box>
   );
