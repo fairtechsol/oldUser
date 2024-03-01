@@ -435,7 +435,7 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
       {(loading || matchOddLoading) && (
         <Box
           sx={{
-            position: "absolute",
+            // position: "absolute",
             height: "100%",
             width: "100%",
             display: "flex",
@@ -447,7 +447,7 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
           <Box
             sx={{
               width: "190px",
-              minHeight: "150px",
+              minHeight: "100px",
               borderRadius: "6px",
               paddingY: "10px",
               flexDirection: "column",
@@ -457,7 +457,8 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
               alignSelf: "center",
               display: "flex",
               position: "absolute",
-              top: "45%",
+              top: "0%",
+              bottom: "20%",
               zIndex: 999,
             }}
           >

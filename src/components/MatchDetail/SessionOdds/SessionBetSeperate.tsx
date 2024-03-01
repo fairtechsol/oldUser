@@ -203,7 +203,7 @@ const SessionBetSeperate = ({
                             display: "flex",
                             lg: profit ? "100 % " : "100% ",
                           },
-                          background: "rgba(0, 0, 0, 0.6)",
+                          // background: "rgba(0, 0, 0, 0.6)",// double overlay
                           height: "45px",
                           position: "absolute",
                         }}
