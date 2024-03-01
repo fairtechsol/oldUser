@@ -237,7 +237,7 @@ const AllRateSeperate = ({
                       </Typography>
                     </Box>
                     <RowComponent header={false} data={i} />
-                    {/* {i?.deleteReason && betHistory && ( */}
+                    {i?.deleteReason && betHistory && (
                     <Box
                       sx={{
                         width: {
@@ -254,8 +254,8 @@ const AllRateSeperate = ({
                     >
                       <Box sx={{ width: mark2 ? "20%" : "35%" }}></Box>
                     </Box>
-                    {/* )} */}
-                    {i?.deleteReason && betHistory === undefined && (
+                    )} 
+                    {i?.deleteReason && (
                       <Box
                         sx={{
                           width: {
@@ -298,7 +298,7 @@ const AllRateSeperate = ({
                         </Box>
                       </Box>
                     )}
-                    {i?.deleteReason && profit && (
+                    {i?.deleteReason  && (
                       <Box
                         sx={{
                           width: {
@@ -401,7 +401,7 @@ const AllRateSeperate = ({
                         </Typography>
                       </Box>
                     )}
-                    {i?.deleteReason && betHistory && (
+                    {/* {i?.deleteReason && betHistory && (
                       <Box
                         sx={{
                           height: "40px",
@@ -415,7 +415,7 @@ const AllRateSeperate = ({
                           position: "absolute",
                           right: 0,
                         }}
-                      >
+                      > */}
                         {/* <StyledImage
                         sx={{
                           width: { xs: "15px", lg: "20px" },
@@ -437,8 +437,8 @@ const AllRateSeperate = ({
                         Due {"\n"} {"i?.deleteReason"}
                       </Typography> */}
                       </Box>
-                    )}
-                  </Box>
+                    // )}
+                  // </Box>
                 );
               })}
               {/* <Footer

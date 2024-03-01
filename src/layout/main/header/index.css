@@ -8,9 +8,13 @@
     font-size: 10px;
     font-style: italic;
     letter-spacing: 1px;
-    animation: marqueeAnimation 10s linear infinite; 
+    width: 100%;
+    animation: marqueeAnimation 50s linear infinite; 
   }
-  
+  /* overflow: hidden;
+  white-space: nowrap;
+  width: 100%;
+  animation: marqueeAnimation 50s linear infinite; */
  
   
   @keyframes marqueeAnimation {

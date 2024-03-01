@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import moment from "moment-timezone";
+import moment from "moment";
 import { memo } from "react";
 import Divider from "../../../helper/Divider";
 
