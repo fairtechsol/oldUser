@@ -92,7 +92,7 @@ export const getAccountStatement = createAsyncThunk<any, any>(
           page || 1
         }&limit=${limit || 15}&searchBy=${searchBy ?? ""}&keyword=${
           keyword ?? ""
-        }${filter ?? ""}`
+        }${filter ?? ""}&sort=transaction.createdAt:DESC`
       );
       if (resp) {
         return resp?.data;

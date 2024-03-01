@@ -128,7 +128,7 @@ const AccountStatementList = () => {
                     date={moment(item?.createdAt)}
                     description={item?.description}
                     closing={item?.closingBalance}
-                    trans_type={item?.transType}
+                    transType={item?.transType}
                     amount={item?.amount}
                     fromuserName={item?.actionByUser?.userName}
                     touserName={item?.user?.userName}
