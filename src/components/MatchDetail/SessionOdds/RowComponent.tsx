@@ -11,6 +11,7 @@ const RowComponent = ({ header, data }: any) => {
       hour: "numeric",
       minute: "numeric",
       hour12: true,
+      second: "numeric"
     });
     return timeString;
   };
