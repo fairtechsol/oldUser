@@ -7,6 +7,7 @@ import {
   setButtonValue,
   updateBalance,
   updateBalanceFromSocket,
+  updateBalanceOnBetDelete,
   updateBalanceOnSessionResult,
   updateBalanceSession,
 } from "../../actions/user/userAction";
@@ -124,6 +125,16 @@ const profileSlice = createSlice({
         };
       })
       .addCase(updateBalanceOnSessionResult.fulfilled, (state, action) => {
+        state.getProfile = {
+          ...state.getProfile,
+          userBal: {
+            ...state?.getProfile?.userBal,
+            exposure: action.payload.exposure,
+            currentBalance: action.payload.currentBalance,
+          },
+        };
+      })
+      .addCase(updateBalanceOnBetDelete.fulfilled, (state, action) => {
         state.getProfile = {
           ...state.getProfile,
           userBal: {

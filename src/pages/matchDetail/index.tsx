@@ -23,6 +23,7 @@ import {
   betDataFromSocket,
   getButtonValue,
   updateBalance,
+  updateBalanceOnBetDelete,
   updateBalanceSession,
   updateMaxLossForBet,
   updateProfitLossForBet,
@@ -80,12 +81,31 @@ const MatchDetail = () => {
     }
   };
 
-  const betDeleted = (event: any) => {
+  const handleMatchbetDeleted = (event: any) => {
     try {
       if (event?.matchId === state?.matchId) {
-        dispatch(getProfile());
-        dispatch(updateBalance(event));
-        dispatch(matchDetailAction(state?.matchId));
+        dispatch(
+          updateBalanceOnBetDelete({
+            exposure: event?.exposure,
+            currentBalance: event?.currentBalance,
+          })
+        );
+        dispatch(getPlacedBets(state?.matchId));
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const handleSessionBetDeleted = (event: any) => {
+    try {
+      if (event?.matchId === state?.matchId) {
+        dispatch(
+          updateBalanceOnBetDelete({
+            exposure: event?.exposure,
+            currentBalance: event?.currentBalance,
+          })
+        );
         dispatch(getPlacedBets(state?.matchId));
       }
     } catch (e) {
@@ -141,8 +161,8 @@ const MatchDetail = () => {
         socketService.userBalance.userSessionBetPlaced(setSessionBetsPlaced);
         socketService.userBalance.userMatchBetPlaced(setMatchBetsPlaced);
         socketService.userBalance.matchResultDeclared(resultDeclared);
-        socketService.userBalance.matchDeleteBet(betDeleted);
-        socketService.userBalance.sessionDeleteBet(betDeleted);
+        socketService.userBalance.matchDeleteBet(handleMatchbetDeleted);
+        socketService.userBalance.sessionDeleteBet(handleSessionBetDeleted);
       }
     } catch (e) {
       console.log(e);
@@ -160,8 +180,8 @@ const MatchDetail = () => {
       socketService.userBalance.userSessionBetPlacedOff(setSessionBetsPlaced);
       socketService.userBalance.userMatchBetPlacedOff(setMatchBetsPlaced);
       socketService.userBalance.matchResultDeclaredOff(resultDeclared);
-      socketService.userBalance.matchDeleteBetOff(betDeleted);
-      socketService.userBalance.sessionDeleteBetOff(betDeleted);
+      socketService.userBalance.matchDeleteBetOff(handleMatchbetDeleted);
+      socketService.userBalance.sessionDeleteBetOff(handleSessionBetDeleted);
     };
   }, []);
 
