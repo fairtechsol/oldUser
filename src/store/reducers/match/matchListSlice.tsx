@@ -16,6 +16,7 @@ import {
   updateBalance,
   updateMaxLossForBet,
   updateProfitLossOnDeleteSession,
+  updateTeamRatesOnDeleteMatch,
 } from "../../actions/user/userAction";
 
 interface InitialState {
@@ -239,6 +240,38 @@ const matchListSlice = createSlice({
           };
         } else {
           return state.matchDetails;
+        }
+      })
+      .addCase(updateTeamRatesOnDeleteMatch.fulfilled, (state, action) => {
+        const { matchBetType, redisObject } = action.payload;
+        if (["tiedMatch1", "tiedMatch2"].includes(matchBetType)) {
+          state.matchDetails = {
+            ...state.matchDetails,
+            profitLossDataMatch: {
+              ...state.matchDetails.profitLossDataMatch,
+              yesRateTie: redisObject[action.payload.teamArateRedisKey],
+              noRateTie: redisObject[action.payload.teamBrateRedisKey],
+            },
+          };
+        } else if (["completeMatch"].includes(matchBetType)) {
+          state.matchDetails = {
+            ...state.matchDetails,
+            profitLossDataMatch: {
+              ...state.matchDetails.profitLossDataMatch,
+              yesRateComplete: redisObject[action.payload.teamArateRedisKey],
+              noRateComplete: redisObject[action.payload.teamBrateRedisKey],
+            },
+          };
+        } else {
+          state.matchDetails = {
+            ...state.matchDetails,
+            profitLossDataMatch: {
+              ...state.matchDetails.profitLossDataMatch,
+              teamARate: redisObject[action.payload.teamArateRedisKey],
+              teamBRate: redisObject[action.payload.teamBrateRedisKey],
+              teamCRate: redisObject[action.payload.teamCrateRedisKey],
+            },
+          };
         }
       });
   },

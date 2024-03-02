@@ -34,6 +34,10 @@ const MainLayout = () => {
     }
   };
 
+  const getUserProfile = () => {
+    dispatch(getProfile());
+  };
+
   useEffect(() => {
     if (!sessionStorage.getItem("userToken")) {
       navigate("/login");
@@ -50,11 +54,26 @@ const MainLayout = () => {
       socketService.userBalance.updateUserBalance(updateLoggedUserBalance);
       socketService.userBalance.sessionResult(sessionResultDeclared);
       socketService.userBalance.sessionResultUnDeclare(sessionResultDeclared);
+      socketService.userBalance.userSessionBetPlaced(getUserProfile);
+      socketService.userBalance.userMatchBetPlaced(getUserProfile);
+      socketService.userBalance.matchResultDeclared(getUserProfile);
+      socketService.userBalance.matchDeleteBet(getUserProfile);
+      socketService.userBalance.sessionDeleteBet(getUserProfile);
     } else {
       socketService.disconnect();
     }
     return () => {
       socketService.disconnect();
+      socketService.userBalance.updateUserBalanceOff(updateLoggedUserBalance);
+      socketService.userBalance.sessionResultOff(sessionResultDeclared);
+      socketService.userBalance.sessionResultUnDeclareOff(
+        sessionResultDeclared
+      );
+      socketService.userBalance.userSessionBetPlacedOff(getUserProfile);
+      socketService.userBalance.userMatchBetPlacedOff(getUserProfile);
+      socketService.userBalance.matchResultDeclaredOff(getUserProfile);
+      socketService.userBalance.matchDeleteBetOff(getUserProfile);
+      socketService.userBalance.sessionDeleteBetOff(getUserProfile);
     };
   }, [sessionStorage.getItem("userToken")]);
 

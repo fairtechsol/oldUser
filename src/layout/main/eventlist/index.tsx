@@ -24,74 +24,73 @@ const EventListing = () => {
       title: "INPLAY",
       image: Play,
       url: "/inplay",
-      active: false
+      active: false,
     },
     {
       title: "MY ACCOUNT",
       image: MYACCOUNT,
       url: "/my-account",
-      active: false
+      active: false,
     },
     {
       title: "CRICKET",
       image: Cricket,
       url: "/match",
-      active: false
-
+      active: false,
     },
     {
       title: "LIVE CASINO",
       image: Slot,
       url: "/comingsoon",
-      active: false
+      active: false,
     },
     {
       title: "LIVE CARD",
       image: Card,
       url: "/comingsoon",
-      active: false
+      active: false,
     },
     {
       title: "SOCCER",
       image: Football,
       url: "/comingsoon",
-      active: false
+      active: false,
     },
     {
       title: "TENNIS",
       image: Tennis,
       url: "/comingsoon",
-      active: false
+      active: false,
     },
     {
       title: "ICE HOCKEY",
       image: Hockey,
       url: "/comingsoon",
-      active: false
+      active: false,
     },
     {
       title: "SNOOKER",
       image: SNOOKER,
       url: "/comingsoon",
-      active: false
+      active: false,
     },
     {
       title: "GOLF",
       image: GOLF,
       url: "/comingsoon",
-      active: false
+      active: false,
     },
     {
       title: "CHESS",
       image: CHESS,
       url: "/comingsoon",
-      active: false
+      active: false,
     },
     {
       title: "BASKETBALL",
       image: BASKETBALL,
       url: "/comingsoon",
-      active: false
+      active: false,
     },
   ]);
 
@@ -128,7 +127,7 @@ const EventListing = () => {
             onClick={() => handleNavLinkClick(idx)}
             style={{ textDecoration: "none" }}
           >
-            <EventComponent data={item} setAnchor={() => { }} />
+            <EventComponent data={item} setAnchor={() => {}} />
           </NavLink>
         ))}
       </Box>

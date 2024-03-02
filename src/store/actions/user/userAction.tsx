@@ -41,7 +41,13 @@ export const updateBalance = createAsyncThunk<any, any>(
   }
 );
 export const updateProfitLossOnDeleteSession = createAsyncThunk<any, any>(
-  "/user/profitLoss/delete",
+  "/user/profitLoss/deleteSession",
+  async (balance) => {
+    return balance;
+  }
+);
+export const updateTeamRatesOnDeleteMatch = createAsyncThunk<any, any>(
+  "/user/profitLoss/deleteMatch",
   async (balance) => {
     return balance;
   }

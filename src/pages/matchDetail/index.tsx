@@ -30,6 +30,7 @@ import {
   updateProfitLossOnDeleteSession,
   updateRunAmount,
   updateRunAmountOnDeleteBet,
+  updateTeamRatesOnDeleteMatch,
 } from "../../store/actions/user/userAction";
 import { AppDispatch, RootState } from "../../store/store";
 import Loader from "../../components/Loader";
@@ -91,6 +92,7 @@ const MatchDetail = () => {
   const handleMatchbetDeleted = (event: any) => {
     try {
       if (event?.matchId === state?.matchId) {
+        dispatch(updateTeamRatesOnDeleteMatch(event));
         dispatch(
           updateBalanceOnBetDelete({
             exposure: event?.exposure,
@@ -109,7 +111,7 @@ const MatchDetail = () => {
       if (event?.matchId === state?.matchId) {
         dispatch(
           updateProfitLossOnDeleteSession({
-            betId: event?.bets[0].betId,
+            betId: event?.betId,
             profitLoss: event?.profitLoss,
             matchId: event?.matchId,
           })
@@ -117,9 +119,9 @@ const MatchDetail = () => {
         dispatch(
           updateRunAmountOnDeleteBet({
             betId: event?.bets[0].betId,
-            profitLoss: event?.profitLoss
+            profitLoss: event?.profitLoss,
           })
-        )
+        );
         dispatch(
           updateBalanceOnBetDelete({
             exposure: event?.exposure,
@@ -136,7 +138,6 @@ const MatchDetail = () => {
   const resultDeclared = (event: any) => {
     try {
       if (event?.matchId === state?.matchId) {
-        dispatch(getProfile());
         navigate("/match");
       }
     } catch (e) {
