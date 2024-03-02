@@ -27,7 +27,9 @@ import {
   updateBalanceSession,
   updateMaxLossForBet,
   updateProfitLossForBet,
+  updateProfitLossOnDeleteSession,
   updateRunAmount,
+  updateRunAmountOnDeleteBet,
 } from "../../store/actions/user/userAction";
 import { AppDispatch, RootState } from "../../store/store";
 import Loader from "../../components/Loader";
@@ -61,7 +63,12 @@ const MatchDetail = () => {
         dispatch(updateBetsPlaced(event?.betPlaced?.placedBet));
         dispatch(betDataFromSocket(event));
         dispatch(updateBalanceSession(event));
-        dispatch(updateRunAmount(event?.profitLossData));
+        dispatch(
+          updateRunAmount({
+            betId: event?.betPlaced?.placedBet?.betId,
+            profitLossData: event?.profitLossData,
+          })
+        );
         dispatch(updateMaxLossForBet(event));
       }
     } catch (e) {
@@ -100,6 +107,19 @@ const MatchDetail = () => {
   const handleSessionBetDeleted = (event: any) => {
     try {
       if (event?.matchId === state?.matchId) {
+        dispatch(
+          updateProfitLossOnDeleteSession({
+            betId: event?.bets[0].betId,
+            profitLoss: event?.profitLoss,
+            matchId: event?.matchId,
+          })
+        );
+        dispatch(
+          updateRunAmountOnDeleteBet({
+            betId: event?.bets[0].betId,
+            profitLoss: event?.profitLoss
+          })
+        )
         dispatch(
           updateBalanceOnBetDelete({
             exposure: event?.exposure,

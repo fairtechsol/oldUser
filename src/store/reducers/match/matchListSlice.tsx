@@ -219,7 +219,27 @@ const matchListSlice = createSlice({
         }
       })
       .addCase(updateProfitLossOnDeleteSession.fulfilled, (state, action) => {
-        state.selectedBet = action.payload;
+        const { betId, profitLoss, matchId } = action.payload;
+        if (state?.matchDetails?.id === matchId) {
+          const updatedProfitLossDataSession =
+            state.matchDetails?.profitLossDataSession.map((item: any) => {
+              if (item?.betId === betId) {
+                return {
+                  ...item,
+                  maxLoss: profitLoss?.maxLoss,
+                  totalBet: profitLoss?.totalBet,
+                };
+              }
+              return item;
+            });
+
+          state.matchDetails = {
+            ...state.matchDetails,
+            profitLossDataSession: updatedProfitLossDataSession,
+          };
+        } else {
+          return state.matchDetails;
+        }
       });
   },
 });
