@@ -9,7 +9,7 @@ import YellowHeader from "./YellowHeader";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
-import moment from "moment-timezone";
+import moment from "moment";
 import { useDispatch } from "react-redux";
 import { getAccountStatement } from "../../store/actions/user/userAction";
 

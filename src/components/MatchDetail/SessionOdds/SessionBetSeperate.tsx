@@ -203,7 +203,7 @@ const SessionBetSeperate = ({
                             lg: profit ? "100 % " : "100% ",
                           },
                           // background: "rgba(0, 0, 0, 0.6)",// double overlay
-                          height: "45px",
+                          height: "100%",
                           position: "absolute",
                         }}
                       >
@@ -221,7 +221,7 @@ const SessionBetSeperate = ({
                             lg: profit ? "100 % " : "100% ",
                           },
                           background: "rgba(0, 0, 0, 0.5)",
-                          height: "45px",
+                          height: "100%",
                           position: "absolute",
                         }}
                       >
@@ -234,6 +234,7 @@ const SessionBetSeperate = ({
                             justifyContent: "center",
                             alignItems: "flex-end",
                             alignSelf: "flex-end",
+                            marginBottom: "0%"
                           }}
                         >
                           {/* {mark && ( */}
@@ -337,7 +338,7 @@ const SessionBetSeperate = ({
                         </Typography>
                       </Box>
                     )}
-                    {i?.deleteReason && betHistory && (
+                    {/* {i?.deleteReason && betHistory && (
                       <Box
                         sx={{
                           height: "40px",
@@ -375,7 +376,7 @@ const SessionBetSeperate = ({
                           {i?.deleteReason}
                         </Typography>
                       </Box>
-                    )}
+                    )} */}
                   </Box>
                 );
               })}

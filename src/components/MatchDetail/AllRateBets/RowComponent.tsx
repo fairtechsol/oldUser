@@ -2,18 +2,13 @@ import { Box } from "@mui/material";
 import SingleBox from "./SingleBox";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
+import moment from "moment";
 
 const RowComponent = ({ header, data }: any) => {
   const { getProfile } = useSelector((state: RootState) => state.user.profile);
 
-  const getTime = (date: any) => {
-    const now = new Date(date);
-    const timeString = now.toLocaleTimeString("en-US", {
-      hour: "numeric",
-      minute: "numeric",
-      hour12: true,
-      second: "numeric"
-    });
+  const getTime = (date:any) => {
+    const timeString = moment(date).format("hh:mm:ss A");
     return timeString;
   };
   const getColor = () => {
