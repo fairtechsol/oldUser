@@ -52,7 +52,7 @@ const ProfitLossComponent = ({
       }));
       dispatch(
         getMatchWiseProfitLoss({
-          type: event,
+          type: eventType,
         })
       );
     }
