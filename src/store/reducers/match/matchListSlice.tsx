@@ -15,6 +15,7 @@ import {
 import {
   updateBalance,
   updateMaxLossForBet,
+  updateProfitLossOnDeleteSession,
 } from "../../actions/user/userAction";
 
 interface InitialState {
@@ -191,7 +192,7 @@ const matchListSlice = createSlice({
                 return {
                   ...item,
                   maxLoss: JSON.parse(profitLossData)?.maxLoss,
-                  totalBet: +item?.totalBet + 1,
+                  totalBet: JSON.parse(profitLossData)?.totalBet,
                 };
               }
               return item;
@@ -216,6 +217,9 @@ const matchListSlice = createSlice({
         } else {
           return state.matchDetails;
         }
+      })
+      .addCase(updateProfitLossOnDeleteSession.fulfilled, (state, action) => {
+        state.selectedBet = action.payload;
       });
   },
 });

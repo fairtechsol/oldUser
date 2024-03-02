@@ -2,18 +2,6 @@ import { Box, Typography } from "@mui/material";
 import React from "react";
 
 const SmallBoxSeason = ({ allBetsData }: any) => {
-  //   function countObjectsWithNullDeletedReason(array:any) {
-  //     let count = 0;
-  //     for (const obj of array) {
-  //       if (obj?.deleted_reason === null) {
-  //         count++;
-  //       }
-  //     }
-  //     return count;
-  //   }
-
-  // Call the function and get the count
-  //   const countNullDeletedReason = countObjectsWithNullDeletedReason(sessionBets);
   return (
     <Box
       sx={{
