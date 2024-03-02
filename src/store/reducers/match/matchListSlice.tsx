@@ -14,6 +14,7 @@ import {
 } from "../../actions/match/matchListAction";
 import {
   updateBalance,
+  updateBetDataOnUndeclare,
   updateMaxLossForBet,
   updateProfitLossOnDeleteSession,
   updateTeamRatesOnDeleteMatch,
@@ -233,6 +234,40 @@ const matchListSlice = createSlice({
               }
               return item;
             });
+
+          state.matchDetails = {
+            ...state.matchDetails,
+            profitLossDataSession: updatedProfitLossDataSession,
+          };
+        } else {
+          return state.matchDetails;
+        }
+      })
+      .addCase(updateBetDataOnUndeclare.fulfilled, (state, action) => {
+        const { betId, profitLoss, matchId } = action.payload;
+        if (state?.matchDetails?.id === matchId) {
+          const isBetIdPresent = state.matchDetails?.profitLossDataSession.find(
+            (item: any) => item?.betId === betId
+          );
+
+          const updatedProfitLossDataSession = isBetIdPresent
+            ? state.matchDetails?.profitLossDataSession.map((item: any) =>
+                item?.betId === betId
+                  ? {
+                      ...item,
+                      maxLoss: JSON.parse(profitLoss)?.maxLoss,
+                      totalBet: JSON.parse(profitLoss)?.totalBet,
+                    }
+                  : item
+              )
+            : [
+                ...state.matchDetails?.profitLossDataSession,
+                {
+                  betId: betId,
+                  maxLoss: JSON.parse(profitLoss)?.maxLoss,
+                  totalBet: JSON.parse(profitLoss)?.totalBet,
+                },
+              ];
 
           state.matchDetails = {
             ...state.matchDetails,
