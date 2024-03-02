@@ -4,9 +4,18 @@ import SearchInput from "../Common/SearchInput";
 import { ApiConstants } from "../../utils/Constants";
 import NumberDropDown from "../Common/NumberDropDown";
 
-
 const ListH = (props: any) => {
-  const { getLimitEntries, getAccountStatement, searchFor, pageLimit, setPageLimit } = props;
+  const {
+    getLimitEntries,
+    getAccountStatement,
+    searchFor,
+    pageLimit,
+    setPageLimit,
+    fromDate,
+    toDate,
+    setCurrentPage,
+    setSearchValue,
+  } = props;
   return (
     <Box
       sx={{
@@ -22,14 +31,23 @@ const ListH = (props: any) => {
         py: "6px",
       }}
     >
-      <NumberDropDown getLimitEntries={getLimitEntries} setPageLimit={setPageLimit} pageLimit={pageLimit} textColor={"000"} />
+      <NumberDropDown
+        getLimitEntries={getLimitEntries}
+        setPageLimit={setPageLimit}
+        pageLimit={pageLimit}
+        textColor={"000"}
+      />
 
       <SearchInput
         show={true}
         searchFor={searchFor}
         endpoint={ApiConstants.USER.LIST}
         getListOfUser={getAccountStatement}
+        setCurrentPage={setCurrentPage}
         pageLimit={pageLimit}
+        fromDate={fromDate}
+        toDate={toDate}
+        onChange={setSearchValue}
         width={"100%"}
         placeholder={"Search..."}
         inputContainerStyle={{

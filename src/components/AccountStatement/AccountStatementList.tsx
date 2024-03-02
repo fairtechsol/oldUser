@@ -20,6 +20,7 @@ const AccountStatementList = () => {
   const [pageLimit, setPageLimit] = useState<number>(15);
   const [fromDate, setFromDate] = useState<any>();
   const [toDate, setToDate] = useState<any>();
+  const [searchValue, setSearchValue] = useState<string>("");
 
   const dispatch: AppDispatch = useDispatch();
 
@@ -29,11 +30,24 @@ const AccountStatementList = () => {
 
   useEffect(() => {
     if (getProfile?.id) {
+      let filter = "";
+      if (fromDate && toDate) {
+        filter += `&createdAt=between${moment(fromDate)?.format(
+          "YYYY-MM-DD"
+        )}|${moment(toDate).add(1, "days")?.format("YYYY-MM-DD")}`;
+      } else if (fromDate) {
+        filter += `&createdAt=gte${moment(fromDate)?.format("YYYY-MM-DD")}`;
+      } else if (toDate) {
+        filter += `&createdAt=lte${moment(toDate)?.format("YYYY-MM-DD")}`;
+      }
       dispatch(
         getAccountStatement({
           userId: getProfile?.id,
           page: currentPage,
           limit: pageLimit,
+          filter: filter,
+          searchBy: "description,user.userName,actionByUser.userName",
+          keyword: searchValue,
         })
       );
     }
@@ -58,10 +72,14 @@ const AccountStatementList = () => {
             } else if (toDate) {
               filter += `&createdAt=lte${moment(toDate)?.format("YYYY-MM-DD")}`;
             }
+            setCurrentPage(1);
             dispatch(
               getAccountStatement({
                 userId: getProfile?.id,
-                page: currentPage,
+                page: 1,
+                searchBy: "description,user.userName,actionByUser.userName",
+                keyword: searchValue,
+                limit: pageLimit,
                 filter: filter,
               })
             );
@@ -97,6 +115,10 @@ const AccountStatementList = () => {
           searchFor={"accountStatement"}
           pageLimit={pageLimit}
           setPageLimit={setPageLimit}
+          fromDate={fromDate}
+          toDate={toDate}
+          setCurrentPage={setCurrentPage}
+          setSearchValue={setSearchValue}
         />
 
         {loading ? (

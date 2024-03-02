@@ -120,9 +120,9 @@ export const getAccountStatement = createAsyncThunk<any, any>(
       const resp = await service.get(
         `${ApiConstants.USER.ACCOUNT_STATEMENT}${userId}?page=${
           page || 1
-        }&limit=${limit || 15}&searchBy=${searchBy ?? ""}&keyword=${
-          keyword ?? ""
-        }${filter ?? ""}&sort=transaction.createdAt:DESC`
+        }&limit=${limit}&searchBy=${searchBy ?? ""}&keyword=${keyword ?? ""}${
+          filter ?? ""
+        }&sort=transaction.createdAt:DESC`
       );
       if (resp) {
         return resp?.data;
