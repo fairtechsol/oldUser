@@ -14,7 +14,7 @@ interface ButtonProps {
 }
 
 const SessionValue = () => {
-  const [loader] = useState(false);
+  const [loader, setLoader] = useState(false);
 
   const initialValues = [
     {
@@ -64,13 +64,14 @@ const SessionValue = () => {
     value: any;
   }
   const dispatch: AppDispatch = useDispatch();
-  const { buttonValues } = useSelector(
+  const { buttonValues, buttonValueSuccess, error } = useSelector(
     (state: RootState) => state.user.profile
   );
 
   const formik = useFormik({
     initialValues: initialValues,
     onSubmit: (value: any) => {
+      setLoader(true);
       let result = {};
       value.forEach((item: ButtonProps) => {
         result = { ...result, [item?.label]: item?.value };
@@ -123,6 +124,15 @@ const SessionValue = () => {
       );
     }
   }, [buttonValues]);
+
+  useEffect(() => {
+    if (buttonValueSuccess) {
+      setLoader(false);
+    }
+    if (error) {
+      setLoader(false);
+    }
+  }, [buttonValueSuccess]);
 
   return (
     <Box

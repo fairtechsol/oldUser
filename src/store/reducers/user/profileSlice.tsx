@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
+  buttonValueSuccessReset,
   getAccountStatement,
   getButtonValue,
   getProfile,
@@ -22,6 +23,7 @@ interface InitialState {
   getProfile: any;
   buttonValues: any;
   setButtonValue: any;
+  buttonValueSuccess: boolean;
   transactions: any;
   matchDetails: any;
 }
@@ -33,6 +35,7 @@ const initialState: InitialState = {
   buttonValues: [],
   matchDetails: null,
   setButtonValue: null,
+  buttonValueSuccess: false,
   profileDetail: null,
   transactions: null,
   loading: false,
@@ -92,13 +95,18 @@ const profileSlice = createSlice({
       .addCase(setButtonValue.pending, (state) => {
         state.loading = true;
         state.error = null;
+        state.buttonValueSuccess = false;
       })
       .addCase(setButtonValue.fulfilled, (state) => {
         state.loading = false;
+        state.buttonValueSuccess = true;
       })
       .addCase(setButtonValue.rejected, (state, action) => {
         state.loading = false;
         state.error = action?.error?.message;
+      })
+      .addCase(buttonValueSuccessReset, (state) => {
+        return { ...state, buttonValueSuccess: false };
       })
       .addCase(getButtonValue.pending, (state) => {
         state.loading = true;

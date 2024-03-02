@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { AppDispatch, RootState } from "../../store/store";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -14,6 +14,7 @@ interface ButtonProps {
 }
 
 const MatchValues = () => {
+  const [loader, setLoader] = useState(false);
   const initialValues = [
     {
       label: "",
@@ -62,12 +63,13 @@ const MatchValues = () => {
     value: any;
   }
   const dispatch: AppDispatch = useDispatch();
-  const { buttonValues, loading } = useSelector(
+  const { buttonValues, buttonValueSuccess, error } = useSelector(
     (state: RootState) => state.user.profile
   );
   const formik = useFormik({
     initialValues: initialValues,
     onSubmit: (value: any) => {
+      setLoader(true);
       let result = {};
       value.forEach((item: ButtonProps) => {
         result = { ...result, [item?.label]: item?.value };
@@ -120,6 +122,15 @@ const MatchValues = () => {
       );
     }
   }, [buttonValues]);
+
+  useEffect(() => {
+    if (buttonValueSuccess) {
+      setLoader(false);
+    }
+    if (error) {
+      setLoader(false);
+    }
+  }, [buttonValueSuccess]);
 
   return (
     <Box
@@ -230,7 +241,7 @@ const MatchValues = () => {
                   sx={{ fontSize: { lg: "18px", xs: "20px" } }}
                   color={"white"}
                 >
-                  {loading ? (
+                  {loader ? (
                     <CircularProgress
                       sx={{
                         color: "#FFF",

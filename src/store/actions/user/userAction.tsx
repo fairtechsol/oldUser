@@ -239,3 +239,4 @@ export const getSessionProfitLoss = createAsyncThunk<any, any>(
 export const changePasswordReset = createAction("changePassword/reset");
 export const profileReset = createAction("profile/reset");
 export const updateReset = createAction("update/reset");
+export const buttonValueSuccessReset = createAction("buttonValueSuccess/reset");
