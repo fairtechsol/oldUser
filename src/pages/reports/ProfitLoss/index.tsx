@@ -4,7 +4,7 @@ import YellowHeaderProfitLoss from "../../../components/report/ProfitLossReport/
 import { AppDispatch, RootState } from "../../../store/store";
 import { useDispatch } from "react-redux";
 import { getUserTotalProfitLoss } from "../../../store/actions/user/userAction";
-import moment from "moment-timezone";
+import moment from "moment";
 import ProfitLossComponent from "../../../components/report/ProfitLossReport/ProfitLossComponent";
 import { useSelector } from "react-redux";
 

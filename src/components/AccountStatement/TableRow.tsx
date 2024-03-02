@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import moment from "moment-timezone";
+import moment from "moment";
 
 const TableRow = ({
   containerStyle,
@@ -15,16 +15,7 @@ const TableRow = ({
   amount,
 }: any) => {
   const dateString = date;
-  const dateObj = new Date(dateString);
-  const formattedDate = dateObj.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-  });
-
+  const formattedDate = moment(dateString).format("DD-MM-YYYY HH:mm:ss");
   return (
     <Box
       sx={[
@@ -62,7 +53,7 @@ const TableRow = ({
             fTextStyle,
           ]}
         >
-          {moment(formattedDate).format("DD-MM-YYYY HH:mm:ss")}
+         {formattedDate}
         </Typography>
       </Box>
       <Box
