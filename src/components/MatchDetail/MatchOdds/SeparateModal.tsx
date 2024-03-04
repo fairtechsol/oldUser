@@ -1,19 +1,14 @@
 import { Box, Typography } from "@mui/material";
-import React, { memo, useEffect } from "react";
+import React, { memo } from "react";
 import { useDispatch } from "react-redux";
-// import Modal from '@mui/material/Modal';
 import MUIModal from "@mui/material/Modal";
-// import PlaceBet from "../PlaceBet";
-// import BetPlaced from "..";
-import { Modal } from "react-bootstrap";
 
 import { Lock } from "../../../assets/index";
 import { useState } from "react";
 import OddsPlaceBet from "./Bets/OddsPlacebet";
-import { AppDispatch } from "../../../store/store";
+import { AppDispatch, RootState } from "../../../store/store";
 import { selectedBetAction } from "../../../store/actions/match/matchListAction";
-
-// import NotificationModal from "../NotificationModal";
+import { useSelector } from "react-redux";
 
 const SeparateModal = ({
   color,
@@ -35,7 +30,6 @@ const SeparateModal = ({
   selectedFastAmount,
   fromOdds,
   setFastBetLoading,
-  closeModal,
   eventType,
   bettingOn,
   marketDetails,
@@ -44,28 +38,9 @@ const SeparateModal = ({
   const [isBack, setIsBack] = React.useState(false);
   const [isSessionYes, setIsSessionYes] = React.useState(false);
   const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
-  // const [visible, setVisible] = React.useState(false);
-
-  const [showSuccessModal, setShowSuccessModal] = useState(true);
-  const [showModalMessage] = useState("");
   const [selectedValue, setSelectedValue] = useState("");
-  // const [selectedCountry, setSelectedCountry] = useState("");
-  // const [betPalaceError, setBetPalaceError] = useState(false);
+  const { loading } = useSelector((state: RootState) => state.match.bet);
   const [betPlaceLoading, setBetPlaceLoading] = useState(false);
-  // const [canceled, setCanceled] = useState({
-  //   value: false,
-  //   msg: "",
-  //   loading: false,
-  //   type: false,
-  // });
-
-  // const [previousValue, setPreviousValue] = useState(false);
-
-  useEffect(() => {
-    if (closeModal || lock) {
-      setShowSuccessModal(false);
-    }
-  }, [closeModal, lock]);
 
   const handleClick = (team: any, data: any) => {
     dispatch(
@@ -75,15 +50,15 @@ const SeparateModal = ({
       })
     );
   };
+
   return (
     <>
       <Box
         sx={{
-          cursor: betPlaceLoading ? "not-allowed" : "pointer",
+          cursor: loading ? "not-allowed" : "pointer",
           padding: { xs: "0px", lg: "1px", md: "1px" },
           width: { xs: "100%", lg: "20%" },
           height: "94%",
-          //   position: typeOfBet === "SESSION" && "relative" : undefined,
         }}
       >
         <Box
@@ -91,7 +66,7 @@ const SeparateModal = ({
             if (lock || [0, "0", null, undefined].includes(value)) {
               return false;
             }
-            if (betPlaceLoading) {
+            if (loading) {
               return false;
             } else {
               if (selectedFastAmount) {
@@ -257,16 +232,7 @@ const SeparateModal = ({
               betPlaceLoading={betPlaceLoading}
               name={"name"}
               rates={rates}
-              // onSubmit={async (payload) => {
-              //   if (betPlaceLoading) {
-              //     return false;
-              //   } else {
-              //     // setBetPlaceLoading(true);// timer related
-              //     handlePlaceBet(payload, currentMatch, payload?.po);
-              //   }
-              // }}
               onCancel={() => {
-                // setVisible(true);
                 setIsPopoverOpen(false);
                 setBetPlaceLoading(false);
               }}
@@ -291,17 +257,6 @@ const SeparateModal = ({
             />
           </Box>
         </MUIModal>
-
-        {showSuccessModal && (
-          <Modal
-            message={showModalMessage}
-            setShowSuccessModal={true}
-            showSuccessModal={showSuccessModal}
-            buttonMessage={"OK"}
-            navigateTo={"/matchDetail"}
-            userPG={true}
-          />
-        )}
       </Box>
     </>
   );

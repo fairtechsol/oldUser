@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import MUIModal from "@mui/material/Modal";
 
 import { BETPLACED, NOT } from "../../assets";
-import Loader from "../Loader";
+import SmallCustomLoader from "../Loader/smallLoader";
 
 const NotificationModal = ({ open, handleClose }: any) => {
   try {
@@ -46,12 +46,12 @@ const NotificationModal = ({ open, handleClose }: any) => {
             alignSelf: "center",
             display: "flex",
             position: "absolute",
-            top: "45%",
+            top: "40%",
             zIndex: 999,
           }}
         >
           {open?.loading ? (
-            <Loader />
+            <SmallCustomLoader />
           ) : (
             <>
               <img

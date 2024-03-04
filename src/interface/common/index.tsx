@@ -29,6 +29,7 @@ export interface LoaderInterface {
   text?: string;
   height?: string;
   width?: string;
+  marginTop?: any;
 }
 
 export interface PaginationInterface {

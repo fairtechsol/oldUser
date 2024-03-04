@@ -54,7 +54,7 @@ const Login = () => {
       style={{
         width: "75%",
         justifyContent: "center",
-        marginTop: "45px"
+        marginTop: "45px",
       }}
     >
       <Box sx={{ width: "100%", opacity: 1 }}>

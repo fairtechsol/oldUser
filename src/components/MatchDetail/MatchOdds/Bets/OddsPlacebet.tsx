@@ -12,11 +12,11 @@ import { selectedBetAction } from "../../../../store/actions/match/matchListActi
 import { AppDispatch, RootState } from "../../../../store/store";
 import { ApiConstants } from "../../../../utils/Constants";
 import StyledImage from "../../../Common/StyledImages";
-import SmallCustomLoader from "../../../Loader/smallLoader";
 import BoxInput from "../../Common/BoxInput";
 import PlaceBetMoneyBox from "../PlaceBetMoneyBox";
 import NumberData from "./NumberDataOdds";
 import TeamsOdssData from "./TeamOddsData";
+import NotificationModal from "../../../Common/NotificationModal";
 
 const OddsPlaceBet = ({ handleClose, season, type }: any) => {
   const [stakeValue, setStakeValue] = useState<any>(" ");
@@ -433,38 +433,10 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
       </Box>
 
       {(loading || matchOddLoading) && (
-        <Box
-          sx={{
-            // position: "absolute",
-            height: "100%",
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            background: "rgba(0, 0, 0, .5)",
-          }}
-        >
-          <Box
-            sx={{
-              width: "190px",
-              minHeight: "100px",
-              borderRadius: "6px",
-              paddingY: "10px",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-              background: "white",
-              alignSelf: "center",
-              display: "flex",
-              position: "absolute",
-              top: "0%",
-              bottom: "20%",
-              zIndex: 999,
-            }}
-          >
-            <SmallCustomLoader text={""} />
-          </Box>
-        </Box>
+        <NotificationModal
+          open={{ value: true, loading: loading }}
+          handleClose={""}
+        />
       )}
     </Box>
   );
