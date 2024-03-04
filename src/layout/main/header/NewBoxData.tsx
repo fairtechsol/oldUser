@@ -65,6 +65,7 @@ const NewBoxData = ({
             paddingX: "3px",
             borderRadius: "5px",
             cursor: "pointer",
+            zIndex: "999"
           },
           containerStyle,
         ]}
