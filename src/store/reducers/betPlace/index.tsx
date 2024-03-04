@@ -100,9 +100,7 @@ const placedBet = createSlice({
       .addCase(updateDeleteReasonBet.fulfilled, (state, action) => {
         const { betPlacedId, deleteReason } = action.payload;
         const updateDeleteReason = (bet: any) => {
-          const idToUpdate = betPlacedId.find((id: string) => id === bet.id);
-
-          if (idToUpdate) {
+          if (betPlacedId.includes(bet.id)) {
             bet.deleteReason = deleteReason;
           }
 
