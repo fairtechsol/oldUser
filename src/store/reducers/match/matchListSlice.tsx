@@ -14,8 +14,10 @@ import {
 } from "../../actions/match/matchListAction";
 import {
   updateBalance,
+  updateBetDataOnUndeclare,
   updateMaxLossForBet,
   updateProfitLossOnDeleteSession,
+  updateTeamRatesOnDeleteMatch,
 } from "../../actions/user/userAction";
 
 interface InitialState {
@@ -219,7 +221,93 @@ const matchListSlice = createSlice({
         }
       })
       .addCase(updateProfitLossOnDeleteSession.fulfilled, (state, action) => {
-        state.selectedBet = action.payload;
+        const { betId, profitLoss, matchId } = action.payload;
+        if (state?.matchDetails?.id === matchId) {
+          const updatedProfitLossDataSession =
+            state.matchDetails?.profitLossDataSession.map((item: any) => {
+              if (item?.betId === betId) {
+                return {
+                  ...item,
+                  maxLoss: profitLoss?.maxLoss,
+                  totalBet: profitLoss?.totalBet,
+                };
+              }
+              return item;
+            });
+
+          state.matchDetails = {
+            ...state.matchDetails,
+            profitLossDataSession: updatedProfitLossDataSession,
+          };
+        } else {
+          return state.matchDetails;
+        }
+      })
+      .addCase(updateBetDataOnUndeclare.fulfilled, (state, action) => {
+        const { betId, profitLoss, matchId } = action.payload;
+        if (state?.matchDetails?.id === matchId) {
+          const isBetIdPresent = state.matchDetails?.profitLossDataSession.find(
+            (item: any) => item?.betId === betId
+          );
+
+          const updatedProfitLossDataSession = isBetIdPresent
+            ? state.matchDetails?.profitLossDataSession.map((item: any) =>
+                item?.betId === betId
+                  ? {
+                      ...item,
+                      maxLoss: JSON.parse(profitLoss)?.maxLoss,
+                      totalBet: JSON.parse(profitLoss)?.totalBet,
+                    }
+                  : item
+              )
+            : [
+                ...state.matchDetails?.profitLossDataSession,
+                {
+                  betId: betId,
+                  maxLoss: JSON.parse(profitLoss)?.maxLoss,
+                  totalBet: JSON.parse(profitLoss)?.totalBet,
+                },
+              ];
+
+          state.matchDetails = {
+            ...state.matchDetails,
+            profitLossDataSession: updatedProfitLossDataSession,
+          };
+        } else {
+          return state.matchDetails;
+        }
+      })
+      .addCase(updateTeamRatesOnDeleteMatch.fulfilled, (state, action) => {
+        const { matchBetType, redisObject } = action.payload;
+        if (["tiedMatch1", "tiedMatch2"].includes(matchBetType)) {
+          state.matchDetails = {
+            ...state.matchDetails,
+            profitLossDataMatch: {
+              ...state.matchDetails.profitLossDataMatch,
+              yesRateTie: redisObject[action.payload.teamArateRedisKey],
+              noRateTie: redisObject[action.payload.teamBrateRedisKey],
+            },
+          };
+        } else if (["completeMatch"].includes(matchBetType)) {
+          state.matchDetails = {
+            ...state.matchDetails,
+            profitLossDataMatch: {
+              ...state.matchDetails.profitLossDataMatch,
+              yesRateComplete: redisObject[action.payload.teamArateRedisKey],
+              noRateComplete: redisObject[action.payload.teamBrateRedisKey],
+            },
+          };
+        } else {
+          state.matchDetails = {
+            ...state.matchDetails,
+            profitLossDataMatch: {
+              ...state.matchDetails.profitLossDataMatch,
+              teamARate: redisObject[action.payload.teamArateRedisKey],
+              teamBRate: redisObject[action.payload.teamBrateRedisKey],
+              teamCRate: redisObject[action.payload.teamCrateRedisKey],
+            },
+          };
+        }
       });
   },
 });

@@ -41,7 +41,19 @@ export const updateBalance = createAsyncThunk<any, any>(
   }
 );
 export const updateProfitLossOnDeleteSession = createAsyncThunk<any, any>(
-  "/user/profitLoss/delete",
+  "/user/profitLoss/deleteSession",
+  async (balance) => {
+    return balance;
+  }
+);
+export const updateBetDataOnUndeclare = createAsyncThunk<any, any>(
+  "/user/betData/undeclare",
+  async (balance) => {
+    return balance;
+  }
+);
+export const updateTeamRatesOnDeleteMatch = createAsyncThunk<any, any>(
+  "/user/profitLoss/deleteMatch",
   async (balance) => {
     return balance;
   }
@@ -89,6 +101,12 @@ export const updateRunAmount = createAsyncThunk<any, any>(
     return data;
   }
 );
+export const updateRunAmountOnDeleteBet = createAsyncThunk<any, any>(
+  "/runAmount/updateOnDeleteSessionBet",
+  async (data) => {
+    return data;
+  }
+);
 export const updateProfitLossForBet = createAsyncThunk<any, any>(
   "/profitLoss/update",
   async (data) => {
@@ -102,9 +120,9 @@ export const getAccountStatement = createAsyncThunk<any, any>(
       const resp = await service.get(
         `${ApiConstants.USER.ACCOUNT_STATEMENT}${userId}?page=${
           page || 1
-        }&limit=${limit || 15}&searchBy=${searchBy ?? ""}&keyword=${
-          keyword ?? ""
-        }${filter ?? ""}&sort=transaction.createdAt:DESC`
+        }&limit=${limit}&searchBy=${searchBy ?? ""}&keyword=${keyword ?? ""}${
+          filter ?? ""
+        }&sort=transaction.createdAt:DESC`
       );
       if (resp) {
         return resp?.data;
@@ -221,3 +239,4 @@ export const getSessionProfitLoss = createAsyncThunk<any, any>(
 export const changePasswordReset = createAction("changePassword/reset");
 export const profileReset = createAction("profile/reset");
 export const updateReset = createAction("update/reset");
+export const buttonValueSuccessReset = createAction("buttonValueSuccess/reset");

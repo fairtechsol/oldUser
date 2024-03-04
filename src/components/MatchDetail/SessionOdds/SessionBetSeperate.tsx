@@ -4,13 +4,7 @@ import { ARROWUP, ArrowDown, DELETE } from "../../../assets";
 
 import StyledImage from "../../Common/StyledImages";
 import RowComponent from "./RowComponent";
-const SessionBetSeperate = ({
-  profit,
-  mark2,
-  placedBets,
-  betHistory,
-  isArrow,
-}: any) => {
+const SessionBetSeperate = ({ profit, mark2, placedBets, isArrow }: any) => {
   const [visible, setVisible] = useState(true);
 
   return (
@@ -234,7 +228,7 @@ const SessionBetSeperate = ({
                             justifyContent: "center",
                             alignItems: "flex-end",
                             alignSelf: "flex-end",
-                            marginBottom: "0%"
+                            marginBottom: "0%",
                           }}
                         >
                           {/* {mark && ( */}

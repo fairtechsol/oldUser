@@ -5,8 +5,12 @@ import {
   getPlacedBets,
   getRunAmount,
   updateBetsPlaced,
+  updateDeleteReasonBet,
 } from "../../actions/betPlace/betPlaceActions";
-import { updateRunAmount } from "../../actions/user/userAction";
+import {
+  updateRunAmount,
+  updateRunAmountOnDeleteBet,
+} from "../../actions/user/userAction";
 
 interface InitialState {
   placedBets: any;
@@ -18,7 +22,7 @@ interface InitialState {
 
 const initialState: InitialState = {
   placedBets: [],
-  runAmount: [],
+  runAmount: {},
   loading: false,
   success: false,
   error: null,
@@ -64,7 +68,7 @@ const placedBet = createSlice({
         state.loading = true;
         state.success = false;
         state.error = null;
-        state.runAmount = [];
+        state.runAmount = {};
       })
       .addCase(getRunAmount.fulfilled, (state, action) => {
         state.loading = false;
@@ -76,7 +80,36 @@ const placedBet = createSlice({
         state.error = action?.error?.message;
       })
       .addCase(updateRunAmount.fulfilled, (state, action) => {
-        state.runAmount = JSON.parse(action.payload).betPlaced;
+        const { betId, profitLossData } = action.payload;
+        if (betId === state.runAmount.betId) {
+          state.runAmount = {
+            ...state.runAmount,
+            runAmount: JSON.parse(profitLossData).betPlaced,
+          };
+        }
+      })
+      .addCase(updateRunAmountOnDeleteBet.fulfilled, (state, action) => {
+        const { betId, profitLoss } = action.payload;
+        if (betId === state.runAmount.betId) {
+          state.runAmount = {
+            ...state.runAmount,
+            runAmount: profitLoss.betPlaced,
+          };
+        }
+      })
+      .addCase(updateDeleteReasonBet.fulfilled, (state, action) => {
+        const { betPlacedId, deleteReason } = action.payload;
+        const updateDeleteReason = (bet: any) => {
+          if (betPlacedId.includes(bet.id)) {
+            bet.deleteReason = deleteReason;
+          }
+
+          return bet;
+        };
+
+        const updatedBetPlaced = state.placedBets.map(updateDeleteReason);
+
+        state.placedBets = Array.from(new Set(updatedBetPlaced));
       })
       .addCase(updateBetsPlaced.fulfilled, (state, action) => {
         const betId = action.payload.betId;

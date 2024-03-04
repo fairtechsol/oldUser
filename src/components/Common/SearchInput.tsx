@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { getAccountStatement } from "../../store/actions/user/userAction";
 import StyledImage from "./StyledImages";
 import { Search } from "../../assets";
+import moment from "moment";
 const SearchInput = (props: any) => {
   const {
     title,
@@ -17,6 +18,9 @@ const SearchInput = (props: any) => {
     search,
     data,
     containerStyle,
+    fromDate,
+    toDate,
+    setCurrentPage,
   } = props;
 
   const [open, setOpen] = useState(false);
@@ -60,13 +64,25 @@ const SearchInput = (props: any) => {
     }
     try {
       if (searchFor === "accountStatement") {
+        let filter = "";
+        if (fromDate && toDate) {
+          filter += `&createdAt=between${moment(fromDate)?.format(
+            "YYYY-MM-DD"
+          )}|${moment(toDate).add(1, "days")?.format("YYYY-MM-DD")}`;
+        } else if (fromDate) {
+          filter += `&createdAt=gte${moment(fromDate)?.format("YYYY-MM-DD")}`;
+        } else if (toDate) {
+          filter += `&createdAt=lte${moment(toDate)?.format("YYYY-MM-DD")}`;
+        }
+        setCurrentPage(1);
         dispatch(
           getAccountStatement({
             userId: getProfile?.id,
             page: 1,
-            pageLimit: pageLimit,
+            limit: pageLimit,
             keyword: value,
             searchBy: "description,user.userName,actionByUser.userName",
+            filter: filter,
           })
         );
       }

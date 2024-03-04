@@ -110,7 +110,7 @@ const PlaceBetComponentWeb = ({ profitLoss, data, show, setShow }: any) => {
           <RunsDropDown
             open={Boolean(anchorEl)}
             anchorEl={anchorEl}
-            list={runAmount && runAmount}
+            list={runAmount && runAmount?.runAmount}
             // list={profitLoss?.betData}
             handleClose={handleClose}
           />

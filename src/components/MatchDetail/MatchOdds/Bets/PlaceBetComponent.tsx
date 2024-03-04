@@ -97,7 +97,7 @@ const PlaceBetComponent = ({ profitLoss, data, show, setShow }: any) => {
       {show.open && show?.id === data?.id && (
         <RunsDropDown
           style={{ zIndex: 10 }}
-          list={runAmount && runAmount}
+          list={runAmount && runAmount?.runAmount}
           open={Boolean(anchorEl)}
           anchorEl={anchorEl}
           //   handleClose={handleClose}
