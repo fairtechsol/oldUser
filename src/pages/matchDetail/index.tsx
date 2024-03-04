@@ -12,6 +12,7 @@ import { expertSocketService, socketService } from "../../socketManager";
 import {
   getPlacedBets,
   updateBetsPlaced,
+  updateDeleteReasonBet,
 } from "../../store/actions/betPlace/betPlaceActions";
 import {
   matchDetailAction,
@@ -100,7 +101,7 @@ const MatchDetail = () => {
             currentBalance: event?.currentBalance,
           })
         );
-        dispatch(getPlacedBets(state?.matchId));
+        dispatch(updateDeleteReasonBet(event));
       }
     } catch (e) {
       console.log(e);
@@ -129,7 +130,7 @@ const MatchDetail = () => {
             currentBalance: event?.currentBalance,
           })
         );
-        dispatch(getPlacedBets(state?.matchId));
+        dispatch(updateDeleteReasonBet(event));
       }
     } catch (e) {
       console.log(e);

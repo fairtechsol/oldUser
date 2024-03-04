@@ -37,6 +37,8 @@ export const getPlacedBets = createAsyncThunk<any, any>(
     }
   }
 );
+
+
 export const getCurrentBets = createAsyncThunk<any>(
   "current/bet",
   async (_, thunkApi) => {
@@ -72,6 +74,12 @@ export const getRunAmount = createAsyncThunk<any, any>(
 
 export const updateBetsPlaced = createAsyncThunk<any, any>(
   "/placed/bets",
+  async (placedBets) => {
+    return placedBets;
+  }
+);
+export const updateDeleteReasonBet = createAsyncThunk<any, any>(
+  "/deleteReason/bets",
   async (placedBets) => {
     return placedBets;
   }
