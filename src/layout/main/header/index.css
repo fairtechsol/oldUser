@@ -15,7 +15,11 @@
   white-space: nowrap;
   width: 100%;
   animation: marqueeAnimation 50s linear infinite; */
- 
+  @media screen and (max-width: 768px) {
+    .marquee-container {
+      animation-duration: 10s; /* Adjust as needed */
+    }
+  }
   
   @keyframes marqueeAnimation {
     from {
