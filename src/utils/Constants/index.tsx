@@ -77,12 +77,10 @@ export const Constants = {
   sessionExpireTime: 60 * 5, // 30 sec
   apiBasePath: "http://107.23.165.155:5001",
   thirdParty: "http://107.23.165.155:3200",
-  expertPath: "http://107.23.165.155:6060",
+  expertPath: "http://107.23.165.155:8000",
   localPath: "http://localhost:5000",
   localPathThird: "http://localhost:3200",
-  localPathExpert: "http://localhost:6060",
-  WEBSOCKET: "websocket",
-  POLLING: "polling",
+  localPathExpert: "http://localhost:8000",
 };
 
 export const teamStatus = {

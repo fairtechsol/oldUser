@@ -1,12 +1,21 @@
 import { Box, Card, useMediaQuery, useTheme } from "@mui/material";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 // import AuthBackground from "../../pages/auth/AuthBackground";
-import StyledImage from "../../components/Common/StyledImages";
+import { useEffect } from "react";
 import { FgLogo } from "../../assets";
+import StyledImage from "../../components/Common/StyledImages";
 import AuthBackground from "../../pages/auth/AuthBackground";
 const AuthLayout = () => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("md"));
+
+const navigate=useNavigate();
+
+  useEffect(()=>{
+    if(sessionStorage.getItem("userToken")){
+      navigate("/match");
+    }
+  },[navigate])
 
   return (
     <Box style={{ position: "relative" }}>

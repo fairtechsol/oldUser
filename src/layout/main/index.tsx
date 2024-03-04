@@ -22,6 +22,12 @@ const MainLayout = () => {
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
 
+  useEffect(()=>{
+    if(!sessionStorage.getItem("userToken")){
+      navigate("/");
+    }
+  },[navigate]);
+
   const updateLoggedUserBalance = (event: any) => {
     dispatch(updateBalanceFromSocket(event));
   };
@@ -57,6 +63,7 @@ const MainLayout = () => {
       socketService.userBalance.userSessionBetPlaced(getUserProfile);
       socketService.userBalance.userMatchBetPlaced(getUserProfile);
       socketService.userBalance.matchResultDeclared(getUserProfile);
+      socketService.userBalance.matchResultUnDeclared(getUserProfile);
       socketService.userBalance.matchDeleteBet(getUserProfile);
       socketService.userBalance.sessionDeleteBet(getUserProfile);
     } else {
@@ -72,6 +79,8 @@ const MainLayout = () => {
       socketService.userBalance.userSessionBetPlacedOff(getUserProfile);
       socketService.userBalance.userMatchBetPlacedOff(getUserProfile);
       socketService.userBalance.matchResultDeclaredOff(getUserProfile);
+      socketService.userBalance.matchResultUnDeclaredOff(getUserProfile);
+
       socketService.userBalance.matchDeleteBetOff(getUserProfile);
       socketService.userBalance.sessionDeleteBetOff(getUserProfile);
     };
