@@ -15,7 +15,7 @@ const NewBoxData = ({
 }: any) => {
   const [open, setOpen] = useState(false);
 
-  const [anchorEl] = useState<number | null>(null);
+  const [anchorEl,setAnchorEl] = useState<number | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -33,21 +33,22 @@ const NewBoxData = ({
   }, []);
 
   const handleClose = () => {
-    setOpen(false);
+    setAnchorEl(null);
+    setOpen(false); 
   };
-
-  // const handleClick = () => {
-  //   if (title !== "Exposure") {
-  //     setAnchorEl((prev) => (prev === null ? 0 : null));
-  //   }
-  // };
-
+  const handleClick = (event: any) => {
+    if (title !== "Exposure") {
+      setOpen((prevOpen) => !prevOpen); 
+      setAnchorEl(event.currentTarget);
+    }
+  };
   return (
     <Box>
       <Box
         onClick={(event) => {
-          setOpen(!open);
-          event?.stopPropagation();
+          if (title != "Exposure") {
+            handleClick(event);
+          }
         }}
         ref={dropdownRef}
         sx={[
@@ -123,7 +124,7 @@ const NewBoxData = ({
           anchorEl={anchorEl}
           handleClose={handleClose}
         />
-      )}
+      )} 
     </Box>
   );
 };
