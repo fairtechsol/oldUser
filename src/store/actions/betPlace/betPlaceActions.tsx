@@ -38,7 +38,6 @@ export const getPlacedBets = createAsyncThunk<any, any>(
   }
 );
 
-
 export const getCurrentBets = createAsyncThunk<any>(
   "current/bet",
   async (_, thunkApi) => {
@@ -62,7 +61,10 @@ export const getRunAmount = createAsyncThunk<any, any>(
       if (resp) {
         return {
           betId: id,
-          runAmount: JSON.parse(resp?.data?.profitLoss).betPlaced,
+          runAmount:
+            resp?.data?.profitLoss[0] !== null
+              ? JSON.parse(resp?.data?.profitLoss).betPlaced
+              : [],
         };
       }
     } catch (error: any) {
@@ -87,3 +89,4 @@ export const updateDeleteReasonBet = createAsyncThunk<any, any>(
 
 export const betsSuccessReset = createAction("success/reset");
 export const betPlaceSuccessReset = createAction("betPlaceSuccess/reset");
+export const resetRunAmount = createAction("resetRunAmount/reset");

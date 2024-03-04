@@ -11,6 +11,7 @@ import SessionBetSeperate from "../../components/MatchDetail/SessionOdds/Session
 import { expertSocketService, socketService } from "../../socketManager";
 import {
   getPlacedBets,
+  resetRunAmount,
   updateBetsPlaced,
   updateDeleteReasonBet,
 } from "../../store/actions/betPlace/betPlaceActions";
@@ -26,6 +27,7 @@ import {
   updateBalance,
   updateBalanceOnBetDelete,
   updateBalanceSession,
+  updateBetDataOnDeclare,
   updateBetDataOnUndeclare,
   updateMaxLossForBet,
   updateProfitLossForBet,
@@ -42,6 +44,7 @@ const MatchDetail = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
   const [visible, setVisible] = useState(true);
+  const [show, setShow] = useState({ open: false, id: "" });
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const { getProfile } = useSelector((state: RootState) => state.user.profile);
@@ -150,6 +153,14 @@ const MatchDetail = () => {
   const handleSessionResultDeclare = (event: any) => {
     try {
       if (event?.matchId === state?.matchId) {
+        setShow({ open: false, id: "" });
+        dispatch(
+          updateBetDataOnDeclare({
+            betId: event?.betId,
+            matchId: event?.matchId,
+          })
+        );
+        dispatch(resetRunAmount());
         dispatch(getPlacedBets(state?.matchId));
       }
     } catch (e) {
@@ -297,6 +308,8 @@ const MatchDetail = () => {
                 <LiveScore />
                 <div style={{ width: "100%" }}>
                   <MatchOdds
+                    setShow={setShow}
+                    show={show}
                     matchDetails={matchDetails && matchDetails}
                     data={matchDetails && matchDetails}
                   />
@@ -360,6 +373,8 @@ const MatchDetail = () => {
                   }}
                 >
                   <MatchOdds
+                    setShow={setShow}
+                    show={show}
                     matchDetails={matchDetails && matchDetails}
                     data={matchDetails && matchDetails}
                   />

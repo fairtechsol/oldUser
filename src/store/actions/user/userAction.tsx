@@ -46,6 +46,12 @@ export const updateProfitLossOnDeleteSession = createAsyncThunk<any, any>(
     return balance;
   }
 );
+export const updateBetDataOnDeclare = createAsyncThunk<any, any>(
+  "/user/betData/declare",
+  async (balance) => {
+    return balance;
+  }
+);
 export const updateBetDataOnUndeclare = createAsyncThunk<any, any>(
   "/user/betData/undeclare",
   async (balance) => {
