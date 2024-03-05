@@ -43,19 +43,18 @@ const ManualBoxComponent = ({
   }, [livestatus, status, showBox]);
 
   const handleDecimal = (value: any, gap: any, type: any) => {
-    // alert(type)
-    let checkDecimal = value % 1; // get the decimal portion of the number
-    // alert(checkDecimal)
+    let checkDecimal = value % 1;
     if (checkDecimal >= 0.5) {
-      let getValue = type == "back" ? value - gap : value - 1 + gap;
+      let getValue =
+        type == "back" ? Math.round(value) - gap : Math.round(value - 1) + gap;
       let checkZeroHundred =
         type == "back"
           ? getValue < 1
             ? 0
-            : getValue
+            : Math.round(getValue)
           : getValue >= 100
           ? 100
-          : getValue;
+          : Math.round(getValue);
       let returnValue;
       if (type == "back") {
         let check = value % 1;
@@ -75,10 +74,10 @@ const ManualBoxComponent = ({
         type == "back"
           ? getValue < 1
             ? 0
-            : getValue
+            : Math.round(getValue)
           : getValue >= 100
           ? 100
-          : getValue;
+          : Math.round(getValue);
       let returnValue;
       if (type == "back") {
         let check = value % 1;
