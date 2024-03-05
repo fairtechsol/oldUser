@@ -79,20 +79,32 @@ const NewBoxData = ({
           }}
         >
           <Typography
-            sx={[
-              {
-                fontSize: { lg: "8px", xs: "8px" },
-                fontWeight: { xs: "bold", lg: "500px" },
-                textTransform: showDropDown && "capitalize",
-                whiteSpace: showDropDown && "nowrap",
-                textOverflow: showDropDown && "ellipsis",
-                maxWidth: showDropDown && "54px",
-                overflow: showDropDown && "hidden",
-                marginLeft: 0.5,
-                color: "black",
-              },
-              titleStyle,
-            ]}
+            // sx={[
+            //   {
+            //     fontSize: { lg: "8px", xs: "8px" },
+            //     fontWeight: { xs: "bold", lg: "500px" },
+            //     textTransform: showDropDown && "capitalize",
+            //     whiteSpace: showDropDown && "nowrap",
+            //     textOverflow: showDropDown && "ellipsis",
+            //     maxWidth: showDropDown && "54px",
+            //     overflow: showDropDown && "hidden",
+            //     marginLeft: 0.5,
+            //     color: "black",
+            //   },
+            //   titleStyle,
+            // ]}
+            sx={[{
+              fontSize: { lg: "8px", xs: "8px" },
+              fontWeight: { xs: "bold", lg: "500" }, 
+              textTransform: showDropDown ? "capitalize" : "none", 
+              whiteSpace: showDropDown && "nowrap",
+              maxWidth: "none", 
+              overflow: showDropDown && "hidden",
+              marginLeft: "0.5px", 
+              color: "black",
+            },
+               titleStyle,
+              ]}
           >
             {title}
           </Typography>
