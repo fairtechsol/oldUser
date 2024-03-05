@@ -4,6 +4,7 @@ import {
   getCurrentBets,
   getPlacedBets,
   getRunAmount,
+  resetRunAmount,
   updateBetsPlaced,
   updateDeleteReasonBet,
 } from "../../actions/betPlace/betPlaceActions";
@@ -78,6 +79,9 @@ const placedBet = createSlice({
       .addCase(getRunAmount.rejected, (state, action) => {
         state.loading = false;
         state.error = action?.error?.message;
+      })
+      .addCase(resetRunAmount, (state) => {
+        return { ...state, runAmount: {} };
       })
       .addCase(updateRunAmount.fulfilled, (state, action) => {
         const { betId, profitLossData } = action.payload;

@@ -14,6 +14,7 @@ import {
 } from "../../actions/match/matchListAction";
 import {
   updateBalance,
+  updateBetDataOnDeclare,
   updateBetDataOnUndeclare,
   updateMaxLossForBet,
   updateProfitLossOnDeleteSession,
@@ -234,6 +235,22 @@ const matchListSlice = createSlice({
               }
               return item;
             });
+
+          state.matchDetails = {
+            ...state.matchDetails,
+            profitLossDataSession: updatedProfitLossDataSession,
+          };
+        } else {
+          return state.matchDetails;
+        }
+      })
+      .addCase(updateBetDataOnDeclare.fulfilled, (state, action) => {
+        const { betId, matchId } = action.payload;
+        if (state?.matchDetails?.id === matchId) {
+          const updatedProfitLossDataSession =
+            state.matchDetails?.profitLossDataSession.filter(
+              (item: any) => item?.betId !== betId
+            );
 
           state.matchDetails = {
             ...state.matchDetails,

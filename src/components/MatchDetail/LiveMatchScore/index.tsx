@@ -14,7 +14,7 @@ import { useState, useEffect } from "react";
 // import { apiBasePath } from "./helper/constants";
 
 const LiveScore = ({ currentMatch, liveScoreData, submit }: any) => {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   const [ballOutcomes, setBallOutcomes] = useState([]);
   const [ballLastOutcomes, setBallLastOutcomes] = useState([]);
   // const [lastOverRun, setLastOverRun] = useState("");

@@ -6,7 +6,7 @@ import QuickSessionMarket from "../QuickSession/QuickSessionMarket";
 import SessionMarket from "../SessionOdds/SessionMarket";
 import MarketOdds from "./MarketOdds";
 
-const MatchOdds = ({ matchDetails, data }: any) => {
+const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
   function calculateTimeLeft() {
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     const targetDate = moment(data?.startAt).tz(timezone);
@@ -36,7 +36,6 @@ const MatchOdds = ({ matchDetails, data }: any) => {
   }
 
   const [timeLeft, setTimeLeft] = useState<any>(calculateTimeLeft);
-  const [show, setShow] = useState({ open: false, id: "" });
 
   const upcoming =
     Number(timeLeft.days) === 0 &&
