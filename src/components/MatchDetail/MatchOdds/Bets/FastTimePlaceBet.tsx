@@ -28,7 +28,7 @@ any) => {
     (state: RootState) => state.match.bet
   );
   const [ipAddress] = useState(null);
-  const [canceled, setCanceled] = useState({
+  const [canceled] = useState({
     value: false,
     msg: "",
     loading: false,
@@ -793,22 +793,22 @@ any) => {
 
       {canceled.value && (
         <NotificationModal
-          // time={
-          //   typeOfBet == "MATCH ODDS"
-          //     ? currentMatch?.delaySecond
-          //       ? currentMatch?.delaySecond
-          //       : 0
-          //     : 0
-          // }
-          open={canceled}
-          handleClose={() =>
-            setCanceled({
-              value: false,
-              msg: "",
-              loading: false,
-              type: false,
-            })
-          }
+        // time={
+        //   typeOfBet == "MATCH ODDS"
+        //     ? currentMatch?.delaySecond
+        //       ? currentMatch?.delaySecond
+        //       : 0
+        //     : 0
+        // }
+        // open={canceled}
+        // handleClose={() =>
+        //   setCanceled({
+        //     value: false,
+        //     msg: "",
+        //     loading: false,
+        //     type: false,
+        //   })
+        // }
         />
       )}
     </>

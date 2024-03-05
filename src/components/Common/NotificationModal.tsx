@@ -1,10 +1,10 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import MUIModal from "@mui/material/Modal";
 
-import { BETPLACED, NOT } from "../../assets";
+// import { BETPLACED, NOT } from "../../assets";
 import SmallCustomLoader from "../Loader/smallLoader";
 
-const NotificationModal = ({ open, handleClose }: any) => {
+const NotificationModal = () => {
   try {
     // useEffect(() => {
     //   let TimeVal = (time * 1000) + 2000;
@@ -23,7 +23,7 @@ const NotificationModal = ({ open, handleClose }: any) => {
           display: "flex",
           outline: "none",
         }}
-        open={open?.value}
+        open={true}
         // onClose={handleClose}
         slotProps={{
           backdrop: {
@@ -50,9 +50,9 @@ const NotificationModal = ({ open, handleClose }: any) => {
             zIndex: 999,
           }}
         >
-          {open?.loading ? (
-            <SmallCustomLoader />
-          ) : (
+          {/* {open?.loading ? ( */}
+          <SmallCustomLoader />
+          {/* ) : (
             <>
               <img
                 onClick={() => {
@@ -77,7 +77,7 @@ const NotificationModal = ({ open, handleClose }: any) => {
                 {open.msg}
               </Typography>
             </>
-          )}
+          )} */}
         </Box>
       </MUIModal>
     );

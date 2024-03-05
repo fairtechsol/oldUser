@@ -106,7 +106,7 @@ const PlaceBetComponentWeb = ({ profitLoss, data, show, setShow }: any) => {
             style={{ width: "12px", height: "12px", marginLeft: "5px" }}
           />
         </Box>
-        {show.open && show?.id === data?.id && (
+        {show?.open && show?.id === data?.id && (
           <RunsDropDown
             open={Boolean(anchorEl)}
             anchorEl={anchorEl}

@@ -434,8 +434,8 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
 
       {(loading || matchOddLoading) && (
         <NotificationModal
-          open={{ value: true, loading: loading }}
-          handleClose={""}
+          // open={{ value: true, loading: loading }}
+          // handleClose={""}
         />
       )}
     </Box>
