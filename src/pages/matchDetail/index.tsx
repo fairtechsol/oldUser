@@ -199,6 +199,13 @@ const MatchDetail = () => {
   }, [state?.matchId]);
 
   useEffect(() => {
+    if (matchDetails && matchDetails?.stopAt) {
+      // Redirect to matchList page
+      navigate('/match/list');
+    }
+  }, [matchDetails]);
+
+  useEffect(() => {
     dispatch(matchDetailReset());
     try {
       if (state?.matchId && getProfile?.roleName) {

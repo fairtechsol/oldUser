@@ -10,6 +10,8 @@ import { useSelector } from "react-redux";
 
 const ProfitLoss = () => {
   const dispatch: AppDispatch = useDispatch();
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [pageCount] = useState(1);
   const { userTotalProfitLoss } = useSelector(
     (state: RootState) => state.user.profitLoss
   );
@@ -65,18 +67,12 @@ const ProfitLoss = () => {
           {"PROFIT/LOSS REPORT"}
         </Typography>
         <ProfitLossComponent
-          // sessionBets={sessionBets}
           show={show}
           setShow={setShow}
           eventData={userTotalProfitLoss && userTotalProfitLoss}
-          // reportData={reportData}
-          // betData={betData}
-          // sessionBetData={sessionBetData}
-          // handleReport={handleReport}
-          // pageCount={pageCount}
-          // handleBet={handleBet}
-          // currentPage={currentPage}
-          // setCurrentPage={setCurrentPage}
+          pageCount={pageCount}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
         />
       </>
     </Box>
