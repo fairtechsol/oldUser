@@ -2,6 +2,7 @@ import { Box, useMediaQuery, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
+import Loader from "../../components/Loader";
 import AllRateSeperate from "../../components/MatchDetail/AllRateBets/AllRateSeperate";
 import BetPlaced from "../../components/MatchDetail/Common/BetPlaced";
 import LiveScore from "../../components/MatchDetail/LiveMatchScore";
@@ -37,7 +38,6 @@ import {
   updateTeamRatesOnDeleteMatch,
 } from "../../store/actions/user/userAction";
 import { AppDispatch, RootState } from "../../store/store";
-import Loader from "../../components/Loader";
 
 const MatchDetail = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -330,7 +330,7 @@ const MatchDetail = () => {
                       width: "98%",
                     }}
                   >
-                    {Array.from(new Set(placedBets)).filter(
+                    {Array.from(placedBets.reduce((acc:any, obj:any) => (acc.has(obj.id) ? acc : acc.add(obj.id) && acc), new Set()), id => placedBets.find((obj:any) => obj.id === id)).filter(
                       (bet: any) => bet?.marketType === "session"
                     ).length > 0 && (
                       <SessionBetSeperate
@@ -341,7 +341,7 @@ const MatchDetail = () => {
                       />
                     )}
 
-                    {Array.from(new Set(placedBets)).filter(
+                    {Array.from(placedBets.reduce((acc:any, obj:any) => (acc.has(obj.id) ? acc : acc.add(obj.id) && acc), new Set()), id => placedBets.find((obj:any) => obj.id === id)).filter(
                       (bet: any) => bet?.marketType !== "session"
                     ).length > 0 && (
                       <AllRateSeperate
