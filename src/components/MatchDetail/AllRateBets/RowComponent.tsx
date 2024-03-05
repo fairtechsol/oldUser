@@ -41,7 +41,7 @@ const RowComponent = ({ header, data }: any) => {
             data={data?.bettingName}
             first={true}
             header={header}
-            time={getTime(data.createdAt)}
+           
           />
           {/* </Box> */}
           <Box
@@ -67,6 +67,7 @@ const RowComponent = ({ header, data }: any) => {
           </Box>
           {/* <Box sx={{ width: "52%", minWidth: "19%" }}> */}
           <SingleBox
+           time={getTime(data.createdAt)}
             color={getColor()}
             data={data.teamName}
             up={true}

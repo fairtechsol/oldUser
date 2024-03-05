@@ -13,15 +13,15 @@ const ProfitLossComponent = ({
   betData,
   sessionBetData,
   handleReport,
-  currentPage,
+currentPage,
   pageCount,
-  setCurrentPage,
+setCurrentPage,
   sessionBets,
   setShow,
   show,
 }: any) => {
-  const dispatch: AppDispatch = useDispatch();
-  const { matchWiseProfitLoss } = useSelector(
+    const dispatch: AppDispatch = useDispatch();
+    const { matchWiseProfitLoss } = useSelector(
     (state: RootState) => state.user.profitLoss
   );
   const [selectedId, setSelectedId] = useState({
@@ -110,9 +110,14 @@ const ProfitLossComponent = ({
       {show && (
         <Footer
           getListOfUser={() => handleReport(event)}
-          setCurrentPage={() => {}}
+          setCurrentPage={setCurrentPage}
           currentPage={currentPage}
-          pages={pageCount}
+          // pages={pageCount}
+          pages={Math.ceil(
+            parseInt(
+              pageCount
+            )
+          )}
           callPage={callPage}
         />
       )}
