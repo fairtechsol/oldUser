@@ -46,7 +46,6 @@ const MatchesComponent = (_: any) => {
               setMatchOddRatesInRedux
             );
           });
-          expertSocketService.match.matchAdded(getMatchListService);
           socketService.userBalance.matchResultDeclared(getMatchListService);
           socketService.userBalance.matchResultUnDeclared(getMatchListService);
         }
