@@ -53,7 +53,7 @@ const TableRow = ({
             fTextStyle,
           ]}
         >
-         {formattedDate}
+          {formattedDate}
         </Typography>
       </Box>
       <Box
@@ -119,7 +119,16 @@ const TableRow = ({
           display: "flex",
           paddingLeft: "10px",
           alignItems: "center",
+          overflow: "auto",
           height: "45px",
+          lineHeight: "1",
+          scrollbarWidth: "thin", // Customize scrollbar width (for Firefox)
+          "&::-webkit-scrollbar": {
+            width: "8px", // Customize scrollbar width (for WebKit browsers)
+          },
+          "&::-webkit-scrollbar-thumb": {
+            backgroundColor: "#888", // Customize scrollbar thumb color
+          },
           borderRight: "2px solid white",
           background: transType === "creditReference" ? "#F8C851" : "#FFE094",
         }}

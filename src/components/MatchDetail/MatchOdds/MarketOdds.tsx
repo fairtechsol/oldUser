@@ -1,15 +1,15 @@
 import { Box, Typography } from "@mui/material";
 import { memo, useEffect, useState } from "react";
-import OddsPlaceBet from "./Bets/OddsPlacebet";
-import FastTimePlaceBet from "./Bets/FastTimePlaceBet";
-import BoxComponent from "./BoxComponent";
-import Divider from "../../../helper/Divider";
-import ManualBoxComponent from "./ManualBoxComponent";
+import { useSelector } from "react-redux";
 import { ARROWUP, LockIcon, TIME } from "../../../assets";
 import { currencyFormatter } from "../../../helper";
-import FastTime from "./FastTime";
-import { useSelector } from "react-redux";
+import Divider from "../../../helper/Divider";
 import { RootState } from "../../../store/store";
+import FastTimePlaceBet from "./Bets/FastTimePlaceBet";
+import OddsPlaceBet from "./Bets/OddsPlacebet";
+import BoxComponent from "./BoxComponent";
+import FastTime from "./FastTime";
+import ManualBoxComponent from "./ManualBoxComponent";
 
 const SmallBox = ({ valueA, valueB }: any) => {
   return (

@@ -94,7 +94,7 @@ const PlaceBetComponent = ({ profitLoss, data, show, setShow }: any) => {
           </Typography>
         </Box>
       </Box>
-      {show.open && show?.id === data?.id && (
+      {show?.open && show?.id === data?.id && (
         <RunsDropDown
           style={{ zIndex: 10 }}
           list={runAmount && runAmount?.runAmount}
