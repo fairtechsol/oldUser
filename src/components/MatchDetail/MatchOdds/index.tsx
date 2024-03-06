@@ -64,6 +64,12 @@ const MatchesComponent = (_: any) => {
           setMatchOddRatesInRedux
         );
       });
+      socketService.userBalance.matchResultDeclaredOff(
+        dispatch(getMatchListService)
+      );
+      socketService.userBalance.matchResultUnDeclaredOff(
+        dispatch(getMatchListService)
+      );
     };
   }, [matchList?.matches?.length, getProfile?.roleName]);
 

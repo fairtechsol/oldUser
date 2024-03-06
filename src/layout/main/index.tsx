@@ -63,6 +63,7 @@ const MainLayout = () => {
       socketService.userBalance.userSessionBetPlaced(getUserProfile);
       socketService.userBalance.userMatchBetPlaced(getUserProfile);
       socketService.userBalance.matchResultDeclared(getUserProfile);
+      socketService.userBalance.sessionNoResult(getUserProfile);
       socketService.userBalance.matchResultUnDeclared(getUserProfile);
       socketService.userBalance.matchDeleteBet(getUserProfile);
       socketService.userBalance.sessionDeleteBet(getUserProfile);
@@ -80,7 +81,7 @@ const MainLayout = () => {
       socketService.userBalance.userMatchBetPlacedOff(getUserProfile);
       socketService.userBalance.matchResultDeclaredOff(getUserProfile);
       socketService.userBalance.matchResultUnDeclaredOff(getUserProfile);
-
+      socketService.userBalance.sessionNoResultOff(getUserProfile);
       socketService.userBalance.matchDeleteBetOff(getUserProfile);
       socketService.userBalance.sessionDeleteBetOff(getUserProfile);
     };
