@@ -13,6 +13,12 @@ export const userBalanceSocketService = {
   matchResultDeclared: (callback: any) => {
     socket.on("matchResult", callback);
   },
+  sessionNoResult: (callback: any) => {
+    socket.on("sessionNoResult", callback);
+  },
+  sessionNoResultOff: (callback: any) => {
+    socket.off("sessionNoResult", callback);
+  },
   matchResultUnDeclared: (callback: any) => {
     socket.on("matchResultUnDeclare", callback);
   },

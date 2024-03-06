@@ -234,6 +234,7 @@ const MatchDetail = () => {
         socketService.userBalance.matchDeleteBet(handleMatchbetDeleted);
         socketService.userBalance.sessionDeleteBet(handleSessionBetDeleted);
         socketService.userBalance.sessionResult(handleSessionResultDeclare);
+        socketService.userBalance.sessionNoResult(handleSessionResultDeclare);
         socketService.userBalance.sessionResultUnDeclare(
           handleSessionResultUnDeclare
         );
@@ -257,6 +258,7 @@ const MatchDetail = () => {
       socketService.userBalance.matchDeleteBetOff(handleMatchbetDeleted);
       socketService.userBalance.sessionDeleteBetOff(handleSessionBetDeleted);
       socketService.userBalance.sessionResult(handleSessionResultDeclare);
+      socketService.userBalance.sessionNoResultOff(handleSessionResultDeclare);
       socketService.userBalance.sessionResultUnDeclare(
         handleSessionResultUnDeclare
       );
