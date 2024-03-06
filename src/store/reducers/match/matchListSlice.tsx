@@ -9,6 +9,7 @@ import {
   matchListReset,
   searchListReset,
   selectedBetAction,
+  selectedBetMinMax,
   updateMatchOddRates,
   updateMatchRates,
 } from "../../actions/match/matchListAction";
@@ -31,6 +32,7 @@ interface InitialState {
   matchDetails: any;
   selectedBet: any;
   searchedMatchList: any;
+  minMax: any;
 }
 
 const initialState: InitialState = {
@@ -43,6 +45,7 @@ const initialState: InitialState = {
   matchDetails: null,
   selectedBet: null,
   searchedMatchList: null,
+  minMax: null,
 };
 
 const matchListSlice = createSlice({
@@ -325,6 +328,67 @@ const matchListSlice = createSlice({
             },
           };
         }
+      })
+      .addCase(selectedBetMinMax.fulfilled, (state, action) => {
+        const { team, data } = action.payload;
+        console.log(action.payload)
+        let value = {};
+        if (team?.matchBetType === "matchOdd") {
+          value = {
+            min: data?.minBet,
+            max: data?.maxBet,
+          };
+        } else if (team?.matchBetType === "bookmaker") {
+          value = {
+            min: data?.minBet,
+            max: data?.maxBet,
+          };
+        } else if (team?.matchBetType === "quickbookmaker1") {
+          value = {
+            min: data?.quickBookmaker[0].minBet,
+            max: data?.quickBookmaker[0].maxBet,
+          };
+        } else if (team?.matchBetType === "quickbookmaker2") {
+          value = {
+            min: data?.quickBookmaker[1].minBet,
+            max: data?.quickBookmaker[1].maxBet,
+          };
+        } else if (team?.matchBetType === "tiedMatch2") {
+          value = {
+            min: data?.manualTiedMatch?.minBet,
+            max: data?.manualTiedMatch?.maxBet,
+          };
+        } else if (team?.matchBetType === "tiedMatch1") {
+          value = {
+            min: data?.minBet,
+            max: data?.maxBet,
+          };
+        } else if (team?.matchBetType === "completeMatch") {
+          value = {
+            min: data?.minBet,
+            max: data?.maxBet,
+          };
+        } else if (
+          !team?.matchBetType &&
+          data?.isManual &&
+          team?.betId === data?.id
+        ) {
+          value = {
+            min: data?.minBet,
+            max: data?.maxBet,
+          };
+        } else if (
+          !team?.matchBetType &&
+          !data?.isManual &&
+          team?.betId === data?.id
+        ) {
+          value = {
+            min: data?.min,
+            max: data?.max,
+          };
+        }
+        console.log("value0", value);
+        state.minMax = value;
       });
   },
 });

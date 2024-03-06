@@ -17,6 +17,8 @@ import PlaceBetMoneyBox from "../PlaceBetMoneyBox";
 import NumberData from "./NumberDataOdds";
 import TeamsOdssData from "./TeamOddsData";
 import NotificationModal from "../../../Common/NotificationModal";
+import { toast } from "react-toastify";
+
 
 const OddsPlaceBet = ({ handleClose, season, type }: any) => {
   const [stakeValue, setStakeValue] = useState<any>(" ");
@@ -24,7 +26,7 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
   const { buttonValues, getProfile } = useSelector(
     (state: RootState) => state.user.profile
   );
-  const { selectedBet } = useSelector(
+  const { selectedBet, minMax } = useSelector(
     (state: RootState) => state.match.matchList
   );
   let sessionButtonValues: any = [];
@@ -335,12 +337,12 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
 
           <button
             type="submit"
-            disabled={loading}
+            disabled={loading || !stakeValue ? true : false}
             style={{
               color: "#fff",
               backgroundColor: "#262626",
               width: "150px",
-              cursor: loading ? "not-allowed" : "pointer",
+              cursor: loading || !stakeValue ? "not-allowed" : "pointer",
               // width: { lg: "150px", xs: "130px" },
               height: "35px",
               borderRadius: "5px",
@@ -350,6 +352,13 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
               if (loading) {
                 return;
               } else {
+                if(stakeValue > minMax?.max){
+                  toast.error('Amount should be less then maximum bet amount!');
+                  return false ;
+                }else if(stakeValue < minMax?.min){
+                  toast.error('Amount should be greater then minimum bet amount!');
+                  return false ;
+                }
                 let payloadForSession: any = {
                   betId: selectedBet?.team?.betId,
                   betType: selectedBet?.team?.type.toUpperCase(),

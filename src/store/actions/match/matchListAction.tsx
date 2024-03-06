@@ -104,7 +104,12 @@ export const selectedBetAction = createAsyncThunk<any, any>(
     return data;
   }
 );
-
+export const selectedBetMinMax = createAsyncThunk<any, any>(
+  "/match/selectedBetMinMax",
+  async (data) => {
+    return data;
+  }
+);
 export const getCompetitionList = createAsyncThunk<any, any>(
   "competition/list",
   async (requestData, thunkApi) => {

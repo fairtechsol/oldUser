@@ -7,7 +7,7 @@ import { Lock } from "../../../assets/index";
 import { useState } from "react";
 import OddsPlaceBet from "./Bets/OddsPlacebet";
 import { AppDispatch, RootState } from "../../../store/store";
-import { selectedBetAction } from "../../../store/actions/match/matchListAction";
+import { selectedBetAction, selectedBetMinMax } from "../../../store/actions/match/matchListAction";
 import { useSelector } from "react-redux";
 
 const SeparateModal = ({
@@ -45,6 +45,12 @@ const SeparateModal = ({
   const handleClick = (team: any, data: any) => {
     dispatch(
       selectedBetAction({
+        team,
+        data,
+      })
+    );
+    dispatch(
+      selectedBetMinMax({
         team,
         data,
       })
