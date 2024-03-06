@@ -46,6 +46,7 @@ const MatchesComponent = (_: any) => {
               setMatchOddRatesInRedux
             );
           });
+          expertSocketService.match.matchAdded(getMatchListService);
           socketService.userBalance.matchResultDeclared(getMatchListService);
           socketService.userBalance.matchResultUnDeclared(getMatchListService);
         }
@@ -63,6 +64,12 @@ const MatchesComponent = (_: any) => {
           setMatchOddRatesInRedux
         );
       });
+      socketService.userBalance.matchResultDeclaredOff(
+        dispatch(getMatchListService)
+      );
+      socketService.userBalance.matchResultUnDeclaredOff(
+        dispatch(getMatchListService)
+      );
     };
   }, [matchList?.matches?.length, getProfile?.roleName]);
 

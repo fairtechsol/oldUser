@@ -5,7 +5,6 @@ import { AppDispatch } from "../../store/store";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getMatchList } from "../../store/actions/match/matchListAction";
-import { expertSocketService, socketService } from "../../socketManager";
 
 const Inplay = () => {
   const theme = useTheme();
@@ -15,21 +14,6 @@ const Inplay = () => {
 
   useEffect(() => {
     dispatch(getMatchList({}));
-  }, []);
-
-  useEffect(() => {
-    expertSocketService.match.matchAdded(dispatch(getMatchList({})));
-    socketService.userBalance.matchResultDeclared(dispatch(getMatchList({})));
-    socketService.userBalance.matchResultUnDeclared(dispatch(getMatchList({})));
-    return () => {
-      expertSocketService.match.matchAddedOff(dispatch(getMatchList({})));
-      socketService.userBalance.matchResultDeclaredOff(
-        dispatch(getMatchList({}))
-      );
-      socketService.userBalance.matchResultUnDeclaredOff(
-        dispatch(getMatchList({}))
-      );
-    };
   }, []);
 
   return (
