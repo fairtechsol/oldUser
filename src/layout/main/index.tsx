@@ -7,7 +7,7 @@ import { BACKIMAGE } from "../../assets";
 import BackgroundLayout from "../../components/Common/BackgroundLayout";
 import SecureAuthVerification from "../../pages/auth/secureAuthverification";
 import Rules from "../../pages/rules";
-import { socketService } from "../../socketManager";
+import { expertSocketService, socketService } from "../../socketManager";
 import {
   getProfile,
   marqueeNotification,
@@ -16,17 +16,18 @@ import {
 } from "../../store/actions/user/userAction";
 import { AppDispatch } from "../../store/store";
 import CustomHeader from "./header/CustomHeader";
+import { getMatchList } from "../../store/actions/match/matchListAction";
 
 const MainLayout = () => {
   const location = useLocation();
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(()=>{
-    if(!sessionStorage.getItem("userToken")){
+  useEffect(() => {
+    if (!sessionStorage.getItem("userToken")) {
       navigate("/");
     }
-  },[navigate]);
+  }, [navigate]);
 
   const updateLoggedUserBalance = (event: any) => {
     dispatch(updateBalanceFromSocket(event));
@@ -40,6 +41,10 @@ const MainLayout = () => {
     }
   };
 
+  const handleMatchResult = () => {
+    dispatch(getMatchList({}));
+    dispatch(getProfile());
+  };
   const getUserProfile = () => {
     dispatch(getProfile());
   };
@@ -62,16 +67,18 @@ const MainLayout = () => {
       socketService.userBalance.sessionResultUnDeclare(sessionResultDeclared);
       socketService.userBalance.userSessionBetPlaced(getUserProfile);
       socketService.userBalance.userMatchBetPlaced(getUserProfile);
-      socketService.userBalance.matchResultDeclared(getUserProfile);
+      socketService.userBalance.matchResultDeclared(handleMatchResult);
       socketService.userBalance.sessionNoResult(getUserProfile);
-      socketService.userBalance.matchResultUnDeclared(getUserProfile);
+      socketService.userBalance.matchResultUnDeclared(handleMatchResult);
       socketService.userBalance.matchDeleteBet(getUserProfile);
       socketService.userBalance.sessionDeleteBet(getUserProfile);
     } else {
       socketService.disconnect();
     }
+  }, []);
+
+  useEffect(() => {
     return () => {
-      socketService.disconnect();
       socketService.userBalance.updateUserBalanceOff(updateLoggedUserBalance);
       socketService.userBalance.sessionResultOff(sessionResultDeclared);
       socketService.userBalance.sessionResultUnDeclareOff(
@@ -85,7 +92,7 @@ const MainLayout = () => {
       socketService.userBalance.matchDeleteBetOff(getUserProfile);
       socketService.userBalance.sessionDeleteBetOff(getUserProfile);
     };
-  }, [sessionStorage.getItem("userToken")]);
+  }, []);
 
   return (
     <>
