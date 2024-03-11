@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowDown, drawerBackground } from "../../../assets/index";
 
-const SideBar = ({ mobileShow }: any) => {
+const SideBar = ({ mobileShow,handleDrawerToggle }: any) => {
   const [showSideBarMobile, setShowSideBarMobile] = useState(false);
   const navigate = useNavigate();
   const [selected, setSelected] = useState("All Sports");
@@ -129,7 +129,9 @@ const SideBar = ({ mobileShow }: any) => {
       <Box
         onClick={() => {
           navigate(item?.url, { state: { activeTab: item?.activeTab } });
-          // handleDrawerToggle()
+          handleDrawerToggle()
+      
+          setShowSideBarMobile(false)
         }}
         sx={{
           display: "flex",
