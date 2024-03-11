@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useState } from "react";
 import RowHeaderMatches from "./RowHeaderMatches";
 import Footer from "../../AccountStatement/Footer";
@@ -13,15 +13,20 @@ const ProfitLossComponent = ({
   betData,
   sessionBetData,
   handleReport,
-currentPage,
+  currentPage,
   pageCount,
-setCurrentPage,
+  setCurrentPage,
   sessionBets,
   setShow,
   show,
+  endDate,
+  startDate
 }: any) => {
-    const dispatch: AppDispatch = useDispatch();
-    const { matchWiseProfitLoss } = useSelector(
+  const dispatch: AppDispatch = useDispatch();
+  const { matchWiseProfitLoss } = useSelector(
+    (state: RootState) => state.user.profitLoss
+  );
+  const { userData } = useSelector(
     (state: RootState) => state.user.profitLoss
   );
   const [selectedId, setSelectedId] = useState({
@@ -53,6 +58,9 @@ setCurrentPage,
       dispatch(
         getMatchWiseProfitLoss({
           type: eventType,
+          searchId: userData?.id,
+          startDate: startDate,
+          endDate: endDate
         })
       );
     }
@@ -76,52 +84,66 @@ setCurrentPage,
   };
 
   return (
-    <Box>
-      {eventData.map((item: any, index: number) => {
-        return (
-          <RowHeaderMatches
-            key={index}
-            item={item}
-            index={index}
-            getHandleReport={getHandleReport}
-            show={show}
-          />
-        );
-      })}
-
+    eventData?.length > 0 ?
       <Box>
-        {show &&
-          matchWiseProfitLoss?.map((item: any, index: number) => {
-            return (
-              <RowComponentMatches
-                key={index}
-                item={item}
-                index={index + 1}
-                selectedId={selectedId}
-                betData={betData}
-                sessionBetData={sessionBetData}
-                sessionBets={sessionBets}
-                getBetReport={getBetReport}
-              />
-            );
-          })}
-      </Box>
+        {eventData.map((item: any, index: number) => {
+          return (
+            <RowHeaderMatches
+              key={index}
+              item={item}
+              index={index}
+              getHandleReport={getHandleReport}
+              show={show}
+            />
+          );
+        })}
 
-      {show && (
-        <Footer
-          getListOfUser={() => handleReport(event)}
-          setCurrentPage={setCurrentPage}
-          currentPage={currentPage}
-          // pages={pageCount}
-          pages={Math.ceil(
-            parseInt(
-              pageCount
-            )
-          )}
-          callPage={callPage}
-        />
-      )}
-    </Box>
+        <Box>
+          {show &&
+            matchWiseProfitLoss?.map((item: any, index: number) => {
+              return (
+                <RowComponentMatches
+                  key={index}
+                  item={item}
+                  index={index + 1}
+                  selectedId={selectedId}
+                  betData={betData}
+                  sessionBetData={sessionBetData}
+                  sessionBets={sessionBets}
+                  getBetReport={getBetReport}
+                />
+              );
+            })}
+        </Box>
+
+        {show && (
+          <Footer
+            getListOfUser={() => handleReport(event)}
+            setCurrentPage={setCurrentPage}
+            currentPage={currentPage}
+            // pages={pageCount}
+            pages={Math.ceil(
+              parseInt(
+                pageCount
+              )
+            )}
+            callPage={callPage}
+          />
+        )}
+      </Box> :
+      <Box>
+        <Typography
+          sx={{
+            color: "#fff",
+            textAlign: "center",
+            fontSize: { lg: "16px", xs: "10px" },
+            fontWeight: "600",
+            margin: "1rem",
+          }}
+        >
+          No Matching Records Found
+        </Typography>
+      </Box>
   );
 };
 export default ProfitLossComponent;

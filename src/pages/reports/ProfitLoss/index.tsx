@@ -3,11 +3,15 @@ import { useEffect, useState } from "react";
 import YellowHeaderProfitLoss from "../../../components/report/ProfitLossReport/YellowheaderProfitLoss";
 import { AppDispatch, RootState } from "../../../store/store";
 import { useDispatch } from "react-redux";
-import { getUserTotalProfitLoss } from "../../../store/actions/user/userAction";
+import { getUserTotalProfitLoss, updateUserSearchId } from "../../../store/actions/user/userAction";
 import moment from "moment";
 import ProfitLossComponent from "../../../components/report/ProfitLossReport/ProfitLossComponent";
 import { useSelector } from "react-redux";
-
+interface FilterObject {
+  userId?: any; 
+  startDate?: string;
+  endDate?: string;
+}
 const ProfitLoss = () => {
   const dispatch: AppDispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -15,6 +19,7 @@ const ProfitLoss = () => {
   const { userTotalProfitLoss } = useSelector(
     (state: RootState) => state.user.profitLoss
   );
+  const [search, setSearch] = useState<any>("");
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [show, setShow] = useState(false);
@@ -22,15 +27,22 @@ const ProfitLoss = () => {
   const handleClick = () => {
     try {
       setShow(false);
-      let filter = "";
+      let filter : FilterObject = {};
+      dispatch(updateUserSearchId({ search }));
+      if (search?.id) {
+        filter['userId'] = search?.id;
+       
+      }
       if (startDate && endDate) {
-        filter += `&createdAt=between${moment(startDate)?.format(
-          "YYYY-MM-DD"
-        )}|${moment(endDate).add(1, "days")?.format("YYYY-MM-DD")}`;
-      } else if (startDate) {
-        filter += `&createdAt=gte${moment(startDate)?.format("YYYY-MM-DD")}`;
-      } else if (endDate) {
-        filter += `&createdAt=lte${moment(endDate)?.format("YYYY-MM-DD")}`;
+        filter['startDate'] = moment(startDate)?.format("YYYY-MM-DD");
+        filter['endDate'] = moment(endDate)?.format("YYYY-MM-DD");
+      } else {
+        if (startDate) {
+          filter['startDate'] = moment(startDate)?.format("YYYY-MM-DD");
+        }
+        if (endDate) {
+          filter['endDate'] = moment(endDate)?.format("YYYY-MM-DD");
+        }
       }
       dispatch(getUserTotalProfitLoss({ filter: filter }));
     } catch (error) {
@@ -53,6 +65,7 @@ const ProfitLoss = () => {
           endDate={endDate}
           startDate={startDate}
           setStartDate={setStartDate}
+          setSearch={setSearch}
         />
         <Typography
           sx={{
