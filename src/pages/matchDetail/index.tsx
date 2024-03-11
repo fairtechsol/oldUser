@@ -188,6 +188,7 @@ const MatchDetail = () => {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0); 
     try {
       if (state?.matchId) {
         dispatch(getPlacedBets(state?.matchId));

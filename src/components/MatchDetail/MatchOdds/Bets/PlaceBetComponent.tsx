@@ -90,7 +90,7 @@ const PlaceBetComponent = ({ profitLoss, data, show, setShow }: any) => {
               color: "white",
             }}
           >
-            {!profitLoss?.maxLoss ? "Profit/Loss" : profitLoss?.maxLoss}
+            {!profitLoss?.maxLoss ? "Profit/Loss" : profitLoss?.maxLoss?.toFixed(2)}
           </Typography>
         </Box>
       </Box>
