@@ -4,6 +4,7 @@ import {
   getSessionProfitLoss,
   getTotalBetProfitLoss,
   getUserTotalProfitLoss,
+  updateUserSearchId,
 } from "../../actions/user/userAction";
 
 interface InitialState {
@@ -14,6 +15,7 @@ interface InitialState {
   success: boolean;
   loading: boolean;
   error: any;
+  userData:any;
 }
 
 const initialState: InitialState = {
@@ -24,6 +26,7 @@ const initialState: InitialState = {
   loading: false,
   success: false,
   error: null,
+  userData:{},
 };
 
 const profitLossReportSlice = createSlice({
@@ -87,7 +90,12 @@ const profitLossReportSlice = createSlice({
       .addCase(getSessionProfitLoss.rejected, (state, action) => {
         state.loading = false;
         state.error = action?.error?.message;
-      });
+      })
+      .addCase(updateUserSearchId.fulfilled, (state, action) => {
+        state.success = true;
+        state.loading = false;
+        state.userData = action.payload.search;
+      });;
   },
 });
 
