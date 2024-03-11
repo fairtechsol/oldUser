@@ -257,13 +257,13 @@ const MatchDetail = () => {
       socketService.userBalance.matchResultDeclaredOff(resultDeclared);
       socketService.userBalance.matchDeleteBetOff(handleMatchbetDeleted);
       socketService.userBalance.sessionDeleteBetOff(handleSessionBetDeleted);
-      socketService.userBalance.sessionResult(handleSessionResultDeclare);
+      socketService.userBalance.sessionResultOff(handleSessionResultDeclare);
       socketService.userBalance.sessionNoResultOff(handleSessionResultDeclare);
-      socketService.userBalance.sessionResultUnDeclare(
+      socketService.userBalance.sessionResultUnDeclareOff(
         handleSessionResultUnDeclare
       );
     };
-  }, []);
+  }, [success]);
 
   useEffect(() => {
     const handleVisibilityChange = () => {
