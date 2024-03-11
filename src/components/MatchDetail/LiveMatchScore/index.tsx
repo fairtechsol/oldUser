@@ -119,7 +119,7 @@ const LiveScore = ({ currentMatch, liveScoreData, submit }: any) => {
           />
         </Box>
       </Box>
-      {!visible && (
+      {visible && (
         <Box
           sx={{
             display: "flex",

@@ -106,7 +106,7 @@ const SingleBox = ({
         <Typography
           sx={{
             fontWeight: "600",
-            fontSize: { lg: "12px", md: "10px", xs: "10px" },
+            fontSize: { lg: "10px", md: "10px", xs: "10px" },
             color: "black",
             textAlign: "center",
             textTransform: "uppercase",
