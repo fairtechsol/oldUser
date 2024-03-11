@@ -196,7 +196,7 @@ export const getUserTotalProfitLoss = createAsyncThunk<any, any>(
     try {
       const resp = await service.post(
         `${ApiConstants.USER.TOTAL_PROFITLOSS}`,
-        requestData
+        requestData?.filter ? requestData?.filter : requestData
       );
       if (resp) {
         return resp?.data?.result;
@@ -241,7 +241,12 @@ export const getSessionProfitLoss = createAsyncThunk<any, any>(
     }
   }
 );
-
+export const updateUserSearchId = createAsyncThunk<any, any>(
+  "/maxLoss/updateUserSearchId",
+  async (data) => {
+    return data;
+  }
+);
 export const changePasswordReset = createAction("changePassword/reset");
 export const profileReset = createAction("profile/reset");
 export const updateReset = createAction("update/reset");
