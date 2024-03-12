@@ -60,10 +60,12 @@ const SessionMarketBox = ({
           alignItems: "center",
         }}
       >
+        
+        <Typography>
         <Typography
           sx={{
             color: "black",
-            fontSize: { lg: "11px", md: "10px", xs: "8px" },
+            fontSize: { lg: "14px", md: "12px", xs: "11px" },
             marginLeft: "7px",
             fontWeight: "600",
             textAlign: "start",
@@ -71,6 +73,18 @@ const SessionMarketBox = ({
           }}
         >
           {data?.RunnerName}
+        </Typography>
+        <Typography
+          sx={{
+            color: "black",
+            fontSize: { lg: "12px", md: "11px", xs: "10px" },
+            marginLeft: "7px",
+            fontWeight: "600",
+            textAlign: "start",
+          }}
+        >
+          MAX:{data?.max}
+        </Typography>
         </Typography>
       </Box>
       {matchesMobile && (

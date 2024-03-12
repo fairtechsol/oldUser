@@ -79,7 +79,7 @@ const QuickSessionMarketBox = ({
             alignItems: "center",
           }}
         >
-          <Typography
+          {/* <Typography
             sx={{
               color: "black",
               fontSize: { lg: "11px", md: "10px", xs: "8px" },
@@ -90,6 +90,32 @@ const QuickSessionMarketBox = ({
             }}
           >
             {data?.name}
+          </Typography> */}
+          <Typography>
+          <Typography
+            sx={{
+              color: "black",
+              fontSize: { lg: "14px", md: "10px", xs: "10px" },
+              marginLeft: "7px",
+              fontWeight: "600",
+              textAlign: "start",
+              width: "100%",
+            }}
+          >
+            {data?.name}
+          </Typography>
+          <Typography
+            sx={{
+              color: "black",
+              fontSize: { lg: "11px", md: "8px", xs: "8px" },
+              marginLeft: "7px",
+              fontWeight: "600",
+              textAlign: "start",
+              width: "100%",
+            }}
+          >
+            MAX:{data?.maxBet}
+          </Typography>
           </Typography>
           {/* <MoneyBox
             rates={maxLoss ?? 0}
