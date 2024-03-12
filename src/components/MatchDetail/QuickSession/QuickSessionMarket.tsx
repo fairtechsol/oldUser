@@ -174,8 +174,9 @@ const QuickSessionMarket = ({
                       marginLeft: "7px",
                     }}
                   >
-                    MIN:{minBet} MAX:
-                    {maxBet}
+                    MIN:{minBet} 
+                    {/* MAX:
+                    {maxBet} */}
                   </Typography>
                 </Box>
                 <Box
