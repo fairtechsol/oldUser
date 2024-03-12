@@ -88,20 +88,18 @@ const MatchesComponent = (_: any) => {
     const handleVisibilityChange = () => {
       if (document.visibilityState === "visible") {
         dispatch(getMatchList({}));
-      }
-      if (matchList?.matches && getProfile?.roleName) {
-        matchList?.matches?.forEach((element: any) => {
-          expertSocketService.match.joinMatchRoom(
-            element?.id,
-            getProfile?.roleName
-          );
-        });
-        matchList?.matches?.forEach((element: any) => {
-          expertSocketService.match.getMatchRates(
-            element?.id,
-            setMatchOddRatesInRedux
-          );
-        });
+      } else if (document.visibilityState === "hidden") {
+        if (matchList?.matches) {
+          matchList?.matches?.forEach((element: any) => {
+            expertSocketService.match.leaveMatchRoom(element?.id);
+          });
+          matchList?.matches?.forEach((element: any) => {
+            expertSocketService.match.getMatchRatesOff(
+              element?.id,
+              setMatchOddRatesInRedux
+            );
+          });
+        }
       }
     };
 
