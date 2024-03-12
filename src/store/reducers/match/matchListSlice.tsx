@@ -331,7 +331,6 @@ const matchListSlice = createSlice({
       })
       .addCase(selectedBetMinMax.fulfilled, (state, action) => {
         const { team, data } = action.payload;
-        console.log(action.payload)
         let value = {};
         if (team?.matchBetType === "matchOdd") {
           value = {
@@ -387,7 +386,6 @@ const matchListSlice = createSlice({
             max: data?.max,
           };
         }
-        console.log("value0", value);
         state.minMax = value;
       });
   },

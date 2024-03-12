@@ -192,8 +192,8 @@ const MatchDetail = () => {
   };
 
   useEffect(() => {
-    window.scrollTo(0, 0);
     try {
+      window.scrollTo(0, 0);
       if (state?.matchId) {
         dispatch(getPlacedBets(state?.matchId));
         dispatch(getButtonValue());
@@ -205,7 +205,6 @@ const MatchDetail = () => {
 
   useEffect(() => {
     if (matchDetails && matchDetails?.stopAt) {
-      // Redirect to matchList page
       navigate("/match/list");
     }
   }, [matchDetails]);
@@ -280,6 +279,7 @@ const MatchDetail = () => {
         if (state?.matchId) {
           dispatch(selectedBetAction(null));
           dispatch(matchDetailAction(state?.matchId));
+          dispatch(getPlacedBets(state?.matchId));
         }
       } else if (document.visibilityState === "hidden") {
         expertSocketService.match.getMatchRatesOff(

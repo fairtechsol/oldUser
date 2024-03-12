@@ -50,6 +50,9 @@ const MatchesComponent = (_: any) => {
           return () => {
             expertSocketService.match.matchAddedOff(getMatchListService);
             matchList?.matches?.forEach((element: any) => {
+              expertSocketService.match.leaveMatchRoom(element?.id);
+            });
+            matchList?.matches?.forEach((element: any) => {
               expertSocketService.match.getMatchRatesOff(
                 element?.id,
                 setMatchOddRatesInRedux
@@ -108,9 +111,6 @@ const MatchesComponent = (_: any) => {
     };
   }, []);
 
-  // function callPage(e: any, value: any) {
-  //   setCurrentPage(parseInt(value));
-  // }
   return (
     <>
       {matchList &&
