@@ -244,7 +244,6 @@ const MatchDetail = () => {
           handleSessionResultUnDeclare
         );
         return () => {
-          expertSocketService.match.leaveAllRooms();
           expertSocketService.match.leaveMatchRoom(state?.matchId);
           expertSocketService.match.getMatchRatesOff(
             state?.matchId,
