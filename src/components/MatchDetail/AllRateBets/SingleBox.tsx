@@ -66,7 +66,7 @@ const SingleBox = ({
               <Typography
                 sx={{
                   fontWeight: "700",
-                  fontSize: { xs: "8px", md: "10px", lg: ".5vw" },
+                  fontSize: { xs: "8px", md: "10px", lg: ".7vw" },
                   color: "black",
                   textAlign: "center",
                   maxHeight: "2em",
@@ -94,8 +94,8 @@ const SingleBox = ({
       >
         <Typography
           sx={{
-            fontWeight: "700",
-            fontSize: { lg: "11px", md: "9px", xs: "9px" },
+            fontWeight: "600",
+            fontSize: { lg: "9px", md: "9px", xs: "9px" },
             color: "black",
             textAlign: "center",
           }}
@@ -106,7 +106,7 @@ const SingleBox = ({
         <Typography
           sx={{
             fontWeight: "600",
-            fontSize: { lg: "10px", md: "10px", xs: "10px" },
+            fontSize: { lg: "9px", md: "10px", xs: "10px" },
             color: "black",
             textAlign: "center",
             textTransform: "uppercase",

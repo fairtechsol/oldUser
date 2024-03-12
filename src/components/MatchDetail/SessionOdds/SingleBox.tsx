@@ -28,7 +28,7 @@ const SingleBox = ({
         <Typography
           sx={{
             fontWeight: "700",
-            fontSize: { xs: "9px", lg: "11px" },
+            fontSize: { xs: "9px", lg: "9px" },
             color: "black",
             textAlign: "center",
           }}
@@ -42,7 +42,7 @@ const SingleBox = ({
             overflow: "hidden",
             lineHeight: 1,
             fontWeight: "600",
-            fontSize: { lg: "12px", xs: "10px" },
+            fontSize: { lg: "9px", xs: "10px" },
             color: "black",
             textAlign: "center",
           }}
@@ -101,10 +101,10 @@ const SingleBox = ({
       >
         <Typography
           sx={{
-            fontWeight: "700",
+            fontWeight: "600",
             fontSize: {
               xs: "11px",
-              lg: "13px",
+              lg: "9px",
               textTransform: "capitalize",
             },
             color: "black",

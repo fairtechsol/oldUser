@@ -67,6 +67,7 @@ const SessionMarketBox = ({
             marginLeft: "7px",
             fontWeight: "600",
             textAlign: "start",
+            paddingRight: "5rem"
           }}
         >
           {data?.RunnerName}
@@ -93,7 +94,7 @@ const SessionMarketBox = ({
       {!["ACTIVE", "active", "", undefined, null, ""].includes(
         data?.GameStatus
       ) ||
-      (data.BackSize1 === null && data.LaySize1 === null) ? (
+        (data.BackSize1 === null && data.LaySize1 === null) ? (
         <Box
           sx={{
             background: "rgba(0,0,0,1)",
