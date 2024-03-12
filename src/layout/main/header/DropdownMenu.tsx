@@ -1,19 +1,15 @@
-import {
-  Box,
-  CircularProgress,
-  MenuItem,
-} from "@mui/material";
+import { Box, CircularProgress, MenuItem } from "@mui/material";
 import StyledImage from "../../../components/Common/StyledImages";
 import Logout from "../../../assets/images/logout.png";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { memo } from "react";
-import { useState } from "react";
 import { logout } from "../../../store/actions/auth/authAction";
-import { AppDispatch } from "../../../store/store";
+import { AppDispatch, RootState } from "../../../store/store";
+import { useSelector } from "react-redux";
 
 const DropdownMenu = ({ handleClose }: any) => {
-  const [loading,] = useState(false);
+  const { loading } = useSelector((state: RootState) => state.auth);
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
   const menutItems = [{ title: "Rules", link: "/rules" }];
@@ -68,6 +64,7 @@ const DropdownMenu = ({ handleClose }: any) => {
       <Box
         onClick={() => {
           if (!loading) {
+            dispatch(logout());
           } else {
             return false;
           }
@@ -99,11 +96,6 @@ const DropdownMenu = ({ handleClose }: any) => {
           <StyledImage
             src={Logout}
             sx={{ width: "35%", height: "auto" }}
-            onClick={(e) => {
-              e.stopPropagation();
-              dispatch(logout());
-              navigate("/login");
-            }}
           />
         )}
       </Box>

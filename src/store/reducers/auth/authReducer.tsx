@@ -1,5 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { authReset, login } from "../../actions/auth/authAction";
+import { authReset, login, logout } from "../../actions/auth/authAction";
 
 const initialState = {
   success: false,
@@ -22,6 +22,15 @@ export const authReducer = createReducer(initialState, (builder) => {
       state.isTransPasswordCreated = action?.payload?.isTransPasswordCreated;
     })
     .addCase(login.rejected, (state) => {
+      state.loading = false;
+    })
+    .addCase(logout.pending, (state) => {
+      state.loading = true;
+    })
+    .addCase(logout.fulfilled, (state) => {
+      state.loading = false;
+    })
+    .addCase(logout.rejected, (state) => {
       state.loading = false;
     })
     .addCase(authReset, (state) => {
