@@ -1,12 +1,12 @@
 export { default as LoginBg } from "./images/new_back.webp";
-export { default as FgLogo } from "./images/logo.webp";
+export { default as FgLogo } from "./images/fairgame7.webp";
 export { default as mail } from "./images/mail.png";
 export { default as eye } from "./images/eye.png";
 export { default as eyeLock } from "./images/eyeLock.png";
 export { default as drawerBackground } from "./images/drawer_bg.png";
 export { default as DownIcon } from "./images/down.svg";
 export { default as Draw } from "./images/draw.png";
-export { default as logo } from "./images/logo.png";
+export { default as logo } from "./images/fairgame7.webp";
 export { default as Lock } from "./images/lock.png";
 export { default as Logout } from "./images/logout.png";
 export { default as loginBackground } from "./images/new_back.webp";

@@ -49,7 +49,7 @@ const navigate=useNavigate();
           <StyledImage
             src={FgLogo}
             alt="Fairgame"
-            sx={{ height: "8%", width: "58%" }}
+            sx={{ height: "10%", width: {xs:"85%", lg: "69%"} }}
           />
           <Outlet />
         </Card>
