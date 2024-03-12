@@ -324,6 +324,7 @@ const MatchDetail = () => {
                 }}
               >
                 <LiveScore />
+                <LiveMatchHome />
                 <div style={{ width: "100%" }}>
                   <MatchOdds
                     setShow={setShow}
@@ -357,18 +358,18 @@ const MatchDetail = () => {
                       (id) => placedBets.find((obj: any) => obj.id === id)
                     ).filter((bet: any) => bet?.marketType === "session")
                       .length > 0 && (
-                      <SessionBetSeperate
-                        placedBets={Array.from(
-                          placedBets.reduce(
-                            (acc: any, obj: any) =>
-                              acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
-                            new Set()
-                          ),
-                          (id) => placedBets.find((obj: any) => obj.id === id)
-                        ).filter((bet: any) => bet?.marketType === "session")}
-                        mark
-                      />
-                    )}
+                        <SessionBetSeperate
+                          placedBets={Array.from(
+                            placedBets.reduce(
+                              (acc: any, obj: any) =>
+                                acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
+                              new Set()
+                            ),
+                            (id) => placedBets.find((obj: any) => obj.id === id)
+                          ).filter((bet: any) => bet?.marketType === "session")}
+                          mark
+                        />
+                      )}
                     {Array.from(
                       placedBets.reduce(
                         (acc: any, obj: any) =>
@@ -378,20 +379,19 @@ const MatchDetail = () => {
                       (id) => placedBets.find((obj: any) => obj.id === id)
                     ).filter((bet: any) => bet?.marketType !== "session")
                       .length > 0 && (
-                      <AllRateSeperate
-                        allBetsData={Array.from(
-                          placedBets.reduce(
-                            (acc: any, obj: any) =>
-                              acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
-                            new Set()
-                          ),
-                          (id) => placedBets.find((obj: any) => obj.id === id)
-                        ).filter((bet: any) => bet?.marketType !== "session")}
-                        mark
-                      />
-                    )}
+                        <AllRateSeperate
+                          allBetsData={Array.from(
+                            placedBets.reduce(
+                              (acc: any, obj: any) =>
+                                acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
+                              new Set()
+                            ),
+                            (id) => placedBets.find((obj: any) => obj.id === id)
+                          ).filter((bet: any) => bet?.marketType !== "session")}
+                          mark
+                        />
+                      )}
                   </Box>
-                  <LiveMatchHome />
                 </Box>
               </div>
             )}
@@ -430,18 +430,18 @@ const MatchDetail = () => {
                     (id) => placedBets.find((obj: any) => obj.id === id)
                   ).filter((bet: any) => bet?.marketType !== "session").length >
                     0 && (
-                    <AllRateSeperate
-                      mark
-                      allBetsData={Array.from(
-                        placedBets.reduce(
-                          (acc: any, obj: any) =>
-                            acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
-                          new Set()
-                        ),
-                        (id) => placedBets.find((obj: any) => obj.id === id)
-                      ).filter((bet: any) => bet?.marketType !== "session")}
-                    />
-                  )}
+                      <AllRateSeperate
+                        mark
+                        allBetsData={Array.from(
+                          placedBets.reduce(
+                            (acc: any, obj: any) =>
+                              acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
+                            new Set()
+                          ),
+                          (id) => placedBets.find((obj: any) => obj.id === id)
+                        ).filter((bet: any) => bet?.marketType !== "session")}
+                      />
+                    )}
                   {Array.from(
                     placedBets.reduce(
                       (acc: any, obj: any) =>
@@ -451,18 +451,18 @@ const MatchDetail = () => {
                     (id) => placedBets.find((obj: any) => obj.id === id)
                   ).filter((bet: any) => bet?.marketType === "session").length >
                     0 && (
-                    <SessionBetSeperate
-                      placedBets={Array.from(
-                        placedBets.reduce(
-                          (acc: any, obj: any) =>
-                            acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
-                          new Set()
-                        ),
-                        (id) => placedBets.find((obj: any) => obj.id === id)
-                      ).filter((bet: any) => bet?.marketType === "session")}
-                      mark
-                    />
-                  )}
+                      <SessionBetSeperate
+                        placedBets={Array.from(
+                          placedBets.reduce(
+                            (acc: any, obj: any) =>
+                              acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
+                            new Set()
+                          ),
+                          (id) => placedBets.find((obj: any) => obj.id === id)
+                        ).filter((bet: any) => bet?.marketType === "session")}
+                        mark
+                      />
+                    )}
                 </Box>
               </Box>
             )}

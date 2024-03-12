@@ -1,4 +1,4 @@
-export { default as LoginBg } from "./images/loginBg_webp.webp";
+export { default as LoginBg } from "./images/new_back.webp";
 export { default as FgLogo } from "./images/logo.webp";
 export { default as mail } from "./images/mail.png";
 export { default as eye } from "./images/eye.png";

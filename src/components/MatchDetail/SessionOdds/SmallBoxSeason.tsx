@@ -84,9 +84,10 @@ const SmallBoxSeason = ({ allBetsData }: any) => {
             lineHeight: "1.5",
           }}
         >
-          {allBetsData?.reduce((accumulator: any, bet: any) => {
+          {new Intl.NumberFormat("en-IN").format(allBetsData?.reduce((accumulator: any, bet: any) => {
             return accumulator + (+bet?.maxLoss || 0);
-          }, 0)}
+          }, 0))}
+
         </Typography>
       </Box>
     </Box>
