@@ -16,17 +16,18 @@ import {
 } from "../../store/actions/user/userAction";
 import { AppDispatch } from "../../store/store";
 import CustomHeader from "./header/CustomHeader";
+import { getMatchList } from "../../store/actions/match/matchListAction";
 
 const MainLayout = () => {
   const location = useLocation();
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(()=>{
-    if(!sessionStorage.getItem("userToken")){
+  useEffect(() => {
+    if (!sessionStorage.getItem("userToken")) {
       navigate("/");
     }
-  },[navigate]);
+  }, [navigate]);
 
   const updateLoggedUserBalance = (event: any) => {
     dispatch(updateBalanceFromSocket(event));
@@ -40,6 +41,10 @@ const MainLayout = () => {
     }
   };
 
+  const handleMatchResult = () => {
+    dispatch(getMatchList({}));
+    dispatch(getProfile());
+  };
   const getUserProfile = () => {
     dispatch(getProfile());
   };
@@ -48,10 +53,11 @@ const MainLayout = () => {
     if (!sessionStorage.getItem("userToken")) {
       navigate("/login");
       sessionStorage.clear();
+    } else {
+      dispatch(getProfile());
+      dispatch(marqueeNotification());
     }
-    dispatch(getProfile());
-    dispatch(marqueeNotification());
-  }, []);
+  }, [sessionStorage.getItem("userToken")]);
 
   useEffect(() => {
     if (sessionStorage.getItem("userToken")) {
@@ -62,30 +68,27 @@ const MainLayout = () => {
       socketService.userBalance.sessionResultUnDeclare(sessionResultDeclared);
       socketService.userBalance.userSessionBetPlaced(getUserProfile);
       socketService.userBalance.userMatchBetPlaced(getUserProfile);
-      socketService.userBalance.matchResultDeclared(getUserProfile);
+      socketService.userBalance.matchResultDeclared(handleMatchResult);
       socketService.userBalance.sessionNoResult(getUserProfile);
-      socketService.userBalance.matchResultUnDeclared(getUserProfile);
+      socketService.userBalance.matchResultUnDeclared(handleMatchResult);
       socketService.userBalance.matchDeleteBet(getUserProfile);
       socketService.userBalance.sessionDeleteBet(getUserProfile);
-    } else {
-      socketService.disconnect();
+      return () => {
+        socketService.userBalance.updateUserBalanceOff(updateLoggedUserBalance);
+        socketService.userBalance.sessionResultOff(sessionResultDeclared);
+        socketService.userBalance.sessionResultUnDeclareOff(
+          sessionResultDeclared
+        );
+        socketService.userBalance.userSessionBetPlacedOff(getUserProfile);
+        socketService.userBalance.userMatchBetPlacedOff(getUserProfile);
+        socketService.userBalance.matchResultDeclaredOff(handleMatchResult);
+        socketService.userBalance.matchResultUnDeclaredOff(handleMatchResult);
+        socketService.userBalance.sessionNoResultOff(getUserProfile);
+        socketService.userBalance.matchDeleteBetOff(getUserProfile);
+        socketService.userBalance.sessionDeleteBetOff(getUserProfile);
+      };
     }
-    return () => {
-      socketService.disconnect();
-      socketService.userBalance.updateUserBalanceOff(updateLoggedUserBalance);
-      socketService.userBalance.sessionResultOff(sessionResultDeclared);
-      socketService.userBalance.sessionResultUnDeclareOff(
-        sessionResultDeclared
-      );
-      socketService.userBalance.userSessionBetPlacedOff(getUserProfile);
-      socketService.userBalance.userMatchBetPlacedOff(getUserProfile);
-      socketService.userBalance.matchResultDeclaredOff(getUserProfile);
-      socketService.userBalance.matchResultUnDeclaredOff(getUserProfile);
-      socketService.userBalance.sessionNoResultOff(getUserProfile);
-      socketService.userBalance.matchDeleteBetOff(getUserProfile);
-      socketService.userBalance.sessionDeleteBetOff(getUserProfile);
-    };
-  }, [sessionStorage.getItem("userToken")]);
+  }, []);
 
   return (
     <>

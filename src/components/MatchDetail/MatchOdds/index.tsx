@@ -2,7 +2,7 @@ import { Pagination } from "@mui/material";
 import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { expertSocketService, socketService } from "../../../socketManager";
+import { expertSocketService, socket } from "../../../socketManager";
 import {
   getMatchList,
   updateMatchOddRates,
@@ -32,8 +32,8 @@ const MatchesComponent = (_: any) => {
 
   useEffect(() => {
     try {
-      if (success) {
-        if (matchList?.matches && getProfile?.roleName) {
+      if (success && socket?.connected) {
+        if (getProfile?.roleName) {
           matchList?.matches?.forEach((element: any) => {
             expertSocketService.match.joinMatchRoom(
               element?.id,
@@ -47,31 +47,24 @@ const MatchesComponent = (_: any) => {
             );
           });
           expertSocketService.match.matchAdded(getMatchListService);
-          socketService.userBalance.matchResultDeclared(getMatchListService);
-          socketService.userBalance.matchResultUnDeclared(getMatchListService);
+          return () => {
+            expertSocketService.match.matchAddedOff(getMatchListService);
+            matchList?.matches?.forEach((element: any) => {
+              expertSocketService.match.leaveMatchRoom(element?.id);
+            });
+            matchList?.matches?.forEach((element: any) => {
+              expertSocketService.match.getMatchRatesOff(
+                element?.id,
+                setMatchOddRatesInRedux
+              );
+            });
+          };
         }
       }
     } catch (e) {
       console.log(e);
     }
-
-    return () => {
-      // expertSocketService.match.leaveAllRooms();
-      expertSocketService.match.matchAddedOff(getMatchListService);
-      matchList?.matches?.forEach((element: any) => {
-        expertSocketService.match.getMatchRatesOff(
-          element?.id,
-          setMatchOddRatesInRedux
-        );
-      });
-      socketService.userBalance.matchResultDeclaredOff(
-        dispatch(getMatchListService)
-      );
-      socketService.userBalance.matchResultUnDeclaredOff(
-        dispatch(getMatchListService)
-      );
-    };
-  }, [matchList?.matches?.length, getProfile?.roleName]);
+  }, [success, getProfile?.roleName, socket?.connected]);
 
   useEffect(() => {
     if (selectedMatchId !== "")
@@ -95,20 +88,18 @@ const MatchesComponent = (_: any) => {
     const handleVisibilityChange = () => {
       if (document.visibilityState === "visible") {
         dispatch(getMatchList({}));
-      }
-      if (matchList?.matches && getProfile?.roleName) {
-        matchList?.matches?.forEach((element: any) => {
-          expertSocketService.match.joinMatchRoom(
-            element?.id,
-            getProfile?.roleName
-          );
-        });
-        matchList?.matches?.forEach((element: any) => {
-          expertSocketService.match.getMatchRates(
-            element?.id,
-            setMatchOddRatesInRedux
-          );
-        });
+      } else if (document.visibilityState === "hidden") {
+        if (matchList?.matches) {
+          matchList?.matches?.forEach((element: any) => {
+            expertSocketService.match.leaveMatchRoom(element?.id);
+          });
+          matchList?.matches?.forEach((element: any) => {
+            expertSocketService.match.getMatchRatesOff(
+              element?.id,
+              setMatchOddRatesInRedux
+            );
+          });
+        }
       }
     };
 
@@ -118,9 +109,6 @@ const MatchesComponent = (_: any) => {
     };
   }, []);
 
-  // function callPage(e: any, value: any) {
-  //   setCurrentPage(parseInt(value));
-  // }
   return (
     <>
       {matchList &&
