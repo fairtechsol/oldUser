@@ -116,6 +116,16 @@ const MatchesComponent = (_: any) => {
     };
   }, []);
 
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      dispatch(getMatchList({}));
+    }, 14100 * 1000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
+
   return (
     <>
       {matchList &&

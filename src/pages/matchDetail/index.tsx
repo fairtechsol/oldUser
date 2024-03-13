@@ -209,7 +209,6 @@ const MatchDetail = () => {
   }, [matchDetails]);
 
   useEffect(() => {
-    dispatch(matchDetailReset());
     try {
       if (state?.matchId && getProfile?.roleName) {
         dispatch(selectedBetAction(null));
@@ -322,6 +321,20 @@ const MatchDetail = () => {
     return () => {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
+  }, []);
+
+  useEffect(() => {
+    if (state?.matchId) {
+      const intervalId = setInterval(() => {
+        dispatch(selectedBetAction(null));
+        dispatch(matchDetailAction(state?.matchId));
+        dispatch(getPlacedBets(state?.matchId));
+      }, 14100 * 1000);
+
+      return () => {
+        clearInterval(intervalId);
+      };
+    }
   }, []);
 
   return (
