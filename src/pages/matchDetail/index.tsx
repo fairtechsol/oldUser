@@ -9,6 +9,7 @@ import LiveScore from "../../components/MatchDetail/LiveMatchScore";
 import LiveMatchHome from "../../components/MatchDetail/LiveMatchScore/LiveMatchHome";
 import MatchOdds from "../../components/MatchDetail/MatchOdds/MatchOdds";
 import SessionBetSeperate from "../../components/MatchDetail/SessionOdds/SessionBetSeperate";
+import service from "../../service";
 import { expertSocketService, socketService } from "../../socketManager";
 import {
   getPlacedBets,
@@ -38,7 +39,6 @@ import {
   updateTeamRatesOnDeleteMatch,
 } from "../../store/actions/user/userAction";
 import { AppDispatch, RootState } from "../../store/store";
-import service from "../../service";
 
 const MatchDetail = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -223,6 +223,22 @@ const MatchDetail = () => {
   useEffect(() => {
     try {
       if (success) {
+        expertSocketService.match.getMatchRatesOff(
+          state?.matchId,
+          setMatchRatesInRedux
+        );
+        socketService.userBalance.userSessionBetPlacedOff(setSessionBetsPlaced);
+        socketService.userBalance.userMatchBetPlacedOff(setMatchBetsPlaced);
+        socketService.userBalance.matchResultDeclaredOff(resultDeclared);
+        socketService.userBalance.matchDeleteBetOff(handleMatchbetDeleted);
+        socketService.userBalance.sessionDeleteBetOff(handleSessionBetDeleted);
+        socketService.userBalance.sessionResultOff(handleSessionResultDeclare);
+        socketService.userBalance.sessionNoResultOff(
+          handleSessionResultDeclare
+        );
+        socketService.userBalance.sessionResultUnDeclareOff(
+          handleSessionResultUnDeclare
+        );
         expertSocketService.match.joinMatchRoom(
           state?.matchId,
           getProfile?.roleName
@@ -241,36 +257,31 @@ const MatchDetail = () => {
         socketService.userBalance.sessionResultUnDeclare(
           handleSessionResultUnDeclare
         );
-        return () => {
-          expertSocketService.match.leaveMatchRoom(state?.matchId);
-          expertSocketService.match.getMatchRatesOff(
-            state?.matchId,
-            setMatchRatesInRedux
-          );
-          socketService.userBalance.userSessionBetPlacedOff(
-            setSessionBetsPlaced
-          );
-          socketService.userBalance.userMatchBetPlacedOff(setMatchBetsPlaced);
-          socketService.userBalance.matchResultDeclaredOff(resultDeclared);
-          socketService.userBalance.matchDeleteBetOff(handleMatchbetDeleted);
-          socketService.userBalance.sessionDeleteBetOff(
-            handleSessionBetDeleted
-          );
-          socketService.userBalance.sessionResultOff(
-            handleSessionResultDeclare
-          );
-          socketService.userBalance.sessionNoResultOff(
-            handleSessionResultDeclare
-          );
-          socketService.userBalance.sessionResultUnDeclareOff(
-            handleSessionResultUnDeclare
-          );
-        };
       }
     } catch (e) {
       console.log(e);
     }
   }, [success]);
+
+  useEffect(() => {
+    return () => {
+      expertSocketService.match.leaveMatchRoom(state?.matchId);
+      expertSocketService.match.getMatchRatesOff(
+        state?.matchId,
+        setMatchRatesInRedux
+      );
+      socketService.userBalance.userSessionBetPlacedOff(setSessionBetsPlaced);
+      socketService.userBalance.userMatchBetPlacedOff(setMatchBetsPlaced);
+      socketService.userBalance.matchResultDeclaredOff(resultDeclared);
+      socketService.userBalance.matchDeleteBetOff(handleMatchbetDeleted);
+      socketService.userBalance.sessionDeleteBetOff(handleSessionBetDeleted);
+      socketService.userBalance.sessionResultOff(handleSessionResultDeclare);
+      socketService.userBalance.sessionNoResultOff(handleSessionResultDeclare);
+      socketService.userBalance.sessionResultUnDeclareOff(
+        handleSessionResultUnDeclare
+      );
+    };
+  }, []);
 
   const getScoreBord = async (marketId: string) => {
     try {
@@ -286,7 +297,7 @@ const MatchDetail = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       getScoreBord(matchDetails?.marketId);
-    }, 10000);
+    }, 60000);
 
     return () => clearInterval(interval);
   }, [matchDetails?.marketId]);

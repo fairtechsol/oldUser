@@ -34,6 +34,13 @@ const MatchesComponent = (_: any) => {
     try {
       if (success && socket?.connected) {
         if (getProfile?.roleName) {
+          expertSocketService.match.matchAddedOff(getMatchListService);
+          matchList?.matches?.forEach((element: any) => {
+            expertSocketService.match.getMatchRatesOff(
+              element?.id,
+              setMatchOddRatesInRedux
+            );
+          });
           matchList?.matches?.forEach((element: any) => {
             expertSocketService.match.joinMatchRoom(
               element?.id,
@@ -47,24 +54,27 @@ const MatchesComponent = (_: any) => {
             );
           });
           expertSocketService.match.matchAdded(getMatchListService);
-          return () => {
-            expertSocketService.match.matchAddedOff(getMatchListService);
-            matchList?.matches?.forEach((element: any) => {
-              expertSocketService.match.leaveMatchRoom(element?.id);
-            });
-            matchList?.matches?.forEach((element: any) => {
-              expertSocketService.match.getMatchRatesOff(
-                element?.id,
-                setMatchOddRatesInRedux
-              );
-            });
-          };
         }
       }
     } catch (e) {
       console.log(e);
     }
   }, [success, getProfile?.roleName, socket?.connected]);
+
+  useEffect(() => {
+    return () => {
+      expertSocketService.match.matchAddedOff(getMatchListService);
+      matchList?.matches?.forEach((element: any) => {
+        expertSocketService.match.leaveMatchRoom(element?.id);
+      });
+      matchList?.matches?.forEach((element: any) => {
+        expertSocketService.match.getMatchRatesOff(
+          element?.id,
+          setMatchOddRatesInRedux
+        );
+      });
+    };
+  }, []);
 
   useEffect(() => {
     if (selectedMatchId !== "")
@@ -90,9 +100,6 @@ const MatchesComponent = (_: any) => {
         dispatch(getMatchList({}));
       } else if (document.visibilityState === "hidden") {
         if (matchList?.matches) {
-          matchList?.matches?.forEach((element: any) => {
-            expertSocketService.match.leaveMatchRoom(element?.id);
-          });
           matchList?.matches?.forEach((element: any) => {
             expertSocketService.match.getMatchRatesOff(
               element?.id,
