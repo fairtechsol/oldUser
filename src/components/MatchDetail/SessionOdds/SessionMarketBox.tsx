@@ -65,11 +65,12 @@ const SessionMarketBox = ({
         <Typography
           sx={{
             color: "black",
-            fontSize: { lg: "14px", md: "12px", xs: "11px" },
+            fontSize: { lg: "12px", md: "10px", xs: "9px" },
             marginLeft: "7px",
             fontWeight: "600",
             textAlign: "start",
-            paddingRight: "5rem"
+            paddingRight: "5rem",
+            lineHeight:'12px'
           }}
         >
           {data?.RunnerName}
@@ -77,7 +78,7 @@ const SessionMarketBox = ({
         <Typography
           sx={{
             color: "black",
-            fontSize: { lg: "12px", md: "11px", xs: "10px" },
+            fontSize: { lg: "10px", md: "9px", xs: "9px" },
             marginLeft: "7px",
             fontWeight: "600",
             textAlign: "start",
