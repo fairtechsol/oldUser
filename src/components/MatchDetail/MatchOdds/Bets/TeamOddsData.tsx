@@ -64,6 +64,7 @@ const TeamsOdssData = ({
                   marginTop: bet_condition && "5px",
                   color: "#262626",
                   padding: "1px",
+                  lineHeight: "0.9" ,
                   fontSize: {
                     xs: "12px",
                     md: "12px",

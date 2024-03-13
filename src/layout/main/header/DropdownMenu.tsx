@@ -26,6 +26,7 @@ const DropdownMenu = ({ handleClose }: any) => {
         borderRadius: "5px",
         marginTop: "2px",
         marginRight: "10px",
+        zIndex: "999"
       }}
     >
       {menutItems.map((x, idx) => (
