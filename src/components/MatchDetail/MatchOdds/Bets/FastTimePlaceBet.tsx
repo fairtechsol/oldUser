@@ -1,25 +1,24 @@
 import { Typography, useMediaQuery, useTheme } from "@mui/material";
 import { Box } from "@mui/system";
-import { useState, useRef, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../../../store/store";
-import NotificationModal from "../../../Common/NotificationModal";
-import { ApiConstants } from "../../../../utils/Constants";
-import { useDispatch } from "react-redux";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   betPlaceSuccessReset,
   placeBet,
 } from "../../../../store/actions/betPlace/betPlaceActions";
-import NumberData from "./NumberDataFastTime";
+import { AppDispatch, RootState } from "../../../../store/store";
+import { ApiConstants } from "../../../../utils/Constants";
+import NotificationModal from "../../../Common/NotificationModal";
 import SmallCustomLoader from "../../../Loader/smallLoader";
+import NumberData from "./NumberDataFastTime";
 const FastTimePlaceBet = ({
   session,
   selectedFastAmount,
   typeOfBet,
-  matchOddsData,
   data,
   fromOdds,
   selectedValue,
+  matchOddsData,
 }: // setShowFastTimeBox,
 any) => {
   const theme = useTheme();
@@ -279,15 +278,21 @@ any) => {
                             <>
                               <NumberData
                                 handleBet={() => {
-                                  handleBet(
-                                    v.value,
-                                    "BACK",
-                                    index,
-                                    matchOddsData?.type === "tiedMatch2"
-                                      ? "YES"
-                                      : matchDetails?.teamA,
-                                    matchOddsData?.name
-                                  );
+                                  if (
+                                    matchOddsData?.statusTeamA === "active" ||
+                                    matchOddsData?.statusTeamB === "active" ||
+                                    matchOddsData?.statusTeamC === "active"
+                                  ) {
+                                    handleBet(
+                                      v.value,
+                                      "BACK",
+                                      index,
+                                      matchOddsData?.type === "tiedMatch2"
+                                        ? "YES"
+                                        : matchDetails?.teamA,
+                                      matchOddsData?.name
+                                    );
+                                  }
                                 }}
                                 key={index}
                                 containerStyle={{
@@ -382,15 +387,21 @@ any) => {
                           return (
                             <NumberData
                               handleBet={() => {
-                                handleBet(
-                                  v.value,
-                                  "BACK",
-                                  index,
-                                  matchOddsData?.type === "tiedMatch2"
-                                    ? "NO"
-                                    : matchDetails?.teamB,
-                                  matchOddsData?.name
-                                );
+                                if (
+                                  matchOddsData?.statusTeamA === "active" ||
+                                  matchOddsData?.statusTeamB === "active" ||
+                                  matchOddsData?.statusTeamC === "active"
+                                ) {
+                                  handleBet(
+                                    v.value,
+                                    "BACK",
+                                    index,
+                                    matchOddsData?.type === "tiedMatch2"
+                                      ? "NO"
+                                      : matchDetails?.teamB,
+                                    matchOddsData?.name
+                                  );
+                                }
                               }}
                               key={index}
                               containerStyle={{
@@ -482,13 +493,19 @@ any) => {
                             matchButtonList?.map((v: any, index: any) => (
                               <NumberData
                                 handleBet={() => {
-                                  handleBet(
-                                    v.value,
-                                    "BACK",
-                                    index,
-                                    matchDetails?.teamC,
-                                    matchOddsData?.name
-                                  );
+                                  if (
+                                    matchOddsData?.statusTeamA === "active" ||
+                                    matchOddsData?.statusTeamB === "active" ||
+                                    matchOddsData?.statusTeamC === "active"
+                                  ) {
+                                    handleBet(
+                                      v.value,
+                                      "BACK",
+                                      index,
+                                      matchDetails?.teamC,
+                                      matchOddsData?.name
+                                    );
+                                  }
                                 }}
                                 key={index}
                                 containerStyle={{
@@ -541,13 +558,19 @@ any) => {
                       matchButtonList?.map((v: any, index: any) => (
                         <NumberData
                           handleBet={() => {
-                            handleBet(
-                              v.value,
-                              "BACK",
-                              index,
-                              "",
-                              matchOddsData?.name
-                            );
+                            if (
+                              matchOddsData?.statusTeamA === "active" ||
+                              matchOddsData?.statusTeamB === "active" ||
+                              matchOddsData?.statusTeamC === "active"
+                            ) {
+                              handleBet(
+                                v.value,
+                                "BACK",
+                                index,
+                                "",
+                                matchOddsData?.name
+                              );
+                            }
                           }}
                           key={index}
                           containerStyle={{
@@ -611,13 +634,19 @@ any) => {
                       matchButtonList?.map((v: any, index: any) => (
                         <NumberData
                           handleBet={() => {
-                            handleBet(
-                              v.value,
-                              "LAY",
-                              index,
-                              "",
-                              matchOddsData?.name
-                            );
+                            if (
+                              matchOddsData?.statusTeamA === "active" ||
+                              matchOddsData?.statusTeamB === "active" ||
+                              matchOddsData?.statusTeamC === "active"
+                            ) {
+                              handleBet(
+                                v.value,
+                                "LAY",
+                                index,
+                                "",
+                                matchOddsData?.name
+                              );
+                            }
                           }}
                           key={index}
                           containerStyle={{
