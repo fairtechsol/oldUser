@@ -9,6 +9,7 @@ import LiveScore from "../../components/MatchDetail/LiveMatchScore";
 import LiveMatchHome from "../../components/MatchDetail/LiveMatchScore/LiveMatchHome";
 import MatchOdds from "../../components/MatchDetail/MatchOdds/MatchOdds";
 import SessionBetSeperate from "../../components/MatchDetail/SessionOdds/SessionBetSeperate";
+import service from "../../service";
 import { expertSocketService, socketService } from "../../socketManager";
 import {
   getPlacedBets,
@@ -45,6 +46,8 @@ const MatchDetail = () => {
   const navigate = useNavigate();
   const [visible, setVisible] = useState(true);
   const [show, setShow] = useState({ open: false, id: "" });
+  const [liveScoreBoardData, setLiveScoreBoardData] = useState(null);
+  const [liveMatchData] = useState(null);
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const { getProfile } = useSelector((state: RootState) => state.user.profile);
@@ -206,7 +209,6 @@ const MatchDetail = () => {
   }, [matchDetails]);
 
   useEffect(() => {
-    dispatch(matchDetailReset());
     try {
       if (state?.matchId && getProfile?.roleName) {
         dispatch(selectedBetAction(null));
@@ -220,6 +222,22 @@ const MatchDetail = () => {
   useEffect(() => {
     try {
       if (success) {
+        expertSocketService.match.getMatchRatesOff(
+          state?.matchId,
+          setMatchRatesInRedux
+        );
+        socketService.userBalance.userSessionBetPlacedOff(setSessionBetsPlaced);
+        socketService.userBalance.userMatchBetPlacedOff(setMatchBetsPlaced);
+        socketService.userBalance.matchResultDeclaredOff(resultDeclared);
+        socketService.userBalance.matchDeleteBetOff(handleMatchbetDeleted);
+        socketService.userBalance.sessionDeleteBetOff(handleSessionBetDeleted);
+        socketService.userBalance.sessionResultOff(handleSessionResultDeclare);
+        socketService.userBalance.sessionNoResultOff(
+          handleSessionResultDeclare
+        );
+        socketService.userBalance.sessionResultUnDeclareOff(
+          handleSessionResultUnDeclare
+        );
         expertSocketService.match.joinMatchRoom(
           state?.matchId,
           getProfile?.roleName
@@ -238,36 +256,50 @@ const MatchDetail = () => {
         socketService.userBalance.sessionResultUnDeclare(
           handleSessionResultUnDeclare
         );
-        return () => {
-          expertSocketService.match.leaveMatchRoom(state?.matchId);
-          expertSocketService.match.getMatchRatesOff(
-            state?.matchId,
-            setMatchRatesInRedux
-          );
-          socketService.userBalance.userSessionBetPlacedOff(
-            setSessionBetsPlaced
-          );
-          socketService.userBalance.userMatchBetPlacedOff(setMatchBetsPlaced);
-          socketService.userBalance.matchResultDeclaredOff(resultDeclared);
-          socketService.userBalance.matchDeleteBetOff(handleMatchbetDeleted);
-          socketService.userBalance.sessionDeleteBetOff(
-            handleSessionBetDeleted
-          );
-          socketService.userBalance.sessionResultOff(
-            handleSessionResultDeclare
-          );
-          socketService.userBalance.sessionNoResultOff(
-            handleSessionResultDeclare
-          );
-          socketService.userBalance.sessionResultUnDeclareOff(
-            handleSessionResultUnDeclare
-          );
-        };
       }
     } catch (e) {
       console.log(e);
     }
   }, [success]);
+
+  useEffect(() => {
+    return () => {
+      expertSocketService.match.leaveMatchRoom(state?.matchId);
+      expertSocketService.match.getMatchRatesOff(
+        state?.matchId,
+        setMatchRatesInRedux
+      );
+      socketService.userBalance.userSessionBetPlacedOff(setSessionBetsPlaced);
+      socketService.userBalance.userMatchBetPlacedOff(setMatchBetsPlaced);
+      socketService.userBalance.matchResultDeclaredOff(resultDeclared);
+      socketService.userBalance.matchDeleteBetOff(handleMatchbetDeleted);
+      socketService.userBalance.sessionDeleteBetOff(handleSessionBetDeleted);
+      socketService.userBalance.sessionResultOff(handleSessionResultDeclare);
+      socketService.userBalance.sessionNoResultOff(handleSessionResultDeclare);
+      socketService.userBalance.sessionResultUnDeclareOff(
+        handleSessionResultUnDeclare
+      );
+    };
+  }, []);
+
+  const getScoreBord = async (marketId: string) => {
+    try {
+      const response = await service.get(
+        `https://score.fairgame.club/score/getMatchScore/${marketId}`
+      );
+      setLiveScoreBoardData(response?.data);
+    } catch (e: any) {
+      console.log("Error:", e?.message);
+    }
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      getScoreBord(matchDetails?.marketId);
+    }, 60000);
+
+    return () => clearInterval(interval);
+  }, [matchDetails?.marketId]);
 
   useEffect(() => {
     const handleVisibilityChange = () => {
@@ -289,6 +321,20 @@ const MatchDetail = () => {
     return () => {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
+  }, []);
+
+  useEffect(() => {
+    if (state?.matchId) {
+      const intervalId = setInterval(() => {
+        dispatch(selectedBetAction(null));
+        dispatch(matchDetailAction(state?.matchId));
+        dispatch(getPlacedBets(state?.matchId));
+      }, 14100 * 1000);
+
+      return () => {
+        clearInterval(intervalId);
+      };
+    }
   }, []);
 
   return (
@@ -319,8 +365,8 @@ const MatchDetail = () => {
                   flexDirection: "column",
                 }}
               >
-                <LiveScore />
-                <LiveMatchHome />
+                {liveScoreBoardData && <LiveScore />}
+                {liveMatchData && <LiveMatchHome />}
                 <div style={{ width: "100%" }}>
                   <MatchOdds
                     setShow={setShow}
@@ -415,8 +461,8 @@ const MatchDetail = () => {
                   />
                 </Box>
                 <Box sx={{ width: "30%", paddingRight: "1%" }}>
-                  <LiveScore />
-                  <LiveMatchHome />
+                  {liveScoreBoardData && <LiveScore />}
+                  {liveMatchData && <LiveMatchHome />}
                   {Array.from(
                     placedBets.reduce(
                       (acc: any, obj: any) =>
