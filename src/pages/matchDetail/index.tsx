@@ -38,6 +38,7 @@ import {
   updateTeamRatesOnDeleteMatch,
 } from "../../store/actions/user/userAction";
 import { AppDispatch, RootState } from "../../store/store";
+import service from "../../service";
 
 const MatchDetail = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -45,6 +46,8 @@ const MatchDetail = () => {
   const navigate = useNavigate();
   const [visible, setVisible] = useState(true);
   const [show, setShow] = useState({ open: false, id: "" });
+  const [liveScoreBoardData, setLiveScoreBoardData] = useState(null);
+  const [liveMatchData] = useState(null);
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const { getProfile } = useSelector((state: RootState) => state.user.profile);
@@ -269,6 +272,25 @@ const MatchDetail = () => {
     }
   }, [success]);
 
+  const getScoreBord = async (marketId: string) => {
+    try {
+      const response = await service.get(
+        `https://score.fairgame.club/score/getMatchScore/${marketId}`
+      );
+      setLiveScoreBoardData(response?.data);
+    } catch (e: any) {
+      console.log("Error:", e?.message);
+    }
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      getScoreBord(matchDetails?.marketId);
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, [matchDetails?.marketId]);
+
   useEffect(() => {
     const handleVisibilityChange = () => {
       if (document.visibilityState === "visible") {
@@ -319,8 +341,8 @@ const MatchDetail = () => {
                   flexDirection: "column",
                 }}
               >
-                <LiveScore />
-                <LiveMatchHome />
+                {liveScoreBoardData && <LiveScore />}
+                {liveMatchData && <LiveMatchHome />}
                 <div style={{ width: "100%" }}>
                   <MatchOdds
                     setShow={setShow}
@@ -415,8 +437,8 @@ const MatchDetail = () => {
                   />
                 </Box>
                 <Box sx={{ width: "30%", paddingRight: "1%" }}>
-                  <LiveScore />
-                  <LiveMatchHome />
+                  {liveScoreBoardData && <LiveScore />}
+                  {liveMatchData && <LiveMatchHome />}
                   {Array.from(
                     placedBets.reduce(
                       (acc: any, obj: any) =>
