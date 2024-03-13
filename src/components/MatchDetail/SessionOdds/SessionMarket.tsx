@@ -29,7 +29,6 @@ const SessionMarket = ({
   handleRateChange,
   title,
   eventType,
-  max,
   min,
   typeOfBet,
   matchDetails,

@@ -21,7 +21,6 @@ const QuickSessionMarket = ({
   upcoming,
   handleRateChange,
   title,
-  maxBet,
   minBet,
   typeOfBet,
   eventType,
