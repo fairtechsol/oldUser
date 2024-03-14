@@ -5,7 +5,6 @@ import { UD } from "../../../../assets";
 import { getRunAmount } from "../../../../store/actions/betPlace/betPlaceActions";
 import { AppDispatch, RootState } from "../../../../store/store";
 import RunsDropDown from "./RunsDropDown";
-import { formatToINR } from "../../../../helper";
 // import useOuterClick from "../../../../utils/outerClick";
 
 const PlaceBetComponentWeb = ({ profitLoss, data, show, setShow }: any) => {

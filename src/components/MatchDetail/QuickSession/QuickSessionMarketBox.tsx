@@ -5,6 +5,7 @@ import SeparateModal from "../MatchOdds/SeparateModal";
 import PlaceBetComponentWeb from "../MatchOdds/Bets/PlaceBetComponentWeb";
 import FastTimePlaceBet from "../MatchOdds/Bets/FastTimePlaceBet";
 import PlaceBetComponent from "../MatchOdds/Bets/PlaceBetComponent";
+import { formatToINR } from "../../../helper";
 
 const QuickSessionMarketBox = ({
   index,
@@ -92,30 +93,30 @@ const QuickSessionMarketBox = ({
             {data?.name}
           </Typography> */}
           <Typography>
-          <Typography
-            sx={{
-              color: "black",
-              fontSize: { lg: "14px", md: "10px", xs: "10px" },
-              marginLeft: "7px",
-              fontWeight: "600",
-              textAlign: "start",
-              width: "100%",
-            }}
-          >
-            {data?.name}
-          </Typography>
-          <Typography
-            sx={{
-              color: "black",
-              fontSize: { lg: "11px", md: "8px", xs: "8px" },
-              marginLeft: "7px",
-              fontWeight: "600",
-              textAlign: "start",
-              width: "100%",
-            }}
-          >
-            MAX:{data?.maxBet}
-          </Typography>
+            <Typography
+              sx={{
+                color: "black",
+                fontSize: { lg: "14px", md: "10px", xs: "10px" },
+                marginLeft: "7px",
+                fontWeight: "600",
+                textAlign: "start",
+                width: "100%",
+              }}
+            >
+              {data?.name}
+            </Typography>
+            <Typography
+              sx={{
+                color: "black",
+                fontSize: { lg: "11px", md: "8px", xs: "8px" },
+                marginLeft: "7px",
+                fontWeight: "500",
+                textAlign: "start",
+                width: "100%",
+              }}
+            >
+              max:{formatToINR(data?.maxBet)}
+            </Typography>
           </Typography>
           {/* <MoneyBox
             rates={maxLoss ?? 0}
