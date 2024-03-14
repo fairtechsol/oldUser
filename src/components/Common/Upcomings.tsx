@@ -3,7 +3,8 @@ import moment from "moment";
 import { Cricket } from "../../assets";
 
 const Upcomings = (props: any) => {
-  const { match, timeLeft } = props;
+  const { match, timeLeft, upcoming } = props;
+  // console.log(upcoming , "up");
   return (
     <Box
       sx={{
@@ -66,7 +67,7 @@ const Upcomings = (props: any) => {
           justifyContent: "center",
         }}
       >
-        <Box
+        {!upcoming && (<Box
           sx={{
             height: "80%",
             marginRight: "3px",
@@ -196,7 +197,7 @@ const Upcomings = (props: any) => {
               Min
             </Typography>
           </Box>
-        </Box>
+        </Box>)}
       </Box>
     </Box>
   );

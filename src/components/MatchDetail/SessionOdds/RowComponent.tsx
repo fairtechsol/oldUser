@@ -3,6 +3,7 @@ import SingleBox from "./SingleBox";
 import { RootState } from "../../../store/store";
 import { useSelector } from "react-redux";
 import moment from "moment";
+import { formatToINR } from "../../../helper";
 
 const RowComponent = ({ header, data }: any) => {
   const { getProfile } = useSelector((state: RootState) => state.user.profile);
@@ -66,7 +67,7 @@ const RowComponent = ({ header, data }: any) => {
             isPercent={true}
           />
           <SingleBox color={getColor()} data={data?.betType} header={header} />
-          <SingleBox color={getColor()} data={data?.amount} header={header} />
+          <SingleBox color={getColor()} data={formatToINR(data?.amount)} header={header} />
         </>
       )}
       {header && (

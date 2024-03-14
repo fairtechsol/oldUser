@@ -3,6 +3,7 @@ import SingleBox from "./SingleBox";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 import moment from "moment";
+import { formatToINR } from "../../../helper";
 
 const RowComponent = ({ header, data }: any) => {
   const { getProfile } = useSelector((state: RootState) => state.user.profile);
@@ -94,7 +95,7 @@ const RowComponent = ({ header, data }: any) => {
           <Box sx={{ width: "41%" }}> */}
           <SingleBox
             color={getColor()}
-            data={data?.amount}
+            data={formatToINR(data?.amount)}
             header={header}
             width={"50%"}
             boxWidth="100%"
