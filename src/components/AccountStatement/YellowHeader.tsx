@@ -80,6 +80,7 @@ const YellowHeader = (props: any) => {
               title={"To"}
               startDate={toDate}
               setStartDate={setToDate}
+              limit={fromDate}
             />
           </Box>
 
