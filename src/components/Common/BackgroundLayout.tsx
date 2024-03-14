@@ -9,6 +9,7 @@ const BackgroundLayout = ({ children }: any) => {
             sx={{
                 minHeight: "100vh",
                 // padding: "0.2% 1% 1% 1%",
+                paddingBottom: "1rem",
                 width: "100%",
                 backgroundImage: `url(${BACKIMAGE})`,
                 backgroundRepeat: "no-repeat",
@@ -20,7 +21,8 @@ const BackgroundLayout = ({ children }: any) => {
                 <Box
                     flex={1}
                     sx={[
-                        { flex: 1, display: "flex" },
+                        { flex: 1, display: "flex", width: "100%", paddingBottom: "1rem" },
+                       
                         (theme: any) => ({
                             backgroundImage: `${theme.palette.primary.homeBodyGradient}`,
                         }),

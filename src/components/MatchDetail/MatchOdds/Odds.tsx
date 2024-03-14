@@ -246,7 +246,7 @@ const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
               </Typography>
             </Box>
           )}
-          <Upcomings match={match} timeLeft={timeLeft} />
+          <Upcomings upcoming={upcoming} match={match} timeLeft={timeLeft} />
           {
             <Box
               sx={{

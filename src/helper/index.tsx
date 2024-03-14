@@ -26,3 +26,14 @@ export const customSort = (a: any, b: any) => {
   const order: any = { live: 1, save: 2, result: 3 };
   return order[a?.activeStatus] - order[b?.activeStatus];
 };
+
+
+export const formatToINR = (amount:any) => {
+  const formatter = new Intl.NumberFormat("en-IN", {
+      currency: "INR"
+  });
+  // console.log(amount, "amoutn")
+  return formatter.format(parseFloat(amount));
+};
+
+// console.log(formatToINR(), "funt")
