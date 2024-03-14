@@ -78,13 +78,13 @@ const SessionMarketBox = ({
         <Typography
           sx={{
             color: "black",
-            fontSize: { lg: "10px", md: "9px", xs: "9px" },
+            fontSize: { lg: "10px", md: "9px", xs: "7px" },
             marginLeft: "7px",
-            fontWeight: "600",
+            fontWeight: "500",
             textAlign: "start",
           }}
         >
-          MAX:{data?.max}
+          max:{data?.max}
         </Typography>
         </Typography>
       </Box>
