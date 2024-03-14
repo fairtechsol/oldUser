@@ -5,6 +5,7 @@ import { MatchType } from "../../../utils/enum";
 import QuickSessionMarket from "../QuickSession/QuickSessionMarket";
 import SessionMarket from "../SessionOdds/SessionMarket";
 import MarketOdds from "./MarketOdds";
+import { formatToINR } from "../../../helper";
 
 const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
   function calculateTimeLeft() {
@@ -67,8 +68,8 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
           teamARates={matchDetails?.profitLossDataMatch?.teamARate || 0}
           teamBRates={matchDetails?.profitLossDataMatch?.teamBRate || 0}
           teamCRates={matchDetails?.profitLossDataMatch?.teamCRate || 0}
-          min={matchDetails?.matchOdd?.minBet || 0}
-          max={matchDetails?.matchOdd?.maxBet || 0}
+          min={formatToINR(matchDetails?.matchOdd?.minBet) || 0}
+          max={formatToINR(matchDetails?.matchOdd?.maxBet) || 0}
           title={matchDetails?.matchOdd?.name}
           typeOfBet={"MATCH ODDS"}
           marketDetails={matchDetails?.matchOdd}
@@ -98,8 +99,8 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
           teamARates={matchDetails?.profitLossDataMatch?.teamARate || 0}
           teamBRates={matchDetails?.profitLossDataMatch?.teamBRate || 0}
           teamCRates={matchDetails?.profitLossDataMatch?.teamCRate || 0}
-          min={matchDetails?.bookmaker?.minBet || 0}
-          max={matchDetails?.bookmaker?.maxBet || 0}
+          min={formatToINR(matchDetails?.bookmaker?.minBet) || 0}
+          max={formatToINR(matchDetails?.bookmaker?.maxBet) || 0}
           title={matchDetails?.bookmaker?.name}
           isRound={false}
           session={"bookmaker"}
@@ -124,8 +125,8 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
             teamARates={matchDetails?.profitLossDataMatch?.teamARate || 0}
             teamBRates={matchDetails?.profitLossDataMatch?.teamBRate || 0}
             teamCRates={matchDetails?.profitLossDataMatch?.teamCRate || 0}
-            min={bookmaker?.minBet || 0}
-            max={bookmaker?.maxBet || 0}
+            min={formatToINR(bookmaker?.minBet) || 0}
+            max={formatToINR(bookmaker?.maxBet) || 0}
             title={bookmaker?.name}
             typeOfBet={"MANUAL BOOKMAKER"}
             matchOddsData={bookmaker}
@@ -155,8 +156,8 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
           // suspended={false}
           teamARates={matchDetails?.profitLossDataMatch?.yesRateTie || 0}
           teamBRates={matchDetails?.profitLossDataMatch?.noRateTie || 0}
-          min={matchDetails?.apiTideMatch?.minBet || 0}
-          max={matchDetails?.apiTideMatch?.maxBet || 0}
+          min={formatToINR(matchDetails?.apiTideMatch?.minBet) || 0}
+          max={formatToINR(matchDetails?.apiTideMatch?.maxBet) || 0}
           title={matchDetails?.apiTideMatch?.name}
           isRound={false}
           session={"bookmaker"}
@@ -178,8 +179,8 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
           data={data}
           teamARates={matchDetails?.profitLossDataMatch?.yesRateTie || 0}
           teamBRates={matchDetails?.profitLossDataMatch?.noRateTie || 0}
-          min={matchDetails?.manualTiedMatch?.minBet || 0}
-          max={matchDetails?.manualTiedMatch?.maxBet || 0}
+          min={formatToINR(matchDetails?.manualTiedMatch?.minBet) || 0}
+          max={formatToINR(matchDetails?.manualTiedMatch?.maxBet) || 0}
           title={matchDetails?.manualTiedMatch?.name}
           typeOfBet={"MANUAL BOOKMAKER"}
           matchOddsData={matchDetails?.manualTiedMatch}
@@ -210,8 +211,8 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
           teamARates={matchDetails?.profitLossDataMatch?.yesRateComplete || 0}
           teamBRates={matchDetails?.profitLossDataMatch?.noRateComplete || 0}
           teamCRates={matchDetails?.profitLossDataMatch?.teamCRate || 0}
-          min={matchDetails?.marketCompleteMatch?.minBet || 0}
-          max={matchDetails?.marketCompleteMatch?.maxBet || 0}
+          min={formatToINR(matchDetails?.marketCompleteMatch?.minBet) || 0}
+          max={formatToINR(matchDetails?.marketCompleteMatch?.maxBet) || 0}
           title={matchDetails?.marketCompleteMatch?.name}
           isRound={false}
           session={"bookmaker"}
@@ -235,8 +236,8 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
               type={MatchType.API_SESSION_MARKET}
               data={matchDetails?.apiSession}
               eventType={matchDetails?.matchType}
-              min={matchDetails?.betFairSessionMinBet}
-              max={matchDetails?.betFairSessionMaxBet}
+              min={formatToINR(matchDetails?.betFairSessionMinBet)}
+              max={formatToINR(matchDetails?.betFairSessionMaxBet)}
               upcoming={!upcoming}
               matchDetails={matchDetails}
             />
@@ -261,8 +262,8 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
                 (betting: any) => JSON.parse(betting)?.selectionId === null
               )}
               eventType={matchDetails?.matchType}
-              minBet={matchDetails?.betFairSessionMinBet}
-              maxBet={matchDetails?.betFairSessionMaxBet}
+              minBet={formatToINR(matchDetails?.betFairSessionMinBet)}
+              maxBet={formatToINR(matchDetails?.betFairSessionMaxBet)}
               typeOfBet={matchDetails?.type}
             />
           )}

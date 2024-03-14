@@ -5,6 +5,7 @@ import Divider from "../../../helper/Divider";
 
 import Upcomings from "../../Common/Upcomings";
 import MatchRatesCommonComp from "./MatchRatesCommonComp";
+import { formatToINR } from "../../../helper";
 
 interface TimeLeft {
   days: string;
@@ -273,8 +274,8 @@ const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
                     marginLeft: "7px",
                   }}
                 >
-                  MIN: {match.betFairSessionMinBet} MAX:{""}
-                  {match.betFairSessionMaxBet}
+                  MIN: {formatToINR(match.betFairSessionMinBet)} MAX:{""}
+                  {formatToINR(match.betFairSessionMaxBet)}
                 </Typography>
               </Box>
               <Box
