@@ -7,7 +7,6 @@ import ChangePassword from "../pages/changepassword";
 
 const Login = Loadable(() => import("../pages/auth/login"));
 
-
 const AuthRoutes = {
   path: Constants.AuthPaths.root,
   element: <AuthLayout />,
