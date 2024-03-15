@@ -19,7 +19,6 @@ import {
 } from "../../store/actions/betPlace/betPlaceActions";
 import {
   matchDetailAction,
-  matchDetailReset,
   selectedBetAction,
   updateMatchRates,
 } from "../../store/actions/match/matchListAction";
