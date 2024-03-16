@@ -33,6 +33,21 @@ export const getProfile = createAsyncThunk<any>(
     }
   }
 );
+export const getProfileInMatchDetail = createAsyncThunk<any>(
+  "/user/profileInMatchDetail",
+  async (_, thunkApi) => {
+    try {
+      const resp = await service.get(`${ApiConstants.USER.GET_PROFILE}`);
+      // console.log("API Request user: Success", resp.data);
+      if (resp) {
+        return resp?.data;
+      }
+    } catch (error: any) {
+      const err = error as AxiosError;
+      return thunkApi.rejectWithValue(err.response?.status);
+    }
+  }
+);
 
 export const updateBalance = createAsyncThunk<any, any>(
   "/user/balance",
