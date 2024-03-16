@@ -34,12 +34,9 @@ const MatchesComponent = (_: any) => {
     try {
       if (success && socket?.connected) {
         if (getProfile?.roleName) {
-          expertSocketService.match.matchAddedOff(getMatchListService);
+          expertSocketService.match.matchAddedOff();
           matchList?.matches?.forEach((element: any) => {
-            expertSocketService.match.getMatchRatesOff(
-              element?.id,
-              setMatchOddRatesInRedux
-            );
+            expertSocketService.match.getMatchRatesOff(element?.id);
           });
           matchList?.matches?.forEach((element: any) => {
             expertSocketService.match.joinMatchRoom(
@@ -63,15 +60,12 @@ const MatchesComponent = (_: any) => {
 
   useEffect(() => {
     return () => {
-      expertSocketService.match.matchAddedOff(getMatchListService);
+      expertSocketService.match.matchAddedOff();
       matchList?.matches?.forEach((element: any) => {
         expertSocketService.match.leaveMatchRoom(element?.id);
       });
       matchList?.matches?.forEach((element: any) => {
-        expertSocketService.match.getMatchRatesOff(
-          element?.id,
-          setMatchOddRatesInRedux
-        );
+        expertSocketService.match.getMatchRatesOff(element?.id);
       });
     };
   }, []);
@@ -101,10 +95,7 @@ const MatchesComponent = (_: any) => {
       } else if (document.visibilityState === "hidden") {
         if (matchList?.matches) {
           matchList?.matches?.forEach((element: any) => {
-            expertSocketService.match.getMatchRatesOff(
-              element?.id,
-              setMatchOddRatesInRedux
-            );
+            expertSocketService.match.getMatchRatesOff(element?.id);
           });
         }
       }

@@ -16,9 +16,6 @@ export const userBalanceSocketService = {
   sessionNoResult: (callback: any) => {
     socket.on("sessionNoResult", callback);
   },
-  sessionNoResultOff: (callback: any) => {
-    socket.off("sessionNoResult", callback);
-  },
   matchResultUnDeclared: (callback: any) => {
     socket.on("matchResultUnDeclare", callback);
   },
@@ -34,31 +31,34 @@ export const userBalanceSocketService = {
   sessionDeleteBet: (callback: any) => {
     socket.on("sessionDeleteBet", callback);
   },
-  updateUserBalanceOff: (callback: any) => {
-    socket.off("updateUserBalance", callback);
+  updateUserBalanceOff: () => {
+    socket.off("updateUserBalance");
   },
-  userSessionBetPlacedOff: (callback: any) => {
-    socket.off("userSessionBetPlaced", callback);
+  userSessionBetPlacedOff: () => {
+    socket.off("userSessionBetPlaced");
   },
-  userMatchBetPlacedOff: (callback: any) => {
-    socket.off("userMatchBetPlaced", callback);
+  userMatchBetPlacedOff: () => {
+    socket.off("userMatchBetPlaced");
   },
-  matchResultDeclaredOff: (callback: any) => {
-    socket.off("matchResult", callback);
+  matchResultDeclaredOff: () => {
+    socket.off("matchResult");
   },
-  matchResultUnDeclaredOff: (callback: any) => {
-    socket.off("matchResultUnDeclare", callback);
+  matchResultUnDeclaredOff: () => {
+    socket.off("matchResultUnDeclare");
   },
-  matchDeleteBetOff: (callback: any) => {
-    socket.off("matchDeleteBet", callback);
+  matchDeleteBetOff: () => {
+    socket.off("matchDeleteBet");
   },
-  sessionResultOff: (callBack: any) => {
-    socket.off("sessionResult", callBack);
+  sessionResultOff: () => {
+    socket.off("sessionResult");
   },
-  sessionResultUnDeclareOff: (callBack: any) => {
-    socket.off("sessionResultUnDeclare", callBack);
+  sessionResultUnDeclareOff: () => {
+    socket.off("sessionResultUnDeclare");
   },
-  sessionDeleteBetOff: (callback: any) => {
-    socket.off("sessionDeleteBet", callback);
+  sessionDeleteBetOff: () => {
+    socket.off("sessionDeleteBet");
+  },
+  sessionNoResultOff: () => {
+    socket.off("sessionNoResult");
   },
 };
