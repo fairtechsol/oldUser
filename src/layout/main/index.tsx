@@ -74,18 +74,16 @@ const MainLayout = () => {
       socketService.userBalance.matchDeleteBet(getUserProfile);
       socketService.userBalance.sessionDeleteBet(getUserProfile);
       return () => {
-        socketService.userBalance.updateUserBalanceOff(updateLoggedUserBalance);
-        socketService.userBalance.sessionResultOff(sessionResultDeclared);
-        socketService.userBalance.sessionResultUnDeclareOff(
-          sessionResultDeclared
-        );
-        socketService.userBalance.userSessionBetPlacedOff(getUserProfile);
-        socketService.userBalance.userMatchBetPlacedOff(getUserProfile);
-        socketService.userBalance.matchResultDeclaredOff(handleMatchResult);
-        socketService.userBalance.matchResultUnDeclaredOff(handleMatchResult);
-        socketService.userBalance.sessionNoResultOff(getUserProfile);
-        socketService.userBalance.matchDeleteBetOff(getUserProfile);
-        socketService.userBalance.sessionDeleteBetOff(getUserProfile);
+        socketService.userBalance.updateUserBalanceOff();
+        socketService.userBalance.sessionResultOff();
+        socketService.userBalance.sessionResultUnDeclareOff();
+        socketService.userBalance.userSessionBetPlacedOff();
+        socketService.userBalance.userMatchBetPlacedOff();
+        socketService.userBalance.matchResultDeclaredOff();
+        socketService.userBalance.matchResultUnDeclaredOff();
+        socketService.userBalance.sessionNoResultOff();
+        socketService.userBalance.matchDeleteBetOff();
+        socketService.userBalance.sessionDeleteBetOff();
       };
     }
   }, []);

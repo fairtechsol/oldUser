@@ -3,13 +3,11 @@ import { Navigate } from "react-router-dom";
 import { Constants } from "../utils/Constants";
 import SecureAuthVerification from "../pages/auth/secureAuthverification";
 
-const ChangeButtonValue = Loadable(
-  () => import("../pages/changeButtonValue")
-);
-const Rules = Loadable(() => import("../pages/rules"));
+import MainLayout from "../layout/main";
 
+const ChangeButtonValue = Loadable(() => import("../pages/changeButtonValue"));
+const Rules = Loadable(() => import("../pages/rules"));
 const MyAccount = Loadable(() => import("../pages/myAccount"));
-const MainLayout = Loadable(() => import("../layout/main"));
 const Comingsoon = Loadable(() => import("../pages/comingsoon/index"));
 const Match = Loadable(() => import("../pages/match"));
 const MatchDetail = Loadable(() => import("../pages/matchDetail"));
@@ -18,8 +16,8 @@ const ChangePassword = Loadable(() => import("../pages/changepassword"));
 const ProfitLoss = Loadable(() => import("../pages/reports/ProfitLoss"));
 const BetHistory = Loadable(() => import("../pages/betHistory"));
 const AccountStatement = Loadable(
-  () => import("../pages/reports/AccountStatement"))
-;
+  () => import("../pages/reports/AccountStatement")
+);
 
 const MainRoutes = {
   path: Constants.MainPaths.root,

@@ -25,10 +25,10 @@ export const matchSocketService = {
   getMatchRates: (matchId: string, callback: any) => {
     matchSocket.on(`liveData${matchId}`, callback);
   },
-  matchAddedOff: (callback: any) => {
-    expertSocket.off("addMatch", callback);
+  matchAddedOff: () => {
+    expertSocket.off("addMatch");
   },
-  getMatchRatesOff: (matchId: string, callback: any) => {
-    matchSocket.off(`liveData${matchId}`, callback);
+  getMatchRatesOff: (matchId: string) => {
+    matchSocket.off(`liveData${matchId}`);
   },
 };
