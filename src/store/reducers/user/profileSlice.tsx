@@ -4,6 +4,7 @@ import {
   getAccountStatement,
   getButtonValue,
   getProfile,
+  getProfileInMatchDetail,
   marqueeNotification,
   setButtonValue,
   updateBalance,
@@ -75,6 +76,20 @@ const profileSlice = createSlice({
         state.getProfile = action.payload?.[0]?.[0];
       })
       .addCase(getProfile.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action?.error?.message;
+      })
+      .addCase(getProfileInMatchDetail.pending, (state) => {
+        state.loading = true;
+        state.success = false;
+        state.error = null;
+      })
+      .addCase(getProfileInMatchDetail.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = true;
+        state.getProfile = action.payload?.[0]?.[0];
+      })
+      .addCase(getProfileInMatchDetail.rejected, (state, action) => {
         state.loading = false;
         state.error = action?.error?.message;
       })
