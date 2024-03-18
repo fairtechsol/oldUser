@@ -9,7 +9,7 @@ const RowComponent = ({ header, data }: any) => {
   const { getProfile } = useSelector((state: RootState) => state.user.profile);
 
   const getTime = (date:any) => {
-    const timeString = moment(date).format("hh:mm:ss A");
+    const timeString = moment.utc(date).utcOffset('+05:30').format("hh:mm:ss A");
     return timeString;
   };
   const getColor = () => {
