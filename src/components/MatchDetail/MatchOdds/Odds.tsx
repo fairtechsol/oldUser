@@ -53,7 +53,7 @@ const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
   const upcoming =
     Number(timeLeft.days) === 0 &&
     Number(timeLeft.hours) === 0 &&
-    Number(timeLeft.minutes) <= 30;
+    Number(timeLeft.minutes) <= 60;
 
   return (
     <>

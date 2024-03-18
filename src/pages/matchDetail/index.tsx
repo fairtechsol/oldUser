@@ -165,6 +165,7 @@ const MatchDetail = () => {
             matchId: event?.matchId,
           })
         );
+        dispatch(updateBalanceOnSessionResult(event?.userBalanceData));
         dispatch(resetRunAmount());
         dispatch(getPlacedBets(state?.matchId));
       }
@@ -183,6 +184,7 @@ const MatchDetail = () => {
             matchId: event?.matchId,
           })
         );
+        dispatch(updateBalanceOnSessionResult(event?.userBalanceData));
         setTimeout(() => {
           dispatch(getPlacedBets(state?.matchId));
         }, 300);
