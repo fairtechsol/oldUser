@@ -4,19 +4,22 @@ import { Constants } from "../utils/Constants";
 import SecureAuthVerification from "../pages/auth/secureAuthverification";
 
 import MainLayout from "../layout/main";
+import { lazy } from "react";
 
-const ChangeButtonValue = Loadable(() => import("../pages/changeButtonValue"));
-const Rules = Loadable(() => import("../pages/rules"));
-const MyAccount = Loadable(() => import("../pages/myAccount"));
-const Comingsoon = Loadable(() => import("../pages/comingsoon/index"));
-const Match = Loadable(() => import("../pages/match"));
-const MatchDetail = Loadable(() => import("../pages/matchDetail"));
-const Inplay = Loadable(() => import("../pages/inplay"));
-const ChangePassword = Loadable(() => import("../pages/changepassword"));
-const ProfitLoss = Loadable(() => import("../pages/reports/ProfitLoss"));
-const BetHistory = Loadable(() => import("../pages/betHistory"));
+const ChangeButtonValue = Loadable(
+  lazy(() => import("../pages/changeButtonValue"))
+);
+const Rules = Loadable(lazy(() => import("../pages/rules")));
+const MyAccount = Loadable(lazy(() => import("../pages/myAccount")));
+const Comingsoon = Loadable(lazy(() => import("../pages/comingsoon/index")));
+const Match = Loadable(lazy(() => import("../pages/match")));
+const MatchDetail = Loadable(lazy(() => import("../pages/matchDetail")));
+const Inplay = Loadable(lazy(() => import("../pages/inplay")));
+const ChangePassword = Loadable(lazy(() => import("../pages/changepassword")));
+const ProfitLoss = Loadable(lazy(() => import("../pages/reports/ProfitLoss")));
+const BetHistory = Loadable(lazy(() => import("../pages/betHistory")));
 const AccountStatement = Loadable(
-  () => import("../pages/reports/AccountStatement")
+  lazy(() => import("../pages/reports/AccountStatement"))
 );
 
 const MainRoutes = {
