@@ -343,16 +343,24 @@ const matchListSlice = createSlice({
             max: data?.maxBet,
           };
         } else if (team?.matchBetType === "quickbookmaker1") {
+          const index = data?.quickBookmaker.findIndex((obj : any) => obj['type'] === "quickbookmaker1");
           value = {
-            min: data?.quickBookmaker[0].minBet,
-            max: data?.quickBookmaker[0].maxBet,
+            min: data?.quickBookmaker[index].minBet,
+            max: data?.quickBookmaker[index].maxBet,
           };
         } else if (team?.matchBetType === "quickbookmaker2") {
+          const index = data?.quickBookmaker.findIndex((obj : any) => obj['type'] === "quickbookmaker2");
           value = {
-            min: data?.quickBookmaker[1].minBet,
-            max: data?.quickBookmaker[1].maxBet,
+            min: data?.quickBookmaker[index].minBet,
+            max: data?.quickBookmaker[index].maxBet,
           };
-        } else if (team?.matchBetType === "tiedMatch2") {
+        } else if (team?.matchBetType === "quickbookmaker3") {
+          const index = data?.quickBookmaker.findIndex((obj : any) => obj['type'] === "quickbookmaker3");
+          value = {
+            min: data?.quickBookmaker[index].minBet,
+            max: data?.quickBookmaker[index].maxBet,
+          };
+        }else if (team?.matchBetType === "tiedMatch2") {
           value = {
             min: data?.manualTiedMatch?.minBet,
             max: data?.manualTiedMatch?.maxBet,
