@@ -7,7 +7,7 @@ import { BACKIMAGE } from "../../assets";
 import BackgroundLayout from "../../components/Common/BackgroundLayout";
 import SecureAuthVerification from "../../pages/auth/secureAuthverification";
 import Rules from "../../pages/rules";
-import { socketService } from "../../socketManager";
+import { socket, socketService } from "../../socketManager";
 import {
   getProfile,
   marqueeNotification,
@@ -62,12 +62,15 @@ const MainLayout = () => {
   useEffect(() => {
     if (sessionStorage.getItem("userToken")) {
       socketService.connect();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (socket?.connected) {
       socketService.auth.logout();
       socketService.userBalance.updateUserBalance(updateLoggedUserBalance);
       socketService.userBalance.sessionResult(sessionResultDeclared);
       socketService.userBalance.sessionResultUnDeclare(sessionResultDeclared);
-      socketService.userBalance.userSessionBetPlaced(getUserProfile);
-      socketService.userBalance.userMatchBetPlaced(getUserProfile);
       socketService.userBalance.matchResultDeclared(handleMatchResult);
       socketService.userBalance.sessionNoResult(getUserProfile);
       socketService.userBalance.matchResultUnDeclared(handleMatchResult);
@@ -86,7 +89,7 @@ const MainLayout = () => {
         socketService.userBalance.sessionDeleteBetOff();
       };
     }
-  }, []);
+  }, [socket?.connected]);
 
   return (
     <>
