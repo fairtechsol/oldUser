@@ -15,7 +15,7 @@ const TableRow = ({
   amount,
 }: any) => {
   const dateString = date;
-  const formattedDate = moment(dateString).format("DD-MM-YYYY HH:mm:ss");
+  const formattedDate = moment.utc(dateString).utcOffset('+05:30').format("DD-MM-YYYY HH:mm:ss");
   return (
     <Box
       sx={[
