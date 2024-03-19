@@ -1,11 +1,7 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import moment from "moment";
 import { memo, useState } from "react";
-import {
-  ARROW_UP,
-  ARROW_DOWN,
-  ArrowDown,
-} from "../../../assets";
+import { ARROW_UP, ARROW_DOWN, ArrowDown } from "../../../assets";
 import StyledImage from "../../Common/StyledImages";
 import AllRateSeperate from "../../MatchDetail/AllRateBets/AllRateSeperate";
 import SessionBetSeperate from "../../MatchDetail/SessionOdds/SessionBetSeperate";
@@ -171,7 +167,11 @@ const RowComponentMatches = ({
                 betId: "",
                 sessionBet: false,
               });
-              dispatch(getTotalBetProfitLoss({ matchId: item?.matchId }));
+              dispatch(
+                getTotalBetProfitLoss({
+                  matchId: item?.matchId,
+                })
+              );
             }
           }}
           sx={{
@@ -267,7 +267,11 @@ const RowComponentMatches = ({
                 betId: "",
                 sessionBet: false,
               });
-              dispatch(getSessionProfitLoss({ matchId: item?.matchId }));
+              dispatch(
+                getSessionProfitLoss({
+                  matchId: item?.matchId,
+                })
+              );
             }
           }}
           sx={{
