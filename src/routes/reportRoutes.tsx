@@ -3,11 +3,12 @@ import { Navigate } from "react-router-dom";
 import { Constants } from "../utils/Constants";
 
 import MainLayout from "../layout/main";
+import { lazy } from "react";
 
-const ProfitLoss = Loadable(() => import("../pages/reports/ProfitLoss"));
-const BetHistory = Loadable(() => import("../pages/betHistory"));
+const ProfitLoss = Loadable(lazy(() => import("../pages/reports/ProfitLoss")));
+const BetHistory = Loadable(lazy(() => import("../pages/betHistory")));
 const AccountStatement = Loadable(
-  () => import("../pages/reports/AccountStatement")
+  lazy(() => import("../pages/reports/AccountStatement"))
 );
 
 const ReportRoutes = {

@@ -1,11 +1,11 @@
-
+import { lazy } from "react";
 import AuthLayout from "../layout/auth";
 import Loadable from "../utils/loadable";
 import { Navigate } from "react-router-dom";
 import { Constants } from "../utils/Constants";
 import ChangePassword from "../pages/changepassword";
 
-const Login = Loadable(() => import("../pages/auth/login"));
+const Login = Loadable(lazy(() => import("../pages/auth/login")));
 
 const AuthRoutes = {
   path: Constants.AuthPaths.root,
@@ -30,4 +30,3 @@ const AuthRoutes = {
   ],
 };
 export default AuthRoutes;
-

@@ -70,10 +70,10 @@ const MatchDetail = () => {
   };
   const setSessionBetsPlaced = (event: any) => {
     try {
+      dispatch(updateBalanceSession(event));
       if (event?.betPlaced?.placedBet?.matchId === state?.matchId) {
         dispatch(updateBetsPlaced(event?.betPlaced?.placedBet));
         dispatch(betDataFromSocket(event));
-        dispatch(updateBalanceSession(event));
         dispatch(
           updateRunAmount({
             betId: event?.betPlaced?.placedBet?.betId,
@@ -89,6 +89,11 @@ const MatchDetail = () => {
 
   const setMatchBetsPlaced = (event: any) => {
     try {
+      dispatch(
+        updateBalanceSession({
+          exposure: event?.jobData?.newUserExposure ?? event?.jobData?.exposure,
+        })
+      );
       if (event?.jobData?.matchId === state?.matchId) {
         dispatch(updateBetsPlaced(event?.jobData?.newBet));
         dispatch(updateBalance(event?.jobData));
@@ -101,14 +106,14 @@ const MatchDetail = () => {
 
   const handleMatchbetDeleted = (event: any) => {
     try {
+      dispatch(
+        updateBalanceOnBetDelete({
+          exposure: event?.exposure,
+          currentBalance: event?.currentBalance,
+        })
+      );
       if (event?.matchId === state?.matchId) {
         dispatch(updateTeamRatesOnDeleteMatch(event));
-        dispatch(
-          updateBalanceOnBetDelete({
-            exposure: event?.exposure,
-            currentBalance: event?.currentBalance,
-          })
-        );
         dispatch(updateDeleteReasonBet(event));
       }
     } catch (e) {
@@ -118,6 +123,12 @@ const MatchDetail = () => {
 
   const handleSessionBetDeleted = (event: any) => {
     try {
+      dispatch(
+        updateBalanceOnBetDelete({
+          exposure: event?.exposure,
+          currentBalance: event?.currentBalance,
+        })
+      );
       if (event?.matchId === state?.matchId) {
         dispatch(
           updateProfitLossOnDeleteSession({
@@ -132,12 +143,7 @@ const MatchDetail = () => {
             profitLoss: event?.profitLoss,
           })
         );
-        dispatch(
-          updateBalanceOnBetDelete({
-            exposure: event?.exposure,
-            currentBalance: event?.currentBalance,
-          })
-        );
+
         dispatch(updateDeleteReasonBet(event));
       }
     } catch (e) {
@@ -148,6 +154,7 @@ const MatchDetail = () => {
   const resultDeclared = (event: any) => {
     try {
       if (event?.matchId === state?.matchId) {
+        dispatch(getProfileInMatchDetail());
         navigate("/match");
       }
     } catch (e) {
@@ -157,6 +164,7 @@ const MatchDetail = () => {
 
   const handleSessionResultDeclare = (event: any) => {
     try {
+      dispatch(updateBalanceOnSessionResult(event?.userBalanceData));
       if (event?.matchId === state?.matchId) {
         setShow({ open: false, id: "" });
         dispatch(
@@ -175,6 +183,7 @@ const MatchDetail = () => {
 
   const handleSessionResultUnDeclare = (event: any) => {
     try {
+      dispatch(updateBalanceOnSessionResult(event?.userBalanceData));
       if (event?.matchId === state?.matchId) {
         dispatch(
           updateBetDataOnUndeclare({

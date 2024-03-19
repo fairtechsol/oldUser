@@ -157,12 +157,14 @@ any) => {
           matchOddsData?.type === "tiedMatch2" ? "NO" : matchDetails?.teamB,
         teamC: matchDetails?.teamC,
       };
-      dispatch(
-        placeBet({
-          url: ApiConstants.BET.PLACEBETMATCHBETTING,
-          data: JSON.stringify(payload),
-        })
-      );
+      if (payload?.odd > 0) {
+        dispatch(
+          placeBet({
+            url: ApiConstants.BET.PLACEBETMATCHBETTING,
+            data: JSON.stringify(payload),
+          })
+        );
+      } else return;
     } catch (e) {
       console.log(e);
     }
