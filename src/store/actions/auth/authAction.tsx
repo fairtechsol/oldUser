@@ -13,7 +13,6 @@ interface ChangePassword {
   userId?: string;
   newPassword: string;
   confirmPassword: string;
-
 }
 
 export const login = createAsyncThunk<any, LoginData>(
