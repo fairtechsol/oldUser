@@ -130,7 +130,7 @@ const SideBar = ({ mobileShow,handleDrawerToggle }: any) => {
         onClick={() => {
           navigate(item?.url, { state: { activeTab: item?.activeTab } });
           handleDrawerToggle()
-      
+
           setShowSideBarMobile(false)
         }}
         sx={{
@@ -145,7 +145,6 @@ const SideBar = ({ mobileShow,handleDrawerToggle }: any) => {
             borderBottomRightRadius: ".5vh",
             borderTopRightRadius: ".5vh",
             cursor: "pointer",
-            // backgroundImage: `${theme.palette.primary.headerGradient}`,
           },
         }}
       >
