@@ -157,7 +157,7 @@ const SearchInput = (props: any) => {
             },
           ]}
         >
-          <StyledImage src={Search} sx={{ height: "40%", width: "auto" }} />
+          <StyledImage src={Search} sx={{ height: "40%", width: "auto" }} alt=""/>
         </Box>
       </Box>
       {search && search.length > 0 && open && (

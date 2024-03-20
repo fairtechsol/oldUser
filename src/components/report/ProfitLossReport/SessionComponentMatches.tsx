@@ -172,6 +172,7 @@ const SessionComponentMatches = ({
                 width: { lg: "25px", xs: "15px" },
                 height: { lg: "12px", xs: "8px" },
               }}
+              alt=""
             />
           </Box>
           <Box
@@ -204,6 +205,7 @@ const SessionComponentMatches = ({
                     ? "rotate(90deg)"
                     : "rotate(270deg)",
               }}
+              alt=""
             />
           </Box>
         </Box>

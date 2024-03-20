@@ -91,6 +91,7 @@ const SessionBetSeperate = ({ profit, mark2, placedBets, isArrow }: any) => {
                 marginRight: "5px",
                 marginLeft: "5px",
               }}
+              alt=""
             />
           </Box>
         </Box>

@@ -216,6 +216,7 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
               width: "50px",
               cursor: "pointer",
             }}
+            alt=""
           />
         </Box>
         <Box sx={{ display: "flex", marginTop: "2px", marginX: "2px" }}>

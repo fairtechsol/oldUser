@@ -5,7 +5,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 
 import moment from "moment";
-import CalendarImage from "../../assets/images/calendar.png";
+import CalendarImage from "../../assets/images/calendar.webp";
 const Calendar = ({
   title,
   containerStyle,
@@ -72,7 +72,7 @@ const Calendar = ({
         <Typography sx={{ fontSize: "11px", fontWeight: "500" }}>
           {startDate ? moment(startDate).format("YYYY-MM-DD") : "select date"}
         </Typography>
-        <img src={CalendarImage} style={{ width: "12px", height: "13px" }} />
+        <img src={CalendarImage} style={{ width: "12px", height: "13px" }} alt=""/>
       </Box>
     </Box>
   );

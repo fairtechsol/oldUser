@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { useState } from "react";
-import ARROWUP from "../../../assets/images/arrowup1.png";
+import ARROWUP from "../../../assets/images/arrowup1.webp";
 
 import StyledImage from "../../Common/StyledImages";
 
@@ -101,6 +101,7 @@ const LiveMatchHome = ({ currentMatch, submit }: any) => {
                                 height: "auto",
                                 width: { xs: "100%", lg: "100%", alignSelf: "center" },
                             }}
+                            alt=""
                         />
                     )}
                 </Box>

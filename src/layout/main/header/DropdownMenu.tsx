@@ -1,6 +1,6 @@
 import { Box, CircularProgress, MenuItem } from "@mui/material";
 import StyledImage from "../../../components/Common/StyledImages";
-import Logout from "../../../assets/images/logout.png";
+import Logout from "../../../assets/images/logout.webp";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { memo } from "react";
@@ -97,6 +97,7 @@ const DropdownMenu = ({ handleClose }: any) => {
           <StyledImage
             src={Logout}
             sx={{ width: "35%", height: "auto" }}
+            alt=""
           />
         )}
       </Box>
