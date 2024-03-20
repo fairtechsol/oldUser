@@ -12,23 +12,25 @@ code {
     monospace;
 }
 
-*{
+* {
   box-sizing: border-box;
 }
 
-.commissionReport-AccordianSummery .Mui-expanded{
+.commissionReport-AccordianSummery .Mui-expanded {
   margin: 0 !important;
 }
+
 .MuiTypography-root.MuiTypography-body1.css-gv9xp0-MuiTypography-root {
-  line-height: 1 !important; /* Adjust the line height as needed */
+  line-height: 1 !important;
+  /* Adjust the line height as needed */
 }
 
 .whiteTextPagination li .MuiPaginationItem-root,
-.whiteTextPagination li button{
+.whiteTextPagination li button {
   color: #fff;
 }
 
-.activeEventTab .eventTab{ 
+.activeEventTab .eventTab {
   background-color: #F8C851;
 }
 
@@ -48,9 +50,8 @@ code {
 }
 
 .inplayicon {
-  width: 25px;
-display: flex;
-
+  width: 25px; /* Set explicit width */
+  height: auto; /* Maintain aspect ratio */
+  display: flex;
   margin-top: 10px;
-  
 }

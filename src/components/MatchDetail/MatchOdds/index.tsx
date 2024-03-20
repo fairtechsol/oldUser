@@ -32,6 +32,7 @@ const MatchesComponent = (_: any) => {
 
   useEffect(() => {
     try {
+      window.scrollTo(0, 0);
       if (success && socket?.connected) {
         if (getProfile?.roleName) {
           expertSocketService.match.matchAddedOff();

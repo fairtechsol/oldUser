@@ -113,6 +113,7 @@ const AllRateSeperate = ({
                 marginRight: "5px",
                 marginLeft: "5px",
               }}
+              alt=""
             />
             {/* <Typography
               sx={{ fontSize: "12px", fontWeight: "700", color: "#FF1111" }}
@@ -361,6 +362,7 @@ const AllRateSeperate = ({
                                 height: { xs: "5px", lg: "7px" },
                               }}
                               src={ARROWUP}
+                              alt=""
                             />
                           )}
                         </Box>
@@ -386,6 +388,7 @@ const AllRateSeperate = ({
                             marginRight: "5px",
                           }}
                           src={DELETE}
+                          alt=""
                         />
                         <Typography
                           sx={{

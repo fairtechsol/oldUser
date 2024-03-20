@@ -135,6 +135,7 @@ const RowComponentMatches = ({
                     ? "rotate(180deg)"
                     : "rotate(0deg)",
               }}
+              alt=""
             />
           )}
           {/* <StyledImage
@@ -209,6 +210,7 @@ const RowComponentMatches = ({
                 width: { lg: "25px", xs: "15px" },
                 height: { lg: "12px", xs: "8px" },
               }}
+              alt=""
             />
           </Box>
           <Box
@@ -247,6 +249,7 @@ const RowComponentMatches = ({
                     ? "rotate(180deg)"
                     : "rotate(0deg)",
               }}
+              alt=""
             />
           </Box>
         </Box>
@@ -309,6 +312,7 @@ const RowComponentMatches = ({
                 width: { lg: "25px", xs: "15px" },
                 height: { lg: "12px", xs: "8px" },
               }}
+              alt=""
             />
           </Box>
           <Box
@@ -346,6 +350,7 @@ const RowComponentMatches = ({
                     ? "rotate(180deg)"
                     : "rotate(0deg)",
               }}
+              alt=""
             />
           </Box>
         </Box>

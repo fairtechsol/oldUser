@@ -140,6 +140,7 @@ const QuickSessionMarket = ({
                   marginLeft: "5px",
                   cursor: "pointer",
                 }}
+                alt=""
               />
             </Box>
           </Box>
@@ -272,6 +273,7 @@ const QuickSessionMarket = ({
                   <img
                     style={{ width: "35px", height: "40px" }}
                     src={LockIcon}
+                    alt=""
                   />
                   <Typography
                     sx={{

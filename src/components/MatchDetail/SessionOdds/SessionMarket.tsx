@@ -148,6 +148,7 @@ const SessionMarket = ({
                   marginLeft: "5px",
                   cursor: "pointer",
                 }}
+                alt=""
               />
             </Box>
           </Box>
@@ -289,6 +290,7 @@ const SessionMarket = ({
                   <img
                     style={{ width: "35px", height: "40px" }}
                     src={LockIcon}
+                    alt=""
                   />
                   <Typography
                     sx={{

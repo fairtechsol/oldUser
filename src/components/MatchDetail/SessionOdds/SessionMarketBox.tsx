@@ -126,7 +126,7 @@ const SessionMarketBox = ({
           }}
         >
           {data?.GameStatus == "Ball Running" ? (
-            <img src={BallStart} style={{ width: "113px", height: "32px" }} />
+            <img src={BallStart} style={{ width: "113px", height: "32px" }} alt=""/>
           ) : (
             <Typography
               sx={{

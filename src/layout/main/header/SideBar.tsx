@@ -118,6 +118,7 @@ const SideBar = ({ mobileShow,handleDrawerToggle }: any) => {
                   selected == title ? "rotate(0deg)" : "rotate(180deg)",
               }}
               src={ArrowDown}
+              alt=""
             />
           </Box>
         </Box>

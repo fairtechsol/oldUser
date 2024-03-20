@@ -185,7 +185,7 @@ const ManualBoxComponent = ({
                 display: "flex",
               }}
             >
-              <img src={BallStart} style={{ width: "108px", height: "30px" }} />
+              <img src={BallStart} style={{ width: "108px", height: "30px" }} alt=""/>
             </Box>
           ) : null}
         </>
