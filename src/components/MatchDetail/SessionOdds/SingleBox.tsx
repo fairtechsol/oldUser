@@ -145,6 +145,7 @@ const SingleBox = ({
           fontSize: "12px",
           color: "white",
           wordWrap: "break-word",
+          lineHeight: "0.9"
         }}
       >
         {data}

@@ -25,7 +25,7 @@ const RowHeaderMatches = ({ item, getHandleReport, show }: any) => {
           background: "#F8C851",
         }}
       >
-        <StyledImage src={Cricket} sx={{ width: { lg: "35px", xs: "25px" } }} />
+        <StyledImage src={Cricket} sx={{ width: { lg: "35px", xs: "25px" } }} alt=""/>
       </Box>
       <Box
         sx={{
@@ -51,6 +51,7 @@ const RowHeaderMatches = ({ item, getHandleReport, show }: any) => {
             transform: show ? "rotate(180deg)" : "rotate(0deg)",
             height: { lg: "10px", xs: "6px" },
           }}
+          alt=""
         />
       </Box>
       <Box
@@ -89,6 +90,7 @@ const RowHeaderMatches = ({ item, getHandleReport, show }: any) => {
               width: { lg: "25px", xs: "15px" },
               height: { lg: "12px", xs: "8px" },
             }}
+            alt=""
           />
         </Box>
         <Box sx={{ display: "flex", alignItems: "center" }}>

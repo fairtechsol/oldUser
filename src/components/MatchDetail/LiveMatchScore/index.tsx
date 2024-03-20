@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 
-import ARROWUP from "../../../assets/images/arrowup1.png";
+import ARROWUP from "../../../assets/images/arrowup1.webp";
 import { useState, useEffect } from "react";
 // import { apiBasePath } from "./helper/constants";
 
@@ -116,6 +116,7 @@ const LiveScore = ({ currentMatch, liveScoreData, submit }: any) => {
               marginRight: "5px",
               marginLeft: "5px",
             }}
+            alt=""
           />
         </Box>
       </Box>

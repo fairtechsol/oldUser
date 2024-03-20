@@ -55,6 +55,7 @@ any) => {
         <img
           style={{ width: "30px", height: "30px" }}
           src={FASTTIME}
+          alt=""
           onClick={() => {
             // if (
             //   matchOddsData?.statusTeamA === "active" ||

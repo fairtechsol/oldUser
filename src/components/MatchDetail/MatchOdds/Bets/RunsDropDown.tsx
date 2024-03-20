@@ -147,6 +147,7 @@ const RunsDropDown = ({ list }: any) => {
                           "invert(.9) sepia(1) saturate(5) hue-rotate(175deg);",
                         width: "15px",
                       }}
+                      alt=""
                     />
                   </Box>
                 </Box>

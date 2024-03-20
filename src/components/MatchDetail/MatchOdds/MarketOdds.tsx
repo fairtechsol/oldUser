@@ -112,7 +112,7 @@ const Time = (data: any) => {
       >
         {data.time} sec Delay
       </Typography>
-      <img style={{ width: "20px", height: "20px" }} src={TIME} />
+      <img style={{ width: "20px", height: "20px" }} src={TIME} alt=""/>
     </Box>
   );
 };
@@ -402,6 +402,7 @@ const MarketOdds = ({
                   <img
                     style={{ width: "35px", height: "40px" }}
                     src={LockIcon}
+                    alt=""
                   />
                   <Typography
                     sx={{

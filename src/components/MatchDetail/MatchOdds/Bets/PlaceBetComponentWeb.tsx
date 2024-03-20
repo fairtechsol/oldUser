@@ -104,6 +104,7 @@ const PlaceBetComponentWeb = ({ profitLoss, data, show, setShow }: any) => {
           <img
             src={UD}
             style={{ width: "12px", height: "12px", marginLeft: "5px" }}
+            alt=""
           />
         </Box>
         {show?.open && show?.id === data?.id && (
