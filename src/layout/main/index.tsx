@@ -7,7 +7,7 @@ import { BACKIMAGE } from "../../assets";
 import BackgroundLayout from "../../components/Common/BackgroundLayout";
 import SecureAuthVerification from "../../pages/auth/secureAuthverification";
 import Rules from "../../pages/rules";
-import { socket, socketService } from "../../socketManager";
+import { socketService } from "../../socketManager";
 import {
   getProfile,
   marqueeNotification,

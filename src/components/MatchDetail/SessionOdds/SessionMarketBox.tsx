@@ -4,6 +4,7 @@ import { BallStart } from "../../../assets";
 import SeparateModal from "../MatchOdds/SeparateModal";
 import PlaceBetComponent from "../MatchOdds/Bets/PlaceBetComponent";
 import PlaceBetComponentWeb from "../MatchOdds/Bets/PlaceBetComponentWeb";
+import { formatToINR } from "../../../helper";
 
 const SessionMarketBox = ({
   index,
@@ -60,32 +61,31 @@ const SessionMarketBox = ({
           alignItems: "center",
         }}
       >
-        
         <Typography>
-        <Typography
-          sx={{
-            color: "black",
-            fontSize: { lg: "12px", md: "10px", xs: "9px" },
-            marginLeft: "7px",
-            fontWeight: "600",
-            textAlign: "start",
-            paddingRight: "5rem",
-            lineHeight:'12px'
-          }}
-        >
-          {data?.RunnerName}
-        </Typography>
-        <Typography
-          sx={{
-            color: "black",
-            fontSize: { lg: "10px", md: "9px", xs: "7px" },
-            marginLeft: "7px",
-            fontWeight: "500",
-            textAlign: "start",
-          }}
-        >
-          max:{data?.max}
-        </Typography>
+          <Typography
+            sx={{
+              color: "black",
+              fontSize: { lg: "12px", md: "10px", xs: "9px" },
+              marginLeft: "7px",
+              fontWeight: "600",
+              textAlign: "start",
+              paddingRight: "5rem",
+              lineHeight: "12px",
+            }}
+          >
+            {data?.RunnerName}
+          </Typography>
+          <Typography
+            sx={{
+              color: "black",
+              fontSize: { lg: "10px", md: "9px", xs: "7px" },
+              marginLeft: "7px",
+              fontWeight: "500",
+              textAlign: "start",
+            }}
+          >
+            max:{formatToINR(data?.max || 0)}
+          </Typography>
         </Typography>
       </Box>
       {matchesMobile && (
@@ -109,7 +109,7 @@ const SessionMarketBox = ({
       {!["ACTIVE", "active", "", undefined, null, ""].includes(
         data?.GameStatus
       ) ||
-        (data.BackSize1 === null && data.LaySize1 === null) ? (
+      (data.BackSize1 === null && data.LaySize1 === null) ? (
         <Box
           sx={{
             background: "rgba(0,0,0,1)",
@@ -126,7 +126,11 @@ const SessionMarketBox = ({
           }}
         >
           {data?.GameStatus == "Ball Running" ? (
-            <img src={BallStart} style={{ width: "113px", height: "32px" }} alt=""/>
+            <img
+              src={BallStart}
+              style={{ width: "113px", height: "32px" }}
+              alt=""
+            />
           ) : (
             <Typography
               sx={{

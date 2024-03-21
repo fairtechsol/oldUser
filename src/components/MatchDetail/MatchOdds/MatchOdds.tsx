@@ -48,7 +48,7 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
       setTimeLeft(calculateTimeLeft);
     }, 0);
     return () => clearTimeout(timer);
-  },[]);
+  }, []);
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -237,7 +237,6 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
               data={matchDetails?.apiSession}
               eventType={matchDetails?.matchType}
               min={formatToINR(matchDetails?.betFairSessionMinBet)}
-              max={formatToINR(matchDetails?.betFairSessionMaxBet)}
               upcoming={!upcoming}
               matchDetails={matchDetails}
             />
@@ -263,7 +262,6 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
               )}
               eventType={matchDetails?.matchType}
               minBet={formatToINR(matchDetails?.betFairSessionMinBet)}
-              maxBet={formatToINR(matchDetails?.betFairSessionMaxBet)}
               typeOfBet={matchDetails?.type}
             />
           )}
