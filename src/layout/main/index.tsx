@@ -59,14 +59,15 @@ const MainLayout = () => {
     }
   }, [sessionStorage.getItem("userToken")]);
 
+  // useEffect(() => {
+  //   if (sessionStorage.getItem("userToken")) {
+  //     socketService.connect();
+  //   }
+  // }, []);
+
   useEffect(() => {
     if (sessionStorage.getItem("userToken")) {
       socketService.connect();
-    }
-  }, []);
-
-  useEffect(() => {
-    if (socket?.connected) {
       socketService.auth.logout();
       socketService.userBalance.updateUserBalance(updateLoggedUserBalance);
       socketService.userBalance.sessionResult(sessionResultDeclared);
@@ -76,20 +77,22 @@ const MainLayout = () => {
       socketService.userBalance.matchResultUnDeclared(handleMatchResult);
       socketService.userBalance.matchDeleteBet(getUserProfile);
       socketService.userBalance.sessionDeleteBet(getUserProfile);
-      return () => {
-        socketService.userBalance.updateUserBalanceOff();
-        socketService.userBalance.sessionResultOff();
-        socketService.userBalance.sessionResultUnDeclareOff();
-        socketService.userBalance.userSessionBetPlacedOff();
-        socketService.userBalance.userMatchBetPlacedOff();
-        socketService.userBalance.matchResultDeclaredOff();
-        socketService.userBalance.matchResultUnDeclaredOff();
-        socketService.userBalance.sessionNoResultOff();
-        socketService.userBalance.matchDeleteBetOff();
-        socketService.userBalance.sessionDeleteBetOff();
-      };
     }
-  }, [socket?.connected]);
+  }, [sessionStorage]);
+
+  useEffect(() => {
+    return () => {
+      socketService.userBalance.sessionResultOff();
+      socketService.userBalance.sessionResultUnDeclareOff();
+      socketService.userBalance.userSessionBetPlacedOff();
+      socketService.userBalance.userMatchBetPlacedOff();
+      socketService.userBalance.matchResultDeclaredOff();
+      socketService.userBalance.matchResultUnDeclaredOff();
+      socketService.userBalance.sessionNoResultOff();
+      socketService.userBalance.matchDeleteBetOff();
+      socketService.userBalance.sessionDeleteBetOff();
+    };
+  }, []);
 
   return (
     <>
