@@ -4,6 +4,7 @@ import { ARROWUP, ArrowDown, DELETE } from "../../../assets";
 
 import StyledImage from "../../Common/StyledImages";
 import RowComponent from "./RowComponent";
+import { formatToINR } from "../../../helper";
 const SessionBetSeperate = ({ profit, mark2, placedBets, isArrow }: any) => {
   const [visible, setVisible] = useState(true);
 
@@ -277,10 +278,10 @@ const SessionBetSeperate = ({ profit, mark2, placedBets, isArrow }: any) => {
                             {Number(i.totalLoss) >= 0 ? (
                               <>
                                 <span style={{ visibility: "hidden" }}>-</span>
-                                {Number(i.totalLoss).toFixed(2)}
+                                {formatToINR(Number(i.totalLoss).toFixed(2))}
                               </>
                             ) : (
-                              Number(i.totalLoss).toFixed(2)
+                              formatToINR(Number(i.totalLoss).toFixed(2))
                             )}
                             {/* {Number(i.totalLoss).toFixed(2)} */}
                           </Typography>

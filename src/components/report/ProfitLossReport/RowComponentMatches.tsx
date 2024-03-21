@@ -13,6 +13,7 @@ import {
   getTotalBetProfitLoss,
 } from "../../../store/actions/user/userAction";
 import { useSelector } from "react-redux";
+import { formatToINR } from "../../../helper";
 
 const RowComponentMatches = ({
   item,
@@ -176,7 +177,7 @@ const RowComponentMatches = ({
             }
           }}
           sx={{
-            background: item.rateProfitLoss > 0 ? "#27AC1E" : "#E32A2A",
+            background: item?.rateProfitLoss > 0 ? "#27AC1E" : "#E32A2A",
             paddingX: "2px",
             width: { xs: "25%", lg: "30%" },
             height: "100%",
@@ -205,7 +206,7 @@ const RowComponentMatches = ({
               Rate Profit/Loss
             </Typography>
             <StyledImage
-              src={item.rateProfitLoss > 0 ? ARROW_UP : ARROW_DOWN}
+              src={item?.rateProfitLoss > 0 ? ARROW_UP : ARROW_DOWN}
               sx={{
                 width: { lg: "25px", xs: "15px" },
                 height: { lg: "12px", xs: "8px" },
@@ -231,10 +232,10 @@ const RowComponentMatches = ({
               {Number(item?.rateProfitLoss) >= 0 ? (
                 <>
                   <span style={{ visibility: "hidden" }}>-</span>
-                  {Number(item?.rateProfitLoss).toFixed(2)}
+                  {formatToINR(Number(item?.rateProfitLoss).toFixed(2))}
                 </>
               ) : (
-                Number(item?.rateProfitLoss).toFixed(2)
+                formatToINR(Number(item?.rateProfitLoss).toFixed(2))
               )}{" "}
             </Typography>
             <StyledImage
@@ -278,7 +279,7 @@ const RowComponentMatches = ({
             }
           }}
           sx={{
-            background: item.sessionProfitLoss > 0 ? "#27AC1E" : "#E32A2A",
+            background: item?.sessionProfitLoss > 0 ? "#27AC1E" : "#E32A2A",
             paddingX: "2px",
             width: { xs: "25%", lg: "30%" },
             height: "100%",
@@ -307,7 +308,7 @@ const RowComponentMatches = ({
               Session Profit/Loss
             </Typography>
             <StyledImage
-              src={item.sessionProfitLoss > 0 ? ARROW_UP : ARROW_DOWN}
+              src={item?.sessionProfitLoss > 0 ? ARROW_UP : ARROW_DOWN}
               sx={{
                 width: { lg: "25px", xs: "15px" },
                 height: { lg: "12px", xs: "8px" },
@@ -332,10 +333,10 @@ const RowComponentMatches = ({
               {Number(item?.sessionProfitLoss) >= 0 ? (
                 <>
                   <span style={{ visibility: "hidden" }}>-</span>
-                  {Number(item?.sessionProfitLoss).toFixed(2)}
+                  {formatToINR(Number(item?.sessionProfitLoss).toFixed(2))}
                 </>
               ) : (
-                Number(item?.sessionProfitLoss).toFixed(2)
+                formatToINR(Number(item?.sessionProfitLoss).toFixed(2))
               )}
             </Typography>
             <StyledImage

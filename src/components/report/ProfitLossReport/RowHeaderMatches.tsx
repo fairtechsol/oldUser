@@ -2,6 +2,7 @@ import { Box, Typography } from "@mui/material";
 import { memo } from "react";
 import { ARROW_DOWN, ARROW_UP, ArrowDown, Cricket } from "../../../assets";
 import StyledImage from "../../Common/StyledImages";
+import { formatToINR } from "../../../helper";
 
 const RowHeaderMatches = ({ item, getHandleReport, show }: any) => {
   return (
@@ -25,7 +26,11 @@ const RowHeaderMatches = ({ item, getHandleReport, show }: any) => {
           background: "#F8C851",
         }}
       >
-        <StyledImage src={Cricket} sx={{ width: { lg: "35px", xs: "25px" } }} alt=""/>
+        <StyledImage
+          src={Cricket}
+          sx={{ width: { lg: "35px", xs: "25px" } }}
+          alt=""
+        />
       </Box>
       <Box
         sx={{
@@ -104,10 +109,10 @@ const RowHeaderMatches = ({ item, getHandleReport, show }: any) => {
             {Number(item?.totalLoss) >= 0 ? (
               <>
                 <span style={{ visibility: "hidden" }}>-</span>
-                {Number(item?.totalLoss).toFixed(2)}
+                {formatToINR(Number(item?.totalLoss).toFixed(2))}
               </>
             ) : (
-              Number(item?.totalLoss).toFixed(2)
+              formatToINR(Number(item?.totalLoss).toFixed(2))
             )}{" "}
           </Typography>
         </Box>
