@@ -191,8 +191,8 @@ const SessionMarket = ({
                       marginLeft: "7px",
                     }}
                   >
-                    MIN:{min} 
-                     {/* MAX:
+                    MIN:{min}
+                    {/* MAX:
                     {max} */}
                   </Typography>
                 </Box>
@@ -350,7 +350,11 @@ const SessionMarket = ({
                           typeOfBet={typeOfBet}
                           setFastBetLoading={() => {}}
                           eventType={eventType}
-                          data={{ ...element, matchId: matchDetails?.id }}
+                          data={{
+                            ...element,
+                            matchId: matchDetails?.id,
+                            type: "session",
+                          }}
                           sessionMain={session}
                           selectedFastAmount={fastAmount}
                           setFastAmount={setFastAmount}
