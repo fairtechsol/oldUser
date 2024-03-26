@@ -53,8 +53,8 @@ const ManualBoxComponent = ({
             ? 0
             : Math.round(getValue)
           : getValue >= 100
-          ? 100
-          : Math.round(getValue);
+            ? 100
+            : Math.round(getValue);
       let returnValue;
       if (type == "back") {
         let check = value % 1;
@@ -76,8 +76,8 @@ const ManualBoxComponent = ({
             ? 0
             : Math.round(getValue)
           : getValue >= 100
-          ? 100
-          : Math.round(getValue);
+            ? 100
+            : Math.round(getValue);
       let returnValue;
       if (type == "back") {
         let check = value % 1;
@@ -185,7 +185,7 @@ const ManualBoxComponent = ({
                 display: "flex",
               }}
             >
-              <img src={BallStart} style={{ width: "108px", height: "30px" }} alt=""/>
+              <img src={BallStart} style={{ width: "108px", height: "30px", marginBottom: isTeamC ? "45px" : "0", }} alt="" />
             </Box>
           ) : null}
         </>
