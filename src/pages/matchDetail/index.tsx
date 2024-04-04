@@ -237,6 +237,7 @@ const MatchDetail = () => {
         socketService.userBalance.userSessionBetPlacedOff();
         socketService.userBalance.userMatchBetPlacedOff();
         socketService.userBalance.matchResultDeclaredOff();
+        socketService.userBalance.declaredMatchResultAllUserOff();
         socketService.userBalance.matchDeleteBetOff();
         socketService.userBalance.sessionDeleteBetOff();
         socketService.userBalance.sessionResultOff();
@@ -253,6 +254,7 @@ const MatchDetail = () => {
         socketService.userBalance.userSessionBetPlaced(setSessionBetsPlaced);
         socketService.userBalance.userMatchBetPlaced(setMatchBetsPlaced);
         socketService.userBalance.matchResultDeclared(resultDeclared);
+        socketService.userBalance.declaredMatchResultAllUser(resultDeclared);
         socketService.userBalance.matchDeleteBet(handleMatchbetDeleted);
         socketService.userBalance.sessionDeleteBet(handleSessionBetDeleted);
         socketService.userBalance.sessionResult(handleSessionResultDeclare);
@@ -291,6 +293,7 @@ const MatchDetail = () => {
       socketService.userBalance.userSessionBetPlacedOff();
       socketService.userBalance.userMatchBetPlacedOff();
       socketService.userBalance.matchResultDeclaredOff();
+      socketService.userBalance.declaredMatchResultAllUserOff();
       socketService.userBalance.matchDeleteBetOff();
       socketService.userBalance.sessionDeleteBetOff();
       socketService.userBalance.sessionResultOff();
@@ -301,6 +304,8 @@ const MatchDetail = () => {
       socketService.userBalance.matchResultDeclared(handleMatchResult);
       socketService.userBalance.sessionNoResult(getUserProfile);
       socketService.userBalance.matchResultUnDeclared(handleMatchResult);
+      socketService.userBalance.declaredMatchResultAllUser(handleMatchResult);
+      socketService.userBalance.unDeclaredMatchResultAllUser(handleMatchResult);
       socketService.userBalance.matchDeleteBet(getUserProfile);
       socketService.userBalance.sessionDeleteBet(getUserProfile);
     };
