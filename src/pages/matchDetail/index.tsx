@@ -275,8 +275,10 @@ const MatchDetail = () => {
   };
 
   const handleMatchResult = () => {
-    dispatch(getMatchList({}));
     dispatch(getProfileInMatchDetail());
+    setTimeout(() => {
+      dispatch(getMatchList({}));
+    }, 1000);
   };
   const getUserProfile = () => {
     dispatch(getProfileInMatchDetail());

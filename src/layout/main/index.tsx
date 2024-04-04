@@ -42,8 +42,10 @@ const MainLayout = () => {
   };
 
   const handleMatchResult = () => {
-    dispatch(getMatchList({}));
     dispatch(getProfile());
+    setTimeout(() => {
+      dispatch(getMatchList({}));
+    }, 1000);
   };
   const getUserProfile = () => {
     dispatch(getProfile());
