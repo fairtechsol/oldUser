@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { expertSocketService, socket } from "../../../socketManager";
 import {
   getMatchList,
+  matchDetailReset,
   updateMatchOddRates,
 } from "../../../store/actions/match/matchListAction";
 import { AppDispatch, RootState } from "../../../store/store";
@@ -20,7 +21,9 @@ const MatchesComponent = (_: any) => {
   const { matchList, success } = useSelector(
     (state: RootState) => state.match.matchList
   );
-  const { getProfile } = useSelector((state: RootState) => state.user.profile);
+  const { profileDetail } = useSelector(
+    (state: RootState) => state.user.profile
+  );
 
   const setMatchOddRatesInRedux = (event: any) => {
     dispatch(updateMatchOddRates(event));
@@ -34,7 +37,7 @@ const MatchesComponent = (_: any) => {
     try {
       window.scrollTo(0, 0);
       if (success && socket?.connected) {
-        if (getProfile?.roleName) {
+        if (profileDetail?.roleName) {
           expertSocketService.match.matchAddedOff();
           matchList?.matches?.forEach((element: any) => {
             expertSocketService.match.getMatchRatesOff(element?.id);
@@ -42,7 +45,7 @@ const MatchesComponent = (_: any) => {
           matchList?.matches?.forEach((element: any) => {
             expertSocketService.match.joinMatchRoom(
               element?.id,
-              getProfile?.roleName
+              profileDetail?.roleName
             );
           });
           matchList?.matches?.forEach((element: any) => {
@@ -57,7 +60,7 @@ const MatchesComponent = (_: any) => {
     } catch (e) {
       console.log(e);
     }
-  }, [success, getProfile?.roleName, socket?.connected]);
+  }, [success, profileDetail?.roleName, socket?.connected]);
 
   useEffect(() => {
     return () => {
@@ -72,12 +75,14 @@ const MatchesComponent = (_: any) => {
   }, []);
 
   useEffect(() => {
-    if (selectedMatchId !== "")
+    if (selectedMatchId !== "") {
+      dispatch(matchDetailReset());
       navigate("/matchDetail", {
         state: {
           matchId: selectedMatchId,
         },
       });
+    }
     return () => {
       if (selectedMatchId !== "") {
         matchList?.matches?.forEach((element: any) => {

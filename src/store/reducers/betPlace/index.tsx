@@ -81,7 +81,7 @@ const placedBet = createSlice({
         state.error = action?.error?.message;
       })
       .addCase(resetRunAmount, (state) => {
-        return { ...state, runAmount: {} };
+        state.runAmount = {};
       })
       .addCase(updateRunAmount.fulfilled, (state, action) => {
         const { betId, profitLossData } = action.payload;
@@ -127,7 +127,7 @@ const placedBet = createSlice({
         }
       })
       .addCase(betsSuccessReset, (state) => {
-        return { ...state, success: false };
+        state.success = false;
       });
   },
 });

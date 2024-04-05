@@ -58,7 +58,7 @@ const betPlace = createSlice({
         }
       })
       .addCase(betPlaceSuccessReset, (state) => {
-        return { ...state, success: false };
+        state.success = false;
       });
   },
 });

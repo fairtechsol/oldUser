@@ -19,11 +19,10 @@ import TeamsOdssData from "./TeamOddsData";
 import NotificationModal from "../../../Common/NotificationModal";
 import { toast } from "react-toastify";
 
-
 const OddsPlaceBet = ({ handleClose, season, type }: any) => {
   const [stakeValue, setStakeValue] = useState<any>(" ");
   const [matchOddLoading, setMatchOddLoading] = useState<any>(false);
-  const { buttonValues, getProfile } = useSelector(
+  const { buttonValues, profileDetail } = useSelector(
     (state: RootState) => state.user.profile
   );
   const { selectedBet, minMax } = useSelector(
@@ -353,12 +352,14 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
               if (loading) {
                 return;
               } else {
-                if(stakeValue > minMax?.max){
-                  toast.error('Amount should be less then maximum bet amount!');
-                  return false ;
-                }else if(stakeValue < minMax?.min){
-                  toast.error('Amount should be greater then minimum bet amount!');
-                  return false ;
+                if (stakeValue > minMax?.max) {
+                  toast.error("Amount should be less then maximum bet amount!");
+                  return false;
+                } else if (stakeValue < minMax?.min) {
+                  toast.error(
+                    "Amount should be greater then minimum bet amount!"
+                  );
+                  return false;
                 }
                 let payloadForSession: any = {
                   betId: selectedBet?.team?.betId,
@@ -417,7 +418,7 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
                             : JSON.stringify(payloadForBettings),
                       })
                     );
-                  }, getProfile?.delayTime * 1000);
+                  }, profileDetail?.delayTime * 1000);
                 } else {
                   dispatch(
                     placeBet({
@@ -444,8 +445,8 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
 
       {(loading || matchOddLoading) && (
         <NotificationModal
-          // open={{ value: true, loading: loading }}
-          // handleClose={""}
+        // open={{ value: true, loading: loading }}
+        // handleClose={""}
         />
       )}
     </Box>

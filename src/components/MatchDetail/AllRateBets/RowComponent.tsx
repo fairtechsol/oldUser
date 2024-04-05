@@ -6,10 +6,15 @@ import moment from "moment";
 import { formatToINR } from "../../../helper";
 
 const RowComponent = ({ header, data }: any) => {
-  const { getProfile } = useSelector((state: RootState) => state.user.profile);
+  const { profileDetail } = useSelector(
+    (state: RootState) => state.user.profile
+  );
 
-  const getTime = (date:any) => {
-    const timeString = moment.utc(date).utcOffset('+05:30').format("hh:mm:ss A");
+  const getTime = (date: any) => {
+    const timeString = moment
+      .utc(date)
+      .utcOffset("+05:30")
+      .format("hh:mm:ss A");
     return timeString;
   };
   const getColor = () => {
@@ -42,7 +47,6 @@ const RowComponent = ({ header, data }: any) => {
             data={data?.bettingName}
             first={true}
             header={header}
-           
           />
           {/* </Box> */}
           <Box
@@ -60,7 +64,7 @@ const RowComponent = ({ header, data }: any) => {
                 data?.username ||
                 data?.userName ||
                 data?.user?.userName ||
-                getProfile?.userName
+                profileDetail?.userName
               }
               header={header}
               boxWidth="100%"
@@ -68,7 +72,7 @@ const RowComponent = ({ header, data }: any) => {
           </Box>
           {/* <Box sx={{ width: "52%", minWidth: "19%" }}> */}
           <SingleBox
-           time={getTime(data.createdAt)}
+            time={getTime(data.createdAt)}
             color={getColor()}
             data={data.teamName}
             up={true}

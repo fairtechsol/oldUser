@@ -88,7 +88,8 @@ const matchListSlice = createSlice({
       })
       .addCase(SearchListReset, (state) => {
         // Reset the state to initial state
-        return { ...state, success: false, getMatchListBySearch: [] };
+        state.success = false;
+        state.getMatchListBySearch = [];
       })
       .addCase(matchDetailAction.pending, (state) => {
         state.matchDetailloading = true;
@@ -107,10 +108,10 @@ const matchListSlice = createSlice({
         state.error = action?.error?.message;
       })
       .addCase(matchDetailReset, (state) => {
-        return { ...state, matchDetails: null };
+        state.matchDetails = null;
       })
       .addCase(matchDetailSuccessReset, (state) => {
-        return { ...state, success: false };
+        state.success = false;
       })
       .addCase(updateMatchRates.fulfilled, (state, action) => {
         const {
@@ -144,8 +145,6 @@ const matchListSlice = createSlice({
         );
         if (indexOfItemToUpdate !== -1) {
           state.matchList.matches[indexOfItemToUpdate].matchOdds[0] = matchOdd;
-        } else {
-          return state.matchList;
         }
       })
       .addCase(matchListReset, (state) => {
@@ -220,8 +219,6 @@ const matchListSlice = createSlice({
             ...state.matchDetails,
             profitLossDataSession: updatedProfitLossDataSession,
           };
-        } else {
-          return state.matchDetails;
         }
       })
       .addCase(updateProfitLossOnDeleteSession.fulfilled, (state, action) => {
@@ -243,8 +240,6 @@ const matchListSlice = createSlice({
             ...state.matchDetails,
             profitLossDataSession: updatedProfitLossDataSession,
           };
-        } else {
-          return state.matchDetails;
         }
       })
       .addCase(updateBetDataOnDeclare.fulfilled, (state, action) => {
@@ -259,8 +254,6 @@ const matchListSlice = createSlice({
             ...state.matchDetails,
             profitLossDataSession: updatedProfitLossDataSession,
           };
-        } else {
-          return state.matchDetails;
         }
       })
       .addCase(updateBetDataOnUndeclare.fulfilled, (state, action) => {
@@ -293,8 +286,6 @@ const matchListSlice = createSlice({
             ...state.matchDetails,
             profitLossDataSession: updatedProfitLossDataSession,
           };
-        } else {
-          return state.matchDetails;
         }
       })
       .addCase(updateTeamRatesOnDeleteMatch.fulfilled, (state, action) => {
@@ -343,24 +334,30 @@ const matchListSlice = createSlice({
             max: data?.maxBet,
           };
         } else if (team?.matchBetType === "quickbookmaker1") {
-          const index = data?.quickBookmaker.findIndex((obj : any) => obj['type'] === "quickbookmaker1");
+          const index = data?.quickBookmaker.findIndex(
+            (obj: any) => obj["type"] === "quickbookmaker1"
+          );
           value = {
             min: data?.quickBookmaker[index].minBet,
             max: data?.quickBookmaker[index].maxBet,
           };
         } else if (team?.matchBetType === "quickbookmaker2") {
-          const index = data?.quickBookmaker.findIndex((obj : any) => obj['type'] === "quickbookmaker2");
+          const index = data?.quickBookmaker.findIndex(
+            (obj: any) => obj["type"] === "quickbookmaker2"
+          );
           value = {
             min: data?.quickBookmaker[index].minBet,
             max: data?.quickBookmaker[index].maxBet,
           };
         } else if (team?.matchBetType === "quickbookmaker3") {
-          const index = data?.quickBookmaker.findIndex((obj : any) => obj['type'] === "quickbookmaker3");
+          const index = data?.quickBookmaker.findIndex(
+            (obj: any) => obj["type"] === "quickbookmaker3"
+          );
           value = {
             min: data?.quickBookmaker[index].minBet,
             max: data?.quickBookmaker[index].maxBet,
           };
-        }else if (team?.matchBetType === "tiedMatch2") {
+        } else if (team?.matchBetType === "tiedMatch2") {
           value = {
             min: data?.manualTiedMatch?.minBet,
             max: data?.manualTiedMatch?.maxBet,
