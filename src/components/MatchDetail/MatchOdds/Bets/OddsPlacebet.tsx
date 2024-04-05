@@ -24,7 +24,7 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
   const [matchOddLoading, setMatchOddLoading] = useState<any>(false);
   const [openModal1, setOpenModal1] = useState(false);
   const [errorText, setErrorText] = useState('')
-  const { buttonValues, getProfile } = useSelector(
+  const { buttonValues, profileDetail } = useSelector(
     (state: RootState) => state.user.profile
   );
   const { selectedBet, minMax } = useSelector(
