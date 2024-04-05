@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
+  betPlaceErrorCheck,
   betPlaceSuccessReset,
   placeBet,
 } from "../../actions/betPlace/betPlaceActions";
@@ -10,6 +11,7 @@ interface InitialState {
   loading: boolean;
   success: boolean;
   error: any;
+  betPlaceError: any;
 }
 
 const initialState: InitialState = {
@@ -17,6 +19,7 @@ const initialState: InitialState = {
   loading: false,
   success: false,
   error: null,
+  betPlaceError: false,
 };
 
 const betPlace = createSlice({
@@ -34,9 +37,13 @@ const betPlace = createSlice({
         state.success = true;
         state.loading = false;
       })
-      .addCase(placeBet.rejected, (state, action) => {
+      .addCase(placeBet.rejected, (state, action: any) => {
+        const { data } = action.payload
         state.loading = false;
-        state.error = action?.error?.message;
+        if (data?.statusCode == 400) {
+          state.betPlaceError = true;
+        }
+        state.error = data?.message;
       })
       .addCase(betDataFromSocket.fulfilled, (state, action) => {
         const betId = action.payload?.betPlaced?.placedBet?.betId;
@@ -59,6 +66,10 @@ const betPlace = createSlice({
       })
       .addCase(betPlaceSuccessReset, (state) => {
         return { ...state, success: false };
+      })
+      .addCase(betPlaceErrorCheck, (state) => {
+        state.error = null;
+        state.betPlaceError = false;
       });
   },
 });

@@ -53,10 +53,10 @@ export const userBalanceSocketService = {
     socket.off("matchResultUnDeclare");
   },
   declaredMatchResultAllUserOff: () => {
-    socket.on("matchResultDeclareAllUser");
+    socket.off("matchResultDeclareAllUser");
   },
   unDeclaredMatchResultAllUserOff: () => {
-    socket.on("matchResultUnDeclareAllUser");
+    socket.off("matchResultUnDeclareAllUser");
   },
   matchDeleteBetOff: () => {
     socket.off("matchDeleteBet");

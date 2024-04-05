@@ -3,14 +3,18 @@ import { Box } from "@mui/system";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  betPlaceErrorCheck,
   betPlaceSuccessReset,
   placeBet,
 } from "../../../../store/actions/betPlace/betPlaceActions";
 import { AppDispatch, RootState } from "../../../../store/store";
 import { ApiConstants } from "../../../../utils/Constants";
 import NotificationModal from "../../../Common/NotificationModal";
-import SmallCustomLoader from "../../../Loader/smallLoader";
 import NumberData from "./NumberDataFastTime";
+import MUIModal from "@mui/material/Modal";
+import Loader from "../../../Loader";
+import { NOT } from "../../../../assets";
+
 const FastTimePlaceBet = ({
   session,
   selectedFastAmount,
@@ -20,13 +24,15 @@ const FastTimePlaceBet = ({
   selectedValue,
   matchOddsData,
 }: // setShowFastTimeBox,
-any) => {
+  any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
-  const { success, loading } = useSelector(
+  const { success, loading, error,betPlaceError } = useSelector(
     (state: RootState) => state.match.bet
   );
   const [ipAddress] = useState(null);
+  const [openModal, setOpenModal] = useState(false)
+  const [openModal1, setOpenModal1] = useState(false)
   const [canceled] = useState({
     value: false,
     msg: "",
@@ -100,31 +106,31 @@ any) => {
       if (matchOddsData?.type === "tiedMatch2") {
         betTeam =
           matchOddsData?.statusTeamA === "active" &&
-          matchOddsData?.statusTeamB === "active"
+            matchOddsData?.statusTeamB === "active"
             ? index === 0
               ? "YES"
               : "NO"
             : matchOddsData?.statusTeamA === "active" &&
               matchOddsData?.statusTeamB === "suspended"
-            ? "YES"
-            : matchOddsData?.statusTeamA === "suspended" &&
-              matchOddsData?.statusTeamB === "active"
-            ? "NO"
-            : "";
+              ? "YES"
+              : matchOddsData?.statusTeamA === "suspended" &&
+                matchOddsData?.statusTeamB === "active"
+                ? "NO"
+                : "";
       } else {
         betTeam =
           matchOddsData?.statusTeamA === "active" &&
-          matchOddsData?.statusTeamB === "active"
+            matchOddsData?.statusTeamB === "active"
             ? index === 0
               ? matchDetails?.teamA
               : matchDetails?.teamB
             : matchOddsData?.statusTeamA === "active" &&
               matchOddsData?.statusTeamB === "suspended"
-            ? matchDetails?.teamA
-            : matchOddsData?.statusTeamA === "suspended" &&
-              matchOddsData?.statusTeamB === "active"
-            ? matchDetails?.teamB
-            : "";
+              ? matchDetails?.teamA
+              : matchOddsData?.statusTeamA === "suspended" &&
+                matchOddsData?.statusTeamB === "active"
+                ? matchDetails?.teamB
+                : "";
       }
 
       let payload: any = {
@@ -142,12 +148,12 @@ any) => {
               ? matchOddsData?.backTeamA
               : matchOddsData?.layTeamA
             : matchOddsData?.statusTeamB === "active"
-            ? type === "BACK"
-              ? matchOddsData?.backTeamB
-              : matchOddsData?.layTeamB
-            : type === "BACK"
-            ? matchOddsData?.backTeamC
-            : matchOddsData?.layTeamC,
+              ? type === "BACK"
+                ? matchOddsData?.backTeamB
+                : matchOddsData?.layTeamB
+              : type === "BACK"
+                ? matchOddsData?.backTeamC
+                : matchOddsData?.layTeamC,
         matchBetType: matchOddsData?.type,
         stake: stake,
         placeIndex: 0,
@@ -176,9 +182,25 @@ any) => {
       dispatch(betPlaceSuccessReset());
     }
   }, [success]);
+
+  useEffect(() => {
+    setOpenModal(loading)
+    if (betPlaceError) { setOpenModal1(!loading) }
+    if (betPlaceError) { handleErrorModal() }
+
+  }, [loading])
+
+  const handleErrorModal = () => {
+    setTimeout(() => {
+      setOpenModal1(false)
+      dispatch(betPlaceErrorCheck());
+    }, 2000);
+  }
+
   return (
     <>
-      {loading && <SmallCustomLoader height="100%" />}
+      {/* {loading && <SmallCustomLoader height="100%" />} */}
+
       <Box
         // ref={refs}
         ref={myDivRef}
@@ -215,8 +237,8 @@ any) => {
             <>
               {/* {matchOddsData?.isSingle === false || matchOddsData?.teamB_suspend !== "suspended" ? ( */}
               {matchOddsData?.statusTeamC === "active" ||
-              (matchOddsData.statusTeamA === "active" &&
-                matchOddsData.statusTeamB === "active") ? (
+                (matchOddsData.statusTeamA === "active" &&
+                  matchOddsData.statusTeamB === "active") ? (
                 // ||
                 //   ((matchOddsData?.teamA_suspend === null || false) &&
                 //     (matchOddsData?.teamB_suspend === null || false))
@@ -315,12 +337,12 @@ any) => {
                                 typeOfBet={typeOfBet}
                                 placeIndex={
                                   matchOddsData?.marketType ===
-                                  "QuickBookmaker0"
+                                    "QuickBookmaker0"
                                     ? 0
                                     : matchOddsData?.marketType ===
                                       "QuickBookmaker1"
-                                    ? 1
-                                    : 2
+                                      ? 1
+                                      : 2
                                 }
                                 backgroundColor={"#A7DCFF"}
                                 matchOddsData={matchOddsData}
@@ -427,8 +449,8 @@ any) => {
                                   ? 0
                                   : matchOddsData?.marketType ===
                                     "QuickBookmaker1"
-                                  ? 1
-                                  : 2
+                                    ? 1
+                                    : 2
                               }
                               backgroundColor={"#A7DCFF"}
                               matchOddsData={matchOddsData}
@@ -528,12 +550,12 @@ any) => {
                                 typeOfBet={typeOfBet}
                                 placeIndex={
                                   matchOddsData?.marketType ===
-                                  "QuickBookmaker0"
+                                    "QuickBookmaker0"
                                     ? 0
                                     : matchOddsData?.marketType ===
                                       "QuickBookmaker1"
-                                    ? 1
-                                    : 2
+                                      ? 1
+                                      : 2
                                 }
                                 backgroundColor={"#A7DCFF"}
                                 matchOddsData={matchOddsData}
@@ -590,22 +612,22 @@ any) => {
                             ![null, ""].includes(matchOddsData?.teamA_Back)
                               ? matchOddsData?.teamA
                               : ![null, ""].includes(matchOddsData?.teamB_Back)
-                              ? matchOddsData?.teamB
-                              : matchOddsData?.teamC
+                                ? matchOddsData?.teamB
+                                : matchOddsData?.teamC
                           }
                           teamSuspend={
                             ![null, ""].includes(matchOddsData?.teamA_Back)
                               ? matchOddsData?.teamA_suspend
                               : ![null, ""].includes(matchOddsData?.teamB_Back)
-                              ? matchOddsData?.teamB_suspend
-                              : matchOddsData?.teamC_suspend
+                                ? matchOddsData?.teamB_suspend
+                                : matchOddsData?.teamC_suspend
                           }
                           odds={
                             ![null, ""].includes(matchOddsData?.teamA_Back)
                               ? matchOddsData?.teamA_Back
                               : ![null, ""].includes(matchOddsData?.teamB_Back)
-                              ? matchOddsData?.teamB_Back
-                              : matchOddsData?.teamC_Back
+                                ? matchOddsData?.teamB_Back
+                                : matchOddsData?.teamC_Back
                           }
                           typeOfBet={typeOfBet}
                           backgroundColor={"#A7DCFF"}
@@ -614,8 +636,8 @@ any) => {
                             matchOddsData?.marketType === "QuickBookmaker0"
                               ? 0
                               : matchOddsData?.marketType === "QuickBookmaker1"
-                              ? 1
-                              : 2
+                                ? 1
+                                : 2
                           }
                           data={data}
                         />
@@ -666,22 +688,22 @@ any) => {
                             ![null, ""].includes(matchOddsData?.teamA_lay)
                               ? matchOddsData?.teamA
                               : ![null, ""].includes(matchOddsData?.teamB_lay)
-                              ? matchOddsData?.teamB
-                              : matchOddsData?.teamC
+                                ? matchOddsData?.teamB
+                                : matchOddsData?.teamC
                           }
                           teamSuspend={
                             ![null, ""].includes(matchOddsData?.teamA_lay)
                               ? matchOddsData?.teamA_suspend
                               : ![null, ""].includes(matchOddsData?.teamB_lay)
-                              ? matchOddsData?.teamB_suspend
-                              : matchOddsData?.teamC_suspend
+                                ? matchOddsData?.teamB_suspend
+                                : matchOddsData?.teamC_suspend
                           }
                           odds={
                             ![null, ""].includes(matchOddsData?.teamA_lay)
                               ? matchOddsData?.teamA_lay
                               : ![null, ""].includes(matchOddsData?.teamB_Back)
-                              ? matchOddsData?.teamB_lay
-                              : matchOddsData?.teamC_lay
+                                ? matchOddsData?.teamB_lay
+                                : matchOddsData?.teamC_lay
                           }
                           typeOfBet={typeOfBet}
                           backgroundColor={"#FFB5B5"}
@@ -690,8 +712,8 @@ any) => {
                             matchOddsData?.marketType === "QuickBookmaker0"
                               ? 0
                               : matchOddsData?.marketType === "QuickBookmaker1"
-                              ? 1
-                              : 2
+                                ? 1
+                                : 2
                           }
                           data={data}
                         />
@@ -842,6 +864,66 @@ any) => {
         // }
         />
       )}
+      <MUIModal
+        open={openModal}
+      // onClose={() => {
+      //   setIsPopoverOpen(false);
+      // }}
+      >
+        <Box
+          sx={{
+            width: "100%",
+            height: '300px',
+            position: "absolute",
+            display: "flex",
+            alignItems: "center",
+            top: "33%",
+            overflow: "hidden",
+            justifyContent: "center",
+            outline: "none",
+          }}
+        >
+          <Loader />
+        </Box>
+      </MUIModal>
+      <MUIModal
+        open={openModal1}
+      // onClose={() => {
+      //   setIsPopoverOpen(false);
+      // }}
+      >
+        <Box
+          sx={{
+            width: "100%",
+            height: '300px',
+            position: "absolute",
+            display: "flex",
+            alignItems: "center",
+            top: "33%",
+            overflow: "hidden",
+            justifyContent: "center",
+            outline: "none",
+          }}
+        >
+          <Box
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              width: "200px",
+              // flex: 1,
+              height:"160px",
+              alignItems: "center",
+              flexDirection: "column",
+              // marginTop: "70px",
+              backgroundColor:"#fff",
+              borderRadius:'10px',
+            }}
+          >
+            <img src={NOT} width={'50'} height={'50px'}/>
+            <Typography sx={{ fontSize:'15px',fontWeight:'500',color:'#000',textAlign:'center',margin:'10px'}}>{error}</Typography>
+          </Box>
+        </Box>
+      </MUIModal>
     </>
   );
 };
