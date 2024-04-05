@@ -25,7 +25,7 @@ export const getProfile = createAsyncThunk<any>(
       const resp = await service.get(`${ApiConstants.USER.GET_PROFILE}`);
       // console.log("API Request user: Success", resp.data);
       if (resp) {
-        if (resp?.data?.loginAt === null) {
+        if (resp?.data?.[0]?.[0].loginAt === null) {
           window.location.replace("/login");
           sessionStorage.clear();
         } else {

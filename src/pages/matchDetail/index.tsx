@@ -52,7 +52,9 @@ const MatchDetail = () => {
   const [liveMatchData] = useState(null);
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
-  const { getProfile } = useSelector((state: RootState) => state.user.profile);
+  const { profileDetail } = useSelector(
+    (state: RootState) => state.user.profile
+  );
 
   const { matchDetails, success, matchDetailloading } = useSelector(
     (state: RootState) => state.match.matchList
@@ -215,20 +217,20 @@ const MatchDetail = () => {
 
   useEffect(() => {
     if (matchDetails && matchDetails?.stopAt) {
-      navigate("/match/list");
+      navigate("/match");
     }
   }, [matchDetails]);
 
   useEffect(() => {
     try {
-      if (state?.matchId && getProfile?.roleName) {
+      if (state?.matchId && profileDetail?.roleName) {
         dispatch(selectedBetAction(null));
         dispatch(matchDetailAction(state?.matchId));
       }
     } catch (e) {
       console.log(e);
     }
-  }, [state?.matchId, getProfile?.roleName]);
+  }, [state?.matchId, profileDetail?.roleName]);
 
   useEffect(() => {
     try {
@@ -244,7 +246,7 @@ const MatchDetail = () => {
         socketService.userBalance.sessionResultUnDeclareOff();
         expertSocketService.match.joinMatchRoom(
           state?.matchId,
-          getProfile?.roleName
+          profileDetail?.roleName
         );
         expertSocketService.match.getMatchRates(
           state?.matchId,

@@ -59,12 +59,6 @@ const MainLayout = () => {
     }
   }, [sessionStorage.getItem("userToken")]);
 
-  // useEffect(() => {
-  //   if (sessionStorage.getItem("userToken")) {
-  //     socketService.connect();
-  //   }
-  // }, []);
-
   useEffect(() => {
     if (sessionStorage.getItem("userToken")) {
       socketService.connect();

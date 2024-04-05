@@ -54,7 +54,9 @@ const SearchInput = (props: any) => {
     return <Item item={i} />;
   };
 
-  const { getProfile } = useSelector((state: RootState) => state.user.profile);
+  const { profileDetail } = useSelector(
+    (state: RootState) => state.user.profile
+  );
   const dispatch: AppDispatch = useDispatch();
 
   const handleInputChange = debounce(async (event: any) => {
@@ -77,7 +79,7 @@ const SearchInput = (props: any) => {
         setCurrentPage(1);
         dispatch(
           getAccountStatement({
-            userId: getProfile?.id,
+            userId: profileDetail?.id,
             page: 1,
             limit: pageLimit,
             keyword: value,
@@ -157,7 +159,11 @@ const SearchInput = (props: any) => {
             },
           ]}
         >
-          <StyledImage src={Search} sx={{ height: "40%", width: "auto" }} alt=""/>
+          <StyledImage
+            src={Search}
+            sx={{ height: "40%", width: "auto" }}
+            alt=""
+          />
         </Box>
       </Box>
       {search && search.length > 0 && open && (

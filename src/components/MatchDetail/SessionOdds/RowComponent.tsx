@@ -6,7 +6,9 @@ import moment from "moment";
 import { formatToINR } from "../../../helper";
 
 const RowComponent = ({ header, data }: any) => {
-  const { getProfile } = useSelector((state: RootState) => state.user.profile);
+  const { profileDetail } = useSelector(
+    (state: RootState) => state.user.profile
+  );
   // const getTime = (date: any) => {
   //   const now = new Date(date);
   //   const timeString = now.toLocaleTimeString("en-US", {
@@ -16,9 +18,12 @@ const RowComponent = ({ header, data }: any) => {
   //     second: "numeric"
   //   });
   //   return timeString;
-  // };// fixed timeZone 
-  const getTime = (date:any) => {
-    const timeString = moment.utc(date).utcOffset('+05:30').format("hh:mm:ss A");
+  // };// fixed timeZone
+  const getTime = (date: any) => {
+    const timeString = moment
+      .utc(date)
+      .utcOffset("+05:30")
+      .format("hh:mm:ss A");
     return timeString;
   };
   const getColor = () => {
@@ -57,7 +62,7 @@ const RowComponent = ({ header, data }: any) => {
           />
           <SingleBox
             color={getColor()}
-            data={getProfile && getProfile?.userName}
+            data={profileDetail && profileDetail?.userName}
             header={header}
           />
           <SingleBox
@@ -67,7 +72,11 @@ const RowComponent = ({ header, data }: any) => {
             isPercent={true}
           />
           <SingleBox color={getColor()} data={data?.betType} header={header} />
-          <SingleBox color={getColor()} data={formatToINR(data?.amount)} header={header} />
+          <SingleBox
+            color={getColor()}
+            data={formatToINR(data?.amount)}
+            header={header}
+          />
         </>
       )}
       {header && (

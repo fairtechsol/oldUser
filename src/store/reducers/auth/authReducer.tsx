@@ -34,6 +34,7 @@ export const authReducer = createReducer(initialState, (builder) => {
       state.loading = false;
     })
     .addCase(authReset, (state) => {
-      return { ...state, success: false, forceChangePassword: false };
+      state.success = false;
+      state.forceChangePassword = false;
     });
 });

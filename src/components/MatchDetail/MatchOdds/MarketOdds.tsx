@@ -112,7 +112,7 @@ const Time = (data: any) => {
       >
         {data.time} sec Delay
       </Typography>
-      <img style={{ width: "20px", height: "20px" }} src={TIME} alt=""/>
+      <img style={{ width: "20px", height: "20px" }} src={TIME} alt="" />
     </Box>
   );
 };
@@ -140,7 +140,9 @@ const MarketOdds = ({
   handleRateChange,
   marketDetails,
 }: any) => {
-  const { getProfile } = useSelector((state: RootState) => state.user.profile);
+  const { profileDetail } = useSelector(
+    (state: RootState) => state.user.profile
+  );
   const [showFastTimeBox, setShowFastTimeBox] = useState(false);
   const [placeBetData, setPlaceBetData] = useState<any>(null);
   const [fastRate, setFastRate] = useState(null);
@@ -222,7 +224,7 @@ const MarketOdds = ({
               {title}
             </Typography>
             {showDely && typeOfBet === "MATCH ODDS" && (
-              <Time time={(getProfile && getProfile?.delayTime) ?? 0} />
+              <Time time={(profileDetail && profileDetail?.delayTime) ?? 0} />
             )}
             {showFast && (
               <FastTime
