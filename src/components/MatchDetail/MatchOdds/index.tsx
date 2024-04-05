@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { expertSocketService, socket } from "../../../socketManager";
 import {
   getMatchList,
+  matchDetailReset,
   updateMatchOddRates,
 } from "../../../store/actions/match/matchListAction";
 import { AppDispatch, RootState } from "../../../store/store";
@@ -74,12 +75,14 @@ const MatchesComponent = (_: any) => {
   }, []);
 
   useEffect(() => {
-    if (selectedMatchId !== "")
+    if (selectedMatchId !== "") {
+      dispatch(matchDetailReset());
       navigate("/matchDetail", {
         state: {
           matchId: selectedMatchId,
         },
       });
+    }
     return () => {
       if (selectedMatchId !== "") {
         matchList?.matches?.forEach((element: any) => {
