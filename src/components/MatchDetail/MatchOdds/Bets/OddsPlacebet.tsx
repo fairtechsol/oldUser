@@ -19,7 +19,6 @@ import TeamsOdssData from "./TeamOddsData";
 import NotificationModal from "../../../Common/NotificationModal";
 import MUIModal from "@mui/material/Modal";
 
-
 const OddsPlaceBet = ({ handleClose, season, type }: any) => {
   const [stakeValue, setStakeValue] = useState<any>(" ");
   const [matchOddLoading, setMatchOddLoading] = useState<any>(false);
@@ -430,7 +429,7 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
                             : JSON.stringify(payloadForBettings),
                       })
                     );
-                  }, getProfile?.delayTime * 1000);
+                  }, profileDetail?.delayTime * 1000);
                 } else {
                   dispatch(
                     placeBet({

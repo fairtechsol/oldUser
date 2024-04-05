@@ -20,7 +20,7 @@ import { RootState } from "../../../store/store";
 const CustomHeader = () => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
-  const { getProfile, marqueeNotification } = useSelector(
+  const { profileDetail, marqueeNotification } = useSelector(
     (state: RootState) => state.user.profile
   );
   const navigate = useNavigate();
@@ -158,17 +158,23 @@ const CustomHeader = () => {
                 containerStyle={{ marginTop: matchesMobile ? "5px" : "0px" }}
                 valueStyle={{}}
                 title={"Exposure"}
-                value={getProfile?.userBal?.exposure &&
-                  new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(getProfile.userBal.exposure)
+                value={
+                  profileDetail?.userBal?.exposure &&
+                  new Intl.NumberFormat("en-IN", { currency: "INR" }).format(
+                    profileDetail.userBal.exposure
+                  )
                 }
               />
               <NewBoxData
                 showDropDown={true}
-                title={getProfile?.userName}
+                title={profileDetail?.userName}
                 valueStyle={{ color: "white" }}
                 titleStyle={{ color: "white" }}
-                value={getProfile?.userBal?.currentBalance &&
-                  new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(getProfile.userBal.currentBalance)
+                value={
+                  profileDetail?.userBal?.currentBalance &&
+                  new Intl.NumberFormat("en-IN", { currency: "INR" }).format(
+                    profileDetail.userBal.currentBalance
+                  )
                 }
                 containerStyle={{ background: "#0B4F26" }}
               />

@@ -24,12 +24,12 @@ const AccountStatementList = () => {
 
   const dispatch: AppDispatch = useDispatch();
 
-  const { transactions, getProfile } = useSelector(
+  const { transactions, profileDetail } = useSelector(
     (state: RootState) => state.user.profile
   );
 
   useEffect(() => {
-    if (getProfile?.id) {
+    if (profileDetail?.id) {
       let filter = "";
       if (fromDate && toDate) {
         filter += `&createdAt=between${moment(fromDate)?.format(
@@ -42,7 +42,7 @@ const AccountStatementList = () => {
       }
       dispatch(
         getAccountStatement({
-          userId: getProfile?.id,
+          userId: profileDetail?.id,
           page: currentPage,
           limit: pageLimit,
           filter: filter,
@@ -51,7 +51,7 @@ const AccountStatementList = () => {
         })
       );
     }
-  }, [getProfile, currentPage, pageLimit]);
+  }, [profileDetail, currentPage, pageLimit]);
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -75,7 +75,7 @@ const AccountStatementList = () => {
             setCurrentPage(1);
             dispatch(
               getAccountStatement({
-                userId: getProfile?.id,
+                userId: profileDetail?.id,
                 page: 1,
                 searchBy: "description,user.userName,actionByUser.userName",
                 keyword: searchValue,

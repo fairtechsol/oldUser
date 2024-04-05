@@ -26,7 +26,7 @@ export const getPlacedBets = createAsyncThunk<any, any>(
         `${ApiConstants.BET.GETPLACEDBETS}?result=inArr${JSON.stringify([
           "PENDING",
           "UNDECLARE",
-        ])}&betPlaced.matchId=${id}`
+        ])}&betPlaced.matchId=${id}&sort=betPlaced.createdAt:DESC`
       );
       if (resp) {
         return resp?.data?.rows;
