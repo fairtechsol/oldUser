@@ -13,7 +13,6 @@ interface ChangePassword {
   userId?: string;
   newPassword: string;
   confirmPassword: string;
-
 }
 
 export const login = createAsyncThunk<any, LoginData>(
@@ -25,7 +24,7 @@ export const login = createAsyncThunk<any, LoginData>(
         requestData
       );
       const { token } = data;
-      sessionStorage.setItem("userToken", token);
+      sessionStorage.setItem("jwtUser", token);
       return data;
     } catch (error) {
       const err = error as AxiosError;

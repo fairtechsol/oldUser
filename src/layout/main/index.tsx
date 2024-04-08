@@ -8,6 +8,7 @@ import BackgroundLayout from "../../components/Common/BackgroundLayout";
 import SecureAuthVerification from "../../pages/auth/secureAuthverification";
 import Rules from "../../pages/rules";
 import { socketService } from "../../socketManager";
+import { getMatchList } from "../../store/actions/match/matchListAction";
 import {
   getProfile,
   marqueeNotification,
@@ -16,7 +17,6 @@ import {
 } from "../../store/actions/user/userAction";
 import { AppDispatch } from "../../store/store";
 import CustomHeader from "./header/CustomHeader";
-import { getMatchList } from "../../store/actions/match/matchListAction";
 
 const MainLayout = () => {
   const location = useLocation();
@@ -24,7 +24,7 @@ const MainLayout = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!sessionStorage.getItem("userToken")) {
+    if (!sessionStorage.getItem("jwtUser")) {
       navigate("/");
     }
   }, [navigate]);
@@ -52,18 +52,18 @@ const MainLayout = () => {
   };
 
   useEffect(() => {
-    if (!sessionStorage.getItem("userToken")) {
+    if (!sessionStorage.getItem("jwtUser")) {
       navigate("/login");
       sessionStorage.clear();
     } else {
       dispatch(getProfile());
       dispatch(marqueeNotification());
     }
-  }, [sessionStorage.getItem("userToken")]);
+  }, [sessionStorage.getItem("jwtUser")]);
 
   useEffect(() => {
     try {
-      if (sessionStorage.getItem("userToken")) {
+      if (sessionStorage.getItem("jwtUser")) {
         socketService.connect();
         socketService.auth.logout();
         socketService.userBalance.updateUserBalance(updateLoggedUserBalance);
