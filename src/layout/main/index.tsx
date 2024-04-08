@@ -62,37 +62,40 @@ const MainLayout = () => {
   }, [sessionStorage.getItem("userToken")]);
 
   useEffect(() => {
-    if (sessionStorage.getItem("userToken")) {
-      socketService.connect();
-      socketService.auth.logout();
-      socketService.userBalance.updateUserBalance(updateLoggedUserBalance);
-      socketService.userBalance.sessionResult(sessionResultDeclared);
-      socketService.userBalance.sessionResultUnDeclare(sessionResultDeclared);
-      socketService.userBalance.matchResultDeclared(handleMatchResult);
-      socketService.userBalance.sessionNoResult(getUserProfile);
-      socketService.userBalance.matchResultUnDeclared(handleMatchResult);
-      socketService.userBalance.declaredMatchResultAllUser(handleMatchResult);
-      socketService.userBalance.unDeclaredMatchResultAllUser(handleMatchResult);
-      socketService.userBalance.matchDeleteBet(getUserProfile);
-      socketService.userBalance.sessionDeleteBet(getUserProfile);
+    try {
+      if (sessionStorage.getItem("userToken")) {
+        socketService.connect();
+        socketService.auth.logout();
+        socketService.userBalance.updateUserBalance(updateLoggedUserBalance);
+        socketService.userBalance.sessionResult(sessionResultDeclared);
+        socketService.userBalance.sessionResultUnDeclare(sessionResultDeclared);
+        socketService.userBalance.matchResultDeclared(handleMatchResult);
+        socketService.userBalance.sessionNoResult(getUserProfile);
+        socketService.userBalance.matchResultUnDeclared(handleMatchResult);
+        socketService.userBalance.declaredMatchResultAllUser(handleMatchResult);
+        socketService.userBalance.unDeclaredMatchResultAllUser(
+          handleMatchResult
+        );
+        socketService.userBalance.matchDeleteBet(getUserProfile);
+        socketService.userBalance.sessionDeleteBet(getUserProfile);
+        return () => {
+          socketService.userBalance.sessionResultOff();
+          socketService.userBalance.sessionResultUnDeclareOff();
+          socketService.userBalance.userSessionBetPlacedOff();
+          socketService.userBalance.userMatchBetPlacedOff();
+          socketService.userBalance.matchResultDeclaredOff();
+          socketService.userBalance.matchResultUnDeclaredOff();
+          socketService.userBalance.declaredMatchResultAllUserOff();
+          socketService.userBalance.unDeclaredMatchResultAllUserOff();
+          socketService.userBalance.sessionNoResultOff();
+          socketService.userBalance.matchDeleteBetOff();
+          socketService.userBalance.sessionDeleteBetOff();
+        };
+      }
+    } catch (error) {
+      console.log(error);
     }
   }, [sessionStorage]);
-
-  useEffect(() => {
-    return () => {
-      socketService.userBalance.sessionResultOff();
-      socketService.userBalance.sessionResultUnDeclareOff();
-      socketService.userBalance.userSessionBetPlacedOff();
-      socketService.userBalance.userMatchBetPlacedOff();
-      socketService.userBalance.matchResultDeclaredOff();
-      socketService.userBalance.matchResultUnDeclaredOff();
-      socketService.userBalance.declaredMatchResultAllUserOff();
-      socketService.userBalance.unDeclaredMatchResultAllUserOff();
-      socketService.userBalance.sessionNoResultOff();
-      socketService.userBalance.matchDeleteBetOff();
-      socketService.userBalance.sessionDeleteBetOff();
-    };
-  }, []);
 
   return (
     <>
