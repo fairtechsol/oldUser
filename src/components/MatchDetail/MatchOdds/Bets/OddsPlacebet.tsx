@@ -3,7 +3,7 @@ import { Box } from "@mui/system";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CancelDark } from "../../../../assets";
+import { CancelDark, NOT } from "../../../../assets";
 import {
   betPlaceSuccessReset,
   placeBet,
@@ -17,11 +17,13 @@ import PlaceBetMoneyBox from "../PlaceBetMoneyBox";
 import NumberData from "./NumberDataOdds";
 import TeamsOdssData from "./TeamOddsData";
 import NotificationModal from "../../../Common/NotificationModal";
-import { toast } from "react-toastify";
+import MUIModal from "@mui/material/Modal";
 
 const OddsPlaceBet = ({ handleClose, season, type }: any) => {
   const [stakeValue, setStakeValue] = useState<any>(" ");
   const [matchOddLoading, setMatchOddLoading] = useState<any>(false);
+  const [openModal1, setOpenModal1] = useState(false);
+  const [errorText, setErrorText] = useState('')
   const { buttonValues, profileDetail } = useSelector(
     (state: RootState) => state.user.profile
   );
@@ -149,6 +151,13 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
     }
     return Number(+profit).toFixed(2);
   };
+  const handleModal = () => {
+    setOpenModal1(true)
+    setTimeout(() => {
+      setOpenModal1(false)
+      setErrorText('')
+    }, 1500);
+  }
   return (
     <Box
       sx={[
@@ -235,14 +244,14 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
             }}
             value={selectedBet?.team?.rate}
             containerStyle={{ marginLeft: "2px", flex: 1 }}
-            // onChange={(e:any) => {
-            //   dispatch(
-            //     selectedBetAction({
-            //       ...selectedBet,
-            //       team: { ...selectedBet?.team, stake: +e.target.value },
-            //     })
-            //   );
-            // }}
+          // onChange={(e:any) => {
+          //   dispatch(
+          //     selectedBetAction({
+          //       ...selectedBet,
+          //       team: { ...selectedBet?.team, stake: +e.target.value },
+          //     })
+          //   );
+          // }}
           />
           <TeamsOdssData
             title={"Back/Lay"}
@@ -353,12 +362,14 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
                 return;
               } else {
                 if (stakeValue > minMax?.max) {
-                  toast.error("Amount should be less then maximum bet amount!");
+                  setErrorText('Amount should be less then maximum bet amount!')
+                  handleModal()
+                  // toast.error('Amount should be less then maximum bet amount!');
                   return false;
                 } else if (stakeValue < minMax?.min) {
-                  toast.error(
-                    "Amount should be greater then minimum bet amount!"
-                  );
+                  setErrorText('Amount should be greater then minimum bet amount!')
+                  handleModal()
+                  // toast.error('Amount should be greater then minimum bet amount!');
                   return false;
                 }
                 let payloadForSession: any = {
@@ -408,12 +419,12 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
                       placeBet({
                         url:
                           selectedBet?.data?.type === "session" ||
-                          selectedBet?.data?.SelectionId
+                            selectedBet?.data?.SelectionId
                             ? ApiConstants.BET.PLACEBETSESSION
                             : ApiConstants.BET.PLACEBETMATCHBETTING,
                         data:
                           selectedBet?.data?.type === "session" ||
-                          selectedBet?.data?.SelectionId
+                            selectedBet?.data?.SelectionId
                             ? JSON.stringify(payloadForSession)
                             : JSON.stringify(payloadForBettings),
                       })
@@ -424,12 +435,12 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
                     placeBet({
                       url:
                         selectedBet?.data?.type === "session" ||
-                        selectedBet?.data?.SelectionId
+                          selectedBet?.data?.SelectionId
                           ? ApiConstants.BET.PLACEBETSESSION
                           : ApiConstants.BET.PLACEBETMATCHBETTING,
                       data:
                         selectedBet?.data?.type === "session" ||
-                        selectedBet?.data?.SelectionId
+                          selectedBet?.data?.SelectionId
                           ? JSON.stringify(payloadForSession)
                           : JSON.stringify(payloadForBettings),
                     })
@@ -449,6 +460,44 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
         // handleClose={""}
         />
       )}
+      <MUIModal
+        open={openModal1}
+      // onClose={() => {
+      //   setIsPopoverOpen(false);
+      // }}
+      >
+        <Box
+          sx={{
+            width: "100%",
+            height: '300px',
+            position: "absolute",
+            display: "flex",
+            alignItems: "center",
+            top: "33%",
+            overflow: "hidden",
+            justifyContent: "center",
+            outline: "none",
+          }}
+        >
+          <Box
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              width: "200px",
+              // flex: 1,
+              height: "160px",
+              alignItems: "center",
+              flexDirection: "column",
+              // marginTop: "70px",
+              backgroundColor: "#fff",
+              borderRadius: '10px',
+            }}
+          >
+            <img src={NOT} width={'50'} height={'50px'} />
+            <Typography sx={{ fontSize: '15px', fontWeight: '500', color: '#000', textAlign: 'center', margin: '10px' }}>{errorText}</Typography>
+          </Box>
+        </Box>
+      </MUIModal>
     </Box>
   );
 };
