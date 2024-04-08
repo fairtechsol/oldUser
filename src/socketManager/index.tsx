@@ -1,8 +1,8 @@
 import io from "socket.io-client";
+import { Constants, baseUrls } from "../utils/Constants";
 import { authSocketService } from "./authSocket";
 import { matchSocketService } from "./matchSocket";
 import { userBalanceSocketService } from "./userBalance";
-import { Constants, baseUrls } from "../utils/Constants";
 
 export let socket: any = null;
 export let expertSocket: any = null;
@@ -12,13 +12,13 @@ export const initialiseSocket = () => {
   socket = io(baseUrls.socket, {
     transports: [`${Constants.WEBSOCKET}`],
     auth: {
-      token: `${sessionStorage.getItem("userToken")}`,
+      token: `${sessionStorage.getItem("jwtUser")}`,
     },
   });
   expertSocket = io(baseUrls.expertSocket, {
     transports: [`${Constants.WEBSOCKET}`],
     auth: {
-      token: `${sessionStorage.getItem("userToken")}`,
+      token: `${sessionStorage.getItem("jwtUser")}`,
     },
   });
   matchSocket = io(baseUrls.matchSocket, {

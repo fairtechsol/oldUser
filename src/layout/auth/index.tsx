@@ -9,13 +9,13 @@ const AuthLayout = () => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("md"));
 
-const navigate=useNavigate();
+  const navigate = useNavigate();
 
-  useEffect(()=>{
-    if(sessionStorage.getItem("userToken")){
+  useEffect(() => {
+    if (sessionStorage.getItem("jwtUser")) {
       navigate("/match");
     }
-  },[navigate])
+  }, [navigate]);
 
   return (
     <Box style={{ position: "relative" }}>
@@ -49,7 +49,11 @@ const navigate=useNavigate();
           <StyledImage
             src={FgLogo}
             alt="Fairgame"
-            sx={{ height: "10%", width: {xs:"85%", lg: "69%"}, fetchPriority: 'high' }}
+            sx={{
+              height: "10%",
+              width: { xs: "85%", lg: "69%" },
+              fetchPriority: "high",
+            }}
           />
           <Outlet />
         </Card>
