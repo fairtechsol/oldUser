@@ -56,7 +56,13 @@ const Login = () => {
         // marginTop: "45px",
       }}
     >
-      <Box sx={{ width: "100%", opacity: 1 , marginTop: {xs:"100px", lg: "1rem"}}}>
+      <Box
+        sx={{
+          width: "100%",
+          opacity: 1,
+          marginTop: { xs: "100px", lg: "1rem" },
+        }}
+      >
         <Input
           id={"userName"}
           placeholder={"Enter Username"}
