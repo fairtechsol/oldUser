@@ -43,6 +43,8 @@ import {
 import { AppDispatch, RootState } from "../../store/store";
 
 const MatchDetail = () => {
+  const theme = useTheme();
+  const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const dispatch: AppDispatch = useDispatch();
   const { state } = useLocation();
   const navigate = useNavigate();
@@ -50,8 +52,7 @@ const MatchDetail = () => {
   const [show, setShow] = useState({ open: false, id: "" });
   const [liveScoreBoardData, setLiveScoreBoardData] = useState(null);
   const [liveMatchData] = useState(null);
-  const theme = useTheme();
-  const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
+  const [errorCount, setErrorCount] = useState<number>(0);
   const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
   );
@@ -284,85 +285,114 @@ const MatchDetail = () => {
       dispatch(getMatchList({}));
     }, 1000);
   };
+
   const getUserProfile = () => {
     dispatch(getProfileInMatchDetail());
   };
 
   useEffect(() => {
-    return () => {
-      expertSocketService.match.leaveMatchRoom(state?.matchId);
-      expertSocketService.match.getMatchRatesOff(state?.matchId);
-      socketService.userBalance.userSessionBetPlacedOff();
-      socketService.userBalance.userMatchBetPlacedOff();
-      socketService.userBalance.matchResultDeclaredOff();
-      socketService.userBalance.declaredMatchResultAllUserOff();
-      socketService.userBalance.matchDeleteBetOff();
-      socketService.userBalance.sessionDeleteBetOff();
-      socketService.userBalance.sessionResultOff();
-      socketService.userBalance.sessionNoResultOff();
-      socketService.userBalance.sessionResultUnDeclareOff();
-      socketService.userBalance.sessionResult(sessionResultDeclared);
-      socketService.userBalance.sessionResultUnDeclare(sessionResultDeclared);
-      socketService.userBalance.matchResultDeclared(handleMatchResult);
-      socketService.userBalance.sessionNoResult(getUserProfile);
-      socketService.userBalance.matchResultUnDeclared(handleMatchResult);
-      socketService.userBalance.declaredMatchResultAllUser(handleMatchResult);
-      socketService.userBalance.unDeclaredMatchResultAllUser(handleMatchResult);
-      socketService.userBalance.matchDeleteBet(getUserProfile);
-      socketService.userBalance.sessionDeleteBet(getUserProfile);
-    };
+    try {
+      return () => {
+        expertSocketService.match.leaveMatchRoom(state?.matchId);
+        expertSocketService.match.getMatchRatesOff(state?.matchId);
+        socketService.userBalance.userSessionBetPlacedOff();
+        socketService.userBalance.userMatchBetPlacedOff();
+        socketService.userBalance.matchResultDeclaredOff();
+        socketService.userBalance.declaredMatchResultAllUserOff();
+        socketService.userBalance.matchDeleteBetOff();
+        socketService.userBalance.sessionDeleteBetOff();
+        socketService.userBalance.sessionResultOff();
+        socketService.userBalance.sessionNoResultOff();
+        socketService.userBalance.sessionResultUnDeclareOff();
+        socketService.userBalance.sessionResult(sessionResultDeclared);
+        socketService.userBalance.sessionResultUnDeclare(sessionResultDeclared);
+        socketService.userBalance.matchResultDeclared(handleMatchResult);
+        socketService.userBalance.sessionNoResult(getUserProfile);
+        socketService.userBalance.matchResultUnDeclared(handleMatchResult);
+        socketService.userBalance.declaredMatchResultAllUser(handleMatchResult);
+        socketService.userBalance.unDeclaredMatchResultAllUser(
+          handleMatchResult
+        );
+        socketService.userBalance.matchDeleteBet(getUserProfile);
+        socketService.userBalance.sessionDeleteBet(getUserProfile);
+      };
+    } catch (error) {
+      console.error(error);
+    }
   }, []);
 
   const getScoreBord = async (marketId: string) => {
     try {
-      const response = await service.get(
-        `https://score.fairgame.club/score/getMatchScore/${marketId}`
+      const response: any = await service.get(
+        `https://devscore.fairgame.club/score/getMatchScore/${marketId}`
       );
-      setLiveScoreBoardData(response?.data);
+      if (response) {
+        setLiveScoreBoardData(response);
+        setErrorCount(0);
+      }
     } catch (e: any) {
       console.log("Error:", e?.message);
+      setErrorCount((prevCount: number) => prevCount + 1);
     }
   };
 
   useEffect(() => {
+    let intervalTime = 500;
+    if (errorCount >= 5 && errorCount < 10) {
+      intervalTime = 60000;
+    } else if (errorCount >= 10) {
+      intervalTime = 600000;
+    }
     const interval = setInterval(() => {
       getScoreBord(matchDetails?.marketId);
-    }, 60000);
+    }, intervalTime);
 
     return () => clearInterval(interval);
-  }, [matchDetails?.marketId]);
+  }, [matchDetails?.marketId, errorCount]);
 
   useEffect(() => {
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === "visible") {
-        if (state?.matchId) {
-          dispatch(selectedBetAction(null));
-          dispatch(matchDetailAction(state?.matchId));
-          dispatch(getPlacedBets(state?.matchId));
+    try {
+      const handleVisibilityChange = () => {
+        if (document.visibilityState === "visible") {
+          if (state?.matchId) {
+            dispatch(selectedBetAction(null));
+            dispatch(matchDetailAction(state?.matchId));
+            dispatch(getPlacedBets(state?.matchId));
+            getScoreBord(matchDetails?.marketId);
+          }
+        } else if (document.visibilityState === "hidden") {
+          expertSocketService.match.leaveMatchRoom(state?.matchId);
+          expertSocketService.match.getMatchRatesOff(state?.matchId);
         }
-      } else if (document.visibilityState === "hidden") {
-        expertSocketService.match.leaveMatchRoom(state?.matchId);
-        expertSocketService.match.getMatchRatesOff(state?.matchId);
-      }
-    };
+      };
 
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-    return () => {
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-    };
+      document.addEventListener("visibilitychange", handleVisibilityChange);
+      return () => {
+        document.removeEventListener(
+          "visibilitychange",
+          handleVisibilityChange
+        );
+      };
+    } catch (error) {
+      console.error(error);
+    }
   }, []);
 
   useEffect(() => {
-    if (state?.matchId) {
-      const intervalId = setInterval(() => {
-        dispatch(selectedBetAction(null));
-        dispatch(matchDetailAction(state?.matchId));
-        dispatch(getPlacedBets(state?.matchId));
-      }, 14100 * 1000);
+    try {
+      if (state?.matchId) {
+        const intervalId = setInterval(() => {
+          dispatch(selectedBetAction(null));
+          dispatch(matchDetailAction(state?.matchId));
+          dispatch(getPlacedBets(state?.matchId));
+        }, 14100 * 1000);
 
-      return () => {
-        clearInterval(intervalId);
-      };
+        return () => {
+          clearInterval(intervalId);
+        };
+      }
+    } catch (error) {
+      console.error(error);
     }
   }, []);
 
@@ -394,7 +424,9 @@ const MatchDetail = () => {
                   flexDirection: "column",
                 }}
               >
-                {liveScoreBoardData && <LiveScore />}
+                {liveScoreBoardData && (
+                  <LiveScore liveScoreData={liveScoreBoardData} />
+                )}
                 {liveMatchData && <LiveMatchHome />}
                 <div style={{ width: "100%" }}>
                   <MatchOdds
@@ -490,7 +522,9 @@ const MatchDetail = () => {
                   />
                 </Box>
                 <Box sx={{ width: "30%", paddingRight: "1%" }}>
-                  {liveScoreBoardData && <LiveScore />}
+                  {liveScoreBoardData && (
+                    <LiveScore liveScoreData={liveScoreBoardData} />
+                  )}
                   {liveMatchData && <LiveMatchHome />}
                   {Array.from(
                     placedBets.reduce(
