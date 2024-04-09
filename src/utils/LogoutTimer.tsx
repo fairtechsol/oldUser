@@ -32,7 +32,7 @@ const LogoutTimer = () => {
   };
 
   const { getRemainingTime } = useIdleTimer({
-    timeout: 1000 * 60 * 5,
+    timeout: 1000 * 60 * 60 * 6,
     onIdle: handleOnIdle,
     onActive: handleOnActive,
     debounce: 500,
