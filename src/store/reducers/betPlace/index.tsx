@@ -116,15 +116,9 @@ const placedBet = createSlice({
         state.placedBets = Array.from(new Set(updatedBetPlaced));
       })
       .addCase(updateBetsPlaced.fulfilled, (state, action) => {
-        const betId = action.payload.betId;
-        const isBetAlreadyPlaced = state.placedBets.find(
-          (item: any) => item.id === betId
+        state.placedBets = Array.from(
+          new Set([action.payload, ...state.placedBets])
         );
-        if (!isBetAlreadyPlaced) {
-          state.placedBets = Array.from(
-            new Set([action.payload, ...state.placedBets])
-          );
-        }
       })
       .addCase(betsSuccessReset, (state) => {
         state.success = false;
