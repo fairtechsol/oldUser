@@ -200,6 +200,7 @@ const SessionMarket = ({
                   sx={{
                     display: "flex",
                     background: "#319E5B",
+                    marginRight: {lg:"24px", xs: "0px"},
                     height: "25px",
                     gap: { xs: "0px", lg: "1px", md: "1px" },
                     width: { lg: "60%", xs: "80%" },
@@ -209,7 +210,7 @@ const SessionMarket = ({
                   <Box
                     sx={{
                       background: "#FF9292",
-                      width: { lg: "16%", xs: "30%" },
+                      width: { lg: "20%", xs: "30%" },
                       height: "100%",
                       display: "flex",
                       justifyContent: "center",
@@ -235,7 +236,7 @@ const SessionMarket = ({
                   <Box
                     sx={{
                       background: "#00C0F9",
-                      width: { lg: "16.5%", xs: "29.9%" },
+                      width: { lg: "21%", xs: "29.9%" },
                       height: "100%",
                       display: "flex",
                       justifyContent: "center",
@@ -336,7 +337,7 @@ const SessionMarket = ({
                 newData
                   ?.slice()
                   .sort(customSort)
-                  ?.map((element: any) => {
+                  ?.map((element: any, index: any) => {
                     return (
                       <Box
                         key={element?.id}
@@ -346,6 +347,7 @@ const SessionMarket = ({
                         }}
                       >
                         <SessionMarketBox
+                        index={index}
                           upcoming={upcoming}
                           typeOfBet={typeOfBet}
                           setFastBetLoading={() => {}}
