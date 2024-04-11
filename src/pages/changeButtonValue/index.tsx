@@ -10,8 +10,10 @@ const ChangeButtonValue = () => {
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getButtonValue());
-  }, []);
+    if (sessionStorage.getItem("jwtUser")) {
+      dispatch(getButtonValue());
+    }
+  }, [sessionStorage]);
 
   return (
     <>
