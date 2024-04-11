@@ -16,8 +16,10 @@ const BetHistory = () => {
   const { placedBets } = useSelector((state: RootState) => state.bets);
 
   useEffect(() => {
-    dispatch(getCurrentBets());
-  }, []);
+    if (sessionStorage.getItem("jwtUser")) {
+      dispatch(getCurrentBets());
+    }
+  }, [sessionStorage]);
 
   return (
     <>

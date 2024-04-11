@@ -8,8 +8,10 @@ const Matches = () => {
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getMatchList({}));
-  }, []);
+    if (sessionStorage.getItem("jwtUser")) {
+      dispatch(getMatchList({}));
+    }
+  }, [sessionStorage]);
 
   return (
     <>

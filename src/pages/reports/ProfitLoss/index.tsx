@@ -53,8 +53,10 @@ const ProfitLoss = () => {
   };
 
   useEffect(() => {
-    dispatch(getUserTotalProfitLoss({ filter: "" }));
-  }, []);
+    if (sessionStorage.getItem("jwtUser")) {
+      dispatch(getUserTotalProfitLoss({ filter: "" }));
+    }
+  }, [sessionStorage]);
 
   return (
     <Box sx={{ width: "100%", paddingX: "1vw" }}>
