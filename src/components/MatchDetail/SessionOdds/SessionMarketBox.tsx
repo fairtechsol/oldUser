@@ -54,11 +54,12 @@ const SessionMarketBox = ({
       <Box
         sx={{
           display: "flex",
-          background: "white",
+          // background: "white",
           height: "38px",
           width: { xs: "60%", lg: "40%" },
           justifyContent: "flex-start",
           alignItems: "center",
+          background: index % 2 === 0 ? "#FFE094" : "#ECECEC",
         }}
       >
         <Typography>
@@ -152,14 +153,14 @@ const SessionMarketBox = ({
             sx={{
               display: "flex",
               position: "relative",
-              background: "white",
+              background: index % 2 === 0 ? "#FFE094" : "#ECECEC",
               height: "38px",
               width: { lg: "60%", xs: "40.5%" },
-              justifyContent: "flex-end",
+              justifyContent: {lg:"center", xs: "end"},
               alignItems: "center",
             }}
           >
-            {!matchesMobile && <SeparateModal po={1} color={"white"} />}
+            {/* {!matchesMobile && <SeparateModal po={1} color={"white"} />} */}
 
             {false && (
               <>
@@ -176,10 +177,10 @@ const SessionMarketBox = ({
                 <SeparateModal po={3} color={"white"} rates={allRates} />
               </>
             )}
-            <Box
-              sx={{ width: ".45%", display: "flex", background: "pink" }}
-            ></Box>
-            {!matchesMobile && <SeparateModal po={6} color={"white"} />}
+            {/* <Box
+              sx={{ width: "8%", display: "flex", background: "pink" }}
+            ></Box> */}
+            {/* {!matchesMobile && <SeparateModal po={6} color={"yellow"} />} */}
             <SeparateModal
               bettingOn={"session"}
               closeModal={closeModal}
@@ -231,10 +232,10 @@ const SessionMarketBox = ({
               mainData={mainData}
               handleRateChange={handleRateChange}
             />
-            <Box
-              sx={{ width: ".45%", display: "flex", background: "pink" }}
-            ></Box>
-            {!matchesMobile && (
+            {!matchesMobile &&<Box
+              sx={{ width: "8%", display: "flex", background: "pink" }}
+            ></Box>}
+            {/* {!matchesMobile && (
               <>
                 <Box
                   sx={{ width: ".45%", display: "flex", background: "pink" }}
@@ -245,7 +246,7 @@ const SessionMarketBox = ({
                 ></Box>
                 <SeparateModal color={"white"} rates={allRates} />
               </>
-            )}
+            )} */}
           </Box>
           {!matchesMobile && (
             <PlaceBetComponentWeb

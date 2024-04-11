@@ -73,7 +73,7 @@ const QuickSessionMarketBox = ({
         <Box
           sx={{
             display: "flex",
-            background: "white",
+            background: index % 2 === 0 ? "#FFE094" : "#ECECEC",
             height: "38px",
             width: { xs: "60%", lg: "40%" },
             justifyContent: "flex-start",
@@ -181,14 +181,14 @@ const QuickSessionMarketBox = ({
               sx={{
                 display: "flex",
                 position: "relative",
-                background: "white",
+                background: index % 2 === 0 ? "#FFE094" : "#ECECEC",
                 height: "38px",
                 width: { lg: "60%", xs: "40.5%" },
                 justifyContent: "flex-end",
                 alignItems: "center",
               }}
             >
-              {!matchesMobile && <SeparateModal po={1} color={"white"} />}
+              {/* {!matchesMobile && <SeparateModal po={1} color={"white"} />} */}
 
               {false && (
                 <>
@@ -208,7 +208,7 @@ const QuickSessionMarketBox = ({
               <Box
                 sx={{ width: ".45%", display: "flex", background: "pink" }}
               ></Box>
-              {!matchesMobile && <SeparateModal po={6} color={"white"} />}
+              {/* {!matchesMobile && <SeparateModal po={6} color={"white"} />} */}
               <SeparateModal
                 bettingOn={"session"}
                 closeModal={closeModal}
@@ -256,10 +256,10 @@ const QuickSessionMarketBox = ({
                 eventType={eventType}
                 handleRateChange={handleRateChange}
               />
-              <Box
-                sx={{ width: ".45%", display: "flex", background: "pink" }}
-              ></Box>
-              {!matchesMobile && (
+             {!matchesMobile && <Box
+                sx={{ width: "32%", display: "flex", background: "pink" }}
+              ></Box>}
+              {/* {!matchesMobile && (
                 <>
                   <Box
                     sx={{ width: ".45%", display: "flex", background: "pink" }}
@@ -270,7 +270,7 @@ const QuickSessionMarketBox = ({
                   ></Box>
                   <SeparateModal color={"white"} rates={allRates} />
                 </>
-              )}
+              )} */}
             </Box>
             {!matchesMobile && (
               <PlaceBetComponentWeb
