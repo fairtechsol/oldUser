@@ -63,54 +63,69 @@ const MatchesComponent = (_: any) => {
   }, [success, profileDetail?.roleName, socket?.connected]);
 
   useEffect(() => {
-    return () => {
-      expertSocketService.match.matchAddedOff();
-      matchList?.matches?.forEach((element: any) => {
-        expertSocketService.match.leaveMatchRoom(element?.id);
-      });
-      matchList?.matches?.forEach((element: any) => {
-        expertSocketService.match.getMatchRatesOff(element?.id);
-      });
-    };
+    try {
+      return () => {
+        expertSocketService.match.matchAddedOff();
+        matchList?.matches?.forEach((element: any) => {
+          expertSocketService.match.leaveMatchRoom(element?.id);
+        });
+        matchList?.matches?.forEach((element: any) => {
+          expertSocketService.match.getMatchRatesOff(element?.id);
+        });
+      };
+    } catch (error) {
+      console.error(error);
+    }
   }, []);
 
   useEffect(() => {
-    if (selectedMatchId !== "") {
-      dispatch(matchDetailReset());
-      navigate("/matchDetail", {
-        state: {
-          matchId: selectedMatchId,
-        },
-      });
-    }
-    return () => {
+    try {
       if (selectedMatchId !== "") {
-        matchList?.matches?.forEach((element: any) => {
-          if (element?.id !== selectedMatchId) {
-            expertSocketService.match.leaveMatchRoom(element?.id);
-          }
+        dispatch(matchDetailReset());
+        navigate("/matchDetail", {
+          state: {
+            matchId: selectedMatchId,
+          },
         });
       }
-    };
+      return () => {
+        if (selectedMatchId !== "") {
+          matchList?.matches?.forEach((element: any) => {
+            if (element?.id !== selectedMatchId) {
+              expertSocketService.match.leaveMatchRoom(element?.id);
+            }
+          });
+        }
+      };
+    } catch (error) {
+      console.error(error);
+    }
   }, [selectedMatchId]);
 
   useEffect(() => {
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === "visible") {
-        dispatch(getMatchList({}));
-      } else if (document.visibilityState === "hidden") {
-        if (matchList?.matches) {
-          matchList?.matches?.forEach((element: any) => {
-            expertSocketService.match.getMatchRatesOff(element?.id);
-          });
+    try {
+      const handleVisibilityChange = () => {
+        if (document.visibilityState === "visible") {
+          dispatch(getMatchList({}));
+        } else if (document.visibilityState === "hidden") {
+          if (matchList?.matches) {
+            matchList?.matches?.forEach((element: any) => {
+              expertSocketService.match.getMatchRatesOff(element?.id);
+            });
+          }
         }
-      }
-    };
+      };
 
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-    return () => {
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-    };
+      document.addEventListener("visibilitychange", handleVisibilityChange);
+      return () => {
+        document.removeEventListener(
+          "visibilitychange",
+          handleVisibilityChange
+        );
+      };
+    } catch (error) {
+      console.error(error);
+    }
   }, []);
 
   useEffect(() => {
