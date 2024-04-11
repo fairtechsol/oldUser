@@ -113,7 +113,10 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
     } else if (
       selectedBet?.data?.type === "matchOdd" ||
       selectedBet?.data?.type === "tiedMatch1" ||
-      selectedBet?.data?.type === "completeMatch"
+      selectedBet?.data?.type === "completeMatch" ||
+      selectedBet?.team?.matchBetType === "matchOdd" ||
+      selectedBet?.team?.matchBetType === "tiedMatch1" ||
+      selectedBet?.team?.matchBetType === "completeMatch"
     ) {
       profit =
         selectedBet?.team?.type === "back"
@@ -137,7 +140,10 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
     } else if (
       selectedBet?.data?.type === "matchOdd" ||
       selectedBet?.data?.type === "tiedMatch1" ||
-      selectedBet?.data?.type === "completeMatch"
+      selectedBet?.data?.type === "completeMatch" ||
+      selectedBet?.team?.matchBetType === "matchOdd" ||
+      selectedBet?.team?.matchBetType === "tiedMatch1" ||
+      selectedBet?.team?.matchBetType === "completeMatch"
     ) {
       profit =
         selectedBet?.team?.type === "lay"
