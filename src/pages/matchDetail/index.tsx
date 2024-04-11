@@ -337,17 +337,19 @@ const MatchDetail = () => {
   };
 
   useEffect(() => {
-    let intervalTime = 500;
-    if (errorCount >= 5 && errorCount < 10) {
-      intervalTime = 60000;
-    } else if (errorCount >= 10) {
-      intervalTime = 600000;
-    }
-    const interval = setInterval(() => {
-      getScoreBord(matchDetails?.marketId);
-    }, intervalTime);
+    if (matchDetails?.marketId) {
+      let intervalTime = 500;
+      if (errorCount >= 5 && errorCount < 10) {
+        intervalTime = 60000;
+      } else if (errorCount >= 10) {
+        intervalTime = 600000;
+      }
+      const interval = setInterval(() => {
+        getScoreBord(matchDetails?.marketId);
+      }, intervalTime);
 
-    return () => clearInterval(interval);
+      return () => clearInterval(interval);
+    }
   }, [matchDetails?.marketId, errorCount]);
 
   useEffect(() => {
@@ -358,7 +360,9 @@ const MatchDetail = () => {
             dispatch(selectedBetAction(null));
             dispatch(matchDetailAction(state?.matchId));
             dispatch(getPlacedBets(state?.matchId));
-            getScoreBord(matchDetails?.marketId);
+            if (matchDetails?.marketId) {
+              getScoreBord(matchDetails?.marketId);
+            }
           }
         } else if (document.visibilityState === "hidden") {
           expertSocketService.match.leaveMatchRoom(state?.matchId);
