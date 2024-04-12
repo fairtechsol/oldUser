@@ -60,7 +60,7 @@ const MatchesComponent = (_: any) => {
     } catch (e) {
       console.log(e);
     }
-  }, [success, profileDetail?.roleName, socket?.connected]);
+  }, [success, profileDetail?.roleName, socket]);
 
   useEffect(() => {
     try {
