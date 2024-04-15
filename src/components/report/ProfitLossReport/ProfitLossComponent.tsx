@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "../../../store/store";
 import { getMatchWiseProfitLoss } from "../../../store/actions/user/userAction";
 import { useSelector } from "react-redux";
-
+import moment from "moment";
 const ProfitLossComponent = ({
   eventData,
   betData,
@@ -57,8 +57,8 @@ const ProfitLossComponent = ({
         getMatchWiseProfitLoss({
           type: eventType,
           searchId: userData?.id,
-          startDate: startDate,
-          endDate: endDate,
+          startDate:  startDate && moment(startDate)?.format("YYYY-MM-DD"),
+          endDate: endDate && moment(endDate)?.format("YYYY-MM-DD"),
         })
       );
     }
