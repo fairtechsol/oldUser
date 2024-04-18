@@ -57,8 +57,6 @@ const ChangePassword = (props: any) => {
     debouncedInputValue(query);
   };
 
-  console.log(errors, "errors");
-
   return (
     <>
       <form onSubmit={handleSubmit}>
