@@ -3,6 +3,7 @@ export const ApiConstants = {
     LOGIN: "/auth/login",
     LOGOUT: "/auth/logout",
     CHANGEPASSWORD: "user/changePassword",
+    OLD_PASSWORD: "/user/check/oldPassword",
   },
   MATCH: {
     MATCHLIST: "/match/list",
@@ -110,34 +111,34 @@ export const matchBettingType = {
 
 // use below baseUrl for testing build
 
-// export const baseUrls = {
-//   socket:
-//     process.env.NODE_ENV === "production"
-//       ? `${Constants.apiBasePath}`
-//       : `${Constants.localPath}`,
-//   matchSocket:
-//     process.env.NODE_ENV === "production"
-//       ? `${Constants.thirdParty}`
-//       : `${Constants.localPathThird}`,
-//   expertSocket:
-//     process.env.NODE_ENV === "production"
-//       ? `${Constants.expertPath}`
-//       : `${Constants.localPathExpert}`,
-// };
-
-// use below baseUrl for live build
-
 export const baseUrls = {
   socket:
     process.env.NODE_ENV === "production"
-      ? `${Constants.apiBasePathLive}`
+      ? `${Constants.apiBasePath}`
       : `${Constants.localPath}`,
   matchSocket:
     process.env.NODE_ENV === "production"
-      ? `${Constants.thirdPartyLive}`
+      ? `${Constants.thirdParty}`
       : `${Constants.localPathThird}`,
   expertSocket:
     process.env.NODE_ENV === "production"
-      ? `${Constants.expertPathLive}`
+      ? `${Constants.expertPath}`
       : `${Constants.localPathExpert}`,
 };
+
+// use below baseUrl for live build
+
+// export const baseUrls = {
+//   socket:
+//     process.env.NODE_ENV === "production"
+//       ? `${Constants.apiBasePathLive}`
+//       : `${Constants.localPath}`,
+//   matchSocket:
+//     process.env.NODE_ENV === "production"
+//       ? `${Constants.thirdPartyLive}`
+//       : `${Constants.localPathThird}`,
+//   expertSocket:
+//     process.env.NODE_ENV === "production"
+//       ? `${Constants.expertPathLive}`
+//       : `${Constants.localPathExpert}`,
+// };

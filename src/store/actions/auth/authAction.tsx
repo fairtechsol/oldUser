@@ -51,6 +51,23 @@ export const changePassword = createAsyncThunk<any, ChangePassword>(
     }
   }
 );
+export const checkOldPassword = createAsyncThunk<any, any>(
+  "check/oldPassword",
+  async (requestData, thunkApi) => {
+    try {
+      const resp = await service.post(
+        `${ApiConstants.AUTH.OLD_PASSWORD}`,
+        requestData
+      );
+      if (resp) {
+        return resp?.data?.isPasswordMatch;
+      }
+    } catch (error: any) {
+      const err = error as AxiosError;
+      return thunkApi.rejectWithValue(err.response?.status);
+    }
+  }
+);
 
 export const logout = createAsyncThunk<any>(
   "auth/logout",
