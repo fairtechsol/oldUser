@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import { memo, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { ARROWUP, LockIcon, TIME } from "../../../assets";
-import { currencyFormatter } from "../../../helper";
+import { currencyFormatter, handleNumber} from "../../../helper";
 import Divider from "../../../helper/Divider";
 import { RootState } from "../../../store/store";
 import FastTimePlaceBet from "./Bets/FastTimePlaceBet";
@@ -11,7 +11,9 @@ import BoxComponent from "./BoxComponent";
 import FastTime from "./FastTime";
 import ManualBoxComponent from "./ManualBoxComponent";
 
-const SmallBox = ({ valueA, valueB }: any) => {
+const SmallBox = ({ valueA, valueB, color }: any) => {
+  
+
   return (
     <Box
       sx={{
@@ -57,7 +59,8 @@ const SmallBox = ({ valueA, valueB }: any) => {
             color: valueA < 0 ? `#FF4D4D` : `#319E5B`,
           }}
         >
-          {valueA < 0 ? ` ${valueA}` : `${valueA}`}
+            {handleNumber(valueA || "0.00", color)}
+          {/* {valueA < 0 ? ` ${valueA}` : `${valueA}`} */}
         </Typography>
       </Box>
       <Box
@@ -92,7 +95,8 @@ const SmallBox = ({ valueA, valueB }: any) => {
             color: valueB < 0 ? `#FF4D4D` : `#319E5B`,
           }}
         >
-          {valueB < 0 ? ` ${valueB}` : `${valueB}`}
+               {handleNumber(valueB || "0.00", color)}
+          {/* {valueB < 0 ? ` ${valueB}` : `${valueB}`} */}
         </Typography>
       </Box>
     </Box>

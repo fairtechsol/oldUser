@@ -7,7 +7,7 @@ import RunsDropDown from "./RunsDropDown";
 import { AppDispatch, RootState } from "../../../../store/store";
 import { useSelector } from "react-redux";
 
-const PlaceBetComponent = ({ profitLoss, data, show, setShow }: any) => {
+const PlaceBetComponent = ({ profitLoss, data, show, setShow, color }: any) => {
   const dispatch: AppDispatch = useDispatch();
   const [proLoss, setProfitLoss] = useState(profitLoss);
   const { runAmount } = useSelector((state: RootState) => state.bets);
@@ -16,7 +16,16 @@ const PlaceBetComponent = ({ profitLoss, data, show, setShow }: any) => {
   //   setAnchorEl(event.currentTarget);
   // };
 
-  // const [show, setShow] = React.useState(false);
+  const handleNumber=(num:any)=>{
+    let value = num?.split('.')
+    return(
+      value?.length > 0 ? 
+        <>
+         <span style={{color:color}}>{new Intl.NumberFormat("en-IN").format(value[0])}.</span>
+         <span  style={{fontSize:"0.8em",color:color}}>{value[1]}</span>
+        </> : null
+    )
+  }
 
   useEffect(() => {
     if (profitLoss) {
@@ -41,7 +50,7 @@ const PlaceBetComponent = ({ profitLoss, data, show, setShow }: any) => {
           flexDirection: "column",
           display: "flex",
           alignItems: "center",
-          right: { xs: "43vw", lg: "41vw", md: "41vw" },
+          right: { xs: "40vw", lg: "41vw", md: "41vw" },
           justifyContent: "center",
           width: { lg: "90px", xs: "60px", md: "90px" },
           borderRadius: "5px",
@@ -90,7 +99,7 @@ const PlaceBetComponent = ({ profitLoss, data, show, setShow }: any) => {
               color: "white",
             }}
           >
-            {!profitLoss?.maxLoss ? "Profit/Loss" : profitLoss?.maxLoss?.toFixed(2)}
+            {!profitLoss?.maxLoss ? "Profit/Loss" : handleNumber(profitLoss?.max_loss)}
           </Typography>
         </Box>
       </Box>

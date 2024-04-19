@@ -56,7 +56,8 @@ const SessionMarketBox = ({
           display: "flex",
           // background: "white",
           height: "38px",
-          width: { xs: "60%", lg: "40%" },
+          overflow: "hidden",
+          width: { xs: "100%", lg: "100%" },
           justifyContent: "flex-start",
           alignItems: "center",
           background: index % 2 === 0 ? "#FFE094" : "#ECECEC",
@@ -66,12 +67,13 @@ const SessionMarketBox = ({
           <Typography
             sx={{
               color: "black",
-              fontSize: { lg: "12px", md: "10px", xs: "9px" },
+              fontSize: { lg: "10px", md: "10px", xs: "9px" },
               marginLeft: "7px",
               fontWeight: "600",
               textAlign: "start",
-              paddingRight: "5rem",
-              lineHeight: "12px",
+              width: "100%",
+              // paddingRight: "5rem",
+              lineHeight: "0.8rem",
             }}
           >
             {data?.RunnerName}
@@ -79,7 +81,7 @@ const SessionMarketBox = ({
           <Typography
             sx={{
               color: "black",
-              fontSize: { lg: "10px", md: "9px", xs: "7px" },
+              fontSize: { lg: "8px", md: "9px", xs: "7px" },
               marginLeft: "7px",
               fontWeight: "500",
               textAlign: "start",
@@ -88,7 +90,7 @@ const SessionMarketBox = ({
             max:{formatToINR(data?.max || 0)}
           </Typography>
         </Typography>
-      </Box>
+
       {matchesMobile && (
         <PlaceBetComponent
           amount={index == 2}
@@ -107,6 +109,9 @@ const SessionMarketBox = ({
           profitLoss={(profitLossData && profitLossData[0]) ?? {}}
         />
       )}
+       {/* <Box
+              sx={{ width: "20%", display: "flex", background: "pink" }}
+            ></Box> */}
       {!["ACTIVE", "active", "", undefined, null, ""].includes(
         data?.GameStatus
       ) ||
@@ -114,15 +119,14 @@ const SessionMarketBox = ({
         <Box
           sx={{
             background: "rgba(0,0,0,1)",
-            // marginLeft: "-2px",
             height: "38px",
-            // position: "absolute",
-            marginLeft: { lg: "20%", md: "0%", xs: "0%" },
-            // right: 0,
-            width: { lg: "19.5%", md: "40%", xs: "40.5%" },
+            minWidth: "10%",
+            width: { lg: "24%", md: "40%", xs: "40%" },
             justifyContent: { xs: "center", lg: "center" },
+            marginLeft: "auto",
             alignItems: "center",
             display: "flex",
+            marginRight: {lg:"20%", xs: "0%"}, 
             zIndex: 1,
           }}
         >
@@ -147,40 +151,25 @@ const SessionMarketBox = ({
             </Typography>
           )}
         </Box>
+       
       ) : (
         <>
           <Box
             sx={{
               display: "flex",
-              position: "relative",
+              position: "absolute",
               background: index % 2 === 0 ? "#FFE094" : "#ECECEC",
               height: "38px",
-              width: { lg: "60%", xs: "40.5%" },
+              width: { lg: "60%", xs: "40%", sm: "40%" },
               justifyContent: {lg:"center", xs: "end"},
               alignItems: "center",
+              minWidth: {lg:"60%", xs: "40%"},
+              marginRight: "auto",
+              overflow: "hidden",
+              // left: {lg:"23%", xs: "0%", sm: "40%"}
+              marginLeft: {lg:"38%", xs: "60%", sm: "60%"}
             }}
           >
-            {/* {!matchesMobile && <SeparateModal po={1} color={"white"} />} */}
-
-            {false && (
-              <>
-                <Box
-                  sx={{ width: ".45%", display: "flex", background: "pink" }}
-                ></Box>
-                <SeparateModal po={2} color={"white"} rates={allRates} />
-                <Box
-                  sx={{ width: ".45%", display: "flex", background: "pink" }}
-                ></Box>
-                <Box
-                  sx={{ width: ".45%", display: "flex", background: "pink" }}
-                ></Box>
-                <SeparateModal po={3} color={"white"} rates={allRates} />
-              </>
-            )}
-            {/* <Box
-              sx={{ width: "8%", display: "flex", background: "pink" }}
-            ></Box> */}
-            {/* {!matchesMobile && <SeparateModal po={6} color={"yellow"} />} */}
             <SeparateModal
               bettingOn={"session"}
               closeModal={closeModal}
@@ -206,8 +195,8 @@ const SessionMarketBox = ({
               handleRateChange={handleRateChange}
             />
             <Box
-              sx={{ width: ".45%", display: "flex", background: "pink" }}
-            ></Box>
+                sx={{ width: ".45%", display: "flex", background: "pink" }}
+              ></Box>
             <SeparateModal
               bettingOn={"session"}
               closeModal={closeModal}
@@ -232,22 +221,10 @@ const SessionMarketBox = ({
               mainData={mainData}
               handleRateChange={handleRateChange}
             />
-            {!matchesMobile &&<Box
-              sx={{ width: "8%", display: "flex", background: "pink" }}
-            ></Box>}
-            {/* {!matchesMobile && (
-              <>
-                <Box
-                  sx={{ width: ".45%", display: "flex", background: "pink" }}
-                ></Box>
-                <SeparateModal color={"white"} rates={allRates} />
-                <Box
-                  sx={{ width: ".45%", display: "flex", background: "pink" }}
-                ></Box>
-                <SeparateModal color={"white"} rates={allRates} />
-              </>
-            )} */}
           </Box>
+          {!matchesMobile && <Box
+                sx={{ width: "33%", display: "flex", background: "pink" }}
+              ></Box>}
           {!matchesMobile && (
             <PlaceBetComponentWeb
               amount={index === 2}
@@ -259,6 +236,7 @@ const SessionMarketBox = ({
           )}
         </>
       )}
+    </Box>
     </Box>
   );
 };

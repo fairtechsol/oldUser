@@ -5,9 +5,10 @@ import { UD } from "../../../../assets";
 import { getRunAmount } from "../../../../store/actions/betPlace/betPlaceActions";
 import { AppDispatch, RootState } from "../../../../store/store";
 import RunsDropDown from "./RunsDropDown";
+import { handleNumber } from "../../../../helper";
 // import useOuterClick from "../../../../utils/outerClick";
 
-const PlaceBetComponentWeb = ({ profitLoss, data, show, setShow }: any) => {
+const PlaceBetComponentWeb = ({ profitLoss, data, show, setShow,color }: any) => {
   const dispatch: AppDispatch = useDispatch();
   const { runAmount } = useSelector((state: RootState) => state.bets);
   const [proLoss, setProfitLoss] = useState(profitLoss);
@@ -18,6 +19,7 @@ const PlaceBetComponentWeb = ({ profitLoss, data, show, setShow }: any) => {
   // const innerRef = useOuterClick((ev: any) => {
   //   setShow({ open: false, id: "" });
   // });
+  const profitloss = handleNumber(profitLoss?.maxLoss?.toFixed(2), color);
 
   useEffect(() => {
     if (profitLoss) {
@@ -99,7 +101,7 @@ const PlaceBetComponentWeb = ({ profitLoss, data, show, setShow }: any) => {
               color: "white",
             }}
           >
-            {!profitLoss?.maxLoss ? "Profit/Loss" : profitLoss?.maxLoss?.toFixed(2)}
+            {!profitLoss?.maxLoss ? "Profit/Loss" : profitloss}
           </Typography>
           <img
             src={UD}
