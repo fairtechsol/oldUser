@@ -91,7 +91,7 @@ const RowComponent = ({ header, data, color }: any) => {
           <Box sx={{ width: "30%" }}> */}
           <SingleBox
             color={getColor()}
-            data={handleNumber(data?.odds, color)}
+            data={data?.odds}
             header={header}
             boxWidth="50%"
           />
