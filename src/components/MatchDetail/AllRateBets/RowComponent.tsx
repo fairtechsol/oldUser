@@ -3,9 +3,9 @@ import SingleBox from "./SingleBox";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 import moment from "moment";
-import { formatToINR } from "../../../helper";
+import { formatToINR, handleNumber } from "../../../helper";
 
-const RowComponent = ({ header, data }: any) => {
+const RowComponent = ({ header, data, color }: any) => {
   const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
   );

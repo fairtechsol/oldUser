@@ -159,10 +159,7 @@ const CustomHeader = () => {
                 valueStyle={{}}
                 title={"Exposure"}
                 value={
-                  profileDetail?.userBal?.exposure &&
-                  new Intl.NumberFormat("en-IN", { currency: "INR" }).format(
-                    profileDetail.userBal.exposure
-                  )
+                  profileDetail?.userBal?.exposure 
                 }
               />
               <NewBoxData
@@ -171,10 +168,7 @@ const CustomHeader = () => {
                 valueStyle={{ color: "white" }}
                 titleStyle={{ color: "white" }}
                 value={
-                  profileDetail?.userBal?.currentBalance &&
-                  new Intl.NumberFormat("en-IN", { currency: "INR" }).format(
-                    profileDetail.userBal.currentBalance
-                  )
+                  profileDetail?.userBal?.currentBalance 
                 }
                 containerStyle={{ background: "#0B4F26" }}
               />
