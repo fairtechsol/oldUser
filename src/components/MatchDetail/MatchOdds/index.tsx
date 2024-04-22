@@ -12,7 +12,7 @@ import { AppDispatch, RootState } from "../../../store/store";
 import { Constants } from "../../../utils/Constants";
 import Odds from "./Odds";
 
-const MatchesComponent = (_: any) => {
+const MatchesComponent = () => {
   const dispatch: AppDispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [selectedMatchId, setSelectedMatchId] = useState("");

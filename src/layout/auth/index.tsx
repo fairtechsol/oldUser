@@ -1,6 +1,5 @@
 import { Box, Card, useMediaQuery, useTheme } from "@mui/material";
 import { Outlet, useNavigate } from "react-router-dom";
-// import AuthBackground from "../../pages/auth/AuthBackground";
 import { useEffect } from "react";
 import { FgLogo } from "../../assets";
 import StyledImage from "../../components/Common/StyledImages";
