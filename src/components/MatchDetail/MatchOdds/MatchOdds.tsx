@@ -38,10 +38,7 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
 
   const [timeLeft, setTimeLeft] = useState<any>(calculateTimeLeft);
 
-  const upcoming =
-    Number(timeLeft.days) === 0 &&
-    Number(timeLeft.hours) === 0 &&
-    Number(timeLeft.minutes) <= 60;
+  const upcoming = true;
 
   useEffect(() => {
     const timer = setTimeout(() => {

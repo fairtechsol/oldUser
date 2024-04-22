@@ -5,10 +5,15 @@ import { UD } from "../../../../assets";
 import { getRunAmount } from "../../../../store/actions/betPlace/betPlaceActions";
 import { AppDispatch, RootState } from "../../../../store/store";
 import RunsDropDown from "./RunsDropDown";
-import { formatToINR } from "../../../../helper";
-// import useOuterClick from "../../../../utils/outerClick";
+import { handleDecimalAmount } from "../../../../helper";
 
-const PlaceBetComponentWeb = ({ profitLoss, data, show, setShow, color }: any) => {
+const PlaceBetComponentWeb = ({
+  profitLoss,
+  data,
+  show,
+  setShow,
+  color,
+}: any) => {
   const dispatch: AppDispatch = useDispatch();
   const { runAmount } = useSelector((state: RootState) => state.bets);
   const [proLoss, setProfitLoss] = useState(profitLoss);
@@ -16,19 +21,6 @@ const PlaceBetComponentWeb = ({ profitLoss, data, show, setShow, color }: any) =
   const handleClose = () => {
     setAnchorEl(null);
   };
-  // const innerRef = useOuterClick((ev: any) => {
-  //   setShow({ open: false, id: "" });
-  // });
-  const handleNumber=(num:any)=>{
-    let value :any = num?.toString()?.split('.')
-    return(
-      value?.length > 0 ? 
-        <>
-         <span style={{color:color}}>{formatToINR(value[0])}.</span>
-         <span  style={{fontSize:"0.8em",color:color}}>{value[1]}</span>
-        </> : null
-    )
-  }
 
   useEffect(() => {
     if (profitLoss) {
@@ -38,7 +30,6 @@ const PlaceBetComponentWeb = ({ profitLoss, data, show, setShow, color }: any) =
   return (
     <>
       <Box
-        // ref={innerRef}
         onClick={() => {
           if (!show.open && show?.id !== data?.id) {
             dispatch(getRunAmount(data?.id));
@@ -110,7 +101,9 @@ const PlaceBetComponentWeb = ({ profitLoss, data, show, setShow, color }: any) =
               color: "white",
             }}
           >
-            {!profitLoss?.maxLoss ? "Profit/Loss" : handleNumber(profitLoss?.maxLoss)}
+            {!profitLoss?.maxLoss
+              ? "Profit/Loss"
+              : handleDecimalAmount(profitLoss?.maxLoss, color)}
           </Typography>
           <img
             src={UD}
