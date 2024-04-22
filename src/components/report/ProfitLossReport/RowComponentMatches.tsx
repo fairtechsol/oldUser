@@ -228,15 +228,11 @@ const RowComponentMatches = ({
                 color: "white",
               }}
             >
-              {" "}
-              {Number(item?.rateProfitLoss) >= 0 ? (
-                <>
-                  <span style={{ visibility: "hidden" }}>-</span>
-                  {formatToINR(Number(item?.rateProfitLoss).toFixed(2))}
-                </>
-              ) : (
-                formatToINR(Number(item?.rateProfitLoss).toFixed(2))
-              )}{" "}
+              {formatToINR(Number(item?.rateProfitLoss).toFixed(2))}{" "}
+              {`(${matchesMobile ? "TD(1%)" : "Total Deduction"}: 
+                  ${formatToINR(
+                    Number(item?.totalDeduction || 0).toFixed(2)
+                  )})`}
             </Typography>
             <StyledImage
               src={ArrowDown}
@@ -330,14 +326,7 @@ const RowComponentMatches = ({
                 color: "white",
               }}
             >
-              {Number(item?.sessionProfitLoss) >= 0 ? (
-                <>
-                  <span style={{ visibility: "hidden" }}>-</span>
-                  {formatToINR(Number(item?.sessionProfitLoss).toFixed(2))}
-                </>
-              ) : (
-                formatToINR(Number(item?.sessionProfitLoss).toFixed(2))
-              )}
+              {formatToINR(Number(item?.sessionProfitLoss).toFixed(2))}
             </Typography>
             <StyledImage
               src={ArrowDown}

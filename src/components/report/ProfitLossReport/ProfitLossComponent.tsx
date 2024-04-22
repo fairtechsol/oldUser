@@ -57,7 +57,7 @@ const ProfitLossComponent = ({
         getMatchWiseProfitLoss({
           type: eventType,
           searchId: userData?.id,
-          startDate:  startDate && moment(startDate)?.format("YYYY-MM-DD"),
+          startDate: startDate && moment(startDate)?.format("YYYY-MM-DD"),
           endDate: endDate && moment(endDate)?.format("YYYY-MM-DD"),
         })
       );
