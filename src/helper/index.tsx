@@ -32,7 +32,7 @@ export const formatToINR = (amount: any) => {
     currency: "INR",
   });
   // console.log(amount, "amoutn")
-  return formatter.format(parseFloat(amount));
+  return formatter.format(parseFloat(amount || 0));
 };
 
 export const handleNumber = (num: any, color: any) => {
