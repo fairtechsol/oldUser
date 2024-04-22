@@ -53,8 +53,8 @@ const ManualBoxComponent = ({
             ? 0
             : Math.round(getValue)
           : getValue >= 100
-            ? 100
-            : Math.round(getValue);
+          ? 100
+          : Math.round(getValue);
       let returnValue;
       if (type == "back") {
         let check = value % 1;
@@ -76,8 +76,8 @@ const ManualBoxComponent = ({
             ? 0
             : Math.round(getValue)
           : getValue >= 100
-            ? 100
-            : Math.round(getValue);
+          ? 100
+          : Math.round(getValue);
       let returnValue;
       if (type == "back") {
         let check = value % 1;
@@ -185,7 +185,15 @@ const ManualBoxComponent = ({
                 display: "flex",
               }}
             >
-              <img src={BallStart} style={{ width: "108px", height: "30px", marginBottom: isTeamC ? "45px" : "0", }} alt="" />
+              <img
+                src={BallStart}
+                style={{
+                  width: "108px",
+                  height: "30px",
+                  marginBottom: isTeamC ? "45px" : "0",
+                }}
+                alt=""
+              />
             </Box>
           ) : null}
         </>
@@ -379,7 +387,7 @@ const ManualBoxComponent = ({
                   back={true}
                   currentMatch={newData}
                   betType={"lay"}
-                  lock={matchOddsData?.lay > 0 ? false : true}
+                  lock={matchOddsData?.lay < 100.25 ? false : true}
                   rates={allRates}
                   value={matchOddsData?.lay ? +matchOddsData?.lay : 0}
                   value2={""}
@@ -407,13 +415,7 @@ const ManualBoxComponent = ({
                     currentMatch={newData}
                     rates={allRates}
                     betType={"lay"}
-                    lock={
-                      matchOddsData?.lay
-                        ? handleDecimal(+matchOddsData?.lay, 1, "") > 0
-                          ? false
-                          : true
-                        : true
-                    }
+                    lock={+matchOddsData?.lay <= 99.75 ? false : true}
                     value={
                       matchOddsData?.lay
                         ? handleDecimal(+matchOddsData?.lay, 1, "")
@@ -445,13 +447,7 @@ const ManualBoxComponent = ({
                     currentMatch={newData}
                     allRates={allRates}
                     betType={"lay"}
-                    lock={
-                      matchOddsData?.lay
-                        ? handleDecimal(+matchOddsData?.lay, 2, "") > 0
-                          ? false
-                          : true
-                        : true
-                    }
+                    lock={+matchOddsData?.lay <= 98.75 ? false : true}
                     // value={matchOddsData?.lay ? matchOddsData?.lay + 2 : 0}
                     value={
                       matchOddsData?.lay

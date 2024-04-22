@@ -6,26 +6,13 @@ import { useState } from "react";
 import RunsDropDown from "./RunsDropDown";
 import { AppDispatch, RootState } from "../../../../store/store";
 import { useSelector } from "react-redux";
+import { handleDecimalAmount } from "../../../../helper";
 
 const PlaceBetComponent = ({ profitLoss, data, show, setShow, color }: any) => {
   const dispatch: AppDispatch = useDispatch();
   const [proLoss, setProfitLoss] = useState(profitLoss);
   const { runAmount } = useSelector((state: RootState) => state.bets);
   const [anchorEl] = useState(null);
-  // const handleClick = (event:any) => {
-  //   setAnchorEl(event.currentTarget);
-  // };
-
-  const handleNumber=(num:any)=>{
-    let value = num?.split('.')
-    return(
-      value?.length > 0 ? 
-        <>
-         <span style={{color:color}}>{new Intl.NumberFormat("en-IN").format(value[0])}.</span>
-         <span  style={{fontSize:"0.8em",color:color}}>{value[1]}</span>
-        </> : null
-    )
-  }
 
   useEffect(() => {
     if (profitLoss) {
@@ -95,11 +82,13 @@ const PlaceBetComponent = ({ profitLoss, data, show, setShow, color }: any) => {
                 md: !profitLoss?.maxLoss ? "8px" : "8px",
                 xs: !profitLoss?.maxLoss ? "8px" : "8px",
               },
-              fontWeight: !profitLoss?.profitLoss?.max_loss ? "500" : "500",
+              fontWeight: !profitLoss?.maxLoss ? "500" : "500",
               color: "white",
             }}
           >
-            {!profitLoss?.maxLoss ? "Profit/Loss" : handleNumber(profitLoss?.max_loss)}
+            {!profitLoss?.maxLoss
+              ? "Profit/Loss"
+              : handleDecimalAmount(profitLoss?.maxLoss, color)}
           </Typography>
         </Box>
       </Box>

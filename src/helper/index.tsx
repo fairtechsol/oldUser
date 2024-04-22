@@ -27,30 +27,43 @@ export const customSort = (a: any, b: any) => {
   return order[a?.activeStatus] - order[b?.activeStatus];
 };
 
-
-export const formatToINR = (amount:any) => {
+export const formatToINR = (amount: any) => {
   const formatter = new Intl.NumberFormat("en-IN", {
-      currency: "INR"
+    currency: "INR",
   });
   // console.log(amount, "amoutn")
-  return formatter.format(parseFloat(amount));
+  return formatter.format(parseFloat(amount || 0));
 };
 
-export const handleNumber=(num:any, color: any)=>{
+export const handleNumber = (num: any, color: any) => {
   let value;
-  
-  if(num?.toString()?.includes('.')){
-    value = num?.split('.')
-  }
-  else{
+
+  if (num?.toString()?.includes(".")) {
+    value = num?.split(".");
+  } else {
     value = num;
   }
 
-  return(
-    value?.length > 0 ? 
-      <>
-       <span style={{color:color}}>{formatToINR(value[0])}.</span>
-       <span  style={{fontSize:"0.8em",color:color}}>{value[1]}</span>
-      </> : null
-  )
-}
+  return value?.length > 0 ? (
+    <>
+      <span style={{ color: color }}>{formatToINR(value[0])}.</span>
+      <span style={{ fontSize: "0.8em", color: color }}>{value[1]}</span>
+    </>
+  ) : null;
+};
+
+export const handleDecimalAmount = (num: any, color: any) => {
+  let amount = num?.toFixed(2);
+  let value;
+  if (amount && amount?.includes(".")) {
+    value = amount?.split(".");
+  } else {
+    value = amount;
+  }
+  return value?.length > 0 ? (
+    <>
+      <span style={{ color: color }}>{formatToINR(value[0])}.</span>
+      <span style={{ fontSize: "0.8em", color: color }}>{value[1]}</span>
+    </>
+  ) : null;
+};
