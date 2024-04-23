@@ -7,7 +7,7 @@ import { ArrowDown, drawerBackground } from "../../../assets/index";
 const SideBar = ({ mobileShow,handleDrawerToggle }: any) => {
   const [showSideBarMobile, setShowSideBarMobile] = useState(false);
   const navigate = useNavigate();
-  const [selected, setSelected] = useState("All Sports");
+  const [selected, setSelected] = useState(mobileShow?"":"All Sports");
   const data = [
     {
       title: "All Sports",

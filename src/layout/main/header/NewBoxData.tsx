@@ -4,6 +4,9 @@ import StyledImage from "../../../components/Common/StyledImages";
 import DownIcon from "../../../assets/images/down.svg";
 import { Box, Typography } from "@mui/material";
 import DropDownMenu from "./DropdownMenu";
+import { AppDispatch, RootState } from "../../../store/store";
+import { useDispatch,useSelector } from "react-redux";
+import { updateLogoutModal } from "../../../store/actions/user/userAction";
 
 const NewBoxData = ({
   title,
@@ -13,10 +16,21 @@ const NewBoxData = ({
   valueStyle,
   titleStyle,
 }: any) => {
-  const [open, setOpen] = useState(false);
-
+  
   const [anchorEl,setAnchorEl] = useState<number | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const dispatch: AppDispatch = useDispatch();
+  const { logoutModal } = useSelector(
+    (state: RootState) => state.user.profitLoss
+  );
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    if(!logoutModal){
+      setOpen(false); 
+    }
+  }, [logoutModal])
+  
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -28,8 +42,26 @@ const NewBoxData = ({
       }
     };
 
+    const handleClickOutsideBox = (event: MouseEvent) => {
+      if (!dropdownRef.current) {
+        setOpen(false);
+      }
+    };
+
+    const handleScroll = () => {
+      setOpen(false);
+      dispatch(updateLogoutModal({modal : false}))
+    };
+
     window.addEventListener("click", handleClickOutside);
-    return () => window.removeEventListener("click", handleClickOutside);
+    document.addEventListener("click", handleClickOutsideBox);
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("click", handleClickOutside);
+      document.removeEventListener("click", handleClickOutsideBox);
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   const handleClose = () => {
@@ -39,6 +71,7 @@ const NewBoxData = ({
   const handleClick = (event: any) => {
     if (title !== "Exposure") {
       setOpen((prevOpen) => !prevOpen); 
+      dispatch(updateLogoutModal({modal : !open}))
       setAnchorEl(event.currentTarget);
     }
   };
