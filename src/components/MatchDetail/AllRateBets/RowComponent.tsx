@@ -44,7 +44,7 @@ const RowComponent = ({ header, data }: any) => {
           {/* <Box sx={{ width: "48%", minWidth: "22%" }}> */}
           <SingleBox
             color={getColor}
-            data={data?.bettingName}
+            data={data?.bettingName || data?.marketType}
             first={true}
             header={header}
           />
