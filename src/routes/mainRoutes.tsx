@@ -1,26 +1,37 @@
-import Loadable from "../utils/loadable";
+// import Loadable from "../utils/loadable";
 import { Navigate } from "react-router-dom";
 import { Constants } from "../utils/Constants";
 import SecureAuthVerification from "../pages/auth/secureAuthverification";
 
 import MainLayout from "../layout/main";
-import { lazy } from "react";
+// import { lazy } from "react";
+import Match from "../pages/match";
+import Comingsoon from "../pages/comingsoon";
+import MatchDetail from "../pages/matchDetail";
+import MyAccount from "../pages/myAccount";
+import Inplay from "../pages/inplay";
+import ChangePassword from "../pages/changepassword";
+import ChangeButtonValue from "../pages/changeButtonValue";
+import Rules from "../pages/rules";
+import ProfitLoss from "../pages/reports/ProfitLoss";
+import BetHistory from "../pages/betHistory";
+import AccountStatement from "../pages/reports/AccountStatement";
 
-const ChangeButtonValue = Loadable(
-  lazy(() => import("../pages/changeButtonValue"))
-);
-const Rules = Loadable(lazy(() => import("../pages/rules")));
-const MyAccount = Loadable(lazy(() => import("../pages/myAccount")));
-const Comingsoon = Loadable(lazy(() => import("../pages/comingsoon/index")));
-const Match = Loadable(lazy(() => import("../pages/match")));
-const MatchDetail = Loadable(lazy(() => import("../pages/matchDetail")));
-const Inplay = Loadable(lazy(() => import("../pages/inplay")));
-const ChangePassword = Loadable(lazy(() => import("../pages/changepassword")));
-const ProfitLoss = Loadable(lazy(() => import("../pages/reports/ProfitLoss")));
-const BetHistory = Loadable(lazy(() => import("../pages/betHistory")));
-const AccountStatement = Loadable(
-  lazy(() => import("../pages/reports/AccountStatement"))
-);
+// const ChangeButtonValue = Loadable(
+//   lazy(() => import("../pages/changeButtonValue"))
+// );
+// const Rules = Loadable(lazy(() => import("../pages/rules")));
+// const MyAccount = Loadable(lazy(() => import("../pages/myAccount")));
+// const Comingsoon = Loadable(lazy(() => import("../pages/comingsoon/index")));
+// const Match = Loadable(lazy(() => import("../pages/match")));
+// const MatchDetail = Loadable(lazy(() => import("../pages/matchDetail")));
+// const Inplay = Loadable(lazy(() => import("../pages/inplay")));
+// const ChangePassword = Loadable(lazy(() => import("../pages/changepassword")));
+// const ProfitLoss = Loadable(lazy(() => import("../pages/reports/ProfitLoss")));
+// const BetHistory = Loadable(lazy(() => import("../pages/betHistory")));
+// const AccountStatement = Loadable(
+//   lazy(() => import("../pages/reports/AccountStatement"))
+// );
 
 const MainRoutes = {
   path: Constants.MainPaths.root,
