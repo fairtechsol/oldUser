@@ -267,6 +267,12 @@ export const updateUserSearchId = createAsyncThunk<any, any>(
     return data;
   }
 );
+export const updateLogoutModal = createAsyncThunk<any, any>(
+  "/modal/updateLogoutModal",
+  async (data) => {
+    return data;
+  }
+);
 export const changePasswordReset = createAction("changePassword/reset");
 export const profileReset = createAction("profile/reset");
 export const updateReset = createAction("update/reset");
