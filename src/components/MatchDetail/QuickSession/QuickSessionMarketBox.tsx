@@ -267,7 +267,7 @@ const QuickSessionMarketBox = ({
                 handleRateChange={handleRateChange}
               />
              {!matchesMobile && <Box
-                sx={{ width: "33%", display: "flex", background: "pink" }}
+                sx={{ width: "32%", display: "flex", background: "pink" }}
               ></Box>}
               {/* {!matchesMobile && (
                 <>
