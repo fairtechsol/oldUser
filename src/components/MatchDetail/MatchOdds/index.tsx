@@ -21,9 +21,6 @@ const MatchesComponent = () => {
   const { matchList, success } = useSelector(
     (state: RootState) => state.match.matchList
   );
-  const { profileDetail } = useSelector(
-    (state: RootState) => state.user.profile
-  );
 
   const setMatchOddRatesInRedux = (event: any) => {
     dispatch(updateMatchOddRates(event));
@@ -36,31 +33,26 @@ const MatchesComponent = () => {
   useEffect(() => {
     try {
       window.scrollTo(0, 0);
-      if (success && socket?.connected) {
-        if (profileDetail?.roleName) {
-          expertSocketService.match.matchAddedOff();
-          matchList?.matches?.forEach((element: any) => {
-            expertSocketService.match.getMatchRatesOff(element?.id);
-          });
-          matchList?.matches?.forEach((element: any) => {
-            expertSocketService.match.joinMatchRoom(
-              element?.id,
-              profileDetail?.roleName
-            );
-          });
-          matchList?.matches?.forEach((element: any) => {
-            expertSocketService.match.getMatchRates(
-              element?.id,
-              setMatchOddRatesInRedux
-            );
-          });
-          expertSocketService.match.matchAdded(getMatchListService);
-        }
+      if (success && socket) {
+        expertSocketService.match.matchAddedOff();
+        matchList?.matches?.forEach((element: any) => {
+          expertSocketService.match.getMatchRatesOff(element?.id);
+        });
+        matchList?.matches?.forEach((element: any) => {
+          expertSocketService.match.joinMatchRoom(element?.id, "user");
+        });
+        matchList?.matches?.forEach((element: any) => {
+          expertSocketService.match.getMatchRates(
+            element?.id,
+            setMatchOddRatesInRedux
+          );
+        });
+        expertSocketService.match.matchAdded(getMatchListService);
       }
     } catch (e) {
       console.log(e);
     }
-  }, [success, profileDetail?.roleName, socket]);
+  }, [success, socket]);
 
   useEffect(() => {
     try {

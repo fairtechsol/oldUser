@@ -10,7 +10,11 @@ import LiveMatchHome from "../../components/MatchDetail/LiveMatchScore/LiveMatch
 import MatchOdds from "../../components/MatchDetail/MatchOdds/MatchOdds";
 import SessionBetSeperate from "../../components/MatchDetail/SessionOdds/SessionBetSeperate";
 import service from "../../service";
-import { expertSocketService, socketService } from "../../socketManager";
+import {
+  expertSocketService,
+  socket,
+  socketService,
+} from "../../socketManager";
 import {
   getPlacedBets,
   resetRunAmount,
@@ -235,7 +239,7 @@ const MatchDetail = () => {
 
   useEffect(() => {
     try {
-      if (success) {
+      if (success && socket) {
         expertSocketService.match.getMatchRatesOff(state?.matchId);
         socketService.userBalance.userSessionBetPlacedOff();
         socketService.userBalance.userMatchBetPlacedOff();
@@ -269,7 +273,7 @@ const MatchDetail = () => {
     } catch (e) {
       console.log(e);
     }
-  }, [success]);
+  }, [success, socket]);
 
   const sessionResultDeclared = (event: any) => {
     try {
