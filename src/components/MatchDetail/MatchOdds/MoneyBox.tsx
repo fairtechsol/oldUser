@@ -1,10 +1,10 @@
 import { Box, Typography } from "@mui/material";
-import { handleNumber } from "../../../helper";
+import { handleDecimalAmount } from "../../../helper";
 
 const MoneyBox = ({ color, rates }: any) => {
 
 
-  let val: any = parseFloat(rates).toFixed(2)
+  let val: any = parseFloat(rates || 0)
 
 
   return (
@@ -24,7 +24,7 @@ const MoneyBox = ({ color, rates }: any) => {
       }}
     >
       <Typography sx={{ fontSize: "10px", fontWeight: "bold", color: color }}>
-        {handleNumber(val, color)}
+        {handleDecimalAmount((val), color)}
       {/* {new Intl.NumberFormat("en-IN").format(parseFloat(parseFloat(rates).toFixed(2)))} */}
       </Typography>
     </Box>
