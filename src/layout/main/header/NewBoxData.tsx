@@ -163,7 +163,7 @@ const NewBoxData = ({
               valueStyle,
             ]}
           >
-            {handleNumber(value)}
+            {handleNumber(value || 0)}
           </Typography>
         </Box>
         {showDropDown && (
