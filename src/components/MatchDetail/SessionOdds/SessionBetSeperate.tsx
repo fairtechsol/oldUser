@@ -149,6 +149,9 @@ const SessionBetSeperate = ({ profit, mark2, placedBets, isArrow }: any) => {
               sx={{
                 maxHeight: { xs: "200px", lg: "420px" },
                 overflowY: "auto",
+                "::-webkit-scrollbar": {
+                  display: "none",
+                },
               }}
             >
               {Array.from(new Set(placedBets))?.map((i: any, k: any) => {
