@@ -7,6 +7,7 @@ import DropDownMenu from "./DropdownMenu";
 import { AppDispatch, RootState } from "../../../store/store";
 import { useDispatch,useSelector } from "react-redux";
 import { updateLogoutModal } from "../../../store/actions/user/userAction";
+import { handleDecimalAmount } from "../../../helper";
 
 const NewBoxData = ({
   title,
@@ -76,16 +77,16 @@ const NewBoxData = ({
       setAnchorEl(event.currentTarget);
     }
   };
-  const handleNumber=(num:any)=>{
-    let value: any = parseFloat(num)?.toFixed(2)?.toString()?.split('.');
-    return(
-      value?.length > 0 ? 
-        <>
-         <span style={{color:color}}>{new Intl.NumberFormat("en-IN").format(value[0])}.</span>
-         <span  style={{fontSize:"0.8em",color:color}}>{value[1]}</span>
-        </> : null
-    )
-  }
+  // const handleNumber=(num:any)=>{
+  //   let value: any = parseFloat(num)?.toFixed(2)?.toString()?.split('.');
+  //   return(
+  //     value?.length > 0 ? 
+  //       <>
+  //        <span style={{color:color}}>{new Intl.NumberFormat("en-IN").format(value[0])}.</span>
+  //        <span  style={{fontSize:"0.8em",color:color}}>{value[1]}</span>
+  //       </> : null
+  //   )
+  // }
   return (
     <Box>
       <Box
@@ -163,7 +164,7 @@ const NewBoxData = ({
               valueStyle,
             ]}
           >
-            {handleNumber(value || 0)}
+            {handleDecimalAmount(parseFloat(value || 0), color)}
           </Typography>
         </Box>
         {showDropDown && (

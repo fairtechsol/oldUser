@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import { memo, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { ARROWUP, LockIcon, TIME } from "../../../assets";
-import { currencyFormatter, handleNumber } from "../../../helper";
+import { currencyFormatter, handleDecimalAmount } from "../../../helper";
 import Divider from "../../../helper/Divider";
 import { RootState } from "../../../store/store";
 import FastTimePlaceBet from "./Bets/FastTimePlaceBet";
@@ -57,7 +57,7 @@ const SmallBox = ({ valueA, valueB, color }: any) => {
             color: valueA < 0 ? `#FF4D4D` : `#319E5B`,
           }}
         >
-          {handleNumber(valueA || "0.00", color)}
+          {handleDecimalAmount(parseFloat(valueA || 0.00), color)}
           {/* {valueA < 0 ? ` ${valueA}` : `${valueA}`} */}
         </Typography>
       </Box>
@@ -93,7 +93,7 @@ const SmallBox = ({ valueA, valueB, color }: any) => {
             color: valueB < 0 ? `#FF4D4D` : `#319E5B`,
           }}
         >
-          {handleNumber(valueB || "0.00", color)}
+          {handleDecimalAmount(parseFloat(valueB || 0.00), color)}
           {/* {valueB < 0 ? ` ${valueB}` : `${valueB}`} */}
         </Typography>
       </Box>
