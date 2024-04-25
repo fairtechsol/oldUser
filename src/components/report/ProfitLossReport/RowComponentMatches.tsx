@@ -226,6 +226,7 @@ const RowComponentMatches = ({
                 fontSize: { xs: "10px", lg: "14px" },
                 fontWeight: "700",
                 color: "white",
+                lineHeight: "0.9"
               }}
             >
               {formatToINR(Number(item?.rateProfitLoss).toFixed(2))}{" "}
