@@ -117,6 +117,7 @@ export const matchBettingType = {
 //       : `${Constants.localPath}`,
 //   matchSocket:
 //     process.env.NODE_ENV === Constants.PRODUCTION
+//       ? `${Constants.thirdParty}`
 //       : `${Constants.localPathThird}`,
 //   expertSocket:
 //     process.env.NODE_ENV === Constants.PRODUCTION
