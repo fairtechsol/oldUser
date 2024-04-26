@@ -57,7 +57,7 @@ const SmallBox = ({ valueA, valueB, color }: any) => {
             color: valueA < 0 ? `#FF4D4D` : `#319E5B`,
           }}
         >
-          {handleDecimalAmount(parseFloat(valueA || 0.00), color)}
+          {handleDecimalAmount(parseFloat(valueA || 0.0), color)}
           {/* {valueA < 0 ? ` ${valueA}` : `${valueA}`} */}
         </Typography>
       </Box>
@@ -93,7 +93,7 @@ const SmallBox = ({ valueA, valueB, color }: any) => {
             color: valueB < 0 ? `#FF4D4D` : `#319E5B`,
           }}
         >
-          {handleDecimalAmount(parseFloat(valueB || 0.00), color)}
+          {handleDecimalAmount(parseFloat(valueB || 0.0), color)}
           {/* {valueB < 0 ? ` ${valueB}` : `${valueB}`} */}
         </Typography>
       </Box>
@@ -702,7 +702,7 @@ const MarketOdds = ({
             )}
           </Box>
         )}
-        {visible && showFastTimeBox && !upcoming && (
+        {visible && showFastTimeBox && !upcoming && !showBox && (
           <Box>
             <FastTimePlaceBet
               typeOfBet={typeOfBet}
