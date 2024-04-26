@@ -109,36 +109,23 @@ export const matchBettingType = {
   completeMatch: "completeMatch",
 };
 
-// use below baseUrl for testing build
-
-// export const baseUrls = {
-//   socket:
-//     process.env.NODE_ENV === "production"
-//       ? `${Constants.apiBasePath}`
-//       : `${Constants.localPath}`,
-//   matchSocket:
-//     process.env.NODE_ENV === "production"
-//       ? `${Constants.thirdParty}`
-//       : `${Constants.localPathThird}`,
-//   expertSocket:
-//     process.env.NODE_ENV === "production"
-//       ? `${Constants.expertPath}`
-//       : `${Constants.localPathExpert}`,
-// };
-
-// use below baseUrl for live build
-
 export const baseUrls = {
   socket:
     process.env.NODE_ENV === "production"
       ? `${Constants.apiBasePathLive}`
+      : process.env.NODE_ENV === "development"
+      ? `${Constants.apiBasePath}`
       : `${Constants.localPath}`,
   matchSocket:
     process.env.NODE_ENV === "production"
       ? `${Constants.thirdPartyLive}`
+      : process.env.NODE_ENV === "development"
+      ? `${Constants.thirdParty}`
       : `${Constants.localPathThird}`,
   expertSocket:
     process.env.NODE_ENV === "production"
       ? `${Constants.expertPathLive}`
+      : process.env.NODE_ENV === "development"
+      ? `${Constants.expertPath}`
       : `${Constants.localPathExpert}`,
 };
