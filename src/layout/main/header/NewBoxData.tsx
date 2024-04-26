@@ -42,7 +42,7 @@ const NewBoxData = ({
       }
     };
 
-    const handleClickOutsideBox = (event: MouseEvent) => {
+    const handleClickOutsideBox = () => {
       if (!dropdownRef.current) {
         setOpen(false);
       }

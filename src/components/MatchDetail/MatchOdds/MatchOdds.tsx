@@ -122,7 +122,7 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
             showFast={true}
             suspended={false}
             data={data}
-            showBox={matchDetails?.bookmaker?.activeStatus === "save"}
+            showBox={bookmaker?.activeStatus === "save"}
             teamARates={matchDetails?.profitLossDataMatch?.teamARate || 0}
             teamBRates={matchDetails?.profitLossDataMatch?.teamBRate || 0}
             teamCRates={matchDetails?.profitLossDataMatch?.teamCRate || 0}
@@ -178,7 +178,7 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
           showFast={true}
           suspended={false}
           data={data}
-          showBox={matchDetails?.bookmaker?.activeStatus === "save"}
+          showBox={matchDetails?.manualTiedMatch?.activeStatus === "save"}
           teamARates={matchDetails?.profitLossDataMatch?.yesRateTie || 0}
           teamBRates={matchDetails?.profitLossDataMatch?.noRateTie || 0}
           min={formatToINR(matchDetails?.manualTiedMatch?.minBet) || 0}
