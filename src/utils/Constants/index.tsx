@@ -87,6 +87,7 @@ export const Constants = {
   localPathExpert: "http://localhost:6060",
   WEBSOCKET: "websocket",
   POLLING: "polling",
+  PRODUCTION: "production",
 };
 
 export const teamStatus = {
@@ -109,23 +110,31 @@ export const matchBettingType = {
   completeMatch: "completeMatch",
 };
 
+// export const baseUrls = {
+//   socket:
+//     process.env.NODE_ENV === Constants.PRODUCTION
+//       ? `${Constants.apiBasePath}`
+//       : `${Constants.localPath}`,
+//   matchSocket:
+//     process.env.NODE_ENV === Constants.PRODUCTION
+//       : `${Constants.localPathThird}`,
+//   expertSocket:
+//     process.env.NODE_ENV === Constants.PRODUCTION
+//       ? `${Constants.expertPath}`
+//       : `${Constants.localPathExpert}`,
+// };
+
 export const baseUrls = {
   socket:
-    process.env.NODE_ENV === "production"
+    process.env.NODE_ENV === Constants.PRODUCTION
       ? `${Constants.apiBasePathLive}`
-      : process.env.NODE_ENV === "development"
-      ? `${Constants.apiBasePath}`
       : `${Constants.localPath}`,
   matchSocket:
-    process.env.NODE_ENV === "production"
+    process.env.NODE_ENV === Constants.PRODUCTION
       ? `${Constants.thirdPartyLive}`
-      : process.env.NODE_ENV === "development"
-      ? `${Constants.thirdParty}`
       : `${Constants.localPathThird}`,
   expertSocket:
-    process.env.NODE_ENV === "production"
+    process.env.NODE_ENV === Constants.PRODUCTION
       ? `${Constants.expertPathLive}`
-      : process.env.NODE_ENV === "development"
-      ? `${Constants.expertPath}`
       : `${Constants.localPathExpert}`,
 };
