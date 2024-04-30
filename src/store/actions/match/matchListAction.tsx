@@ -5,14 +5,14 @@ import { ApiConstants } from "../../../utils/Constants";
 
 export const getMatchList = createAsyncThunk<any, any>(
   "/match/list",
-  async ({ type, searchKeyword, matchType }, thunkApi) => {
+  async ({ type, searchKeyword }, thunkApi) => {
     try {
       const resp = await service.get(
         `${ApiConstants.MATCH.MATCHLIST}?sort=match.startAt:ASC${
           type == "search"
             ? `&searchBy=title&keyword=${searchKeyword || ""}`
             : ""
-        }${matchType ? `&match.matchType=${matchType}` : ""}`
+        }&match.matchType=cricket`
       );
       if (resp) {
         return { data: resp?.data, type: type };
