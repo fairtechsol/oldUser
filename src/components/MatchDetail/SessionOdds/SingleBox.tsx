@@ -89,7 +89,7 @@ const SingleBox = ({
     ) : (
       <Box
         sx={{
-          width: "100%",
+          width: "70%",
           height: "40px",
           background: color,
           // marginX: { xs: "1px", lg: "1px" },
@@ -130,7 +130,7 @@ const SingleBox = ({
   ) : header && first ? (
     <Box
       sx={{
-        width: "140%",
+        width: "200%",
         height: "25px",
         background: "#319E5B",
         // marginX: { xs: "1px", lg: "1px" },
