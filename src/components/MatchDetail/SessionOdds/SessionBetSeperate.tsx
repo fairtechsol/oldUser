@@ -124,7 +124,7 @@ const SessionBetSeperate = ({ profit, mark2, placedBets, isArrow }: any) => {
                 <Box
                   sx={{
                     height: "25px",
-                    width: "30%",
+                    width: "20%",
                     display: "flex",
                     background: "#319E5B",
                     justifyContent: "center",
@@ -257,7 +257,7 @@ const SessionBetSeperate = ({ profit, mark2, placedBets, isArrow }: any) => {
                       <Box
                         sx={{
                           height: "40px",
-                          width: "30%",
+                          width: "20%",
                           // margin: { xs: "1px", lg: "1px", my: 0 },
                           background: i.totalLoss > 0 ? "#10DC61" : "#E32A2A",
                         }}
@@ -304,7 +304,7 @@ const SessionBetSeperate = ({ profit, mark2, placedBets, isArrow }: any) => {
                       <Box
                         sx={{
                           height: "40px",
-                          width: "30%",
+                          width: "20%",
                           margin: { xs: "1px", lg: "1px" },
                           display: "flex",
                           background: "black",
@@ -324,7 +324,7 @@ const SessionBetSeperate = ({ profit, mark2, placedBets, isArrow }: any) => {
                         />
                         <Typography
                           sx={{
-                            fontSize: { xs: "7px", lg: ".5vw" },
+                            fontSize: { xs: "5px", lg: ".5vw" },
                             color: "white",
                             fontWeight: "700",
                             width: { lg: "65%", xs: "55%" },
