@@ -325,7 +325,7 @@ const MatchDetail = () => {
     }
   }, []);
 
-  const getScoreBord = async (marketId: string) => {
+  const getScoreBoard = async (marketId: string) => {
     try {
       const response: any = await service.get(
         `https://devscore.fairgame.club/score/getMatchScore/${marketId}`
@@ -349,7 +349,7 @@ const MatchDetail = () => {
         intervalTime = 600000;
       }
       const interval = setInterval(() => {
-        getScoreBord(matchDetails?.marketId);
+        getScoreBoard(matchDetails?.marketId);
       }, intervalTime);
 
       return () => clearInterval(interval);
@@ -365,7 +365,7 @@ const MatchDetail = () => {
             dispatch(matchDetailAction(state?.matchId));
             dispatch(getPlacedBets(state?.matchId));
             if (matchDetails?.marketId) {
-              getScoreBord(matchDetails?.marketId);
+              getScoreBoard(matchDetails?.marketId);
             }
           }
         } else if (document.visibilityState === "hidden") {
@@ -530,9 +530,9 @@ const MatchDetail = () => {
                   />
                 </Box>
                 <Box sx={{ width: "30%", paddingRight: "1%" }}>
-                  {liveScoreBoardData && (
+                  {/* {liveScoreBoardData && (
                     <LiveScore liveScoreData={liveScoreBoardData} />
-                  )}
+                  )} */}
                   {liveMatchData && <LiveMatchHome />}
                   {Array.from(
                     placedBets.reduce(
