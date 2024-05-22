@@ -530,9 +530,9 @@ const MatchDetail = () => {
                   />
                 </Box>
                 <Box sx={{ width: "30%", paddingRight: "1%" }}>
-                  {/* {liveScoreBoardData && (
+                  {liveScoreBoardData && (
                     <LiveScore liveScoreData={liveScoreBoardData} />
-                  )} */}
+                  )}
                   {liveMatchData && <LiveMatchHome />}
                   {Array.from(
                     placedBets.reduce(
