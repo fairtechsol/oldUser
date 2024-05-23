@@ -5,11 +5,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Loader from "../../components/Loader";
 import AllRateSeperate from "../../components/MatchDetail/AllRateBets/AllRateSeperate";
 import BetPlaced from "../../components/MatchDetail/Common/BetPlaced";
-import LiveScore from "../../components/MatchDetail/LiveMatchScore";
+// import LiveScore from "../../components/MatchDetail/LiveMatchScore";
 import LiveMatchHome from "../../components/MatchDetail/LiveMatchScore/LiveMatchHome";
 import MatchOdds from "../../components/MatchDetail/MatchOdds/MatchOdds";
 import SessionBetSeperate from "../../components/MatchDetail/SessionOdds/SessionBetSeperate";
-import service from "../../service";
+// import service from "../../service";
 import {
   expertSocketService,
   socket,
