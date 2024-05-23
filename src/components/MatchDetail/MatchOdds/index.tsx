@@ -49,13 +49,6 @@ const MatchesComponent = () => {
         });
         expertSocketService.match.matchAdded(getMatchListService);
       }
-    } catch (e) {
-      console.log(e);
-    }
-  }, [success, socket]);
-
-  useEffect(() => {
-    try {
       return () => {
         expertSocketService.match.matchAddedOff();
         matchList?.matches?.forEach((element: any) => {
@@ -65,10 +58,10 @@ const MatchesComponent = () => {
           expertSocketService.match.getMatchRatesOff(element?.id);
         });
       };
-    } catch (error) {
-      console.error(error);
+    } catch (e) {
+      console.log(e);
     }
-  }, []);
+  }, [success, socket]);
 
   useEffect(() => {
     try {
