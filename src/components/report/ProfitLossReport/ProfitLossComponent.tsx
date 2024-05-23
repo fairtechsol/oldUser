@@ -81,9 +81,9 @@ const ProfitLossComponent = ({
     });
   };
 
-  return eventData?.length > 0 ? (
+  return eventData?.result?.length > 0 ? (
     <Box>
-      {eventData.map((item: any, index: number) => {
+      {eventData?.result?.map((item: any, index: number) => {
         return (
           <RowHeaderMatches
             key={index}

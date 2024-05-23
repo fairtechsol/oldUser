@@ -5,11 +5,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Loader from "../../components/Loader";
 import AllRateSeperate from "../../components/MatchDetail/AllRateBets/AllRateSeperate";
 import BetPlaced from "../../components/MatchDetail/Common/BetPlaced";
-import LiveScore from "../../components/MatchDetail/LiveMatchScore";
+// import LiveScore from "../../components/MatchDetail/LiveMatchScore";
 import LiveMatchHome from "../../components/MatchDetail/LiveMatchScore/LiveMatchHome";
 import MatchOdds from "../../components/MatchDetail/MatchOdds/MatchOdds";
 import SessionBetSeperate from "../../components/MatchDetail/SessionOdds/SessionBetSeperate";
-import service from "../../service";
+// import service from "../../service";
 import {
   expertSocketService,
   socket,
@@ -54,9 +54,9 @@ const MatchDetail = () => {
   const navigate = useNavigate();
   const [visible, setVisible] = useState(true);
   const [show, setShow] = useState({ open: false, id: "" });
-  const [liveScoreBoardData, setLiveScoreBoardData] = useState(null);
+  // const [liveScoreBoardData, setLiveScoreBoardData] = useState(null);
   const [liveMatchData] = useState(null);
-  const [errorCount, setErrorCount] = useState<number>(0);
+  // const [errorCount, setErrorCount] = useState<number>(0);
   const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
   );
@@ -325,36 +325,36 @@ const MatchDetail = () => {
     }
   }, []);
 
-  const getScoreBoard = async (marketId: string) => {
-    try {
-      const response: any = await service.get(
-        `https://devscore.fairgame.club/score/getMatchScore/${marketId}`
-      );
-      if (response) {
-        setLiveScoreBoardData(response);
-        setErrorCount(0);
-      }
-    } catch (e: any) {
-      console.log("Error:", e?.message);
-      setErrorCount((prevCount: number) => prevCount + 1);
-    }
-  };
+  // const getScoreBoard = async (marketId: string) => {
+  //   try {
+  //     const response: any = await service.get(
+  //       `https://devscore.fairgame.club/score/getMatchScore/${marketId}`
+  //     );
+  //     if (response) {
+  //       setLiveScoreBoardData(response);
+  //       setErrorCount(0);
+  //     }
+  //   } catch (e: any) {
+  //     console.log("Error:", e?.message);
+  //     setErrorCount((prevCount: number) => prevCount + 1);
+  //   }
+  // };
 
-  useEffect(() => {
-    if (matchDetails?.marketId) {
-      let intervalTime = 500;
-      if (errorCount >= 5 && errorCount < 10) {
-        intervalTime = 60000;
-      } else if (errorCount >= 10) {
-        intervalTime = 600000;
-      }
-      const interval = setInterval(() => {
-        getScoreBoard(matchDetails?.marketId);
-      }, intervalTime);
+  // useEffect(() => {
+  //   if (matchDetails?.marketId) {
+  //     let intervalTime = 500;
+  //     if (errorCount >= 5 && errorCount < 10) {
+  //       intervalTime = 60000;
+  //     } else if (errorCount >= 10) {
+  //       intervalTime = 600000;
+  //     }
+  //     const interval = setInterval(() => {
+  //       getScoreBoard(matchDetails?.marketId);
+  //     }, intervalTime);
 
-      return () => clearInterval(interval);
-    }
-  }, [matchDetails?.marketId, errorCount]);
+  //     return () => clearInterval(interval);
+  //   }
+  // }, [matchDetails?.marketId, errorCount]);
 
   useEffect(() => {
     try {
@@ -364,9 +364,9 @@ const MatchDetail = () => {
             dispatch(selectedBetAction(null));
             dispatch(matchDetailAction(state?.matchId));
             dispatch(getPlacedBets(state?.matchId));
-            if (matchDetails?.marketId) {
-              getScoreBoard(matchDetails?.marketId);
-            }
+            // if (matchDetails?.marketId) {
+            //   getScoreBoard(matchDetails?.marketId);
+            // }
           }
         } else if (document.visibilityState === "hidden") {
           expertSocketService.match.leaveMatchRoom(state?.matchId);
@@ -432,9 +432,9 @@ const MatchDetail = () => {
                   flexDirection: "column",
                 }}
               >
-                {liveScoreBoardData && (
+                {/* {liveScoreBoardData && (
                   <LiveScore liveScoreData={liveScoreBoardData} />
-                )}
+                )} */}
                 {liveMatchData && <LiveMatchHome />}
                 <div style={{ width: "100%" }}>
                   <MatchOdds
@@ -530,9 +530,9 @@ const MatchDetail = () => {
                   />
                 </Box>
                 <Box sx={{ width: "30%", paddingRight: "1%" }}>
-                  {liveScoreBoardData && (
+                  {/* {liveScoreBoardData && (
                     <LiveScore liveScoreData={liveScoreBoardData} />
-                  )}
+                  )} */}
                   {liveMatchData && <LiveMatchHome />}
                   {Array.from(
                     placedBets.reduce(
