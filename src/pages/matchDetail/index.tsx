@@ -328,8 +328,8 @@ const MatchDetail = () => {
   const getScoreBoard = async (marketId: string) => {
     try {
       const response: any = await service.get(
-        // `https://devscore.fairgame.club/score/getMatchScore/${marketId}`
-        `https://scoreboard.fairgame7.com/score/getMatchScore/${marketId}`
+        `https://devscore.fairgame.club/score/getMatchScore/${marketId}`
+        // `https://scoreboard.fairgame7.com/score/getMatchScore/${marketId}`
       );
       if (response) {
         setLiveScoreBoardData(response);
