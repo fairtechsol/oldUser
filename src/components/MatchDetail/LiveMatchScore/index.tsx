@@ -11,7 +11,6 @@ import { Box } from "@mui/system";
 
 import ARROWUP from "../../../assets/images/arrowup1.webp";
 import { useState } from "react";
-import ReactHtmlParser from "react-html-parser";
 // import { apiBasePath } from "./helper/constants";
 
 const LiveScore = ({ liveScoreData, submit }: any) => {
@@ -386,7 +385,11 @@ const LiveScore = ({ liveScoreData, submit }: any) => {
         //   </Box>
         //   {/* <Divider /> */}
         // </Box>
-        <Box>{ReactHtmlParser(liveScoreData)}</Box>
+        <div
+          dangerouslySetInnerHTML={{
+            __html: liveScoreData ? liveScoreData : "",
+          }}
+        ></div>
       )}
     </Box>
   );
