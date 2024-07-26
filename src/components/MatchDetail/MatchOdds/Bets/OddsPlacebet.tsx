@@ -19,7 +19,7 @@ import TeamsOdssData from "./TeamOddsData";
 import NotificationModal from "../../../Common/NotificationModal";
 import MUIModal from "@mui/material/Modal";
 
-const types=["matchOdd","tiedMatch1","completeMatch"]
+// const types=["matchOdd","tiedMatch1","completeMatch"]
 
 const OddsPlaceBet = ({ handleClose, season, type }: any) => {
   const dispatch: AppDispatch = useDispatch();
