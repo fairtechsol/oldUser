@@ -1,17 +1,10 @@
 import { Box, useMediaQuery, useTheme } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 import MatchesComponent from "./index";
 import { memo } from "react";
 
 const Match = () => {
-  const navigate = useNavigate();
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
-
-  const doNavigateWithState = (e: any) => {
-    navigate("/matchDetail", { state: { matchId: e, activeTab: "CRICKET" } });
-    sessionStorage.setItem("matchId", e);
-  };
 
   return (
     <>
@@ -29,11 +22,11 @@ const Match = () => {
           }}
         >
           <div style={{ height: "1vh" }} />
-          <MatchesComponent doNavigateWithState={doNavigateWithState} />
+          <MatchesComponent />
         </Box>
       ) : (
         <Box sx={{ overflowX: "hidden", minHeight: "100vh", width: "100%" }}>
-          <MatchesComponent doNavigateWithState={doNavigateWithState} />
+          <MatchesComponent />
         </Box>
       )}
     </>

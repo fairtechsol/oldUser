@@ -1,5 +1,10 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { authReset, login, logout } from "../../actions/auth/authAction";
+import {
+  authReset,
+  checkOldPassword,
+  login,
+  logout,
+} from "../../actions/auth/authAction";
 
 const initialState = {
   success: false,
@@ -7,6 +12,7 @@ const initialState = {
   forceChangePassword: false,
   isTransPasswordCreated: false,
   userRole: "",
+  oldPasswordMatched: false,
 };
 
 export const authReducer = createReducer(initialState, (builder) => {
@@ -17,7 +23,7 @@ export const authReducer = createReducer(initialState, (builder) => {
     .addCase(login.fulfilled, (state, action) => {
       state.loading = false;
       state.success = true;
-      state.userRole = action.payload.roleName;
+      state.userRole = action?.payload?.roleName;
       state.forceChangePassword = action?.payload?.forceChangePassword;
       state.isTransPasswordCreated = action?.payload?.isTransPasswordCreated;
     })
@@ -33,7 +39,19 @@ export const authReducer = createReducer(initialState, (builder) => {
     .addCase(logout.rejected, (state) => {
       state.loading = false;
     })
+    .addCase(checkOldPassword.pending, (state) => {
+      state.loading = true;
+      state.oldPasswordMatched = false;
+    })
+    .addCase(checkOldPassword.fulfilled, (state, action) => {
+      state.loading = false;
+      state.oldPasswordMatched = action?.payload;
+    })
+    .addCase(checkOldPassword.rejected, (state) => {
+      state.loading = false;
+    })
     .addCase(authReset, (state) => {
-      return { ...state, success: false, forceChangePassword: false };
+      state.success = false;
+      state.forceChangePassword = false;
     });
 });

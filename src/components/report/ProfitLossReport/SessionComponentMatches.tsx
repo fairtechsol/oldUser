@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "../../../store/store";
 import { getTotalBetProfitLoss } from "../../../store/actions/user/userAction";
 import { useSelector } from "react-redux";
+import { formatToINR } from "../../../helper";
 
 const SessionComponentMatches = ({
   item,
@@ -172,6 +173,7 @@ const SessionComponentMatches = ({
                 width: { lg: "25px", xs: "15px" },
                 height: { lg: "12px", xs: "8px" },
               }}
+              alt=""
             />
           </Box>
           <Box
@@ -187,10 +189,10 @@ const SessionComponentMatches = ({
               {Number(item.totalLoss) >= 0 ? (
                 <>
                   <span style={{ visibility: "hidden" }}>-</span>
-                  {Number(item.totalLoss).toFixed(2)}
+                  {formatToINR(Number(item.totalLoss).toFixed(2))}
                 </>
               ) : (
-                Number(item.totalLoss).toFixed(2)
+                formatToINR(Number(item.totalLoss).toFixed(2))
               )}
               {/* {Number(item.totalLoss).toFixed(2)} */}
             </Typography>
@@ -204,6 +206,7 @@ const SessionComponentMatches = ({
                     ? "rotate(90deg)"
                     : "rotate(270deg)",
               }}
+              alt=""
             />
           </Box>
         </Box>

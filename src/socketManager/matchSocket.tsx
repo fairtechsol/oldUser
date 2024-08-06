@@ -2,7 +2,7 @@ import { expertSocket, matchSocket } from ".";
 
 export const matchSocketService = {
   joinMatchRoom: (matchId: any, roleName: any) => {
-    expertSocket.emit("matchRoom", {
+    expertSocket?.emit("matchRoom", {
       id: matchId,
     });
 
@@ -12,23 +12,23 @@ export const matchSocketService = {
     });
   },
   leaveAllRooms: () => {
-    expertSocket.emit("leaveAllRoom");
+    expertSocket?.emit("leaveAllRoom");
   },
   leaveMatchRoom: (matchId: any) => {
-    matchSocket.emit("disconnectCricketData", {
+    matchSocket?.emit("disconnectCricketData", {
       matchId: matchId,
     });
   },
   matchAdded: (callback: any) => {
-    expertSocket.on("addMatch", callback);
+    expertSocket?.on("addMatch", callback);
   },
   getMatchRates: (matchId: string, callback: any) => {
-    matchSocket.on(`liveData${matchId}`, callback);
+    matchSocket?.on(`liveData${matchId}`, callback);
   },
   matchAddedOff: () => {
-    expertSocket.off("addMatch");
+    expertSocket?.off("addMatch");
   },
   getMatchRatesOff: (matchId: string) => {
-    matchSocket.off(`liveData${matchId}`);
+    matchSocket?.off(`liveData${matchId}`);
   },
 };

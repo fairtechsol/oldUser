@@ -7,7 +7,7 @@ import { ArrowDown, drawerBackground } from "../../../assets/index";
 const SideBar = ({ mobileShow,handleDrawerToggle }: any) => {
   const [showSideBarMobile, setShowSideBarMobile] = useState(false);
   const navigate = useNavigate();
-  const [selected, setSelected] = useState("All Sports");
+  const [selected, setSelected] = useState(mobileShow?"":"All Sports");
   const data = [
     {
       title: "All Sports",
@@ -118,6 +118,7 @@ const SideBar = ({ mobileShow,handleDrawerToggle }: any) => {
                   selected == title ? "rotate(0deg)" : "rotate(180deg)",
               }}
               src={ArrowDown}
+              alt=""
             />
           </Box>
         </Box>
@@ -130,7 +131,7 @@ const SideBar = ({ mobileShow,handleDrawerToggle }: any) => {
         onClick={() => {
           navigate(item?.url, { state: { activeTab: item?.activeTab } });
           handleDrawerToggle()
-      
+
           setShowSideBarMobile(false)
         }}
         sx={{
@@ -145,7 +146,6 @@ const SideBar = ({ mobileShow,handleDrawerToggle }: any) => {
             borderBottomRightRadius: ".5vh",
             borderTopRightRadius: ".5vh",
             cursor: "pointer",
-            // backgroundImage: `${theme.palette.primary.headerGradient}`,
           },
         }}
       >

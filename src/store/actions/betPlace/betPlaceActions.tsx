@@ -13,7 +13,7 @@ export const placeBet = createAsyncThunk<any, any>(
       }
     } catch (error: any) {
       const err = error as AxiosError;
-      return thunkApi.rejectWithValue(err.response?.status);
+      return thunkApi.rejectWithValue(err.response);
     }
   }
 );
@@ -26,7 +26,7 @@ export const getPlacedBets = createAsyncThunk<any, any>(
         `${ApiConstants.BET.GETPLACEDBETS}?result=inArr${JSON.stringify([
           "PENDING",
           "UNDECLARE",
-        ])}&betPlaced.matchId=${id}`
+        ])}&betPlaced.matchId=${id}&sort=betPlaced.createdAt:DESC`
       );
       if (resp) {
         return resp?.data?.rows;
@@ -90,3 +90,4 @@ export const updateDeleteReasonBet = createAsyncThunk<any, any>(
 export const betsSuccessReset = createAction("success/reset");
 export const betPlaceSuccessReset = createAction("betPlaceSuccess/reset");
 export const resetRunAmount = createAction("resetRunAmount/reset");
+export const betPlaceErrorCheck = createAction("betPlaceErrorCheck/bet");

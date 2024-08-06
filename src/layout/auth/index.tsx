@@ -1,6 +1,5 @@
 import { Box, Card, useMediaQuery, useTheme } from "@mui/material";
 import { Outlet, useNavigate } from "react-router-dom";
-// import AuthBackground from "../../pages/auth/AuthBackground";
 import { useEffect } from "react";
 import { FgLogo } from "../../assets";
 import StyledImage from "../../components/Common/StyledImages";
@@ -9,13 +8,13 @@ const AuthLayout = () => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("md"));
 
-const navigate=useNavigate();
+  const navigate = useNavigate();
 
-  useEffect(()=>{
-    if(sessionStorage.getItem("userToken")){
+  useEffect(() => {
+    if (sessionStorage.getItem("jwtUser")) {
       navigate("/match");
     }
-  },[navigate])
+  }, [navigate]);
 
   return (
     <Box style={{ position: "relative" }}>
@@ -49,7 +48,11 @@ const navigate=useNavigate();
           <StyledImage
             src={FgLogo}
             alt="Fairgame"
-            sx={{ height: "10%", width: {xs:"85%", lg: "69%"} }}
+            sx={{
+              height: "10%",
+              width: { xs: "85%", lg: "69%" },
+              fetchPriority: "high",
+            }}
           />
           <Outlet />
         </Card>

@@ -6,6 +6,9 @@ import Divider from "../../../helper/Divider";
 import Upcomings from "../../Common/Upcomings";
 import MatchRatesCommonComp from "./MatchRatesCommonComp";
 import { formatToINR } from "../../../helper";
+import { AppDispatch } from "../../../store/store";
+import { useDispatch } from "react-redux";
+import { updateLogoutModal } from "../../../store/actions/user/userAction";
 
 interface TimeLeft {
   days: string;
@@ -15,6 +18,7 @@ interface TimeLeft {
 }
 
 const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
+  const dispatch: AppDispatch = useDispatch();
   function calculateTimeLeft(): TimeLeft {
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     const targetDate = moment(match?.startAt).tz(timezone);
@@ -53,7 +57,7 @@ const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
   const upcoming =
     Number(timeLeft.days) === 0 &&
     Number(timeLeft.hours) === 0 &&
-    Number(timeLeft.minutes) <= 30;
+    Number(timeLeft.minutes) <= 60;
 
   return (
     <>
@@ -152,6 +156,7 @@ const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
           background: "white",
         }}
         onClick={(e) => {
+          dispatch(updateLogoutModal({modal : false}))
           e.stopPropagation();
           setSelectedMatchId(match?.id);
         }}

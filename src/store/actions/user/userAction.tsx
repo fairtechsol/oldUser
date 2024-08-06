@@ -25,7 +25,12 @@ export const getProfile = createAsyncThunk<any>(
       const resp = await service.get(`${ApiConstants.USER.GET_PROFILE}`);
       // console.log("API Request user: Success", resp.data);
       if (resp) {
-        return resp?.data;
+        if (resp?.data?.[0]?.[0].loginAt === null) {
+          window.location.replace("/login");
+          sessionStorage.clear();
+        } else {
+          return resp?.data;
+        }
       }
     } catch (error: any) {
       const err = error as AxiosError;
@@ -143,7 +148,7 @@ export const getAccountStatement = createAsyncThunk<any, any>(
           page || 1
         }&limit=${limit}&searchBy=${searchBy ?? ""}&keyword=${keyword ?? ""}${
           filter ?? ""
-        }&sort=transaction.createdAt:DESC`
+        }&sort=transaction.createdAt:DESC,transaction.uniqueId:DESC`
       );
       if (resp) {
         return resp?.data;
@@ -214,7 +219,7 @@ export const getUserTotalProfitLoss = createAsyncThunk<any, any>(
         requestData?.filter ? requestData?.filter : requestData
       );
       if (resp) {
-        return resp?.data?.result;
+        return resp?.data;
       }
     } catch (error: any) {
       const err = error as AxiosError;
@@ -258,6 +263,12 @@ export const getSessionProfitLoss = createAsyncThunk<any, any>(
 );
 export const updateUserSearchId = createAsyncThunk<any, any>(
   "/maxLoss/updateUserSearchId",
+  async (data) => {
+    return data;
+  }
+);
+export const updateLogoutModal = createAsyncThunk<any, any>(
+  "/modal/updateLogoutModal",
   async (data) => {
     return data;
   }

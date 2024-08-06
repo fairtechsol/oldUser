@@ -3,12 +3,15 @@ import { useEffect, useState } from "react";
 import YellowHeaderProfitLoss from "../../../components/report/ProfitLossReport/YellowheaderProfitLoss";
 import { AppDispatch, RootState } from "../../../store/store";
 import { useDispatch } from "react-redux";
-import { getUserTotalProfitLoss, updateUserSearchId } from "../../../store/actions/user/userAction";
+import {
+  getUserTotalProfitLoss,
+  updateUserSearchId,
+} from "../../../store/actions/user/userAction";
 import moment from "moment";
 import ProfitLossComponent from "../../../components/report/ProfitLossReport/ProfitLossComponent";
 import { useSelector } from "react-redux";
 interface FilterObject {
-  userId?: any; 
+  userId?: any;
   startDate?: string;
   endDate?: string;
 }
@@ -27,21 +30,20 @@ const ProfitLoss = () => {
   const handleClick = () => {
     try {
       setShow(false);
-      let filter : FilterObject = {};
+      let filter: FilterObject = {};
       dispatch(updateUserSearchId({ search }));
       if (search?.id) {
-        filter['userId'] = search?.id;
-       
+        filter["userId"] = search?.id;
       }
       if (startDate && endDate) {
-        filter['startDate'] = moment(startDate)?.format("YYYY-MM-DD");
-        filter['endDate'] = moment(endDate)?.format("YYYY-MM-DD");
+        filter["startDate"] = moment(startDate)?.format("YYYY-MM-DD");
+        filter["endDate"] = moment(endDate)?.format("YYYY-MM-DD");
       } else {
         if (startDate) {
-          filter['startDate'] = moment(startDate)?.format("YYYY-MM-DD");
+          filter["startDate"] = moment(startDate)?.format("YYYY-MM-DD");
         }
         if (endDate) {
-          filter['endDate'] = moment(endDate)?.format("YYYY-MM-DD");
+          filter["endDate"] = moment(endDate)?.format("YYYY-MM-DD");
         }
       }
       dispatch(getUserTotalProfitLoss({ filter: filter }));
@@ -51,8 +53,10 @@ const ProfitLoss = () => {
   };
 
   useEffect(() => {
-    dispatch(getUserTotalProfitLoss({ filter: "" }));
-  }, []);
+    if (sessionStorage.getItem("jwtUser")) {
+      dispatch(getUserTotalProfitLoss({ filter: "" }));
+    }
+  }, [sessionStorage]);
 
   return (
     <Box sx={{ width: "100%", paddingX: "1vw" }}>
@@ -86,6 +90,8 @@ const ProfitLoss = () => {
           pageCount={pageCount}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
+          startDate={startDate}
+          endDate={endDate}
         />
       </>
     </Box>

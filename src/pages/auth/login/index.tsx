@@ -21,19 +21,21 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
 
+  const { success, forceChangePassword, loading } = useSelector(
+    (state: RootState) => state.auth
+  );
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema: loginValidationSchema,
     onSubmit: (values: any) => {
+      if (loading) {
+        return;
+      }
       dispatch(login(values));
     },
   });
 
   const { handleSubmit, touched, errors } = formik;
-
-  const { success, forceChangePassword, loading } = useSelector(
-    (state: RootState) => state.auth
-  );
 
   useEffect(() => {
     if (success) {
@@ -56,7 +58,13 @@ const Login = () => {
         // marginTop: "45px",
       }}
     >
-      <Box sx={{ width: "100%", opacity: 1 , marginTop: {xs:"100px", lg: "1rem"}}}>
+      <Box
+        sx={{
+          width: "100%",
+          opacity: 1,
+          marginTop: { xs: "100px", lg: "1rem" },
+        }}
+      >
         <Input
           id={"userName"}
           placeholder={"Enter Username"}

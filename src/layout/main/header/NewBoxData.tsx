@@ -4,6 +4,10 @@ import StyledImage from "../../../components/Common/StyledImages";
 import DownIcon from "../../../assets/images/down.svg";
 import { Box, Typography } from "@mui/material";
 import DropDownMenu from "./DropdownMenu";
+import { AppDispatch, RootState } from "../../../store/store";
+import { useDispatch, useSelector } from "react-redux";
+import { updateLogoutModal } from "../../../store/actions/user/userAction";
+import { handleDecimalAmount } from "../../../helper";
 
 const NewBoxData = ({
   title,
@@ -12,11 +16,21 @@ const NewBoxData = ({
   containerStyle,
   valueStyle,
   titleStyle,
+  color,
 }: any) => {
+  const [anchorEl, setAnchorEl] = useState<number | null>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const dispatch: AppDispatch = useDispatch();
+  const { logoutModal } = useSelector(
+    (state: RootState) => state.user.profitLoss
+  );
   const [open, setOpen] = useState(false);
 
-  const [anchorEl,setAnchorEl] = useState<number | null>(null);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!logoutModal) {
+      setOpen(false);
+    }
+  }, [logoutModal]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -28,20 +42,49 @@ const NewBoxData = ({
       }
     };
 
+    const handleClickOutsideBox = () => {
+      if (!dropdownRef.current) {
+        setOpen(false);
+      }
+    };
+
+    const handleScroll = () => {
+      setOpen(false);
+      dispatch(updateLogoutModal({ modal: false }));
+    };
+
     window.addEventListener("click", handleClickOutside);
-    return () => window.removeEventListener("click", handleClickOutside);
+    document.addEventListener("click", handleClickOutsideBox);
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("click", handleClickOutside);
+      document.removeEventListener("click", handleClickOutsideBox);
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   const handleClose = () => {
     setAnchorEl(null);
-    setOpen(false); 
+    setOpen(false);
   };
   const handleClick = (event: any) => {
     if (title !== "Exposure") {
-      setOpen((prevOpen) => !prevOpen); 
+      setOpen((prevOpen) => !prevOpen);
+      dispatch(updateLogoutModal({ modal: !open }));
       setAnchorEl(event.currentTarget);
     }
   };
+  // const handleNumber=(num:any)=>{
+  //   let value: any = parseFloat(num)?.toFixed(2)?.toString()?.split('.');
+  //   return(
+  //     value?.length > 0 ?
+  //       <>
+  //        <span style={{color:color}}>{new Intl.NumberFormat("en-IN").format(value[0])}.</span>
+  //        <span  style={{fontSize:"0.8em",color:color}}>{value[1]}</span>
+  //       </> : null
+  //   )
+  // }
   return (
     <Box>
       <Box
@@ -65,7 +108,7 @@ const NewBoxData = ({
             paddingX: "3px",
             borderRadius: "5px",
             cursor: "pointer",
-            zIndex: "999"
+            zIndex: "999",
           },
           containerStyle,
         ]}
@@ -93,18 +136,19 @@ const NewBoxData = ({
             //   },
             //   titleStyle,
             // ]}
-            sx={[{
-              fontSize: { lg: "8px", xs: "8px" },
-              fontWeight: { xs: "bold", lg: "500" }, 
-              textTransform: showDropDown ? "capitalize" : "none", 
-              whiteSpace: showDropDown && "nowrap",
-              maxWidth: "none", 
-              overflow: showDropDown && "hidden",
-              marginLeft: "0.5px", 
-              color: "black",
-            },
-               titleStyle,
-              ]}
+            sx={[
+              {
+                fontSize: { lg: "8px", xs: "8px" },
+                fontWeight: { xs: "bold", lg: "500" },
+                textTransform: showDropDown ? "capitalize" : "none",
+                whiteSpace: showDropDown && "nowrap",
+                maxWidth: "none",
+                overflow: showDropDown && "hidden",
+                marginLeft: "0.5px",
+                color: "black",
+              },
+              titleStyle,
+            ]}
           >
             {title}
           </Typography>
@@ -119,7 +163,7 @@ const NewBoxData = ({
               valueStyle,
             ]}
           >
-            {value}
+            {handleDecimalAmount(parseFloat(value || 0), color)}
           </Typography>
         </Box>
         {showDropDown && (
@@ -127,6 +171,7 @@ const NewBoxData = ({
             <StyledImage
               src={DownIcon}
               sx={{ height: "10px", width: "10px", marginRight: "5px" }}
+              alt=""
             />
           </Box>
         )}
@@ -137,7 +182,7 @@ const NewBoxData = ({
           anchorEl={anchorEl}
           handleClose={handleClose}
         />
-      )} 
+      )}
     </Box>
   );
 };

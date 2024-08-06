@@ -3,6 +3,7 @@ import { useState } from "react";
 import { ARROWUP, DELETE } from "../../../assets";
 import RowComponent from "./RowComponent";
 import StyledImage from "../../Common/StyledImages";
+import { formatToINR } from "../../../helper";
 
 const AllRateSeperate = ({
   profit,
@@ -113,6 +114,7 @@ const AllRateSeperate = ({
                 marginRight: "5px",
                 marginLeft: "5px",
               }}
+              alt=""
             />
             {/* <Typography
               sx={{ fontSize: "12px", fontWeight: "700", color: "#FF1111" }}
@@ -188,6 +190,9 @@ const AllRateSeperate = ({
               sx={{
                 maxHeight: { xs: "200px", lg: "420px" },
                 overflowY: "auto",
+                "::-webkit-scrollbar": {
+                  display: "none",
+                },
               }}
             >
               {/* {console.warn("allBetsData :", allBetsData)} */}
@@ -238,23 +243,23 @@ const AllRateSeperate = ({
                     </Box>
                     <RowComponent header={false} data={i} />
                     {i?.deleteReason && betHistory && (
-                    <Box
-                      sx={{
-                        width: {
-                          xs: profit ? "100%" : "100%",
-                          alignItems: "flex-end",
-                          justifyContent: "center",
-                          display: "flex",
-                          lg: profit ? "100 % " : "100% ",
-                        },
-                        // background: "rgba(0, 0, 0, 0.6)",
-                        height: "100%",
-                        position: "absolute",
-                      }}
-                    >
-                      <Box sx={{ width: mark2 ? "20%" : "35%" }}></Box>
-                    </Box>
-                    )} 
+                      <Box
+                        sx={{
+                          width: {
+                            xs: profit ? "100%" : "100%",
+                            alignItems: "flex-end",
+                            justifyContent: "center",
+                            display: "flex",
+                            lg: profit ? "100 % " : "100% ",
+                          },
+                          // background: "rgba(0, 0, 0, 0.6)",
+                          height: "100%",
+                          position: "absolute",
+                        }}
+                      >
+                        <Box sx={{ width: mark2 ? "20%" : "35%" }}></Box>
+                      </Box>
+                    )}
                     {i?.deleteReason && (
                       <Box
                         sx={{
@@ -298,7 +303,7 @@ const AllRateSeperate = ({
                         </Box>
                       </Box>
                     )}
-                    {i?.deleteReason  && (
+                    {i?.deleteReason && (
                       <Box
                         sx={{
                           width: {
@@ -347,10 +352,10 @@ const AllRateSeperate = ({
                             {Number(i.totalLoss) >= 0 ? (
                               <>
                                 <span style={{ visibility: "hidden" }}>-</span>
-                                {Number(i.totalLoss).toFixed(2)}
+                                {formatToINR(Number(i.totalLoss).toFixed(2))}
                               </>
                             ) : (
-                              Number(i.totalLoss).toFixed(2)
+                              formatToINR(Number(i.totalLoss).toFixed(2))
                             )}
                           </Typography>
 
@@ -361,6 +366,7 @@ const AllRateSeperate = ({
                                 height: { xs: "5px", lg: "7px" },
                               }}
                               src={ARROWUP}
+                              alt=""
                             />
                           )}
                         </Box>
@@ -386,6 +392,7 @@ const AllRateSeperate = ({
                             marginRight: "5px",
                           }}
                           src={DELETE}
+                          alt=""
                         />
                         <Typography
                           sx={{
@@ -416,7 +423,7 @@ const AllRateSeperate = ({
                           right: 0,
                         }}
                       > */}
-                        {/* <StyledImage
+                    {/* <StyledImage
                         sx={{
                           width: { xs: "15px", lg: "20px" },
                           height: { lg: "20px", xs: "14px" },
@@ -436,8 +443,8 @@ const AllRateSeperate = ({
                         Bet <span style={{ color: "#e41b23" }}>Deleted</span>{" "}
                         Due {"\n"} {"i?.deleteReason"}
                       </Typography> */}
-                      </Box>
-                    // )}
+                  </Box>
+                  // )}
                   // </Box>
                 );
               })}

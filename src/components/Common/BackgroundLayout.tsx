@@ -7,6 +7,7 @@ const BackgroundLayout = ({ children }: any) => {
     return (
         <Box
             sx={{
+                fetchPriority: 'high',
                 minHeight: "100vh",
                 // padding: "0.2% 1% 1% 1%",
                 paddingBottom: "1rem",

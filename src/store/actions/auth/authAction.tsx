@@ -24,7 +24,7 @@ export const login = createAsyncThunk<any, LoginData>(
         requestData
       );
       const { token } = data;
-      sessionStorage.setItem("userToken", token);
+      sessionStorage.setItem("jwtUser", token);
       return data;
     } catch (error) {
       const err = error as AxiosError;
@@ -44,6 +44,23 @@ export const changePassword = createAsyncThunk<any, ChangePassword>(
       if (resp) {
         sessionStorage.clear();
         window.location.replace("/login");
+      }
+    } catch (error: any) {
+      const err = error as AxiosError;
+      return thunkApi.rejectWithValue(err.response?.status);
+    }
+  }
+);
+export const checkOldPassword = createAsyncThunk<any, any>(
+  "check/oldPassword",
+  async (requestData, thunkApi) => {
+    try {
+      const resp = await service.post(
+        `${ApiConstants.AUTH.OLD_PASSWORD}`,
+        requestData
+      );
+      if (resp) {
+        return resp?.data?.isPasswordMatch;
       }
     } catch (error: any) {
       const err = error as AxiosError;

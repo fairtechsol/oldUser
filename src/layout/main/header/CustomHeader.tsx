@@ -20,19 +20,38 @@ import { RootState } from "../../../store/store";
 const CustomHeader = () => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
-  const { getProfile, marqueeNotification } = useSelector(
+  const { profileDetail, marqueeNotification } = useSelector(
     (state: RootState) => state.user.profile
   );
   const navigate = useNavigate();
   const [showSideBarMobile] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [isOnline] = useState(navigator.onLine);
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
 
   useEffect(() => {
     if (!matchesMobile) {
       setMobileOpen(false);
     }
   }, [matchesMobile]);
+
+  useEffect(() => {
+    function onlineHandler() {
+      setIsOnline(true);
+      window.location.reload();
+    }
+
+    function offlineHandler() {
+      setIsOnline(false);
+    }
+
+    window.addEventListener("online", onlineHandler);
+    window.addEventListener("offline", offlineHandler);
+
+    return () => {
+      window.removeEventListener("online", onlineHandler);
+      window.removeEventListener("offline", offlineHandler);
+    };
+  }, []);
 
   return (
     <>
@@ -158,18 +177,14 @@ const CustomHeader = () => {
                 containerStyle={{ marginTop: matchesMobile ? "5px" : "0px" }}
                 valueStyle={{}}
                 title={"Exposure"}
-                value={getProfile?.userBal?.exposure &&
-                  new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(getProfile.userBal.exposure)
-                }
+                value={profileDetail?.userBal?.exposure}
               />
               <NewBoxData
                 showDropDown={true}
-                title={getProfile?.userName}
+                title={profileDetail?.userName}
                 valueStyle={{ color: "white" }}
                 titleStyle={{ color: "white" }}
-                value={getProfile?.userBal?.currentBalance &&
-                  new Intl.NumberFormat('en-IN', { currency: 'INR' }).format(getProfile.userBal.currentBalance)
-                }
+                value={profileDetail?.userBal?.currentBalance}
                 containerStyle={{ background: "#0B4F26" }}
               />
             </Box>

@@ -1,9 +1,12 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { memo } from "react";
 import { ARROW_DOWN, ARROW_UP, ArrowDown, Cricket } from "../../../assets";
 import StyledImage from "../../Common/StyledImages";
+import { formatToINR } from "../../../helper";
 
 const RowHeaderMatches = ({ item, getHandleReport, show }: any) => {
+  const theme = useTheme();
+  const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   return (
     <Box
       onClick={() => getHandleReport(item?.eventType)}
@@ -25,7 +28,11 @@ const RowHeaderMatches = ({ item, getHandleReport, show }: any) => {
           background: "#F8C851",
         }}
       >
-        <StyledImage src={Cricket} sx={{ width: { lg: "35px", xs: "25px" } }} />
+        <StyledImage
+          src={Cricket}
+          sx={{ width: { lg: "35px", xs: "25px" } }}
+          alt=""
+        />
       </Box>
       <Box
         sx={{
@@ -51,6 +58,7 @@ const RowHeaderMatches = ({ item, getHandleReport, show }: any) => {
             transform: show ? "rotate(180deg)" : "rotate(0deg)",
             height: { lg: "10px", xs: "6px" },
           }}
+          alt=""
         />
       </Box>
       <Box
@@ -89,6 +97,7 @@ const RowHeaderMatches = ({ item, getHandleReport, show }: any) => {
               width: { lg: "25px", xs: "15px" },
               height: { lg: "12px", xs: "8px" },
             }}
+            alt=""
           />
         </Box>
         <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -99,14 +108,11 @@ const RowHeaderMatches = ({ item, getHandleReport, show }: any) => {
               color: "white",
             }}
           >
-            {Number(item?.totalLoss) >= 0 ? (
-              <>
-                <span style={{ visibility: "hidden" }}>-</span>
-                {Number(item?.totalLoss).toFixed(2)}
-              </>
-            ) : (
-              Number(item?.totalLoss).toFixed(2)
-            )}{" "}
+            {formatToINR(Number(item?.totalLoss).toFixed(2))}{" "}
+            {`(${matchesMobile ? "TD(1%)" : "Total Deduction"}: 
+                  ${formatToINR(
+                    parseFloat(item?.totalDeduction || 0).toFixed(2)
+                  )})`}
           </Typography>
         </Box>
       </Box>

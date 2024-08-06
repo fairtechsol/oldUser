@@ -1,15 +1,23 @@
-import { Box, Button, CircularProgress, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Typography,
+  debounce,
+} from "@mui/material";
 
 import { eye, eyeLock } from "../../assets";
 import Input from "../../components/login/input";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../store/store";
-// import { useEffect, useState } from "react";
-import { changePassword } from "../../store/actions/auth/authAction";
-// import NavigateModal from "../../components/Common/NavigateModal";
+import { AppDispatch, RootState } from "../../store/store";
+import {
+  changePassword,
+  checkOldPassword,
+} from "../../store/actions/auth/authAction";
 import { useFormik } from "formik";
-import { newPasswordValidationSchema } from "../../utils/Validations";
-// import { useSelector } from "react-redux";
+import { useMemo } from "react";
+import { useSelector } from "react-redux";
+import { changePasswordValidation } from "../../utils/Validations";
 
 const initialValues: any = {
   oldPassword: "",
@@ -19,15 +27,12 @@ const initialValues: any = {
 
 const ChangePassword = (props: any) => {
   const { passLoader, width } = props;
-  // const [showModal, setShowModal] = useState<boolean>(false);
   const dispatch: AppDispatch = useDispatch();
+  const { oldPasswordMatched } = useSelector((state: RootState) => state.auth);
 
-  // const { transactionPassword } = useSelector(
-  //   (state: RootState) => state.user.profile
-  // );
   const formik = useFormik({
     initialValues: initialValues,
-    validationSchema: newPasswordValidationSchema,
+    validationSchema: changePasswordValidation(oldPasswordMatched),
     onSubmit: (values: any) => {
       const payload = {
         newPassword: values.newPassword,
@@ -35,17 +40,22 @@ const ChangePassword = (props: any) => {
         oldPassword: values.oldPassword,
       };
       dispatch(changePassword(payload));
-      // setShowModal(true);
     },
   });
 
   const { handleSubmit, touched, errors } = formik;
 
-  // useEffect(() => {
-  //   if (success) {
-  //     setShowModal(true);
-  //   }
-  // }, [success]);
+  const debouncedInputValue = useMemo(() => {
+    return debounce((value) => {
+      dispatch(checkOldPassword({ oldPassword: value }));
+    }, 500);
+  }, []);
+
+  const handleOldPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const query = e.target.value;
+    formik.handleChange(e);
+    debouncedInputValue(query);
+  };
 
   return (
     <>
@@ -97,7 +107,8 @@ const ChangePassword = (props: any) => {
               id="oldPassword"
               name={"oldPassword"}
               type="password"
-              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              onChange={handleOldPasswordChange}
             />
             {touched.oldPassword && errors.oldPassword && (
               <p style={{ color: "#fa1e1e" }}>{errors.oldPassword as string}</p>
@@ -118,6 +129,7 @@ const ChangePassword = (props: any) => {
               img={eye}
               img1={eyeLock}
               type="password"
+              onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
             {touched.newPassword && errors.newPassword && (
@@ -139,6 +151,7 @@ const ChangePassword = (props: any) => {
               img={eye}
               img1={eyeLock}
               type="password"
+              onBlur={formik.handleBlur}
               onChange={formik.handleChange}
             />
             {touched.confirmPassword && errors.confirmPassword && (
@@ -186,17 +199,6 @@ const ChangePassword = (props: any) => {
           </Box>
         </Box>
       </form>
-      {/* {showModal && (
-        <NavigateModal
-          modalTitle="Your password has been changed sucessfully"
-          message={transactionPassword}
-          setShowModal={setShowModal}
-          functionDispatch={() => {}}
-          showModal={showModal}
-          buttonMessage={"Navigate To Login"}
-          navigateTo={"/login"}
-        />
-      )} */}
     </>
   );
 };

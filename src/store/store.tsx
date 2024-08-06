@@ -4,7 +4,6 @@ import { userReducer } from "./reducers/user";
 import { matchReducer } from "./reducers/match";
 import { placedBetReducer } from "./reducers/betPlace";
 
-
 const store = configureStore({
   reducer: {
     auth: authReducer,
@@ -12,6 +11,7 @@ const store = configureStore({
     match: matchReducer,
     bets: placedBetReducer,
   },
+  devTools: process.env.NODE_ENV !== "production",
 });
 
 export type RootState = ReturnType<typeof store.getState>;

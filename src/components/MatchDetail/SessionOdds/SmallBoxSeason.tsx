@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
+import { formatToINR } from "../../../helper";
 
 const SmallBoxSeason = ({ allBetsData }: any) => {
   return (
@@ -84,10 +85,11 @@ const SmallBoxSeason = ({ allBetsData }: any) => {
             lineHeight: "1.5",
           }}
         >
-          {new Intl.NumberFormat("en-IN").format(allBetsData?.reduce((accumulator: any, bet: any) => {
-            return accumulator + (+bet?.maxLoss || 0);
-          }, 0))}
-
+          {formatToINR(
+            allBetsData?.reduce((accumulator: any, bet: any) => {
+              return accumulator + (+bet?.maxLoss || 0);
+            }, 0)
+          )}
         </Typography>
       </Box>
     </Box>

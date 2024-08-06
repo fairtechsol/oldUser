@@ -6,17 +6,13 @@ import { useState } from "react";
 import RunsDropDown from "./RunsDropDown";
 import { AppDispatch, RootState } from "../../../../store/store";
 import { useSelector } from "react-redux";
+import { handleDecimalAmount } from "../../../../helper";
 
-const PlaceBetComponent = ({ profitLoss, data, show, setShow }: any) => {
+const PlaceBetComponent = ({ profitLoss, data, show, setShow, color }: any) => {
   const dispatch: AppDispatch = useDispatch();
   const [proLoss, setProfitLoss] = useState(profitLoss);
   const { runAmount } = useSelector((state: RootState) => state.bets);
   const [anchorEl] = useState(null);
-  // const handleClick = (event:any) => {
-  //   setAnchorEl(event.currentTarget);
-  // };
-
-  // const [show, setShow] = React.useState(false);
 
   useEffect(() => {
     if (profitLoss) {
@@ -41,7 +37,7 @@ const PlaceBetComponent = ({ profitLoss, data, show, setShow }: any) => {
           flexDirection: "column",
           display: "flex",
           alignItems: "center",
-          right: { xs: "43vw", lg: "41vw", md: "41vw" },
+          right: { xs: "40vw", lg: "41vw", md: "41vw" },
           justifyContent: "center",
           width: { lg: "90px", xs: "60px", md: "90px" },
           borderRadius: "5px",
@@ -86,11 +82,13 @@ const PlaceBetComponent = ({ profitLoss, data, show, setShow }: any) => {
                 md: !profitLoss?.maxLoss ? "8px" : "8px",
                 xs: !profitLoss?.maxLoss ? "8px" : "8px",
               },
-              fontWeight: !profitLoss?.profitLoss?.max_loss ? "500" : "500",
+              fontWeight: !profitLoss?.maxLoss ? "500" : "500",
               color: "white",
             }}
           >
-            {!profitLoss?.maxLoss ? "Profit/Loss" : profitLoss?.maxLoss?.toFixed(2)}
+            {!profitLoss?.maxLoss
+              ? "Profit/Loss"
+              : handleDecimalAmount(profitLoss?.maxLoss, color)}
           </Typography>
         </Box>
       </Box>

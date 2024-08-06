@@ -3,6 +3,7 @@ export const ApiConstants = {
     LOGIN: "/auth/login",
     LOGOUT: "/auth/logout",
     CHANGEPASSWORD: "user/changePassword",
+    OLD_PASSWORD: "/user/check/oldPassword",
   },
   MATCH: {
     MATCHLIST: "/match/list",
@@ -75,9 +76,9 @@ export const Constants = {
   customTimeOut: 1000 * 60 * 60, // 5 mint in mili seconds user ideal 5 mint after that logout
   customTimer: 1000 * 60 * 5, // 30 sec in mili seconds remainint timer start and show message  Your session will expire in 30 second
   sessionExpireTime: 60 * 5, // 30 sec
-  apiBasePath: "http://107.23.165.155:5001",
-  thirdParty: "http://107.23.165.155:3200",
-  expertPath: "http://107.23.165.155:6060",
+  apiBasePath: "https://devbetfairapi.fairgame.club",
+  thirdParty: "https://devserviceapi.fairgame.club",
+  expertPath: "https://devexpertapi.fairgame.club",
   apiBasePathLive: "https://betfairapi.fairgame7.com",
   thirdPartyLive: "https://serviceapi.fairgame7.com",
   expertPathLive: "https://expertapi.fairgame7.com",
@@ -86,6 +87,7 @@ export const Constants = {
   localPathExpert: "http://localhost:6060",
   WEBSOCKET: "websocket",
   POLLING: "polling",
+  PRODUCTION: "production",
 };
 
 export const teamStatus = {
@@ -108,36 +110,32 @@ export const matchBettingType = {
   completeMatch: "completeMatch",
 };
 
-// use below baseUrl for testing build
+export const baseUrls = {
+  socket:
+    process.env.NODE_ENV === Constants.PRODUCTION
+      ? `${Constants.apiBasePath}`
+      : `${Constants.localPath}`,
+  matchSocket:
+    process.env.NODE_ENV === Constants.PRODUCTION
+      ? `${Constants.thirdParty}`
+      : `${Constants.localPathThird}`,
+  expertSocket:
+    process.env.NODE_ENV === Constants.PRODUCTION
+      ? `${Constants.expertPath}`
+      : `${Constants.localPathExpert}`,
+};
 
 // export const baseUrls = {
 //   socket:
-//     process.env.NODE_ENV === "production"
-//       ? `${Constants.apiBasePath}`
+//     process.env.NODE_ENV === Constants.PRODUCTION
+//       ? `${Constants.apiBasePathLive}`
 //       : `${Constants.localPath}`,
 //   matchSocket:
-//     process.env.NODE_ENV === "production"
-//       ? `${Constants.thirdParty}`
+//     process.env.NODE_ENV === Constants.PRODUCTION
+//       ? `${Constants.thirdPartyLive}`
 //       : `${Constants.localPathThird}`,
 //   expertSocket:
-//     process.env.NODE_ENV === "production"
-//       ? `${Constants.expertPath}`
+//     process.env.NODE_ENV === Constants.PRODUCTION
+//       ? `${Constants.expertPathLive}`
 //       : `${Constants.localPathExpert}`,
 // };
-
-// use below baseUrl for live build
-
-export const baseUrls = {
-  socket:
-    process.env.NODE_ENV === "production"
-      ? `${Constants.apiBasePathLive}`
-      : `${Constants.localPath}`,
-  matchSocket:
-    process.env.NODE_ENV === "production"
-      ? `${Constants.thirdPartyLive}`
-      : `${Constants.localPathThird}`,
-  expertSocket:
-    process.env.NODE_ENV === "production"
-      ? `${Constants.expertPathLive}`
-      : `${Constants.localPathExpert}`,
-};

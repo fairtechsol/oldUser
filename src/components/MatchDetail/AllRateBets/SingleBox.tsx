@@ -70,7 +70,7 @@ const SingleBox = ({
                   color: "black",
                   textAlign: "center",
                   maxHeight: "2em",
-                  overflow: "hidden",
+                  overflowWrap: "anywhere",
                   lineHeight: 1,
                 }}
               >

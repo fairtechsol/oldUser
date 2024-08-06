@@ -21,7 +21,6 @@ interface InitialState {
   loading: boolean;
   error: any;
   marqueeNotification: any;
-  getProfile: any;
   buttonValues: any;
   setButtonValue: any;
   buttonValueSuccess: boolean;
@@ -30,7 +29,6 @@ interface InitialState {
 }
 
 const initialState: InitialState = {
-  getProfile: null,
   marqueeNotification: null,
   transactionPassword: "",
   buttonValues: [],
@@ -59,7 +57,7 @@ const profileSlice = createSlice({
       .addCase(marqueeNotification.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.marqueeNotification = action.payload;
+        state.marqueeNotification = action?.payload;
       })
       .addCase(marqueeNotification.rejected, (state, action) => {
         state.loading = false;
@@ -73,7 +71,7 @@ const profileSlice = createSlice({
       .addCase(getProfile.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.getProfile = action.payload?.[0]?.[0];
+        state.profileDetail = action?.payload?.[0]?.[0];
       })
       .addCase(getProfile.rejected, (state, action) => {
         state.loading = false;
@@ -87,7 +85,7 @@ const profileSlice = createSlice({
       .addCase(getProfileInMatchDetail.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.getProfile = action.payload?.[0]?.[0];
+        state.profileDetail = action?.payload?.[0]?.[0];
       })
       .addCase(getProfileInMatchDetail.rejected, (state, action) => {
         state.loading = false;
@@ -101,7 +99,7 @@ const profileSlice = createSlice({
       .addCase(getAccountStatement.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.transactions = action.payload;
+        state.transactions = action?.payload;
       })
       .addCase(getAccountStatement.rejected, (state, action) => {
         state.loading = false;
@@ -129,7 +127,7 @@ const profileSlice = createSlice({
         state.error = null;
       })
       .addCase(getButtonValue.fulfilled, (state, action) => {
-        state.buttonValues = action.payload;
+        state.buttonValues = action?.payload;
         state.loading = false;
         state.success = true;
       })
@@ -138,41 +136,41 @@ const profileSlice = createSlice({
         state.error = action?.error?.message;
       })
       .addCase(updateBalance.fulfilled, (state, action) => {
-        state.getProfile = {
-          ...state.getProfile,
+        state.profileDetail = {
+          ...state.profileDetail,
           userBal: {
-            ...state?.getProfile?.userBal,
-            exposure: action.payload.newUserExposure ?? action.payload.exposure,
+            ...state?.profileDetail?.userBal,
+            exposure: action?.payload?.newUserExposure ?? action?.payload?.exposure,
             // currentBalance: action.payload.userCurrentBalance,
           },
         };
       })
       .addCase(updateBalanceOnSessionResult.fulfilled, (state, action) => {
-        state.getProfile = {
-          ...state.getProfile,
+        state.profileDetail = {
+          ...state.profileDetail,
           userBal: {
-            ...state?.getProfile?.userBal,
-            exposure: action.payload.exposure,
-            currentBalance: action.payload.currentBalance,
+            ...state?.profileDetail?.userBal,
+            exposure: action?.payload?.exposure,
+            currentBalance: action?.payload?.currentBalance,
           },
         };
       })
       .addCase(updateBalanceOnBetDelete.fulfilled, (state, action) => {
-        state.getProfile = {
-          ...state.getProfile,
+        state.profileDetail = {
+          ...state.profileDetail,
           userBal: {
-            ...state?.getProfile?.userBal,
-            exposure: action.payload.exposure,
-            currentBalance: action.payload.currentBalance,
+            ...state?.profileDetail?.userBal,
+            exposure: action?.payload?.exposure,
+            currentBalance: action?.payload?.currentBalance,
           },
         };
       })
       .addCase(updateBalanceSession.fulfilled, (state, action) => {
-        state.getProfile = {
-          ...state.getProfile,
+        state.profileDetail = {
+          ...state.profileDetail,
           userBal: {
-            ...state?.getProfile?.userBal,
-            exposure: action.payload.newUserExposure ?? action.payload.exposure,
+            ...state?.profileDetail?.userBal,
+            exposure: action?.payload?.newUserExposure ?? action?.payload?.exposure,
             // currentBalance:
             //   action.payload.newUserCurrentBalance ??
             //   action.payload.currentBalance,
@@ -180,12 +178,12 @@ const profileSlice = createSlice({
         };
       })
       .addCase(updateBalanceFromSocket.fulfilled, (state, action) => {
-        state.getProfile = {
-          ...state.getProfile,
+        state.profileDetail = {
+          ...state.profileDetail,
           userBal: {
-            ...state?.getProfile?.userBal,
-            currentBalance: action.payload.currentBalance,
-            profitLoss: action.payload.profitLoss,
+            ...state?.profileDetail?.userBal,
+            currentBalance: action?.payload?.currentBalance,
+            profitLoss: action?.payload?.profitLoss,
           },
         };
       });

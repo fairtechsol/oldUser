@@ -41,14 +41,14 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
   const upcoming =
     Number(timeLeft.days) === 0 &&
     Number(timeLeft.hours) === 0 &&
-    Number(timeLeft.minutes) <= 30;
+    Number(timeLeft.minutes) <= 60;
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setTimeLeft(calculateTimeLeft);
     }, 0);
     return () => clearTimeout(timer);
-  });
+  }, []);
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -122,6 +122,7 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
             showFast={true}
             suspended={false}
             data={data}
+            showBox={bookmaker?.activeStatus === "save"}
             teamARates={matchDetails?.profitLossDataMatch?.teamARate || 0}
             teamBRates={matchDetails?.profitLossDataMatch?.teamBRate || 0}
             teamCRates={matchDetails?.profitLossDataMatch?.teamCRate || 0}
@@ -177,6 +178,7 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
           showFast={true}
           suspended={false}
           data={data}
+          showBox={matchDetails?.manualTiedMatch?.activeStatus === "save"}
           teamARates={matchDetails?.profitLossDataMatch?.yesRateTie || 0}
           teamBRates={matchDetails?.profitLossDataMatch?.noRateTie || 0}
           min={formatToINR(matchDetails?.manualTiedMatch?.minBet) || 0}
@@ -220,54 +222,47 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
           marketDetails={matchDetails?.marketCompleteMatch}
         />
       )}
-
-      <>
-        {matchDetails?.apiSessionActive &&
-          matchDetails?.apiSession?.length > 0 && (
-            <SessionMarket
-              key={matchDetails?.id}
-              allBetsData={matchDetails?.profitLossDataSession}
-              newData={matchDetails?.apiSession}
-              matchOddsData={matchDetails?.apiSession}
-              typeOfBet={matchDetails?.type}
-              title={"Session Market"}
-              setShow={setShow}
-              show={show}
-              type={MatchType.API_SESSION_MARKET}
-              data={matchDetails?.apiSession}
-              eventType={matchDetails?.matchType}
-              min={formatToINR(matchDetails?.betFairSessionMinBet)}
-              max={formatToINR(matchDetails?.betFairSessionMaxBet)}
-              upcoming={!upcoming}
-              matchDetails={matchDetails}
-            />
-          )}
-      </>
-      <>
-        {matchDetails?.manualSessionActive &&
-          matchDetails?.sessionBettings?.filter(
-            (betting: any) => JSON.parse(betting)?.selectionId === null
-          ).length > 0 && (
-            <QuickSessionMarket
-              key={matchDetails?.id}
-              allBetsData={matchDetails?.profitLossDataSession}
-              title={"Quick Session Market"}
-              session={"sessionOdds"}
-              setShow={setShow}
-              show={show}
-              upcoming={!upcoming}
-              type={MatchType.SESSION_MARKET}
-              matchOddsData={matchDetails?.sessionBettings}
-              newData={matchDetails?.sessionBettings?.filter(
-                (betting: any) => JSON.parse(betting)?.selectionId === null
-              )}
-              eventType={matchDetails?.matchType}
-              minBet={formatToINR(matchDetails?.betFairSessionMinBet)}
-              maxBet={formatToINR(matchDetails?.betFairSessionMaxBet)}
-              typeOfBet={matchDetails?.type}
-            />
-          )}
-      </>
+      {matchDetails?.manualSessionActive &&
+        matchDetails?.sessionBettings?.filter(
+          (betting: any) => JSON.parse(betting)?.selectionId === null
+        ).length > 0 && (
+          <QuickSessionMarket
+            key={matchDetails?.id}
+            allBetsData={matchDetails?.profitLossDataSession}
+            title={"Quick Session Market"}
+            session={"sessionOdds"}
+            setShow={setShow}
+            show={show}
+            upcoming={!upcoming}
+            type={MatchType.SESSION_MARKET}
+            matchOddsData={matchDetails?.sessionBettings}
+            newData={matchDetails?.sessionBettings?.filter(
+              (betting: any) => JSON.parse(betting)?.selectionId === null
+            )}
+            eventType={matchDetails?.matchType}
+            minBet={formatToINR(matchDetails?.betFairSessionMinBet)}
+            typeOfBet={matchDetails?.type}
+          />
+        )}
+      {matchDetails?.apiSessionActive &&
+        matchDetails?.apiSession?.length > 0 && (
+          <SessionMarket
+            key={matchDetails?.id}
+            allBetsData={matchDetails?.profitLossDataSession}
+            newData={matchDetails?.apiSession}
+            matchOddsData={matchDetails?.apiSession}
+            typeOfBet={matchDetails?.type}
+            title={"Session Market"}
+            setShow={setShow}
+            show={show}
+            type={MatchType.API_SESSION_MARKET}
+            data={matchDetails?.apiSession}
+            eventType={matchDetails?.matchType}
+            min={formatToINR(matchDetails?.betFairSessionMinBet)}
+            upcoming={!upcoming}
+            matchDetails={matchDetails}
+          />
+        )}
     </Box>
   );
 };

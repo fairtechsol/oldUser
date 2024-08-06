@@ -140,6 +140,7 @@ const QuickSessionMarket = ({
                   marginLeft: "5px",
                   cursor: "pointer",
                 }}
+                alt=""
               />
             </Box>
           </Box>
@@ -182,6 +183,7 @@ const QuickSessionMarket = ({
                   sx={{
                     display: "flex",
                     background: "#319E5B",
+                    marginRight: {lg:"14px", xs: "0px"},
                     height: "25px",
                     gap: { xs: "0px", lg: "1px", md: "1px" },
                     width: { lg: "60%", xs: "80%" },
@@ -191,7 +193,7 @@ const QuickSessionMarket = ({
                   <Box
                     sx={{
                       background: "#FF9292",
-                      width: { lg: "16%", xs: "30%" },
+                      width: { lg: "20.5%", xs: "30%" },
                       height: "100%",
                       display: "flex",
                       justifyContent: "center",
@@ -217,7 +219,7 @@ const QuickSessionMarket = ({
                   <Box
                     sx={{
                       background: "#00C0F9",
-                      width: { lg: "16.5%", xs: "29.9%" },
+                      width: { lg: "20.5%", xs: "29.9%" },
                       height: "100%",
                       display: "flex",
                       justifyContent: "center",
@@ -272,6 +274,7 @@ const QuickSessionMarket = ({
                   <img
                     style={{ width: "35px", height: "40px" }}
                     src={LockIcon}
+                    alt=""
                   />
                   <Typography
                     sx={{
@@ -298,7 +301,7 @@ const QuickSessionMarket = ({
               }}
             >
               {newData?.length > 0 &&
-                newData?.map((item: any) => {
+                newData?.map((item: any, index: any) => {
                   let element = JSON.parse(item);
                   return (
                     <Box
@@ -310,6 +313,7 @@ const QuickSessionMarket = ({
                     >
                       <QuickSessionMarketBox
                         // betStatus={false}
+                        index={index}
                         upcoming={upcoming}
                         closeModal={
                           [0, 2]?.includes(element?.betStatus) ? true : false

@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import { memo, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { ARROWUP, LockIcon, TIME } from "../../../assets";
-import { currencyFormatter } from "../../../helper";
+import { currencyFormatter, handleDecimalAmount } from "../../../helper";
 import Divider from "../../../helper/Divider";
 import { RootState } from "../../../store/store";
 import FastTimePlaceBet from "./Bets/FastTimePlaceBet";
@@ -11,7 +11,7 @@ import BoxComponent from "./BoxComponent";
 import FastTime from "./FastTime";
 import ManualBoxComponent from "./ManualBoxComponent";
 
-const SmallBox = ({ valueA, valueB }: any) => {
+const SmallBox = ({ valueA, valueB, color }: any) => {
   return (
     <Box
       sx={{
@@ -57,7 +57,8 @@ const SmallBox = ({ valueA, valueB }: any) => {
             color: valueA < 0 ? `#FF4D4D` : `#319E5B`,
           }}
         >
-          {valueA < 0 ? ` ${valueA}` : `${valueA}`}
+          {handleDecimalAmount(parseFloat(valueA || 0.0), color)}
+          {/* {valueA < 0 ? ` ${valueA}` : `${valueA}`} */}
         </Typography>
       </Box>
       <Box
@@ -92,7 +93,8 @@ const SmallBox = ({ valueA, valueB }: any) => {
             color: valueB < 0 ? `#FF4D4D` : `#319E5B`,
           }}
         >
-          {valueB < 0 ? ` ${valueB}` : `${valueB}`}
+          {handleDecimalAmount(parseFloat(valueB || 0.0), color)}
+          {/* {valueB < 0 ? ` ${valueB}` : `${valueB}`} */}
         </Typography>
       </Box>
     </Box>
@@ -112,7 +114,7 @@ const Time = (data: any) => {
       >
         {data.time} sec Delay
       </Typography>
-      <img style={{ width: "20px", height: "20px" }} src={TIME} />
+      <img style={{ width: "20px", height: "20px" }} src={TIME} alt="" />
     </Box>
   );
 };
@@ -140,7 +142,9 @@ const MarketOdds = ({
   handleRateChange,
   marketDetails,
 }: any) => {
-  const { getProfile } = useSelector((state: RootState) => state.user.profile);
+  const { profileDetail } = useSelector(
+    (state: RootState) => state.user.profile
+  );
   const [showFastTimeBox, setShowFastTimeBox] = useState(false);
   const [placeBetData, setPlaceBetData] = useState<any>(null);
   const [fastRate, setFastRate] = useState(null);
@@ -222,7 +226,7 @@ const MarketOdds = ({
               {title}
             </Typography>
             {showDely && typeOfBet === "MATCH ODDS" && (
-              <Time time={(getProfile && getProfile?.delayTime) ?? 0} />
+              <Time time={(profileDetail && profileDetail?.delayTime) ?? 0} />
             )}
             {showFast && (
               <FastTime
@@ -402,6 +406,7 @@ const MarketOdds = ({
                   <img
                     style={{ width: "35px", height: "40px" }}
                     src={LockIcon}
+                    alt=""
                   />
                   <Typography
                     sx={{
@@ -697,7 +702,7 @@ const MarketOdds = ({
             )}
           </Box>
         )}
-        {visible && showFastTimeBox && !upcoming && (
+        {visible && showFastTimeBox && !upcoming && !showBox && (
           <Box>
             <FastTimePlaceBet
               typeOfBet={typeOfBet}
