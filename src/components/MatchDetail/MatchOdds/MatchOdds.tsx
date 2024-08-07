@@ -227,7 +227,6 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
           (betting: any) => JSON.parse(betting)?.selectionId === null
         ).length > 0 && (
           <QuickSessionMarket
-            key={matchDetails?.id}
             allBetsData={matchDetails?.profitLossDataSession}
             title={"Quick Session Market"}
             session={"sessionOdds"}
@@ -247,7 +246,6 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
       {matchDetails?.apiSessionActive &&
         matchDetails?.apiSession?.length > 0 && (
           <SessionMarket
-            key={matchDetails?.id}
             allBetsData={matchDetails?.profitLossDataSession}
             newData={matchDetails?.apiSession}
             matchOddsData={matchDetails?.apiSession}
