@@ -86,6 +86,12 @@ export const updateDeleteReasonBet = createAsyncThunk<any, any>(
     return placedBets;
   }
 );
+export const updateEditDeleteReasonBet = createAsyncThunk<any, any>(
+  "/editDeleteReason/bets",
+  async (placedBets) => {
+    return placedBets;
+  }
+);
 
 export const betsSuccessReset = createAction("success/reset");
 export const betPlaceSuccessReset = createAction("betPlaceSuccess/reset");
