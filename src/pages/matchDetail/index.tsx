@@ -20,6 +20,7 @@ import {
   resetRunAmount,
   updateBetsPlaced,
   updateDeleteReasonBet,
+  updateEditDeleteReasonBet,
 } from "../../store/actions/betPlace/betPlaceActions";
 import {
   getMatchList,
@@ -158,6 +159,16 @@ const MatchDetail = () => {
     }
   };
 
+  const handleBetDeleteReason = (event: any) => {
+    try {
+      if (event?.matchId === state?.matchId) {
+        dispatch(updateEditDeleteReasonBet(event));
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const resultDeclared = (event: any) => {
     try {
       if (event?.matchId === state?.matchId) {
@@ -250,6 +261,7 @@ const MatchDetail = () => {
         socketService.userBalance.sessionResultOff();
         socketService.userBalance.sessionNoResultOff();
         socketService.userBalance.sessionResultUnDeclareOff();
+        socketService.userBalance.updateDeleteReasonOff();
         expertSocketService.match.joinMatchRoom(
           state?.matchId,
           profileDetail?.roleName
@@ -269,6 +281,7 @@ const MatchDetail = () => {
         socketService.userBalance.sessionResultUnDeclare(
           handleSessionResultUnDeclare
         );
+        socketService.userBalance.updateDeleteReason(handleBetDeleteReason);
       }
     } catch (e) {
       console.log(e);
@@ -308,6 +321,7 @@ const MatchDetail = () => {
         socketService.userBalance.sessionResultOff();
         socketService.userBalance.sessionNoResultOff();
         socketService.userBalance.sessionResultUnDeclareOff();
+        socketService.userBalance.updateDeleteReasonOff();
         socketService.userBalance.sessionResult(sessionResultDeclared);
         socketService.userBalance.sessionResultUnDeclare(sessionResultDeclared);
         socketService.userBalance.matchResultDeclared(handleMatchResult);
