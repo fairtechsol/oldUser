@@ -206,10 +206,10 @@ const CustomHeader = () => {
                 fontSize: "10px",
                 fontStyle: "italic",
                 letterSpacing: "1px",
-                overflow: "hidden",
+                // overflow: "hidden",
                 whiteSpace: "nowrap",
-                textTransform: "capitalize",
-                textOverflow: "ellipsis",
+                textTransform: "uppercase",
+                // textOverflow: "ellipsis",
               }}
             >
               {marqueeNotification?.value}
