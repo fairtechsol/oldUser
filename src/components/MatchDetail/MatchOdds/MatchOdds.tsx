@@ -222,6 +222,28 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
           marketDetails={matchDetails?.marketCompleteMatch}
         />
       )}
+      {matchDetails?.manualCompleteMatch?.isActive && (
+        <MarketOdds
+          upcoming={!upcoming}
+          betLock={data?.blockMarket?.MANUALBOOKMAKER?.block}
+          newData={data}
+          lock={false}
+          showDely={false}
+          session={"manualBookMaker"}
+          showFast={true}
+          suspended={false}
+          data={data}
+          showBox={matchDetails?.manualCompleteMatch?.activeStatus === "save"}
+          teamARates={matchDetails?.profitLossDataMatch?.yesRateComplete || 0}
+          teamBRates={matchDetails?.profitLossDataMatch?.noRateComplete || 0}
+          min={formatToINR(matchDetails?.manualCompleteMatch?.minBet) || 0}
+          max={formatToINR(matchDetails?.manualCompleteMatch?.maxBet) || 0}
+          title={matchDetails?.manualCompleteMatch?.name}
+          typeOfBet={"MANUAL BOOKMAKER"}
+          matchOddsData={matchDetails?.manualCompleteMatch}
+          marketDetails={matchDetails?.manualCompleteMatch}
+        />
+      )}
       {matchDetails?.manualSessionActive &&
         matchDetails?.sessionBettings?.filter(
           (betting: any) => JSON.parse(betting)?.selectionId === null
