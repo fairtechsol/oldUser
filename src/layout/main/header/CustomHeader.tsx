@@ -5,7 +5,7 @@ import {
   useTheme,
   AppBar,
 } from "@mui/material";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./index.css";
 import { useNavigate } from "react-router-dom";
 import MobileSideBar from "./MobileSideBar";
@@ -28,6 +28,9 @@ const CustomHeader = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isOnline, setIsOnline] = useState(navigator.onLine);
 
+  const marqueeTextRef = useRef<HTMLDivElement | null>(null);
+
+  
   useEffect(() => {
     if (!matchesMobile) {
       setMobileOpen(false);
@@ -53,6 +56,16 @@ const CustomHeader = () => {
     };
   }, []);
 
+
+  useEffect(() => {
+    const marqueeText = marqueeTextRef.current;
+    if (marqueeText && marqueeText.parentElement) {
+      const containerWidth = marqueeText.parentElement.offsetWidth;
+      const textWidth = marqueeText.scrollWidth;
+      const animationDuration = (textWidth / containerWidth) * 15;
+      marqueeText.style.animationDuration = `${animationDuration}s`;
+    }
+  }, [marqueeNotification]);
   return (
     <>
       <Box sx={{ position: "relative", width: "100%" }}>
@@ -197,10 +210,13 @@ const CustomHeader = () => {
             display: "flex",
             background: "#202020",
             alignItems: "center",
+            overflow: "hidden",
           }}
         >
           <div className="marquee-container">
             <Typography
+              ref={marqueeTextRef}
+              className="marquee-text"
               sx={{
                 color: "white",
                 fontSize: "10px",
@@ -210,6 +226,7 @@ const CustomHeader = () => {
                 whiteSpace: "nowrap",
                 textTransform: "uppercase",
                 // textOverflow: "ellipsis",
+                display: "inline-block",
               }}
             >
               {marqueeNotification?.value}
