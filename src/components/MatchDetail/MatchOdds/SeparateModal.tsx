@@ -7,7 +7,10 @@ import { Lock } from "../../../assets/index";
 import { useState } from "react";
 import OddsPlaceBet from "./Bets/OddsPlacebet";
 import { AppDispatch, RootState } from "../../../store/store";
-import { selectedBetAction, selectedBetMinMax } from "../../../store/actions/match/matchListAction";
+import {
+  selectedBetAction,
+  selectedBetMinMax,
+} from "../../../store/actions/match/matchListAction";
 import { useSelector } from "react-redux";
 
 const SeparateModal = ({
@@ -131,19 +134,22 @@ const SeparateModal = ({
                       teamA:
                         marketDetails?.type === "tiedMatch2" ||
                         marketDetails?.type === "tiedMatch1" ||
-                        marketDetails?.type === "completeMatch"
+                        marketDetails?.type === "completeMatch" ||
+                        marketDetails?.type === "completeManual"
                           ? "YES"
                           : currentMatch?.teamA,
                       teamB:
                         marketDetails?.type === "tiedMatch2" ||
                         marketDetails?.type === "tiedMatch1" ||
-                        marketDetails?.type === "completeMatch"
+                        marketDetails?.type === "completeMatch" ||
+                        marketDetails?.type === "completeManual"
                           ? "NO"
                           : currentMatch?.teamB,
                       teamC:
                         marketDetails?.type === "tiedMatch2" ||
                         marketDetails?.type === "tiedMatch1" ||
-                        marketDetails?.type === "completeMatch"
+                        marketDetails?.type === "completeMatch" ||
+                        marketDetails?.type === "completeManual"
                           ? ""
                           : currentMatch?.teamC
                           ? currentMatch?.teamC
