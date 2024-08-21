@@ -2,6 +2,7 @@
 
 .marquee-container {
     /* overflow: hidden; */
+    display: inline-block;
     white-space: nowrap;
     position: relative;
     color: white;
@@ -11,15 +12,12 @@
     width: 100%;
     animation: marqueeAnimation 50s linear infinite; 
   }
+
   /* overflow: hidden;
   white-space: nowrap;
   width: 100%;
   animation: marqueeAnimation 50s linear infinite; */
-  @media screen and (max-width: 768px) {
-    .marquee-container {
-      animation-duration: 10s; /* Adjust as needed */
-    }
-  }
+
   
   @keyframes marqueeAnimation {
     from {
@@ -30,4 +28,14 @@
       transform: translateX(-100%); /* Move off-screen to the left */
     }
   }
-  
+  /* .marquee-text {
+    animation: marqueeAnimation 50s linear infinite;
+  }
+   */
+  /* Media query for screens with max-width 768px */
+  @media screen and (max-width: 768px) {
+    .marquee-container .marquee-text {
+      /* The animation duration will be dynamically calculated */
+      animation: marqueeAnimation 50s linear infinite;
+    }
+  }
