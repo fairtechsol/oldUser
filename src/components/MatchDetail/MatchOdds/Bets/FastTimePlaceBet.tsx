@@ -24,15 +24,15 @@ const FastTimePlaceBet = ({
   selectedValue,
   matchOddsData,
 }: // setShowFastTimeBox,
-  any) => {
+any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
-  const { success, loading, error,betPlaceError } = useSelector(
+  const { success, loading, error, betPlaceError } = useSelector(
     (state: RootState) => state.match.bet
   );
   const [ipAddress] = useState(null);
-  const [openModal, setOpenModal] = useState(false)
-  const [openModal1, setOpenModal1] = useState(false)
+  const [openModal, setOpenModal] = useState(false);
+  const [openModal1, setOpenModal1] = useState(false);
   const [canceled] = useState({
     value: false,
     msg: "",
@@ -103,34 +103,37 @@ const FastTimePlaceBet = ({
       }
       let betTeam;
 
-      if (matchOddsData?.type === "tiedMatch2") {
+      if (
+        matchOddsData?.type === "tiedMatch2" ||
+        matchOddsData?.type === "completeManual"
+      ) {
         betTeam =
           matchOddsData?.statusTeamA === "active" &&
-            matchOddsData?.statusTeamB === "active"
+          matchOddsData?.statusTeamB === "active"
             ? index === 0
               ? "YES"
               : "NO"
             : matchOddsData?.statusTeamA === "active" &&
               matchOddsData?.statusTeamB === "suspended"
-              ? "YES"
-              : matchOddsData?.statusTeamA === "suspended" &&
-                matchOddsData?.statusTeamB === "active"
-                ? "NO"
-                : "";
+            ? "YES"
+            : matchOddsData?.statusTeamA === "suspended" &&
+              matchOddsData?.statusTeamB === "active"
+            ? "NO"
+            : "";
       } else {
         betTeam =
           matchOddsData?.statusTeamA === "active" &&
-            matchOddsData?.statusTeamB === "active"
+          matchOddsData?.statusTeamB === "active"
             ? index === 0
               ? matchDetails?.teamA
               : matchDetails?.teamB
             : matchOddsData?.statusTeamA === "active" &&
               matchOddsData?.statusTeamB === "suspended"
-              ? matchDetails?.teamA
-              : matchOddsData?.statusTeamA === "suspended" &&
-                matchOddsData?.statusTeamB === "active"
-                ? matchDetails?.teamB
-                : "";
+            ? matchDetails?.teamA
+            : matchOddsData?.statusTeamA === "suspended" &&
+              matchOddsData?.statusTeamB === "active"
+            ? matchDetails?.teamB
+            : "";
       }
 
       let payload: any = {
@@ -148,19 +151,25 @@ const FastTimePlaceBet = ({
               ? matchOddsData?.backTeamA
               : matchOddsData?.layTeamA
             : matchOddsData?.statusTeamB === "active"
-              ? type === "BACK"
-                ? matchOddsData?.backTeamB
-                : matchOddsData?.layTeamB
-              : type === "BACK"
-                ? matchOddsData?.backTeamC
-                : matchOddsData?.layTeamC,
+            ? type === "BACK"
+              ? matchOddsData?.backTeamB
+              : matchOddsData?.layTeamB
+            : type === "BACK"
+            ? matchOddsData?.backTeamC
+            : matchOddsData?.layTeamC,
         matchBetType: matchOddsData?.type,
         stake: stake,
         placeIndex: 0,
         teamA:
-          matchOddsData?.type === "tiedMatch2" ? "YES" : matchDetails?.teamA,
+          matchOddsData?.type === "tiedMatch2" ||
+          matchOddsData?.type === "completeManual"
+            ? "YES"
+            : matchDetails?.teamA,
         teamB:
-          matchOddsData?.type === "tiedMatch2" ? "NO" : matchDetails?.teamB,
+          matchOddsData?.type === "tiedMatch2" ||
+          matchOddsData?.type === "completeManual"
+            ? "NO"
+            : matchDetails?.teamB,
         teamC: matchDetails?.teamC,
       };
       if (payload?.odd > 0) {
@@ -184,18 +193,21 @@ const FastTimePlaceBet = ({
   }, [success]);
 
   useEffect(() => {
-    setOpenModal(loading)
-    if (betPlaceError) { setOpenModal1(!loading) }
-    if (betPlaceError) { handleErrorModal() }
-
-  }, [loading])
+    setOpenModal(loading);
+    if (betPlaceError) {
+      setOpenModal1(!loading);
+    }
+    if (betPlaceError) {
+      handleErrorModal();
+    }
+  }, [loading]);
 
   const handleErrorModal = () => {
     setTimeout(() => {
-      setOpenModal1(false)
+      setOpenModal1(false);
       dispatch(betPlaceErrorCheck());
     }, 2000);
-  }
+  };
 
   return (
     <>
@@ -237,8 +249,8 @@ const FastTimePlaceBet = ({
             <>
               {/* {matchOddsData?.isSingle === false || matchOddsData?.teamB_suspend !== "suspended" ? ( */}
               {matchOddsData?.statusTeamC === "active" ||
-                (matchOddsData.statusTeamA === "active" &&
-                  matchOddsData.statusTeamB === "active") ? (
+              (matchOddsData.statusTeamA === "active" &&
+                matchOddsData.statusTeamB === "active") ? (
                 // ||
                 //   ((matchOddsData?.teamA_suspend === null || false) &&
                 //     (matchOddsData?.teamB_suspend === null || false))
@@ -278,7 +290,8 @@ const FastTimePlaceBet = ({
                           width: "100%",
                         }}
                       >
-                        {matchOddsData?.type === "tiedMatch2"
+                        {matchOddsData?.type === "tiedMatch2" ||
+                        matchOddsData?.type === "completeManual"
                           ? "YES"
                           : matchDetails?.teamA}
                       </Typography>
@@ -311,7 +324,8 @@ const FastTimePlaceBet = ({
                                       v.value,
                                       "BACK",
                                       index,
-                                      matchOddsData?.type === "tiedMatch2"
+                                      matchOddsData?.type === "tiedMatch2" ||
+                                        matchOddsData?.type === "completeManual"
                                         ? "YES"
                                         : matchDetails?.teamA,
                                       matchOddsData?.name
@@ -337,12 +351,12 @@ const FastTimePlaceBet = ({
                                 typeOfBet={typeOfBet}
                                 placeIndex={
                                   matchOddsData?.marketType ===
-                                    "QuickBookmaker0"
+                                  "QuickBookmaker0"
                                     ? 0
                                     : matchOddsData?.marketType ===
                                       "QuickBookmaker1"
-                                      ? 1
-                                      : 2
+                                    ? 1
+                                    : 2
                                 }
                                 backgroundColor={"#A7DCFF"}
                                 matchOddsData={matchOddsData}
@@ -388,7 +402,8 @@ const FastTimePlaceBet = ({
                           width: "100%",
                         }}
                       >
-                        {matchOddsData?.type === "tiedMatch2"
+                        {matchOddsData?.type === "tiedMatch2" ||
+                        matchOddsData?.type === "completeManual"
                           ? "NO"
                           : matchDetails?.teamB}
                       </Typography>
@@ -420,7 +435,8 @@ const FastTimePlaceBet = ({
                                     v.value,
                                     "BACK",
                                     index,
-                                    matchOddsData?.type === "tiedMatch2"
+                                    matchOddsData?.type === "tiedMatch2" ||
+                                      matchOddsData?.type === "completeManual"
                                       ? "NO"
                                       : matchDetails?.teamB,
                                     matchOddsData?.name
@@ -449,8 +465,8 @@ const FastTimePlaceBet = ({
                                   ? 0
                                   : matchOddsData?.marketType ===
                                     "QuickBookmaker1"
-                                    ? 1
-                                    : 2
+                                  ? 1
+                                  : 2
                               }
                               backgroundColor={"#A7DCFF"}
                               matchOddsData={matchOddsData}
@@ -460,7 +476,8 @@ const FastTimePlaceBet = ({
                     </Box>
                   </Box>
                   {matchDetails?.teamC &&
-                    matchOddsData?.type !== "tiedMatch2" && (
+                    matchOddsData?.type !== "tiedMatch2" &&
+                    matchOddsData?.type !== "completeManual" && (
                       <Box
                         sx={{
                           // display: "flex",
@@ -550,12 +567,12 @@ const FastTimePlaceBet = ({
                                 typeOfBet={typeOfBet}
                                 placeIndex={
                                   matchOddsData?.marketType ===
-                                    "QuickBookmaker0"
+                                  "QuickBookmaker0"
                                     ? 0
                                     : matchOddsData?.marketType ===
                                       "QuickBookmaker1"
-                                      ? 1
-                                      : 2
+                                    ? 1
+                                    : 2
                                 }
                                 backgroundColor={"#A7DCFF"}
                                 matchOddsData={matchOddsData}
@@ -612,22 +629,22 @@ const FastTimePlaceBet = ({
                             ![null, ""].includes(matchOddsData?.teamA_Back)
                               ? matchOddsData?.teamA
                               : ![null, ""].includes(matchOddsData?.teamB_Back)
-                                ? matchOddsData?.teamB
-                                : matchOddsData?.teamC
+                              ? matchOddsData?.teamB
+                              : matchOddsData?.teamC
                           }
                           teamSuspend={
                             ![null, ""].includes(matchOddsData?.teamA_Back)
                               ? matchOddsData?.teamA_suspend
                               : ![null, ""].includes(matchOddsData?.teamB_Back)
-                                ? matchOddsData?.teamB_suspend
-                                : matchOddsData?.teamC_suspend
+                              ? matchOddsData?.teamB_suspend
+                              : matchOddsData?.teamC_suspend
                           }
                           odds={
                             ![null, ""].includes(matchOddsData?.teamA_Back)
                               ? matchOddsData?.teamA_Back
                               : ![null, ""].includes(matchOddsData?.teamB_Back)
-                                ? matchOddsData?.teamB_Back
-                                : matchOddsData?.teamC_Back
+                              ? matchOddsData?.teamB_Back
+                              : matchOddsData?.teamC_Back
                           }
                           typeOfBet={typeOfBet}
                           backgroundColor={"#A7DCFF"}
@@ -636,8 +653,8 @@ const FastTimePlaceBet = ({
                             matchOddsData?.marketType === "QuickBookmaker0"
                               ? 0
                               : matchOddsData?.marketType === "QuickBookmaker1"
-                                ? 1
-                                : 2
+                              ? 1
+                              : 2
                           }
                           data={data}
                         />
@@ -688,22 +705,22 @@ const FastTimePlaceBet = ({
                             ![null, ""].includes(matchOddsData?.teamA_lay)
                               ? matchOddsData?.teamA
                               : ![null, ""].includes(matchOddsData?.teamB_lay)
-                                ? matchOddsData?.teamB
-                                : matchOddsData?.teamC
+                              ? matchOddsData?.teamB
+                              : matchOddsData?.teamC
                           }
                           teamSuspend={
                             ![null, ""].includes(matchOddsData?.teamA_lay)
                               ? matchOddsData?.teamA_suspend
                               : ![null, ""].includes(matchOddsData?.teamB_lay)
-                                ? matchOddsData?.teamB_suspend
-                                : matchOddsData?.teamC_suspend
+                              ? matchOddsData?.teamB_suspend
+                              : matchOddsData?.teamC_suspend
                           }
                           odds={
                             ![null, ""].includes(matchOddsData?.teamA_lay)
                               ? matchOddsData?.teamA_lay
                               : ![null, ""].includes(matchOddsData?.teamB_Back)
-                                ? matchOddsData?.teamB_lay
-                                : matchOddsData?.teamC_lay
+                              ? matchOddsData?.teamB_lay
+                              : matchOddsData?.teamC_lay
                           }
                           typeOfBet={typeOfBet}
                           backgroundColor={"#FFB5B5"}
@@ -712,8 +729,8 @@ const FastTimePlaceBet = ({
                             matchOddsData?.marketType === "QuickBookmaker0"
                               ? 0
                               : matchOddsData?.marketType === "QuickBookmaker1"
-                                ? 1
-                                : 2
+                              ? 1
+                              : 2
                           }
                           data={data}
                         />
@@ -866,14 +883,14 @@ const FastTimePlaceBet = ({
       )}
       <MUIModal
         open={openModal}
-      // onClose={() => {
-      //   setIsPopoverOpen(false);
-      // }}
+        // onClose={() => {
+        //   setIsPopoverOpen(false);
+        // }}
       >
         <Box
           sx={{
             width: "100%",
-            height: '300px',
+            height: "300px",
             position: "absolute",
             display: "flex",
             alignItems: "center",
@@ -888,14 +905,14 @@ const FastTimePlaceBet = ({
       </MUIModal>
       <MUIModal
         open={openModal1}
-      // onClose={() => {
-      //   setIsPopoverOpen(false);
-      // }}
+        // onClose={() => {
+        //   setIsPopoverOpen(false);
+        // }}
       >
         <Box
           sx={{
             width: "100%",
-            height: '300px',
+            height: "300px",
             position: "absolute",
             display: "flex",
             alignItems: "center",
@@ -911,16 +928,26 @@ const FastTimePlaceBet = ({
               justifyContent: "center",
               width: "200px",
               // flex: 1,
-              height:"160px",
+              height: "160px",
               alignItems: "center",
               flexDirection: "column",
               // marginTop: "70px",
-              backgroundColor:"#fff",
-              borderRadius:'10px',
+              backgroundColor: "#fff",
+              borderRadius: "10px",
             }}
           >
-            <img src={NOT} width={'50'} height={'50px'}/>
-            <Typography sx={{ fontSize:'15px',fontWeight:'500',color:'#000',textAlign:'center',margin:'10px'}}>{error}</Typography>
+            <img src={NOT} width={"50"} height={"50px"} />
+            <Typography
+              sx={{
+                fontSize: "15px",
+                fontWeight: "500",
+                color: "#000",
+                textAlign: "center",
+                margin: "10px",
+              }}
+            >
+              {error}
+            </Typography>
           </Box>
         </Box>
       </MUIModal>

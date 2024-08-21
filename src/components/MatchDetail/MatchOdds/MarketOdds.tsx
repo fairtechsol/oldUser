@@ -148,12 +148,8 @@ const MarketOdds = ({
   const [showFastTimeBox, setShowFastTimeBox] = useState(false);
   const [placeBetData, setPlaceBetData] = useState<any>(null);
   const [fastRate, setFastRate] = useState(null);
+  const [visible, setVisible] = useState(true);
 
-  useEffect(() => {
-    if (betLock) {
-      setPlaceBetData(null);
-    }
-  }, [betLock]);
   const bookRatioB = (() => {
     if (teamARates === 0) {
       return 0;
@@ -174,8 +170,12 @@ const MarketOdds = ({
     }
   })();
 
-  const [visible, setVisible] = useState(true);
-
+  useEffect(() => {
+    if (betLock) {
+      setPlaceBetData(null);
+    }
+  }, [betLock]);
+  
   return (
     <>
       <Box
@@ -470,7 +470,11 @@ const MarketOdds = ({
                   }}
                   rate={teamARates}
                   name={
-                    ["tied_manual"].includes(title) ? "YES" : newData?.teamA
+                    ["tiedMatch2", "completeManual"].includes(
+                      marketDetails?.type
+                    )
+                      ? "YES"
+                      : newData?.teamA
                   }
                   data={data}
                   team={"teamA"}
@@ -511,7 +515,13 @@ const MarketOdds = ({
                       : false
                   }
                   color={teamBRates <= 0 ? "#FF4D4D" : "#319E5B"}
-                  name={["tied_manual"].includes(title) ? "NO" : newData?.teamB}
+                  name={
+                    ["tiedMatch2", "completeManual"].includes(
+                      marketDetails?.type
+                    )
+                      ? "NO"
+                      : newData?.teamB
+                  }
                   data={data}
                   rate={teamBRates}
                   allRates={{
@@ -531,58 +541,61 @@ const MarketOdds = ({
                   handleRateChange={handleRateChange}
                   marketDetails={marketDetails}
                 />
-                {newData?.teamC && !["tied_manual"].includes(title) && (
-                  <>
-                    <Divider />
-                    <ManualBoxComponent
-                      setFastBetLoading={() => {}}
-                      placeBetData={placeBetData}
-                      setFastRate={(val: any) => setFastRate(val)}
-                      fastRate={fastRate}
-                      setPlaceBetData={setPlaceBetData}
-                      sessionMain={session}
-                      setFastAmount={setFastAmount}
-                      teamImage={null}
-                      selectedFastAmount={fastAmount}
-                      fromOdds={true}
-                      time={true}
-                      livestatus={
-                        matchOddsData?.statusTeamC === "suspended"
-                          ? true
-                          : false
-                      }
-                      ballStatus={
-                        matchOddsData?.statusTeamC === "ball" ||
-                        matchOddsData?.statusTeamC == "ball start"
-                          ? true
-                          : false
-                      }
-                      showBox={showBox}
-                      newData={newData}
-                      // color={"#FF4D4D"}
-                      color={teamCRates <= 0 ? "#FF4D4D" : "#46e080"}
-                      name={newData?.teamC}
-                      data={data?.length > 0 ? data[2] : []}
-                      rate={teamCRates}
-                      allRates={{
-                        teamA: teamARates,
-                        teamB: teamBRates,
-                        teamC: teamCRates,
-                      }}
-                      team={"teamC"}
-                      typeOfBet={typeOfBet}
-                      isRound={isRound}
-                      matchOddsData={{
-                        back: matchOddsData?.backTeamC,
-                        lay: matchOddsData?.layTeamC,
-                      }}
-                      isBall={false}
-                      isTeamC={newData?.teamC}
-                      handleRateChange={handleRateChange}
-                      marketDetails={marketDetails}
-                    />
-                  </>
-                )}
+                {newData?.teamC &&
+                  !["tiedMatch2", "completeManual"].includes(
+                    marketDetails?.type
+                  ) && (
+                    <>
+                      <Divider />
+                      <ManualBoxComponent
+                        setFastBetLoading={() => {}}
+                        placeBetData={placeBetData}
+                        setFastRate={(val: any) => setFastRate(val)}
+                        fastRate={fastRate}
+                        setPlaceBetData={setPlaceBetData}
+                        sessionMain={session}
+                        setFastAmount={setFastAmount}
+                        teamImage={null}
+                        selectedFastAmount={fastAmount}
+                        fromOdds={true}
+                        time={true}
+                        livestatus={
+                          matchOddsData?.statusTeamC === "suspended"
+                            ? true
+                            : false
+                        }
+                        ballStatus={
+                          matchOddsData?.statusTeamC === "ball" ||
+                          matchOddsData?.statusTeamC == "ball start"
+                            ? true
+                            : false
+                        }
+                        showBox={showBox}
+                        newData={newData}
+                        // color={"#FF4D4D"}
+                        color={teamCRates <= 0 ? "#FF4D4D" : "#46e080"}
+                        name={newData?.teamC}
+                        data={data?.length > 0 ? data[2] : []}
+                        rate={teamCRates}
+                        allRates={{
+                          teamA: teamARates,
+                          teamB: teamBRates,
+                          teamC: teamCRates,
+                        }}
+                        team={"teamC"}
+                        typeOfBet={typeOfBet}
+                        isRound={isRound}
+                        matchOddsData={{
+                          back: matchOddsData?.backTeamC,
+                          lay: matchOddsData?.layTeamC,
+                        }}
+                        isBall={false}
+                        isTeamC={newData?.teamC}
+                        handleRateChange={handleRateChange}
+                        marketDetails={marketDetails}
+                      />
+                    </>
+                  )}
               </>
             ) : (
               <>
@@ -610,7 +623,9 @@ const MarketOdds = ({
                   }}
                   rate={teamARates}
                   name={
-                    ["tied_match", "complete_match"].includes(title)
+                    ["tiedMatch1", "completeMatch"].includes(
+                      marketDetails?.type
+                    )
                       ? "YES"
                       : newData?.teamA
                   }
@@ -642,7 +657,9 @@ const MarketOdds = ({
                   // lock={data?.length > 0 ? false : true}
                   color={teamBRates <= 0 ? "#FF4D4D" : "#319E5B"}
                   name={
-                    ["tied_match", "complete_match"].includes(title)
+                    ["tiedMatch1", "completeMatch"].includes(
+                      marketDetails?.type
+                    )
                       ? "NO"
                       : newData?.teamB
                   }
@@ -660,7 +677,9 @@ const MarketOdds = ({
                   marketDetails={marketDetails}
                 />
                 {newData?.teamC &&
-                  !["tied_match", "complete_match"].includes(title) && (
+                  !["tiedMatch1", "completeMatch"].includes(
+                    marketDetails?.type
+                  ) && (
                     <>
                       <Divider />
                       <BoxComponent

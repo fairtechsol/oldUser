@@ -122,6 +122,7 @@ const matchListSlice = createSlice({
           sessionBettings,
           manualTideMatch,
           quickbookmaker,
+          completeManual,
         } = action?.payload;
         state.matchDetails = {
           ...state.matchDetails,
@@ -135,6 +136,7 @@ const matchListSlice = createSlice({
           matchOdd: matchOdd,
           quickBookmaker: quickbookmaker,
           sessionBettings: sessionBettings,
+          manualCompleteMatch: completeManual,
         };
       })
       .addCase(updateMatchOddRates.fulfilled, (state, action) => {
@@ -166,7 +168,7 @@ const matchListSlice = createSlice({
               noRateTie: newTeamRateData?.teamB,
             },
           };
-        } else if (["completeMatch"].includes(matchBetType)) {
+        } else if (["completeMatch", "completeManual"].includes(matchBetType)) {
           state.matchDetails = {
             ...state.matchDetails,
             profitLossDataMatch: {
@@ -258,9 +260,10 @@ const matchListSlice = createSlice({
       .addCase(updateBetDataOnUndeclare.fulfilled, (state, action) => {
         const { betId, profitLoss, matchId } = action?.payload;
         if (state?.matchDetails?.id === matchId) {
-          const isBetIdPresent = state?.matchDetails?.profitLossDataSession?.find(
-            (item: any) => item?.betId === betId
-          );
+          const isBetIdPresent =
+            state?.matchDetails?.profitLossDataSession?.find(
+              (item: any) => item?.betId === betId
+            );
 
           const updatedProfitLossDataSession = isBetIdPresent
             ? state?.matchDetails?.profitLossDataSession?.map((item: any) =>
@@ -298,7 +301,7 @@ const matchListSlice = createSlice({
               noRateTie: redisObject[action?.payload?.teamBrateRedisKey],
             },
           };
-        } else if (["completeMatch"].includes(matchBetType)) {
+        } else if (["completeMatch", "completeManual"].includes(matchBetType)) {
           state.matchDetails = {
             ...state.matchDetails,
             profitLossDataMatch: {
