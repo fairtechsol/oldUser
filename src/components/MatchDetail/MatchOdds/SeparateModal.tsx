@@ -36,6 +36,7 @@ const SeparateModal = ({
   eventType,
   bettingOn,
   marketDetails,
+  upcoming,
 }: any) => {
   const dispatch: AppDispatch = useDispatch();
   const [isBack, setIsBack] = React.useState(false);
@@ -72,7 +73,7 @@ const SeparateModal = ({
       >
         <Box
           onClick={() => {
-            if (lock || [0, "0", null, undefined].includes(value)) {
+            if (lock || [0, "0", null, undefined].includes(value) || upcoming) {
               return false;
             }
             if (loading) {
