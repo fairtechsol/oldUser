@@ -5,7 +5,7 @@ import { MatchType } from "../../../utils/enum";
 import QuickSessionMarket from "../QuickSession/QuickSessionMarket";
 import SessionMarket from "../SessionOdds/SessionMarket";
 import MarketOdds from "./MarketOdds";
-import { formatToINR } from "../../../helper";
+import { customBookmakerSort, formatToINR } from "../../../helper";
 
 const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
   function calculateTimeLeft() {
@@ -110,6 +110,8 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
       )}
       {matchDetails?.quickBookmaker
         ?.filter((item: any) => item?.isActive)
+        ?.slice()
+        ?.sort(customBookmakerSort)
         ?.map((bookmaker: any) => (
           <MarketOdds
             key={bookmaker?.id}
