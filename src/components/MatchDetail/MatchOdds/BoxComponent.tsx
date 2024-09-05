@@ -28,6 +28,7 @@ const BoxComponent = ({
   setFastBetLoading,
   handleRateChange,
   marketDetails,
+  upcoming,
 }: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -220,6 +221,7 @@ const BoxComponent = ({
                 typeOfBet={typeOfBet}
                 handleRateChange={handleRateChange}
                 marketDetails={marketDetails}
+                upcoming={upcoming}
               />
             )}
             <Box
@@ -288,6 +290,7 @@ const BoxComponent = ({
                 typeOfBet={typeOfBet}
                 handleRateChange={handleRateChange}
                 marketDetails={marketDetails}
+                upcoming={upcoming}
               />
             )}
             <Box
@@ -356,6 +359,7 @@ const BoxComponent = ({
               typeOfBet={typeOfBet}
               handleRateChange={handleRateChange}
               marketDetails={marketDetails}
+              upcoming={upcoming}
             />
 
             <Box
@@ -424,6 +428,7 @@ const BoxComponent = ({
               typeOfBet={typeOfBet}
               handleRateChange={handleRateChange}
               marketDetails={marketDetails}
+              upcoming={upcoming}
             />
             {!matchesMobile && (
               <SeparateModal
@@ -488,6 +493,7 @@ const BoxComponent = ({
                 typeOfBet={typeOfBet}
                 handleRateChange={handleRateChange}
                 marketDetails={marketDetails}
+                upcoming={upcoming}
               />
             )}
             {!matchesMobile && (
@@ -553,6 +559,7 @@ const BoxComponent = ({
                 typeOfBet={typeOfBet}
                 handleRateChange={handleRateChange}
                 marketDetails={marketDetails}
+                upcoming={upcoming}
               />
             )}
             <Box

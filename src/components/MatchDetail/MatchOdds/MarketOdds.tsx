@@ -175,7 +175,7 @@ const MarketOdds = ({
       setPlaceBetData(null);
     }
   }, [betLock]);
-  
+
   return (
     <>
       <Box
@@ -488,6 +488,7 @@ const MarketOdds = ({
                   isTeamC={newData?.teamC}
                   handleRateChange={handleRateChange}
                   marketDetails={marketDetails}
+                  upcoming={upcoming}
                 />
                 <Divider />
                 <ManualBoxComponent
@@ -540,6 +541,7 @@ const MarketOdds = ({
                   isTeamC={newData?.teamC}
                   handleRateChange={handleRateChange}
                   marketDetails={marketDetails}
+                  upcoming={upcoming}
                 />
                 {newData?.teamC &&
                   !["tiedMatch2", "completeManual"].includes(
@@ -593,6 +595,7 @@ const MarketOdds = ({
                         isTeamC={newData?.teamC}
                         handleRateChange={handleRateChange}
                         marketDetails={marketDetails}
+                        upcoming={upcoming}
                       />
                     </>
                   )}
@@ -635,6 +638,7 @@ const MarketOdds = ({
                   isRound={isRound}
                   handleRateChange={handleRateChange}
                   marketDetails={marketDetails}
+                  upcoming={upcoming}
                 />
                 <Divider />
                 <BoxComponent
@@ -675,6 +679,7 @@ const MarketOdds = ({
                   isRound={isRound}
                   handleRateChange={handleRateChange}
                   marketDetails={marketDetails}
+                  upcoming={upcoming}
                 />
                 {newData?.teamC &&
                   !["tiedMatch1", "completeMatch"].includes(
@@ -714,6 +719,7 @@ const MarketOdds = ({
                         isRound={isRound}
                         handleRateChange={handleRateChange}
                         marketDetails={marketDetails}
+                        upcoming={upcoming}
                       />
                     </>
                   )}

@@ -32,6 +32,7 @@ const ManualBoxComponent = ({
   handleRateChange,
   marketDetails,
   color,
+  upcoming,
 }: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -310,6 +311,7 @@ const ManualBoxComponent = ({
                     typeOfBet={typeOfBet}
                     handleRateChange={handleRateChange}
                     marketDetails={marketDetails}
+                    upcoming={upcoming}
                   />
                 )}
                 <Box
@@ -364,6 +366,7 @@ const ManualBoxComponent = ({
                     typeOfBet={typeOfBet}
                     handleRateChange={handleRateChange}
                     marketDetails={marketDetails}
+                    upcoming={upcoming}
                   />
                 )}
                 <Box
@@ -396,6 +399,7 @@ const ManualBoxComponent = ({
                   typeOfBet={typeOfBet}
                   handleRateChange={handleRateChange}
                   marketDetails={marketDetails}
+                  upcoming={upcoming}
                 />
 
                 <Box
@@ -433,6 +437,7 @@ const ManualBoxComponent = ({
                   typeOfBet={typeOfBet}
                   handleRateChange={handleRateChange}
                   marketDetails={marketDetails}
+                  upcoming={upcoming}
                 />
                 {!matchesMobile && (
                   <SeparateModal
@@ -475,6 +480,7 @@ const ManualBoxComponent = ({
                     typeOfBet={typeOfBet}
                     handleRateChange={handleRateChange}
                     marketDetails={marketDetails}
+                    upcoming={upcoming}
                   />
                 )}
                 {!matchesMobile && (
@@ -519,6 +525,7 @@ const ManualBoxComponent = ({
                     typeOfBet={typeOfBet}
                     handleRateChange={handleRateChange}
                     marketDetails={marketDetails}
+                    upcoming={upcoming}
                   />
                 )}
                 <Box
