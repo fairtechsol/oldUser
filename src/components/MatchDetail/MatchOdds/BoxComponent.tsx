@@ -176,11 +176,11 @@ const BoxComponent = ({
                       ? isRound
                         ? Math.round(
                             ex?.availableToBack?.length > 0
-                              ? ex?.availableToBack[2]?.price ?? 0
+                              ? ex?.availableToBack[0]?.price ?? 0
                               : 0
                           )
                         : ex?.availableToBack?.length > 0
-                        ? ex?.availableToBack[2]?.price ?? 0
+                        ? ex?.availableToBack[0]?.price ?? 0
                         : 0
                       : null,
                 }}
@@ -201,16 +201,16 @@ const BoxComponent = ({
                   isRound
                     ? Math.round(
                         ex?.availableToBack?.length > 0
-                          ? ex?.availableToBack[2]?.price ?? 0
+                          ? ex?.availableToBack[0]?.price ?? 0
                           : 0
                       )
                     : ex?.availableToBack?.length > 0
-                    ? ex?.availableToBack[2]?.price ?? 0
+                    ? ex?.availableToBack[0]?.price ?? 0
                     : 0
                 }
                 value2={formatNumber(
                   ex?.availableToBack?.length > 0
-                    ? ex?.availableToBack[2]?.size ?? 0
+                    ? ex?.availableToBack[0]?.size ?? 0
                     : 0,
                   isRound
                 )}
@@ -315,11 +315,11 @@ const BoxComponent = ({
                     ? isRound
                       ? Math.round(
                           ex?.availableToBack?.length > 0
-                            ? ex?.availableToBack[0]?.price ?? 0
+                            ? ex?.availableToBack[2]?.price ?? 0
                             : 0
                         )
                       : ex?.availableToBack?.length > 0
-                      ? ex?.availableToBack[0]?.price ?? 0
+                      ? ex?.availableToBack[2]?.price ?? 0
                       : 0
                     : null,
               }}
@@ -339,16 +339,16 @@ const BoxComponent = ({
                 isRound
                   ? Math.round(
                       ex?.availableToBack?.length > 0
-                        ? ex?.availableToBack[0]?.price ?? 0
+                        ? ex?.availableToBack[2]?.price ?? 0
                         : 0
                     )
                   : ex?.availableToBack?.length > 0
-                  ? ex?.availableToBack[0]?.price ?? 0
+                  ? ex?.availableToBack[2]?.price ?? 0
                   : 0
               }
               value2={formatNumber(
                 ex?.availableToBack?.length > 0
-                  ? ex?.availableToBack[0]?.size ?? 0
+                  ? ex?.availableToBack[2]?.size ?? 0
                   : 0,
                 isRound
               )}
