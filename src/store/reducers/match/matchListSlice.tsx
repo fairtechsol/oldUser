@@ -21,6 +21,7 @@ import {
   updateProfitLossOnDeleteSession,
   updateTeamRatesOnDeleteMatch,
 } from "../../actions/user/userAction";
+import { convertData, updateSessionBettingsItem } from "../../../helper";
 
 interface InitialState {
   success: boolean;
@@ -124,6 +125,21 @@ const matchListSlice = createSlice({
           quickbookmaker,
           completeManual,
         } = action?.payload;
+
+        let parsedSessionBettings = state?.matchDetails?.sessionBettings?.map(
+          (item: any) => {
+            let parsedItem = JSON.parse(item);
+            return parsedItem;
+          }
+        );
+
+        let updatedFormat = convertData(parsedSessionBettings);
+
+        let updatedSessionBettings = updateSessionBettingsItem(
+          updatedFormat,
+          apiSession
+        );
+
         state.matchDetails = {
           ...state.matchDetails,
           manualSessionActive: sessionBettings?.length >= 0 ? true : false,
@@ -137,6 +153,7 @@ const matchListSlice = createSlice({
           quickBookmaker: quickbookmaker,
           sessionBettings: sessionBettings,
           manualCompleteMatch: completeManual,
+          updatedSessionBettings: updatedSessionBettings,
         };
       })
       .addCase(updateMatchOddRates.fulfilled, (state, action) => {

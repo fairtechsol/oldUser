@@ -6,6 +6,7 @@ import QuickSessionMarket from "../QuickSession/QuickSessionMarket";
 import SessionMarket from "../SessionOdds/SessionMarket";
 import MarketOdds from "./MarketOdds";
 import { customBookmakerSort, formatToINR } from "../../../helper";
+import FancyMarkets from "../FancyMarkets";
 
 const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
   function calculateTimeLeft() {
@@ -283,6 +284,22 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
             min={formatToINR(matchDetails?.betFairSessionMinBet)}
             upcoming={!upcoming}
             matchDetails={matchDetails}
+          />
+        )}
+      {matchDetails?.apiSessionActive &&
+        matchDetails?.apiSession?.length > 0 && (
+          <FancyMarkets
+            show={show}
+            setShow={setShow}
+            upcoming={!upcoming}
+            title={"Fancy Market"}
+            matchDetails={matchDetails}
+            typeOfBet={matchDetails?.type}
+            data={matchDetails?.apiSession}
+            newData={matchDetails?.apiSession}
+            eventType={matchDetails?.matchType}
+            allBetsData={matchDetails?.profitLossDataSession}
+            min={formatToINR(matchDetails?.betFairSessionMinBet)}
           />
         )}
     </Box>
