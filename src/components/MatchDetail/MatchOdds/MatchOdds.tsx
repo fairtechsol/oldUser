@@ -1,12 +1,12 @@
 import { Box } from "@mui/material";
 import moment from "moment-timezone";
 import { memo, useEffect, useState } from "react";
+import { customBookmakerSort, formatToINR } from "../../../helper";
 import { MatchType } from "../../../utils/enum";
+import FancyMarkets from "../FancyMarkets";
 import QuickSessionMarket from "../QuickSession/QuickSessionMarket";
 import SessionMarket from "../SessionOdds/SessionMarket";
 import MarketOdds from "./MarketOdds";
-import { customBookmakerSort, formatToINR } from "../../../helper";
-import FancyMarkets from "../FancyMarkets";
 
 const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
   function calculateTimeLeft() {
@@ -268,24 +268,33 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
             typeOfBet={matchDetails?.type}
           />
         )}
+
+        
       {matchDetails?.apiSessionActive &&
-        matchDetails?.apiSession?.length > 0 && (
-          <SessionMarket
+        Object.entries(matchDetails?.apiSession||{})?.filter(([key,value]:any)=>value?.section?.length>0)?.map(([key,value]:any,index)=>{
+          return (
+            <SessionMarket
+            key={key}
             allBetsData={matchDetails?.profitLossDataSession}
-            newData={matchDetails?.apiSession}
-            matchOddsData={matchDetails?.apiSession}
+            newData={value?.section}
+            matchOddsData={value?.section}
             typeOfBet={matchDetails?.type}
-            title={"Session Market"}
+            title={value?.mname}
             setShow={setShow}
             show={show}
-            type={MatchType.API_SESSION_MARKET}
-            data={matchDetails?.apiSession}
+            type={key}
+            data={value}
             eventType={matchDetails?.matchType}
             min={formatToINR(matchDetails?.betFairSessionMinBet)}
             upcoming={!upcoming}
             matchDetails={matchDetails}
+            mid={value?.mid}
           />
-        )}
+          )
+        })
+      }
+         
+      
       {matchDetails?.apiSessionActive &&
         matchDetails?.apiSession?.length > 0 && (
           <FancyMarkets

@@ -1,4 +1,5 @@
 import { Typography, useMediaQuery, useTheme } from "@mui/material";
+import MUIModal from "@mui/material/Modal";
 import { Box } from "@mui/system";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -11,13 +12,12 @@ import {
 import { selectedBetAction } from "../../../../store/actions/match/matchListAction";
 import { AppDispatch, RootState } from "../../../../store/store";
 import { ApiConstants } from "../../../../utils/Constants";
+import NotificationModal from "../../../Common/NotificationModal";
 import StyledImage from "../../../Common/StyledImages";
 import BoxInput from "../../Common/BoxInput";
 import PlaceBetMoneyBox from "../PlaceBetMoneyBox";
 import NumberData from "./NumberDataOdds";
 import TeamsOdssData from "./TeamOddsData";
-import NotificationModal from "../../../Common/NotificationModal";
-import MUIModal from "@mui/material/Modal";
 
 // const types=["matchOdd","tiedMatch1","completeMatch"]
 
@@ -190,8 +190,10 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
       betType: selectedBet?.team?.type.toUpperCase(),
       odds: selectedBet?.team?.rate,
       ratePercent: selectedBet?.team?.percent,
+      betPlaceIndex: selectedBet?.team?.betPlaceIndex,
+      mid: selectedBet?.team?.mid?.toString(),
+      ...(selectedBet?.team?.teamName?{teamName: selectedBet?.team?.teamName}:{})
     };
-  
     const payloadForBettings = {
       ...commonPayload,
       teamA: selectedBet?.team?.teamA,
@@ -203,6 +205,8 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
       matchBetType: selectedBet?.team?.matchBetType,
       betOnTeam: selectedBet?.team?.betOnTeam,
       placeIndex: selectedBet?.team?.placeIndex,
+      mid: selectedBet?.data?.mid?.toString(),
+      selectionId: selectedBet?.team?.selectionId?.toString(),
     };
   
     const isSessionBet = selectedBet?.data?.type === "session" || selectedBet?.data?.SelectionId;

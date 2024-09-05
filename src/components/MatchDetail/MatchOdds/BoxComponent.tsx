@@ -1,9 +1,8 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { memo, useEffect } from "react";
+import { formatNumber } from "../../../helper/index";
 import MoneyBox from "./MoneyBox";
 import SeparateModal from "./SeparateModal";
-import { formatNumber } from "../../../helper/index";
-import { useEffect } from "react";
-import { memo } from "react";
 
 const BoxComponent = ({
   name,
@@ -32,13 +31,12 @@ const BoxComponent = ({
 }: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
-  const { ex, status } = data ?? {};
+  const { ex, status, selectionId } = data ?? {};
   useEffect(() => {
     if (livestatus || status !== "ACTIVE" || showBox) {
       setPlaceBetData(null);
     }
   }, [livestatus, status, showBox]);
-
   return (
     <Box
       sx={{
@@ -146,7 +144,6 @@ const BoxComponent = ({
           </Typography>
         </Box>
       ) : (
-        <>
           <Box
             sx={{
               display: "flex",
@@ -166,7 +163,7 @@ const BoxComponent = ({
                   livestatus
                 }
                 setFastBetLoading={setFastBetLoading}
-                po={2}
+                po={ex?.availableToBack[0]?.tno}
                 updateRate={{
                   key: 1,
                   match: "back",
@@ -222,6 +219,7 @@ const BoxComponent = ({
                 handleRateChange={handleRateChange}
                 marketDetails={marketDetails}
                 upcoming={upcoming}
+                selectionId={selectionId}
               />
             )}
             <Box
@@ -229,13 +227,14 @@ const BoxComponent = ({
             ></Box>
             {!matchesMobile && (
               <SeparateModal
+                selectionId={selectionId}
                 closeModal={
                   !["ACTIVE", "", undefined, null].includes(status) ||
                   newData?.bettings?.length === 0 ||
                   livestatus
                 }
                 setFastBetLoading={setFastBetLoading}
-                po={1}
+                po={ex?.availableToBack[1]?.tno}
                 updateRate={{
                   key: 2,
                   match: "back",
@@ -304,7 +303,7 @@ const BoxComponent = ({
                 livestatus
               }
               setFastBetLoading={setFastBetLoading}
-              po={0}
+              po={ex?.availableToBack[2]?.tno}
               betType={"back"}
               updateRate={{
                 key: 3,
@@ -360,7 +359,8 @@ const BoxComponent = ({
               handleRateChange={handleRateChange}
               marketDetails={marketDetails}
               upcoming={upcoming}
-            />
+              selectionId={selectionId}
+              />
 
             <Box
               sx={{ width: ".25%", display: "flex", background: "pink" }}
@@ -373,7 +373,7 @@ const BoxComponent = ({
                 livestatus
               }
               setFastBetLoading={setFastBetLoading}
-              po={0}
+              po={ex?.availableToLay[0]?.tno}
               betType={"lay"}
               updateRate={{
                 key: 4,
@@ -429,7 +429,8 @@ const BoxComponent = ({
               handleRateChange={handleRateChange}
               marketDetails={marketDetails}
               upcoming={upcoming}
-            />
+              selectionId={selectionId}
+              />
             {!matchesMobile && (
               <SeparateModal
                 betType={"lay"}
@@ -439,7 +440,7 @@ const BoxComponent = ({
                   livestatus
                 }
                 setFastBetLoading={setFastBetLoading}
-                po={1}
+                po={ex?.availableToLay[1]?.tno}
                 updateRate={{
                   key: 5,
                   match: "lay",
@@ -494,6 +495,7 @@ const BoxComponent = ({
                 handleRateChange={handleRateChange}
                 marketDetails={marketDetails}
                 upcoming={upcoming}
+                selectionId={selectionId}
               />
             )}
             {!matchesMobile && (
@@ -505,7 +507,7 @@ const BoxComponent = ({
                   livestatus
                 }
                 setFastBetLoading={setFastBetLoading}
-                po={2}
+                po={ex?.availableToLay[2]?.tno}
                 updateRate={{
                   key: 6,
                   match: "lay",
@@ -560,13 +562,13 @@ const BoxComponent = ({
                 handleRateChange={handleRateChange}
                 marketDetails={marketDetails}
                 upcoming={upcoming}
+                selectionId={selectionId}
               />
             )}
             <Box
               sx={{ width: ".25%", display: "flex", background: "pink" }}
             ></Box>
           </Box>
-        </>
       )}
     </Box>
   );

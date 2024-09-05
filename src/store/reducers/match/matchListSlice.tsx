@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { convertData, updateSessionBettingsItem } from "../../../helper";
 import {
   SearchList,
   SearchListReset,
@@ -21,7 +22,6 @@ import {
   updateProfitLossOnDeleteSession,
   updateTeamRatesOnDeleteMatch,
 } from "../../actions/user/userAction";
-import { convertData, updateSessionBettingsItem } from "../../../helper";
 
 interface InitialState {
   success: boolean;
@@ -142,8 +142,7 @@ const matchListSlice = createSlice({
 
         state.matchDetails = {
           ...state.matchDetails,
-          manualSessionActive: sessionBettings?.length >= 0 ? true : false,
-          apiSessionActive: apiSession?.length >= 0 ? true : false,
+          // manualSessionActive: sessionBettings?.length >= 0 ? true : false,
           apiSession: apiSession,
           apiTideMatch: apiTiedMatch,
           bookmaker: bookmaker,

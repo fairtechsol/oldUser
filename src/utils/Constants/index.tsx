@@ -109,6 +109,14 @@ export const matchBettingType = {
   tiedMatch2: "tiedMatch2",
   completeMatch: "completeMatch",
 };
+export const sessionBettingType = {
+  session: "session",
+  fancy1: "fancy1",
+  overByOver: "overByover",
+  ballByBall: "ballByBall",
+  oddEven: "oddEven",
+  cricketCasino: "cricketCasino"
+};
 
 export const baseUrls = {
   socket:

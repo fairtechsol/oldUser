@@ -482,7 +482,7 @@ const MatchDetail = () => {
                         new Set()
                       ),
                       (id) => placedBets.find((obj: any) => obj.id === id)
-                    ).filter((bet: any) => bet?.marketType === "session")
+                    ).filter((bet: any) => bet?.marketBetType == "SESSION")
                       .length > 0 && (
                       <SessionBetSeperate
                         placedBets={Array.from(
@@ -492,7 +492,7 @@ const MatchDetail = () => {
                             new Set()
                           ),
                           (id) => placedBets.find((obj: any) => obj.id === id)
-                        ).filter((bet: any) => bet?.marketType === "session")}
+                        ).filter((bet: any) => bet?.marketBetType == "SESSION")}
                         mark
                       />
                     )}
@@ -503,7 +503,7 @@ const MatchDetail = () => {
                         new Set()
                       ),
                       (id) => placedBets.find((obj: any) => obj.id === id)
-                    ).filter((bet: any) => bet?.marketType !== "session")
+                    ).filter((bet: any) => bet?.marketBetType != "SESSION")
                       .length > 0 && (
                       <AllRateSeperate
                         allBetsData={Array.from(
@@ -513,7 +513,7 @@ const MatchDetail = () => {
                             new Set()
                           ),
                           (id) => placedBets.find((obj: any) => obj.id === id)
-                        ).filter((bet: any) => bet?.marketType !== "session")}
+                        ).filter((bet: any) => bet?.marketBetType != "SESSION")}
                         mark
                       />
                     )}

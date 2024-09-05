@@ -1,10 +1,11 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { memo } from "react";
 import { BallStart } from "../../../assets";
-import SeparateModal from "../MatchOdds/SeparateModal";
+import { formatToINR } from "../../../helper";
+import { sessionBettingType } from "../../../utils/Constants";
 import PlaceBetComponent from "../MatchOdds/Bets/PlaceBetComponent";
 import PlaceBetComponentWeb from "../MatchOdds/Bets/PlaceBetComponentWeb";
-import { formatToINR } from "../../../helper";
+import SeparateModal from "../MatchOdds/SeparateModal";
 
 const SessionMarketBox = ({
   index,
@@ -23,6 +24,7 @@ const SessionMarketBox = ({
   profitLossData,
   show,
   setShow,
+  mid,
 }: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -91,152 +93,214 @@ const SessionMarketBox = ({
           </Typography>
         </Typography>
 
-      {matchesMobile && (
-        <PlaceBetComponent
-          amount={index == 2}
-          data={data}
-          show={show}
-          setShow={setShow}
-          profitLoss={(profitLossData && profitLossData[0]) ?? {}}
-        />
-      )}
-      {!matchesMobile && (
-        <PlaceBetComponentWeb
-          amount={index === 2}
-          data={data}
-          show={show}
-          setShow={setShow}
-          profitLoss={(profitLossData && profitLossData[0]) ?? {}}
-        />
-      )}
-       {/* <Box
+        {matchesMobile && (
+          <PlaceBetComponent
+            amount={index == 2}
+            data={data}
+            show={show}
+            setShow={setShow}
+            profitLoss={(profitLossData && profitLossData[0]) ?? {}}
+          />
+        )}
+        {!matchesMobile && (
+          <PlaceBetComponentWeb
+            amount={index === 2}
+            data={data}
+            show={show}
+            setShow={setShow}
+            profitLoss={(profitLossData && profitLossData[0]) ?? {}}
+          />
+        )}
+        {/* <Box
               sx={{ width: "20%", display: "flex", background: "pink" }}
             ></Box> */}
-      {!["ACTIVE", "active", "", undefined, null, ""].includes(
-        data?.GameStatus
-      ) ||
-      (data.BackSize1 === null && data.LaySize1 === null) ? (
-        <Box
-          sx={{
-            background: "rgba(0,0,0,1)",
-            height: "38px",
-            minWidth: "10%",
-            width: { lg: "24%", md: "40%", xs: "40%" },
-            justifyContent: { xs: "center", lg: "center" },
-            marginLeft: "auto",
-            alignItems: "center",
-            display: "flex",
-            marginRight: {lg:"20%", xs: "0%"}, 
-            zIndex: 1,
-          }}
-        >
-          {data?.GameStatus == "Ball Running" ? (
-            <img
-              src={BallStart}
-              style={{ width: "113px", height: "32px" }}
-              alt=""
-            />
-          ) : (
-            <Typography
-              sx={{
-                fontSize: { xs: "12px", lg: "20px" },
-                textTransform: "uppercase",
-                textAlign: "center",
-                width: "100%",
-                color: "white",
-                fontWeight: "400",
-              }}
-            >
-              {data?.GameStatus}
-            </Typography>
-          )}
-        </Box>
-       
-      ) : (
-        <>
+        {!["ACTIVE", "active", "", undefined, null, ""].includes(
+          data?.GameStatus
+        ) ||
+        (!data.ex?.availableToBack?.length &&
+          !data.ex?.availableToLay?.length) ? (
           <Box
             sx={{
-              display: "flex",
-              position: "absolute",
-              background: index % 2 === 0 ? "#FFE094" : "#ECECEC",
+              background: "rgba(0,0,0,1)",
               height: "38px",
-              width: { lg: "60%", xs: "40%", sm: "40%" },
-              justifyContent: {lg:"center", xs: "end"},
+              minWidth: "10%",
+              width: { lg: "24%", md: "40%", xs: "40%" },
+              justifyContent: { xs: "center", lg: "center" },
+              marginLeft: "auto",
               alignItems: "center",
-              minWidth: {lg:"60%", xs: "40%"},
-              marginRight: "auto",
-              overflow: "hidden",
-              // left: {lg:"23%", xs: "0%", sm: "40%"}
-              marginLeft: {lg:"38%", xs: "60%", sm: "60%"}
+              display: "flex",
+              marginRight: { lg: "20%", xs: "0%" },
+              zIndex: 1,
             }}
           >
-            <SeparateModal
-              bettingOn={"session"}
-              closeModal={closeModal}
-              setFastBetLoading={setFastBetLoading}
-              po={2}
-              eventType={eventType}
-              setFastAmount={setFastAmount}
-              rates={allRates}
-              session={true}
-              sessionMain={sessionMain}
-              selectedFastAmount={selectedFastAmount}
-              betType={"no"}
-              value={data?.LayPrice1 ?? 0}
-              value2={data?.LaySize1 ?? 0}
-              lock={
-                [null, 0, "0"].includes(data?.LayPrice1 ?? 0) ? true : false
-              }
-              color={"#F6D0CB"}
-              type={{ color: "#FFB5B5", type: "YN" }}
-              typeOfBet={typeOfBet}
-              data={data}
-              mainData={mainData}
-              handleRateChange={handleRateChange}
-            />
+            {data?.GameStatus == "Ball Running" ? (
+              <img
+                src={BallStart}
+                style={{ width: "113px", height: "32px" }}
+                alt=""
+              />
+            ) : (
+              <Typography
+                sx={{
+                  fontSize: { xs: "12px", lg: "20px" },
+                  textTransform: "uppercase",
+                  textAlign: "center",
+                  width: "100%",
+                  color: "white",
+                  fontWeight: "400",
+                }}
+              >
+                {data?.GameStatus}
+              </Typography>
+            )}
+          </Box>
+        ) : (
+          <>
             <Box
+              sx={{
+                display: "flex",
+                position: "absolute",
+                background: index % 2 === 0 ? "#FFE094" : "#ECECEC",
+                height: "38px",
+                width: { lg: "60%", xs: "40%", sm: "40%" },
+                justifyContent: { lg: "center", xs: "end" },
+                alignItems: "center",
+                minWidth: { lg: "60%", xs: "40%" },
+                marginRight: "auto",
+                overflow: "hidden",
+                // left: {lg:"23%", xs: "0%", sm: "40%"}
+                marginLeft: { lg: "38%", xs: "60%", sm: "60%" },
+              }}
+            >
+              <Box
+                sx={{
+                  width: "20%",
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "row",
+                }}
+              >
+                {data.ex?.availableToLay?.map((item: any, index: number) => {
+                  return (
+                    <SeparateModal
+                      key={index}
+                      bettingOn={"session"}
+                      closeModal={closeModal}
+                      setFastBetLoading={setFastBetLoading}
+                      po={item?.tno}
+                      eventType={eventType}
+                      setFastAmount={setFastAmount}
+                      rates={allRates}
+                      session={true}
+                      sessionMain={sessionMain}
+                      selectedFastAmount={selectedFastAmount}
+                      betType={
+                        sessionBettingType.oddEven == data?.type
+                          ? "back"
+                          : sessionBettingType.fancy1 == data?.type
+                          ? "lay"
+                          : "no"
+                      }
+                      value={item?.price ?? 0}
+                      value2={item?.size ?? 0}
+                      lock={
+                        [null, 0, "0"].includes(item?.price ?? 0) ? true : false
+                      }
+                      color={
+                        sessionBettingType.oddEven == data?.type
+                          ? "#B3E0FF"
+                          : "#F6D0CB"
+                      }
+                      type={{
+                        color:
+                          sessionBettingType.oddEven == data?.type
+                            ? "#A7DCFF"
+                            : "#FFB5B5",
+                        type: "YN",
+                      }}
+                      typeOfBet={typeOfBet}
+                      data={data}
+                      mainData={mainData}
+                      handleRateChange={handleRateChange}
+                      width={"100%"}
+                      mid={mid}
+                      teamName={
+                        sessionBettingType.oddEven == data?.type ? "odd" : null
+                      }
+                    />
+                  );
+                })}
+              </Box>
+
+              <Box
                 sx={{ width: ".45%", display: "flex", background: "pink" }}
               ></Box>
-            <SeparateModal
-              bettingOn={"session"}
-              closeModal={closeModal}
-              setFastBetLoading={setFastBetLoading}
-              po={1}
-              eventType={eventType}
-              sessionMain={sessionMain}
-              rates={allRates}
-              setFastAmount={setFastAmount}
-              selectedFastAmount={selectedFastAmount}
-              session={true}
-              betType={"yes"}
-              value={data?.BackPrice1 ?? 0}
-              value2={data?.BackSize1 ?? 0}
-              lock={
-                [null, 0, "0"].includes(data?.BackPrice1 ?? 0) ? true : false
-              }
-              color={"#B3E0FF"}
-              type={{ color: "#A7DCFF", type: "YN" }}
-              typeOfBet={typeOfBet}
-              data={data}
-              mainData={mainData}
-              handleRateChange={handleRateChange}
-            />
-          </Box>
-          {!matchesMobile && <Box
+              <Box
+                sx={{
+                  width: "20%",
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "row",
+                }}
+              >
+                {data.ex?.availableToBack?.map((item: any, index: number) => {
+                  return (
+                    <SeparateModal
+                      key={index}
+                      bettingOn={"session"}
+                      closeModal={closeModal}
+                      setFastBetLoading={setFastBetLoading}
+                      po={item?.tno}
+                      eventType={eventType}
+                      sessionMain={sessionMain}
+                      rates={allRates}
+                      setFastAmount={setFastAmount}
+                      selectedFastAmount={selectedFastAmount}
+                      session={true}
+                      betType={
+                        sessionBettingType.oddEven == data?.type ||
+                        sessionBettingType.fancy1 == data?.type
+                          ? "back"
+                          : "yes"
+                      }
+                      value={item?.price ?? 0}
+                      value2={item?.size ?? 0}
+                      lock={
+                        [null, 0, "0"].includes(item?.price ?? 0) ? true : false
+                      }
+                      color={"#B3E0FF"}
+                      type={{ color: "#A7DCFF", type: "YN" }}
+                      typeOfBet={typeOfBet}
+                      data={data}
+                      mainData={mainData}
+                      handleRateChange={handleRateChange}
+                      width={"100%"}
+                      mid={mid}
+                      teamName={
+                        sessionBettingType.oddEven == data?.type ? "even" : null
+                      }
+                    />
+                  );
+                })}
+              </Box>
+            </Box>
+            {!matchesMobile && (
+              <Box
                 sx={{ width: "33%", display: "flex", background: "pink" }}
-              ></Box>}
-          {!matchesMobile && (
-            <PlaceBetComponentWeb
-              amount={index === 2}
-              data={data}
-              show={show}
-              setShow={setShow}
-              profitLoss={(profitLossData && profitLossData[0]) ?? {}}
-            />
-          )}
-        </>
-      )}
-    </Box>
+              ></Box>
+            )}
+            {!matchesMobile && (
+              <PlaceBetComponentWeb
+                amount={index === 2}
+                data={data}
+                show={show}
+                setShow={setShow}
+                profitLoss={(profitLossData && profitLossData[0]) ?? {}}
+              />
+            )}
+          </>
+        )}
+      </Box>
     </Box>
   );
 };
