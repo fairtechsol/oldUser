@@ -151,7 +151,6 @@ const matchListSlice = createSlice({
           marketCompleteMatch: marketCompleteMatch,
           matchOdd: matchOdd,
           quickBookmaker: quickbookmaker,
-          sessionBettings: sessionBettings,
           manualCompleteMatch: completeManual,
           updatedSessionBettings: updatedSessionBettings,
         };
