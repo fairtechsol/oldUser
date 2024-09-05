@@ -1,17 +1,17 @@
 import { Box, Typography } from "@mui/material";
+import MUIModal from "@mui/material/Modal";
 import React, { memo } from "react";
 import { useDispatch } from "react-redux";
-import MUIModal from "@mui/material/Modal";
 
-import { Lock } from "../../../assets/index";
 import { useState } from "react";
-import OddsPlaceBet from "./Bets/OddsPlacebet";
-import { AppDispatch, RootState } from "../../../store/store";
+import { useSelector } from "react-redux";
+import { Lock } from "../../../assets/index";
 import {
   selectedBetAction,
   selectedBetMinMax,
 } from "../../../store/actions/match/matchListAction";
-import { useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../store/store";
+import OddsPlaceBet from "./Bets/OddsPlacebet";
 
 const SeparateModal = ({
   color,
@@ -37,6 +37,7 @@ const SeparateModal = ({
   bettingOn,
   marketDetails,
   upcoming,
+  selectionId
 }: any) => {
   const dispatch: AppDispatch = useDispatch();
   const [isBack, setIsBack] = React.useState(false);
@@ -91,7 +92,7 @@ const SeparateModal = ({
                   betOn: name,
                   stack: Number(selectedFastAmount),
                   team_bet: name,
-
+                  selectionId: selectionId,
                   stake: Number(selectedFastAmount),
                   teamA_name: currentMatch?.teamA,
                   teamB_name: currentMatch?.teamB,
@@ -161,6 +162,7 @@ const SeparateModal = ({
                       placeIndex: po,
                       matchBetType: marketDetails?.type,
                       bettingName: marketDetails?.name,
+                      selectionId: selectionId
                     },
                     data
                   );

@@ -1,12 +1,12 @@
 import { Box } from "@mui/material";
 import moment from "moment-timezone";
 import { memo, useEffect, useState } from "react";
+import { customBookmakerSort, formatToINR } from "../../../helper";
 import { MatchType } from "../../../utils/enum";
+import FancyMarkets from "../FancyMarkets";
 import QuickSessionMarket from "../QuickSession/QuickSessionMarket";
 import SessionMarket from "../SessionOdds/SessionMarket";
 import MarketOdds from "./MarketOdds";
-import { customBookmakerSort, formatToINR } from "../../../helper";
-import FancyMarkets from "../FancyMarkets";
 
 const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
   function calculateTimeLeft() {
