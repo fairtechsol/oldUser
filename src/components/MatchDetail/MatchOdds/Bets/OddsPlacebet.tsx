@@ -190,6 +190,9 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
       betType: selectedBet?.team?.type.toUpperCase(),
       odds: selectedBet?.team?.rate,
       ratePercent: selectedBet?.team?.percent,
+      betPlaceIndex: selectedBet?.team?.betPlaceIndex,
+      mid: selectedBet?.team?.mid?.toString(),
+      ...(selectedBet?.team?.teamName?{teamName: selectedBet?.team?.teamName}:{})
     };
     const payloadForBettings = {
       ...commonPayload,

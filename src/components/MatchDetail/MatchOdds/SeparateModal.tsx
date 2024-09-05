@@ -37,7 +37,10 @@ const SeparateModal = ({
   bettingOn,
   marketDetails,
   upcoming,
-  selectionId
+  selectionId,
+  width,
+  mid,
+  teamName,
 }: any) => {
   const dispatch: AppDispatch = useDispatch();
   const [isBack, setIsBack] = React.useState(false);
@@ -68,7 +71,7 @@ const SeparateModal = ({
         sx={{
           cursor: loading ? "not-allowed" : "pointer",
           padding: { xs: "0px", lg: "1px", md: "1px" },
-          width: { xs: "100%", lg: "20%" },
+          width: { xs: "100%", lg: width ?? "20%" },
           height: "94%",
         }}
       >
@@ -123,6 +126,9 @@ const SeparateModal = ({
                       percent: value2,
                       eventType: eventType,
                       matchId: data?.matchId,
+                      betPlaceIndex: po,
+                      mid: mid,
+                      teamName: teamName,
                     },
                     data
                   );
@@ -162,7 +168,7 @@ const SeparateModal = ({
                       placeIndex: po,
                       matchBetType: marketDetails?.type,
                       bettingName: marketDetails?.name,
-                      selectionId: selectionId
+                      selectionId: selectionId,
                     },
                     data
                   );

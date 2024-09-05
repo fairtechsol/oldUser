@@ -1,14 +1,12 @@
-import Divider from "../../../helper/Divider";
-import SessionMarketBox from "./SessionMarketBox";
 import { Box, Typography } from "@mui/material";
-import { ARROWUP } from "../../../assets";
-import { memo } from "react";
-import { useState } from "react";
-import { currencyFormatter } from "../../../helper/index";
-import { LockIcon } from "../../../assets";
-import { customSort } from "../../../helper/index";
-import FastTime from "../MatchOdds/FastTime";
+import { memo, useState } from "react";
+import { ARROWUP, LockIcon } from "../../../assets";
+import Divider from "../../../helper/Divider";
+import { currencyFormatter, customSort } from "../../../helper/index";
+import { sessionBettingType } from "../../../utils/Constants";
 import FastTimePlaceBet from "../MatchOdds/Bets/FastTimePlaceBet";
+import FastTime from "../MatchOdds/FastTime";
+import SessionMarketBox from "./SessionMarketBox";
 import SmallboxSeason from "./SmallBoxSeason";
 
 const SessionMarket = ({
@@ -32,6 +30,8 @@ const SessionMarket = ({
   min,
   typeOfBet,
   matchDetails,
+  type,
+  mid,
 }: any) => {
   const [showFastTimeBox, setShowFastTimeBox] = useState(false);
   // const [fastBetLoading, setFastBetLoading] = useState(false);
@@ -40,7 +40,6 @@ const SessionMarket = ({
   //   setLocalData(newData);
   // }, [newData]);
   const [visible, setVisible] = useState(true);
-
   return (
     <>
       <Box
@@ -200,7 +199,7 @@ const SessionMarket = ({
                   sx={{
                     display: "flex",
                     background: "#319E5B",
-                    marginRight: {lg:"24px", xs: "0px"},
+                    marginRight: { lg: "24px", xs: "0px" },
                     height: "25px",
                     gap: { xs: "0px", lg: "1px", md: "1px" },
                     width: { lg: "60%", xs: "80%" },
@@ -209,7 +208,10 @@ const SessionMarket = ({
                 >
                   <Box
                     sx={{
-                      background: "#FF9292",
+                      background:
+                        sessionBettingType.oddEven == type
+                          ? "#00C0F9"
+                          : "#FF9292",
                       width: { lg: "20%", xs: "30%" },
                       height: "100%",
                       display: "flex",
@@ -229,7 +231,11 @@ const SessionMarket = ({
                         fontWeight: "600",
                       }}
                     >
-                      NO
+                      {sessionBettingType.oddEven == type
+                        ? "BACK"
+                        : sessionBettingType.fancy1 == type
+                        ? "LAY"
+                        : "NO"}
                     </Typography>
                   </Box>
                   <Box sx={{ width: ".35%", display: "flex" }}></Box>
@@ -254,7 +260,12 @@ const SessionMarket = ({
                         fontWeight: "600",
                       }}
                     >
-                      YES
+                      {[
+                        sessionBettingType.oddEven,
+                        sessionBettingType.fancy1,
+                      ].includes(type)
+                        ? "BACK"
+                        : "YES"}
                     </Typography>
                   </Box>
                 </Box>
@@ -347,7 +358,7 @@ const SessionMarket = ({
                         }}
                       >
                         <SessionMarketBox
-                        index={index}
+                          index={index}
                           upcoming={upcoming}
                           typeOfBet={typeOfBet}
                           setFastBetLoading={() => {}}
@@ -355,7 +366,7 @@ const SessionMarket = ({
                           data={{
                             ...element,
                             matchId: matchDetails?.id,
-                            type: "session",
+                            type: type,
                           }}
                           sessionMain={session}
                           selectedFastAmount={fastAmount}
@@ -372,6 +383,7 @@ const SessionMarket = ({
                           profitLossData={Array.from(
                             new Set(allBetsData)
                           )?.filter((item: any) => item?.betId === element?.id)}
+                          mid={mid}
                         />
                         <Divider />
                       </Box>

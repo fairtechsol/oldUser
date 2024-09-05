@@ -268,24 +268,33 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
             typeOfBet={matchDetails?.type}
           />
         )}
+
+        
       {matchDetails?.apiSessionActive &&
-        matchDetails?.apiSession?.length > 0 && (
-          <SessionMarket
+        Object.entries(matchDetails?.apiSession||{})?.filter(([key,value]:any)=>value?.section?.length>0)?.map(([key,value]:any,index)=>{
+          return (
+            <SessionMarket
+            key={key}
             allBetsData={matchDetails?.profitLossDataSession}
-            newData={matchDetails?.apiSession}
-            matchOddsData={matchDetails?.apiSession}
+            newData={value?.section}
+            matchOddsData={value?.section}
             typeOfBet={matchDetails?.type}
-            title={"Session Market"}
+            title={value?.mname}
             setShow={setShow}
             show={show}
-            type={MatchType.API_SESSION_MARKET}
-            data={matchDetails?.apiSession}
+            type={key}
+            data={value}
             eventType={matchDetails?.matchType}
             min={formatToINR(matchDetails?.betFairSessionMinBet)}
             upcoming={!upcoming}
             matchDetails={matchDetails}
+            mid={value?.mid}
           />
-        )}
+          )
+        })
+      }
+         
+      
       {matchDetails?.apiSessionActive &&
         matchDetails?.apiSession?.length > 0 && (
           <FancyMarkets

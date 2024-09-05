@@ -2,10 +2,10 @@ import { Box, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { UD } from "../../../../assets";
+import { handleDecimalAmount } from "../../../../helper";
 import { getRunAmount } from "../../../../store/actions/betPlace/betPlaceActions";
 import { AppDispatch, RootState } from "../../../../store/store";
 import RunsDropDown from "./RunsDropDown";
-import { handleDecimalAmount } from "../../../../helper";
 
 const PlaceBetComponentWeb = ({
   profitLoss,
@@ -27,6 +27,7 @@ const PlaceBetComponentWeb = ({
       setProfitLoss(profitLoss);
     }
   }, [profitLoss]);
+
   return (
     <>
       <Box

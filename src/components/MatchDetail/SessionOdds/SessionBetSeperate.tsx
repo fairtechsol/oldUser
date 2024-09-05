@@ -2,14 +2,13 @@ import { Box, Typography } from "@mui/material";
 import { useState } from "react";
 import { ARROWUP, ArrowDown, DELETE } from "../../../assets";
 
+import { formatToINR } from "../../../helper";
 import StyledImage from "../../Common/StyledImages";
 import RowComponent from "./RowComponent";
-import { formatToINR } from "../../../helper";
 const SessionBetSeperate = ({ profit, mark2, placedBets, isArrow }: any) => {
   const [visible, setVisible] = useState(true);
 
   return (
-    <>
       <Box
         sx={[
           {
@@ -383,7 +382,6 @@ const SessionBetSeperate = ({ profit, mark2, placedBets, isArrow }: any) => {
           </>
         )}
       </Box>
-    </>
   );
 };
 
