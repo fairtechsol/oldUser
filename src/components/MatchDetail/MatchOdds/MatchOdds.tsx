@@ -269,32 +269,31 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
           />
         )}
 
-        
       {matchDetails?.apiSessionActive &&
-        Object.entries(matchDetails?.apiSession||{})?.filter(([key,value]:any)=>value?.section?.length>0)?.map(([key,value]:any,index)=>{
-          return (
-            <SessionMarket
-            key={key}
-            allBetsData={matchDetails?.profitLossDataSession}
-            newData={value?.section}
-            matchOddsData={value?.section}
-            typeOfBet={matchDetails?.type}
-            title={value?.mname}
-            setShow={setShow}
-            show={show}
-            type={key}
-            data={value}
-            eventType={matchDetails?.matchType}
-            min={formatToINR(matchDetails?.betFairSessionMinBet)}
-            upcoming={!upcoming}
-            matchDetails={matchDetails}
-            mid={value?.mid}
-          />
-          )
-        })
-      }
-         
-      
+        Object.entries(matchDetails?.apiSession || {})
+          ?.filter(([_, value]: any) => value?.section?.length > 0)
+          ?.map(([key, value]: any) => {
+            return (
+              <SessionMarket
+                key={key}
+                allBetsData={matchDetails?.profitLossDataSession}
+                newData={value?.section}
+                matchOddsData={value?.section}
+                typeOfBet={matchDetails?.type}
+                title={value?.mname}
+                setShow={setShow}
+                show={show}
+                type={key}
+                data={value}
+                eventType={matchDetails?.matchType}
+                min={formatToINR(matchDetails?.betFairSessionMinBet)}
+                upcoming={!upcoming}
+                matchDetails={matchDetails}
+                mid={value?.mid}
+              />
+            );
+          })}
+
       {matchDetails?.apiSessionActive &&
         matchDetails?.apiSession?.length > 0 && (
           <FancyMarkets

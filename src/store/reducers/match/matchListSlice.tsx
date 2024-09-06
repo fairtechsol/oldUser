@@ -120,7 +120,7 @@ const matchListSlice = createSlice({
           bookmaker,
           marketCompleteMatch,
           matchOdd,
-          sessionBettings,
+          // sessionBettings,
           manualTideMatch,
           quickbookmaker,
           completeManual,
