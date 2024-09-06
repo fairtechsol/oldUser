@@ -111,12 +111,12 @@ const CricketCasinoMarketBox = ({
               background: "rgba(0,0,0,1)",
               height: "38px",
               minWidth: "10%",
-              width: { lg: "24%", md: "40%", xs: "40%" },
+              width: { lg: "12%", md: "20%", xs: "20%" },
               justifyContent: { xs: "center", lg: "center" },
               marginLeft: "auto",
               alignItems: "center",
               display: "flex",
-              marginRight: { lg: "20%", xs: "0%" },
+              marginRight: { lg: "26%", xs: "0%" },
               zIndex: 1,
             }}
           >
@@ -129,7 +129,7 @@ const CricketCasinoMarketBox = ({
             ) : (
               <Typography
                 sx={{
-                  fontSize: { xs: "12px", lg: "20px" },
+                  fontSize: { xs: "12px", lg: "12px" },
                   textTransform: "uppercase",
                   textAlign: "center",
                   width: "100%",
