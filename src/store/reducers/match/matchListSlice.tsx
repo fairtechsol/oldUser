@@ -120,26 +120,45 @@ const matchListSlice = createSlice({
           bookmaker,
           marketCompleteMatch,
           matchOdd,
-          // sessionBettings,
+          sessionBettings,
           manualTideMatch,
           quickbookmaker,
           completeManual,
         } = action?.payload;
 
-        let parsedSessionBettings = state?.matchDetails?.sessionBettings?.map(
-          (item: any) => {
-            let parsedItem = JSON.parse(item);
-            return parsedItem;
+        // let parsedSessionBettings = state?.matchDetails?.sessionBettings?.map(
+        //   (item: any) => {
+        //     let parsedItem = JSON.parse(item);
+        //     return parsedItem;
+        //   }
+        // );
+
+        // let updatedFormat = convertData(parsedSessionBettings);
+
+        // let updatedSessionBettings = updateSessionBettingsItem(
+        //   updatedFormat,
+        //   apiSession
+        // );
+        const parsedSessionBettings =
+          state.matchDetails?.sessionBettings?.map(JSON.parse) || [];
+        const apiParsedSessionBettings = sessionBettings?.map(JSON.parse) || [];
+
+        apiParsedSessionBettings.forEach((apiItem: any) => {
+          const index = parsedSessionBettings.findIndex(
+            (parsedItem: any) => parsedItem.id === apiItem.id
+          );
+          if (index !== -1) {
+            parsedSessionBettings[index] = {
+              ...parsedSessionBettings[index],
+              ...apiItem,
+            };
+          } else {
+            parsedSessionBettings.push(apiItem);
           }
+        });
+        const stringifiedSessionBetting = parsedSessionBettings.map(
+          JSON.stringify
         );
-
-        let updatedFormat = convertData(parsedSessionBettings);
-
-        let updatedSessionBettings = updateSessionBettingsItem(
-          updatedFormat,
-          apiSession
-        );
-
         state.matchDetails = {
           ...state.matchDetails,
           // manualSessionActive: sessionBettings?.length >= 0 ? true : false,
@@ -151,7 +170,11 @@ const matchListSlice = createSlice({
           matchOdd: matchOdd,
           quickBookmaker: quickbookmaker,
           manualCompleteMatch: completeManual,
-          updatedSessionBettings: updatedSessionBettings,
+          sessionBettings: stringifiedSessionBetting,
+          updatedSessionBettings: updateSessionBettingsItem(
+            convertData(parsedSessionBettings),
+            apiSession
+          ),
         };
       })
       .addCase(updateMatchOddRates.fulfilled, (state, action) => {
@@ -214,6 +237,7 @@ const matchListSlice = createSlice({
                   ...item,
                   maxLoss: JSON.parse(profitLossData)?.maxLoss,
                   totalBet: JSON.parse(profitLossData)?.totalBet,
+                  profitLoss: JSON.parse(profitLossData)?.betPlaced,
                 };
               }
               return item;
@@ -227,6 +251,7 @@ const matchListSlice = createSlice({
               betId: betPlaced?.placedBet?.betId,
               maxLoss: JSON.parse(profitLossData)?.maxLoss,
               totalBet: 1,
+              profitLoss: JSON.parse(profitLossData)?.betPlaced,
               // Add other properties as necessary
             });
           }
