@@ -266,11 +266,12 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
             eventType={matchDetails?.matchType}
             minBet={formatToINR(matchDetails?.betFairSessionMinBet)}
             typeOfBet={matchDetails?.type}
+            matchDetails={matchDetails}
           />
         )}
 
       {matchDetails?.apiSessionActive &&
-        Object.entries(matchDetails?.apiSession || {})
+        Object.entries(matchDetails?.updatedSessionBettings || {})
           ?.filter(
             ([key, value]: any) =>
               value?.section?.length > 0 &&

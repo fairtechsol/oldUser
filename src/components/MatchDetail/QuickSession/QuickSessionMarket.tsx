@@ -1,10 +1,9 @@
 import { Box, Typography } from "@mui/material";
-import { ARROWUP } from "../../../assets";
-import SmallBoxSeason from "../QuickSession/SmallBoxSeason";
-import { memo } from "react";
-import { useState } from "react";
-import { LockIcon } from "../../../assets";
+import { memo, useState } from "react";
+import { ARROWUP, LockIcon } from "../../../assets";
 import Divider from "../../../helper/Divider";
+import { sessionBettingType } from "../../../utils/Constants";
+import SmallBoxSeason from "../QuickSession/SmallBoxSeason";
 import QuickSessionMarketBox from "./QuickSessionMarketBox";
 
 const QuickSessionMarket = ({
@@ -26,12 +25,13 @@ const QuickSessionMarket = ({
   eventType,
   setShow,
   show,
+  matchDetails
 }: any) => {
   const [showFastTimeBox, setShowFastTimeBox] = useState(false);
   const [setFastBetLoading] = useState(false);
   const [selectedItem, setSelectedItem] = useState("");
   const [visible, setVisible] = useState(true);
-
+console.log(allBetsData,matchDetails);
   return (
     <>
       <Box
@@ -114,7 +114,14 @@ const QuickSessionMarket = ({
             }}
           >
             {/* {console.warn("newData11 ",newData)} */}
-            <SmallBoxSeason allBetsData={Array.from(new Set(allBetsData))} />
+            <SmallBoxSeason allBetsData={Array.from(new Set(allBetsData))?.filter(
+                (item: any) =>
+                  JSON.parse(
+                    matchDetails?.sessionBettings?.find(
+                      (items: any) => JSON.parse(items)?.id == item?.betId && JSON.parse(items)?.isManual
+                    ) || "{}"
+                  )?.type == sessionBettingType.session
+              )} />
             <Box
               className="arrowUpCollaps"
               sx={{
