@@ -156,12 +156,12 @@ const CricketCasinoMarketBox = ({
                 marginRight: "auto",
                 overflow: "hidden",
                 // left: {lg:"23%", xs: "0%", sm: "40%"}
-                marginLeft: { lg: "38%", xs: "60%", sm: "60%" },
+                marginLeft: { lg: "37.9%", xs: "59.9%", sm: "59.9%" },
               }}
             >
               <Box
                 sx={{
-                  width: "20%",
+                  width: { xs: "50%", lg: "20%" },
                   height: "100%",
                   display: "flex",
                   flexDirection: "row",
