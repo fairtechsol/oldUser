@@ -266,6 +266,7 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
             eventType={matchDetails?.matchType}
             minBet={formatToINR(matchDetails?.betFairSessionMinBet)}
             typeOfBet={matchDetails?.type}
+            matchDetails={matchDetails}
           />
         )}
 

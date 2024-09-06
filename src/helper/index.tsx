@@ -94,7 +94,8 @@ export const updateSessionBettingsItem = (
     if (!apiResponseBettings || Object.keys(apiResponseBettings).length === 0) {
       for (const key in matchDetailBettings) {
         if (matchDetailBettings.hasOwnProperty(key)) {
-          const matchDetailSections = matchDetailBettings[key]?.section;
+        matchDetailBettings[key].mid = apiResponseBettings[key]?.mid;
+        const matchDetailSections = matchDetailBettings[key]?.section;
           matchDetailSections?.forEach((section: any) => {
             section.isComplete = true;
           });
@@ -104,6 +105,7 @@ export const updateSessionBettingsItem = (
     } else
       for (const key in matchDetailBettings) {
         if (apiResponseBettings.hasOwnProperty(key)) {
+          matchDetailBettings[key].mid = apiResponseBettings[key]?.mid;
           const apiSections = apiResponseBettings[key].section;
           const matchDetailSections = matchDetailBettings[key]?.section;
           for (const apiSection of apiSections) {
