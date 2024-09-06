@@ -150,7 +150,7 @@ const SessionMarketBox = ({
                   fontWeight: "400",
                 }}
               >
-                {data?.GameStatus}
+                {!data?.GameStatus ? "SUSPENDED" : data?.GameStatus}
               </Typography>
             )}
           </Box>
