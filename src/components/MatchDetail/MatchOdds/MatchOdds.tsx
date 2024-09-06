@@ -280,7 +280,7 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
                 newData={value?.section}
                 matchOddsData={value?.section}
                 typeOfBet={matchDetails?.type}
-                title={value?.mname}
+                title={value?.mname || key}
                 setShow={setShow}
                 show={show}
                 type={key}
