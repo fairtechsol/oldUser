@@ -11,6 +11,7 @@ import {
   selectedBetMinMax,
 } from "../../../store/actions/match/matchListAction";
 import { AppDispatch, RootState } from "../../../store/store";
+import { sessionBettingType } from "../../../utils/Constants";
 import OddsPlaceBet from "./Bets/OddsPlacebet";
 
 const SeparateModal = ({
@@ -64,7 +65,6 @@ const SeparateModal = ({
       })
     );
   };
-
   return (
     <>
       <Box
@@ -116,14 +116,21 @@ const SeparateModal = ({
               } else {
                 setIsPopoverOpen(true);
                 if (bettingOn === "session") {
+                  console.log(value2);
                   handleClick(
                     {
                       betId: data?.id,
-                      name: data?.name ?? data?.RunnerName,
+                      name: data?.name ?? data?.RunnerName ?? data?.nat,
                       rate: value,
                       type: betType,
                       stake: 0,
-                      percent: value2,
+                      percent: [
+                        sessionBettingType.fancy1,
+                        sessionBettingType.cricketCasino,
+                        sessionBettingType.oddEven,
+                      ].includes(data?.type)
+                        ? value
+                        : value2,
                       eventType: eventType,
                       matchId: data?.matchId,
                       betPlaceIndex: po,

@@ -11,7 +11,7 @@ import {
 } from "../../../../store/actions/betPlace/betPlaceActions";
 import { selectedBetAction } from "../../../../store/actions/match/matchListAction";
 import { AppDispatch, RootState } from "../../../../store/store";
-import { ApiConstants } from "../../../../utils/Constants";
+import { ApiConstants, sessionBettingType } from "../../../../utils/Constants";
 import NotificationModal from "../../../Common/NotificationModal";
 import StyledImage from "../../../Common/StyledImages";
 import BoxInput from "../../Common/BoxInput";
@@ -27,7 +27,7 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
   const [stakeValue, setStakeValue] = useState<any>(" ");
   const [matchOddLoading, setMatchOddLoading] = useState<any>(false);
   const [openModal1, setOpenModal1] = useState(false);
-  const [errorText, setErrorText] = useState('')
+  const [errorText, setErrorText] = useState("");
   const [browserInfo, setBrowserInfo] = useState<any>(null);
   const [ipAddress, setIpAddress] = useState(null);
   const [_, setStake] = useState<any>(0);
@@ -65,10 +65,11 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
     }
   });
 
-  const buttonToShow: any =
-    selectedBet?.data?.type === "session"
-      ? sessionButtonValues
-      : matchButtonValues;
+  const buttonToShow: any = Object.values(sessionBettingType)?.includes(
+    selectedBet?.data?.type
+  )
+    ? sessionButtonValues
+    : matchButtonValues;
 
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
@@ -108,14 +109,24 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
 
   const handleProfit = (value: any) => {
     let profit;
-    if (selectedBet?.data?.type === "session") {
+    if (Object.values(sessionBettingType)?.includes(selectedBet?.data?.type)) {
       profit =
-        selectedBet?.team?.type === "no"
+        selectedBet?.team?.type === "no" || selectedBet?.team?.type === "lay"
           ? value
+          : [
+              sessionBettingType.cricketCasino,
+              sessionBettingType.fancy1,
+              sessionBettingType.oddEven,
+            ].includes(selectedBet?.data?.type)
+          ? value * (parseFloat(selectedBet?.team?.percent) - 1)
           : (value * selectedBet?.team?.percent) / 100;
     } else if (
-      ["matchOdd", "tiedMatch1", "completeMatch"].includes(selectedBet?.data?.type) ||
-    ["matchOdd", "tiedMatch1", "completeMatch"].includes(selectedBet?.team?.matchBetType)
+      ["matchOdd", "tiedMatch1", "completeMatch"].includes(
+        selectedBet?.data?.type
+      ) ||
+      ["matchOdd", "tiedMatch1", "completeMatch"].includes(
+        selectedBet?.team?.matchBetType
+      )
     ) {
       profit =
         selectedBet?.team?.type === "back"
@@ -131,14 +142,24 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
   };
   const handleLoss = (value: any) => {
     let profit;
-    if (selectedBet?.data?.type === "session") {
+    if (Object.values(sessionBettingType)?.includes(selectedBet?.data?.type)) {
       profit =
-        selectedBet?.team?.type === "yes"
+        selectedBet?.team?.type === "yes" || selectedBet?.team?.type === "back"
           ? value
-          : (value * selectedBet?.team?.percent) / 100;
+          : [
+            sessionBettingType.cricketCasino,
+            sessionBettingType.fancy1,
+            sessionBettingType.oddEven,
+          ].includes(selectedBet?.data?.type)
+        ? value * (parseFloat(selectedBet?.team?.percent) - 1)
+        : (value * selectedBet?.team?.percent) / 100;
     } else if (
-      ["matchOdd", "tiedMatch1", "completeMatch"].includes(selectedBet?.data?.type) ||
-    ["matchOdd", "tiedMatch1", "completeMatch"].includes(selectedBet?.team?.matchBetType)
+      ["matchOdd", "tiedMatch1", "completeMatch"].includes(
+        selectedBet?.data?.type
+      ) ||
+      ["matchOdd", "tiedMatch1", "completeMatch"].includes(
+        selectedBet?.team?.matchBetType
+      )
     ) {
       profit =
         selectedBet?.team?.type === "lay"
@@ -153,25 +174,24 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
     return Number(+profit).toFixed(2);
   };
   const handleModal = () => {
-    setOpenModal1(true)
+    setOpenModal1(true);
     setTimeout(() => {
-      setOpenModal1(false)
-      setErrorText('')
+      setOpenModal1(false);
+      setErrorText("");
     }, 1500);
-  }
- 
+  };
 
   const handlePlaceBet = () => {
-    if (loading ) return;
-  
+    if (loading) return;
+
     if (stakeValue > minMax?.max) {
-      setErrorText('Amount should be less than the maximum bet amount!');
+      setErrorText("Amount should be less than the maximum bet amount!");
       handleModal();
       return false;
     }
-  
+
     if (stakeValue < minMax?.min) {
-      setErrorText('Amount should be greater than the minimum bet amount!');
+      setErrorText("Amount should be greater than the minimum bet amount!");
       handleModal();
       return false;
     }
@@ -181,10 +201,11 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
       eventType: selectedBet?.team?.eventType,
       matchId: selectedBet?.team?.matchId,
       browserDetail: browserInfo?.userAgent,
-      ipAddress: ipAddress === "Not found" || !ipAddress ? "192.168.1.100" : ipAddress,
+      ipAddress:
+        ipAddress === "Not found" || !ipAddress ? "192.168.1.100" : ipAddress,
       stake: stakeValue || selectedBet?.team?.stake,
     };
-  
+
     const payloadForSession = {
       ...commonPayload,
       betType: selectedBet?.team?.type.toUpperCase(),
@@ -192,7 +213,9 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
       ratePercent: selectedBet?.team?.percent,
       betPlaceIndex: selectedBet?.team?.betPlaceIndex,
       mid: selectedBet?.team?.mid?.toString(),
-      ...(selectedBet?.team?.teamName?{teamName: selectedBet?.team?.teamName}:{})
+      ...(selectedBet?.team?.teamName
+        ? { teamName: selectedBet?.team?.teamName }
+        : {}),
     };
     const payloadForBettings = {
       ...commonPayload,
@@ -208,19 +231,30 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
       mid: selectedBet?.data?.mid?.toString(),
       selectionId: selectedBet?.team?.selectionId?.toString(),
     };
-  
-    const isSessionBet = selectedBet?.data?.type === "session" || selectedBet?.data?.SelectionId;
-    const url = isSessionBet ? ApiConstants.BET.PLACEBETSESSION : ApiConstants.BET.PLACEBETMATCHBETTING;
-    const data = JSON.stringify(isSessionBet ? payloadForSession : payloadForBettings);
-  
-    if (selectedBet?.team?.matchBetType === "matchOdd" || selectedBet?.data?.type === "matchOdd") {
+
+    const isSessionBet =
+      Object.values(sessionBettingType)?.includes(selectedBet?.data?.type) ||
+      selectedBet?.data?.SelectionId;
+    const url = isSessionBet
+      ? ApiConstants.BET.PLACEBETSESSION
+      : ApiConstants.BET.PLACEBETMATCHBETTING;
+    const data = JSON.stringify(
+      isSessionBet ? payloadForSession : payloadForBettings
+    );
+
+    if (
+      selectedBet?.team?.matchBetType === "matchOdd" ||
+      selectedBet?.data?.type === "matchOdd"
+    ) {
       setMatchOddLoading(true);
-      setTimeout(() => dispatch(placeBet({ url, data })), profileDetail?.delayTime * 1000);
+      setTimeout(
+        () => dispatch(placeBet({ url, data })),
+        profileDetail?.delayTime * 1000
+      );
     } else {
       dispatch(placeBet({ url, data }));
     }
   };
-  
 
   return (
     <Box
@@ -308,14 +342,14 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
             }}
             value={selectedBet?.team?.rate}
             containerStyle={{ marginLeft: "2px", flex: 1 }}
-          // onChange={(e:any) => {
-          //   dispatch(
-          //     selectedBetAction({
-          //       ...selectedBet,
-          //       team: { ...selectedBet?.team, stake: +e.target.value },
-          //     })
-          //   );
-          // }}
+            // onChange={(e:any) => {
+            //   dispatch(
+            //     selectedBetAction({
+            //       ...selectedBet,
+            //       team: { ...selectedBet?.team, stake: +e.target.value },
+            //     })
+            //   );
+            // }}
           />
           <TeamsOdssData
             title={"Back/Lay"}
@@ -410,7 +444,7 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
 
           <button
             type="submit"
-            disabled={loading  || !stakeValue ? true : false}
+            disabled={loading || !stakeValue ? true : false}
             style={{
               color: "#fff",
               backgroundColor: "#262626",
@@ -421,7 +455,7 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
               borderRadius: "5px",
               border: "2px solid white",
             }}
-            onClick={() => handlePlaceBet() }
+            onClick={() => handlePlaceBet()}
           >
             Submit
           </button>
@@ -436,14 +470,14 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
       )}
       <MUIModal
         open={openModal1}
-      // onClose={() => {
-      //   setIsPopoverOpen(false);
-      // }}
+        // onClose={() => {
+        //   setIsPopoverOpen(false);
+        // }}
       >
         <Box
           sx={{
             width: "100%",
-            height: '300px',
+            height: "300px",
             position: "absolute",
             display: "flex",
             alignItems: "center",
@@ -464,11 +498,21 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
               flexDirection: "column",
               // marginTop: "70px",
               backgroundColor: "#fff",
-              borderRadius: '10px',
+              borderRadius: "10px",
             }}
           >
-            <img src={NOT} width={'50'} height={'50px'} />
-            <Typography sx={{ fontSize: '15px', fontWeight: '500', color: '#000', textAlign: 'center', margin: '10px' }}>{errorText}</Typography>
+            <img src={NOT} width={"50"} height={"50px"} />
+            <Typography
+              sx={{
+                fontSize: "15px",
+                fontWeight: "500",
+                color: "#000",
+                textAlign: "center",
+                margin: "10px",
+              }}
+            >
+              {errorText}
+            </Typography>
           </Box>
         </Box>
       </MUIModal>

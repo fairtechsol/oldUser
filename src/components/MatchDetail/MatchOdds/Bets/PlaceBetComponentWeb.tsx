@@ -5,6 +5,7 @@ import { UD } from "../../../../assets";
 import { handleDecimalAmount } from "../../../../helper";
 import { getRunAmount } from "../../../../store/actions/betPlace/betPlaceActions";
 import { AppDispatch, RootState } from "../../../../store/store";
+import { sessionBettingType } from "../../../../utils/Constants";
 import RunsDropDown from "./RunsDropDown";
 
 const PlaceBetComponentWeb = ({
@@ -13,6 +14,8 @@ const PlaceBetComponentWeb = ({
   show,
   setShow,
   color,
+  hideCount = false,
+  index,
 }: any) => {
   const dispatch: AppDispatch = useDispatch();
   const { runAmount } = useSelector((state: RootState) => state.bets);
@@ -27,7 +30,6 @@ const PlaceBetComponentWeb = ({
       setProfitLoss(profitLoss);
     }
   }, [profitLoss]);
-
   return (
     <>
       <Box
@@ -52,39 +54,41 @@ const PlaceBetComponentWeb = ({
           cursor: "pointer",
         }}
       >
-        <Box
-          sx={{
-            background: "#FDF21A",
-            borderRadius: "3px",
-            width: "45%",
-            height: "85%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
+        {!hideCount && (
+          <Box
+            sx={{
+              background: "#FDF21A",
+              borderRadius: "3px",
+              width: "45%",
+              height: "85%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
 
-            flexDirection: "column",
-          }}
-        >
-          <Typography
-            sx={{
-              fontSize: { lg: ".5vw" },
-              fontWeight: "bold",
-              color: "#FF4D4D",
+              flexDirection: "column",
             }}
           >
-            Total Bet
-          </Typography>
-          <Typography
-            sx={{
-              fontSize: { lg: ".5vw" },
-              fontWeight: "bold",
-              color: "#0B4F26",
-            }}
-          >
-            {proLoss?.totalBet < 10 ? 0 : ""}
-            {proLoss?.totalBet || 0}
-          </Typography>
-        </Box>
+            <Typography
+              sx={{
+                fontSize: { lg: ".5vw" },
+                fontWeight: "bold",
+                color: "#FF4D4D",
+              }}
+            >
+              Total Bet
+            </Typography>
+            <Typography
+              sx={{
+                fontSize: { lg: ".5vw" },
+                fontWeight: "bold",
+                color: "#0B4F26",
+              }}
+            >
+              {proLoss?.totalBet < 10 ? 0 : ""}
+              {proLoss?.totalBet || 0}
+            </Typography>
+          </Box>
+        )}
         <Box
           sx={{
             width: "100%",
@@ -102,7 +106,18 @@ const PlaceBetComponentWeb = ({
               color: "white",
             }}
           >
-            {!profitLoss?.maxLoss
+            {[sessionBettingType?.oddEven, sessionBettingType.fancy1].includes(
+              data?.type
+            ) && profitLoss?.profitLoss
+              ? Math.min(
+                  ...Object.values(profitLoss.profitLoss)?.map((item: any) =>
+                    parseInt(item)
+                  )
+                )
+              : data?.type == sessionBettingType.cricketCasino &&
+                profitLoss?.profitLoss
+              ? profitLoss?.profitLoss?.[index]
+              : !profitLoss?.maxLoss
               ? "Profit/Loss"
               : handleDecimalAmount(profitLoss?.maxLoss, color)}
           </Typography>
@@ -112,15 +127,21 @@ const PlaceBetComponentWeb = ({
             alt=""
           />
         </Box>
-        {show?.open && show?.id === data?.id && (
-          <RunsDropDown
-            open={Boolean(anchorEl)}
-            anchorEl={anchorEl}
-            list={runAmount && runAmount?.runAmount}
-            // list={profitLoss?.betData}
-            handleClose={handleClose}
-          />
-        )}
+        {show?.open &&
+          show?.id === data?.id &&
+          ![
+            sessionBettingType?.oddEven,
+            sessionBettingType.fancy1,
+            sessionBettingType.cricketCasino,
+          ].includes(data?.type) && (
+            <RunsDropDown
+              open={Boolean(anchorEl)}
+              anchorEl={anchorEl}
+              list={runAmount && runAmount?.runAmount}
+              // list={profitLoss?.betData}
+              handleClose={handleClose}
+            />
+          )}
       </Box>
     </>
   );

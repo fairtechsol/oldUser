@@ -2,14 +2,13 @@ import { Box, Typography } from "@mui/material";
 import { memo, useState } from "react";
 import { ARROWUP, LockIcon } from "../../../assets";
 import Divider from "../../../helper/Divider";
-import { currencyFormatter, customSort } from "../../../helper/index";
-import { sessionBettingType } from "../../../utils/Constants";
+import { currencyFormatter } from "../../../helper/index";
 import FastTimePlaceBet from "../MatchOdds/Bets/FastTimePlaceBet";
 import FastTime from "../MatchOdds/FastTime";
-import SessionMarketBox from "./SessionMarketBox";
+import CricketCasinoMarketBox from "./CricketCasinoMarketBox";
 import SmallboxSeason from "./SmallBoxSeason";
 
-const SessionMarket = ({
+const CricketCasinoMarket = ({
   data,
   showFast,
   teamARates,
@@ -19,7 +18,6 @@ const SessionMarket = ({
   show,
   setShow,
   setFastAmount,
-  newData,
   fastAmount,
   session,
   betLock,
@@ -40,6 +38,7 @@ const SessionMarket = ({
   //   setLocalData(newData);
   // }, [newData]);
   const [visible, setVisible] = useState(true);
+
   return (
     <>
       <Box
@@ -121,14 +120,11 @@ const SessionMarket = ({
               },
             }}
           >
-            <SmallboxSeason allBetsData={Array.from(new Set(allBetsData))?.filter(
-                (item: any) =>
-                  JSON.parse(
-                    matchDetails?.sessionBettings?.find(
-                      (items: any) => JSON.parse(items)?.id == item?.betId
-                    ) || "{}"
-                  )?.type == type
-              )} />
+            <SmallboxSeason
+              allBetsData={Array.from(new Set(allBetsData))?.filter(
+                (item: any) => item?.betId == data?.id
+              )}
+            />
             <Box
               className="arrowUpCollaps"
               sx={{
@@ -201,6 +197,17 @@ const SessionMarket = ({
                     {/* MAX:
                     {max} */}
                   </Typography>
+                  <Typography
+                    sx={{
+                      color: "white",
+                      fontSize: { lg: "11px", xs: "9px" },
+                      marginLeft: "7px",
+                    }}
+                  >
+                    MAX:{data?.max}
+                    {/* MAX:
+                    {max} */}
+                  </Typography>
                 </Box>
                 <Box
                   sx={{
@@ -215,10 +222,7 @@ const SessionMarket = ({
                 >
                   <Box
                     sx={{
-                      background:
-                        sessionBettingType.oddEven == type
-                          ? "#00C0F9"
-                          : "#FF9292",
+                      background: "#00C0F9",
                       width: { lg: "20%", xs: "30%" },
                       height: "100%",
                       display: "flex",
@@ -238,41 +242,7 @@ const SessionMarket = ({
                         fontWeight: "600",
                       }}
                     >
-                      {sessionBettingType.oddEven == type
-                        ? "BACK"
-                        : sessionBettingType.fancy1 == type
-                        ? "LAY"
-                        : "NO"}
-                    </Typography>
-                  </Box>
-                  <Box sx={{ width: ".35%", display: "flex" }}></Box>
-                  <Box
-                    sx={{
-                      background: "#00C0F9",
-                      width: { lg: "21%", xs: "29.9%" },
-                      height: "100%",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      borderRight: {
-                        lg: " 4px solid #319e5b;",
-                        xs: "0 solid #319e5b",
-                      },
-                    }}
-                  >
-                    <Typography
-                      sx={{
-                        fontSize: "12px",
-                        color: "black",
-                        fontWeight: "600",
-                      }}
-                    >
-                      {[
-                        sessionBettingType.oddEven,
-                        sessionBettingType.fancy1,
-                      ].includes(type)
-                        ? "BACK"
-                        : "YES"}
+                      BACK
                     </Typography>
                   </Box>
                 </Box>
@@ -351,51 +321,54 @@ const SessionMarket = ({
                 // overflowY: "visible",
               }}
             >
-              {newData?.length > 0 &&
-                newData
-                  ?.slice()
-                  .sort(customSort)
-                  ?.map((element: any, index: any) => {
-                    return (
-                      <Box
-                        key={element?.id}
-                        sx={{
-                          width: "100%",
-                          display: "block",
+              {Array.from({ length: 10 }, (_, index) => index)?.map(
+                (element: any, index: any) => {
+                  const currSessionItem =
+                    data?.section?.find(
+                      (item: any) => parseInt(item?.sid) == element + 1
+                    ) || {};
+                  return (
+                    <Box
+                      key={element}
+                      sx={{
+                        width: "100%",
+                        display: "block",
+                      }}
+                    >
+                      <CricketCasinoMarketBox
+                        index={index}
+                        upcoming={upcoming}
+                        typeOfBet={typeOfBet}
+                        setFastBetLoading={() => {}}
+                        eventType={eventType}
+                        data={{
+                          ...currSessionItem,
+                          matchId: matchDetails?.id,
+                          type: type,
+                          id: data?.id,
                         }}
-                      >
-                        <SessionMarketBox
-                          index={index}
-                          upcoming={upcoming}
-                          typeOfBet={typeOfBet}
-                          setFastBetLoading={() => {}}
-                          eventType={eventType}
-                          data={{
-                            ...element,
-                            matchId: matchDetails?.id,
-                            type: type,
-                          }}
-                          sessionMain={session}
-                          selectedFastAmount={fastAmount}
-                          setFastAmount={setFastAmount}
-                          mainData={data}
-                          allRates={{
-                            teamA: teamARates,
-                            teamB: teamBRates,
-                            teamC: teamCRates,
-                          }}
-                          show={show}
-                          setShow={setShow}
-                          handleRateChange={handleRateChange}
-                          profitLossData={Array.from(
-                            new Set(allBetsData)
-                          )?.filter((item: any) => item?.betId === element?.id)}
-                          mid={mid}
-                        />
-                        <Divider />
-                      </Box>
-                    );
-                  })}
+                        sessionMain={session}
+                        selectedFastAmount={fastAmount}
+                        setFastAmount={setFastAmount}
+                        mainData={data}
+                        allRates={{
+                          teamA: teamARates,
+                          teamB: teamBRates,
+                          teamC: teamCRates,
+                        }}
+                        show={show}
+                        setShow={setShow}
+                        handleRateChange={handleRateChange}
+                        profitLossData={Array.from(
+                          new Set(allBetsData)
+                        )?.filter((item: any) => item?.betId === data?.id)}
+                        mid={mid}
+                      />
+                      <Divider />
+                    </Box>
+                  );
+                }
+              )}
             </Box>
           </Box>
         )}
@@ -416,4 +389,4 @@ const SessionMarket = ({
   );
 };
 
-export default memo(SessionMarket);
+export default memo(CricketCasinoMarket);
