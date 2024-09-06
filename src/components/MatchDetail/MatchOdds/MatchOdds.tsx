@@ -270,7 +270,7 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
         )}
 
       {matchDetails?.apiSessionActive &&
-        Object.entries(matchDetails?.apiSession || {})
+        Object.entries(matchDetails?.updatedSessionBettings || {})
           ?.filter(
             ([key, value]: any) =>
               value?.section?.length > 0 &&
