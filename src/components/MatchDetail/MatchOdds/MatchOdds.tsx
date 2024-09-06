@@ -2,8 +2,9 @@ import { Box } from "@mui/material";
 import moment from "moment-timezone";
 import { memo, useEffect, useState } from "react";
 import { customBookmakerSort, formatToINR } from "../../../helper";
+import { sessionBettingType } from "../../../utils/Constants";
 import { MatchType } from "../../../utils/enum";
-import FancyMarkets from "../FancyMarkets";
+import CricketCasinoMarket from "../CricketCasinoOdds/CricketCasinoMarket";
 import QuickSessionMarket from "../QuickSession/QuickSessionMarket";
 import SessionMarket from "../SessionOdds/SessionMarket";
 import MarketOdds from "./MarketOdds";
@@ -50,7 +51,6 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
     }, 0);
     return () => clearTimeout(timer);
   }, []);
-
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
       {matchDetails?.matchOdd?.isActive && (
@@ -271,7 +271,11 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
 
       {matchDetails?.apiSessionActive &&
         Object.entries(matchDetails?.apiSession || {})
-          ?.filter(([_, value]: any) => value?.section?.length > 0)
+          ?.filter(
+            ([key, value]: any) =>
+              value?.section?.length > 0 &&
+              key != sessionBettingType.cricketCasino
+          )
           ?.map(([key, value]: any) => {
             return (
               <SessionMarket
@@ -295,6 +299,30 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
           })}
 
       {matchDetails?.apiSessionActive &&
+        (matchDetails?.apiSession?.cricketCasino?.section || [])?.map(
+          (item: any) => {
+            return (
+              <CricketCasinoMarket
+                key={item}
+                allBetsData={matchDetails?.profitLossDataSession}
+                newData={item}
+                matchOddsData={item}
+                typeOfBet={matchDetails?.type}
+                title={item?.RunnerName}
+                setShow={setShow}
+                show={show}
+                type={sessionBettingType.cricketCasino}
+                data={item}
+                eventType={matchDetails?.matchType}
+                min={formatToINR(matchDetails?.betFairSessionMinBet)}
+                upcoming={!upcoming}
+                matchDetails={matchDetails}
+              />
+            );
+          }
+        )}
+
+      {/* {matchDetails?.apiSessionActive &&
         matchDetails?.apiSession?.length > 0 && (
           <FancyMarkets
             show={show}
@@ -309,7 +337,7 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
             allBetsData={matchDetails?.profitLossDataSession}
             min={formatToINR(matchDetails?.betFairSessionMinBet)}
           />
-        )}
+        )} */}
     </Box>
   );
 };

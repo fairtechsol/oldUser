@@ -1,13 +1,11 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { memo } from "react";
 import { BallStart } from "../../../assets";
-import { formatToINR } from "../../../helper";
-import { sessionBettingType } from "../../../utils/Constants";
 import PlaceBetComponent from "../MatchOdds/Bets/PlaceBetComponent";
 import PlaceBetComponentWeb from "../MatchOdds/Bets/PlaceBetComponentWeb";
 import SeparateModal from "../MatchOdds/SeparateModal";
 
-const SessionMarketBox = ({
+const CricketCasinoMarketBox = ({
   index,
   typeOfBet,
   data,
@@ -24,11 +22,9 @@ const SessionMarketBox = ({
   profitLossData,
   show,
   setShow,
-  mid,
 }: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
-
   return (
     <Box
       sx={{
@@ -78,18 +74,7 @@ const SessionMarketBox = ({
               lineHeight: "0.8rem",
             }}
           >
-            {data?.RunnerName}
-          </Typography>
-          <Typography
-            sx={{
-              color: "black",
-              fontSize: { lg: "8px", md: "9px", xs: "7px" },
-              marginLeft: "7px",
-              fontWeight: "500",
-              textAlign: "start",
-            }}
-          >
-            max:{formatToINR(data?.max || 0)}
+            {data?.nat || `${index} Number`}
           </Typography>
         </Typography>
 
@@ -100,6 +85,8 @@ const SessionMarketBox = ({
             show={show}
             setShow={setShow}
             profitLoss={(profitLossData && profitLossData[0]) ?? {}}
+            hideCount={true}
+            index={index}
           />
         )}
         {!matchesMobile && (
@@ -109,16 +96,16 @@ const SessionMarketBox = ({
             show={show}
             setShow={setShow}
             profitLoss={(profitLossData && profitLossData[0]) ?? {}}
+            hideCount={true}
+            index={index}
           />
         )}
         {/* <Box
               sx={{ width: "20%", display: "flex", background: "pink" }}
             ></Box> */}
-        {!["ACTIVE", "active", "", undefined, null, ""].includes(
-          data?.GameStatus
-        ) ||
-        (!data.ex?.availableToBack?.length &&
-          !data.ex?.availableToLay?.length) ? (
+        {!["ACTIVE", "active", "", undefined, null, "", "OPEN"].includes(
+          data?.gstatus
+        ) || !data.odds?.length ? (
           <Box
             sx={{
               background: "rgba(0,0,0,1)",
@@ -133,7 +120,7 @@ const SessionMarketBox = ({
               zIndex: 1,
             }}
           >
-            {data?.GameStatus == "Ball Running" ? (
+            {data?.gstatus == "Ball Running" ? (
               <img
                 src={BallStart}
                 style={{ width: "113px", height: "32px" }}
@@ -150,7 +137,7 @@ const SessionMarketBox = ({
                   fontWeight: "400",
                 }}
               >
-                {!data?.GameStatus ? "SUSPENDED" : data?.GameStatus}
+                {!data?.gstatus ? "SUSPENDED" : data?.gstatus}
               </Typography>
             )}
           </Box>
@@ -180,7 +167,7 @@ const SessionMarketBox = ({
                   flexDirection: "row",
                 }}
               >
-                {data.ex?.availableToLay?.map((item: any, index: number) => {
+                {data?.odds?.map((item: any, index: number) => {
                   return (
                     <SeparateModal
                       key={index}
@@ -194,28 +181,14 @@ const SessionMarketBox = ({
                       session={true}
                       sessionMain={sessionMain}
                       selectedFastAmount={selectedFastAmount}
-                      betType={
-                        sessionBettingType.oddEven == data?.type
-                          ? "back"
-                          : sessionBettingType.fancy1 == data?.type
-                          ? "lay"
-                          : "no"
-                      }
-                      value={item?.price ?? 0}
-                      value2={item?.size ?? 0}
+                      betType={"back"}
+                      value={item?.odds ?? 0}
                       lock={
-                        [null, 0, "0"].includes(item?.price ?? 0) ? true : false
+                        [null, 0, "0"].includes(item?.odds ?? 0) ? true : false
                       }
-                      color={
-                        sessionBettingType.oddEven == data?.type
-                          ? "#B3E0FF"
-                          : "#F6D0CB"
-                      }
+                      color={"#B3E0FF"}
                       type={{
-                        color:
-                          sessionBettingType.oddEven == data?.type
-                            ? "#A7DCFF"
-                            : "#FFB5B5",
+                        color: "#A7DCFF",
                         type: "YN",
                       }}
                       typeOfBet={typeOfBet}
@@ -223,64 +196,8 @@ const SessionMarketBox = ({
                       mainData={mainData}
                       handleRateChange={handleRateChange}
                       width={"100%"}
-                      mid={mid}
-                      teamName={
-                        sessionBettingType.oddEven == data?.type ? "odd" : null
-                      }
-                    />
-                  );
-                })}
-              </Box>
-
-              <Box
-                sx={{ width: ".45%", display: "flex", background: "pink" }}
-              ></Box>
-              <Box
-                sx={{
-                  width: "20%",
-                  height: "100%",
-                  display: "flex",
-                  flexDirection: "row",
-                }}
-              >
-                {data.ex?.availableToBack?.map((item: any, index: number) => {
-                  return (
-                    <SeparateModal
-                      key={index}
-                      bettingOn={"session"}
-                      closeModal={closeModal}
-                      setFastBetLoading={setFastBetLoading}
-                      po={item?.tno}
-                      eventType={eventType}
-                      sessionMain={sessionMain}
-                      rates={allRates}
-                      setFastAmount={setFastAmount}
-                      selectedFastAmount={selectedFastAmount}
-                      session={true}
-                      betType={
-                        sessionBettingType.oddEven == data?.type ||
-                        sessionBettingType.fancy1 == data?.type
-                          ? "back"
-                          : "yes"
-                      }
-                      value={item?.price ?? 0}
-                      value2={
-                       item?.size ?? 0
-                      }
-                      lock={
-                        [null, 0, "0"].includes(item?.price ?? 0) ? true : false
-                      }
-                      color={"#B3E0FF"}
-                      type={{ color: "#A7DCFF", type: "YN" }}
-                      typeOfBet={typeOfBet}
-                      data={data}
-                      mainData={mainData}
-                      handleRateChange={handleRateChange}
-                      width={"100%"}
-                      mid={mid}
-                      teamName={
-                        sessionBettingType.oddEven == data?.type ? "even" : null
-                      }
+                      mid={data?.mid}
+                      teamName={data?.nat || `${index} Number`}
                     />
                   );
                 })}
@@ -298,6 +215,8 @@ const SessionMarketBox = ({
                 show={show}
                 setShow={setShow}
                 profitLoss={(profitLossData && profitLossData[0]) ?? {}}
+                hideCount={true}
+                index={index}
               />
             )}
           </>
@@ -307,4 +226,4 @@ const SessionMarketBox = ({
   );
 };
 
-export default memo(SessionMarketBox);
+export default memo(CricketCasinoMarketBox);

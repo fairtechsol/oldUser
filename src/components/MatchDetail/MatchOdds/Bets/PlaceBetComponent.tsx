@@ -7,7 +7,15 @@ import { AppDispatch, RootState } from "../../../../store/store";
 import { sessionBettingType } from "../../../../utils/Constants";
 import RunsDropDown from "./RunsDropDown";
 
-const PlaceBetComponent = ({ profitLoss, data, show, setShow, color }: any) => {
+const PlaceBetComponent = ({
+  profitLoss,
+  data,
+  show,
+  setShow,
+  color,
+  hideCount = false,
+  index,
+}: any) => {
   const dispatch: AppDispatch = useDispatch();
   const [proLoss, setProfitLoss] = useState(profitLoss);
   const { runAmount } = useSelector((state: RootState) => state.bets);
@@ -45,33 +53,35 @@ const PlaceBetComponent = ({ profitLoss, data, show, setShow, color }: any) => {
           zIndex: 100,
         }}
       >
-        <Box
-          sx={{
-            background: "#FDF21A",
-            borderRadius: "3px",
-            width: "90%",
-            height: "45%",
-            zIndex: 40,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Typography
+        {!hideCount && (
+          <Box
             sx={{
-              fontSize: { lg: "10px", xs: "8px" },
-              fontWeight: "bold",
-              color: "#FF4D4D",
+              background: "#FDF21A",
+              borderRadius: "3px",
+              width: "90%",
+              height: "45%",
+              zIndex: 40,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
-            Total Bet :{" "}
-            <span style={{ color: "#0B4F26" }}>
-              {" "}
-              {proLoss?.totalBet < 10 ? 0 : ""}
-              {proLoss?.totalBet || 0}
-            </span>
-          </Typography>
-        </Box>
+            <Typography
+              sx={{
+                fontSize: { lg: "10px", xs: "8px" },
+                fontWeight: "bold",
+                color: "#FF4D4D",
+              }}
+            >
+              Total Bet :{" "}
+              <span style={{ color: "#0B4F26" }}>
+                {" "}
+                {proLoss?.totalBet < 10 ? 0 : ""}
+                {proLoss?.totalBet || 0}
+              </span>
+            </Typography>
+          </Box>
+        )}
         <Box sx={{ zIndex: 100, display: "flex", flexDirection: "column" }}>
           <Typography
             sx={{
@@ -93,23 +103,30 @@ const PlaceBetComponent = ({ profitLoss, data, show, setShow, color }: any) => {
                     parseInt(item)
                   )
                 )
+              : data?.type == sessionBettingType.cricketCasino &&
+                profitLoss?.profitLoss
+              ? profitLoss?.profitLoss?.[index]
               : !profitLoss?.maxLoss
               ? "Profit/Loss"
               : handleDecimalAmount(profitLoss?.maxLoss, color)}
           </Typography>
         </Box>
       </Box>
-      {show?.open && show?.id === data?.id&& ![sessionBettingType?.oddEven, sessionBettingType.fancy1].includes(
-              data?.type
-            ) && (
-        <RunsDropDown
-          style={{ zIndex: 10 }}
-          list={runAmount && runAmount?.runAmount}
-          open={Boolean(anchorEl)}
-          anchorEl={anchorEl}
-          //   handleClose={handleClose}
-        />
-      )}
+      {show?.open &&
+        show?.id === data?.id &&
+        ![
+          sessionBettingType?.oddEven,
+          sessionBettingType.fancy1,
+          sessionBettingType.cricketCasino,
+        ].includes(data?.type) && (
+          <RunsDropDown
+            style={{ zIndex: 10 }}
+            list={runAmount && runAmount?.runAmount}
+            open={Boolean(anchorEl)}
+            anchorEl={anchorEl}
+            //   handleClose={handleClose}
+          />
+        )}
     </Box>
   );
 };
