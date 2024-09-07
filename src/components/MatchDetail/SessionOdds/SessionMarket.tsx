@@ -121,14 +121,16 @@ const SessionMarket = ({
               },
             }}
           >
-            <SmallboxSeason allBetsData={Array.from(new Set(allBetsData))?.filter(
+            <SmallboxSeason
+              allBetsData={Array.from(new Set(allBetsData))?.filter(
                 (item: any) =>
                   JSON.parse(
                     matchDetails?.sessionBettings?.find(
                       (items: any) => JSON.parse(items)?.id == item?.betId
                     ) || "{}"
                   )?.type == type
-              )} />
+              )}
+            />
             <Box
               className="arrowUpCollaps"
               sx={{
