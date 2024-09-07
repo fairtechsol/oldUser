@@ -614,7 +614,7 @@ const MarketOdds = ({
                   fromOdds={true}
                   selectedFastAmount={fastAmount}
                   showBox={showBox}
-                  livestatus={newData?.status === "suspended" ? true : false}
+                  livestatus={data?.[0]?.status?.toLowerCase() === "suspended" ? true : false}
                   //   teamImage={newData?.teamA_Image}
                   newData={newData}
                   // lock={data?.length > 0 ? false : true}
@@ -657,7 +657,7 @@ const MarketOdds = ({
                   fromOdds={true}
                   selectedFastAmount={fastAmount}
                   newData={newData}
-                  livestatus={newData?.status === "SUSPENDED" ? true : false}
+                  livestatus={data?.[1]?.status?.toLowerCase() === "suspended" ? true : false}
                   // lock={data?.length > 0 ? false : true}
                   color={teamBRates <= 0 ? "#FF4D4D" : "#319E5B"}
                   name={
@@ -700,7 +700,7 @@ const MarketOdds = ({
                         selectedFastAmount={fastAmount}
                         time={true}
                         livestatus={
-                          newData?.status === "SUSPENDED" ? true : false
+                          data?.[2]?.status?.toLowerCase() === "suspended" ? true : false
                         }
                         showBox={showBox}
                         newData={newData}

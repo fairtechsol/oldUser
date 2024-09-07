@@ -170,6 +170,38 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
         />
       )}
 
+      {matchDetails?.apiTideMatch2?.isActive && (
+        <MarketOdds
+          upcoming={!upcoming}
+          betLock={data?.blockMarket?.BOOKMAKER?.block}
+          showBox={matchDetails?.apiTideMatch2?.activeStatus === "save"}
+          newData={data}
+          showFast={false}
+          showDely={true}
+          lock={
+            data?.bookmakerLive?.length > 0 &&
+            data?.bookmakerLive[0]?.betStatus === 0
+              ? true
+              : false
+          }
+          data={
+            matchDetails?.apiTideMatch2?.runners?.length > 0
+              ? matchDetails?.apiTideMatch2?.runners
+              : []
+          }
+          // suspended={false}
+          teamARates={matchDetails?.profitLossDataMatch?.yesRateTie || 0}
+          teamBRates={matchDetails?.profitLossDataMatch?.noRateTie || 0}
+          min={formatToINR(matchDetails?.apiTideMatch2?.minBet) || 0}
+          max={formatToINR(matchDetails?.apiTideMatch2?.maxBet) || 0}
+          title={matchDetails?.apiTideMatch2?.name}
+          isRound={false}
+          session={"bookmaker"}
+          typeOfBet={"BOOKMAKER"}
+          marketDetails={matchDetails?.apiTideMatch2}
+        />
+      )}
+
       {matchDetails?.manualTiedMatch?.isActive && (
         <MarketOdds
           upcoming={!upcoming}
