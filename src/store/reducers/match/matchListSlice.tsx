@@ -124,6 +124,7 @@ const matchListSlice = createSlice({
           manualTideMatch,
           quickbookmaker,
           completeManual,
+          apiTiedMatch2
         } = action?.payload;
 
         // let parsedSessionBettings = state?.matchDetails?.sessionBettings?.map(
@@ -164,6 +165,7 @@ const matchListSlice = createSlice({
           // manualSessionActive: sessionBettings?.length >= 0 ? true : false,
           apiSession: apiSession,
           apiTideMatch: apiTiedMatch,
+          apiTideMatch2: apiTiedMatch2,
           bookmaker: bookmaker,
           manualTiedMatch: manualTideMatch,
           marketCompleteMatch: marketCompleteMatch,

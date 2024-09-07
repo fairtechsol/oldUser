@@ -149,6 +149,7 @@ const SeparateModal = ({
                       teamA:
                         marketDetails?.type === "tiedMatch2" ||
                         marketDetails?.type === "tiedMatch1" ||
+                        marketDetails?.type === "tiedMatch3" ||
                         marketDetails?.type === "completeMatch" ||
                         marketDetails?.type === "completeManual"
                           ? "YES"
@@ -156,12 +157,14 @@ const SeparateModal = ({
                       teamB:
                         marketDetails?.type === "tiedMatch2" ||
                         marketDetails?.type === "tiedMatch1" ||
+                        marketDetails?.type === "tiedMatch3" ||
                         marketDetails?.type === "completeMatch" ||
                         marketDetails?.type === "completeManual"
                           ? "NO"
                           : currentMatch?.teamB,
                       teamC:
                         marketDetails?.type === "tiedMatch2" ||
+                        marketDetails?.type === "tiedMatch3" ||
                         marketDetails?.type === "tiedMatch1" ||
                         marketDetails?.type === "completeMatch" ||
                         marketDetails?.type === "completeManual"
