@@ -307,7 +307,7 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
           ?.filter(
             ([key, value]: any) =>
               value?.section?.length > 0 &&
-              key != sessionBettingType.cricketCasino
+              key !== sessionBettingType.cricketCasino
           )
           ?.map(([key, value]: any) => {
             return (

@@ -249,7 +249,7 @@ const SessionMarketBox = ({
                     bettingOn={"session"}
                     closeModal={closeModal}
                     setFastBetLoading={setFastBetLoading}
-                    po={data.ex?.availableToBack?.tno}
+                    po={data.ex?.availableToBack[0]?.tno}
                     eventType={eventType}
                     sessionMain={sessionMain}
                     rates={allRates}
@@ -262,11 +262,11 @@ const SessionMarketBox = ({
                         ? "back"
                         : "yes"
                     }
-                    value={data.ex?.availableToBack?.price ?? 0}
-                    value2={data.ex?.availableToBack?.size ?? 0}
+                    value={data.ex?.availableToBack[0]?.price ?? 0}
+                    value2={data.ex?.availableToBack[0]?.size ?? 0}
                     lock={
                       [null, 0, "0"].includes(
-                        data.ex?.availableToBack?.price ?? 0
+                        data.ex?.availableToBack[0]?.price ?? 0
                       )
                         ? true
                         : false
