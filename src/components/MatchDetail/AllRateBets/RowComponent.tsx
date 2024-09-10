@@ -139,12 +139,12 @@ const RowComponent = ({ header, data }: any) => {
             header={header}
             boxWidth="50%"
           />
-          <SingleBox
+          {/* <SingleBox
             color={getColor()}
             data={data[5]}
             header={header}
             boxWidth="100%"
-          />
+          /> */}
         </>
       )}
     </Box>
