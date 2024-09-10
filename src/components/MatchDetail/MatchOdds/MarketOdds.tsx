@@ -614,7 +614,11 @@ const MarketOdds = ({
                   fromOdds={true}
                   selectedFastAmount={fastAmount}
                   showBox={showBox}
-                  livestatus={data?.[0]?.status?.toLowerCase() === "suspended" ? true : false}
+                  livestatus={
+                    data?.[0]?.status?.toLowerCase() === "suspended"
+                      ? true
+                      : false
+                  }
                   //   teamImage={newData?.teamA_Image}
                   newData={newData}
                   // lock={data?.length > 0 ? false : true}
@@ -626,9 +630,12 @@ const MarketOdds = ({
                   }}
                   rate={teamARates}
                   name={
-                    ["tiedMatch1", "completeMatch"].includes(
-                      marketDetails?.type
-                    )
+                    [
+                      "tiedMatch1",
+                      "tiedMatch3",
+                      "completeMatch",
+                      "completeMatch1",
+                    ].includes(marketDetails?.type)
                       ? "YES"
                       : newData?.teamA
                   }
@@ -657,13 +664,20 @@ const MarketOdds = ({
                   fromOdds={true}
                   selectedFastAmount={fastAmount}
                   newData={newData}
-                  livestatus={data?.[1]?.status?.toLowerCase() === "suspended" ? true : false}
+                  livestatus={
+                    data?.[1]?.status?.toLowerCase() === "suspended"
+                      ? true
+                      : false
+                  }
                   // lock={data?.length > 0 ? false : true}
                   color={teamBRates <= 0 ? "#FF4D4D" : "#319E5B"}
                   name={
-                    ["tiedMatch1", "completeMatch"].includes(
-                      marketDetails?.type
-                    )
+                    [
+                      "tiedMatch1",
+                      "tiedMatch3",
+                      "completeMatch",
+                      "completeMatch1",
+                    ].includes(marketDetails?.type)
                       ? "NO"
                       : newData?.teamB
                   }
@@ -700,7 +714,9 @@ const MarketOdds = ({
                         selectedFastAmount={fastAmount}
                         time={true}
                         livestatus={
-                          data?.[2]?.status?.toLowerCase() === "suspended" ? true : false
+                          data?.[2]?.status?.toLowerCase() === "suspended"
+                            ? true
+                            : false
                         }
                         showBox={showBox}
                         newData={newData}
