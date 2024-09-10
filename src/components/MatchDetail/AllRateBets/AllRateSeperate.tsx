@@ -152,7 +152,7 @@ const AllRateSeperate = ({
                 header={true}
                 data={[
                   "Market",
-                  "Username",
+                  //"Username",
                   "Favourite",
                   "B/Lay",
                   "Odds",
