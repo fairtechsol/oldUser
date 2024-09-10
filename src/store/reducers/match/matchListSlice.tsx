@@ -204,36 +204,22 @@ const matchListSlice = createSlice({
         state.searchedMatchList = null;
       })
       .addCase(updateBalance.fulfilled, (state, action) => {
-        const { matchBetType, newTeamRateData } = action?.payload;
-        if (["tiedMatch1", "tiedMatch2"].includes(matchBetType)) {
-          state.matchDetails = {
-            ...state.matchDetails,
-            profitLossDataMatch: {
-              ...state.matchDetails.profitLossDataMatch,
-              yesRateTie: newTeamRateData?.teamA,
-              noRateTie: newTeamRateData?.teamB,
-            },
-          };
-        } else if (["completeMatch", "completeManual"].includes(matchBetType)) {
-          state.matchDetails = {
-            ...state.matchDetails,
-            profitLossDataMatch: {
-              ...state.matchDetails.profitLossDataMatch,
-              yesRateComplete: newTeamRateData?.teamA,
-              noRateComplete: newTeamRateData?.teamB,
-            },
-          };
-        } else {
-          state.matchDetails = {
-            ...state.matchDetails,
-            profitLossDataMatch: {
-              ...state.matchDetails.profitLossDataMatch,
-              teamARate: newTeamRateData?.teamA,
-              teamBRate: newTeamRateData?.teamB,
-              teamCRate: newTeamRateData?.teamC,
-            },
-          };
-        }
+        const {
+          newTeamRateData,
+          teamArateRedisKey,
+          teamBrateRedisKey,
+          teamCrateRedisKey,
+        } = action?.payload;
+
+        state.matchDetails = {
+          ...state.matchDetails,
+          profitLossDataMatch: {
+            ...state.matchDetails.profitLossDataMatch,
+            [teamArateRedisKey]: newTeamRateData?.teamA,
+            [teamBrateRedisKey]: newTeamRateData?.teamB,
+            [teamCrateRedisKey]: newTeamRateData?.teamB,
+          },
+        };
       })
       .addCase(updateMaxLossForBet.fulfilled, (state, action) => {
         const { betPlaced, profitLossData } = action?.payload;
@@ -339,36 +325,21 @@ const matchListSlice = createSlice({
         }
       })
       .addCase(updateTeamRatesOnDeleteMatch.fulfilled, (state, action) => {
-        const { matchBetType, redisObject } = action?.payload;
-        if (["tiedMatch1", "tiedMatch2"].includes(matchBetType)) {
-          state.matchDetails = {
-            ...state.matchDetails,
-            profitLossDataMatch: {
-              ...state.matchDetails.profitLossDataMatch,
-              yesRateTie: redisObject[action?.payload?.teamArateRedisKey],
-              noRateTie: redisObject[action?.payload?.teamBrateRedisKey],
-            },
-          };
-        } else if (["completeMatch", "completeManual"].includes(matchBetType)) {
-          state.matchDetails = {
-            ...state.matchDetails,
-            profitLossDataMatch: {
-              ...state.matchDetails.profitLossDataMatch,
-              yesRateComplete: redisObject[action?.payload?.teamArateRedisKey],
-              noRateComplete: redisObject[action?.payload?.teamBrateRedisKey],
-            },
-          };
-        } else {
-          state.matchDetails = {
-            ...state.matchDetails,
-            profitLossDataMatch: {
-              ...state.matchDetails.profitLossDataMatch,
-              teamARate: redisObject[action?.payload?.teamArateRedisKey],
-              teamBRate: redisObject[action?.payload?.teamBrateRedisKey],
-              teamCRate: redisObject[action?.payload?.teamCrateRedisKey],
-            },
-          };
-        }
+        const {
+          redisObject,
+          teamArateRedisKey,
+          teamBrateRedisKey,
+          teamCrateRedisKey,
+        } = action?.payload;
+        state.matchDetails = {
+          ...state.matchDetails,
+          profitLossDataMatch: {
+            ...state.matchDetails?.profitLossDataMatch,
+            [teamArateRedisKey]: redisObject[teamArateRedisKey],
+            [teamBrateRedisKey]: redisObject[teamBrateRedisKey],
+            [teamCrateRedisKey]: redisObject[teamCrateRedisKey],
+          },
+        };
       })
       .addCase(selectedBetMinMax.fulfilled, (state, action) => {
         const { team, data } = action?.payload;
