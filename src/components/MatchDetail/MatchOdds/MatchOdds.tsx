@@ -108,37 +108,7 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
           marketDetails={matchDetails?.bookmaker}
         />
       )}
-       {matchDetails?.bookmaker2?.activeStatus ==="live" && matchDetails?.bookmaker2?.isActive && (
-        <MarketOdds
-          upcoming={!upcoming}
-          betLock={data?.blockMarket?.BOOKMAKER?.block}
-          showBox={matchDetails?.bookmaker2?.activeStatus === "save"}
-          newData={data}
-          showFast={false}
-          showDely={true}
-          lock={
-            data?.bookmakerLive?.length > 0 &&
-            data?.bookmakerLive[0]?.betStatus === 0
-              ? true
-              : false
-          }
-          data={
-            matchDetails?.bookmaker2?.runners?.length > 0
-              ? matchDetails?.bookmaker2?.runners
-              : []
-          }
-          teamARates={matchDetails?.profitLossDataMatch?.teamARate || 0}
-          teamBRates={matchDetails?.profitLossDataMatch?.teamBRate || 0}
-          teamCRates={matchDetails?.profitLossDataMatch?.teamCRate || 0}
-          min={formatToINR(matchDetails?.bookmaker2?.minBet) || 0}
-          max={formatToINR(matchDetails?.bookmaker2?.maxBet) || 0}
-          title={matchDetails?.bookmaker2?.name}
-          isRound={false}
-          session={"bookmaker"}
-          typeOfBet={"BOOKMAKER"}
-          marketDetails={matchDetails?.bookmaker2}
-        />
-      )}
+     
       {matchDetails?.quickBookmaker
         ?.filter((item: any) => item?.activeStatus==="live" && item?.isActive)
         ?.slice()
