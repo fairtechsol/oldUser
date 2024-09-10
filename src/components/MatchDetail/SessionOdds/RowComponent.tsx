@@ -67,7 +67,7 @@ const RowComponent = ({ header, data }: any) => {
           />
           <SingleBox
             color={getColor()}
-            data={+data?.odds}
+            //data={+data?.odds}
             rate={+data?.rate}
             header={header}
             isPercent={true}

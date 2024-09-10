@@ -54,6 +54,8 @@ const SessionMarketBox = ({
             }}
           ></Box>
         )}
+
+        
         <Box
           sx={{
             display: "flex",
@@ -115,6 +117,8 @@ const SessionMarketBox = ({
           {/* <Box
               sx={{ width: "20%", display: "flex", background: "pink" }}
             ></Box> */}
+
+            
           {!["ACTIVE", "active", "", undefined, null, ""].includes(
             data?.GameStatus
           ) ||
@@ -130,7 +134,7 @@ const SessionMarketBox = ({
                 marginLeft: "auto",
                 alignItems: "center",
                 display: "flex",
-                marginRight: { lg: "20%", xs: "0%" },
+                marginRight: { lg: "20.5%", xs: "0%" },
                 zIndex: 1,
               }}
             >
@@ -155,6 +159,7 @@ const SessionMarketBox = ({
                 </Typography>
               )}
             </Box>
+            
           ) : (
             <>
               <Box
@@ -301,6 +306,7 @@ const SessionMarketBox = ({
               )}
             </>
           )}
+
         </Box>
       </Box>
       {Array.from(

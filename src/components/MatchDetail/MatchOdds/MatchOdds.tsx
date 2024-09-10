@@ -10,6 +10,7 @@ import SessionMarket from "../SessionOdds/SessionMarket";
 import MarketOdds from "./MarketOdds";
 
 const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
+  console.log("mot",matchDetails)
   function calculateTimeLeft() {
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     const targetDate = moment(data?.startAt).tz(timezone);
@@ -41,9 +42,7 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
   const [timeLeft, setTimeLeft] = useState<any>(calculateTimeLeft);
 
   const upcoming =
-    Number(timeLeft.days) === 0 &&
-    Number(timeLeft.hours) === 0 &&
-    Number(timeLeft.minutes) <= 60;
+   true
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -338,6 +337,7 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
               <CricketCasinoMarket
                 key={item}
                 allBetsData={matchDetails?.profitLossDataSession}
+
                 newData={item}
                 matchOddsData={item}
                 typeOfBet={matchDetails?.type}
