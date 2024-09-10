@@ -165,6 +165,7 @@ const CricketCasinoMarket = ({
             />
           </Box>
         )}
+
         {visible && (
           <Box sx={{ width: "100%", position: "relative" }}>
             {
@@ -213,10 +214,10 @@ const CricketCasinoMarket = ({
                   sx={{
                     display: "flex",
                     background: "#319E5B",
-                    marginRight: { lg: "24px", xs: "0px" },
+                    marginRight: { lg: "16px", xs: "0px" },
                     height: "25px",
                     gap: { xs: "0px", lg: "1px", md: "1px" },
-                    width: { lg: "60%", xs: "80%" },
+                    width: { lg: "63%", xs: "80%" },
                     justifyContent: { lg: "center", xs: "flex-end" },
                   }}
                 >
@@ -372,6 +373,7 @@ const CricketCasinoMarket = ({
             </Box>
           </Box>
         )}
+        
       </Box>
 
       <style>
