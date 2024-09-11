@@ -2,7 +2,10 @@ import { Box } from "@mui/material";
 import moment from "moment-timezone";
 import { memo, useEffect, useState } from "react";
 import { customBookmakerSort, formatToINR } from "../../../helper";
-import { sessionBettingType } from "../../../utils/Constants";
+import {
+  profitLossDataForMatchConstants,
+  sessionBettingType,
+} from "../../../utils/Constants";
 import { MatchType } from "../../../utils/enum";
 import CricketCasinoMarket from "../CricketCasinoOdds/CricketCasinoMarket";
 import QuickSessionMarket from "../QuickSession/QuickSessionMarket";
@@ -68,9 +71,63 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
                 : []
             }
             lock={matchDetails?.matchOdd.activeStatus !== "live" ? true : false}
-            teamARates={matchDetails?.profitLossDataMatch?.teamARate || 0}
-            teamBRates={matchDetails?.profitLossDataMatch?.teamBRate || 0}
-            teamCRates={matchDetails?.profitLossDataMatch?.teamCRate || 0}
+            teamARates={
+              matchDetails?.profitLossDataMatch
+                ? matchDetails?.profitLossDataMatch[
+                    profitLossDataForMatchConstants[
+                      matchDetails?.matchOdd?.type
+                    ]?.A +
+                      "_" +
+                      matchDetails?.id
+                  ]
+                  ? matchDetails?.profitLossDataMatch[
+                      profitLossDataForMatchConstants[
+                        matchDetails?.matchOdd?.type
+                      ]?.A +
+                        "_" +
+                        matchDetails?.id
+                    ]
+                  : 0
+                : 0
+            }
+            teamBRates={
+              matchDetails?.profitLossDataMatch
+                ? matchDetails?.profitLossDataMatch[
+                    profitLossDataForMatchConstants[
+                      matchDetails?.matchOdd?.type
+                    ]?.B +
+                      "_" +
+                      matchDetails?.id
+                  ]
+                  ? matchDetails?.profitLossDataMatch[
+                      profitLossDataForMatchConstants[
+                        matchDetails?.matchOdd?.type
+                      ]?.B +
+                        "_" +
+                        matchDetails?.id
+                    ]
+                  : 0
+                : 0
+            }
+            teamCRates={
+              matchDetails?.profitLossDataMatch
+                ? matchDetails?.profitLossDataMatch[
+                    profitLossDataForMatchConstants[
+                      matchDetails?.matchOdd?.type
+                    ]?.C +
+                      "_" +
+                      matchDetails?.id
+                  ]
+                  ? matchDetails?.profitLossDataMatch[
+                      profitLossDataForMatchConstants[
+                        matchDetails?.matchOdd?.type
+                      ]?.C +
+                        "_" +
+                        matchDetails?.id
+                    ]
+                  : 0
+                : 0
+            }
             min={formatToINR(matchDetails?.matchOdd?.minBet) || 0}
             max={formatToINR(matchDetails?.matchOdd?.maxBet) || 0}
             title={matchDetails?.matchOdd?.name}
@@ -100,9 +157,63 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
                 ? matchDetails?.bookmaker?.runners
                 : []
             }
-            teamARates={matchDetails?.profitLossDataMatch?.teamARate || 0}
-            teamBRates={matchDetails?.profitLossDataMatch?.teamBRate || 0}
-            teamCRates={matchDetails?.profitLossDataMatch?.teamCRate || 0}
+            teamARates={
+              matchDetails?.profitLossDataMatch
+                ? matchDetails?.profitLossDataMatch[
+                    profitLossDataForMatchConstants[
+                      matchDetails?.bookmaker?.type
+                    ]?.A +
+                      "_" +
+                      matchDetails?.id
+                  ]
+                  ? matchDetails?.profitLossDataMatch[
+                      profitLossDataForMatchConstants[
+                        matchDetails?.bookmaker?.type
+                      ]?.A +
+                        "_" +
+                        matchDetails?.id
+                    ]
+                  : 0
+                : 0
+            }
+            teamBRates={
+              matchDetails?.profitLossDataMatch
+                ? matchDetails?.profitLossDataMatch[
+                    profitLossDataForMatchConstants[
+                      matchDetails?.bookmaker?.type
+                    ]?.B +
+                      "_" +
+                      matchDetails?.id
+                  ]
+                  ? matchDetails?.profitLossDataMatch[
+                      profitLossDataForMatchConstants[
+                        matchDetails?.bookmaker?.type
+                      ]?.B +
+                        "_" +
+                        matchDetails?.id
+                    ]
+                  : 0
+                : 0
+            }
+            teamCRates={
+              matchDetails?.profitLossDataMatch
+                ? matchDetails?.profitLossDataMatch[
+                    profitLossDataForMatchConstants[
+                      matchDetails?.bookmaker?.type
+                    ]?.C +
+                      "_" +
+                      matchDetails?.id
+                  ]
+                  ? matchDetails?.profitLossDataMatch[
+                      profitLossDataForMatchConstants[
+                        matchDetails?.bookmaker?.type
+                      ]?.C +
+                        "_" +
+                        matchDetails?.id
+                    ]
+                  : 0
+                : 0
+            }
             min={formatToINR(matchDetails?.bookmaker?.minBet) || 0}
             max={formatToINR(matchDetails?.bookmaker?.maxBet) || 0}
             title={matchDetails?.bookmaker?.name}
@@ -132,9 +243,63 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
                 ? matchDetails?.marketBookmaker2?.runners
                 : []
             }
-            teamARates={matchDetails?.profitLossDataMatch?.teamARate || 0}
-            teamBRates={matchDetails?.profitLossDataMatch?.teamBRate || 0}
-            teamCRates={matchDetails?.profitLossDataMatch?.teamCRate || 0}
+            teamARates={
+              matchDetails?.profitLossDataMatch
+                ? matchDetails?.profitLossDataMatch[
+                    profitLossDataForMatchConstants[
+                      matchDetails?.marketBookmaker2?.type
+                    ]?.A +
+                      "_" +
+                      matchDetails?.id
+                  ]
+                  ? matchDetails?.profitLossDataMatch[
+                      profitLossDataForMatchConstants[
+                        matchDetails?.marketBookmaker2?.type
+                      ]?.A +
+                        "_" +
+                        matchDetails?.id
+                    ]
+                  : 0
+                : 0
+            }
+            teamBRates={
+              matchDetails?.profitLossDataMatch
+                ? matchDetails?.profitLossDataMatch[
+                    profitLossDataForMatchConstants[
+                      matchDetails?.marketBookmaker2?.type
+                    ]?.B +
+                      "_" +
+                      matchDetails?.id
+                  ]
+                  ? matchDetails?.profitLossDataMatch[
+                      profitLossDataForMatchConstants[
+                        matchDetails?.marketBookmaker2?.type
+                      ]?.B +
+                        "_" +
+                        matchDetails?.id
+                    ]
+                  : 0
+                : 0
+            }
+            teamCRates={
+              matchDetails?.profitLossDataMatch
+                ? matchDetails?.profitLossDataMatch[
+                    profitLossDataForMatchConstants[
+                      matchDetails?.marketBookmaker2?.type
+                    ]?.C +
+                      "_" +
+                      matchDetails?.id
+                  ]
+                  ? matchDetails?.profitLossDataMatch[
+                      profitLossDataForMatchConstants[
+                        matchDetails?.marketBookmaker2?.type
+                      ]?.C +
+                        "_" +
+                        matchDetails?.id
+                    ]
+                  : 0
+                : 0
+            }
             min={formatToINR(matchDetails?.marketBookmaker2?.minBet) || 0}
             max={formatToINR(matchDetails?.marketBookmaker2?.maxBet) || 0}
             title={matchDetails?.marketBookmaker2?.name}
@@ -162,9 +327,63 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
             suspended={false}
             data={data}
             showBox={bookmaker?.activeStatus === "save"}
-            teamARates={matchDetails?.profitLossDataMatch?.teamARate || 0}
-            teamBRates={matchDetails?.profitLossDataMatch?.teamBRate || 0}
-            teamCRates={matchDetails?.profitLossDataMatch?.teamCRate || 0}
+            teamARates={
+              matchDetails?.profitLossDataMatch
+                ? matchDetails?.profitLossDataMatch[
+                    profitLossDataForMatchConstants[
+                      matchDetails?.bookmaker?.type
+                    ]?.A +
+                      "_" +
+                      matchDetails?.id
+                  ]
+                  ? matchDetails?.profitLossDataMatch[
+                      profitLossDataForMatchConstants[
+                        matchDetails?.bookmaker?.type
+                      ]?.A +
+                        "_" +
+                        matchDetails?.id
+                    ]
+                  : 0
+                : 0
+            }
+            teamBRates={
+              matchDetails?.profitLossDataMatch
+                ? matchDetails?.profitLossDataMatch[
+                    profitLossDataForMatchConstants[
+                      matchDetails?.bookmaker?.type
+                    ]?.B +
+                      "_" +
+                      matchDetails?.id
+                  ]
+                  ? matchDetails?.profitLossDataMatch[
+                      profitLossDataForMatchConstants[
+                        matchDetails?.bookmaker?.type
+                      ]?.B +
+                        "_" +
+                        matchDetails?.id
+                    ]
+                  : 0
+                : 0
+            }
+            teamCRates={
+              matchDetails?.profitLossDataMatch
+                ? matchDetails?.profitLossDataMatch[
+                    profitLossDataForMatchConstants[
+                      matchDetails?.bookmaker?.type
+                    ]?.C +
+                      "_" +
+                      matchDetails?.id
+                  ]
+                  ? matchDetails?.profitLossDataMatch[
+                      profitLossDataForMatchConstants[
+                        matchDetails?.bookmaker?.type
+                      ]?.C +
+                        "_" +
+                        matchDetails?.id
+                    ]
+                  : 0
+                : 0
+            }
             min={formatToINR(bookmaker?.minBet) || 0}
             max={formatToINR(bookmaker?.maxBet) || 0}
             title={bookmaker?.name}
@@ -189,9 +408,63 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
                 : false
             }
             data={match?.runners?.length > 0 ? match?.runners : []}
-            teamARates={matchDetails?.profitLossDataMatch?.teamARate || 0}
-            teamBRates={matchDetails?.profitLossDataMatch?.teamBRate || 0}
-            teamCRates={matchDetails?.profitLossDataMatch?.teamCRate || 0}
+            teamARates={
+              matchDetails?.profitLossDataMatch
+                ? matchDetails?.profitLossDataMatch[
+                    profitLossDataForMatchConstants[match?.type]?.A +
+                      "_" +
+                      match?.id +
+                      "_" +
+                      matchDetails?.id
+                  ]
+                  ? matchDetails?.profitLossDataMatch[
+                      profitLossDataForMatchConstants[match?.type]?.A +
+                        "_" +
+                        match?.id +
+                        "_" +
+                        matchDetails?.id
+                    ]
+                  : 0
+                : 0
+            }
+            teamBRates={
+              matchDetails?.profitLossDataMatch
+                ? matchDetails?.profitLossDataMatch[
+                    profitLossDataForMatchConstants[match?.type]?.B +
+                      "_" +
+                      match?.id +
+                      "_" +
+                      matchDetails?.id
+                  ]
+                  ? matchDetails?.profitLossDataMatch[
+                      profitLossDataForMatchConstants[match?.type]?.B +
+                        "_" +
+                        match?.id +
+                        "_" +
+                        matchDetails?.id
+                    ]
+                  : 0
+                : 0
+            }
+            teamCRates={
+              matchDetails?.profitLossDataMatch
+                ? matchDetails?.profitLossDataMatch[
+                    profitLossDataForMatchConstants[match?.type]?.C +
+                      "_" +
+                      match?.id +
+                      "_" +
+                      matchDetails?.id
+                  ]
+                  ? matchDetails?.profitLossDataMatch[
+                      profitLossDataForMatchConstants[match?.type]?.C +
+                        "_" +
+                        match?.id +
+                        "_" +
+                        matchDetails?.id
+                    ]
+                  : 0
+                : 0
+            }
             min={formatToINR(match?.minBet) || 0}
             max={formatToINR(match?.maxBet) || 0}
             title={match?.name}
@@ -223,8 +496,44 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
                 : []
             }
             // suspended={false}
-            teamARates={matchDetails?.profitLossDataMatch?.yesRateTie || 0}
-            teamBRates={matchDetails?.profitLossDataMatch?.noRateTie || 0}
+            teamARates={
+              matchDetails?.profitLossDataMatch
+                ? matchDetails?.profitLossDataMatch[
+                    profitLossDataForMatchConstants[
+                      matchDetails?.apiTideMatch?.type
+                    ]?.A +
+                      "_" +
+                      matchDetails?.id
+                  ]
+                  ? matchDetails?.profitLossDataMatch[
+                      profitLossDataForMatchConstants[
+                        matchDetails?.apiTideMatch?.type
+                      ]?.A +
+                        "_" +
+                        matchDetails?.id
+                    ]
+                  : 0
+                : 0
+            }
+            teamBRates={
+              matchDetails?.profitLossDataMatch
+                ? matchDetails?.profitLossDataMatch[
+                    profitLossDataForMatchConstants[
+                      matchDetails?.apiTideMatch?.type
+                    ]?.B +
+                      "_" +
+                      matchDetails?.id
+                  ]
+                  ? matchDetails?.profitLossDataMatch[
+                      profitLossDataForMatchConstants[
+                        matchDetails?.apiTideMatch?.type
+                      ]?.B +
+                        "_" +
+                        matchDetails?.id
+                    ]
+                  : 0
+                : 0
+            }
             min={formatToINR(matchDetails?.apiTideMatch?.minBet) || 0}
             max={formatToINR(matchDetails?.apiTideMatch?.maxBet) || 0}
             title={matchDetails?.apiTideMatch?.name}
@@ -256,8 +565,44 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
                 : []
             }
             // suspended={false}
-            teamARates={matchDetails?.profitLossDataMatch?.yesRateTie || 0}
-            teamBRates={matchDetails?.profitLossDataMatch?.noRateTie || 0}
+            teamARates={
+              matchDetails?.profitLossDataMatch
+                ? matchDetails?.profitLossDataMatch[
+                    profitLossDataForMatchConstants[
+                      matchDetails?.apiTideMatch2?.type
+                    ]?.A +
+                      "_" +
+                      matchDetails?.id
+                  ]
+                  ? matchDetails?.profitLossDataMatch[
+                      profitLossDataForMatchConstants[
+                        matchDetails?.apiTideMatch2?.type
+                      ]?.A +
+                        "_" +
+                        matchDetails?.id
+                    ]
+                  : 0
+                : 0
+            }
+            teamBRates={
+              matchDetails?.profitLossDataMatch
+                ? matchDetails?.profitLossDataMatch[
+                    profitLossDataForMatchConstants[
+                      matchDetails?.apiTideMatch2?.type
+                    ]?.B +
+                      "_" +
+                      matchDetails?.id
+                  ]
+                  ? matchDetails?.profitLossDataMatch[
+                      profitLossDataForMatchConstants[
+                        matchDetails?.apiTideMatch2?.type
+                      ]?.B +
+                        "_" +
+                        matchDetails?.id
+                    ]
+                  : 0
+                : 0
+            }
             min={formatToINR(matchDetails?.apiTideMatch2?.minBet) || 0}
             max={formatToINR(matchDetails?.apiTideMatch2?.maxBet) || 0}
             title={matchDetails?.apiTideMatch2?.name}
@@ -281,8 +626,44 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
             suspended={false}
             data={data}
             showBox={matchDetails?.manualTiedMatch?.activeStatus === "save"}
-            teamARates={matchDetails?.profitLossDataMatch?.yesRateTie || 0}
-            teamBRates={matchDetails?.profitLossDataMatch?.noRateTie || 0}
+            teamARates={
+              matchDetails?.profitLossDataMatch
+                ? matchDetails?.profitLossDataMatch[
+                    profitLossDataForMatchConstants[
+                      matchDetails?.manualTiedMatch?.type
+                    ]?.A +
+                      "_" +
+                      matchDetails?.id
+                  ]
+                  ? matchDetails?.profitLossDataMatch[
+                      profitLossDataForMatchConstants[
+                        matchDetails?.manualTiedMatch?.type
+                      ]?.A +
+                        "_" +
+                        matchDetails?.id
+                    ]
+                  : 0
+                : 0
+            }
+            teamBRates={
+              matchDetails?.profitLossDataMatch
+                ? matchDetails?.profitLossDataMatch[
+                    profitLossDataForMatchConstants[
+                      matchDetails?.manualTiedMatch?.type
+                    ]?.B +
+                      "_" +
+                      matchDetails?.id
+                  ]
+                  ? matchDetails?.profitLossDataMatch[
+                      profitLossDataForMatchConstants[
+                        matchDetails?.manualTiedMatch?.type
+                      ]?.B +
+                        "_" +
+                        matchDetails?.id
+                    ]
+                  : 0
+                : 0
+            }
             min={formatToINR(matchDetails?.manualTiedMatch?.minBet) || 0}
             max={formatToINR(matchDetails?.manualTiedMatch?.maxBet) || 0}
             title={matchDetails?.manualTiedMatch?.name}
@@ -313,9 +694,44 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
                 : []
             }
             // suspended={false}
-            teamARates={matchDetails?.profitLossDataMatch?.yesRateComplete || 0}
-            teamBRates={matchDetails?.profitLossDataMatch?.noRateComplete || 0}
-            teamCRates={matchDetails?.profitLossDataMatch?.teamCRate || 0}
+            teamARates={
+              matchDetails?.profitLossDataMatch
+                ? matchDetails?.profitLossDataMatch[
+                    profitLossDataForMatchConstants[
+                      matchDetails?.marketCompleteMatch?.type
+                    ]?.A +
+                      "_" +
+                      matchDetails?.id
+                  ]
+                  ? matchDetails?.profitLossDataMatch[
+                      profitLossDataForMatchConstants[
+                        matchDetails?.marketCompleteMatch?.type
+                      ]?.A +
+                        "_" +
+                        matchDetails?.id
+                    ]
+                  : 0
+                : 0
+            }
+            teamBRates={
+              matchDetails?.profitLossDataMatch
+                ? matchDetails?.profitLossDataMatch[
+                    profitLossDataForMatchConstants[
+                      matchDetails?.marketCompleteMatch?.type
+                    ]?.B +
+                      "_" +
+                      matchDetails?.id
+                  ]
+                  ? matchDetails?.profitLossDataMatch[
+                      profitLossDataForMatchConstants[
+                        matchDetails?.marketCompleteMatch?.type
+                      ]?.B +
+                        "_" +
+                        matchDetails?.id
+                    ]
+                  : 0
+                : 0
+            }
             min={formatToINR(matchDetails?.marketCompleteMatch?.minBet) || 0}
             max={formatToINR(matchDetails?.marketCompleteMatch?.maxBet) || 0}
             title={matchDetails?.marketCompleteMatch?.name}
@@ -349,9 +765,44 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
                 : []
             }
             // suspended={false}
-            teamARates={matchDetails?.profitLossDataMatch?.yesRateComplete || 0}
-            teamBRates={matchDetails?.profitLossDataMatch?.noRateComplete || 0}
-            teamCRates={matchDetails?.profitLossDataMatch?.teamCRate || 0}
+            teamARates={
+              matchDetails?.profitLossDataMatch
+                ? matchDetails?.profitLossDataMatch[
+                    profitLossDataForMatchConstants[
+                      matchDetails?.marketCompleteMatch1?.type
+                    ]?.A +
+                      "_" +
+                      matchDetails?.id
+                  ]
+                  ? matchDetails?.profitLossDataMatch[
+                      profitLossDataForMatchConstants[
+                        matchDetails?.marketCompleteMatch1?.type
+                      ]?.A +
+                        "_" +
+                        matchDetails?.id
+                    ]
+                  : 0
+                : 0
+            }
+            teamBRates={
+              matchDetails?.profitLossDataMatch
+                ? matchDetails?.profitLossDataMatch[
+                    profitLossDataForMatchConstants[
+                      matchDetails?.marketCompleteMatch1?.type
+                    ]?.B +
+                      "_" +
+                      matchDetails?.id
+                  ]
+                  ? matchDetails?.profitLossDataMatch[
+                      profitLossDataForMatchConstants[
+                        matchDetails?.marketCompleteMatch1?.type
+                      ]?.B +
+                        "_" +
+                        matchDetails?.id
+                    ]
+                  : 0
+                : 0
+            }
             min={formatToINR(matchDetails?.marketCompleteMatch1?.minBet) || 0}
             max={formatToINR(matchDetails?.marketCompleteMatch1?.maxBet) || 0}
             title={matchDetails?.marketCompleteMatch1?.name}
@@ -374,8 +825,44 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
             suspended={false}
             data={data}
             showBox={matchDetails?.manualCompleteMatch?.activeStatus === "save"}
-            teamARates={matchDetails?.profitLossDataMatch?.yesRateComplete || 0}
-            teamBRates={matchDetails?.profitLossDataMatch?.noRateComplete || 0}
+            teamARates={
+              matchDetails?.profitLossDataMatch
+                ? matchDetails?.profitLossDataMatch[
+                    profitLossDataForMatchConstants[
+                      matchDetails?.manualCompleteMatch?.type
+                    ]?.A +
+                      "_" +
+                      matchDetails?.id
+                  ]
+                  ? matchDetails?.profitLossDataMatch[
+                      profitLossDataForMatchConstants[
+                        matchDetails?.manualCompleteMatch?.type
+                      ]?.A +
+                        "_" +
+                        matchDetails?.id
+                    ]
+                  : 0
+                : 0
+            }
+            teamBRates={
+              matchDetails?.profitLossDataMatch
+                ? matchDetails?.profitLossDataMatch[
+                    profitLossDataForMatchConstants[
+                      matchDetails?.manualCompleteMatch?.type
+                    ]?.B +
+                      "_" +
+                      matchDetails?.id
+                  ]
+                  ? matchDetails?.profitLossDataMatch[
+                      profitLossDataForMatchConstants[
+                        matchDetails?.manualCompleteMatch?.type
+                      ]?.B +
+                        "_" +
+                        matchDetails?.id
+                    ]
+                  : 0
+                : 0
+            }
             min={formatToINR(matchDetails?.manualCompleteMatch?.minBet) || 0}
             max={formatToINR(matchDetails?.manualCompleteMatch?.maxBet) || 0}
             title={matchDetails?.manualCompleteMatch?.name}
