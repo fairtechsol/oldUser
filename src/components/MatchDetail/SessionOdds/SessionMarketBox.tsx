@@ -6,6 +6,7 @@ import { sessionBettingType } from "../../../utils/Constants";
 import PlaceBetComponent from "../MatchOdds/Bets/PlaceBetComponent";
 import PlaceBetComponentWeb from "../MatchOdds/Bets/PlaceBetComponentWeb";
 import SeparateModal from "../MatchOdds/SeparateModal";
+import Divider from "../../../helper/Divider";
 
 const SessionMarketBox = ({
   index,
@@ -55,7 +56,6 @@ const SessionMarketBox = ({
           ></Box>
         )}
 
-        
         <Box
           sx={{
             display: "flex",
@@ -118,7 +118,6 @@ const SessionMarketBox = ({
               sx={{ width: "20%", display: "flex", background: "pink" }}
             ></Box> */}
 
-            
           {!["ACTIVE", "active", "", undefined, null, ""].includes(
             data?.GameStatus
           ) ||
@@ -159,7 +158,6 @@ const SessionMarketBox = ({
                 </Typography>
               )}
             </Box>
-            
           ) : (
             <>
               <Box
@@ -306,9 +304,9 @@ const SessionMarketBox = ({
               )}
             </>
           )}
-
         </Box>
       </Box>
+      <Divider />
       {Array.from(
         {
           length:
@@ -319,6 +317,7 @@ const SessionMarketBox = ({
         },
         (_, i) => i + 1
       )?.map((item: number) => (
+        <>
         <Box
           key={item}
           sx={{
@@ -419,7 +418,7 @@ const SessionMarketBox = ({
                   marginLeft: "auto",
                   alignItems: "center",
                   display: "flex",
-                  marginRight: { lg: "20%", xs: "0%" },
+                  marginRight: { lg: "20.5%", xs: "0%" },
                   zIndex: 1,
                 }}
               >
@@ -592,6 +591,8 @@ const SessionMarketBox = ({
             )}
           </Box>
         </Box>
+        <Divider />
+        </>
       ))}
     </>
   );
