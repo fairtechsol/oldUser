@@ -13,7 +13,6 @@ import SessionMarket from "../SessionOdds/SessionMarket";
 import MarketOdds from "./MarketOdds";
 
 const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
-  console.log("mot", matchDetails);
   function calculateTimeLeft() {
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     const targetDate = moment(data?.startAt).tz(timezone);
@@ -924,8 +923,9 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
           })}
 
       {matchDetails?.apiSessionActive &&
-        (matchDetails?.apiSession?.cricketCasino?.section || [])?.map(
-          (item: any) => {
+        (matchDetails?.apiSession?.cricketCasino?.section || [])
+          ?.filter((item: any) => item?.activeStatus !== "unSave")
+          ?.map((item: any) => {
             return (
               <CricketCasinoMarket
                 key={item}
@@ -944,8 +944,7 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
                 matchDetails={matchDetails}
               />
             );
-          }
-        )}
+          })}
 
       {/* {matchDetails?.apiSessionActive &&
         matchDetails?.apiSession?.length > 0 && (
