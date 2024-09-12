@@ -183,6 +183,7 @@ const SessionMarketBox = ({
                     height: "100%",
                     display: "flex",
                     flexDirection: "row",
+                    marginLeft:"1px"
                   }}
                 >
                   <SeparateModal
@@ -246,7 +247,7 @@ const SessionMarketBox = ({
                     height: "100%",
                     display: "flex",
                     flexDirection: "row",
-                    marginLeft:"2px"
+                    marginLeft:"0px"
                   }}
                 >
                   <SeparateModal
