@@ -119,12 +119,12 @@ const SessionMarketBox = ({
             ></Box> */}
 
             
-          {!["ACTIVE", "active", "", undefined, null, ""].includes(
+          {/* {!["ACTIVE", "active", "", undefined, null, ""].includes(
             data?.GameStatus
           ) ||
           (!data.ex?.availableToBack?.length &&
-            !data.ex?.availableToLay?.length) ? (
-            <Box
+            !data.ex?.availableToLay?.length) ? ( */}
+          {false?(  <Box
               sx={{
                 background: "rgba(0,0,0,1)",
                 height: "38px",
@@ -159,7 +159,6 @@ const SessionMarketBox = ({
                 </Typography>
               )}
             </Box>
-            
           ) : (
             <>
               <Box
@@ -175,7 +174,7 @@ const SessionMarketBox = ({
                   marginRight: "auto",
                   overflow: "hidden",
                   // left: {lg:"23%", xs: "0%", sm: "40%"}
-                  marginLeft: { lg: "37.5%", xs: "59.8%", sm: "59.8%" },
+                  marginLeft: { lg: "37.5%", xs: "59.6%", sm: "59.6%" },
                 }}
               >
                 <Box
@@ -239,7 +238,7 @@ const SessionMarketBox = ({
                 </Box>
 
                 <Box
-                  sx={{ width: ".45%", display: "flex", background: "pink" }}
+                  sx={{ width:{lg :".05%",md:"0.95%"}, display: "flex", background: "pink" }}
                 ></Box>
                 <Box
                   sx={{
@@ -247,6 +246,7 @@ const SessionMarketBox = ({
                     height: "100%",
                     display: "flex",
                     flexDirection: "row",
+                    marginLeft:"2px"
                   }}
                 >
                   <SeparateModal
