@@ -239,7 +239,7 @@ const SessionMarketBox = ({
                 </Box>
 
                 <Box
-                  sx={{ width:{lg :".05%",md:"0.95%"}, display: "flex", background: "pink" }}
+                  sx={{ width:{lg :".05%",md:"0.95%",sx:"1%"}, display: "flex", background: "pink" }}
                 ></Box>
                 <Box
                   sx={{
