@@ -187,15 +187,15 @@ export const profitLossDataForMatchConstants = {
 
 export const baseUrls = {
   socket:
-    process.env.NODE_ENV !== Constants.PRODUCTION
+    process.env.NODE_ENV === Constants.PRODUCTION
       ? `${Constants.apiBasePath}`
       : `${Constants.localPath}`,
   matchSocket:
-    process.env.NODE_ENV !== Constants.PRODUCTION
+    process.env.NODE_ENV === Constants.PRODUCTION
       ? `${Constants.thirdParty}`
       : `${Constants.localPathThird}`,
   expertSocket:
-    process.env.NODE_ENV !== Constants.PRODUCTION
+    process.env.NODE_ENV === Constants.PRODUCTION
       ? `${Constants.expertPath}`
       : `${Constants.localPathExpert}`,
 };
