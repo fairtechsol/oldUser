@@ -1,14 +1,11 @@
 import { Box } from "@mui/material";
 import SingleBox from "./SingleBox";
-import { RootState } from "../../../store/store";
-import { useSelector } from "react-redux";
+// import { RootState } from "../../../store/store";
+// import { useSelector } from "react-redux";
 import moment from "moment";
 import { formatToINR } from "../../../helper";
 
 const RowComponent = ({ header, data }: any) => {
-  const { profileDetail } = useSelector(
-    (state: RootState) => state.user.profile
-  );
   // const getTime = (date: any) => {
   //   const now = new Date(date);
   //   const timeString = now.toLocaleTimeString("en-US", {
