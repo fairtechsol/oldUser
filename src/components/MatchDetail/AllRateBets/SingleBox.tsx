@@ -41,7 +41,7 @@ const SingleBox = ({
               <Typography
                 sx={{
                   fontWeight: "700",
-                  fontSize: { xs: "8px", md: "10px", lg: ".5vw" },
+                  fontSize: { xs: "8px", md: "10px", lg: ".7vw" },
                   color: "black",
                   textAlign: "center",
                 }}

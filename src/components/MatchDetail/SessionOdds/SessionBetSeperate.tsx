@@ -118,7 +118,7 @@ const SessionBetSeperate = ({ profit, mark2, placedBets, isArrow }: any) => {
               <RowComponent
                 header={true}
                 //data={["Matched Bet", "Username", "Odds", "Yes/No", "Stake"]}
-                data={["Matched Bet", "Odds", "Yes/No", "Stake"]}
+                data={["Matched Bet","Match", "Odds", "Yes/No", "Stake"]}
               />
               {profit && (
                 <Box

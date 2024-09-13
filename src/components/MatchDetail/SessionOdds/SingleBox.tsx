@@ -39,12 +39,13 @@ const SingleBox = ({
         <Typography
           sx={{
             maxHeight: "1em",
-            overflow: "hidden",
+            // overflow: "hidden",
             lineHeight: 1,
             fontWeight: "600",
             fontSize: { lg: "9px", xs: "10px" },
             color: "black",
             textAlign: "center",
+            overflowWrap:"anywhere"
           }}
         >
           {data}

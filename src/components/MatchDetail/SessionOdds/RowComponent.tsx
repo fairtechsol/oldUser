@@ -57,11 +57,11 @@ const RowComponent = ({ header, data }: any) => {
             header={header}
             time={getTime(data.createdAt)}
           />
-          {/* <SingleBox
+          <SingleBox
             color={getColor()}
-            data={profileDetail && profileDetail?.userName}
+            data={data?.match?.title}
             header={header}
-          /> */}
+          />
           <SingleBox
             color={getColor()}
             //data={+data?.odds}
@@ -88,6 +88,7 @@ const RowComponent = ({ header, data }: any) => {
           <SingleBox color={getColor()} data={data[1]} header={header} />
           <SingleBox color={getColor()} data={data[2]} header={header} />
           <SingleBox color={getColor()} data={data[3]} header={header} />
+          <SingleBox color={getColor()} data={data[4]} header={header} />
           {/* <SingleBox color={getColor()} data={data[4]} header={header} /> */}
         </>
       )}
