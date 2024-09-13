@@ -173,7 +173,7 @@ const SessionMarketBox = ({
                   marginRight: "auto",
                   overflow: "hidden",
                   // left: {lg:"23%", xs: "0%", sm: "40%"}
-                  marginLeft: { lg: "37.5%", xs: "59.8%", sm: "59.8%" },
+                  marginLeft: { lg: "37.5%", xs: "59.6%", sm: "59.6%" },
                 }}
               >
                 <Box
@@ -182,6 +182,7 @@ const SessionMarketBox = ({
                     height: "100%",
                     display: "flex",
                     flexDirection: "row",
+                    marginLeft: "1px",
                   }}
                 >
                   <SeparateModal
@@ -237,7 +238,11 @@ const SessionMarketBox = ({
                 </Box>
 
                 <Box
-                  sx={{ width: ".45%", display: "flex", background: "pink" }}
+                  sx={{
+                    width: { lg: ".05%", md: "0.95%", sx: "1%" },
+                    display: "flex",
+                    background: "pink",
+                  }}
                 ></Box>
                 <Box
                   sx={{
@@ -245,6 +250,7 @@ const SessionMarketBox = ({
                     height: "100%",
                     display: "flex",
                     flexDirection: "row",
+                    marginLeft: "0px",
                   }}
                 >
                   <SeparateModal

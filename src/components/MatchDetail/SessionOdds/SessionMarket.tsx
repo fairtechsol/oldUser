@@ -200,7 +200,7 @@ const SessionMarket = ({
                     }}
                   >
                     MIN:{min}
-                    {/* MAX:
+                    {/* MAX:g
                     {max} */}
                   </Typography>
                 </Box>
@@ -211,7 +211,7 @@ const SessionMarket = ({
                     marginRight: { lg: "24px", xs: "0px" },
                     height: "25px",
                     gap: { xs: "0px", lg: "1px", md: "1px" },
-                    width: { lg: "60%", xs: "80%" },
+                    width: { lg: "60%", md: "78%", xs: "80%" },
                     justifyContent: { lg: "center", xs: "flex-end" },
                   }}
                 >
