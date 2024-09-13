@@ -69,11 +69,11 @@ const BetHistory = () => {
                 mark2
                 mark
                 allBetsData={placedBets?.filter(
-                  (b: any) => !["session"].includes(b?.marketType)
+                  (b: any) => !["session","cricketcasino","overByover","ballByBall","oddEven","fancy1"].includes(b?.marketType)
                 )}
                 count={
                   allBets?.filter(
-                    (b: any) => !["session"].includes(b?.marketType)
+                    (b: any) => !["session","cricketcasino","overByover","ballByBall","oddEven","fancy1"].includes(b?.marketType)
                   ).length || 0
                 }
                 // setPageCountOuter={setPageCount}
@@ -83,10 +83,10 @@ const BetHistory = () => {
               <SessionBetSeperate
                 betHistory={true}
                 allBetsData={placedBets?.filter((b: any) =>
-                  ["session"].includes(b?.marketType)
+                  ["session","cricketcasino","overByover","ballByBall","oddEven","fancy1"].includes(b?.marketType)
                 )}
                 placedBets={placedBets?.filter((b: any) =>
-                  ["session"].includes(b?.marketType)
+                  ["session","cricketcasino","overByover","ballByBall","oddEven","fancy1"].includes(b?.marketType)
                 )}
                 mark
               />
