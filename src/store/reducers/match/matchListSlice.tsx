@@ -265,6 +265,7 @@ const matchListSlice = createSlice({
                 return {
                   ...item,
                   maxLoss: profitLoss?.maxLoss,
+                  profitLoss: profitLoss?.betPlaced,
                   totalBet: profitLoss?.totalBet,
                 };
               }

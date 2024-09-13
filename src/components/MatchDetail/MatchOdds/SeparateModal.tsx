@@ -116,7 +116,6 @@ const SeparateModal = ({
               } else {
                 setIsPopoverOpen(true);
                 if (bettingOn === "session") {
-                  console.log(value2);
                   handleClick(
                     {
                       betId: data?.id,

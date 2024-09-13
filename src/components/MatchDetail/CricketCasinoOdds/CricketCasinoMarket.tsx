@@ -168,87 +168,99 @@ const CricketCasinoMarket = ({
 
         {visible && (
           <Box sx={{ width: "100%", position: "relative" }}>
-            {
+            {data?.activeStatus !== "live" && (
+              <Box
+                sx={{
+                  margin: "1px",
+                  width: "100%",
+                  height: "100%",
+                  right: 0,
+                  position: "absolute",
+                  background: "rgba(0, 0, 0, 0.4)",
+                  zIndex: 2,
+                }}
+              ></Box>
+            )}
+            <Box
+              sx={{
+                display: "flex",
+                background: "#319E5B",
+                height: "25px",
+                width: { lg: "100%", xs: "99.9%" },
+                alignSelf: "center",
+              }}
+            >
+              <Box
+                sx={{
+                  display: "flex",
+                  background: "'#319E5B'",
+                  height: "25px",
+                  width: "40%",
+                  alignItems: "center",
+                }}
+              >
+                <Typography
+                  sx={{
+                    color: "white",
+                    fontSize: { lg: "11px", xs: "9px" },
+                    marginLeft: "7px",
+                  }}
+                >
+                  MIN:{min}
+                  {/* MAX:
+                    {max} */}
+                </Typography>
+                <Typography
+                  sx={{
+                    color: "white",
+                    fontSize: { lg: "11px", xs: "9px" },
+                    marginLeft: "7px",
+                  }}
+                >
+                  MAX:{data?.max}
+                  {/* MAX:
+                    {max} */}
+                </Typography>
+              </Box>
               <Box
                 sx={{
                   display: "flex",
                   background: "#319E5B",
+                  marginRight: { lg: "16px", xs: "0px" },
                   height: "25px",
-                  width: { lg: "100%", xs: "99.9%" },
-                  alignSelf: "center",
+                  gap: { xs: "0px", lg: "1px", md: "1px" },
+                  width: { lg: "63%", xs: "80%" },
+                  justifyContent: { lg: "center", xs: "flex-end" },
                 }}
               >
                 <Box
                   sx={{
+                    background: "#00C0F9",
+                    width: { lg: "20%", xs: "30%" },
+                    height: "100%",
                     display: "flex",
-                    background: "'#319E5B'",
-                    height: "25px",
-                    width: "40%",
+                    justifyContent: "center",
                     alignItems: "center",
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      color: "white",
-                      fontSize: { lg: "11px", xs: "9px" },
-                      marginLeft: "7px",
-                    }}
-                  >
-                    MIN:{min}
-                    {/* MAX:
-                    {max} */}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      color: "white",
-                      fontSize: { lg: "11px", xs: "9px" },
-                      marginLeft: "7px",
-                    }}
-                  >
-                    MAX:{data?.max}
-                    {/* MAX:
-                    {max} */}
-                  </Typography>
-                </Box>
-                <Box
-                  sx={{
-                    display: "flex",
-                    background: "#319E5B",
-                    marginRight: { lg: "16px", xs: "0px" },
-                    height: "25px",
-                    gap: { xs: "0px", lg: "1px", md: "1px" },
-                    width: { lg: "63%", xs: "80%" },
-                    justifyContent: { lg: "center", xs: "flex-end" },
-                  }}
-                >
-                  <Box
-                    sx={{
-                      background: "#00C0F9",
-                      width: { lg: "20%", xs: "30%" },
-                      height: "100%",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
 
-                      borderLeft: {
-                        lg: "0 solid #319e5b",
-                        xs: "1px solid #319e5b",
-                      },
+                    borderLeft: {
+                      lg: "0 solid #319e5b",
+                      xs: "1px solid #319e5b",
+                    },
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      fontSize: "12px",
+                      color: "black",
+                      fontWeight: "600",
                     }}
                   >
-                    <Typography
-                      sx={{
-                        fontSize: "12px",
-                        color: "black",
-                        fontWeight: "600",
-                      }}
-                    >
-                      BACK
-                    </Typography>
-                  </Box>
+                    BACK
+                  </Typography>
                 </Box>
               </Box>
-            }
+            </Box>
+
             {betLock && (
               <Box
                 sx={{
@@ -373,7 +385,6 @@ const CricketCasinoMarket = ({
             </Box>
           </Box>
         )}
-        
       </Box>
 
       <style>

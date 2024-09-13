@@ -81,7 +81,7 @@ const SessionMarketBox = ({
                 lineHeight: "0.8rem",
               }}
             >
-              {data?.RunnerName}
+              {data?.RunnerName || data?.name}
             </Typography>
             <Typography
               sx={{
