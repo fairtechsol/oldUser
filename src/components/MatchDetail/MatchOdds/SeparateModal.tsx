@@ -70,7 +70,7 @@ const SeparateModal = ({
       <Box
         sx={{
           cursor: loading ? "not-allowed" : "pointer",
-          padding: { xs: "0px", lg: "1px", md: "1px" },
+          padding: { xs: "0px", lg: "0px", md: "0px" },
           width: { xs: "100%", lg: width ?? "20%" },
           height: "94%",
         }}
@@ -196,7 +196,7 @@ const SeparateModal = ({
             background: lock || [0, "0"].includes(value) ? "#FDF21A" : color,
             border:
               color != "white" ? "1px solid #2626264D" : "0px solid white",
-            width: "100%",
+            width: {lg:"99%",sm:"101%"},
             height: "100%",
             display: "flex",
             justifyContent: "center",

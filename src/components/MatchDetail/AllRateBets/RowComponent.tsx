@@ -42,14 +42,18 @@ const RowComponent = ({ header, data }: any) => {
       {!header && (
         <>
           {/* <Box sx={{ width: "48%", minWidth: "22%" }}> */}
+          <div style={{width:"27%"}}>
           <SingleBox
             color={getColor}
             data={data?.bettingName || data?.marketType}
             first={true}
             header={header}
+            
+           
           />
+          </div>
           {/* </Box> */}
-          <Box
+          {/* <Box
             sx={{
               maxWidth: "14%",
               minWidth: "15%",
@@ -69,41 +73,51 @@ const RowComponent = ({ header, data }: any) => {
               header={header}
               boxWidth="100%"
             />
-          </Box>
+          </Box> */}
           {/* <Box sx={{ width: "52%", minWidth: "19%" }}> */}
+          <div style={{width:"19%"}}>
           <SingleBox
             time={getTime(data.createdAt)}
             color={getColor()}
             data={data.teamName}
             up={true}
             header={header}
+           
             // time={data.teamName}
           />
+          </div>
           {/* </Box>
           <Box sx={{ width: "30%" }}> */}
+          <div style={{width:"27%"}}>
           <SingleBox
             color={getColor()}
             data={data?.bet_type || data?.betType}
             header={header}
-            boxWidth="50%"
+            //boxWidth="50%"
+           
           />
+          </div>
           {/* </Box>
           <Box sx={{ width: "30%" }}> */}
+          <div style={{width:"13.5%"}}>
           <SingleBox
             color={getColor()}
             data={data?.odds}
             header={header}
-            boxWidth="50%"
-          />
+            //boxWidth="50%"
+            
+          /></div>
           {/* </Box>
           <Box sx={{ width: "41%" }}> */}
+          <div style={{width:"13.5%"}}>
           <SingleBox
             color={getColor()}
             data={formatToINR(data?.amount)}
             header={header}
-            width={"50%"}
-            boxWidth="100%"
+            
+            //boxWidth="100%"
           />
+          </div>
           {/* </Box> */}
         </>
       )}
