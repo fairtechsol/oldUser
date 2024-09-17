@@ -25,13 +25,13 @@ const QuickSessionMarket = ({
   eventType,
   setShow,
   show,
-  matchDetails
+  matchDetails,
 }: any) => {
   const [showFastTimeBox, setShowFastTimeBox] = useState(false);
   const [setFastBetLoading] = useState(false);
   const [selectedItem, setSelectedItem] = useState("");
   const [visible, setVisible] = useState(true);
-console.log(allBetsData,matchDetails);
+
   return (
     <>
       <Box
@@ -114,14 +114,18 @@ console.log(allBetsData,matchDetails);
             }}
           >
             {/* {console.warn("newData11 ",newData)} */}
-            <SmallBoxSeason allBetsData={Array.from(new Set(allBetsData))?.filter(
+            <SmallBoxSeason
+              allBetsData={Array.from(new Set(allBetsData))?.filter(
                 (item: any) =>
                   JSON.parse(
                     matchDetails?.sessionBettings?.find(
-                      (items: any) => JSON.parse(items)?.id == item?.betId && JSON.parse(items)?.isManual
+                      (items: any) =>
+                        JSON.parse(items)?.id == item?.betId &&
+                        JSON.parse(items)?.isManual
                     ) || "{}"
                   )?.type == sessionBettingType.session
-              )} />
+              )}
+            />
             <Box
               className="arrowUpCollaps"
               sx={{

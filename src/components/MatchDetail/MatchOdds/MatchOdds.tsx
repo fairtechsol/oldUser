@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import moment from "moment-timezone";
-import { memo, useEffect, useState } from "react";
+import { Fragment, memo, useEffect, useState } from "react";
 import { customBookmakerSort, formatToINR } from "../../../helper";
 import {
   profitLossDataForMatchConstants,
@@ -44,9 +44,7 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
   const [timeLeft, setTimeLeft] = useState<any>(calculateTimeLeft);
 
   const upcoming =
-    Number(timeLeft.days) === 0 &&
-    Number(timeLeft.hours) === 0 &&
-    Number(timeLeft.minutes) <= 60;
+    true
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -54,6 +52,7 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
     }, 0);
     return () => clearTimeout(timer);
   }, []);
+
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
       {matchDetails?.matchOdd?.activeStatus === "live" &&
@@ -587,7 +586,12 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
         )}
       {matchDetails?.manualSessionActive &&
         matchDetails?.sessionBettings?.filter(
-          (betting: any) => JSON.parse(betting)?.selectionId === null
+          (betting: any) =>
+            JSON.parse(betting)?.selectionId === null &&
+            !(
+              JSON.parse(betting)?.activeStatus === "unSave" ||
+              JSON.parse(betting)?.activeStatus === "result"
+            )
         ).length > 0 && (
           <QuickSessionMarket
             allBetsData={matchDetails?.profitLossDataSession}
@@ -599,7 +603,12 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
             type={MatchType.SESSION_MARKET}
             matchOddsData={matchDetails?.sessionBettings}
             newData={matchDetails?.sessionBettings?.filter(
-              (betting: any) => JSON.parse(betting)?.selectionId === null
+              (betting: any) =>
+                JSON.parse(betting)?.selectionId === null &&
+                !(
+                  JSON.parse(betting)?.activeStatus === "unSave" ||
+                  JSON.parse(betting)?.activeStatus === "result"
+                )
             )}
             eventType={matchDetails?.matchType}
             minBet={formatToINR(matchDetails?.betFairSessionMinBet)}
@@ -617,33 +626,56 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
           )
           ?.map(([key, value]: any) => {
             return (
-              <SessionMarket
-                key={key}
-                allBetsData={matchDetails?.profitLossDataSession}
-                newData={value?.section}
-                matchOddsData={value?.section}
-                typeOfBet={matchDetails?.type}
-                title={value?.mname || key}
-                setShow={setShow}
-                show={show}
-                type={key}
-                data={value}
-                eventType={matchDetails?.matchType}
-                min={formatToINR(matchDetails?.betFairSessionMinBet)}
-                upcoming={!upcoming}
-                matchDetails={matchDetails}
-                mid={value?.mid}
-              />
+              <Fragment key={key}>
+                {value?.section?.filter(
+                  (item: any) =>
+                    !item?.isManual &&
+                    !(
+                      item?.activeStatus === "unSave" ||
+                      item?.activeStatus === "result"
+                    )
+                )?.length > 0 && (
+                  <SessionMarket
+                    key={key}
+                    allBetsData={matchDetails?.profitLossDataSession}
+                    newData={value?.section?.filter(
+                      (items: any) =>
+                        !(
+                          items?.activeStatus === "unSave" ||
+                          items?.activeStatus === "result"
+                        )
+                    )}
+                    matchOddsData={value?.section}
+                    typeOfBet={matchDetails?.type}
+                    title={value?.mname || key}
+                    setShow={setShow}
+                    show={show}
+                    type={key}
+                    data={value}
+                    eventType={matchDetails?.matchType}
+                    min={formatToINR(matchDetails?.betFairSessionMinBet)}
+                    upcoming={!upcoming}
+                    matchDetails={matchDetails}
+                    mid={value?.mid}
+                  />
+                )}
+              </Fragment>
             );
           })}
 
       {matchDetails?.apiSessionActive &&
         (matchDetails?.apiSession?.cricketCasino?.section || [])
-          ?.filter((item: any) => item?.activeStatus !== "unSave")
+          ?.filter(
+            (item: any) =>
+              !(
+                item?.activeStatus === "unSave" ||
+                item?.activeStatus === "result"
+              )
+          )
           ?.map((item: any) => {
             return (
               <CricketCasinoMarket
-                key={item}
+                key={item?.id}
                 allBetsData={matchDetails?.profitLossDataSession}
                 newData={item}
                 matchOddsData={item}

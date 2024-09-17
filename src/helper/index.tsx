@@ -94,8 +94,8 @@ export const updateSessionBettingsItem = (
     if (!apiResponseBettings || Object.keys(apiResponseBettings).length === 0) {
       for (const key in matchDetailBettings) {
         if (matchDetailBettings.hasOwnProperty(key)) {
-        matchDetailBettings[key].mid = apiResponseBettings[key]?.mid;
-        const matchDetailSections = matchDetailBettings[key]?.section;
+          matchDetailBettings[key].mid = apiResponseBettings[key]?.mid;
+          const matchDetailSections = matchDetailBettings[key]?.section;
           matchDetailSections?.forEach((section: any) => {
             section.isComplete = true;
           });
@@ -108,30 +108,37 @@ export const updateSessionBettingsItem = (
           matchDetailBettings[key].mid = apiResponseBettings[key]?.mid;
           const apiSections = apiResponseBettings[key].section;
           const matchDetailSections = matchDetailBettings[key]?.section;
-          for (const apiSection of apiSections) {
-            const matchDetailSectionIndex = matchDetailSections?.findIndex(
-              (section: any) => section?.id === apiSection?.id
+
+          if (matchDetailSections) {
+            matchDetailSections.forEach(
+              (matchDetailSection: any, index: number) => {
+                const matchDetailSectionIndex = apiSections?.findIndex(
+                  (section: any) => section?.id === matchDetailSection?.id
+                );
+
+                if (matchDetailSectionIndex !== -1) {
+                  matchDetailSections[index] = {
+                    ...matchDetailSection,
+                    ...apiSections[matchDetailSectionIndex],
+                    minBet: apiSections[matchDetailSectionIndex]?.min,
+                    maxBet: apiSections[matchDetailSectionIndex]?.max,
+                  };
+                }
+              }
             );
-            if (matchDetailSectionIndex !== -1) {
-              matchDetailBettings[key].section[matchDetailSectionIndex] = {
-                ...matchDetailBettings[key].section[matchDetailSectionIndex],
-                ...apiSection,
-                isComplete: apiSection?.ex
-                  ? apiSection?.ex?.availableToBack?.length > 0 &&
-                    apiSection?.ex?.availableToLay?.length > 0
-                    ? ([""].includes(apiSection?.GameStatus) &&
-                        !apiSection?.ex?.availableToBack[0]?.price &&
-                        !apiSection?.ex?.availableToBack[0]?.size &&
-                        !apiSection?.ex?.availableToLay?.price &&
-                        !apiSection?.ex?.availableToLay?.size) ||
-                      apiSection?.activeStatus !== "live"
-                      ? true
-                      : false
-                    : true
-                  : true,
-              };
-            } else {
-            }
+            apiSections?.forEach((apiSection: any) => {
+              const existsInMatchDetail = matchDetailSections.some(
+                (matchDetailSection: any) =>
+                  matchDetailSection.id === apiSection.id
+              );
+              if (!existsInMatchDetail) {
+                matchDetailSections.push({
+                  ...apiSection,
+                  minBet: apiSection?.min,
+                  maxBet: apiSection?.max,
+                });
+              }
+            });
           }
         }
       }
