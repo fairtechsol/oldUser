@@ -190,7 +190,11 @@ const SessionMarketBox = ({
                     bettingOn={"session"}
                     closeModal={closeModal}
                     setFastBetLoading={setFastBetLoading}
-                    po={data.ex?.availableToLay[0]?.tno}
+                    po={
+                      sessionBettingType.oddEven == data?.type
+                        ? data.ex?.availableToBack[0]?.tno
+                        : data.ex?.availableToLay[0]?.tno
+                    }
                     eventType={eventType}
                     setFastAmount={setFastAmount}
                     rates={allRates}
@@ -204,11 +208,21 @@ const SessionMarketBox = ({
                         ? "lay"
                         : "no"
                     }
-                    value={data.ex?.availableToLay[0]?.price ?? 0}
-                    value2={data.ex?.availableToLay[0]?.size ?? 0}
+                    value={
+                      sessionBettingType.oddEven == data?.type
+                        ? data.ex?.availableToBack[0]?.price ?? 0
+                        : data.ex?.availableToLay[0]?.price ?? 0
+                    }
+                    value2={
+                      sessionBettingType.oddEven == data?.type
+                        ? data.ex?.availableToBack[0]?.size ?? 0
+                        : data.ex?.availableToLay[0]?.size ?? 0
+                    }
                     lock={
                       [null, 0, "0"].includes(
-                        data.ex?.availableToLay[0]?.price ?? 0
+                        sessionBettingType.oddEven == data?.type
+                          ? data.ex?.availableToBack[0]?.price ?? 0
+                          : data.ex?.availableToLay[0]?.price ?? 0
                       )
                         ? true
                         : false
@@ -258,7 +272,11 @@ const SessionMarketBox = ({
                     bettingOn={"session"}
                     closeModal={closeModal}
                     setFastBetLoading={setFastBetLoading}
-                    po={data.ex?.availableToBack[0]?.tno}
+                    po={
+                      sessionBettingType.oddEven == data?.type
+                        ? data.ex?.availableToLay[0]?.tno
+                        : data.ex?.availableToBack[0]?.tno
+                    }
                     eventType={eventType}
                     sessionMain={sessionMain}
                     rates={allRates}
@@ -271,11 +289,21 @@ const SessionMarketBox = ({
                         ? "back"
                         : "yes"
                     }
-                    value={data.ex?.availableToBack[0]?.price ?? 0}
-                    value2={data.ex?.availableToBack[0]?.size ?? 0}
+                    value={
+                      sessionBettingType.oddEven == data?.type
+                        ? data.ex?.availableToLay[0]?.price ?? 0
+                        : data.ex?.availableToBack[0]?.price ?? 0
+                    }
+                    value2={
+                      sessionBettingType.oddEven == data?.type
+                        ? data.ex?.availableToLay[0]?.size ?? 0
+                        : data.ex?.availableToBack[0]?.size ?? 0
+                    }
                     lock={
                       [null, 0, "0"].includes(
-                        data.ex?.availableToBack[0]?.price ?? 0
+                        sessionBettingType.oddEven == data?.type
+                          ? data.ex?.availableToLay[0]?.price ?? 0
+                          : data.ex?.availableToBack[0]?.price ?? 0
                       )
                         ? true
                         : false
@@ -480,7 +508,11 @@ const SessionMarketBox = ({
                         bettingOn={"session"}
                         closeModal={closeModal}
                         setFastBetLoading={setFastBetLoading}
-                        po={data.ex?.availableToLay[item]?.tno}
+                        po={
+                          sessionBettingType.oddEven == data?.type
+                            ? data.ex?.availableToBack[0]?.tno
+                            : data.ex?.availableToLay[0]?.tno
+                        }
                         eventType={eventType}
                         setFastAmount={setFastAmount}
                         rates={allRates}
@@ -494,11 +526,21 @@ const SessionMarketBox = ({
                             ? "lay"
                             : "no"
                         }
-                        value={data.ex?.availableToLay[item]?.price ?? 0}
-                        value2={data.ex?.availableToLay[item]?.size ?? 0}
+                        value={
+                          sessionBettingType.oddEven == data?.type
+                            ? data.ex?.availableToBack[0]?.price ?? 0
+                            : data.ex?.availableToLay[0]?.price ?? 0
+                        }
+                        value2={
+                          sessionBettingType.oddEven == data?.type
+                            ? data.ex?.availableToBack[0]?.size ?? 0
+                            : data.ex?.availableToLay[0]?.size ?? 0
+                        }
                         lock={
                           [null, 0, "0"].includes(
-                            data.ex?.availableToLay[item]?.price ?? 0
+                            sessionBettingType.oddEven == data?.type
+                              ? data.ex?.availableToBack[0]?.price ?? 0
+                              : data.ex?.availableToLay[0]?.price ?? 0
                           )
                             ? true
                             : false
@@ -549,7 +591,11 @@ const SessionMarketBox = ({
                         bettingOn={"session"}
                         closeModal={closeModal}
                         setFastBetLoading={setFastBetLoading}
-                        po={data.ex?.availableToBack[item]?.tno}
+                        po={
+                          sessionBettingType.oddEven == data?.type
+                            ? data.ex?.availableToLay[0]?.tno
+                            : data.ex?.availableToBack[0]?.tno
+                        }
                         eventType={eventType}
                         sessionMain={sessionMain}
                         rates={allRates}
@@ -562,11 +608,21 @@ const SessionMarketBox = ({
                             ? "back"
                             : "yes"
                         }
-                        value={data.ex?.availableToBack[item]?.price ?? 0}
-                        value2={data.ex?.availableToBack[item]?.size ?? 0}
+                        value={
+                          sessionBettingType.oddEven == data?.type
+                            ? data.ex?.availableToLay[0]?.price ?? 0
+                            : data.ex?.availableToBack[0]?.price ?? 0
+                        }
+                        value2={
+                          sessionBettingType.oddEven == data?.type
+                            ? data.ex?.availableToBack[0]?.size ?? 0
+                            : data.ex?.availableToLay[0]?.size ?? 0
+                        }
                         lock={
                           [null, 0, "0"].includes(
-                            data.ex?.availableToBack[item]?.price ?? 0
+                            sessionBettingType.oddEven == data?.type
+                              ? data.ex?.availableToBack[0]?.price ?? 0
+                              : data.ex?.availableToLay[0]?.price ?? 0
                           )
                             ? true
                             : false
