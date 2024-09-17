@@ -357,7 +357,11 @@ const SessionMarket = ({
                 newData
                   ?.filter(
                     (item: any) =>
-                      !item?.isManual && item?.activeStatus !== "unSave"
+                      !item?.isManual &&
+                      !(
+                        item?.activeStatus === "unSave" ||
+                        item?.activeStatus === "result"
+                      )
                   )
                   ?.slice()
                   .sort(customSort)

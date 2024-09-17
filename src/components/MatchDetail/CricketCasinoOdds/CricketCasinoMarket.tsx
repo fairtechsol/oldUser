@@ -334,54 +334,58 @@ const CricketCasinoMarket = ({
                 // overflowY: "visible",
               }}
             >
-              {Array.from({ length: 10 }, (_, index) => index)?.map(
-                (element: any, index: any) => {
-                  const currSessionItem =
-                    data?.section?.find(
-                      (item: any) => parseInt(item?.sid) == element + 1
-                    ) || {};
-                  return (
-                    <Box
-                      key={element}
-                      sx={{
-                        width: "100%",
-                        display: "block",
-                      }}
-                    >
-                      <CricketCasinoMarketBox
-                        index={index}
-                        upcoming={upcoming}
-                        typeOfBet={typeOfBet}
-                        setFastBetLoading={() => {}}
-                        eventType={eventType}
-                        data={{
-                          ...currSessionItem,
-                          matchId: matchDetails?.id,
-                          type: type,
-                          id: data?.id,
+              {!(
+                data?.activeStatus === "result" ||
+                data?.activeStatus === "unSave"
+              ) &&
+                Array.from({ length: 10 }, (_, index) => index)?.map(
+                  (element: any, index: any) => {
+                    const currSessionItem =
+                      data?.section?.find(
+                        (item: any) => parseInt(item?.sid) == element + 1
+                      ) || {};
+                    return (
+                      <Box
+                        key={element}
+                        sx={{
+                          width: "100%",
+                          display: "block",
                         }}
-                        sessionMain={session}
-                        selectedFastAmount={fastAmount}
-                        setFastAmount={setFastAmount}
-                        mainData={data}
-                        allRates={{
-                          teamA: teamARates,
-                          teamB: teamBRates,
-                          teamC: teamCRates,
-                        }}
-                        show={show}
-                        setShow={setShow}
-                        handleRateChange={handleRateChange}
-                        profitLossData={Array.from(
-                          new Set(allBetsData)
-                        )?.filter((item: any) => item?.betId === data?.id)}
-                        mid={mid}
-                      />
-                      <Divider />
-                    </Box>
-                  );
-                }
-              )}
+                      >
+                        <CricketCasinoMarketBox
+                          index={index}
+                          upcoming={upcoming}
+                          typeOfBet={typeOfBet}
+                          setFastBetLoading={() => {}}
+                          eventType={eventType}
+                          data={{
+                            ...currSessionItem,
+                            matchId: matchDetails?.id,
+                            type: type,
+                            id: data?.id,
+                          }}
+                          sessionMain={session}
+                          selectedFastAmount={fastAmount}
+                          setFastAmount={setFastAmount}
+                          mainData={data}
+                          allRates={{
+                            teamA: teamARates,
+                            teamB: teamBRates,
+                            teamC: teamCRates,
+                          }}
+                          show={show}
+                          setShow={setShow}
+                          handleRateChange={handleRateChange}
+                          profitLossData={Array.from(
+                            new Set(allBetsData)
+                          )?.filter((item: any) => item?.betId === data?.id)}
+                          mid={mid}
+                        />
+                        <Divider />
+                      </Box>
+                    );
+                  }
+                )}
             </Box>
           </Box>
         )}
