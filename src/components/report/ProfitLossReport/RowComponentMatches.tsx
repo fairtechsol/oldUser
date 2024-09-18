@@ -362,6 +362,7 @@ const RowComponentMatches = ({
                 <AllRateSeperate
                   betHistory={false}
                   count={betData?.length}
+                  match={item?.title}
                   allBetsData={totalBetProfitLoss && totalBetProfitLoss}
                   profit
                 />
@@ -424,6 +425,7 @@ const RowComponentMatches = ({
                         placedBets={totalBetProfitLoss && totalBetProfitLoss}
                         profit
                         isArrow={true}
+                        match={item?.title}
                       />
                     </Box>
                   )}

@@ -5,7 +5,7 @@ import { ARROWUP, ArrowDown, DELETE } from "../../../assets";
 import { formatToINR } from "../../../helper";
 import StyledImage from "../../Common/StyledImages";
 import RowComponent from "./RowComponent";
-const SessionBetSeperate = ({ profit, mark2, placedBets, isArrow }: any) => {
+const SessionBetSeperate = ({ profit, mark2, placedBets, isArrow,match }: any) => {
   const [visible, setVisible] = useState(true);
 
   return (
@@ -117,6 +117,7 @@ const SessionBetSeperate = ({ profit, mark2, placedBets, isArrow }: any) => {
               </Box>
               <RowComponent
                 header={true}
+                match={match}
                 //data={["Matched Bet", "Username", "Odds", "Yes/No", "Stake"]}
                 data={["Matched Bet","Match", "Odds", "Yes/No", "Stake"]}
               />
@@ -190,7 +191,7 @@ const SessionBetSeperate = ({ profit, mark2, placedBets, isArrow }: any) => {
                         {formattedNum}
                       </Typography>
                     </Box>
-                    <RowComponent header={false} data={i} />
+                    <RowComponent header={false} data={i} match={match}/>
                     {i?.deleteReason && (
                       <Box
                         sx={{

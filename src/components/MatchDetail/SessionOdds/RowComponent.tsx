@@ -5,7 +5,7 @@ import SingleBox from "./SingleBox";
 import moment from "moment";
 import { formatToINR } from "../../../helper";
 
-const RowComponent = ({ header, data }: any) => {
+const RowComponent = ({ header, data,match }: any) => {
   // const getTime = (date: any) => {
   //   const now = new Date(date);
   //   const timeString = now.toLocaleTimeString("en-US", {
@@ -59,7 +59,7 @@ const RowComponent = ({ header, data }: any) => {
           />
           <SingleBox
             color={getColor()}
-            data={data?.match?.title}
+            data={data?.match?.title ?? match}
             header={header}
           />
           <SingleBox

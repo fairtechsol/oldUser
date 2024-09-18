@@ -5,7 +5,7 @@ import SingleBox from "./SingleBox";
 import moment from "moment";
 import { formatToINR } from "../../../helper";
 
-const RowComponent = ({ header, data }: any) => {
+const RowComponent = ({ header, data,match }: any) => {
   // const { profileDetail } = useSelector(
   //   (state: RootState) => state.user.profile
   // );
@@ -68,7 +68,7 @@ const RowComponent = ({ header, data }: any) => {
           <div style={{width:"23.5%"}}>
           <SingleBox
             color={getColor()}
-            data={data?.match?.title}
+            data={data?.match?.title ?? match}
             header={header}
             //boxWidth="50%"
            

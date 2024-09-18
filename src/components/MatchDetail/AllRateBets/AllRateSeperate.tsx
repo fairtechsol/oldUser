@@ -13,6 +13,7 @@ const AllRateSeperate = ({
   allBetsData,
   count,
   isArrow,
+  match
 }: any) => {
   const [visible, setVisible] = useState(true);
 
@@ -158,6 +159,7 @@ const AllRateSeperate = ({
                   "Odds",
                   "Stake",
                 ]}
+                match={match}
               />
 
               {profit && (
@@ -195,7 +197,7 @@ const AllRateSeperate = ({
                 },
               }}
             >
-              {/* {console.warn("allBetsData :", allBetsData)} */}
+              {/* {console.log("allBetsData :", allBetsData)} */}
               {[
                 ...new Set(
                   allBetsData?.filter(
@@ -241,7 +243,7 @@ const AllRateSeperate = ({
                         {formattedNum}
                       </Typography>
                     </Box>
-                    <RowComponent header={false} data={i} />
+                    <RowComponent header={false} data={i} match={match}/>
                     {i?.deleteReason && betHistory && (
                       <Box
                         sx={{
