@@ -456,7 +456,6 @@ const MatchDetail = () => {
                     setShow={setShow}
                     show={show}
                     matchDetails={matchDetails && matchDetails}
-                    data={matchDetails && matchDetails}
                   />
                 </div>
                 <Box

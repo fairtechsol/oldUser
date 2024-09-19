@@ -84,9 +84,9 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
     setBrowserInfo(info);
     const fetchData = async () => {
       try {
-        const { data } = await axios.get("https://geolocation-db.com/json/");
+        const { data } = await axios.get("https://api.ipify.org?format=json");
         if (data) {
-          setIpAddress(data?.IPv4);
+          setIpAddress(data?.ip);
         }
       } catch (e) {
         console.log(e);
@@ -147,12 +147,12 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
         selectedBet?.team?.type === "yes" || selectedBet?.team?.type === "back"
           ? value
           : [
-            sessionBettingType.cricketCasino,
-            sessionBettingType.fancy1,
-            sessionBettingType.oddEven,
-          ].includes(selectedBet?.data?.type)
-        ? value * (parseFloat(selectedBet?.team?.percent) - 1)
-        : (value * selectedBet?.team?.percent) / 100;
+              sessionBettingType.cricketCasino,
+              sessionBettingType.fancy1,
+              sessionBettingType.oddEven,
+            ].includes(selectedBet?.data?.type)
+          ? value * (parseFloat(selectedBet?.team?.percent) - 1)
+          : (value * selectedBet?.team?.percent) / 100;
     } else if (
       ["matchOdd", "tiedMatch1", "completeMatch"].includes(
         selectedBet?.data?.type
@@ -206,17 +206,40 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
       stake: stakeValue || selectedBet?.team?.stake,
     };
 
-    const payloadForSession = {
-      ...commonPayload,
-      betType: selectedBet?.team?.type.toUpperCase(),
-      odds: selectedBet?.team?.rate,
-      ratePercent: selectedBet?.team?.percent,
-      betPlaceIndex: selectedBet?.team?.betPlaceIndex,
-      mid: selectedBet?.team?.mid?.toString(),
-      ...(selectedBet?.team?.teamName
-        ? { teamName: selectedBet?.team?.teamName }
-        : {}),
-    };
+    let payloadForSession: any;
+
+    if (selectedBet?.team?.matchBetType === "tournament") {
+      payloadForSession = {
+        betId: selectedBet?.team?.betId,
+        bettingType: selectedBet?.team?.type.toUpperCase(),
+        browserDetail: browserInfo?.userAgent,
+        matchId: selectedBet?.team?.matchId,
+        ipAddress:
+          ipAddress === "Not found" || !ipAddress ? "192.168.1.100" : ipAddress,
+        odd: selectedBet?.team?.rate,
+        stake: stakeValue || selectedBet?.team?.stake,
+        matchBetType: selectedBet?.team?.matchBetType,
+        betOnTeam: selectedBet?.team?.name,
+        placeIndex: selectedBet?.team?.betPlaceIndex,
+        bettingName: selectedBet?.team?.bettingName,
+        gType: selectedBet?.team?.eventType,
+        mid: selectedBet?.team?.mid?.toString(),
+        selectionId: selectedBet?.team?.selectionId?.toString(),
+        runnerId: selectedBet?.team?.runnerId,
+      };
+    } else {
+      payloadForSession = {
+        ...commonPayload,
+        betType: selectedBet?.team?.type.toUpperCase(),
+        odds: selectedBet?.team?.rate,
+        ratePercent: selectedBet?.team?.percent,
+        betPlaceIndex: selectedBet?.team?.betPlaceIndex,
+        mid: selectedBet?.team?.mid?.toString(),
+        ...(selectedBet?.team?.teamName
+          ? { teamName: selectedBet?.team?.teamName }
+          : {}),
+      };
+    }
     const payloadForBettings = {
       ...commonPayload,
       teamA: selectedBet?.team?.teamA,
@@ -236,7 +259,9 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
       Object.values(sessionBettingType)?.includes(selectedBet?.data?.type) ||
       selectedBet?.data?.SelectionId;
     const url = isSessionBet
-      ? ApiConstants.BET.PLACEBETSESSION
+      ? selectedBet?.team?.matchBetType === "tournament"
+        ? ApiConstants.BET.PLACEBETTOURNAMENT
+        : ApiConstants.BET.PLACEBETSESSION
       : ApiConstants.BET.PLACEBETMATCHBETTING;
     const data = JSON.stringify(
       isSessionBet ? payloadForSession : payloadForBettings

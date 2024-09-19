@@ -128,6 +128,7 @@ const matchListSlice = createSlice({
           completeManual,
           apiTiedMatch2,
           other,
+          tournament,
         } = action?.payload;
 
         // let parsedSessionBettings = state?.matchDetails?.sessionBettings?.map(
@@ -179,6 +180,7 @@ const matchListSlice = createSlice({
           manualCompleteMatch: completeManual,
           sessionBettings: stringifiedSessionBetting,
           other: other,
+          tournament,
           updatedSessionBettings: updateSessionBettingsItem(
             convertData(parsedSessionBettings),
             apiSession

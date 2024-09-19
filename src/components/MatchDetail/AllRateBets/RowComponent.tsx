@@ -68,7 +68,7 @@ const RowComponent = ({ header, data,match }: any) => {
           <div style={{width:"23.5%"}}>
           <SingleBox
             color={getColor()}
-            data={data?.match?.title ?? match}
+            data={data?.match?.title || match || data?.eventName }
             header={header}
             //boxWidth="50%"
            
