@@ -43,6 +43,8 @@ const SeparateModal = ({
   mid,
   teamName,
 }: any) => {
+  console.log(data, "abc", marketDetails);
+
   const dispatch: AppDispatch = useDispatch();
   const [isBack, setIsBack] = React.useState(false);
   const [isSessionYes, setIsSessionYes] = React.useState(false);
@@ -133,8 +135,9 @@ const SeparateModal = ({
                       eventType: eventType,
                       matchId: data?.matchId,
                       betPlaceIndex: po,
-                      mid: mid,
+                      mid: mid || data?.mid,
                       teamName: teamName,
+                      runnerId: data?.id,
                     },
                     data
                   );
@@ -195,7 +198,7 @@ const SeparateModal = ({
             background: lock || [0, "0"].includes(value) ? "#FDF21A" : color,
             border:
               color != "white" ? "1px solid #2626264D" : "0px solid white",
-            width: {lg:"99%",sm:"101%"},
+            width: { lg: "99%", sm: "101%" },
             height: "100%",
             display: "flex",
             justifyContent: "center",

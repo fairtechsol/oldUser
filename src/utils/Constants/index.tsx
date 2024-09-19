@@ -31,6 +31,7 @@ export const ApiConstants = {
   BET: {
     PLACEBETSESSION: "bet/session",
     PLACEBETMATCHBETTING: "bet/matchBetting",
+    PLACEBETTOURNAMENT: "bet/tournament",
     GETPLACEDBETS: "bet",
     RUN_AMOUNT: "bet/session/profitLoss",
   },
@@ -121,6 +122,7 @@ export const sessionBettingType = {
   ballByBall: "ballByBall",
   oddEven: "oddEven",
   cricketCasino: "cricketCasino",
+  tournament: "tournament",
 };
 
 export const profitLossDataForMatchConstants = {

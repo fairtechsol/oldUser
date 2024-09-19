@@ -11,11 +11,12 @@ import CricketCasinoMarket from "../CricketCasinoOdds/CricketCasinoMarket";
 import QuickSessionMarket from "../QuickSession/QuickSessionMarket";
 import SessionMarket from "../SessionOdds/SessionMarket";
 import MarketOdds from "./MarketOdds";
+import TournamentOdds from "./TournamentOdds";
 
-const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
+const MatchOdds = ({ matchDetails, setShow, show }: any) => {
   function calculateTimeLeft() {
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    const targetDate = moment(data?.startAt).tz(timezone);
+    const targetDate = moment(matchDetails?.startAt).tz(timezone);
 
     const difference = targetDate.diff(moment().tz(timezone), "milliseconds");
     let timeLeft = {};
@@ -43,10 +44,7 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
 
   const [timeLeft, setTimeLeft] = useState<any>(calculateTimeLeft);
 
-  const upcoming =
-    Number(timeLeft.days) === 0 &&
-    Number(timeLeft.hours) === 0 &&
-    Number(timeLeft.minutes) <= 60;
+  const upcoming = true;
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -61,10 +59,10 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
         matchDetails?.matchOdd?.isActive && (
           <MarketOdds
             upcoming={!upcoming}
-            betLock={data?.blockMarket?.MATCH_ODDS?.block}
+            betLock={matchDetails?.blockMarket?.MATCH_ODDS?.block}
             showDely={true}
             showBox={matchDetails?.matchOdd?.activeStatus === "save"}
-            newData={data}
+            newData={matchDetails}
             data={
               matchDetails?.matchOdd?.runners?.length > 0
                 ? matchDetails?.matchOdd?.runners
@@ -108,14 +106,14 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
         matchDetails?.bookmaker?.isActive && (
           <MarketOdds
             upcoming={!upcoming}
-            betLock={data?.blockMarket?.BOOKMAKER?.block}
+            betLock={matchDetails?.blockMarket?.BOOKMAKER?.block}
             showBox={matchDetails?.bookmaker?.activeStatus === "save"}
-            newData={data}
+            newData={matchDetails}
             showFast={false}
             showDely={true}
             lock={
-              data?.bookmakerLive?.length > 0 &&
-              data?.bookmakerLive[0]?.betStatus === 0
+              matchDetails?.bookmakerLive?.length > 0 &&
+              matchDetails?.bookmakerLive[0]?.betStatus === 0
                 ? true
                 : false
             }
@@ -161,14 +159,14 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
         matchDetails?.marketBookmaker2?.isActive && (
           <MarketOdds
             upcoming={!upcoming}
-            betLock={data?.blockMarket?.BOOKMAKER?.block}
+            betLock={matchDetails?.blockMarket?.BOOKMAKER?.block}
             showBox={matchDetails?.marketBookmaker2?.activeStatus === "save"}
-            newData={data}
+            newData={matchDetails}
             showFast={false}
             showDely={true}
             lock={
-              data?.bookmakerLive?.length > 0 &&
-              data?.bookmakerLive[0]?.betStatus === 0
+              matchDetails?.bookmakerLive?.length > 0 &&
+              matchDetails?.bookmakerLive[0]?.betStatus === 0
                 ? true
                 : false
             }
@@ -222,14 +220,14 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
           <MarketOdds
             key={bookmaker?.id}
             upcoming={!upcoming}
-            betLock={data?.blockMarket?.MANUALBOOKMAKER?.block}
-            newData={data}
+            betLock={matchDetails?.blockMarket?.MANUALBOOKMAKER?.block}
+            newData={matchDetails}
             lock={false}
             showDely={false}
             session={"manualBookMaker"}
             showFast={true}
             suspended={false}
-            data={data}
+            data={matchDetails}
             showBox={bookmaker?.activeStatus === "save"}
             teamARates={
               matchDetails?.profitLossDataMatch?.[
@@ -264,14 +262,14 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
         matchDetails?.other?.map((match: any) => (
           <MarketOdds
             upcoming={!upcoming}
-            betLock={data?.blockMarket?.BOOKMAKER?.block}
+            betLock={matchDetails?.blockMarket?.BOOKMAKER?.block}
             showBox={match?.activeStatus === "save"}
-            newData={data}
+            newData={matchDetails}
             showFast={false}
             showDely={true}
             lock={
-              data?.bookmakerLive?.length > 0 &&
-              data?.bookmakerLive[0]?.betStatus === 0
+              matchDetails?.bookmakerLive?.length > 0 &&
+              matchDetails?.bookmakerLive[0]?.betStatus === 0
                 ? true
                 : false
             }
@@ -309,19 +307,64 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
             marketDetails={match}
           />
         ))}
+      {matchDetails?.tournament &&
+        matchDetails?.tournament?.map((market: any) => (
+          <TournamentOdds
+            key={market?.id}
+            upcoming={!upcoming}
+            betLock={matchDetails?.blockMarket?.BOOKMAKER?.block}
+            showBox={market?.activeStatus === "save"}
+            lock={
+              matchDetails?.bookmakerLive?.length > 0 &&
+              matchDetails?.bookmakerLive[0]?.betStatus === 0
+                ? true
+                : false
+            }
+            teamARates={
+              matchDetails?.profitLossDataMatch?.[
+                profitLossDataForMatchConstants?.[matchDetails?.match?.type]
+                  ?.A +
+                  "_" +
+                  matchDetails?.id
+              ] ?? 0
+            }
+            teamBRates={
+              matchDetails?.profitLossDataMatch?.[
+                profitLossDataForMatchConstants?.[matchDetails?.match?.type]
+                  ?.B +
+                  "_" +
+                  matchDetails?.id
+              ] ?? 0
+            }
+            teamCRates={
+              matchDetails?.profitLossDataMatch?.[
+                profitLossDataForMatchConstants?.[matchDetails?.match?.type]
+                  ?.C +
+                  "_" +
+                  matchDetails?.id
+              ] ?? 0
+            }
+            min={formatToINR(market?.minBet) || 0}
+            max={formatToINR(market?.maxBet) || 0}
+            title={market?.name}
+            isRound={false}
+            marketDetails={market}
+            matchDetails={matchDetails}
+          />
+        ))}
 
       {matchDetails?.apiTideMatch?.activeStatus === "live" &&
         matchDetails?.apiTideMatch?.isActive && (
           <MarketOdds
             upcoming={!upcoming}
-            betLock={data?.blockMarket?.BOOKMAKER?.block}
+            betLock={matchDetails?.blockMarket?.BOOKMAKER?.block}
             showBox={matchDetails?.apiTideMatch?.activeStatus === "save"}
-            newData={data}
+            newData={matchDetails}
             showFast={false}
             showDely={true}
             lock={
-              data?.bookmakerLive?.length > 0 &&
-              data?.bookmakerLive[0]?.betStatus === 0
+              matchDetails?.bookmakerLive?.length > 0 &&
+              matchDetails?.bookmakerLive[0]?.betStatus === 0
                 ? true
                 : false
             }
@@ -363,14 +406,14 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
         matchDetails?.apiTideMatch2?.isActive && (
           <MarketOdds
             upcoming={!upcoming}
-            betLock={data?.blockMarket?.BOOKMAKER?.block}
+            betLock={matchDetails?.blockMarket?.BOOKMAKER?.block}
             showBox={matchDetails?.apiTideMatch2?.activeStatus === "save"}
-            newData={data}
+            newData={matchDetails}
             showFast={false}
             showDely={true}
             lock={
-              data?.bookmakerLive?.length > 0 &&
-              data?.bookmakerLive[0]?.betStatus === 0
+              matchDetails?.bookmakerLive?.length > 0 &&
+              matchDetails?.bookmakerLive[0]?.betStatus === 0
                 ? true
                 : false
             }
@@ -412,14 +455,14 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
         matchDetails?.manualTiedMatch?.isActive && (
           <MarketOdds
             upcoming={!upcoming}
-            betLock={data?.blockMarket?.MANUALBOOKMAKER?.block}
-            newData={data}
+            betLock={matchDetails?.blockMarket?.MANUALBOOKMAKER?.block}
+            newData={matchDetails}
             lock={false}
             showDely={false}
             session={"manualBookMaker"}
             showFast={true}
             suspended={false}
-            data={data}
+            data={matchDetails}
             showBox={matchDetails?.manualTiedMatch?.activeStatus === "save"}
             teamARates={
               matchDetails?.profitLossDataMatch?.[
@@ -452,14 +495,14 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
         matchDetails?.marketCompleteMatch?.isActive && (
           <MarketOdds
             upcoming={!upcoming}
-            betLock={data?.blockMarket?.BOOKMAKER?.block}
+            betLock={matchDetails?.blockMarket?.BOOKMAKER?.block}
             showBox={matchDetails?.marketCompleteMatch?.activeStatus === "save"}
-            newData={data}
+            newData={matchDetails}
             showFast={false}
             showDely={true}
             lock={
-              data?.bookmakerLive?.length > 0 &&
-              data?.bookmakerLive[0]?.betStatus === 0
+              matchDetails?.bookmakerLive?.length > 0 &&
+              matchDetails?.bookmakerLive[0]?.betStatus === 0
                 ? true
                 : false
             }
@@ -501,16 +544,16 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
         matchDetails?.marketCompleteMatch1?.isActive && (
           <MarketOdds
             upcoming={!upcoming}
-            betLock={data?.blockMarket?.BOOKMAKER?.block}
+            betLock={matchDetails?.blockMarket?.BOOKMAKER?.block}
             showBox={
               matchDetails?.marketCompleteMatch1?.activeStatus === "save"
             }
-            newData={data}
+            newData={matchDetails}
             showFast={false}
             showDely={true}
             lock={
-              data?.bookmakerLive?.length > 0 &&
-              data?.bookmakerLive[0]?.betStatus === 0
+              matchDetails?.bookmakerLive?.length > 0 &&
+              matchDetails?.bookmakerLive[0]?.betStatus === 0
                 ? true
                 : false
             }
@@ -551,14 +594,14 @@ const MatchOdds = ({ matchDetails, data, setShow, show }: any) => {
         matchDetails?.manualCompleteMatch?.isActive && (
           <MarketOdds
             upcoming={!upcoming}
-            betLock={data?.blockMarket?.MANUALBOOKMAKER?.block}
-            newData={data}
+            betLock={matchDetails?.blockMarket?.MANUALBOOKMAKER?.block}
+            newData={matchDetails}
             lock={false}
             showDely={false}
             session={"manualBookMaker"}
             showFast={true}
             suspended={false}
-            data={data}
+            data={matchDetails}
             showBox={matchDetails?.manualCompleteMatch?.activeStatus === "save"}
             teamARates={
               matchDetails?.profitLossDataMatch?.[
