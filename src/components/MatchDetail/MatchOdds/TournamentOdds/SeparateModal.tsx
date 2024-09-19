@@ -28,7 +28,6 @@ const SeparateModal = ({
   matchDetails,
   selectionId,
 }: any) => {
-  console.log(data, "abc", marketDetails);
 
   const dispatch: AppDispatch = useDispatch();
   const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);

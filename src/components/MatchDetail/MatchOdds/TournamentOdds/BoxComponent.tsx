@@ -19,6 +19,7 @@ const BoxComponent = ({
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const { ex, status, selectionId } = data ?? {};
+
   return (
     <Box
       sx={{

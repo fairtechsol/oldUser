@@ -105,7 +105,6 @@ const MatchDetail = () => {
       if (event?.jobData?.matchId === state?.matchId) {
         dispatch(updateBetsPlaced(event?.jobData?.newBet));
         dispatch(updateBalance(event?.jobData));
-        dispatch(updateProfitLossForBet(event));
       }
     } catch (e) {
       console.log(e);
