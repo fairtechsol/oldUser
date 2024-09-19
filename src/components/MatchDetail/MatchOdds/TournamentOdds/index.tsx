@@ -387,8 +387,46 @@ const TournamentOdds = ({
                       : false
                   }
                   matchDetails={matchDetails}
-                  color={teamARates <= 0 ? "#FF4D4D" : "#319E5B"}
-                  rate={teamARates}
+                  color={
+                    matchDetails?.profitLossDataMatch?.[
+                      marketDetails?.id +
+                        "_" +
+                        "profitLoss" +
+                        "_" +
+                        matchDetails?.id
+                    ]
+                      ? JSON.parse(
+                          matchDetails?.profitLossDataMatch?.[
+                            marketDetails?.id +
+                              "_" +
+                              "profitLoss" +
+                              "_" +
+                              matchDetails?.id
+                          ]
+                        )?.[item?.id] <= 0
+                        ? "#FF4D4D"
+                        : "#319E5B"
+                      : "#319E5B"
+                  }
+                  rate={
+                    matchDetails?.profitLossDataMatch?.[
+                      marketDetails?.id +
+                        "_" +
+                        "profitLoss" +
+                        "_" +
+                        matchDetails?.id
+                    ]
+                      ? JSON.parse(
+                          matchDetails?.profitLossDataMatch?.[
+                            marketDetails?.id +
+                              "_" +
+                              "profitLoss" +
+                              "_" +
+                              matchDetails?.id
+                          ]
+                        )?.[item?.id]
+                      : 0
+                  }
                   name={item?.nat ?? item?.runnerName}
                   data={item}
                   isRound={isRound}
