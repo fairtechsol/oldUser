@@ -39,7 +39,6 @@ import {
   updateBetDataOnDeclare,
   updateBetDataOnUndeclare,
   updateMaxLossForBet,
-  updateProfitLossForBet,
   updateProfitLossOnDeleteSession,
   updateRunAmount,
   updateRunAmountOnDeleteBet,

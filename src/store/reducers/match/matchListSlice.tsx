@@ -19,7 +19,6 @@ import {
   updateBetDataOnDeclare,
   updateBetDataOnUndeclare,
   updateMaxLossForBet,
-  updateProfitLossForBet,
   updateProfitLossOnDeleteSession,
   updateTeamRatesOnDeleteMatch,
 } from "../../actions/user/userAction";
