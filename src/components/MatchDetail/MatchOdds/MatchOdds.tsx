@@ -666,7 +666,7 @@ const MatchOdds = ({ matchDetails, setShow, show }: any) => {
         )}
 
       {matchDetails?.apiSessionActive &&
-        Object.entries(matchDetails?.updatedSessionBettings || {})
+        Object.entries(matchDetails?.apiSession || {})
           ?.filter(
             ([key, value]: any) =>
               value?.section?.length > 0 &&
