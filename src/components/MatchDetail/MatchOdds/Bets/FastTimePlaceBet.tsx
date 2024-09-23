@@ -11,9 +11,9 @@ import { AppDispatch, RootState } from "../../../../store/store";
 import { ApiConstants } from "../../../../utils/Constants";
 import NotificationModal from "../../../Common/NotificationModal";
 import NumberData from "./NumberDataFastTime";
-import MUIModal from "@mui/material/Modal";
-import Loader from "../../../Loader";
-import { NOT } from "../../../../assets";
+// import MUIModal from "@mui/material/Modal";
+// import Loader from "../../../Loader";
+// import { NOT } from "../../../../assets";
 
 const FastTimePlaceBet = ({
   session,
@@ -27,7 +27,7 @@ const FastTimePlaceBet = ({
 any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
-  const { success, loading, error, betPlaceError } = useSelector(
+  const { success, loading, betPlaceError } = useSelector(
     (state: RootState) => state.match.bet
   );
   const [ipAddress] = useState(null);

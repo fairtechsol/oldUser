@@ -1,10 +1,10 @@
 import { Typography, useMediaQuery, useTheme } from "@mui/material";
-import MUIModal from "@mui/material/Modal";
+// import MUIModal from "@mui/material/Modal";
 import { Box } from "@mui/system";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CancelDark, NOT } from "../../../../assets";
+import { CancelDark } from "../../../../assets";
 import {
   betPlaceSuccessReset,
   placeBet,
@@ -27,7 +27,7 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
   const [stakeValue, setStakeValue] = useState<any>(" ");
   const [matchOddLoading, setMatchOddLoading] = useState<any>(false);
   const [openModal1, setOpenModal1] = useState(false);
-  const [errorText, setErrorText] = useState("");
+  const [___, setErrorText] = useState("");
   const [browserInfo, setBrowserInfo] = useState<any>(null);
   const [ipAddress, setIpAddress] = useState(null);
   const [_, setStake] = useState<any>(0);
