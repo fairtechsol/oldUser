@@ -43,8 +43,6 @@ const SeparateModal = ({
   mid,
   teamName,
 }: any) => {
-  console.log(data, "abc", marketDetails);
-
   const dispatch: AppDispatch = useDispatch();
   const [isBack, setIsBack] = React.useState(false);
   const [isSessionYes, setIsSessionYes] = React.useState(false);
@@ -67,6 +65,121 @@ const SeparateModal = ({
       })
     );
   };
+
+  const handleBoxClick = () => {
+    if (lock || [0, "0", null, undefined].includes(value) || upcoming) {
+      return false;
+    }
+    if (loading) {
+      return false;
+    } else {
+      if (selectedFastAmount) {
+        setFastBetLoading(true);
+
+        let payload = {
+          id: currentMatch?.id,
+          matchType: currentMatch?.gameType,
+
+          betType: type?.color === "#A7DCFF" ? "back" : "lay",
+          odds: Number(value),
+          betOn: name,
+          stack: Number(selectedFastAmount),
+          team_bet: name,
+          selectionId: selectionId,
+          stake: Number(selectedFastAmount),
+          teamA_name: currentMatch?.teamA,
+          teamB_name: currentMatch?.teamB,
+          teamC_name: currentMatch?.teamC,
+          marketType: typeOfBet === "MATCH ODDS" ? "MATCH ODDS" : typeOfBet,
+        };
+        if (session) {
+          delete payload.betOn;
+          payload.matchType = data?.matchType;
+          payload.teamA_name = mainData?.teamA;
+          payload.teamB_name = mainData?.teamB;
+          payload.id = data?.matchId;
+          payload.betType = type?.color === "#A7DCFF" ? "yes" : "no";
+          payload.marketType = typeOfBet;
+          payload.odds = Number(value);
+        }
+      } else {
+        setIsPopoverOpen(true);
+        if (bettingOn === "session") {
+          handleClick(
+            {
+              betId: data?.id,
+              name: data?.name ?? data?.RunnerName ?? data?.nat,
+              rate: value,
+              type: betType,
+              stake: 0,
+              percent: [
+                sessionBettingType.fancy1,
+                sessionBettingType.cricketCasino,
+                sessionBettingType.oddEven,
+              ].includes(data?.type)
+                ? value
+                : value2,
+              eventType: eventType,
+              matchId: data?.matchId,
+              betPlaceIndex: po,
+              mid: mid || data?.mid,
+              teamName: teamName,
+              runnerId: data?.id,
+            },
+            data
+          );
+        } else {
+          handleClick(
+            {
+              betOnTeam: name,
+              rate: value,
+              type: betType,
+              stake: 0,
+              teamA:
+                marketDetails?.type === "tiedMatch2" ||
+                marketDetails?.type === "tiedMatch1" ||
+                marketDetails?.type === "tiedMatch3" ||
+                marketDetails?.type === "completeMatch" ||
+                marketDetails?.type === "completeManual"
+                  ? "YES"
+                  : currentMatch?.teamA,
+              teamB:
+                marketDetails?.type === "tiedMatch2" ||
+                marketDetails?.type === "tiedMatch1" ||
+                marketDetails?.type === "tiedMatch3" ||
+                marketDetails?.type === "completeMatch" ||
+                marketDetails?.type === "completeManual"
+                  ? "NO"
+                  : currentMatch?.teamB,
+              teamC:
+                marketDetails?.type === "tiedMatch2" ||
+                marketDetails?.type === "tiedMatch3" ||
+                marketDetails?.type === "tiedMatch1" ||
+                marketDetails?.type === "completeMatch" ||
+                marketDetails?.type === "completeManual"
+                  ? ""
+                  : currentMatch?.teamC
+                  ? currentMatch?.teamC
+                  : "",
+              betId: marketDetails?.id,
+              eventType: marketDetails?.eventType,
+              matchId: currentMatch?.id,
+              placeIndex: po,
+              matchBetType: marketDetails?.type,
+              bettingName: marketDetails?.name,
+              selectionId: selectionId,
+            },
+            data
+          );
+        }
+        setSelectedValue(value);
+        type?.type === "BL"
+          ? setIsBack(type?.color === "#A7DCFF")
+          : setIsSessionYes(type?.color === "#A7DCFF");
+      }
+    }
+  };
+
   return (
     <>
       <Box
@@ -78,121 +191,7 @@ const SeparateModal = ({
         }}
       >
         <Box
-          onClick={() => {
-            if (lock || [0, "0", null, undefined].includes(value) || upcoming) {
-              return false;
-            }
-            if (loading) {
-              return false;
-            } else {
-              if (selectedFastAmount) {
-                setFastBetLoading(true);
-
-                let payload = {
-                  id: currentMatch?.id,
-                  matchType: currentMatch?.gameType,
-
-                  betType: type?.color === "#A7DCFF" ? "back" : "lay",
-                  odds: Number(value),
-                  betOn: name,
-                  stack: Number(selectedFastAmount),
-                  team_bet: name,
-                  selectionId: selectionId,
-                  stake: Number(selectedFastAmount),
-                  teamA_name: currentMatch?.teamA,
-                  teamB_name: currentMatch?.teamB,
-                  teamC_name: currentMatch?.teamC,
-                  marketType:
-                    typeOfBet === "MATCH ODDS" ? "MATCH ODDS" : typeOfBet,
-                };
-                if (session) {
-                  delete payload.betOn;
-                  payload.matchType = data?.matchType;
-                  payload.teamA_name = mainData?.teamA;
-                  payload.teamB_name = mainData?.teamB;
-                  payload.id = data?.matchId;
-                  payload.betType = type?.color === "#A7DCFF" ? "yes" : "no";
-                  payload.marketType = typeOfBet;
-                  payload.odds = Number(value);
-                }
-              } else {
-                setIsPopoverOpen(true);
-                if (bettingOn === "session") {
-                  handleClick(
-                    {
-                      betId: data?.id,
-                      name: data?.name ?? data?.RunnerName ?? data?.nat,
-                      rate: value,
-                      type: betType,
-                      stake: 0,
-                      percent: [
-                        sessionBettingType.fancy1,
-                        sessionBettingType.cricketCasino,
-                        sessionBettingType.oddEven,
-                      ].includes(data?.type)
-                        ? value
-                        : value2,
-                      eventType: eventType,
-                      matchId: data?.matchId,
-                      betPlaceIndex: po,
-                      mid: mid || data?.mid,
-                      teamName: teamName,
-                      runnerId: data?.id,
-                    },
-                    data
-                  );
-                } else {
-                  handleClick(
-                    {
-                      betOnTeam: name,
-                      rate: value,
-                      type: betType,
-                      stake: 0,
-                      teamA:
-                        marketDetails?.type === "tiedMatch2" ||
-                        marketDetails?.type === "tiedMatch1" ||
-                        marketDetails?.type === "tiedMatch3" ||
-                        marketDetails?.type === "completeMatch" ||
-                        marketDetails?.type === "completeManual"
-                          ? "YES"
-                          : currentMatch?.teamA,
-                      teamB:
-                        marketDetails?.type === "tiedMatch2" ||
-                        marketDetails?.type === "tiedMatch1" ||
-                        marketDetails?.type === "tiedMatch3" ||
-                        marketDetails?.type === "completeMatch" ||
-                        marketDetails?.type === "completeManual"
-                          ? "NO"
-                          : currentMatch?.teamB,
-                      teamC:
-                        marketDetails?.type === "tiedMatch2" ||
-                        marketDetails?.type === "tiedMatch3" ||
-                        marketDetails?.type === "tiedMatch1" ||
-                        marketDetails?.type === "completeMatch" ||
-                        marketDetails?.type === "completeManual"
-                          ? ""
-                          : currentMatch?.teamC
-                          ? currentMatch?.teamC
-                          : "",
-                      betId: marketDetails?.id,
-                      eventType: marketDetails?.eventType,
-                      matchId: currentMatch?.id,
-                      placeIndex: po,
-                      matchBetType: marketDetails?.type,
-                      bettingName: marketDetails?.name,
-                      selectionId: selectionId,
-                    },
-                    data
-                  );
-                }
-                // setSelectedCountry(name);
-                setSelectedValue(value);
-                type?.type === "BL"
-                  ? setIsBack(type?.color === "#A7DCFF")
-                  : setIsSessionYes(type?.color === "#A7DCFF");
-              }
-            }
-          }}
+          onClick={handleBoxClick}
           style={{ position: "relative" }}
           sx={{
             background: lock || [0, "0"].includes(value) ? "#FDF21A" : color,

@@ -881,7 +881,9 @@ any) => {
         // }
         />
       )}
-      <MUIModal
+      {openModal && <NotificationModal />}
+      {openModal1 && <NotificationModal />}
+      {/* <MUIModal
         open={openModal}
         // onClose={() => {
         //   setIsPopoverOpen(false);
@@ -950,7 +952,7 @@ any) => {
             </Typography>
           </Box>
         </Box>
-      </MUIModal>
+      </MUIModal> */}
     </>
   );
 };

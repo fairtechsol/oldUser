@@ -493,7 +493,8 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
         // handleClose={""}
         />
       )}
-      <MUIModal
+      {openModal1 && <NotificationModal />}
+      {/* <MUIModal
         open={openModal1}
         // onClose={() => {
         //   setIsPopoverOpen(false);
@@ -540,7 +541,7 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
             </Typography>
           </Box>
         </Box>
-      </MUIModal>
+      </MUIModal> */}
     </Box>
   );
 };
