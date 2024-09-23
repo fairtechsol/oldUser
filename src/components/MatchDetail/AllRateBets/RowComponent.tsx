@@ -4,11 +4,10 @@ import SingleBox from "./SingleBox";
 // import { RootState } from "../../../store/store";
 import moment from "moment";
 import { formatToINR } from "../../../helper";
+import { useLocation } from "react-router-dom";
 
-const RowComponent = ({ header, data,match }: any) => {
-  // const { profileDetail } = useSelector(
-  //   (state: RootState) => state.user.profile
-  // );
+const RowComponent = ({ header, data, match }: any) => {
+  const { state } = useLocation();
 
   const getTime = (date: any) => {
     const timeString = moment
@@ -42,69 +41,66 @@ const RowComponent = ({ header, data,match }: any) => {
       {!header && (
         <>
           {/* <Box sx={{ width: "48%", minWidth: "22%" }}> */}
-          <div style={{width:"23.5%"}}>
-          <SingleBox
-            color={getColor}
-            data={data?.bettingName || data?.marketType}
-            first={true}
-            header={header}
-            
-           
-          />
+          <div style={{ width: !state?.matchId ? "23.5%" : "33.137%" }}>
+            <SingleBox
+              color={getColor}
+              data={data?.bettingName || data?.marketType}
+              first={true}
+              header={header}
+            />
           </div>
-         
           {/* <Box sx={{ width: "52%", minWidth: "19%" }}> */}
-          <div style={{width:"17%"}}>
-          <SingleBox
-            time={getTime(data.createdAt)}
-            color={getColor()}
-            data={data.teamName}
-            up={true}
-            header={header}
-           
-            // time={data.teamName}
-          />
+          <div style={{ width: !state?.matchId ? "17%" : "23.137%" }}>
+            <SingleBox
+              time={getTime(data.createdAt)}
+              color={getColor()}
+              data={data.teamName}
+              up={true}
+              header={header}
+
+              // time={data.teamName}
+            />
           </div>
-          <div style={{width:"23.5%"}}>
-          <SingleBox
-            color={getColor()}
-            data={data?.match?.title || match || data?.eventName }
-            header={header}
-            //boxWidth="50%"
-           
-          />
+          {!state?.matchId && (
+            <div style={{ width: "23.5%" }}>
+              <SingleBox
+                color={getColor()}
+                data={data?.match?.title || match || data?.eventName}
+                header={header}
+                //boxWidth="50%"
+              />
+            </div>
+          )}
+          {/* </Box>
+          <Box sx={{ width: "30%" }}> */}
+          <div style={{ width: !state?.matchId ? "12%" : "16.55%" }}>
+            <SingleBox
+              color={getColor()}
+              data={data?.bet_type || data?.betType}
+              header={header}
+              //boxWidth="50%"
+            />
           </div>
           {/* </Box>
           <Box sx={{ width: "30%" }}> */}
-          <div style={{width:"12%"}}>
-          <SingleBox
-            color={getColor()}
-            data={data?.bet_type || data?.betType}
-            header={header}
-            //boxWidth="50%"
-           
-          />
+          <div style={{ width: !state?.matchId ? "12%" : "16.55%" }}>
+            <SingleBox
+              color={getColor()}
+              data={data?.odds}
+              header={header}
+              //boxWidth="50%"
+            />
           </div>
-          {/* </Box>
-          <Box sx={{ width: "30%" }}> */}
-          <div style={{width:"12%"}}>
-          <SingleBox
-            color={getColor()}
-            data={data?.odds}
-            header={header}
-            //boxWidth="50%"
-            
-          /></div>
           {/* </Box>
           <Box sx={{ width: "41%" }}> */}
-          <div style={{width:"12%"}}>
-          <SingleBox
-            color={getColor()}
-            data={formatToINR(data?.amount)}
-            header={header}
-            
-            //boxWidth="100%"
-          />
+          <div style={{ width: !state?.matchId ? "12%" : "16.55%" }}>
+            <SingleBox
+              color={getColor()}
+              data={formatToINR(data?.amount)}
+              header={header}
+
+              //boxWidth="100%"
+            />
           </div>
           {/* </Box> */}
         </>
@@ -123,12 +119,14 @@ const RowComponent = ({ header, data,match }: any) => {
             header={header}
             boxWidth="70%"
           />
-          <SingleBox
-            color={getColor()}
-            data={data[2]}
-            header={header}
-            boxWidth="100%"
-          />
+          {!state?.matchId && (
+            <SingleBox
+              color={getColor()}
+              data={data[2]}
+              header={header}
+              boxWidth="100%"
+            />
+          )}
           <SingleBox
             color={getColor()}
             data={data[3]}
