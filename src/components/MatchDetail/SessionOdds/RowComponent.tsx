@@ -4,18 +4,11 @@ import SingleBox from "./SingleBox";
 // import { useSelector } from "react-redux";
 import moment from "moment";
 import { formatToINR } from "../../../helper";
+import { useLocation } from "react-router-dom";
 
-const RowComponent = ({ header, data,match }: any) => {
-  // const getTime = (date: any) => {
-  //   const now = new Date(date);
-  //   const timeString = now.toLocaleTimeString("en-US", {
-  //     hour: "numeric",
-  //     minute: "numeric",
-  //     hour12: true,
-  //     second: "numeric"
-  //   });
-  //   return timeString;
-  // };// fixed timeZone
+const RowComponent = ({ header, data, match }: any) => {
+  const { state } = useLocation();
+
   const getTime = (date: any) => {
     const timeString = moment
       .utc(date)
@@ -57,11 +50,13 @@ const RowComponent = ({ header, data,match }: any) => {
             header={header}
             time={getTime(data.createdAt)}
           />
-          <SingleBox
-            color={getColor()}
-            data={data?.match?.title ?? match}
-            header={header}
-          />
+          {!state?.matchId && (
+            <SingleBox
+              color={getColor()}
+              data={data?.match?.title ?? match}
+              header={header}
+            />
+          )}
           <SingleBox
             color={getColor()}
             //data={+data?.odds}
@@ -85,7 +80,9 @@ const RowComponent = ({ header, data,match }: any) => {
             first={true}
             header={header}
           />
-          <SingleBox color={getColor()} data={data[1]} header={header} />
+          {!state?.matchId && (
+            <SingleBox color={getColor()} data={data[1]} header={header} />
+          )}
           <SingleBox color={getColor()} data={data[2]} header={header} />
           <SingleBox color={getColor()} data={data[3]} header={header} />
           <SingleBox color={getColor()} data={data[4]} header={header} />
