@@ -109,6 +109,7 @@ const SingleBox = ({
               textTransform: "capitalize",
             },
             color: "black",
+            lineHeight:1
           }}
         >
           {data}

@@ -138,9 +138,10 @@ const SingleBox = ({
             overflow: "hidden",
             fontSize: {
               xs: "8px",
-              md: "10px",
-              lg: "10px",
+              md: "9px",
+              lg: "9px",
               textTransform: "capitalize",
+              lineHeight:0.9
             },
             color: "black",
           }}
