@@ -35,6 +35,10 @@ export const ApiConstants = {
     GETPLACEDBETS: "bet",
     RUN_AMOUNT: "bet/session/profitLoss",
   },
+  LIVESTREAM: {
+    GET_CHANNEL_ID: "https://scoreapi.365cric.com/api/match/getStream",
+    GET_VIDEO: "https://video.proexch.in/tv/static",
+  },
 };
 
 export const Constants = {
