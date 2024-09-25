@@ -1,11 +1,11 @@
-import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import "./style.scss";
 import { useState } from "react";
 import { ARROWUP } from "../../../assets";
 
 const LiveScoreBoard = ({ data, width }: any) => {
-  const theme = useTheme();
-  const matchesMobile = useMediaQuery(theme.breakpoints.down("md"));
+  // const theme = useTheme();
+  // const matchesMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [visible, setVisible] = useState(false);
   return (
     <>
