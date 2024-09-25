@@ -31,6 +31,7 @@ const SingleBox = ({
             fontSize: { xs: "9px", lg: "9px" },
             color: "black",
             textAlign: "center",
+            lineHeight: 0.5,
           }}
         >
           {time}
