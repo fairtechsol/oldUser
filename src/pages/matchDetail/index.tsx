@@ -5,7 +5,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Loader from "../../components/Loader";
 import AllRateSeperate from "../../components/MatchDetail/AllRateBets/AllRateSeperate";
 import BetPlaced from "../../components/MatchDetail/Common/BetPlaced";
-import LiveScore from "../../components/MatchDetail/LiveMatchScore";
 import LiveMatchHome from "../../components/MatchDetail/LiveMatchScore/LiveMatchHome";
 import MatchOdds from "../../components/MatchDetail/MatchOdds/MatchOdds";
 import SessionBetSeperate from "../../components/MatchDetail/SessionOdds/SessionBetSeperate";
@@ -45,6 +44,8 @@ import {
   updateTeamRatesOnDeleteMatch,
 } from "../../store/actions/user/userAction";
 import { AppDispatch, RootState } from "../../store/store";
+import { Constants } from "../../utils/Constants";
+import LiveScoreBoard from "../../components/Common/LiveScoreBoard";
 
 const MatchDetail = () => {
   const theme = useTheme();
@@ -340,11 +341,12 @@ const MatchDetail = () => {
   const getScoreBoard = async (marketId: string) => {
     try {
       const response: any = await service.get(
-        `https://devscore.fairgame.club/score/getMatchScore/${marketId}`
+        // `https://devscore.fairgame.club/score/getMatchScore/${marketId}`
         // `https://fairscore7.com/score/getMatchScore/${marketId}`
+        `${Constants.thirdParty}/cricketScore?eventId=${marketId}`
       );
       if (response) {
-        setLiveScoreBoardData(response);
+        setLiveScoreBoardData(response?.data);
         setErrorCount(0);
       }
     } catch (e: any) {
@@ -354,7 +356,7 @@ const MatchDetail = () => {
   };
 
   useEffect(() => {
-    if (matchDetails?.marketId) {
+    if (matchDetails?.eventId) {
       let intervalTime = 500;
       if (errorCount >= 5 && errorCount < 10) {
         intervalTime = 60000;
@@ -362,12 +364,12 @@ const MatchDetail = () => {
         intervalTime = 600000;
       }
       const interval = setInterval(() => {
-        getScoreBoard(matchDetails?.marketId);
+        getScoreBoard(matchDetails?.eventId);
       }, intervalTime);
 
       return () => clearInterval(interval);
     }
-  }, [matchDetails?.marketId, errorCount]);
+  }, [matchDetails?.eventId, errorCount]);
 
   useEffect(() => {
     try {
@@ -446,7 +448,7 @@ const MatchDetail = () => {
                 }}
               >
                 {liveScoreBoardData && (
-                  <LiveScore liveScoreData={liveScoreBoardData} />
+                  <LiveScoreBoard data={liveScoreBoardData} width="100%" />
                 )}
                 {liveMatchData && <LiveMatchHome />}
                 <div style={{ width: "100%" }}>
@@ -543,7 +545,7 @@ const MatchDetail = () => {
                 </Box>
                 <Box sx={{ width: "30%", paddingRight: "1%" }}>
                   {liveScoreBoardData && (
-                    <LiveScore liveScoreData={liveScoreBoardData} />
+                    <LiveScoreBoard data={liveScoreBoardData} width="100%" />
                   )}
                   {liveMatchData && <LiveMatchHome />}
                   {Array.from(

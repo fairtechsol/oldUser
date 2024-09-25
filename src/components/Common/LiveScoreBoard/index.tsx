@@ -1,0 +1,285 @@
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import "./style.scss";
+import { useState } from "react";
+import { ARROWUP } from "../../../assets";
+
+const LiveScoreBoard = ({ data, width }: any) => {
+  const theme = useTheme();
+  const matchesMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const [visible, setVisible] = useState(false);
+  return (
+    <>
+      <Box
+        sx={[
+          {
+            width: {
+              md: "98%",
+              xs: "98%",
+              lg: "100%",
+            },
+            display: "flex",
+            flexDirection: "column",
+            alignSelf: "center",
+            marginX: { lg: "0vw", xs: "0px", md: "0px" },
+            marginY: { lg: ".5vh", xs: "0.2vh" },
+            marginTop: { xs: "0" },
+            borderRadius: "2px",
+            background: "white",
+            padding: "1px",
+            // alignSelf: {
+            //     xs: "center",
+            //     md: "center",
+            //     lg: "flex-start",
+            // },
+          },
+        ]}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            height: 38,
+            flexDirection: "row",
+            width: "100%",
+            alignSelf: "center",
+          }}
+        >
+          <Box
+            sx={{
+              flex: 1,
+              background: "#f1c550",
+              alignItems: "center",
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            <Typography
+              sx={{
+                fontSize: { lg: "13px", md: "10px", xs: "10px" },
+                fontWeight: "bold",
+                marginLeft: "7px",
+              }}
+            >
+              Live Scoreboard
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              flex: 0.1,
+              background: "#262626",
+              // '#262626'
+            }}
+          >
+            <div className="slanted"></div>
+          </Box>
+          <Box
+            sx={{
+              flex: 1,
+              background: "#262626",
+              // '#262626' ,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "flex-end",
+            }}
+          >
+            <img
+              onClick={() => {
+                setVisible(!visible);
+              }}
+              src={ARROWUP}
+              style={{
+                transform: !visible ? "rotate(180deg)" : "rotate(0deg)",
+                width: "15px",
+                height: "15px",
+                marginRight: "5px",
+                marginLeft: "5px",
+              }}
+              alt=""
+            />
+          </Box>
+        </Box>
+        <Box>
+          {!visible &&
+            (!matchesMobile ? (
+              <div className="scorecard" style={{ width: width }}>
+                <div className="col-12 col-md-6">
+                  <p className="team-1 row" style={{ fontSize: "12px" }}>
+                    <span className=" col-3">{data?.spnnation1}</span>
+                    <span className=" col-4 text-end">{data?.score1}</span>
+                    {data?.spnrunrate1 && (
+                      <div className="col-5 d-flex justify-content-start">
+                        <span className="me-2">CRR {data?.spnrunrate1}</span>
+                        {data?.spnreqrate1 && (
+                          <span className="d-inline ms-2">
+                            RR {data?.spnreqrate1}
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  </p>
+
+                  <p className="team-1 row" style={{ fontSize: "12px" }}>
+                    <span className="team-name col-3">{data?.spnnation2}</span>
+                    <span className="score col-4 text-end">{data?.score2}</span>
+                    {data?.spnrunrate2 && (
+                      <div className="col-5 d-flex justify-content-start">
+                        <span className="d-inline">
+                          CRR {data?.spnrunrate2}
+                        </span>
+                        {data?.spnreqrate2 && (
+                          <span className="d-inline ms-2">
+                            RR {data?.spnreqrate2}
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  </p>
+                </div>
+
+                <div className="col-12 col-md-6">
+                  <div className="row">
+                    <div className="col-12">
+                      {data?.spnmessage && (
+                        <div
+                          className="text-xl-end"
+                          style={{ fontSize: "16px" }}
+                        >
+                          {data?.dayno} | {data?.spnmessage}
+                        </div>
+                      )}
+
+                      <div className="row">
+                        <div className="col-12">
+                          <p className="text-xl-end ball-by-ball mt-2 mb-0">
+                            {data?.balls?.map((ball: any, index: any) => {
+                              return ball == "" ? (
+                                ""
+                              ) : (
+                                <span
+                                  key={index}
+                                  className={`ball-runs ${
+                                    ball === "4" || ball === "6" ? "four" : ""
+                                  }`}
+                                  style={{
+                                    backgroundColor:
+                                      ball === "ww"
+                                        ? "#ff0000"
+                                        : ball === "4"
+                                        ? "#087f23"
+                                        : ball === "6"
+                                        ? "#883997"
+                                        : "#08c",
+                                    color: "#fff",
+                                    borderRadius: "50%",
+                                    display: "inline-block",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    width: "25px",
+                                    height: "25px",
+                                    margin: "0 5px",
+                                    textAlign: "center",
+                                    fontSize: "16px",
+                                  }}
+                                >
+                                  {ball}
+                                </span>
+                              );
+                            })}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="m-scorecard" style={{ width: width }}>
+                <div className="col-12 col-md-6">
+                  <p className="team-1 row" style={{ fontSize: "12px" }}>
+                    <span className=" col-3">{data?.spnnation1}</span>
+                    <span className=" col-4 text-end">{data?.score1}</span>
+                    {data?.spnrunrate1 && (
+                      <div className="col-5 d-flex justify-content-start">
+                        <span className="me-2">CRR {data?.spnrunrate1}</span>
+                        {data?.spnreqrate1 && (
+                          <span className="d-inline ms-2">
+                            RR {data?.spnreqrate1}
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  </p>
+
+                  <p className="team-1 row mt-2" style={{ fontSize: "12px" }}>
+                    <span className="team-name col-3">{data?.spnnation2}</span>
+                    <span className="score col-4 text-end">{data?.score2}</span>
+                    {data?.spnrunrate2 && (
+                      <div className="col-5 d-flex justify-content-start">
+                        <span className="d-inline">
+                          CRR {data?.spnrunrate2}
+                        </span>
+                        {data?.spnreqrate2 && (
+                          <span className="d-inline ms-2">
+                            RR {data?.spnreqrate2}
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  </p>
+                </div>
+
+                <div className="col-12 col-md-6">
+                  <div className="row">
+                    <div className="col-12">
+                      {data?.spnmessage && (
+                        <div
+                          style={{
+                            fontSize: "12px",
+                          }}
+                        >
+                          {data?.dayno} | {data?.spnmessage}
+                        </div>
+                      )}
+
+                      <div className="row">
+                        <div className="col-12">
+                          <p className="text-xl-end ball-by-ball mt-2 mb-0">
+                            {data?.balls?.map((ball: any, index: any) => {
+                              return ball == "" ? (
+                                ""
+                              ) : (
+                                <span
+                                  key={index}
+                                  className={`ball-runs ${
+                                    ball === "4" || ball === "6" ? "four" : ""
+                                  }`}
+                                  style={{
+                                    backgroundColor:
+                                      ball === "ww"
+                                        ? "#ff0000"
+                                        : ball === "4"
+                                        ? "#087f23"
+                                        : ball === "6"
+                                        ? "#883997"
+                                        : "#08c",
+                                    fontSize: "12px",
+                                  }}
+                                >
+                                  {ball}
+                                </span>
+                              );
+                            })}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+        </Box>
+      </Box>
+    </>
+  );
+};
+
+export default LiveScoreBoard;
