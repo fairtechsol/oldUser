@@ -95,6 +95,8 @@ export const Constants = {
   PRODUCTION: "production",
 };
 
+export const cardUrlMain = "https://jmdapi.com/tablevideo/?id=";
+
 export const teamStatus = {
   suspended: "suspended",
   active: "active",
