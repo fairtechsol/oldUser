@@ -1,3 +1,6 @@
+import service from "../service";
+import { ApiConstants } from "../utils/Constants";
+
 export const formatNumber = (value: number, isRound: any) => {
   if (value >= 1000) {
     // return (value / 1000).toFixed(1) + "k";
@@ -143,6 +146,19 @@ export const updateSessionBettingsItem = (
         }
       }
     return matchDetailBettings;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getChannelId = async (eventId: number) => {
+  try {
+    const res: any = await service.get(
+      `${ApiConstants.LIVESTREAM.GET_CHANNEL_ID}?Cno=${eventId}`
+    );
+    if (res) {
+      return res?.result;
+    }
   } catch (error) {
     console.log(error);
   }

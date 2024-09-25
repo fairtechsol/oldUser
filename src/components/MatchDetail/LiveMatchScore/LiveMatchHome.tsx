@@ -1,11 +1,11 @@
 import { Box, Typography } from "@mui/material";
 import { useState } from "react";
 import ARROWUP from "../../../assets/images/arrowup1.webp";
+import { ApiConstants } from "../../../utils/Constants";
+import { Col, Container, Ratio, Row } from "react-bootstrap";
 
-import StyledImage from "../../Common/StyledImages";
-
-const LiveMatchHome = ({ currentMatch, submit }: any) => {
-  const [visible, setVisible] = useState(true);
+const LiveMatchHome = ({ channelId }: any) => {
+  const [visible, setVisible] = useState(false);
 
   return (
     <>
@@ -13,8 +13,8 @@ const LiveMatchHome = ({ currentMatch, submit }: any) => {
         sx={[
           {
             width: {
-              md: submit ? "100%" : "98%",
-              xs: submit ? "100%" : "98%",
+              md: "98%",
+              xs: "98%",
               lg: "100%",
             },
             display: "flex",
@@ -97,18 +97,22 @@ const LiveMatchHome = ({ currentMatch, submit }: any) => {
               alt={"Banner"}
             />
           </Box>
-
-          {visible && currentMatch?.matchImage && (
-            <StyledImage
-              src={ARROWUP}
-              sx={{
-                height: "auto",
-                width: { xs: "100%", lg: "100%", alignSelf: "center" },
-              }}
-              alt=""
-            />
-          )}
         </Box>
+        {!visible && (
+          <Container>
+            <Row className="justify-content-md-center">
+              <Col md={12} className="p-0">
+                <Ratio aspectRatio="16x9">
+                  <iframe
+                    src={`${ApiConstants.LIVESTREAM.GET_VIDEO}?chid=${channelId}`}
+                    title="Live Stream"
+                    referrerPolicy={"strict-origin-when-cross-origin"}
+                  ></iframe>
+                </Ratio>
+              </Col>
+            </Row>
+          </Container>
+        )}
       </Box>
     </>
   );

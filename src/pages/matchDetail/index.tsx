@@ -46,6 +46,7 @@ import {
 import { AppDispatch, RootState } from "../../store/store";
 import { Constants } from "../../utils/Constants";
 import LiveScoreBoard from "../../components/Common/LiveScoreBoard";
+import { getChannelId } from "../../helper";
 
 const MatchDetail = () => {
   const theme = useTheme();
@@ -56,8 +57,8 @@ const MatchDetail = () => {
   const [visible, setVisible] = useState(true);
   const [show, setShow] = useState({ open: false, id: "" });
   const [liveScoreBoardData, setLiveScoreBoardData] = useState(null);
-  const [liveMatchData] = useState(null);
   const [errorCount, setErrorCount] = useState<number>(0);
+  const [channelId, setChannelId] = useState<string>("");
   const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
   );
@@ -419,6 +420,24 @@ const MatchDetail = () => {
     }
   }, []);
 
+  useEffect(() => {
+    try {
+      if (matchDetails?.eventId) {
+        const callApiForLiveStream = async () => {
+          let result = await getChannelId(matchDetails?.eventId);
+          if (result) {
+            setChannelId(result?.channelNo);
+          }
+        };
+        callApiForLiveStream();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, [matchDetails?.id]);
+
+  console.log(channelId);
+
   return (
     <>
       {matchDetailloading && <Loader text="" />}
@@ -450,7 +469,9 @@ const MatchDetail = () => {
                 {liveScoreBoardData && (
                   <LiveScoreBoard data={liveScoreBoardData} width="100%" />
                 )}
-                {liveMatchData && <LiveMatchHome />}
+                {channelId !== "0" && channelId !== "" && (
+                  <LiveMatchHome channelId={channelId} />
+                )}
                 <div style={{ width: "100%" }}>
                   <MatchOdds
                     setShow={setShow}
@@ -547,7 +568,9 @@ const MatchDetail = () => {
                   {liveScoreBoardData && (
                     <LiveScoreBoard data={liveScoreBoardData} width="100%" />
                   )}
-                  {liveMatchData && <LiveMatchHome />}
+                  {channelId !== "0" && channelId !== "" && (
+                    <LiveMatchHome channelId={channelId} />
+                  )}
                   {Array.from(
                     placedBets.reduce(
                       (acc: any, obj: any) =>
