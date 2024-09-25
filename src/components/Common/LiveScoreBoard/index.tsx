@@ -98,100 +98,101 @@ const LiveScoreBoard = ({ data, width }: any) => {
           </Box>
         </Box>
         <Box>
-          {!visible &&
-            (!matchesMobile ? (
-              <div className="scorecard" style={{ width: width }}>
-                <div className="col-12 col-md-6">
-                  <p className="team-1 row" style={{ fontSize: "12px" }}>
-                    <span className=" col-3">{data?.spnnation1}</span>
-                    <span className=" col-4 text-end">{data?.score1}</span>
-                    {data?.spnrunrate1 && (
-                      <div className="col-5 d-flex justify-content-start">
-                        <span className="me-2">CRR {data?.spnrunrate1}</span>
-                        {data?.spnreqrate1 && (
-                          <span className="d-inline ms-2">
-                            RR {data?.spnreqrate1}
-                          </span>
-                        )}
-                      </div>
-                    )}
-                  </p>
+          {
+            !visible && (
+              // (!matchesMobile ? (
+              //   <div className="scorecard" style={{ width: width }}>
+              //     <div className="col-12 col-md-6">
+              //       <p className="team-1 row" style={{ fontSize: "12px" }}>
+              //         <span className=" col-3">{data?.spnnation1}</span>
+              //         <span className=" col-4 text-end">{data?.score1}</span>
+              //         {data?.spnrunrate1 && (
+              //           <div className="col-5 d-flex justify-content-start">
+              //             <span className="me-2">CRR {data?.spnrunrate1}</span>
+              //             {data?.spnreqrate1 && (
+              //               <span className="d-inline ms-2">
+              //                 RR {data?.spnreqrate1}
+              //               </span>
+              //             )}
+              //           </div>
+              //         )}
+              //       </p>
 
-                  <p className="team-1 row" style={{ fontSize: "12px" }}>
-                    <span className="team-name col-3">{data?.spnnation2}</span>
-                    <span className="score col-4 text-end">{data?.score2}</span>
-                    {data?.spnrunrate2 && (
-                      <div className="col-5 d-flex justify-content-start">
-                        <span className="d-inline">
-                          CRR {data?.spnrunrate2}
-                        </span>
-                        {data?.spnreqrate2 && (
-                          <span className="d-inline ms-2">
-                            RR {data?.spnreqrate2}
-                          </span>
-                        )}
-                      </div>
-                    )}
-                  </p>
-                </div>
+              //       <p className="team-1 row" style={{ fontSize: "12px" }}>
+              //         <span className="team-name col-3">{data?.spnnation2}</span>
+              //         <span className="score col-4 text-end">{data?.score2}</span>
+              //         {data?.spnrunrate2 && (
+              //           <div className="col-5 d-flex justify-content-start">
+              //             <span className="d-inline">
+              //               CRR {data?.spnrunrate2}
+              //             </span>
+              //             {data?.spnreqrate2 && (
+              //               <span className="d-inline ms-2">
+              //                 RR {data?.spnreqrate2}
+              //               </span>
+              //             )}
+              //           </div>
+              //         )}
+              //       </p>
+              //     </div>
 
-                <div className="col-12 col-md-6">
-                  <div className="row">
-                    <div className="col-12">
-                      {data?.spnmessage && (
-                        <div
-                          className="text-xl-end"
-                          style={{ fontSize: "16px" }}
-                        >
-                          {data?.dayno} | {data?.spnmessage}
-                        </div>
-                      )}
+              //     <div className="col-12 col-md-6">
+              //       <div className="row">
+              //         <div className="col-12">
+              //           {data?.spnmessage && (
+              //             <div
+              //               className="text-xl-end"
+              //               style={{ fontSize: "16px" }}
+              //             >
+              //               {data?.dayno} | {data?.spnmessage}
+              //             </div>
+              //           )}
 
-                      <div className="row">
-                        <div className="col-12">
-                          <p className="text-xl-end ball-by-ball mt-2 mb-0">
-                            {data?.balls?.map((ball: any, index: any) => {
-                              return ball == "" ? (
-                                ""
-                              ) : (
-                                <span
-                                  key={index}
-                                  className={`ball-runs ${
-                                    ball === "4" || ball === "6" ? "four" : ""
-                                  }`}
-                                  style={{
-                                    backgroundColor:
-                                      ball === "ww"
-                                        ? "#ff0000"
-                                        : ball === "4"
-                                        ? "#087f23"
-                                        : ball === "6"
-                                        ? "#883997"
-                                        : "#08c",
-                                    color: "#fff",
-                                    borderRadius: "50%",
-                                    display: "inline-block",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    width: "25px",
-                                    height: "25px",
-                                    margin: "0 5px",
-                                    textAlign: "center",
-                                    fontSize: "16px",
-                                  }}
-                                >
-                                  {ball}
-                                </span>
-                              );
-                            })}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ) : (
+              //           <div className="row">
+              //             <div className="col-12">
+              //               <p className="text-xl-end ball-by-ball mt-2 mb-0">
+              //                 {data?.balls?.map((ball: any, index: any) => {
+              //                   return ball == "" ? (
+              //                     ""
+              //                   ) : (
+              //                     <span
+              //                       key={index}
+              //                       className={`ball-runs ${
+              //                         ball === "4" || ball === "6" ? "four" : ""
+              //                       }`}
+              //                       style={{
+              //                         backgroundColor:
+              //                           ball === "ww"
+              //                             ? "#ff0000"
+              //                             : ball === "4"
+              //                             ? "#087f23"
+              //                             : ball === "6"
+              //                             ? "#883997"
+              //                             : "#08c",
+              //                         color: "#fff",
+              //                         borderRadius: "50%",
+              //                         display: "inline-block",
+              //                         alignItems: "center",
+              //                         justifyContent: "center",
+              //                         width: "25px",
+              //                         height: "25px",
+              //                         margin: "0 5px",
+              //                         textAlign: "center",
+              //                         fontSize: "16px",
+              //                       }}
+              //                     >
+              //                       {ball}
+              //                     </span>
+              //                   );
+              //                 })}
+              //               </p>
+              //             </div>
+              //           </div>
+              //         </div>
+              //       </div>
+              //     </div>
+              //   </div>
+              // ) : (
               <div className="m-scorecard" style={{ width: width }}>
                 <div className="col-12 col-md-6">
                   <p className="team-1 row" style={{ fontSize: "12px" }}>
@@ -275,7 +276,9 @@ const LiveScoreBoard = ({ data, width }: any) => {
                   </div>
                 </div>
               </div>
-            ))}
+            )
+            // ))
+          }
         </Box>
       </Box>
     </>
