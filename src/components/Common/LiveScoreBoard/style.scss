@@ -1,0 +1,99 @@
+// .iframe {
+//     padding: 10px 0 5px;
+//     background: linear-gradient(0deg, rgb(0 0 0 / 39%), rgb(0 0 0 / 30%)),url(https://www.stageandscreen.travel/sites/default/files/styles/large/public/LP%20-%20Cricket%20Australia.jpg?itok=dStxvjPW);
+//     background-repeat: no-repeat;
+//     background-size: cover;
+//     margin-right: auto;
+//     margin-left: auto;
+//     color: white;
+//     min-height: 14%;
+//     overflow: hidden;
+//     align-items: center;
+//     display: flex;
+//     justify-content: space-between;
+//     background-position: bottom;
+//     position: relative;
+//     width: 97%;
+//     flex-direction: row;
+//     font-weight: 800;
+//     font-family: system-ui !important;
+// }
+.scorecard {
+  padding: 5px;
+  background-image: url("../../../assets/images/scorecard-bg.png");
+  position: relative;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: #fff;
+  z-index: 1;
+
+  // margin-right: auto;
+  // margin-left: auto;
+  // color: white;
+  // overflow: hidden;
+  // align-items: center;
+  display: flex;
+  // justify-content: space-between;
+  // background-position: bottom;
+  // // width: 97%;
+  // flex-direction: row;
+}
+.m-scorecard {
+  padding: 5px;
+  background-image: url("../../../assets/images/scorecard-bg.png");
+  position: relative;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: #fff;
+  z-index: 1;
+
+  // margin-right: auto;
+  // margin-left: auto;
+  // color: white;
+  // overflow: hidden;
+  // align-items: center;
+  // display: flex;
+  // justify-content: space-between;
+  // background-position: bottom;
+  // width: 97%;
+  // flex-direction: row;
+}
+.scorecard::before {
+  content: "";
+  background-color: rgba(0, 0, 0, 0.55);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+.m-scorecard::before {
+  content: "";
+  background-color: rgba(0, 0, 0, 0.55);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+.team-1 {
+  margin-bottom: 0;
+  font-size: 16px;
+}
+.m-team-1 {
+  margin-bottom: 0;
+  font-size: 12px;
+}
+.ball-runs {
+  display: inline-block;
+  height: 25px;
+  line-height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  font-size: var(--font-small);
+  color: #fff;
+  text-align: center;
+  margin-right: 4px;
+}
