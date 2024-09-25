@@ -133,7 +133,7 @@ const TableRow = ({
           background: transType === "creditReference" ? "#F8C851" : "#FFE094",
         }}
       >
-        <Typography sx={{ fontSize: "12px", fontWeight: "500" }}>
+        <Typography sx={{ fontSize: "10px", fontWeight: "600" }}>
           {description}
         </Typography>
       </Box>
