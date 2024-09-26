@@ -510,8 +510,8 @@ const SessionMarketBox = ({
                         setFastBetLoading={setFastBetLoading}
                         po={
                           sessionBettingType.oddEven == data?.type
-                            ? data.ex?.availableToBack[0]?.tno
-                            : data.ex?.availableToLay[0]?.tno
+                            ? data.ex?.availableToBack[item]?.tno
+                            : data.ex?.availableToLay[item]?.tno
                         }
                         eventType={eventType}
                         setFastAmount={setFastAmount}
@@ -528,19 +528,19 @@ const SessionMarketBox = ({
                         }
                         value={
                           sessionBettingType.oddEven == data?.type
-                            ? data.ex?.availableToBack[0]?.price ?? 0
-                            : data.ex?.availableToLay[0]?.price ?? 0
+                            ? data.ex?.availableToBack[item]?.price ?? 0
+                            : data.ex?.availableToLay[item]?.price ?? 0
                         }
                         value2={
                           sessionBettingType.oddEven == data?.type
-                            ? data.ex?.availableToBack[0]?.size ?? 0
-                            : data.ex?.availableToLay[0]?.size ?? 0
+                            ? data.ex?.availableToBack[item]?.size ?? 0
+                            : data.ex?.availableToLay[item]?.size ?? 0
                         }
                         lock={
                           [null, 0, "0"].includes(
                             sessionBettingType.oddEven == data?.type
-                              ? data.ex?.availableToBack[0]?.price ?? 0
-                              : data.ex?.availableToLay[0]?.price ?? 0
+                              ? data.ex?.availableToBack[item]?.price ?? 0
+                              : data.ex?.availableToLay[item]?.price ?? 0
                           )
                             ? true
                             : false
@@ -593,8 +593,8 @@ const SessionMarketBox = ({
                         setFastBetLoading={setFastBetLoading}
                         po={
                           sessionBettingType.oddEven == data?.type
-                            ? data.ex?.availableToLay[0]?.tno
-                            : data.ex?.availableToBack[0]?.tno
+                            ? data.ex?.availableToLay[item]?.tno
+                            : data.ex?.availableToBack[item]?.tno
                         }
                         eventType={eventType}
                         sessionMain={sessionMain}
@@ -610,19 +610,19 @@ const SessionMarketBox = ({
                         }
                         value={
                           sessionBettingType.oddEven == data?.type
-                            ? data.ex?.availableToLay[0]?.price ?? 0
-                            : data.ex?.availableToBack[0]?.price ?? 0
+                            ? data.ex?.availableToLay[item]?.price ?? 0
+                            : data.ex?.availableToBack[item]?.price ?? 0
                         }
                         value2={
                           sessionBettingType.oddEven == data?.type
-                            ? data.ex?.availableToBack[0]?.size ?? 0
-                            : data.ex?.availableToLay[0]?.size ?? 0
+                            ? data.ex?.availableToBack[item]?.size ?? 0
+                            : data.ex?.availableToLay[item]?.size ?? 0
                         }
                         lock={
                           [null, 0, "0"].includes(
                             sessionBettingType.oddEven == data?.type
-                              ? data.ex?.availableToBack[0]?.price ?? 0
-                              : data.ex?.availableToLay[0]?.price ?? 0
+                              ? data.ex?.availableToBack[item]?.price ?? 0
+                              : data.ex?.availableToLay[item]?.price ?? 0
                           )
                             ? true
                             : false
