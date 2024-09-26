@@ -344,7 +344,7 @@ const MatchDetail = () => {
       const response: any = await service.get(
         // `https://devscore.fairgame.club/score/getMatchScore/${marketId}`
         // `https://fairscore7.com/score/getMatchScore/${marketId}`
-        `${Constants.thirdParty}/cricketScore?eventId=${marketId}`
+        `${Constants.thirdPartyLive}/cricketScore?eventId=${marketId}`
       );
       if (response) {
         setLiveScoreBoardData(response?.data);
