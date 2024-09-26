@@ -6,7 +6,6 @@ import { sessionBettingType } from "../../../utils/Constants";
 import PlaceBetComponent from "../MatchOdds/Bets/PlaceBetComponent";
 import PlaceBetComponentWeb from "../MatchOdds/Bets/PlaceBetComponentWeb";
 import SeparateModal from "../MatchOdds/SeparateModal";
-import Divider from "../../../helper/Divider";
 
 const SessionMarketBox = ({
   index,
@@ -138,11 +137,16 @@ const SessionMarketBox = ({
               }}
             >
               {data?.GameStatus == "Ball Running" ? (
-                <img
-                  src={BallStart}
-                  style={{ width: "113px", height: "32px" }}
-                  alt=""
-                />
+                Math.max(
+                  data?.ex?.availableToLay?.length ?? 0,
+                  data?.ex?.availableToBack?.length ?? 0
+                ) <= 1 && (
+                  <img
+                    src={BallStart}
+                    style={{ width: "113px", height: "32px" }}
+                    alt=""
+                  />
+                )
               ) : (
                 <Typography
                   sx={{
@@ -154,7 +158,12 @@ const SessionMarketBox = ({
                     fontWeight: "400",
                   }}
                 >
-                  {!data?.GameStatus ? "SUSPENDED" : data?.GameStatus}
+                  {Math.max(
+                    data?.ex?.availableToLay?.length ?? 0,
+                    data?.ex?.availableToBack?.length ?? 0
+                  ) <= 1 && !data?.GameStatus
+                    ? "SUSPENDED"
+                    : data?.GameStatus}
                 </Typography>
               )}
             </Box>
@@ -340,7 +349,7 @@ const SessionMarketBox = ({
           )}
         </Box>
       </Box>
-      <Divider />
+      {/* <Divider /> */}
       {Array.from(
         {
           length:
@@ -388,55 +397,6 @@ const SessionMarketBox = ({
                 background: index % 2 === 0 ? "#FFE094" : "#ECECEC",
               }}
             >
-              {/* <Typography>
-              <Typography
-                sx={{
-                  color: "black",
-                  fontSize: { lg: "10px", md: "10px", xs: "9px" },
-                  marginLeft: "7px",
-                  fontWeight: "600",
-                  textAlign: "start",
-                  width: "100%",
-                  // paddingRight: "5rem",
-                  lineHeight: "0.8rem",
-                }}
-              >
-                {data?.RunnerName}
-              </Typography>
-              <Typography
-                sx={{
-                  color: "black",
-                  fontSize: { lg: "8px", md: "9px", xs: "7px" },
-                  marginLeft: "7px",
-                  fontWeight: "500",
-                  textAlign: "start",
-                }}
-              >
-                max:{formatToINR(data?.max || 0)}
-              </Typography>
-            </Typography> */}
-
-              {/* {matchesMobile && (
-              <PlaceBetComponent
-                amount={index == 2}
-                data={data}
-                show={show}
-                setShow={setShow}
-                profitLoss={(profitLossData && profitLossData[0]) ?? {}}
-              />
-            )}
-            {!matchesMobile && (
-              <PlaceBetComponentWeb
-                amount={index === 2}
-                data={data}
-                show={show}
-                setShow={setShow}
-                profitLoss={(profitLossData && profitLossData[0]) ?? {}}
-              />
-            )} */}
-              {/* <Box
-              sx={{ width: "20%", display: "flex", background: "pink" }}
-            ></Box> */}
               {!["ACTIVE", "active", "", undefined, null, ""].includes(
                 data?.GameStatus
               ) ||
@@ -457,11 +417,13 @@ const SessionMarketBox = ({
                   }}
                 >
                   {data?.GameStatus == "Ball Running" ? (
-                    <img
-                      src={BallStart}
-                      style={{ width: "113px", height: "32px" }}
-                      alt=""
-                    />
+                    item === 1 && (
+                      <img
+                        src={BallStart}
+                        style={{ width: "113px", height: "32px" }}
+                        alt=""
+                      />
+                    )
                   ) : (
                     <Typography
                       sx={{
@@ -473,7 +435,8 @@ const SessionMarketBox = ({
                         fontWeight: "400",
                       }}
                     >
-                      {!data?.GameStatus ? "SUSPENDED" : data?.GameStatus}
+                      {item === 1 &&
+                        (!data?.GameStatus ? "SUSPENDED" : data?.GameStatus)}
                     </Typography>
                   )}
                 </Box>
@@ -648,20 +611,11 @@ const SessionMarketBox = ({
                       sx={{ width: "33%", display: "flex", background: "pink" }}
                     ></Box>
                   )}
-                  {/* {!matchesMobile && (
-                  <PlaceBetComponentWeb
-                    amount={index === 2}
-                    data={data}
-                    show={show}
-                    setShow={setShow}
-                    profitLoss={(profitLossData && profitLossData[0]) ?? {}}
-                  />
-                )} */}
                 </>
               )}
             </Box>
           </Box>
-          <Divider />
+          {/* <Divider /> */}
         </>
       ))}
     </>
