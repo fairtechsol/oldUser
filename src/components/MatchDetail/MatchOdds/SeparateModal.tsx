@@ -187,7 +187,7 @@ const SeparateModal = ({
           cursor: loading ? "not-allowed" : "pointer",
           padding: { xs: "0px", lg: "0px", md: "0px" },
           width: { xs: "100%", lg: width ?? "20%" },
-          height: "94%",
+          height: "100%",
         }}
       >
         <Box

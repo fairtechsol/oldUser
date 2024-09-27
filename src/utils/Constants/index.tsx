@@ -193,6 +193,11 @@ export const profitLossDataForMatchConstants = {
   },
 };
 
+// export const serviceUrl =
+//   process.env.NODE_ENV === Constants.PRODUCTION
+//     ? Constants.apiBasePath
+//     : Constants.localPath;
+
 // export const baseUrls = {
 //   socket:
 //     process.env.NODE_ENV === Constants.PRODUCTION
@@ -207,6 +212,11 @@ export const profitLossDataForMatchConstants = {
 //       ? `${Constants.expertPath}`
 //       : `${Constants.localPathExpert}`,
 // };
+
+export const serviceUrl =
+  process.env.NODE_ENV === Constants.PRODUCTION
+    ? Constants.apiBasePathLive
+    : Constants.localPath;
 
 export const baseUrls = {
   socket:

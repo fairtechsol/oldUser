@@ -19,6 +19,15 @@ import PlaceBetMoneyBox from "../PlaceBetMoneyBox";
 import NumberData from "./NumberDataOdds";
 import TeamsOdssData from "./TeamOddsData";
 
+import { toast } from "react-toastify";
+
+const toastOptions = {
+  autoClose: 2000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+};
+
 // const types=["matchOdd","tiedMatch1","completeMatch"]
 
 const OddsPlaceBet = ({ handleClose, season, type }: any) => {
@@ -183,18 +192,37 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
 
   const handlePlaceBet = () => {
     if (loading) return;
-
+    // if (
+    //   ![
+    //     "bookmaker",
+    //     "bookmaker1",
+    //     "bookmaker2",
+    //     "quickbookmaker1",
+    //     "quickbookmaker2",
+    //     "quickbookmaker3",
+    //   ].includes(selectedBet?.team?.matchBetType)
+    // ) {
     if (stakeValue > minMax?.max) {
       setErrorText("Amount should be less than the maximum bet amount!");
+      toast.error(
+        "Amount should be less than the maximum bet amount!",
+        toastOptions
+      );
       handleModal();
       return false;
     }
 
     if (stakeValue < minMax?.min) {
       setErrorText("Amount should be greater than the minimum bet amount!");
+      toast.error(
+        "Amount should be greater than the minimum bet amount!",
+        toastOptions
+      );
       handleModal();
       return false;
     }
+    // }
+
     const commonPayload = {
       betId: selectedBet?.team?.betId,
       eventName: selectedBet?.team?.name,

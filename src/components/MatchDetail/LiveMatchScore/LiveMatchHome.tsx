@@ -5,7 +5,7 @@ import { ApiConstants } from "../../../utils/Constants";
 import { Col, Container, Ratio, Row } from "react-bootstrap";
 
 const LiveMatchHome = ({ channelId }: any) => {
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(true);
 
   return (
     <>
