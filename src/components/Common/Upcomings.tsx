@@ -1,6 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import moment from "moment";
 import { Cricket } from "../../assets";
+import isMobile from "../secureAuthVerification/container/isMobile";
 
 const Upcomings = (props: any) => {
   const { match, timeLeft, upcoming } = props;
@@ -32,16 +33,18 @@ const Upcomings = (props: any) => {
             fontSize: { lg: "14px", xs: "10px" },
             fontWeight: "bold",
             marginLeft: "7px",
+            display:"flex",
+            flexDirection:isMobile?"column":"row"
           }}
         >
           {match.teamA} vs {match?.teamB}{" "}
           <span style={{ fontWeight: "500" }}>
-            ({moment(match.startAt).format("LL")})
+            ({moment(match.startAt).format("LLL")})
           </span>
         </Typography>{" "}
         
       </Box>
-      <div style={{background: "#f1c40f"}}>
+      <div style={{background: "#f1c550"}}>
       {location.pathname === '/inplay' && (
         <img className="inplayicon" src={Cricket} alt="Inplay Icon"  width={25} height={25}  />
       )}
