@@ -54,7 +54,7 @@ const MatchDetail = () => {
   const dispatch: AppDispatch = useDispatch();
   const { state } = useLocation();
   const navigate = useNavigate();
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   const [show, setShow] = useState({ open: false, id: "" });
   const [liveScoreBoardData, setLiveScoreBoardData] = useState(null);
   const [errorCount, setErrorCount] = useState<number>(0);
@@ -62,7 +62,7 @@ const MatchDetail = () => {
   const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
   );
-
+  const [isTv, setIsTv] = useState(false);
   const { matchDetails, success, matchDetailloading } = useSelector(
     (state: RootState) => state.match.matchList
   );
@@ -436,8 +436,6 @@ const MatchDetail = () => {
     }
   }, [matchDetails?.id]);
 
-  console.log(channelId);
-
   return (
     <>
       {matchDetailloading && <Loader text="" />}
@@ -467,9 +465,13 @@ const MatchDetail = () => {
                 }}
               >
                 {liveScoreBoardData && (
-                  <LiveScoreBoard data={liveScoreBoardData} width="100%" />
+                  <LiveScoreBoard
+                    data={liveScoreBoardData}
+                    width="100%"
+                    setIsTv={setIsTv}
+                  />
                 )}
-                {channelId !== "0" && channelId !== "" && (
+                {isTv && channelId !== "0" && channelId !== "" && (
                   <LiveMatchHome channelId={channelId} />
                 )}
                 <div style={{ width: "100%" }}>
@@ -566,9 +568,14 @@ const MatchDetail = () => {
                 </Box>
                 <Box sx={{ width: "30%", paddingRight: "1%" }}>
                   {liveScoreBoardData && (
-                    <LiveScoreBoard data={liveScoreBoardData} width="100%" />
+                    <LiveScoreBoard
+                      data={liveScoreBoardData}
+                      width="100%"
+                      setIsTv={setIsTv}
+                      isTv={isTv}
+                    />
                   )}
-                  {channelId !== "0" && channelId !== "" && (
+                  {isTv && channelId !== "0" && channelId !== "" && (
                     <LiveMatchHome channelId={channelId} />
                   )}
                   {Array.from(

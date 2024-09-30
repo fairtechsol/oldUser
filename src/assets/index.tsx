@@ -47,3 +47,4 @@ export { default as ARROW_UP } from "./images/arrowUp.webp";
 export { default as ARROW_DOWN } from "./images/arrowDown.webp";
 export { default as UD } from "./images/UD.webp";
 export { default as HourGlass } from "./hourglass.json";
+export { default as liveTv } from "./images/live_tv.svg"
