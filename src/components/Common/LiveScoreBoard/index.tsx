@@ -1,12 +1,13 @@
 import { Box, Typography } from "@mui/material";
 import "./style.scss";
 import { useState } from "react";
-import { ARROWUP } from "../../../assets";
+import { ARROWUP, liveTv } from "../../../assets";
 
-const LiveScoreBoard = ({ data, width }: any) => {
+const LiveScoreBoard = ({ data, width, setIsTv }: any) => {
   // const theme = useTheme();
   // const matchesMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [visible, setVisible] = useState(false);
+
   return (
     <>
       <Box
@@ -78,9 +79,21 @@ const LiveScoreBoard = ({ data, width }: any) => {
               // '#262626' ,
               display: "flex",
               alignItems: "center",
-              justifyContent: "flex-end",
+              justifyContent: "space-between",
             }}
           >
+            <img
+              onClick={() => setIsTv((prev: any) => !prev)}
+              style={{
+                width: "35px",
+                height: "18px",
+                color: "white",
+                marginLeft: "1.3rem",
+                cursor: "pointer",
+              }}
+              src={liveTv}
+              alt=""
+            />
             <img
               onClick={() => {
                 setVisible(!visible);
