@@ -34,7 +34,7 @@ const LiveMatchHome = ({ channelId }: any) => {
           },
         ]}
       >
-        <Box
+        {/* <Box
           sx={{
             display: "flex",
             height: 38,
@@ -97,7 +97,7 @@ const LiveMatchHome = ({ channelId }: any) => {
               alt={"Banner"}
             />
           </Box>
-        </Box>
+        </Box> */}
         {!visible && (
           <Container>
             <Row className="justify-content-md-center">
