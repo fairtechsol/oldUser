@@ -231,7 +231,7 @@ const matchListSlice = createSlice({
               ...state.matchDetails.profitLossDataMatch,
               [teamArateRedisKey]: newTeamRateData?.teamA,
               [teamBrateRedisKey]: newTeamRateData?.teamB,
-              [teamCrateRedisKey]: newTeamRateData?.teamB,
+              [teamCrateRedisKey]: newTeamRateData?.teamC,
             },
           };
         }
