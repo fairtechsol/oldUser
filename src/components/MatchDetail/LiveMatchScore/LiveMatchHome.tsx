@@ -1,11 +1,11 @@
-import { Box, Typography } from "@mui/material";
-import { useState } from "react";
-import ARROWUP from "../../../assets/images/arrowup1.webp";
+import { Box} from "@mui/material";
+// import { useState } from "react";
+// import ARROWUP from "../../../assets/images/arrowup1.webp";
 import { ApiConstants } from "../../../utils/Constants";
 import { Col, Container, Ratio, Row } from "react-bootstrap";
 
 const LiveMatchHome = ({ channelId }: any) => {
-  const [visible, setVisible] = useState(true);
+  // const [visible, setVisible] = useState(false);
 
   return (
     <>
@@ -34,7 +34,7 @@ const LiveMatchHome = ({ channelId }: any) => {
           },
         ]}
       >
-        <Box
+        {/* <Box
           sx={{
             display: "flex",
             height: 38,
@@ -97,8 +97,8 @@ const LiveMatchHome = ({ channelId }: any) => {
               alt={"Banner"}
             />
           </Box>
-        </Box>
-        {!visible && (
+        </Box> */}
+        {/* {!visible && ( */}
           <Container>
             <Row className="justify-content-md-center">
               <Col md={12} className="p-0">
@@ -112,7 +112,7 @@ const LiveMatchHome = ({ channelId }: any) => {
               </Col>
             </Row>
           </Container>
-        )}
+        {/* )} */}
       </Box>
     </>
   );
