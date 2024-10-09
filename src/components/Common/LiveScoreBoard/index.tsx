@@ -79,14 +79,14 @@ const LiveScoreBoard = ({ data, width, setIsTv }: any) => {
               // '#262626' ,
               display: "flex",
               alignItems: "center",
-              justifyContent: "space-between",
+              justifyContent: "flex-end",
             }}
           >
             <img
               onClick={() => setIsTv((prev: any) => !prev)}
               style={{
                 width: "35px",
-                height: "25px",
+                height: "30px",
                 color: "white",
                 marginLeft: "1.3rem",
                 cursor: "pointer",
