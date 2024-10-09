@@ -86,7 +86,7 @@ const LiveScoreBoard = ({ data, width, setIsTv }: any) => {
               onClick={() => setIsTv((prev: any) => !prev)}
               style={{
                 width: "35px",
-                height: "18px",
+                height: "25px",
                 color: "white",
                 marginLeft: "1.3rem",
                 cursor: "pointer",
