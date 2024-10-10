@@ -1,7 +1,11 @@
 import { Box } from "@mui/material";
 import moment from "moment-timezone";
 import { Fragment, memo, useEffect, useState } from "react";
-import { customBookmakerSort, formatToINR } from "../../../helper";
+import {
+  customBookmakerSort,
+  customSortBySessionMarketName,
+  formatToINR,
+} from "../../../helper";
 import {
   profitLossDataForMatchConstants,
   sessionBettingType,
@@ -42,12 +46,9 @@ const MatchOdds = ({ matchDetails, setShow, show }: any) => {
     return timeLeft;
   }
 
-  const [timeLeft, setTimeLeft] = useState<any>(calculateTimeLeft);
+  const [_, setTimeLeft] = useState<any>(calculateTimeLeft);
 
-  const upcoming =
-    Number(timeLeft.days) === 0 &&
-    Number(timeLeft.hours) === 0 &&
-    Number(timeLeft.minutes) <= 60;
+  const upcoming = true;
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -672,6 +673,8 @@ const MatchOdds = ({ matchDetails, setShow, show }: any) => {
               value?.section?.length > 0 &&
               key !== sessionBettingType.cricketCasino
           )
+          ?.slice()
+          ?.sort(customSortBySessionMarketName)
           ?.map(([key, value]: any) => {
             return (
               <Fragment key={key}>
