@@ -241,7 +241,7 @@ const SessionMarket = ({
                       }}
                     >
                       {sessionBettingType.oddEven == type
-                        ? "BACK"
+                        ? "ODD"
                         : sessionBettingType.fancy1 == type
                         ? "LAY"
                         : "NO"}
@@ -269,10 +269,9 @@ const SessionMarket = ({
                         fontWeight: "600",
                       }}
                     >
-                      {[
-                        sessionBettingType.oddEven,
-                        sessionBettingType.fancy1,
-                      ].includes(type)
+                      {sessionBettingType.oddEven == type
+                        ? "EVEN"
+                        : [sessionBettingType.fancy1].includes(type)
                         ? "BACK"
                         : "YES"}
                     </Typography>

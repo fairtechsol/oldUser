@@ -2,11 +2,12 @@ import service from "../service";
 import { ApiConstants } from "../utils/Constants";
 
 const order: any = {
-  ballByBall: 1,
-  fancy1: 2, // changed position of fancy1 from 4 to 2 as client changed
-  session: 3,
-  overByover: 4,
-  oddEven: 5,
+  fancy: 1,
+  overByover: 2,
+  ballByBall: 3,
+  session: 4,
+  fancy1: 5, // changed position of fancy1 from 4 to 2 as client changed
+  oddEven: 6,
 };
 
 export const formatNumber = (value: number, isRound: any) => {
@@ -176,7 +177,8 @@ export const customSortBySessionMarketName = (
   [_, nameA]: any,
   [__, nameB]: any
 ) => {
-  const orderA = order[nameA] || Infinity;
-  const orderB = order[nameB] || Infinity;
+  // debugger;
+  const orderA = order[nameA?.gtype] || Infinity;
+  const orderB = order[nameB?.gtype] || Infinity;
   return orderA - orderB;
 };
