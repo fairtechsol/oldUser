@@ -1,6 +1,14 @@
 import service from "../service";
 import { ApiConstants } from "../utils/Constants";
 
+const order: any = {
+  ballByBall: 1,
+  fancy1: 2, // changed position of fancy1 from 4 to 2 as client changed
+  session: 3,
+  overByover: 4,
+  oddEven: 5,
+};
+
 export const formatNumber = (value: number, isRound: any) => {
   if (value >= 1000) {
     // return (value / 1000).toFixed(1) + "k";
@@ -162,4 +170,13 @@ export const getChannelId = async (eventId: number) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const customSortBySessionMarketName = (
+  [_, nameA]: any,
+  [__, nameB]: any
+) => {
+  const orderA = order[nameA] || Infinity;
+  const orderB = order[nameB] || Infinity;
+  return orderA - orderB;
 };
