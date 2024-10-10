@@ -575,8 +575,8 @@ const MatchDetail = () => {
                       isTv={isTv}
                     />
                   )}
-                  {isTv && channelId !== "0" && channelId !== "" && (
-                    <LiveMatchHome channelId={channelId} />
+                  {isTv && matchDetails?.eventId && (
+                    <LiveMatchHome eventId={matchDetails?.eventId} />
                   )}
                   {Array.from(
                     placedBets.reduce(

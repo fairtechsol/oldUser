@@ -96,6 +96,7 @@ export const Constants = {
 };
 
 export const cardUrlMain = "https://jmdapi.com/tablevideo/?id=";
+export const liveStreamUrl = "https://maxbet07.com/liveStream/";
 
 export const teamStatus = {
   suspended: "suspended",

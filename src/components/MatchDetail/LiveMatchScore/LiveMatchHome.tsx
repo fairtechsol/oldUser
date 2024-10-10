@@ -1,10 +1,11 @@
-import { Box} from "@mui/material";
+import { Box } from "@mui/material";
 // import { useState } from "react";
 // import ARROWUP from "../../../assets/images/arrowup1.webp";
-import { ApiConstants } from "../../../utils/Constants";
+// import { ApiConstants } from "../../../utils/Constants";
 import { Col, Container, Ratio, Row } from "react-bootstrap";
+import { liveStreamUrl } from "../../../utils/Constants";
 
-const LiveMatchHome = ({ channelId }: any) => {
+const LiveMatchHome = ({ eventId }: any) => {
   // const [visible, setVisible] = useState(false);
 
   return (
@@ -99,19 +100,19 @@ const LiveMatchHome = ({ channelId }: any) => {
           </Box>
         </Box> */}
         {/* {!visible && ( */}
-          <Container>
-            <Row className="justify-content-md-center">
-              <Col md={12} className="p-0">
-                <Ratio aspectRatio="16x9">
-                  <iframe
-                    src={`${ApiConstants.LIVESTREAM.GET_VIDEO}?chid=${channelId}`}
-                    title="Live Stream"
-                    referrerPolicy={"strict-origin-when-cross-origin"}
-                  ></iframe>
-                </Ratio>
-              </Col>
-            </Row>
-          </Container>
+        <Container>
+          <Row className="justify-content-md-center">
+            <Col md={12} className="p-0">
+              <Ratio aspectRatio="16x9">
+                <iframe
+                  src={`${liveStreamUrl}${eventId}`}
+                  title="Live Stream"
+                  referrerPolicy={"strict-origin-when-cross-origin"}
+                ></iframe>
+              </Ratio>
+            </Col>
+          </Row>
+        </Container>
         {/* )} */}
       </Box>
     </>
