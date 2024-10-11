@@ -178,7 +178,7 @@ export const customSortBySessionMarketName = (
   [__, nameB]: any
 ) => {
   // debugger;
-  const orderA = order[nameA?.gtype] || Infinity;
-  const orderB = order[nameB?.gtype] || Infinity;
+  const orderA = order[nameA?.gtype || nameA?.type] || Infinity;
+  const orderB = order[nameB?.gtype || nameA?.type] || Infinity;
   return orderA - orderB;
 };
