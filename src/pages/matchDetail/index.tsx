@@ -46,7 +46,7 @@ import {
 import { AppDispatch, RootState } from "../../store/store";
 import { Constants } from "../../utils/Constants";
 import LiveScoreBoard from "../../components/Common/LiveScoreBoard";
-import { getChannelId } from "../../helper";
+// import { getChannelId } from "../../helper";
 
 const MatchDetail = () => {
   const theme = useTheme();
@@ -58,7 +58,7 @@ const MatchDetail = () => {
   const [show, setShow] = useState({ open: false, id: "" });
   const [liveScoreBoardData, setLiveScoreBoardData] = useState(null);
   const [errorCount, setErrorCount] = useState<number>(0);
-  const [channelId, setChannelId] = useState<string>("");
+  // const [channelId, setChannelId] = useState<string>("");
   const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
   );
@@ -420,21 +420,21 @@ const MatchDetail = () => {
     }
   }, []);
 
-  useEffect(() => {
-    try {
-      if (matchDetails?.eventId) {
-        const callApiForLiveStream = async () => {
-          let result = await getChannelId(matchDetails?.eventId);
-          if (result) {
-            setChannelId(result?.channelNo);
-          }
-        };
-        callApiForLiveStream();
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }, [matchDetails?.id]);
+  // useEffect(() => {
+  //   try {
+  //     if (matchDetails?.eventId) {
+  //       const callApiForLiveStream = async () => {
+  //         let result = await getChannelId(matchDetails?.eventId);
+  //         if (result) {
+  //           setChannelId(result?.channelNo);
+  //         }
+  //       };
+  //       callApiForLiveStream();
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }, [matchDetails?.id]);
 
   return (
     <>
@@ -471,8 +471,8 @@ const MatchDetail = () => {
                     setIsTv={setIsTv}
                   />
                 )}
-                {isTv && channelId !== "0" && channelId !== "" && (
-                  <LiveMatchHome channelId={channelId} />
+                {isTv && matchDetails?.eventId && (
+                  <LiveMatchHome eventId={matchDetails?.eventId} />
                 )}
                 <div style={{ width: "100%" }}>
                   <MatchOdds
