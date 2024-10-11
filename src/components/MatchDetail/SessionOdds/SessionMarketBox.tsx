@@ -161,9 +161,8 @@ const SessionMarketBox = ({
                   {Math.max(
                     data?.ex?.availableToLay?.length ?? 0,
                     data?.ex?.availableToBack?.length ?? 0
-                  ) <= 1 && !data?.GameStatus
-                    ? "SUSPENDED"
-                    : data?.GameStatus}
+                  ) <= 1 &&
+                    (!data?.GameStatus ? "SUSPENDED" : data?.GameStatus)}
                 </Typography>
               )}
             </Box>
