@@ -64,7 +64,17 @@ const RowComponent = ({ header, data, match }: any) => {
             header={header}
             isPercent={true}
           />
-          <SingleBox color={getColor()} data={data?.betType} header={header} />
+          <SingleBox
+            color={getColor()}
+            data={
+              data?.marketType === "oddEven"
+                ? data?.teamName
+                    ?.match(/[-_](odd|even)$/i)?.[1]
+                    ?.toUpperCase() || data?.betType
+                : data?.betType
+            }
+            header={header}
+          />
           <SingleBox
             color={getColor()}
             data={formatToINR(data?.amount)}

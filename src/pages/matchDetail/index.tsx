@@ -46,7 +46,6 @@ import {
 import { AppDispatch, RootState } from "../../store/store";
 import { Constants } from "../../utils/Constants";
 import LiveScoreBoard from "../../components/Common/LiveScoreBoard";
-// import { getChannelId } from "../../helper";
 
 const MatchDetail = () => {
   const theme = useTheme();
@@ -58,7 +57,6 @@ const MatchDetail = () => {
   const [show, setShow] = useState({ open: false, id: "" });
   const [liveScoreBoardData, setLiveScoreBoardData] = useState(null);
   const [errorCount, setErrorCount] = useState<number>(0);
-  // const [channelId, setChannelId] = useState<string>("");
   const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
   );
