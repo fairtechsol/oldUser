@@ -215,7 +215,7 @@ const SessionMarket = ({
                     justifyContent: { lg: "center", xs: "flex-end" },
                   }}
                 >
-                  <Box
+                  { data?.gtype!="khado" ?<Box
                     sx={{
                       background:
                         sessionBettingType.oddEven == type
@@ -246,7 +246,19 @@ const SessionMarket = ({
                         ? "LAY"
                         : "NO"}
                     </Typography>
-                  </Box>
+                  </Box>:<Box sx={{
+                      background:"none",
+                      width: { lg: "20%", xs: "30%" },
+                      height: "100%",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+
+                      borderLeft: {
+                        lg: "0 solid #319e5b",
+                        xs: "1px solid #319e5b",
+                      },
+                    }}></Box>}
                   <Box sx={{ width: ".35%", display: "flex" }}></Box>
                   <Box
                     sx={{

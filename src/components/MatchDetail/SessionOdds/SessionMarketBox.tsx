@@ -80,7 +80,7 @@ const SessionMarketBox = ({
                 lineHeight: "0.8rem",
               }}
             >
-              {data?.RunnerName || data?.name}
+              {data?.type==="khado"?`${data?.RunnerName || data?.name}-${data.ex?.availableToLay[0]?.price}` :data?.RunnerName || data?.name}
             </Typography>
             <Typography
               sx={{
@@ -193,7 +193,7 @@ const SessionMarketBox = ({
                     marginLeft: "1px",
                   }}
                 >
-                  <SeparateModal
+                {data?.type!="khado" &&  <SeparateModal
                     key={index}
                     bettingOn={"session"}
                     closeModal={closeModal}
@@ -256,7 +256,7 @@ const SessionMarketBox = ({
                     teamName={
                       sessionBettingType.oddEven == data?.type ? "odd" : null
                     }
-                  />
+                  />}
                 </Box>
 
                 <Box
