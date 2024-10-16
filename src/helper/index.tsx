@@ -2,10 +2,12 @@ import service from "../service";
 import { ApiConstants } from "../utils/Constants";
 
 const order: any = {
-  ballByBall: 1,
-  fancy1: 2, // changed position of fancy1 from 4 to 2 as client changed
-  session: 3,
-  overByover: 4,
+  session: 1,
+  overByover: 2,
+  ballByBall: 3,
+  fancy1: 4,
+  khado: 5,
+  meter: 6,
   oddEven: 5,
 };
 
