@@ -215,38 +215,56 @@ const SessionMarket = ({
                     justifyContent: { lg: "center", xs: "flex-end" },
                   }}
                 >
-                  <Box
-                    sx={{
-                      background:
-                        sessionBettingType.oddEven == type
-                          ? "#00C0F9"
-                          : "#FF9292",
-                      width: { lg: "20%", xs: "30%" },
-                      height: "100%",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-
-                      borderLeft: {
-                        lg: "0 solid #319e5b",
-                        xs: "1px solid #319e5b",
-                      },
-                    }}
-                  >
-                    <Typography
+                  {data?.gtype != "khado" ? (
+                    <Box
                       sx={{
-                        fontSize: "12px",
-                        color: "black",
-                        fontWeight: "600",
+                        background:
+                          sessionBettingType.oddEven == type
+                            ? "#00C0F9"
+                            : "#FF9292",
+                        width: { lg: "20%", xs: "30%" },
+                        height: "100%",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+
+                        borderLeft: {
+                          lg: "0 solid #319e5b",
+                          xs: "1px solid #319e5b",
+                        },
                       }}
                     >
-                      {sessionBettingType.oddEven == type
-                        ? "ODD"
-                        : sessionBettingType.fancy1 == type
-                        ? "LAY"
-                        : "NO"}
-                    </Typography>
-                  </Box>
+                      <Typography
+                        sx={{
+                          fontSize: "12px",
+                          color: "black",
+                          fontWeight: "600",
+                        }}
+                      >
+                        {sessionBettingType.oddEven == type
+                          ? "ODD"
+                          : sessionBettingType.fancy1 == type
+                          ? "LAY"
+                          : "NO"}
+                      </Typography>
+                    </Box>
+                  ) : (
+                    <Box
+                      sx={{
+                        background: "none",
+                        width: { lg: "20%", xs: "30%" },
+                        height: "100%",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+
+                        borderLeft: {
+                          lg: "0 solid #319e5b",
+                          xs: "1px solid #319e5b",
+                        },
+                      }}
+                    ></Box>
+                  )}
                   <Box sx={{ width: ".35%", display: "flex" }}></Box>
                   <Box
                     sx={{

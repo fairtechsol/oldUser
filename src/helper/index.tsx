@@ -2,12 +2,13 @@ import service from "../service";
 import { ApiConstants } from "../utils/Constants";
 
 const order: any = {
-  fancy: 1,
+  session: 1,
   overByover: 2,
   ballByBall: 3,
-  session: 4,
-  fancy1: 5, // changed position of fancy1 from 4 to 2 as client changed
-  oddEven: 6,
+  fancy1: 4,
+  khado: 5,
+  meter: 6,
+  oddEven: 7,
 };
 
 export const formatNumber = (value: number, isRound: any) => {

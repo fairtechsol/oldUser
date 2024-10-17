@@ -80,7 +80,11 @@ const SessionMarketBox = ({
                 lineHeight: "0.8rem",
               }}
             >
-              {data?.RunnerName || data?.name}
+              {data?.type === "khado"
+                ? `${data?.RunnerName || data?.name}-${
+                    data.ex?.availableToLay[0]?.price
+                  }`
+                : data?.RunnerName || data?.name}
             </Typography>
             <Typography
               sx={{
@@ -193,70 +197,72 @@ const SessionMarketBox = ({
                     marginLeft: "1px",
                   }}
                 >
-                  <SeparateModal
-                    key={index}
-                    bettingOn={"session"}
-                    closeModal={closeModal}
-                    setFastBetLoading={setFastBetLoading}
-                    po={
-                      sessionBettingType.oddEven == data?.type
-                        ? data.ex?.availableToBack[0]?.tno
-                        : data.ex?.availableToLay[0]?.tno
-                    }
-                    eventType={eventType}
-                    setFastAmount={setFastAmount}
-                    rates={allRates}
-                    session={true}
-                    sessionMain={sessionMain}
-                    selectedFastAmount={selectedFastAmount}
-                    betType={
-                      sessionBettingType.oddEven == data?.type
-                        ? "back"
-                        : sessionBettingType.fancy1 == data?.type
-                        ? "lay"
-                        : "no"
-                    }
-                    value={
-                      sessionBettingType.oddEven == data?.type
-                        ? data.ex?.availableToBack[0]?.price ?? 0
-                        : data.ex?.availableToLay[0]?.price ?? 0
-                    }
-                    value2={
-                      sessionBettingType.oddEven == data?.type
-                        ? data.ex?.availableToBack[0]?.size ?? 0
-                        : data.ex?.availableToLay[0]?.size ?? 0
-                    }
-                    lock={
-                      [null, 0, "0"].includes(
+                  {data?.type != "khado" && (
+                    <SeparateModal
+                      key={index}
+                      bettingOn={"session"}
+                      closeModal={closeModal}
+                      setFastBetLoading={setFastBetLoading}
+                      po={
+                        sessionBettingType.oddEven == data?.type
+                          ? data.ex?.availableToBack[0]?.tno
+                          : data.ex?.availableToLay[0]?.tno
+                      }
+                      eventType={eventType}
+                      setFastAmount={setFastAmount}
+                      rates={allRates}
+                      session={true}
+                      sessionMain={sessionMain}
+                      selectedFastAmount={selectedFastAmount}
+                      betType={
+                        sessionBettingType.oddEven == data?.type
+                          ? "back"
+                          : sessionBettingType.fancy1 == data?.type
+                          ? "lay"
+                          : "no"
+                      }
+                      value={
                         sessionBettingType.oddEven == data?.type
                           ? data.ex?.availableToBack[0]?.price ?? 0
                           : data.ex?.availableToLay[0]?.price ?? 0
-                      )
-                        ? true
-                        : false
-                    }
-                    color={
-                      sessionBettingType.oddEven == data?.type
-                        ? "#B3E0FF"
-                        : "#F6D0CB"
-                    }
-                    type={{
-                      color:
+                      }
+                      value2={
                         sessionBettingType.oddEven == data?.type
-                          ? "#A7DCFF"
-                          : "#FFB5B5",
-                      type: "YN",
-                    }}
-                    typeOfBet={typeOfBet}
-                    data={data}
-                    mainData={mainData}
-                    handleRateChange={handleRateChange}
-                    width={"100%"}
-                    mid={mid}
-                    teamName={
-                      sessionBettingType.oddEven == data?.type ? "odd" : null
-                    }
-                  />
+                          ? data.ex?.availableToBack[0]?.size ?? 0
+                          : data.ex?.availableToLay[0]?.size ?? 0
+                      }
+                      lock={
+                        [null, 0, "0"].includes(
+                          sessionBettingType.oddEven == data?.type
+                            ? data.ex?.availableToBack[0]?.price ?? 0
+                            : data.ex?.availableToLay[0]?.price ?? 0
+                        )
+                          ? true
+                          : false
+                      }
+                      color={
+                        sessionBettingType.oddEven == data?.type
+                          ? "#B3E0FF"
+                          : "#F6D0CB"
+                      }
+                      type={{
+                        color:
+                          sessionBettingType.oddEven == data?.type
+                            ? "#A7DCFF"
+                            : "#FFB5B5",
+                        type: "YN",
+                      }}
+                      typeOfBet={typeOfBet}
+                      data={data}
+                      mainData={mainData}
+                      handleRateChange={handleRateChange}
+                      width={"100%"}
+                      mid={mid}
+                      teamName={
+                        sessionBettingType.oddEven == data?.type ? "odd" : null
+                      }
+                    />
+                  )}
                 </Box>
 
                 <Box
