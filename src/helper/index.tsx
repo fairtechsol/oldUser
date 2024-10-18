@@ -8,7 +8,7 @@ const order: any = {
   fancy1: 4,
   khado: 5,
   meter: 6,
-  oddEven: 5,
+  oddEven: 7,
 };
 
 export const formatNumber = (value: number, isRound: any) => {
