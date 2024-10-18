@@ -263,7 +263,8 @@ const TournamentOdds = ({
                     marginLeft: "7px",
                   }}
                 >
-                  MIN: {min} MAX:{max}
+                  {min===max?`MAX:${max}`:`MIN: ${min} MAX:${max}`}
+                  
                 </Typography>
               </Box>
               <Box
