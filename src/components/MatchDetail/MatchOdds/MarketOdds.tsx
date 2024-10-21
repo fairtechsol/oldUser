@@ -321,8 +321,7 @@ const MarketOdds = ({
                     marginLeft: "7px",
                   }}
                 >
-                  {min===max?`MAX: ${max}`:`MIN: ${min} MAX: ${max}`}
-                  
+                  {min === max ? `MAX: ${max}` : `MIN: ${min} MAX: ${max}`}
                 </Typography>
               </Box>
               <Box
@@ -636,6 +635,8 @@ const MarketOdds = ({
                       "completeMatch1",
                     ].includes(marketDetails?.type)
                       ? "YES"
+                      : marketDetails?.runners?.[0]?.nat
+                      ? marketDetails?.runners?.[0]?.nat
                       : newData?.teamA
                   }
                   data={data?.length > 0 ? data[0] : []}
@@ -678,6 +679,8 @@ const MarketOdds = ({
                       "completeMatch1",
                     ].includes(marketDetails?.type)
                       ? "NO"
+                      : marketDetails?.runners?.[1]?.nat
+                      ? marketDetails?.runners?.[1]?.nat
                       : newData?.teamB
                   }
                   data={data?.length > 0 ? data[1] : []}
@@ -721,7 +724,11 @@ const MarketOdds = ({
                         newData={newData}
                         // lock={data?.length > 0 ? false : true}
                         color={teamCRates <= 0 ? "#FF4D4D" : "#319E5B"}
-                        name={newData?.teamC}
+                        name={
+                          marketDetails?.runners?.[2]?.nat
+                            ? marketDetails?.runners?.[2]?.nat
+                            : newData?.teamC
+                        }
                         data={data?.length > 0 ? data[2] : []}
                         rate={teamCRates}
                         allRates={{
