@@ -142,6 +142,8 @@ const SeparateModal = ({
                 marketDetails?.type === "completeMatch" ||
                 marketDetails?.type === "completeManual"
                   ? "YES"
+                  : marketDetails?.runners?.[0]?.nat
+                  ? marketDetails?.runners?.[0]?.nat
                   : currentMatch?.teamA,
               teamB:
                 marketDetails?.type === "tiedMatch2" ||
@@ -150,6 +152,8 @@ const SeparateModal = ({
                 marketDetails?.type === "completeMatch" ||
                 marketDetails?.type === "completeManual"
                   ? "NO"
+                  : marketDetails?.runners?.[1]?.nat
+                  ? marketDetails?.runners?.[1]?.nat
                   : currentMatch?.teamB,
               teamC:
                 marketDetails?.type === "tiedMatch2" ||
@@ -158,6 +162,8 @@ const SeparateModal = ({
                 marketDetails?.type === "completeMatch" ||
                 marketDetails?.type === "completeManual"
                   ? ""
+                  : marketDetails?.runners?.[2]?.nat
+                  ? marketDetails?.runners?.[2]?.nat
                   : currentMatch?.teamC
                   ? currentMatch?.teamC
                   : "",
