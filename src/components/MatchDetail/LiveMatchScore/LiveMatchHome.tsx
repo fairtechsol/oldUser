@@ -3,7 +3,7 @@ import { Box } from "@mui/material";
 // import ARROWUP from "../../../assets/images/arrowup1.webp";
 // import { ApiConstants } from "../../../utils/Constants";
 import { Col, Container, Ratio, Row } from "react-bootstrap";
-import { liveStreamUrl } from "../../../utils/Constants";
+import { liveStreamUrlCricket } from "../../../utils/Constants";
 
 const LiveMatchHome = ({ eventId }: any) => {
   // const [visible, setVisible] = useState(false);
@@ -105,7 +105,7 @@ const LiveMatchHome = ({ eventId }: any) => {
             <Col md={12} className="p-0">
               <Ratio aspectRatio="16x9">
                 <iframe
-                  src={`${liveStreamUrl}${eventId}&sportid=4`}
+                  src={`${liveStreamUrlCricket}${eventId}`}
                   title="Live Stream"
                   referrerPolicy={"strict-origin-when-cross-origin"}
                 ></iframe>
