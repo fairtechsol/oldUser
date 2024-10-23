@@ -225,7 +225,10 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
 
     const commonPayload = {
       betId: selectedBet?.team?.betId,
-      eventName: selectedBet?.data?.type==="khado"?`${selectedBet?.team?.name}-${selectedBet?.data.ex?.availableToLay[0]?.price}`:selectedBet?.team?.name,
+      eventName:
+        selectedBet?.data?.type === "khado"
+          ? `${selectedBet?.team?.name}-${selectedBet?.data.ex?.availableToLay[0]?.price}`
+          : selectedBet?.team?.name,
       eventType: selectedBet?.team?.eventType,
       matchId: selectedBet?.team?.matchId,
       browserDetail: browserInfo?.userAgent,
@@ -258,7 +261,10 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
     } else {
       payloadForSession = {
         ...commonPayload,
-        betType: selectedBet?.data?.type==="khado"?"BACK" :selectedBet?.team?.type.toUpperCase(),
+        betType:
+          selectedBet?.data?.type === "khado"
+            ? "BACK"
+            : selectedBet?.team?.type.toUpperCase(),
         odds: selectedBet?.team?.rate,
         ratePercent: selectedBet?.team?.percent,
         betPlaceIndex: selectedBet?.team?.betPlaceIndex,
@@ -308,7 +314,7 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
       dispatch(placeBet({ url, data }));
     }
   };
-console.log('selectedBet',selectedBet)
+  console.log("selectedBet", selectedBet);
   return (
     <Box
       sx={[
@@ -385,7 +391,13 @@ console.log('selectedBet',selectedBet)
               background: type?.color ? type?.color : "#F8C851",
             }}
             containerStyle={{ flex: season ? { xs: 2.5, lg: 2 } : 1 }}
-            value={selectedBet?.data?.type==="khado"?`${selectedBet?.team?.name ?? selectedBet?.team?.betOnTeam}-${selectedBet?.data.ex?.availableToLay[0]?.price}`:selectedBet?.team?.name ?? selectedBet?.team?.betOnTeam}
+            value={
+              selectedBet?.data?.type === "khado"
+                ? `${selectedBet?.team?.name ?? selectedBet?.team?.betOnTeam}-${
+                    selectedBet?.data.ex?.availableToLay[0]?.price
+                  }`
+                : selectedBet?.team?.name ?? selectedBet?.team?.betOnTeam
+            }
           />
           <TeamsOdssData
             input={true}
