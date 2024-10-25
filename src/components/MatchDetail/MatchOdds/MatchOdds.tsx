@@ -159,7 +159,7 @@ const MatchOdds = ({ matchDetails, setShow, show }: any) => {
             marketDetails={matchDetails?.bookmaker}
           />
         )}
-        {matchDetails?.other &&
+      {matchDetails?.other &&
         matchDetails?.other?.map((match: any) => (
           <MarketOdds
             upcoming={!upcoming}
@@ -208,7 +208,7 @@ const MatchOdds = ({ matchDetails, setShow, show }: any) => {
             marketDetails={match}
           />
         ))}
-        {matchDetails?.tournament &&
+      {matchDetails?.tournament &&
         matchDetails?.tournament?.map((market: any) => (
           <TournamentOdds
             key={market?.id}
@@ -404,7 +404,7 @@ const MatchOdds = ({ matchDetails, setShow, show }: any) => {
             marketDetails={matchDetails?.apiTideMatch2}
           />
         )}
-      
+
       {matchDetails?.manualTiedMatch?.activeStatus === "live" &&
         matchDetails?.manualTiedMatch?.isActive && (
           <MarketOdds
@@ -444,7 +444,7 @@ const MatchOdds = ({ matchDetails, setShow, show }: any) => {
             marketDetails={matchDetails?.manualTiedMatch}
           />
         )}
-       {matchDetails?.marketCompleteMatch1?.activeStatus === "live" &&
+      {matchDetails?.marketCompleteMatch1?.activeStatus === "live" &&
         matchDetails?.marketCompleteMatch1?.isActive && (
           <MarketOdds
             upcoming={!upcoming}
@@ -494,7 +494,7 @@ const MatchOdds = ({ matchDetails, setShow, show }: any) => {
             marketDetails={matchDetails?.marketCompleteMatch1}
           />
         )}
-       {matchDetails?.manualCompleteMatch?.activeStatus === "live" &&
+      {matchDetails?.manualCompleteMatch?.activeStatus === "live" &&
         matchDetails?.manualCompleteMatch?.isActive && (
           <MarketOdds
             upcoming={!upcoming}
@@ -532,8 +532,8 @@ const MatchOdds = ({ matchDetails, setShow, show }: any) => {
             matchOddsData={matchDetails?.manualCompleteMatch}
             marketDetails={matchDetails?.manualCompleteMatch}
           />
-        )}     
-     
+        )}
+
       {matchDetails?.manualSessionActive &&
         matchDetails?.sessionBettings?.filter(
           (betting: any) =>
@@ -644,7 +644,7 @@ const MatchOdds = ({ matchDetails, setShow, show }: any) => {
               />
             );
           })}
-         {matchDetails?.apiTideMatch?.activeStatus === "live" &&
+      {matchDetails?.apiTideMatch?.activeStatus === "live" &&
         matchDetails?.apiTideMatch?.isActive && (
           <MarketOdds
             upcoming={!upcoming}
@@ -692,8 +692,6 @@ const MatchOdds = ({ matchDetails, setShow, show }: any) => {
             marketDetails={matchDetails?.apiTideMatch}
           />
         )}
-
-      
 
       {matchDetails?.marketCompleteMatch?.activeStatus === "live" &&
         matchDetails?.marketCompleteMatch?.isActive && (
