@@ -1,13 +1,8 @@
 import { Box } from "@mui/material";
-// import { useState } from "react";
-// import ARROWUP from "../../../assets/images/arrowup1.webp";
-// import { ApiConstants } from "../../../utils/Constants";
 import { Col, Container, Ratio, Row } from "react-bootstrap";
-import { liveStreamUrlCricket } from "../../../utils/Constants";
+import { liveStreamCricketPageUrl } from "../../../utils/Constants";
 
 const LiveMatchHome = ({ eventId }: any) => {
-  // const [visible, setVisible] = useState(false);
-
   return (
     <>
       <Box
@@ -105,7 +100,7 @@ const LiveMatchHome = ({ eventId }: any) => {
             <Col md={12} className="p-0">
               <Ratio aspectRatio="16x9">
                 <iframe
-                  src={`${liveStreamUrlCricket}${eventId}`}
+                  src={`${liveStreamCricketPageUrl}${eventId}`}
                   title="Live Stream"
                   referrerPolicy={"strict-origin-when-cross-origin"}
                 ></iframe>

@@ -99,6 +99,8 @@ export const Constants = {
 };
 
 export const cardUrlMain = "https://jmdapi.com/tablevideo/?id=";
+export const liveStreamCricketPageUrl =
+  "https://maxbet07.com/liveStreamCricket/";
 export const liveStreamUrlCricket = "https://maxbet07.com/liveStreamCricket/";
 export const liveStreamUrl = "https://maxbet07.com/liveStream/";
 

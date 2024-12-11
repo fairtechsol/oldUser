@@ -342,7 +342,7 @@ const MatchDetail = () => {
       const response: any = await service.get(
         // `https://devscore.fairgame.club/score/getMatchScore/${marketId}`
         // `https://fairscore7.com/score/getMatchScore/${marketId}`
-        `${Constants.thirdParty}/cricketScore?eventId=${marketId}`
+        `${Constants.thirdPartyLive}/cricketScore?eventId=${marketId}`
       );
       if (response) {
         setLiveScoreBoardData(response?.data);
@@ -469,9 +469,11 @@ const MatchDetail = () => {
                     setIsTv={setIsTv}
                   />
                 )}
-                {isTv && matchDetails?.eventId && (
-                  <LiveMatchHome eventId={matchDetails?.eventId} />
-                )}
+                {isTv &&
+                  matchDetails?.eventId &&
+                  matchDetails?.matchType !== "politics" && (
+                    <LiveMatchHome eventId={matchDetails?.eventId} />
+                  )}
                 <div style={{ width: "100%" }}>
                   <MatchOdds
                     setShow={setShow}
@@ -573,9 +575,11 @@ const MatchDetail = () => {
                       isTv={isTv}
                     />
                   )}
-                  {isTv && matchDetails?.eventId && (
-                    <LiveMatchHome eventId={matchDetails?.eventId} />
-                  )}
+                  {isTv &&
+                    matchDetails?.eventId &&
+                    matchDetails?.matchType !== "politics" && (
+                      <LiveMatchHome eventId={matchDetails?.eventId} />
+                    )}
                   {Array.from(
                     placedBets.reduce(
                       (acc: any, obj: any) =>
