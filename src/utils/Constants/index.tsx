@@ -127,6 +127,7 @@ export const matchBettingType = {
   completeMatch1: "completeMatch1",
   completeManual: "completeManual",
   other: "other",
+  tournament: "tournament",
 };
 export const sessionBettingType = {
   session: "session",
