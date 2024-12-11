@@ -253,12 +253,12 @@ const MatchOdds = ({ matchDetails, setShow, show }: any) => {
             matchDetails={matchDetails}
           />
         ))}
-      {matchDetails?.marketBookmaker2?.activeStatus === "live" &&
-        matchDetails?.marketBookmaker2?.isActive && (
+      {matchDetails?.bookmaker2?.activeStatus === "live" &&
+        matchDetails?.bookmaker2?.isActive && (
           <MarketOdds
             upcoming={!upcoming}
             betLock={matchDetails?.blockMarket?.BOOKMAKER?.block}
-            showBox={matchDetails?.marketBookmaker2?.activeStatus === "save"}
+            showBox={matchDetails?.bookmaker2?.activeStatus === "save"}
             newData={matchDetails}
             showFast={false}
             showDely={true}
@@ -269,14 +269,14 @@ const MatchOdds = ({ matchDetails, setShow, show }: any) => {
                 : false
             }
             data={
-              matchDetails?.marketBookmaker2?.runners?.length > 0
-                ? matchDetails?.marketBookmaker2?.runners
+              matchDetails?.bookmaker2?.runners?.length > 0
+                ? matchDetails?.bookmaker2?.runners
                 : []
             }
             teamARates={
               matchDetails?.profitLossDataMatch?.[
                 profitLossDataForMatchConstants?.[
-                  matchDetails?.marketBookmaker2?.type
+                  matchDetails?.bookmaker2?.type
                 ]?.A +
                   "_" +
                   matchDetails?.id
@@ -285,7 +285,7 @@ const MatchOdds = ({ matchDetails, setShow, show }: any) => {
             teamBRates={
               matchDetails?.profitLossDataMatch?.[
                 profitLossDataForMatchConstants?.[
-                  matchDetails?.marketBookmaker2?.type
+                  matchDetails?.bookmaker2?.type
                 ]?.B +
                   "_" +
                   matchDetails?.id
@@ -294,19 +294,19 @@ const MatchOdds = ({ matchDetails, setShow, show }: any) => {
             teamCRates={
               matchDetails?.profitLossDataMatch?.[
                 profitLossDataForMatchConstants?.[
-                  matchDetails?.marketBookmaker2?.type
+                  matchDetails?.bookmaker2?.type
                 ]?.C +
                   "_" +
                   matchDetails?.id
               ] ?? 0
             }
-            min={formatToINR(matchDetails?.marketBookmaker2?.minBet) || 0}
-            max={formatToINR(matchDetails?.marketBookmaker2?.maxBet) || 0}
-            title={matchDetails?.marketBookmaker2?.name}
+            min={formatToINR(matchDetails?.bookmaker2?.minBet) || 0}
+            max={formatToINR(matchDetails?.bookmaker2?.maxBet) || 0}
+            title={matchDetails?.bookmaker2?.name}
             isRound={false}
             session={"bookmaker"}
             typeOfBet={"BOOKMAKER"}
-            marketDetails={matchDetails?.marketBookmaker2}
+            marketDetails={matchDetails?.bookmaker2}
           />
         )}
 
