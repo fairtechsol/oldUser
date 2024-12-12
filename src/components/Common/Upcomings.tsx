@@ -33,22 +33,27 @@ const Upcomings = (props: any) => {
             fontSize: { lg: "14px", xs: "10px" },
             fontWeight: "bold",
             marginLeft: "7px",
-            display:"flex",
-            flexDirection:isMobile?"column":"row"
+            display: "flex",
+            flexDirection: isMobile ? "column" : "row",
           }}
         >
-          {match.teamA} vs {match?.teamB}{" "}
+          {match?.title}{" "}
           <span style={{ fontWeight: "500" }}>
             ({moment(match.startAt).format("LLL")})
           </span>
         </Typography>{" "}
-        
       </Box>
-      <div style={{background: "#f1c550"}}>
-      {location.pathname === '/inplay' && (
-        <img className="inplayicon" src={Cricket} alt="Inplay Icon"  width={25} height={25}  />
-      )}
-    </div>
+      <div style={{ background: "#f1c550" }}>
+        {location.pathname === "/inplay" && (
+          <img
+            className="inplayicon"
+            src={Cricket}
+            alt="Inplay Icon"
+            width={25}
+            height={25}
+          />
+        )}
+      </div>
       <Box
         sx={{
           flex: 0.1,
@@ -70,137 +75,139 @@ const Upcomings = (props: any) => {
           justifyContent: "center",
         }}
       >
-        {!upcoming && (<Box
-          sx={{
-            height: "80%",
-            marginRight: "3px",
-            borderRadius: "4px",
-            width: "110px",
-            background: "white",
-            justifyContent: "space-evenly",
-            display: "flex",
-            alignSelf: "flex-end",
-            visibility:
-              Number(timeLeft) === 0 &&
-              Number(timeLeft) === 0 &&
-              Number(timeLeft) === 0
-                ? "hidden"
-                : "visible",
-          }}
-        >
+        {!upcoming && (
           <Box
             sx={{
+              height: "80%",
+              marginRight: "3px",
+              borderRadius: "4px",
+              width: "110px",
+              background: "white",
+              justifyContent: "space-evenly",
               display: "flex",
-              justifyContent: "center",
-              flexDirection: "column",
+              alignSelf: "flex-end",
+              visibility:
+                Number(timeLeft) === 0 &&
+                Number(timeLeft) === 0 &&
+                Number(timeLeft) === 0
+                  ? "hidden"
+                  : "visible",
             }}
           >
-            <Typography
+            <Box
               sx={{
-                fontSize: "12px",
-                fontWeight: "bold",
-                color: "#0B4F26",
+                display: "flex",
+                justifyContent: "center",
+                flexDirection: "column",
               }}
             >
-              {timeLeft?.days || 0}
-            </Typography>
-            <Typography
+              <Typography
+                sx={{
+                  fontSize: "12px",
+                  fontWeight: "bold",
+                  color: "#0B4F26",
+                }}
+              >
+                {timeLeft?.days || 0}
+              </Typography>
+              <Typography
+                sx={{
+                  fontSize: "8px",
+                  fontWeight: "400",
+                  color: "#0B4F26",
+                }}
+              >
+                Days
+              </Typography>
+            </Box>
+            <Box
               sx={{
-                fontSize: "8px",
-                fontWeight: "400",
-                color: "#0B4F26",
+                display: "flex",
+                justifyContent: "center",
+                flexDirection: "column",
               }}
             >
-              Days
-            </Typography>
+              <Typography
+                sx={{
+                  fontSize: "25px",
+                  fontWeight: "bold",
+                  color: "#0B4F26",
+                }}
+              >
+                :
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                flexDirection: "column",
+              }}
+            >
+              <Typography
+                sx={{
+                  fontSize: "12px",
+                  fontWeight: "bold",
+                  color: "#0B4F26",
+                }}
+              >
+                {timeLeft?.hours || 0}
+              </Typography>
+              <Typography
+                sx={{
+                  fontSize: "8px",
+                  fontWeight: "400",
+                  color: "#0B4F26",
+                }}
+              >
+                Hrs
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                flexDirection: "column",
+              }}
+            >
+              <Typography
+                sx={{
+                  fontSize: "25px",
+                  fontWeight: "bold",
+                  color: "#0B4F26",
+                }}
+              >
+                :
+              </Typography>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                flexDirection: "column",
+              }}
+            >
+              <Typography
+                sx={{
+                  fontSize: "12px",
+                  fontWeight: "bold",
+                  color: "#0B4F26",
+                }}
+              >
+                {timeLeft?.minutes || 0}
+              </Typography>
+              <Typography
+                sx={{
+                  fontSize: "8px",
+                  fontWeight: "400",
+                  color: "#0B4F26",
+                }}
+              >
+                Min
+              </Typography>
+            </Box>
           </Box>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              flexDirection: "column",
-            }}
-          >
-            <Typography
-              sx={{
-                fontSize: "25px",
-                fontWeight: "bold",
-                color: "#0B4F26",
-              }}
-            >
-              :
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              flexDirection: "column",
-            }}
-          >
-            <Typography
-              sx={{
-                fontSize: "12px",
-                fontWeight: "bold",
-                color: "#0B4F26",
-              }}
-            >
-              {timeLeft?.hours || 0}
-            </Typography>
-            <Typography
-              sx={{
-                fontSize: "8px",
-                fontWeight: "400",
-                color: "#0B4F26",
-              }}
-            >
-              Hrs
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              flexDirection: "column",
-            }}
-          >
-            <Typography
-              sx={{
-                fontSize: "25px",
-                fontWeight: "bold",
-                color: "#0B4F26",
-              }}
-            >
-              :
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              flexDirection: "column",
-            }}
-          >
-            <Typography
-              sx={{
-                fontSize: "12px",
-                fontWeight: "bold",
-                color: "#0B4F26",
-              }}
-            >
-              {timeLeft?.minutes || 0}
-            </Typography>
-            <Typography
-              sx={{
-                fontSize: "8px",
-                fontWeight: "400",
-                color: "#0B4F26",
-              }}
-            >
-              Min
-            </Typography>
-          </Box>
-        </Box>)}
+        )}
       </Box>
     </Box>
   );
