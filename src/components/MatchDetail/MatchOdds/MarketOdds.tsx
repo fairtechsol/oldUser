@@ -730,11 +730,7 @@ const MarketOdds = ({
                             : newData?.teamC
                         }
                         data={data?.length > 0 ? data[2] : []}
-                        rate={
-                          marketDetails?.runners?.[2]?.nat
-                            ? marketDetails?.runners?.[2]?.nat
-                            : teamCRates
-                        }
+                        rate={teamCRates}
                         allRates={{
                           teamA: teamARates,
                           teamB: teamBRates,

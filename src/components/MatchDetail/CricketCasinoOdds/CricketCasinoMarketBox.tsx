@@ -197,7 +197,7 @@ const CricketCasinoMarketBox = ({
                       handleRateChange={handleRateChange}
                       width={"100%"}
                       mid={data?.mid}
-                      teamName={data?.nat || `${index} Number`}
+                      teamName={data?.RunnerName}
                     />
                   );
                 })}

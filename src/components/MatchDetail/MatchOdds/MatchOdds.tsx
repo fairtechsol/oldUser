@@ -177,24 +177,27 @@ const MatchOdds = ({ matchDetails, setShow, show }: any) => {
             data={match?.runners?.length > 0 ? match?.runners : []}
             teamARates={
               matchDetails?.profitLossDataMatch?.[
-                profitLossDataForMatchConstants?.[matchDetails?.match?.type]
-                  ?.A +
+                profitLossDataForMatchConstants?.[match?.type]?.A +
+                  "_" +
+                  match?.id +
                   "_" +
                   matchDetails?.id
               ] ?? 0
             }
             teamBRates={
               matchDetails?.profitLossDataMatch?.[
-                profitLossDataForMatchConstants?.[matchDetails?.match?.type]
-                  ?.B +
+                profitLossDataForMatchConstants?.[match?.type]?.B +
+                  "_" +
+                  match?.id +
                   "_" +
                   matchDetails?.id
               ] ?? 0
             }
             teamCRates={
               matchDetails?.profitLossDataMatch?.[
-                profitLossDataForMatchConstants?.[matchDetails?.match?.type]
-                  ?.C +
+                profitLossDataForMatchConstants?.[match?.type]?.C +
+                  "_" +
+                  match?.id +
                   "_" +
                   matchDetails?.id
               ] ?? 0
@@ -223,24 +226,27 @@ const MatchOdds = ({ matchDetails, setShow, show }: any) => {
             }
             teamARates={
               matchDetails?.profitLossDataMatch?.[
-                profitLossDataForMatchConstants?.[matchDetails?.match?.type]
-                  ?.A +
+                profitLossDataForMatchConstants?.[market?.type]?.A +
+                  "_" +
+                  market?.id +
                   "_" +
                   matchDetails?.id
               ] ?? 0
             }
             teamBRates={
               matchDetails?.profitLossDataMatch?.[
-                profitLossDataForMatchConstants?.[matchDetails?.match?.type]
-                  ?.B +
+                profitLossDataForMatchConstants?.[market?.type]?.B +
+                  "_" +
+                  market?.id +
                   "_" +
                   matchDetails?.id
               ] ?? 0
             }
             teamCRates={
               matchDetails?.profitLossDataMatch?.[
-                profitLossDataForMatchConstants?.[matchDetails?.match?.type]
-                  ?.C +
+                profitLossDataForMatchConstants?.[market?.type]?.C +
+                  "_" +
+                  market?.id +
                   "_" +
                   matchDetails?.id
               ] ?? 0

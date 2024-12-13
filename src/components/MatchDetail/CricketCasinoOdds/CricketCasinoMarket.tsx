@@ -363,6 +363,7 @@ const CricketCasinoMarket = ({
                             matchId: matchDetails?.id,
                             type: type,
                             id: data?.id,
+                            RunnerName: data?.RunnerName,
                           }}
                           sessionMain={session}
                           selectedFastAmount={fastAmount}
