@@ -74,6 +74,17 @@ const CricketCasinoMarketBox = ({
               lineHeight: "0.8rem",
             }}
           >
+            {data?.isCommissionActive && (
+              <Box
+                sx={{
+                  width: 10,
+                  height: 10,
+                  borderRadius: "50%",
+                  backgroundColor: "green",
+                  marginRight: "5px",
+                }}
+              />
+            )}
             {data?.nat || `${index} Number`}
           </Typography>
         </Typography>
