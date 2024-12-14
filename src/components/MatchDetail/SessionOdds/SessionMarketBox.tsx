@@ -70,6 +70,7 @@ const SessionMarketBox = ({
           <Typography>
             <Typography
               sx={{
+                display: "flex",
                 color: "black",
                 fontSize: { lg: "10px", md: "10px", xs: "9px" },
                 marginLeft: "7px",
@@ -80,6 +81,17 @@ const SessionMarketBox = ({
                 lineHeight: "0.8rem",
               }}
             >
+              {data?.isCommissionActive && (
+                <Box
+                  sx={{
+                    width: 10,
+                    height: 10,
+                    borderRadius: "50%",
+                    backgroundColor: "green",
+                    marginRight: "5px",
+                  }}
+                />
+              )}
               {data?.type === "khado"
                 ? `${data?.RunnerName || data?.name}-${
                     data.ex?.availableToLay[0]?.price
