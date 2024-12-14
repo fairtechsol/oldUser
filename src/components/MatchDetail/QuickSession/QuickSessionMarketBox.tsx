@@ -105,6 +105,17 @@ const QuickSessionMarketBox = ({
                 lineHeight: "0.9",
               }}
             >
+              {data?.isCommissionActive && (
+                <Box
+                  sx={{
+                    width: 10,
+                    height: 10,
+                    borderRadius: "50%",
+                    backgroundColor: "green",
+                    marginRight: "5px",
+                  }}
+                />
+              )}
               {data?.name}
             </Typography>
             <Typography
