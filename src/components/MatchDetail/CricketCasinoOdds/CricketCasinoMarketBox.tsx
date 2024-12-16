@@ -4,6 +4,7 @@ import { BallStart } from "../../../assets";
 import PlaceBetComponent from "../MatchOdds/Bets/PlaceBetComponent";
 import PlaceBetComponentWeb from "../MatchOdds/Bets/PlaceBetComponentWeb";
 import SeparateModal from "../MatchOdds/SeparateModal";
+import CommissionDot from "../../Common/CommissionDot";
 
 const CricketCasinoMarketBox = ({
   index,
@@ -74,17 +75,7 @@ const CricketCasinoMarketBox = ({
               lineHeight: "0.8rem",
             }}
           >
-            {data?.isCommissionActive && (
-              <Box
-                sx={{
-                  width: 10,
-                  height: 10,
-                  borderRadius: "50%",
-                  backgroundColor: "green",
-                  marginRight: "5px",
-                }}
-              />
-            )}
+            {data?.isCommissionActive && <CommissionDot />}
             {data?.nat || `${index} Number`}
           </Typography>
         </Typography>
