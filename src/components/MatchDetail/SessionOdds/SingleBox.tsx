@@ -33,7 +33,7 @@ const SingleBox = ({
             fontSize: { xs: "9px", lg: "9px" },
             color: "black",
             textAlign: "center",
-            lineHeight: 0.5,
+            // lineHeight: 0.5,
           }}
         >
           {time}
@@ -54,7 +54,17 @@ const SingleBox = ({
             justifyContent: "center",
           }}
         >
-          {isCommissionActive && <CommissionDot />}
+          {isCommissionActive && (
+            <Box
+              sx={{
+                width: 10,
+                height: 10,
+                borderRadius: "50%",
+                backgroundColor: "#74ee15",
+                // marginRight: "5px",
+              }}
+            />
+          )}
           {data}
         </Typography>
       </Box>
