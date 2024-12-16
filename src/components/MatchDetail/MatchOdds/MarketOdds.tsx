@@ -226,9 +226,9 @@ const MarketOdds = ({
                 alignItems: "center",
               }}
             >
-              {marketDetails?.isCommissionActive && <CommissionDot />}
               {title}
             </Typography>
+            {marketDetails?.isCommissionActive && <CommissionDot />}
             {showDely && typeOfBet === "MATCH ODDS" && (
               <Time time={(profileDetail && profileDetail?.delayTime) ?? 0} />
             )}
