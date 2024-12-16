@@ -82,7 +82,6 @@ const SessionMarketBox = ({
                 lineHeight: "0.8rem",
               }}
             >
-              {data?.isCommissionActive && <CommissionDot />}
               {data?.type === "khado"
                 ? `${data?.RunnerName || data?.name}-${
                     data.ex?.availableToLay[0]?.price
@@ -101,7 +100,11 @@ const SessionMarketBox = ({
               max:{formatToINR(data?.max || 0)}
             </Typography>
           </Typography>
-
+          {data?.isCommissionActive && (
+            <Box sx={{ position: "absolute", right: { xs: "58vw", sm: "49vw", lg: "28vw", md: "50vw" }, zIndex: "123"}}>
+              <CommissionDot />
+            </Box>
+          )}
           {matchesMobile && (
             <PlaceBetComponent
               amount={index == 2}
