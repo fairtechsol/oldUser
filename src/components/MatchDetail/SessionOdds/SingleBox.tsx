@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import CommissionDot from "../../Common/CommissionDot";
 
 const SingleBox = ({
   data,
@@ -9,6 +10,7 @@ const SingleBox = ({
   time,
   isPercent,
   rate,
+  isCommissionActive,
 }: any) => {
   // console.log(data, "dataaaa")
   return !header ? (
@@ -46,9 +48,13 @@ const SingleBox = ({
             fontSize: { lg: "9px", xs: "10px" },
             color: "black",
             textAlign: "center",
-            overflowWrap:"anywhere"
+            overflowWrap: "anywhere",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
+          {isCommissionActive && <CommissionDot />}
           {data}
         </Typography>
       </Box>
@@ -110,7 +116,7 @@ const SingleBox = ({
               textTransform: "capitalize",
             },
             color: "black",
-            lineHeight:1
+            lineHeight: 1,
           }}
         >
           {data}
@@ -148,7 +154,7 @@ const SingleBox = ({
           fontSize: "12px",
           color: "white",
           wordWrap: "break-word",
-          lineHeight: "0.9"
+          lineHeight: "0.9",
         }}
       >
         {data}

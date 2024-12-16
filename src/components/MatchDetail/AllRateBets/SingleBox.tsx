@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import CommissionDot from "../../Common/CommissionDot";
 
 const SingleBox = ({
   data,
@@ -9,6 +10,7 @@ const SingleBox = ({
   time,
   width,
   boxWidth,
+  isCommissionActive,
 }: any) => {
   return !header ? (
     first ? (
@@ -44,8 +46,10 @@ const SingleBox = ({
                   fontSize: { xs: "8px", md: "10px", lg: ".7vw" },
                   color: "black",
                   textAlign: "center",
+                  display: "flex",
                 }}
               >
+                {isCommissionActive && <CommissionDot />}
                 {data}
               </Typography>
             </Box>
@@ -72,8 +76,22 @@ const SingleBox = ({
                   maxHeight: "2em",
                   overflowWrap: "anywhere",
                   lineHeight: 1,
+                  display: "flex",
+                  alignItems: "center",
                 }}
               >
+                {" "}
+                {isCommissionActive && (
+                  <Box
+                    sx={{
+                      width: 10,
+                      height: 10,
+                      borderRadius: "50%",
+                      backgroundColor: "#74ee15",
+                      marginRight: "5px",
+                    }}
+                  />
+                )}
                 {data}
               </Typography>
             </Box>
@@ -113,9 +131,22 @@ const SingleBox = ({
             maxHeight: "1em",
             overflow: "hidden",
             lineHeight: 1,
-            overflowWrap: "anywhere"
+            overflowWrap: "anywhere",
+            display: "flex",
+            alignItems: "center",
           }}
         >
+          {isCommissionActive && (
+            <Box
+              sx={{
+                width: 10,
+                height: 10,
+                borderRadius: "50%",
+                backgroundColor: "#74ee15",
+                marginRight: "5px",
+              }}
+            />
+          )}
           {data}
         </Typography>
       </Box>
@@ -141,11 +172,24 @@ const SingleBox = ({
               md: "9px",
               lg: "9px",
               textTransform: "capitalize",
-              lineHeight:0.9
+              lineHeight: 0.9,
             },
             color: "black",
+            display: "flex",
+            alignItems: "center",
           }}
         >
+          {isCommissionActive && (
+            <Box
+              sx={{
+                width: 10,
+                height: 10,
+                borderRadius: "50%",
+                backgroundColor: "#74ee15",
+                marginRight: "5px",
+              }}
+            />
+          )}
           {data}
         </Typography>
       </Box>
