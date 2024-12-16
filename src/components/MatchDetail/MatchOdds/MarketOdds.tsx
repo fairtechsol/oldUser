@@ -10,6 +10,7 @@ import OddsPlaceBet from "./Bets/OddsPlacebet";
 import BoxComponent from "./BoxComponent";
 import FastTime from "./FastTime";
 import ManualBoxComponent from "./ManualBoxComponent";
+import CommissionDot from "../../Common/CommissionDot";
 
 const SmallBox = ({ valueA, valueB, color }: any) => {
   return (
@@ -221,8 +222,11 @@ const MarketOdds = ({
                 fontSize: { lg: "13px", md: "12px", xs: "10px" },
                 fontWeight: "bold",
                 marginLeft: "7px",
+                display: "flex",
+                alignItems: "center",
               }}
             >
+              {marketDetails?.isCommissionActive && <CommissionDot />}
               {title}
             </Typography>
             {showDely && typeOfBet === "MATCH ODDS" && (
