@@ -6,6 +6,7 @@ import PlaceBetComponentWeb from "../MatchOdds/Bets/PlaceBetComponentWeb";
 import FastTimePlaceBet from "../MatchOdds/Bets/FastTimePlaceBet";
 import PlaceBetComponent from "../MatchOdds/Bets/PlaceBetComponent";
 import { formatToINR } from "../../../helper";
+import CommissionDot from "../../Common/CommissionDot";
 
 const QuickSessionMarketBox = ({
   index,
@@ -105,17 +106,7 @@ const QuickSessionMarketBox = ({
                 lineHeight: "0.9",
               }}
             >
-              {data?.isCommissionActive && (
-                <Box
-                  sx={{
-                    width: 10,
-                    height: 10,
-                    borderRadius: "50%",
-                    backgroundColor: "green",
-                    marginRight: "5px",
-                  }}
-                />
-              )}
+              {data?.isCommissionActive && <CommissionDot />}
               {data?.name}
             </Typography>
             <Typography

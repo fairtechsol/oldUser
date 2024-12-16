@@ -49,6 +49,7 @@ const RowComponent = ({ header, data, match }: any) => {
             first={true}
             header={header}
             time={getTime(data.createdAt)}
+            isCommissionActive={data?.isCommissionActive}
           />
           {!state?.matchId && (
             <SingleBox

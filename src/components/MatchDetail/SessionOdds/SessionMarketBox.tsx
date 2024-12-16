@@ -6,6 +6,7 @@ import { sessionBettingType } from "../../../utils/Constants";
 import PlaceBetComponent from "../MatchOdds/Bets/PlaceBetComponent";
 import PlaceBetComponentWeb from "../MatchOdds/Bets/PlaceBetComponentWeb";
 import SeparateModal from "../MatchOdds/SeparateModal";
+import CommissionDot from "../../Common/CommissionDot";
 
 const SessionMarketBox = ({
   index,
@@ -81,17 +82,7 @@ const SessionMarketBox = ({
                 lineHeight: "0.8rem",
               }}
             >
-              {data?.isCommissionActive && (
-                <Box
-                  sx={{
-                    width: 10,
-                    height: 10,
-                    borderRadius: "50%",
-                    backgroundColor: "green",
-                    marginRight: "5px",
-                  }}
-                />
-              )}
+              {data?.isCommissionActive && <CommissionDot />}
               {data?.type === "khado"
                 ? `${data?.RunnerName || data?.name}-${
                     data.ex?.availableToLay[0]?.price

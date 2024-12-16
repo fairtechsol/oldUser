@@ -47,6 +47,7 @@ const RowComponent = ({ header, data, match }: any) => {
               data={data?.bettingName || data?.marketType}
               first={true}
               header={header}
+              isCommissionActive={data?.isCommissionActive}
             />
           </div>
           {/* <Box sx={{ width: "52%", minWidth: "19%" }}> */}
