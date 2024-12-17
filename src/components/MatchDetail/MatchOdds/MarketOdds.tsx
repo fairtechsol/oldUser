@@ -639,6 +639,10 @@ const MarketOdds = ({
                       "completeMatch1",
                     ].includes(marketDetails?.type)
                       ? "YES"
+                      : ["matchOdd", "bookmaker", "bookmaker2"].includes(
+                          marketDetails?.type
+                        )
+                      ? newData?.teamA
                       : marketDetails?.runners?.[0]?.nat
                       ? marketDetails?.runners?.[0]?.nat
                       : newData?.teamA
@@ -683,6 +687,10 @@ const MarketOdds = ({
                       "completeMatch1",
                     ].includes(marketDetails?.type)
                       ? "NO"
+                      : ["matchOdd", "bookmaker", "bookmaker2"].includes(
+                          marketDetails?.type
+                        )
+                      ? newData?.teamB
                       : marketDetails?.runners?.[1]?.nat
                       ? marketDetails?.runners?.[1]?.nat
                       : newData?.teamB
