@@ -142,7 +142,7 @@ const SingleBox = ({
                 width: 10,
                 height: 10,
                 borderRadius: "50%",
-                backgroundColor: "#74ee15",
+                backgroundColor: "#319E5B",
                 marginRight: "5px",
               }}
             />
