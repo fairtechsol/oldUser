@@ -142,6 +142,10 @@ const SeparateModal = ({
                 marketDetails?.type === "completeMatch" ||
                 marketDetails?.type === "completeManual"
                   ? "YES"
+                  : ["matchOdd", "bookmaker", "bookmaker2"].includes(
+                      marketDetails?.type
+                    )
+                  ? currentMatch?.teamA
                   : marketDetails?.runners?.[0]?.nat
                   ? marketDetails?.runners?.[0]?.nat
                   : currentMatch?.teamA,
@@ -152,6 +156,10 @@ const SeparateModal = ({
                 marketDetails?.type === "completeMatch" ||
                 marketDetails?.type === "completeManual"
                   ? "NO"
+                  : ["matchOdd", "bookmaker", "bookmaker2"].includes(
+                      marketDetails?.type
+                    )
+                  ? currentMatch?.teamB
                   : marketDetails?.runners?.[1]?.nat
                   ? marketDetails?.runners?.[1]?.nat
                   : currentMatch?.teamB,

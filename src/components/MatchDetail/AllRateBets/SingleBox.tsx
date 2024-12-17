@@ -128,7 +128,7 @@ const SingleBox = ({
             color: "black",
             textAlign: "center",
             textTransform: "uppercase",
-            maxHeight: "1em",
+            maxHeight: "2em",
             overflow: "hidden",
             lineHeight: 1,
             overflowWrap: "anywhere",
@@ -142,7 +142,7 @@ const SingleBox = ({
                 width: 10,
                 height: 10,
                 borderRadius: "50%",
-                backgroundColor: "#74ee15",
+                backgroundColor: "#319E5B",
                 marginRight: "5px",
               }}
             />

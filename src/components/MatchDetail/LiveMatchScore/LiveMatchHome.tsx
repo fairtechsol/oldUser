@@ -100,7 +100,7 @@ const LiveMatchHome = ({ eventId }: any) => {
             <Col md={12} className="p-0">
               <Ratio aspectRatio="16x9">
                 <iframe
-                  src={`${liveStreamUrl}${eventId}`}
+                  src={`${liveStreamUrl}${eventId}/4`}
                   title="Live Stream"
                   referrerPolicy={"strict-origin-when-cross-origin"}
                 ></iframe>
