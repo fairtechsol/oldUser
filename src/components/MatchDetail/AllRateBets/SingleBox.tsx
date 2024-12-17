@@ -129,7 +129,7 @@ const SingleBox = ({
             textAlign: "center",
             textTransform: "uppercase",
             maxHeight: "2em",
-            // overflow: "hidden",
+            overflow: "hidden",
             lineHeight: 1,
             overflowWrap: "anywhere",
             display: "flex",
