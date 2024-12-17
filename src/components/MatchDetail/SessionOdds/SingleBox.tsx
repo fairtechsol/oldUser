@@ -1,5 +1,4 @@
 import { Box, Typography } from "@mui/material";
-import CommissionDot from "../../Common/CommissionDot";
 
 const SingleBox = ({
   data,
