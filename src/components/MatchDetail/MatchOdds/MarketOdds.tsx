@@ -218,7 +218,7 @@ const MarketOdds = ({
           >
             <Typography
               sx={{
-                width: "100%",
+                width: "65%",
                 fontSize: { lg: "13px", md: "12px", xs: "10px" },
                 fontWeight: "bold",
                 marginLeft: "7px",
