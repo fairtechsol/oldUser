@@ -471,7 +471,8 @@ const MatchDetail = () => {
                 )}
                 {isTv &&
                   matchDetails?.eventId &&
-                  matchDetails?.matchType !== "politics" && (
+                  matchDetails?.matchType !== "politics" &&
+                  liveScoreBoardData && (
                     <LiveMatchHome eventId={matchDetails?.eventId} />
                   )}
                 <div style={{ width: "100%" }}>
