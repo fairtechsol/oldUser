@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import { Col, Container, Ratio, Row } from "react-bootstrap";
-import { liveStreamUrl } from "../../../utils/Constants";
+import { liveStreamCricketPageUrl } from "../../../utils/Constants";
 
 const LiveMatchHome = ({ eventId }: any) => {
   return (
@@ -100,7 +100,7 @@ const LiveMatchHome = ({ eventId }: any) => {
             <Col md={12} className="p-0">
               <Ratio aspectRatio="16x9">
                 <iframe
-                  src={`${liveStreamUrl}${eventId}/4`}
+                  src={`${liveStreamCricketPageUrl}${eventId}`}
                   title="Live Stream"
                   referrerPolicy={"strict-origin-when-cross-origin"}
                 ></iframe>
