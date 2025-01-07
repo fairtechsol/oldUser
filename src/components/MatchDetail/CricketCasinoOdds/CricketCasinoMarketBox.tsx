@@ -1,10 +1,10 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { memo } from "react";
 import { BallStart } from "../../../assets";
+import CommissionDot from "../../Common/CommissionDot";
 import PlaceBetComponent from "../MatchOdds/Bets/PlaceBetComponent";
 import PlaceBetComponentWeb from "../MatchOdds/Bets/PlaceBetComponentWeb";
 import SeparateModal from "../MatchOdds/SeparateModal";
-import CommissionDot from "../../Common/CommissionDot";
 
 const CricketCasinoMarketBox = ({
   index,
@@ -199,7 +199,7 @@ const CricketCasinoMarketBox = ({
                       handleRateChange={handleRateChange}
                       width={"100%"}
                       mid={data?.mid}
-                      teamName={item?.nat}
+                      teamName={data?.nat}
                     />
                   );
                 })}
