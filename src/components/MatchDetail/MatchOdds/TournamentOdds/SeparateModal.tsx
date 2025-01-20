@@ -1,14 +1,13 @@
 import { Box, Typography } from "@mui/material";
 import MUIModal from "@mui/material/Modal";
 import React, { memo } from "react";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Lock } from "../../../../assets";
 import {
   selectedBetAction,
   selectedBetMinMax,
 } from "../../../../store/actions/match/matchListAction";
 import { AppDispatch, RootState } from "../../../../store/store";
-import { Lock } from "../../../../assets";
 import OddsPlaceBet from "../Bets/OddsPlacebet";
 
 const SeparateModal = ({
@@ -28,7 +27,6 @@ const SeparateModal = ({
   matchDetails,
   selectionId,
 }: any) => {
-
   const dispatch: AppDispatch = useDispatch();
   const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
   const { loading } = useSelector((state: RootState) => state.match.bet);
@@ -117,17 +115,21 @@ const SeparateModal = ({
               >
                 {value}
               </Typography>
-              <Typography
-                sx={{
-                  fontSize: "8px",
-                  marginTop: -0.4,
-                  color: color == "white" ? "white" : "black",
-                  textAlign: "center",
-                  fontWeight: "bold",
-                }}
-              >
-                {value2}
-              </Typography>
+              {value2 ? (
+                <Typography
+                  sx={{
+                    fontSize: "8px",
+                    marginTop: -0.4,
+                    color: color == "white" ? "white" : "black",
+                    textAlign: "center",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {value2}
+                </Typography>
+              ) : (
+                ""
+              )}
             </Box>
           )}
           {(lock || [0, "0"].includes(value)) && (

@@ -1,7 +1,6 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { memo, useEffect } from "react";
 import { BallStart } from "../../../assets";
-import { useEffect } from "react";
-import { memo } from "react";
 import MoneyBox from "./MoneyBox";
 import SeparateModal from "./SeparateModal";
 
@@ -184,7 +183,7 @@ const ManualBoxComponent = ({
             <Box
               sx={{
                 background: "#000",
-                height: isTeamC ? "125px" : "82px",
+                height:"100%",
                 position: "absolute",
                 right: 0,
                 top: 0,
