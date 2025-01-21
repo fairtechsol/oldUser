@@ -211,49 +211,53 @@ const MatchOdds = ({ matchDetails, setShow, show }: any) => {
           />
         ))}
       {matchDetails?.tournament &&
-        matchDetails?.tournament?.map((market: any) => {
-          return (
-            <TournamentOdds
-              key={market?.id}
-              upcoming={!upcoming}
-              betLock={matchDetails?.blockMarket?.BOOKMAKER?.block}
-              showBox={market?.activeStatus === "save"}
-              lock={
-                matchDetails?.bookmakerLive?.length > 0 &&
-                matchDetails?.bookmakerLive[0]?.betStatus === 0
-                  ? true
-                  : false
-              }
-              teamARates={
-                JSON.parse(
-                  matchDetails?.profitLossDataMatch?.[
-                    market?.id + "_profitLoss_" + matchDetails?.id
-                  ] || "{}"
-                )?.[market?.runners?.[0]?.id] ?? 0
-              }
-              teamBRates={
-                JSON.parse(
-                  matchDetails?.profitLossDataMatch?.[
-                    market?.id + "_profitLoss_" + matchDetails?.id
-                  ] || "{}"
-                )?.[market?.runners?.[1]?.id] ?? 0
-              }
-              teamCRates={
-                JSON.parse(
-                  matchDetails?.profitLossDataMatch?.[
-                    market?.id + "_profitLoss_" + matchDetails?.id
-                  ] || "{}"
-                )?.[market?.runners?.[2]?.id] ?? 0
-              }
-              min={formatToINR(market?.minBet) || 0}
-              max={formatToINR(market?.maxBet) || 0}
-              title={market?.name}
-              isRound={false}
-              marketDetails={market}
-              matchDetails={matchDetails}
-            />
-          );
-        })}
+        matchDetails?.tournament
+          ?.filter(
+            (items: any) => items.activeStatus === "live" && items.isActive
+          )
+          ?.map((market: any) => {
+            return (
+              <TournamentOdds
+                key={market?.id}
+                upcoming={!upcoming}
+                betLock={matchDetails?.blockMarket?.BOOKMAKER?.block}
+                showBox={market?.activeStatus === "save"}
+                lock={
+                  matchDetails?.bookmakerLive?.length > 0 &&
+                  matchDetails?.bookmakerLive[0]?.betStatus === 0
+                    ? true
+                    : false
+                }
+                teamARates={
+                  JSON.parse(
+                    matchDetails?.profitLossDataMatch?.[
+                      market?.id + "_profitLoss_" + matchDetails?.id
+                    ] || "{}"
+                  )?.[market?.runners?.[0]?.id] ?? 0
+                }
+                teamBRates={
+                  JSON.parse(
+                    matchDetails?.profitLossDataMatch?.[
+                      market?.id + "_profitLoss_" + matchDetails?.id
+                    ] || "{}"
+                  )?.[market?.runners?.[1]?.id] ?? 0
+                }
+                teamCRates={
+                  JSON.parse(
+                    matchDetails?.profitLossDataMatch?.[
+                      market?.id + "_profitLoss_" + matchDetails?.id
+                    ] || "{}"
+                  )?.[market?.runners?.[2]?.id] ?? 0
+                }
+                min={formatToINR(market?.minBet) || 0}
+                max={formatToINR(market?.maxBet) || 0}
+                title={market?.name}
+                isRound={false}
+                marketDetails={market}
+                matchDetails={matchDetails}
+              />
+            );
+          })}
       {matchDetails?.marketBookmaker2?.activeStatus === "live" &&
         matchDetails?.marketBookmaker2?.isActive && (
           <MarketOdds
