@@ -118,7 +118,22 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
 
   const handleProfit = (value: any) => {
     let profit;
-    if (Object.values(sessionBettingType)?.includes(selectedBet?.data?.type)) {
+    console.log(selectedBet?.data?.type);
+    if (selectedBet?.data?.type == "tournament") {
+      if (selectedBet?.team?.eventType == "match1") {
+        profit =
+        selectedBet?.team?.type === "back"
+          ? (value * selectedBet?.team?.rate) / 100
+          : value;
+      
+      } else {
+        profit =
+          selectedBet?.team?.type === "back"
+            ? (value * ((selectedBet?.team?.rate - 1) * 100)) / 100
+            : value;
+      }
+    }
+    else if (Object.values(sessionBettingType)?.includes(selectedBet?.data?.type)) {
       profit =
         selectedBet?.team?.type === "no" || selectedBet?.team?.type === "lay"
           ? value
@@ -130,10 +145,10 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
           ? value * (parseFloat(selectedBet?.team?.percent) - 1)
           : (value * selectedBet?.team?.percent) / 100;
     } else if (
-      ["matchOdd", "tiedMatch1", "completeMatch"].includes(
+      ["matchOdd", "tiedMatch1", "completeMatch", "tournament"].includes(
         selectedBet?.data?.type
       ) ||
-      ["matchOdd", "tiedMatch1", "completeMatch"].includes(
+      ["matchOdd", "tiedMatch1", "completeMatch", "tournament"].includes(
         selectedBet?.team?.matchBetType
       )
     ) {
@@ -151,7 +166,20 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
   };
   const handleLoss = (value: any) => {
     let profit;
-    if (Object.values(sessionBettingType)?.includes(selectedBet?.data?.type)) {
+    if (selectedBet?.data?.type == "tournament") {
+      if (selectedBet?.team?.eventType == "match1") {
+        profit =
+          selectedBet?.team?.type === "lay"
+            ? (value * selectedBet?.team?.rate) / 100
+            : value;
+      } else {
+        profit =
+          selectedBet?.team?.type === "lay"
+            ? (value * ((selectedBet?.team?.rate - 1) * 100)) / 100
+            : value;
+      }
+    }
+    else if (Object.values(sessionBettingType)?.includes(selectedBet?.data?.type)) {
       profit =
         selectedBet?.team?.type === "yes" || selectedBet?.team?.type === "back"
           ? value
@@ -163,10 +191,10 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
           ? value * (parseFloat(selectedBet?.team?.percent) - 1)
           : (value * selectedBet?.team?.percent) / 100;
     } else if (
-      ["matchOdd", "tiedMatch1", "completeMatch"].includes(
+      ["matchOdd", "tiedMatch1", "completeMatch", "tournament"].includes(
         selectedBet?.data?.type
       ) ||
-      ["matchOdd", "tiedMatch1", "completeMatch"].includes(
+      ["matchOdd", "tiedMatch1", "completeMatch", "tournament"].includes(
         selectedBet?.team?.matchBetType
       )
     ) {
