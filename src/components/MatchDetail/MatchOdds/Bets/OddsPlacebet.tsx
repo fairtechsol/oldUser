@@ -122,18 +122,18 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
     if (selectedBet?.data?.type == "tournament") {
       if (selectedBet?.team?.eventType == "match1") {
         profit =
-        selectedBet?.team?.type === "back"
-          ? (value * selectedBet?.team?.rate) / 100
-          : value;
-      
+          selectedBet?.team?.type === "back"
+            ? (value * selectedBet?.team?.rate) / 100
+            : value;
       } else {
         profit =
           selectedBet?.team?.type === "back"
             ? (value * ((selectedBet?.team?.rate - 1) * 100)) / 100
             : value;
       }
-    }
-    else if (Object.values(sessionBettingType)?.includes(selectedBet?.data?.type)) {
+    } else if (
+      Object.values(sessionBettingType)?.includes(selectedBet?.data?.type)
+    ) {
       profit =
         selectedBet?.team?.type === "no" || selectedBet?.team?.type === "lay"
           ? value
@@ -178,8 +178,9 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
             ? (value * ((selectedBet?.team?.rate - 1) * 100)) / 100
             : value;
       }
-    }
-    else if (Object.values(sessionBettingType)?.includes(selectedBet?.data?.type)) {
+    } else if (
+      Object.values(sessionBettingType)?.includes(selectedBet?.data?.type)
+    ) {
       profit =
         selectedBet?.team?.type === "yes" || selectedBet?.team?.type === "back"
           ? value
@@ -328,10 +329,10 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
     const data = JSON.stringify(
       isSessionBet ? payloadForSession : payloadForBettings
     );
-
     if (
       selectedBet?.team?.matchBetType === "matchOdd" ||
-      selectedBet?.data?.type === "matchOdd"
+      selectedBet?.data?.type === "matchOdd" ||
+      selectedBet?.team?.bettingName === "MATCH_ODDS"
     ) {
       setMatchOddLoading(true);
       setTimeout(
@@ -342,7 +343,6 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
       dispatch(placeBet({ url, data }));
     }
   };
-  console.log("selectedBet", selectedBet);
   return (
     <Box
       sx={[
