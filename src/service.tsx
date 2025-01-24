@@ -8,7 +8,7 @@ import { serviceUrl } from "./utils/Constants";
 //   encryptWithAES,
 //   generateRandomBytes,
 // } from "./utils/encryptDecrypt";
-
+console.log(import.meta.env);
 const toastOptions = {
   autoClose: 2000,
   hideProgressBar: false,
