@@ -81,17 +81,7 @@ const SingleBox = ({
                 }}
               >
                 {" "}
-                {isCommissionActive && (
-                  <Box
-                    sx={{
-                      width: 10,
-                      height: 10,
-                      borderRadius: "50%",
-                      backgroundColor: "#74ee15",
-                      marginRight: "5px",
-                    }}
-                  />
-                )}
+                {isCommissionActive && <CommissionDot />}
                 {data}
               </Typography>
             </Box>
@@ -136,17 +126,7 @@ const SingleBox = ({
             alignItems: "center",
           }}
         >
-          {isCommissionActive && (
-            <Box
-              sx={{
-                width: 10,
-                height: 10,
-                borderRadius: "50%",
-                backgroundColor: "#319E5B",
-                marginRight: "5px",
-              }}
-            />
-          )}
+          {isCommissionActive && <CommissionDot />}
           {data}
         </Typography>
       </Box>
@@ -179,17 +159,7 @@ const SingleBox = ({
             alignItems: "center",
           }}
         >
-          {isCommissionActive && (
-            <Box
-              sx={{
-                width: 10,
-                height: 10,
-                borderRadius: "50%",
-                backgroundColor: "#74ee15",
-                marginRight: "5px",
-              }}
-            />
-          )}
+          {isCommissionActive && <CommissionDot />}
           {data}
         </Typography>
       </Box>

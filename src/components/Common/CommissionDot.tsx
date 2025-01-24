@@ -4,10 +4,10 @@ const CommissionDot = () => {
   return (
     <Box
       sx={{
-        width: 15,
-        height: 15,
+        width: 10,
+        height: 10,
         borderRadius: "50%",
-        backgroundColor: "#319E5B",
+        backgroundColor: "#74ee15",
         marginRight: "5px",
       }}
     />
