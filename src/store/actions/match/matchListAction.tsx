@@ -215,6 +215,13 @@ export const updateMatchOddRates = createAsyncThunk<any, any>(
   }
 );
 
+export const updateMatchRatesFromApiOnList = createAsyncThunk<any, any>(
+  "/updateMatchRatesFromApiOnList/rates",
+  async (data) => {
+    return data;
+  }
+);
+
 export const searchListReset = createAction("search/list");
 export const matchListReset = createAction("matchList/reset");
 export const matchDetailReset = createAction("matchDetail/reset");

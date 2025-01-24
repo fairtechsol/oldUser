@@ -1,8 +1,8 @@
-import SeparateBox from "./SeparateBox";
 import { Box, useMediaQuery, useTheme } from "@mui/material";
+import SeparateBox from "./SeparateBox";
 
 const MatchRatesCommonComp = (props: any) => {
-  const { data, runnerPosition } = props;
+  const { runnerPosition, match } = props;
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   return (
@@ -11,12 +11,12 @@ const MatchRatesCommonComp = (props: any) => {
         display: "flex",
         background: "white",
         height: "40px",
-        width: { lg: "60%", xs: "80%" },
-        justifyContent: { xs: "flex-end", lg: "center" },
+        width: { lg: "100%", xs: "80%" },
+        justifyContent: { xs: "flex-end", lg: "flex-end" },
         alignItems: "center",
       }}
     >
-      {!matchesMobile && (
+      {/* {!matchesMobile && (
         <SeparateBox
           value={
             data && data[0]?.runners
@@ -30,7 +30,7 @@ const MatchRatesCommonComp = (props: any) => {
           }
           color={matchesMobile ? "white" : "#CEEBFF"}
         />
-      )}
+      )} */}
       <Box
         sx={{
           width: ".25%",
@@ -39,7 +39,7 @@ const MatchRatesCommonComp = (props: any) => {
           justifyContent: "stretch",
         }}
       ></Box>
-      {!matchesMobile && (
+      {/* {!matchesMobile && (
         <SeparateBox
           value={
             data && data[0]?.runners
@@ -53,37 +53,41 @@ const MatchRatesCommonComp = (props: any) => {
           }
           color={matchesMobile ? "white" : "#C2E6FF"}
         />
-      )}
+      )} */}
       <Box sx={{ width: ".25%", display: "flex", background: "pink" }}></Box>
       <SeparateBox
         value={
-          data && data[0]?.runners
-            ? data[0]?.runners[runnerPosition]?.ex?.availableToBack[0]?.price
-            : 0
+          (runnerPosition == 0
+            ? match?.back1
+            : runnerPosition == 1
+            ? match?.back11
+            : runnerPosition == 2
+            ? match?.back12
+            : 0) ?? 0
         }
         value2={
-          data && data[0]?.runners
-            ? data[0]?.runners[runnerPosition]?.ex?.availableToBack[0]?.size
-            : 0
+          0
         }
         color={matchesMobile ? "#A7DCFF" : "#A7DCFF"}
       />
       <Box sx={{ width: ".25%", display: "flex", background: "pink" }}></Box>
       <SeparateBox
         value={
-          data && data[0]?.runners
-            ? data[0]?.runners[runnerPosition]?.ex?.availableToLay[0]?.price
-            : 0
+          (runnerPosition == 0
+            ? match?.lay1
+            : runnerPosition == 1
+            ? match?.lay11
+            : runnerPosition == 2
+            ? match?.lay12
+            : 0) ?? 0
         }
         value2={
-          data && data[0]?.runners
-            ? data[0]?.runners[runnerPosition]?.ex?.availableToLay[0]?.size
-            : 0
+          0
         }
         color={matchesMobile ? "#FFB5B5" : "#FFB5B5"}
       />
       <Box sx={{ width: ".25%", display: "flex", background: "pink" }}></Box>
-      {!matchesMobile && (
+      {/* {!matchesMobile && (
         <SeparateBox
           value={
             data && data[0]?.runners
@@ -97,9 +101,9 @@ const MatchRatesCommonComp = (props: any) => {
           }
           color={matchesMobile ? "white" : "#F2CBCB"}
         />
-      )}
+      )} */}
       <Box sx={{ width: ".25%", display: "flex", background: "pink" }}></Box>
-      {!matchesMobile && (
+      {/* {!matchesMobile && (
         <SeparateBox
           value={
             data && data[0]?.runners
@@ -113,7 +117,7 @@ const MatchRatesCommonComp = (props: any) => {
           }
           color={matchesMobile ? "white" : "#ECD6D6"}
         />
-      )}
+      )} */}
       <Box sx={{ width: ".25%", display: "flex", background: "pink" }}></Box>
     </Box>
   );

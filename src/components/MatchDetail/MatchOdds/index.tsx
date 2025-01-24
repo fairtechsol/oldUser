@@ -1,4 +1,5 @@
 import { Pagination } from "@mui/material";
+import axios from "axios";
 import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -6,10 +7,10 @@ import { expertSocketService, socket } from "../../../socketManager";
 import {
   getMatchList,
   matchDetailReset,
-  updateMatchOddRates,
+  updateMatchRatesFromApiOnList
 } from "../../../store/actions/match/matchListAction";
 import { AppDispatch, RootState } from "../../../store/store";
-import { Constants } from "../../../utils/Constants";
+import { Constants, marketApiConst } from "../../../utils/Constants";
 import Odds from "./Odds";
 
 const MatchesComponent = () => {
@@ -18,13 +19,25 @@ const MatchesComponent = () => {
   const [selectedMatchId, setSelectedMatchId] = useState("");
   const navigate = useNavigate();
 
+  const getMatchListMarket = async (matchType: string) => {
+    try {
+      const resp: any = await axios.get(marketApiConst[matchType]||"", {
+        timeout: 2000,
+      });
+      if (resp?.status) {
+        dispatch(updateMatchRatesFromApiOnList(resp?.data));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const { matchList, success } = useSelector(
     (state: RootState) => state.match.matchList
   );
-
-  const setMatchOddRatesInRedux = (event: any) => {
-    dispatch(updateMatchOddRates(event));
-  };
+  // const setMatchOddRatesInRedux = (event: any) => {
+  //   dispatch(updateMatchOddRates(event));
+  // };
 
   const getMatchListService = () => {
     dispatch(getMatchList({}));
@@ -35,28 +48,28 @@ const MatchesComponent = () => {
       window.scrollTo(0, 0);
       if (success && socket) {
         expertSocketService.match.matchAddedOff();
-        matchList?.matches?.forEach((element: any) => {
-          expertSocketService.match.getMatchRatesOff(element?.id);
-        });
-        matchList?.matches?.forEach((element: any) => {
-          expertSocketService.match.joinMatchRoom(element?.id, "user");
-        });
-        matchList?.matches?.forEach((element: any) => {
-          expertSocketService.match.getMatchRates(
-            element?.id,
-            setMatchOddRatesInRedux
-          );
-        });
+        // matchList?.matches?.forEach((element: any) => {
+        //   expertSocketService.match.getMatchRatesOff(element?.id);
+        // });
+        // matchList?.matches?.forEach((element: any) => {
+        //   expertSocketService.match.joinMatchRoom(element?.id, "user");
+        // });
+        // matchList?.matches?.forEach((element: any) => {
+        //   expertSocketService.match.getMatchRates(
+        //     element?.id,
+        //     setMatchOddRatesInRedux
+        //   );
+        // });
         expertSocketService.match.matchAdded(getMatchListService);
       }
       return () => {
-        expertSocketService.match.matchAddedOff();
-        matchList?.matches?.forEach((element: any) => {
-          expertSocketService.match.leaveMatchRoom(element?.id);
-        });
-        matchList?.matches?.forEach((element: any) => {
-          expertSocketService.match.getMatchRatesOff(element?.id);
-        });
+        // expertSocketService.match.matchAddedOff();
+        // matchList?.matches?.forEach((element: any) => {
+        //   expertSocketService.match.leaveMatchRoom(element?.id);
+        // });
+        // matchList?.matches?.forEach((element: any) => {
+        //   expertSocketService.match.getMatchRatesOff(element?.id);
+        // });
       };
     } catch (e) {
       console.log(e);
@@ -74,13 +87,13 @@ const MatchesComponent = () => {
         });
       }
       return () => {
-        if (selectedMatchId !== "") {
-          matchList?.matches?.forEach((element: any) => {
-            if (element?.id !== selectedMatchId) {
-              expertSocketService.match.leaveMatchRoom(element?.id);
-            }
-          });
-        }
+        // if (selectedMatchId !== "") {
+        //   matchList?.matches?.forEach((element: any) => {
+        //     if (element?.id !== selectedMatchId) {
+        //       expertSocketService.match.leaveMatchRoom(element?.id);
+        //     }
+        //   });
+        // }
       };
     } catch (error) {
       console.error(error);
@@ -92,13 +105,14 @@ const MatchesComponent = () => {
       const handleVisibilityChange = () => {
         if (document.visibilityState === "visible") {
           dispatch(getMatchList({}));
-        } else if (document.visibilityState === "hidden") {
-          if (matchList?.matches) {
-            matchList?.matches?.forEach((element: any) => {
-              expertSocketService.match.getMatchRatesOff(element?.id);
-            });
-          }
-        }
+        } 
+        // else if (document.visibilityState === "hidden") {
+        //   if (matchList?.matches) {
+        //     matchList?.matches?.forEach((element: any) => {
+        //       expertSocketService.match.getMatchRatesOff(element?.id);
+        //     });
+        //   }
+        // }
       };
 
       document.addEventListener("visibilitychange", handleVisibilityChange);
@@ -121,6 +135,14 @@ const MatchesComponent = () => {
     return () => {
       clearInterval(intervalId);
     };
+  }, []);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      getMatchListMarket("cricket");
+    }, 500);
+
+    return () => clearInterval(intervalId);
   }, []);
 
   return (

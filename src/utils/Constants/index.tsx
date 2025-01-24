@@ -10,6 +10,12 @@ export const ApiConstants = {
     SEARCHLIST: "/user/searchlist",
     MATCHDETAILS: "/match/",
     CURRENTBET: "/bet",
+    MARKET_MATCH_LIST_CRICKET:
+    "https://marketsarket.qnsports.live/getcricketmatches",
+  MARKET_MATCH_LIST_FOOTBALL:
+    "https://marketsarket.qnsports.live/getsoccerallmatches2",
+  MARKET_MATCH_LIST_TENNIS:
+    "https://marketsarket.qnsports.live/gettennisallmatches2",
   },
   USER: {
     MARQUEE: "/expert/notification",
@@ -207,4 +213,10 @@ export const baseUrls = {
   socket: import.meta.env.VITE_BASE_URL,
   matchSocket: import.meta.env.VITE_THIRD_PARTY_BASE_URL,
   expertSocket: import.meta.env.VITE_EXPERT_BASE_URL,
+};
+
+export const marketApiConst = {
+  cricket: ApiConstants.MATCH.MARKET_MATCH_LIST_CRICKET,
+  football: ApiConstants.MATCH.MARKET_MATCH_LIST_FOOTBALL,
+  tennis: ApiConstants.MATCH.MARKET_MATCH_LIST_TENNIS,
 };

@@ -3,12 +3,12 @@ import moment from "moment-timezone";
 import { memo } from "react";
 import Divider from "../../../helper/Divider";
 
+import { useDispatch } from "react-redux";
+import { formatToINR } from "../../../helper";
+import { updateLogoutModal } from "../../../store/actions/user/userAction";
+import { AppDispatch } from "../../../store/store";
 import Upcomings from "../../Common/Upcomings";
 import MatchRatesCommonComp from "./MatchRatesCommonComp";
-import { formatToINR } from "../../../helper";
-import { AppDispatch } from "../../../store/store";
-import { useDispatch } from "react-redux";
-import { updateLogoutModal } from "../../../store/actions/user/userAction";
 
 interface TimeLeft {
   days: string;
@@ -288,14 +288,15 @@ const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
                   display: "flex",
                   background: "#319E5B",
                   height: "25px",
+                  mr:"4px",
                   width: { lg: "60%", xs: "80%" },
-                  justifyContent: { lg: "center", xs: "flex-end" },
+                  justifyContent: { lg: "flex-end", xs: "flex-end" },
                 }}
               >
                 <Box
                   sx={{
                     background: "#00C0F9",
-                    width: { lg: "16.5%", xs: "25%" },
+                    width: { lg: "24%", xs: "25%" },
                     height: "100%",
                     display: "flex",
                     justifyContent: "center",
@@ -313,7 +314,7 @@ const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
                 <Box
                   sx={{
                     background: "#FF9292",
-                    width: { lg: "16.5%", xs: "25%" },
+                    width: { lg: "24%", xs: "25%" },
                     height: "100%",
                     display: "flex",
                     justifyContent: "center",
@@ -364,7 +365,7 @@ const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
                 {match?.teamA}
               </Typography>
             </Box>
-            <MatchRatesCommonComp data={data} runnerPosition={0} />
+            <MatchRatesCommonComp data={data} match={match} runnerPosition={0} />
           </Box>
           <Divider />
           <Box
@@ -396,7 +397,7 @@ const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
                 {match.teamB}
               </Typography>
             </Box>
-            <MatchRatesCommonComp data={data} runnerPosition={1} />
+            <MatchRatesCommonComp match={match} data={data} runnerPosition={1} />
           </Box>
 
           <>
@@ -431,7 +432,7 @@ const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
                     {match.teamC}
                   </Typography>
                 </Box>
-                <MatchRatesCommonComp data={data} runnerPosition={2} />
+                <MatchRatesCommonComp match={match} data={data} runnerPosition={2} />
               </Box>
             )}
           </>

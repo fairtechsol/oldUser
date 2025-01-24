@@ -2,12 +2,12 @@ import { Box, Typography } from "@mui/material";
 import { memo } from "react";
 import { Lock } from "../../../assets";
 
-const SeparateBox = ({ color, empty, value, value2, lock }: any) => {
+const SeparateBox = ({ color, empty, value, value2, lock, boxWidth }: any) => {
   const classes = {
     container: {
       background: color,
       border: color !== "white" ? "1px solid #2626264D" : "0px solid white",
-      width: { xs: "24.5%", lg: "20%" },
+      width: { xs: "24.5%", lg: boxWidth || "20%" },
       height: "94%",
       display: "flex",
       justifyContent: "center",
@@ -35,11 +35,11 @@ const SeparateBox = ({ color, empty, value, value2, lock }: any) => {
       {!empty && !lock && (
         <Box sx={classes.emptylockWrapper}>
           <Typography sx={classes.value1}>{value}</Typography>
-          <Typography sx={classes.value2}>
+         {value2? <Typography sx={classes.value2}>
             {value2 >= 1000
               ? (value2 / 1000)?.toFixed(1) + "k"
               : value2?.toString()}
-          </Typography>
+          </Typography>:""}
         </Box>
       )}
       {lock && <img src={Lock} style={classes.lockImage} alt="Lock" />}
