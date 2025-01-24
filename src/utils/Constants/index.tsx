@@ -201,10 +201,10 @@ export const profitLossDataForMatchConstants = {
   },
 };
 
-export const serviceUrl = import.meta.env.FRONT_BASE_URL;
+export const serviceUrl = import.meta.env.VITE_BASE_URL;
 
 export const baseUrls = {
-  socket: import.meta.env.FRONT_BASE_URL,
-  matchSocket: import.meta.env.THIRD_PARTY_BASE_URL,
-  expertSocket: import.meta.env.EXPERT_BASE_URL,
+  socket: import.meta.env.VITE_BASE_URL,
+  matchSocket: import.meta.env.VITE_THIRD_PARTY_BASE_URL,
+  expertSocket: import.meta.env.VITE_EXPERT_BASE_URL,
 };
