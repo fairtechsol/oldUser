@@ -3,10 +3,10 @@ import { memo } from "react";
 import { BallStart } from "../../../assets";
 import { formatToINR } from "../../../helper";
 import { sessionBettingType } from "../../../utils/Constants";
+import CommissionDot from "../../Common/CommissionDot";
 import PlaceBetComponent from "../MatchOdds/Bets/PlaceBetComponent";
 import PlaceBetComponentWeb from "../MatchOdds/Bets/PlaceBetComponentWeb";
 import SeparateModal from "../MatchOdds/SeparateModal";
-import CommissionDot from "../../Common/CommissionDot";
 
 const SessionMarketBox = ({
   index,
@@ -590,7 +590,7 @@ const SessionMarketBox = ({
                         value2={
                           sessionBettingType.oddEven == data?.type
                             ? data.ex?.availableToBack[item]?.size ?? 0
-                            : data.ex?.availableToLay[item]?.size ?? 0
+                            : data.ex?.availableToBack[item]?.size ?? 0
                         }
                         lock={
                           [null, 0, "0"].includes(
