@@ -169,9 +169,11 @@ const MatchDetail = () => {
 
   const resultDeclared = (event: any) => {
     try {
-      if (event?.matchId === state?.matchId && event.isMatchDeclare) {
+      if (event?.matchId === state?.matchId) {
         dispatch(getProfileInMatchDetail());
-        navigate("/match");
+        if (event.isMatchDeclare) {
+          navigate("/match");
+        }
       }
     } catch (e) {
       console.log(e);
