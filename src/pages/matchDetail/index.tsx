@@ -2,6 +2,7 @@ import { Box, useMediaQuery, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
+import LiveScoreBoard from "../../components/Common/LiveScoreBoard";
 import Loader from "../../components/Loader";
 import AllRateSeperate from "../../components/MatchDetail/AllRateBets/AllRateSeperate";
 import BetPlaced from "../../components/MatchDetail/Common/BetPlaced";
@@ -45,7 +46,6 @@ import {
 } from "../../store/actions/user/userAction";
 import { AppDispatch, RootState } from "../../store/store";
 import { Constants } from "../../utils/Constants";
-import LiveScoreBoard from "../../components/Common/LiveScoreBoard";
 
 const MatchDetail = () => {
   const theme = useTheme();
@@ -169,7 +169,7 @@ const MatchDetail = () => {
 
   const resultDeclared = (event: any) => {
     try {
-      if (event?.matchId === state?.matchId) {
+      if (event?.matchId === state?.matchId && event.isMatchDeclare) {
         dispatch(getProfileInMatchDetail());
         navigate("/match");
       }
@@ -348,7 +348,7 @@ const MatchDetail = () => {
         setLiveScoreBoardData(response?.data);
         setErrorCount(0);
       }
-    } catch (e: any) {
+    } catch (e) {
       console.log("Error:", e?.message);
       setErrorCount((prevCount: number) => prevCount + 1);
     }
