@@ -142,6 +142,7 @@ export const sessionBettingType = {
   ballByBall: "ballByBall",
   oddEven: "oddEven",
   cricketCasino: "cricketCasino",
+  tournament: "tournament",
 };
 
 export const profitLossDataForMatchConstants = {

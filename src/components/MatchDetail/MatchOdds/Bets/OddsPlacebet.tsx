@@ -74,11 +74,11 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
     }
   });
 
-  const buttonToShow: any = Object.values(sessionBettingType)?.includes(
-    selectedBet?.data?.type
-  )
-    ? sessionButtonValues
-    : matchButtonValues;
+  const buttonToShow: any =
+    Object.values(sessionBettingType)?.includes(selectedBet?.data?.type) &&
+    selectedBet?.data?.type != "tournament"
+      ? sessionButtonValues
+      : matchButtonValues;
 
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
