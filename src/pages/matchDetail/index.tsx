@@ -351,7 +351,6 @@ const MatchDetail = () => {
         setErrorCount(0);
       }
     } catch (e) {
-      console.log("Error:", e?.message);
       setErrorCount((prevCount: number) => prevCount + 1);
     }
   };
