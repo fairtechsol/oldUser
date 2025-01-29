@@ -3,6 +3,7 @@ import { Fragment, memo, useState } from "react";
 import { ARROWUP, LockIcon } from "../../../../assets";
 import { handleDecimalAmount } from "../../../../helper";
 import Divider from "../../../../helper/Divider";
+import CommissionDot from "../../../Common/CommissionDot";
 import BoxComponent from "./BoxComponent";
 
 const SmallBox = ({ valueA, valueB, color }: any) => {
@@ -180,6 +181,7 @@ const TournamentOdds = ({
             >
               {title}
             </Typography>
+            {marketDetails?.isCommissionActive && <CommissionDot />}
           </Box>
           <Box
             sx={{
@@ -263,8 +265,7 @@ const TournamentOdds = ({
                     marginLeft: "7px",
                   }}
                 >
-                  {min===max?`MAX:${max}`:`MIN: ${min} MAX:${max}`}
-                  
+                  {min === max ? `MAX:${max}` : `MIN: ${min} MAX:${max}`}
                 </Typography>
               </Box>
               <Box
