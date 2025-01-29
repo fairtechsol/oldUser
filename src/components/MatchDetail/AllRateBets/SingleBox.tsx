@@ -124,6 +124,7 @@ const SingleBox = ({
             overflowWrap: "anywhere",
             display: "flex",
             alignItems: "center",
+            justifyContent: "center",
           }}
         >
           {isCommissionActive && <CommissionDot />}
