@@ -1,9 +1,9 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import { useState } from "react";
 import { ARROWUP, DELETE } from "../../../assets";
-import RowComponent from "./RowComponent";
-import StyledImage from "../../Common/StyledImages";
 import { formatToINR } from "../../../helper";
+import StyledImage from "../../Common/StyledImages";
+import RowComponent from "./RowComponent";
 
 const AllRateSeperate = ({
   profit,
@@ -109,7 +109,7 @@ const AllRateSeperate = ({
               }}
               src={ARROWUP}
               style={{
-                transform: visible ? "rotate(180deg)" : "rotate(0deg)",
+                transform: !visible ? "rotate(180deg)" : "rotate(0deg)",
                 width: "15px",
                 height: "15px",
                 marginRight: "5px",
