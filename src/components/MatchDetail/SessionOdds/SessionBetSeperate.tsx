@@ -13,7 +13,6 @@ const SessionBetSeperate = ({
   match,
 }: any) => {
   const [visible, setVisible] = useState(true);
-
   return (
     <Box
       sx={[

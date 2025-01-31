@@ -1,13 +1,12 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { memo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { ARROW_DOWN, ARROW_UP, ArrowDown } from "../../../assets";
+import { formatToINR } from "../../../helper";
+import { getTotalBetProfitLoss } from "../../../store/actions/user/userAction";
+import { AppDispatch, RootState } from "../../../store/store";
 import StyledImage from "../../Common/StyledImages";
 import SessionBetSeperate from "../../MatchDetail/SessionOdds/SessionBetSeperate";
-import { useDispatch } from "react-redux";
-import { AppDispatch, RootState } from "../../../store/store";
-import { getTotalBetProfitLoss } from "../../../store/actions/user/userAction";
-import { useSelector } from "react-redux";
-import { formatToINR } from "../../../helper";
 
 const SessionComponentMatches = ({
   item,
@@ -18,6 +17,7 @@ const SessionComponentMatches = ({
   getBetReport,
   selectedId,
   matchId,
+  match
 }: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -220,6 +220,7 @@ const SessionComponentMatches = ({
               placedBets={totalBetProfitLoss && totalBetProfitLoss}
               profit
               isArrow={true}
+              match={match}
             />
           </Box>
         )}

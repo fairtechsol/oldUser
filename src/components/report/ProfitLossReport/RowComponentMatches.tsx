@@ -1,19 +1,18 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import moment from "moment";
 import { memo, useState } from "react";
-import { ARROW_UP, ARROW_DOWN, ArrowDown } from "../../../assets";
-import StyledImage from "../../Common/StyledImages";
-import AllRateSeperate from "../../MatchDetail/AllRateBets/AllRateSeperate";
-import SessionBetSeperate from "../../MatchDetail/SessionOdds/SessionBetSeperate";
-import SessionComponentMatches from "./SessionComponentMatches";
-import { useDispatch } from "react-redux";
-import { AppDispatch, RootState } from "../../../store/store";
+import { useDispatch, useSelector } from "react-redux";
+import { ARROW_DOWN, ARROW_UP, ArrowDown } from "../../../assets";
+import { formatToINR } from "../../../helper";
 import {
   getSessionProfitLoss,
   getTotalBetProfitLoss,
 } from "../../../store/actions/user/userAction";
-import { useSelector } from "react-redux";
-import { formatToINR } from "../../../helper";
+import { AppDispatch, RootState } from "../../../store/store";
+import StyledImage from "../../Common/StyledImages";
+import AllRateSeperate from "../../MatchDetail/AllRateBets/AllRateSeperate";
+import SessionBetSeperate from "../../MatchDetail/SessionOdds/SessionBetSeperate";
+import SessionComponentMatches from "./SessionComponentMatches";
 
 const RowComponentMatches = ({
   item,
@@ -404,6 +403,7 @@ const RowComponentMatches = ({
                           getBetReport={getBetReport}
                           selectedId={selectedId}
                           sessionBetData={sessionBetData}
+                          match={item?.title}
                         />
                       );
                     })}

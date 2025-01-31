@@ -3,12 +3,11 @@ import SingleBox from "./SingleBox";
 // import { RootState } from "../../../store/store";
 // import { useSelector } from "react-redux";
 import moment from "moment";
-import { formatToINR } from "../../../helper";
 import { useLocation } from "react-router-dom";
+import { formatToINR } from "../../../helper";
 
 const RowComponent = ({ header, data, match }: any) => {
   const { state } = useLocation();
-
   const getTime = (date: any) => {
     const timeString = moment
       .utc(date)
@@ -54,7 +53,7 @@ const RowComponent = ({ header, data, match }: any) => {
           {!state?.matchId && (
             <SingleBox
               color={getColor()}
-              data={data?.match?.title ?? match}
+              data={data?.match?.title || match}
               header={header}
             />
           )}
