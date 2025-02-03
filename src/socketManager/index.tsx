@@ -23,9 +23,10 @@ export const initialiseSocket = () => {
   });
   matchSocket = io(baseUrls.matchSocket, {
     transports: [
-      process.env.NODE_ENV === "production"
-        ? `${Constants.POLLING}`
-        : `${Constants.WEBSOCKET}`,
+      // process.env.NODE_ENV === "production"
+      //   ? `${Constants.POLLING}`
+      //   :
+         `${Constants.WEBSOCKET}`,
     ],
   });
 };
