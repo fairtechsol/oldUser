@@ -5,7 +5,7 @@ const SmallBoxSeason = ({ allBetsData }: any) => {
   // function countObjectsWithNullDeletedReason(array:any) {
   //   let count = 0;
   //   for (const obj of array) {
-  //     if (obj?.deleted_reason === null) {
+  //     if (obj?.deleteReason === null) {
   //       count++;
   //     }
   //   }
