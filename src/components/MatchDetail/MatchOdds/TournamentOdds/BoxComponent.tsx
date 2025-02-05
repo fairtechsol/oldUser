@@ -1,7 +1,7 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { memo } from "react";
-import MoneyBox from "../MoneyBox";
 import { formatNumber } from "../../../../helper";
+import MoneyBox from "../MoneyBox";
 import SeparateModal from "./SeparateModal";
 
 const BoxComponent = ({
@@ -81,9 +81,13 @@ const BoxComponent = ({
           }}
         ></Box>
       )}
-      {!["ACTIVE", "", undefined, null].includes(status) ||
-      matchDetails?.bettings?.length === 0 ||
-      livestatus ? (
+      {(!["ACTIVE", "", "OPEN", undefined, null].includes(status) ||
+        matchDetails?.bettings?.length === 0 ||
+        livestatus) &&
+      !(
+        !["ACTIVE", "OPEN", ""].includes(marketDetails?.status) &&
+        marketDetails?.gtype == "match"
+      ) ? (
         <Box
           sx={{
             background: "rgba(0,0,0,1)",
