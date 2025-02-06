@@ -59,7 +59,7 @@ const MatchOdds = ({ matchDetails, setShow, show }: any) => {
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
       {matchDetails?.matchOdd?.activeStatus === "live" &&
-        matchDetails?.matchOdd?.isActive && (
+        (
           <MarketOdds
             upcoming={!upcoming}
             betLock={matchDetails?.blockMarket?.MATCH_ODDS?.block}
@@ -215,7 +215,6 @@ const MatchOdds = ({ matchDetails, setShow, show }: any) => {
           ?.filter(
             (items: any) =>
               items.activeStatus === "live" &&
-              items.isActive &&
               !["completed_match", "tied_match"].includes(
                 items?.name?.toLowerCase()
               )
@@ -322,7 +321,7 @@ const MatchOdds = ({ matchDetails, setShow, show }: any) => {
         )}
 
       {matchDetails?.quickBookmaker
-        ?.filter((item: any) => item?.activeStatus === "live" && item?.isActive)
+        ?.filter((item: any) => item?.activeStatus === "live")
         ?.slice()
         ?.sort(customBookmakerSort)
         ?.map((bookmaker: any) => (
@@ -757,7 +756,6 @@ const MatchOdds = ({ matchDetails, setShow, show }: any) => {
           ?.filter(
             (items: any) =>
               items.activeStatus === "live" &&
-              items.isActive &&
               ["completed_match", "tied_match"].includes(
                 items?.name?.toLowerCase()
               )
