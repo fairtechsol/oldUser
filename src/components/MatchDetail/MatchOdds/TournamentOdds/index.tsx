@@ -366,6 +366,7 @@ const TournamentOdds = ({
 
             {(upcoming ||
               showBox ||
+              !marketDetails?.isActive ||
               (!["ACTIVE", "OPEN", ""].includes(marketDetails?.status) &&
                 marketDetails?.gtype == "match")) && (
               <Box
