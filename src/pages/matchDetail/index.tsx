@@ -1,5 +1,5 @@
 import { Box, useMediaQuery, useTheme } from "@mui/material";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import LiveScoreBoard from "../../components/Common/LiveScoreBoard";
@@ -12,7 +12,6 @@ import SessionBetSeperate from "../../components/MatchDetail/SessionOdds/Session
 import service from "../../service";
 import {
   expertSocketService,
-  matchSocket,
   socket,
   socketService,
 } from "../../socketManager";
@@ -25,9 +24,9 @@ import {
 } from "../../store/actions/betPlace/betPlaceActions";
 import {
   getMatchList,
-  getMatchRates,
   matchDetailAction,
   selectedBetAction,
+  updateMatchRates,
 } from "../../store/actions/match/matchListAction";
 import {
   betDataFromSocket,
@@ -56,8 +55,6 @@ const MatchDetail = () => {
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
   const [show, setShow] = useState({ open: false, id: "" });
-  const [rateInterval, setRateInterval] = useState<any>({ intervalData: [] });
-
   const [liveScoreBoardData, setLiveScoreBoardData] = useState(null);
   const [errorCount, setErrorCount] = useState<number>(0);
   const { profileDetail } = useSelector(
@@ -69,16 +66,15 @@ const MatchDetail = () => {
   );
   const { placedBets } = useSelector((state: RootState) => state.bets);
 
-  // const setMatchRatesInRedux = (event: any) => {
-  //   try {
-  //     if (state?.matchId === event?.id) {
-  //       dispatch(updateMatchRates(event));
-  //     }
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
-
+  const setMatchRatesInRedux = (event: any) => {
+    try {
+      if (state?.matchId === event?.id) {
+        dispatch(updateMatchRates(event));
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
   const setSessionBetsPlaced = (event: any) => {
     try {
       dispatch(updateBalanceSession(event));
@@ -255,7 +251,7 @@ const MatchDetail = () => {
   useEffect(() => {
     try {
       if (success && socket) {
-        // expertSocketService.match.getMatchRatesOff(state?.matchId);
+        expertSocketService.match.getMatchRatesOff(state?.matchId);
         socketService.userBalance.userSessionBetPlacedOff();
         socketService.userBalance.userMatchBetPlacedOff();
         socketService.userBalance.matchResultDeclaredOff();
@@ -270,10 +266,10 @@ const MatchDetail = () => {
           state?.matchId,
           profileDetail?.roleName
         );
-        // expertSocketService.match.getMatchRates(
-        //   state?.matchId,
-        //   setMatchRatesInRedux
-        // );
+        expertSocketService.match.getMatchRates(
+          state?.matchId,
+          setMatchRatesInRedux
+        );
         socketService.userBalance.userSessionBetPlaced(setSessionBetsPlaced);
         socketService.userBalance.userMatchBetPlaced(setMatchBetsPlaced);
         socketService.userBalance.matchResultDeclared(resultDeclared);
@@ -315,7 +311,7 @@ const MatchDetail = () => {
     try {
       return () => {
         expertSocketService.match.leaveMatchRoom(state?.matchId);
-        // expertSocketService.match.getMatchRatesOff(state?.matchId);
+        expertSocketService.match.getMatchRatesOff(state?.matchId);
         socketService.userBalance.userSessionBetPlacedOff();
         socketService.userBalance.userMatchBetPlacedOff();
         socketService.userBalance.matchResultDeclaredOff();
@@ -377,122 +373,51 @@ const MatchDetail = () => {
 
   useEffect(() => {
     try {
-      if (state?.matchId) {
-        const currRateInt = handleRateInterval();
-
-        return () => {
-          if (currRateInt) {
-            clearInterval(currRateInt);
-            setRateInterval((prev: any) => ({ ...prev, intervalData: [] }));
+      const handleVisibilityChange = () => {
+        if (document.visibilityState === "visible") {
+          if (state?.matchId) {
+            dispatch(selectedBetAction(null));
+            dispatch(matchDetailAction(state?.matchId));
+            dispatch(getPlacedBets(state?.matchId));
+            if (matchDetails?.marketId) {
+              getScoreBoard(matchDetails?.marketId);
+            }
           }
-        };
-      }
+        } else if (document.visibilityState === "hidden") {
+          expertSocketService.match.leaveMatchRoom(state?.matchId);
+          expertSocketService.match.getMatchRatesOff(state?.matchId);
+        }
+      };
+
+      document.addEventListener("visibilitychange", handleVisibilityChange);
+      return () => {
+        document.removeEventListener(
+          "visibilitychange",
+          handleVisibilityChange
+        );
+      };
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
-  }, [state?.matchId]);
-
-  const handleRateInterval = useCallback(() => {
-    if (rateInterval?.intervalData?.length) {
-      for (let items of rateInterval?.intervalData) {
-        clearInterval(items);
-      }
-      setRateInterval((prev: any) => ({ ...prev, intervalData: [] }));
-    }
-    let rateIntervalData = setInterval(() => {
-      dispatch(getMatchRates(state?.matchId));
-      console.log(new Date().getMilliseconds());
-    }, 500);
-
-    setRateInterval((prev: any) => ({
-      ...prev,
-      intervalData: [...prev.intervalData, rateIntervalData],
-    }));
-
-    return rateInterval;
-  }, [rateInterval?.intervalData, state.matchId]);
+  }, []);
 
   useEffect(() => {
     try {
-      if (state?.matchId && matchSocket) {
-        let currInitRateInt = setInterval(() => {
-          expertSocketService.match.joinMatchRoom(
-            state?.matchId,
-            profileDetail?.roleName
-          );
-        }, 60000);
+      if (state?.matchId) {
+        const intervalId = setInterval(() => {
+          dispatch(selectedBetAction(null));
+          dispatch(matchDetailAction(state?.matchId));
+          dispatch(getPlacedBets(state?.matchId));
+        }, 14100 * 1000);
 
         return () => {
-          if (currInitRateInt) {
-            clearInterval(currInitRateInt);
-          }
+          clearInterval(intervalId);
         };
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
-  }, [state?.matchId]);
-
-  const handleVisibilityChange = useCallback(() => {
-    if (document.visibilityState === "visible") {
-      if (state?.matchId) {
-        dispatch(selectedBetAction(null));
-        dispatch(matchDetailAction(state?.matchId));
-        dispatch(getPlacedBets(state?.matchId));
-        if (matchDetails?.marketId) {
-          getScoreBoard(matchDetails?.marketId);
-        }
-        handleRateInterval();
-      }
-    } else if (document.visibilityState === "hidden") {
-      expertSocketService.match.leaveMatchRoom(state?.matchId);
-      if (rateInterval?.intervalData?.length) {
-        for (let items of rateInterval?.intervalData) {
-          clearInterval(items);
-        }
-        setRateInterval((prev: any) => ({ ...prev, intervalData: [] }));
-      }
-    }
-  }, [
-    state.matchId,
-    state.userId,
-    dispatch,
-    rateInterval,
-    setRateInterval,
-    socketService,
-  ]);
-
-  useEffect(() => {
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-
-    return () => {
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-      if (rateInterval?.intervalData?.length) {
-        for (let items of rateInterval?.intervalData) {
-          clearInterval(items);
-        }
-        setRateInterval((prev: any) => ({ ...prev, intervalData: [] }));
-      }
-    };
-  }, [handleVisibilityChange, rateInterval, setRateInterval]);
-
-  // useEffect(() => {
-  //   try {
-  //     if (state?.matchId) {
-  //       const intervalId = setInterval(() => {
-  //         dispatch(selectedBetAction(null));
-  //         dispatch(matchDetailAction(state?.matchId));
-  //         dispatch(getPlacedBets(state?.matchId));
-  //       }, 14100 * 1000);
-
-  //       return () => {
-  //         clearInterval(intervalId);
-  //       };
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }, []);
+  }, []);
 
   // useEffect(() => {
   //   try {
@@ -546,10 +471,10 @@ const MatchDetail = () => {
                   />
                 )}
                 {isTv &&
-                  matchDetails?.eventId &&
+                  matchDetails?.tournament?.[0]?.gmid &&
                   matchDetails?.matchType !== "politics" &&
                   liveScoreBoardData && (
-                    <LiveMatchHome eventId={matchDetails?.eventId} />
+                    <LiveMatchHome eventId={matchDetails?.tournament?.[0]?.gmid} />
                   )}
                 <div style={{ width: "100%" }}>
                   <MatchOdds
@@ -653,9 +578,9 @@ const MatchDetail = () => {
                     />
                   )}
                   {isTv &&
-                    matchDetails?.eventId &&
+                    matchDetails?.tournament?.[0]?.gmid &&
                     matchDetails?.matchType !== "politics" && (
-                      <LiveMatchHome eventId={matchDetails?.eventId} />
+                      <LiveMatchHome eventId={matchDetails?.tournament?.[0]?.gmid} />
                     )}
                   {Array.from(
                     placedBets.reduce(
