@@ -471,10 +471,10 @@ const MatchDetail = () => {
                   />
                 )}
                 {isTv &&
-                  matchDetails?.eventId &&
+                  matchDetails?.tournament?.[0]?.gmid &&
                   matchDetails?.matchType !== "politics" &&
                   liveScoreBoardData && (
-                    <LiveMatchHome eventId={matchDetails?.eventId} />
+                    <LiveMatchHome eventId={matchDetails?.tournament?.[0]?.gmid} />
                   )}
                 <div style={{ width: "100%" }}>
                   <MatchOdds
@@ -578,9 +578,9 @@ const MatchDetail = () => {
                     />
                   )}
                   {isTv &&
-                    matchDetails?.eventId &&
+                    matchDetails?.tournament?.[0]?.gmid &&
                     matchDetails?.matchType !== "politics" && (
-                      <LiveMatchHome eventId={matchDetails?.eventId} />
+                      <LiveMatchHome eventId={matchDetails?.tournament?.[0]?.gmid} />
                     )}
                   {Array.from(
                     placedBets.reduce(
