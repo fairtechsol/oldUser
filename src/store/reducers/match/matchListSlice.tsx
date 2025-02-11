@@ -36,6 +36,7 @@ interface InitialState {
   selectedBet: any;
   searchedMatchList: any;
   minMax: any;
+  liveScoreBoardData?: any;
 }
 
 const initialState: InitialState = {
@@ -49,6 +50,7 @@ const initialState: InitialState = {
   selectedBet: null,
   searchedMatchList: null,
   minMax: null,
+  liveScoreBoardData: null,
 };
 
 const matchListSlice = createSlice({
@@ -131,7 +133,9 @@ const matchListSlice = createSlice({
           apiTiedMatch2,
           other,
           tournament,
+          scoreBoard,
         } = action?.payload;
+        state.liveScoreBoardData = scoreBoard?.data;
 
         // let parsedSessionBettings = state?.matchDetails?.sessionBettings?.map(
         //   (item: any) => {
@@ -205,8 +209,9 @@ const matchListSlice = createSlice({
           apiTiedMatch2,
           other,
           tournament,
+          scoreBoard,
         } = action?.payload;
-
+        state.liveScoreBoardData = scoreBoard?.data;
         // let parsedSessionBettings = state?.matchDetails?.sessionBettings?.map(
         //   (item: any) => {
         //     let parsedItem = JSON.parse(item);
@@ -455,17 +460,19 @@ const matchListSlice = createSlice({
       .addCase(updateMatchRatesFromApiOnList.fulfilled, (state, action) => {
         let matchListFromApi = action.payload;
         if (state.matchList?.matches?.length > 0) {
-          state.matchList.matches = state.matchList?.matches?.map((items: any) => {
-            const itemToUpdate = matchListFromApi?.find(
-              (item: any) =>
-                +item?.gameId === +items?.eventId ||
-                +item?.gmid === +items?.eventId
-            );
-            return {
-              ...items,
-              ...itemToUpdate,
-            };
-          });
+          state.matchList.matches = state.matchList?.matches?.map(
+            (items: any) => {
+              const itemToUpdate = matchListFromApi?.find(
+                (item: any) =>
+                  +item?.gameId === +items?.eventId ||
+                  +item?.gmid === +items?.eventId
+              );
+              return {
+                ...items,
+                ...itemToUpdate,
+              };
+            }
+          );
         }
       })
       .addCase(selectedBetMinMax.fulfilled, (state, action) => {

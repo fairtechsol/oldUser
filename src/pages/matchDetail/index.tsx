@@ -9,7 +9,6 @@ import BetPlaced from "../../components/MatchDetail/Common/BetPlaced";
 import LiveMatchHome from "../../components/MatchDetail/LiveMatchScore/LiveMatchHome";
 import MatchOdds from "../../components/MatchDetail/MatchOdds/MatchOdds";
 import SessionBetSeperate from "../../components/MatchDetail/SessionOdds/SessionBetSeperate";
-import service from "../../service";
 import {
   expertSocketService,
   socket,
@@ -45,7 +44,6 @@ import {
   updateTeamRatesOnDeleteMatch,
 } from "../../store/actions/user/userAction";
 import { AppDispatch, RootState } from "../../store/store";
-import { Constants } from "../../utils/Constants";
 
 const MatchDetail = () => {
   const theme = useTheme();
@@ -55,17 +53,20 @@ const MatchDetail = () => {
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
   const [show, setShow] = useState({ open: false, id: "" });
-  const [liveScoreBoardData, setLiveScoreBoardData] = useState(null);
-  const [errorCount, setErrorCount] = useState<number>(0);
+  // const [liveScoreBoardData, setLiveScoreBoardData] = useState(null);
+  // const [errorCount, setErrorCount] = useState<number>(0);
   const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
   );
   const [isTv, setIsTv] = useState(false);
-  const { matchDetails, success, matchDetailloading } = useSelector(
-    (state: RootState) => state.match.matchList
-  );
+  const {
+    matchDetails,
+    success,
+    matchDetailloading,
+    liveScoreBoardData,
+  } = useSelector((state: RootState) => state.match.matchList);
   const { placedBets } = useSelector((state: RootState) => state.bets);
-
+  
   const setMatchRatesInRedux = (event: any) => {
     try {
       if (state?.matchId === event?.id) {
@@ -339,37 +340,37 @@ const MatchDetail = () => {
     }
   }, []);
 
-  const getScoreBoard = async (marketId: string) => {
-    try {
-      const response: any = await service.get(
-        // `https://devscore.fairgame.club/score/getMatchScore/${marketId}`
-        // `https://fairscore7.com/score/getMatchScore/${marketId}`
-        `${Constants.thirdPartyLive}/cricketScore?eventId=${marketId}`
-      );
-      if (response) {
-        setLiveScoreBoardData(response?.data);
-        setErrorCount(0);
-      }
-    } catch (e) {
-      setErrorCount((prevCount: number) => prevCount + 1);
-    }
-  };
+  // const getScoreBoard = async (marketId: string) => {
+  //   try {
+  //     const response: any = await service.get(
+  //       // `https://devscore.fairgame.club/score/getMatchScore/${marketId}`
+  //       // `https://fairscore7.com/score/getMatchScore/${marketId}`
+  //       `${Constants.thirdPartyLive}/cricketScore?eventId=${marketId}`
+  //     );
+  //     if (response) {
+  //       setLiveScoreBoardData(response?.data);
+  //       setErrorCount(0);
+  //     }
+  //   } catch (e) {
+  //     setErrorCount((prevCount: number) => prevCount + 1);
+  //   }
+  // };
 
-  useEffect(() => {
-    if (matchDetails?.eventId) {
-      let intervalTime = 500;
-      if (errorCount >= 5 && errorCount < 10) {
-        intervalTime = 60000;
-      } else if (errorCount >= 10) {
-        intervalTime = 600000;
-      }
-      const interval = setInterval(() => {
-        getScoreBoard(matchDetails?.eventId);
-      }, intervalTime);
+  // useEffect(() => {
+  //   if (matchDetails?.eventId) {
+  //     let intervalTime = 500;
+  //     if (errorCount >= 5 && errorCount < 10) {
+  //       intervalTime = 60000;
+  //     } else if (errorCount >= 10) {
+  //       intervalTime = 600000;
+  //     }
+  //     const interval = setInterval(() => {
+  //       getScoreBoard(matchDetails?.eventId);
+  //     }, intervalTime);
 
-      return () => clearInterval(interval);
-    }
-  }, [matchDetails?.eventId, errorCount]);
+  //     return () => clearInterval(interval);
+  //   }
+  // }, [matchDetails?.eventId, errorCount]);
 
   useEffect(() => {
     try {
@@ -379,9 +380,9 @@ const MatchDetail = () => {
             dispatch(selectedBetAction(null));
             dispatch(matchDetailAction(state?.matchId));
             dispatch(getPlacedBets(state?.matchId));
-            if (matchDetails?.marketId) {
-              getScoreBoard(matchDetails?.marketId);
-            }
+            // if (matchDetails?.marketId) {
+            //   getScoreBoard(matchDetails?.marketId);
+            // }
           }
         } else if (document.visibilityState === "hidden") {
           expertSocketService.match.leaveMatchRoom(state?.matchId);
@@ -474,7 +475,9 @@ const MatchDetail = () => {
                   matchDetails?.tournament?.[0]?.gmid &&
                   matchDetails?.matchType !== "politics" &&
                   liveScoreBoardData && (
-                    <LiveMatchHome eventId={matchDetails?.tournament?.[0]?.gmid} />
+                    <LiveMatchHome
+                      eventId={matchDetails?.tournament?.[0]?.gmid}
+                    />
                   )}
                 <div style={{ width: "100%" }}>
                   <MatchOdds
@@ -580,7 +583,9 @@ const MatchDetail = () => {
                   {isTv &&
                     matchDetails?.tournament?.[0]?.gmid &&
                     matchDetails?.matchType !== "politics" && (
-                      <LiveMatchHome eventId={matchDetails?.tournament?.[0]?.gmid} />
+                      <LiveMatchHome
+                        eventId={matchDetails?.tournament?.[0]?.gmid}
+                      />
                     )}
                   {Array.from(
                     placedBets.reduce(
