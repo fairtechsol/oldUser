@@ -472,11 +472,11 @@ const MatchDetail = () => {
                   />
                 )}
                 {isTv &&
-                  matchDetails?.tournament?.[0]?.gmid &&
+                  matchDetails?.gmid &&
                   matchDetails?.matchType !== "politics" &&
                   liveScoreBoardData && (
                     <LiveMatchHome
-                      eventId={matchDetails?.tournament?.[0]?.gmid}
+                      eventId={matchDetails?.gmid}
                     />
                   )}
                 <div style={{ width: "100%" }}>
@@ -581,10 +581,10 @@ const MatchDetail = () => {
                     />
                   )}
                   {isTv &&
-                    matchDetails?.tournament?.[0]?.gmid &&
+                    matchDetails?.gmid &&
                     matchDetails?.matchType !== "politics" && (
                       <LiveMatchHome
-                        eventId={matchDetails?.tournament?.[0]?.gmid}
+                        eventId={matchDetails?.gmid}
                       />
                     )}
                   {Array.from(
