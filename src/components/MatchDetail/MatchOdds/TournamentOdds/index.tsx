@@ -411,7 +411,7 @@ const TournamentOdds = ({
                   matchDetails={matchDetails}
                   color={
                     matchDetails?.profitLossDataMatch?.[
-                      marketDetails?.id +
+                      (marketDetails?.parentBetId || marketDetails?.id) +
                         "_" +
                         "profitLoss" +
                         "_" +
@@ -419,20 +419,20 @@ const TournamentOdds = ({
                     ]
                       ? JSON.parse(
                           matchDetails?.profitLossDataMatch?.[
-                            marketDetails?.id +
+                            (marketDetails?.parentBetId || marketDetails?.id) +
                               "_" +
                               "profitLoss" +
                               "_" +
                               matchDetails?.id
                           ]
-                        )?.[item?.id] <= 0
+                        )?.[item?.parentRunnerId || item?.id] <= 0
                         ? "#FF4D4D"
                         : "#319E5B"
                       : "#319E5B"
                   }
                   rate={
                     matchDetails?.profitLossDataMatch?.[
-                      marketDetails?.id +
+                      (marketDetails?.parentBetId || marketDetails?.id) +
                         "_" +
                         "profitLoss" +
                         "_" +
@@ -440,13 +440,13 @@ const TournamentOdds = ({
                     ]
                       ? JSON.parse(
                           matchDetails?.profitLossDataMatch?.[
-                            marketDetails?.id +
+                            (marketDetails?.parentBetId || marketDetails?.id) +
                               "_" +
                               "profitLoss" +
                               "_" +
                               matchDetails?.id
                           ]
-                        )?.[item?.id]
+                        )?.[item?.parentRunnerId || item?.id]
                       : 0
                   }
                   name={item?.nat ?? item?.runnerName}
