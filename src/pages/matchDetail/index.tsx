@@ -13,6 +13,7 @@ import {
   expertSocketService,
   socket,
   socketService,
+  matchService
 } from "../../socketManager";
 import {
   getPlacedBets,
@@ -67,6 +68,13 @@ const MatchDetail = () => {
   } = useSelector((state: RootState) => state.match.matchList);
   const { placedBets } = useSelector((state: RootState) => state.bets);
   
+  useEffect(() => {
+    matchService.connect();
+    return () => {
+      matchService.disconnect(); 
+    };
+  }, []);
+
   const setMatchRatesInRedux = (event: any) => {
     try {
       if (state?.matchId === event?.id) {

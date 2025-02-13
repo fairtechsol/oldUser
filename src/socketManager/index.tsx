@@ -21,6 +21,17 @@ export const initialiseSocket = () => {
       token: `${sessionStorage.getItem("jwtUser")}`,
     },
   });
+  // matchSocket = io(baseUrls.matchSocket, {
+  //   transports: [
+  //     // process.env.NODE_ENV === "production"
+  //     //   ? `${Constants.POLLING}`
+  //     //   :
+  //        `${Constants.WEBSOCKET}`,`${Constants.POLLING}`
+  //   ],
+  // });
+};
+
+export const initialiseMatchSocket = () => {
   matchSocket = io(baseUrls.matchSocket, {
     transports: [
       // process.env.NODE_ENV === "production"
@@ -48,6 +59,16 @@ export const socketService = {
   auth: { ...authSocketService },
   userBalance: { ...userBalanceSocketService },
   // Add other socket-related methods as needed
+};
+
+export const matchService = {
+  connect: () => {
+    initialiseMatchSocket();
+    matchSocket?.connect();
+  },
+  disconnect: () => {
+    matchSocket?.disconnect();
+  },
 };
 
 export const expertSocketService = {
