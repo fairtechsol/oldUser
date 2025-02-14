@@ -69,11 +69,13 @@ const MatchDetail = () => {
   const { placedBets } = useSelector((state: RootState) => state.bets);
   
   useEffect(() => {
-    matchService.connect();
+    if (state?.matchId) {
+      matchService.connect([state?.matchId]);
+    }
     return () => {
       matchService.disconnect(); 
     };
-  }, []);
+  }, [state]);
 
   const setMatchRatesInRedux = (event: any) => {
     try {
@@ -272,8 +274,7 @@ const MatchDetail = () => {
         socketService.userBalance.sessionResultUnDeclareOff();
         socketService.userBalance.updateDeleteReasonOff();
         expertSocketService.match.joinMatchRoom(
-          state?.matchId,
-          profileDetail?.roleName
+          state?.matchId
         );
         expertSocketService.match.getMatchRates(
           state?.matchId,
@@ -319,7 +320,7 @@ const MatchDetail = () => {
   useEffect(() => {
     try {
       return () => {
-        expertSocketService.match.leaveMatchRoom(state?.matchId);
+        // expertSocketService.match.leaveMatchRoom(state?.matchId);
         expertSocketService.match.getMatchRatesOff(state?.matchId);
         socketService.userBalance.userSessionBetPlacedOff();
         socketService.userBalance.userMatchBetPlacedOff();
@@ -393,7 +394,7 @@ const MatchDetail = () => {
             // }
           }
         } else if (document.visibilityState === "hidden") {
-          expertSocketService.match.leaveMatchRoom(state?.matchId);
+          // expertSocketService.match.leaveMatchRoom(state?.matchId);
           expertSocketService.match.getMatchRatesOff(state?.matchId);
         }
       };

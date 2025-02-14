@@ -31,7 +31,7 @@ export const initialiseSocket = () => {
   // });
 };
 
-export const initialiseMatchSocket = () => {
+export const initialiseMatchSocket = (matchId: string[]) => {
   matchSocket = io(baseUrls.matchSocket, {
     transports: [
       // process.env.NODE_ENV === "production"
@@ -39,6 +39,10 @@ export const initialiseMatchSocket = () => {
       //   :
          `${Constants.WEBSOCKET}`,`${Constants.POLLING}`
     ],
+    query: {
+      matchIdArray: matchId,
+      roleName: "superAdmin"
+    },
   });
 };
 
@@ -62,8 +66,8 @@ export const socketService = {
 };
 
 export const matchService = {
-  connect: () => {
-    initialiseMatchSocket();
+  connect: (matchId: string[]) => {
+    initialiseMatchSocket(matchId);
     matchSocket?.connect();
   },
   disconnect: () => {
