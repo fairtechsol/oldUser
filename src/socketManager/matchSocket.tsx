@@ -2,23 +2,23 @@ import { expertSocket, matchSocket } from ".";
 let currSocket: any = [];
 
 export const matchSocketService = {
-  joinMatchRoom: (matchId: any, roleName: any) => {
+  joinMatchRoom: (matchId: any) => {
     expertSocket?.emit("matchRoom", {
       id: matchId,
     });
 
-    matchSocket.emit("initCricketData", {
-      matchId: matchId,
-      roleName: roleName,
-    });
-    currSocket.push(
-      setInterval(() => {
-        matchSocket.emit("initCricketData", {
-          matchId: matchId,
-          roleName: roleName,
-        });
-      }, 120000)
-    );
+    // matchSocket.emit("initCricketData", {
+    //   matchId: matchId,
+    //   roleName: roleName,
+    // });
+    // currSocket.push(
+    //   setInterval(() => {
+    //     matchSocket.emit("initCricketData", {
+    //       matchId: matchId,
+    //       roleName: roleName,
+    //     });
+    //   }, 120000)
+    // );
   },
   leaveAllRooms: () => {
     for (let item of currSocket) {

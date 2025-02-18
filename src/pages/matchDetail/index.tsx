@@ -13,6 +13,7 @@ import {
   expertSocketService,
   socket,
   socketService,
+  matchService
 } from "../../socketManager";
 import {
   getPlacedBets,
@@ -67,6 +68,15 @@ const MatchDetail = () => {
   } = useSelector((state: RootState) => state.match.matchList);
   const { placedBets } = useSelector((state: RootState) => state.bets);
   
+  useEffect(() => {
+    if (state?.matchId) {
+      matchService.connect([state?.matchId]);
+    }
+    return () => {
+      matchService.disconnect(); 
+    };
+  }, [state]);
+
   const setMatchRatesInRedux = (event: any) => {
     try {
       if (state?.matchId === event?.id) {
@@ -264,8 +274,7 @@ const MatchDetail = () => {
         socketService.userBalance.sessionResultUnDeclareOff();
         socketService.userBalance.updateDeleteReasonOff();
         expertSocketService.match.joinMatchRoom(
-          state?.matchId,
-          profileDetail?.roleName
+          state?.matchId
         );
         expertSocketService.match.getMatchRates(
           state?.matchId,
@@ -311,7 +320,7 @@ const MatchDetail = () => {
   useEffect(() => {
     try {
       return () => {
-        expertSocketService.match.leaveMatchRoom(state?.matchId);
+        // expertSocketService.match.leaveMatchRoom(state?.matchId);
         expertSocketService.match.getMatchRatesOff(state?.matchId);
         socketService.userBalance.userSessionBetPlacedOff();
         socketService.userBalance.userMatchBetPlacedOff();
@@ -385,7 +394,7 @@ const MatchDetail = () => {
             // }
           }
         } else if (document.visibilityState === "hidden") {
-          expertSocketService.match.leaveMatchRoom(state?.matchId);
+          // expertSocketService.match.leaveMatchRoom(state?.matchId);
           expertSocketService.match.getMatchRatesOff(state?.matchId);
         }
       };

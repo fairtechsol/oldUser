@@ -21,12 +21,27 @@ export const initialiseSocket = () => {
       token: `${sessionStorage.getItem("jwtUser")}`,
     },
   });
+  // matchSocket = io(baseUrls.matchSocket, {
+  //   transports: [
+  //     // process.env.NODE_ENV === "production"
+  //     //   ? `${Constants.POLLING}`
+  //     //   :
+  //        `${Constants.WEBSOCKET}`,`${Constants.POLLING}`
+  //   ],
+  // });
+};
+
+export const initialiseMatchSocket = (matchId: string[]) => {
   matchSocket = io(baseUrls.matchSocket, {
     transports: [
       process.env.NODE_ENV === "production"
         ? `${Constants.POLLING}`
         : `${Constants.WEBSOCKET}`,
     ],
+    query: {
+      matchIdArray: matchId,
+      roleName: "superAdmin"
+    },
   });
 };
 
@@ -47,6 +62,16 @@ export const socketService = {
   auth: { ...authSocketService },
   userBalance: { ...userBalanceSocketService },
   // Add other socket-related methods as needed
+};
+
+export const matchService = {
+  connect: (matchId: string[]) => {
+    initialiseMatchSocket(matchId);
+    matchSocket?.connect();
+  },
+  disconnect: () => {
+    matchSocket?.disconnect();
+  },
 };
 
 export const expertSocketService = {
