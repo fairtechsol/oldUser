@@ -10,13 +10,13 @@ export let matchSocket: any = null;
 
 export const initialiseSocket = () => {
   socket = io(baseUrls.socket, {
-    transports: [`${Constants.WEBSOCKET}`,`${Constants.POLLING}`],
+    transports: [`${Constants.WEBSOCKET}`, `${Constants.POLLING}`],
     auth: {
       token: `${sessionStorage.getItem("jwtUser")}`,
     },
   });
   expertSocket = io(baseUrls.expertSocket, {
-    transports: [`${Constants.WEBSOCKET}`,`${Constants.POLLING}`],
+    transports: [`${Constants.WEBSOCKET}`, `${Constants.POLLING}`],
     auth: {
       token: `${sessionStorage.getItem("jwtUser")}`,
     },
@@ -34,10 +34,9 @@ export const initialiseSocket = () => {
 export const initialiseMatchSocket = (matchId: string[]) => {
   matchSocket = io(baseUrls.matchSocket, {
     transports: [
-      // process.env.NODE_ENV === "production"
-      //   ? `${Constants.POLLING}`
-      //   :
-         `${Constants.WEBSOCKET}`,`${Constants.POLLING}`
+      process.env.NODE_ENV === "production"
+        ? `${Constants.POLLING}`
+        : `${Constants.WEBSOCKET}`,
     ],
     query: {
       matchIdArray: matchId,
