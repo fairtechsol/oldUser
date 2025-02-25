@@ -11,9 +11,9 @@ import MatchOdds from "../../components/MatchDetail/MatchOdds/MatchOdds";
 import SessionBetSeperate from "../../components/MatchDetail/SessionOdds/SessionBetSeperate";
 import {
   expertSocketService,
+  matchService,
   socket,
-  socketService,
-  matchService
+  socketService
 } from "../../socketManager";
 import {
   getPlacedBets,
@@ -481,11 +481,10 @@ const MatchDetail = () => {
                   />
                 )}
                 {isTv &&
-                  matchDetails?.gmid &&
-                  matchDetails?.matchType !== "politics" &&
-                  liveScoreBoardData && (
+                  matchDetails?.eventId &&
+                  matchDetails?.matchType !== "politics"  && (
                     <LiveMatchHome
-                      eventId={matchDetails?.gmid}
+                      eventId={matchDetails?.eventId}
                     />
                   )}
                 <div style={{ width: "100%" }}>
@@ -590,10 +589,10 @@ const MatchDetail = () => {
                     />
                   )}
                   {isTv &&
-                    matchDetails?.gmid &&
+                    matchDetails?.eventId &&
                     matchDetails?.matchType !== "politics" && (
                       <LiveMatchHome
-                        eventId={matchDetails?.gmid}
+                        eventId={matchDetails?.eventId}
                       />
                     )}
                   {Array.from(
