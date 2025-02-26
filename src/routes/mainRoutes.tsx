@@ -55,6 +55,10 @@ const MainRoutes = {
       element: <MatchDetail />,
     },
     {
+      path: Constants.MainPaths.liveMarketSport,
+      element: <MatchDetail />,
+    },
+    {
       path: Constants.MainPaths.myAccount,
       element: <MyAccount />,
     },

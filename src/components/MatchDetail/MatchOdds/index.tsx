@@ -7,7 +7,7 @@ import { expertSocketService, socket } from "../../../socketManager";
 import {
   getMatchList,
   matchDetailReset,
-  updateMatchRatesFromApiOnList
+  updateMatchRatesFromApiOnList,
 } from "../../../store/actions/match/matchListAction";
 import { AppDispatch, RootState } from "../../../store/store";
 import { Constants, marketApiConst } from "../../../utils/Constants";
@@ -21,7 +21,7 @@ const MatchesComponent = () => {
 
   const getMatchListMarket = async (matchType: string) => {
     try {
-      const resp: any = await axios.get(marketApiConst[matchType]||"", {
+      const resp: any = await axios.get(marketApiConst[matchType] || "", {
         timeout: 2000,
       });
       if (resp?.status) {
@@ -80,7 +80,7 @@ const MatchesComponent = () => {
     try {
       if (selectedMatchId !== "") {
         dispatch(matchDetailReset());
-        navigate("/matchDetail", {
+        navigate(`${location.pathname}/matchDetail`, {
           state: {
             matchId: selectedMatchId,
           },
@@ -100,12 +100,14 @@ const MatchesComponent = () => {
     }
   }, [selectedMatchId]);
 
+  console.log(location.pathname);
+
   useEffect(() => {
     try {
       const handleVisibilityChange = () => {
         if (document.visibilityState === "visible") {
           dispatch(getMatchList({}));
-        } 
+        }
         // else if (document.visibilityState === "hidden") {
         //   if (matchList?.matches) {
         //     matchList?.matches?.forEach((element: any) => {

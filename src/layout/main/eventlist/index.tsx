@@ -16,91 +16,83 @@ import {
 
 import EventComponent from "./EventComponent";
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
+
+let EventNames = [
+  {
+    title: "INPLAY",
+    image: Play,
+    url: "/inplay",
+    active: false,
+  },
+  {
+    title: "MY ACCOUNT",
+    image: MYACCOUNT,
+    url: "/my-account",
+    active: false,
+  },
+  {
+    title: "CRICKET",
+    image: Cricket,
+    url: "/match",
+    active: false,
+  },
+  {
+    title: "LIVE CASINO",
+    image: Slot,
+    url: "/liveCasino",
+    active: false,
+  },
+  {
+    title: "LIVE CARD",
+    image: Card,
+    url: "/comingsoon",
+    active: false,
+  },
+  {
+    title: "SOCCER",
+    image: Football,
+    url: "/comingsoon",
+    active: false,
+  },
+  {
+    title: "TENNIS",
+    image: Tennis,
+    url: "/comingsoon",
+    active: false,
+  },
+  {
+    title: "ICE HOCKEY",
+    image: Hockey,
+    url: "/comingsoon",
+    active: false,
+  },
+  {
+    title: "SNOOKER",
+    image: SNOOKER,
+    url: "/comingsoon",
+    active: false,
+  },
+  {
+    title: "GOLF",
+    image: GOLF,
+    url: "/comingsoon",
+    active: false,
+  },
+  {
+    title: "CHESS",
+    image: CHESS,
+    url: "/comingsoon",
+    active: false,
+  },
+  {
+    title: "BASKETBALL",
+    image: BASKETBALL,
+    url: "/comingsoon",
+    active: false,
+  },
+];
 
 const EventListing = () => {
-  const [data, setData] = useState([
-    {
-      title: "INPLAY",
-      image: Play,
-      url: "/inplay",
-      active: false,
-    },
-    {
-      title: "MY ACCOUNT",
-      image: MYACCOUNT,
-      url: "/my-account",
-      active: false,
-    },
-    {
-      title: "CRICKET",
-      image: Cricket,
-      url: "/match",
-      active: false,
-    },
-    {
-      title: "LIVE CASINO",
-      image: Slot,
-      url: "/liveCasino",
-      active: false,
-    },
-    {
-      title: "LIVE CARD",
-      image: Card,
-      url: "/comingsoon",
-      active: false,
-    },
-    {
-      title: "SOCCER",
-      image: Football,
-      url: "/comingsoon",
-      active: false,
-    },
-    {
-      title: "TENNIS",
-      image: Tennis,
-      url: "/comingsoon",
-      active: false,
-    },
-    {
-      title: "ICE HOCKEY",
-      image: Hockey,
-      url: "/comingsoon",
-      active: false,
-    },
-    {
-      title: "SNOOKER",
-      image: SNOOKER,
-      url: "/comingsoon",
-      active: false,
-    },
-    {
-      title: "GOLF",
-      image: GOLF,
-      url: "/comingsoon",
-      active: false,
-    },
-    {
-      title: "CHESS",
-      image: CHESS,
-      url: "/comingsoon",
-      active: false,
-    },
-    {
-      title: "BASKETBALL",
-      image: BASKETBALL,
-      url: "/comingsoon",
-      active: false,
-    },
-  ]);
-
-  const handleNavLinkClick = (idx: any) => {
-    const updatedData = data.map((item, index) =>
-      index === idx ? { ...item, active: true } : { ...item, active: false }
-    );
-    setData(updatedData);
-  };
-
   return (
     <>
       <Box
@@ -119,12 +111,11 @@ const EventListing = () => {
           },
         ]}
       >
-        {data.map((item, idx) => (
+        {EventNames.map((item, idx) => (
           <NavLink
             key={idx}
             to={`${item.url}`}
-            className={item.active ? "activeEventTab" : ""}
-            onClick={() => handleNavLinkClick(idx)}
+            className={({ isActive }) => (isActive ? "activeEventTab" : "")}
             style={{ textDecoration: "none" }}
           >
             <EventComponent data={item} setAnchor={() => {}} />

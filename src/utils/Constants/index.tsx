@@ -10,17 +10,17 @@ export const ApiConstants = {
     OLD_PASSWORD: "/user/check/oldPassword",
   },
   MATCH: {
-    RATES:"/getUserRateDetails/",
+    RATES: "/getUserRateDetails/",
     MATCHLIST: "/match/list",
     SEARCHLIST: "/user/searchlist",
     MATCHDETAILS: "/match/",
     CURRENTBET: "/bet",
     MARKET_MATCH_LIST_CRICKET:
-    "https://marketsarket.qnsports.live/getcricketmatches",
-  MARKET_MATCH_LIST_FOOTBALL:
-    "https://marketsarket.qnsports.live/getsoccerallmatches2",
-  MARKET_MATCH_LIST_TENNIS:
-    "https://marketsarket.qnsports.live/gettennisallmatches2",
+      "https://marketsarket.qnsports.live/getcricketmatches",
+    MARKET_MATCH_LIST_FOOTBALL:
+      "https://marketsarket.qnsports.live/getsoccerallmatches2",
+    MARKET_MATCH_LIST_TENNIS:
+      "https://marketsarket.qnsports.live/gettennisallmatches2",
   },
   USER: {
     MARQUEE: "/expert/notification",
@@ -72,22 +72,23 @@ export const Constants = {
     root: "/",
     match: "match",
     comingSoon: "comingsoon",
-    liveMarketMatches: "matchDetail",
+    liveMarketMatches: "inplay/matchDetail",
+    liveMarketSport: "match/matchDetail",
     myAccount: "my-account",
     liveMarket: "inplay",
-    changeButtonValue: "change_button_value",
+    changeButtonValue: "my-account/change_button_value",
     rules: "rules",
-    changePassword: "change_password",
-    secureAuth: "secure-auth",
+    changePassword: "my-account/change_password",
+    secureAuth: "my-account/secure-auth",
     liveCasino: "liveCasino",
   },
   ReportsPaths: {
     root: "/",
-    profitLoss: "profit_loss",
-    accountStatement: "account_statement",
-    currentBet: "current_bet",
-    generalReport: "general_report",
-    betHistory: "bet_history",
+    profitLoss: "my-account/profit_loss",
+    accountStatement: "my-account/account_statement",
+    currentBet: "my-account/current_bet",
+    generalReport: "my-account/general_report",
+    betHistory: "my-account/bet_history",
   },
   pageCount: 10,
   listOfClientCountLimit: 15,
@@ -229,7 +230,7 @@ export const baseUrls = {
   expertSocket: import.meta.env.VITE_EXPERT_BASE_URL,
 };
 
-export const marketApiConst: { [key: string]: string }  = {
+export const marketApiConst: { [key: string]: string } = {
   cricket: ApiConstants.MATCH.MARKET_MATCH_LIST_CRICKET,
   football: ApiConstants.MATCH.MARKET_MATCH_LIST_FOOTBALL,
   tennis: ApiConstants.MATCH.MARKET_MATCH_LIST_TENNIS,
