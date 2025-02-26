@@ -41,7 +41,7 @@ const EventListing = () => {
     {
       title: "LIVE CASINO",
       image: Slot,
-      url: "/comingsoon",
+      url: "/liveCasino",
       active: false,
     },
     {

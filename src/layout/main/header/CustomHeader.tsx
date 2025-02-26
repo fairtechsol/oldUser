@@ -96,7 +96,7 @@ const CustomHeader = () => {
         {/* <CustomLoader height={"100%"} /> */}
       </Box>
 
-      <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer }}>
+      <AppBar position="fixed" sx={{ zIndex: 999 }}>
         {/* <IdleTimer role="user" /> */}
         {!isOnline && (
           <Box

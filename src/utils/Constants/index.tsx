@@ -1,4 +1,8 @@
 export const ApiConstants = {
+  LiveCasinoGame: "/mac88/casino/list",
+  LiveCasinoGameLogin: "/mac88/casino/login",
+  LiveCasinoGameProvider: "/mac88/providers",
+  LiveCasinoGameBets: "/mac88/bets",
   AUTH: {
     LOGIN: "/auth/login",
     LOGOUT: "/auth/logout",
@@ -35,6 +39,14 @@ export const ApiConstants = {
     COMPETITIONDATES: "/expert/match/competition/dates/",
     COMPETITIONMATCHES: "/expert/match/competition/getMatch/",
   },
+  CARDS: {
+    MATCH: {
+      GET_CARD_DETAIL: "/match/card",
+      GET_CARD_DETAIL_INITIAL: "/match/initial/card",
+      PLACE_BET: "/bet/cardBetting",
+      RESULT: "/card/result/detail",
+    },
+  },
   BET: {
     PLACEBETSESSION: "bet/session",
     PLACEBETMATCHBETTING: "bet/matchBetting",
@@ -67,6 +79,7 @@ export const Constants = {
     rules: "rules",
     changePassword: "change_password",
     secureAuth: "secure-auth",
+    liveCasino: "liveCasino",
   },
   ReportsPaths: {
     root: "/",
