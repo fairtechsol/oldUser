@@ -111,7 +111,7 @@ const LiveScoreBoard = ({ data, width, setIsTv }: any) => {
           </Box>
         </Box>
         <Box>
-          {visible && (
+          {visible && data && (
             <div className="m-scorecard" style={{ width: width }}>
               <div className="row">
                 <div className="col-12 ">

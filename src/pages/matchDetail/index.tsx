@@ -473,7 +473,7 @@ const MatchDetail = () => {
                   flexDirection: "column",
                 }}
               >
-                {liveScoreBoardData && (
+                { (
                   <LiveScoreBoard
                     data={liveScoreBoardData}
                     width="100%"
@@ -580,7 +580,7 @@ const MatchDetail = () => {
                   />
                 </Box>
                 <Box sx={{ width: "30%", paddingRight: "1%" }}>
-                  {liveScoreBoardData && (
+                  { (
                     <LiveScoreBoard
                       data={liveScoreBoardData}
                       width="100%"
