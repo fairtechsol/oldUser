@@ -172,7 +172,7 @@ const matchListSlice = createSlice({
         );
         state.matchDetails = {
           ...state.matchDetails,
-          // manualSessionActive: sessionBettings?.length >= 0 ? true : false,
+          manualSessionActive: sessionBettings?.length >= 0 ? true : false,
           gmid: action.payload?.gmid,
           apiSession: apiSession,
           apiTideMatch: apiTiedMatch,
@@ -257,7 +257,7 @@ const matchListSlice = createSlice({
         );
         state.matchDetails = {
           ...state.matchDetails,
-          // manualSessionActive: sessionBettings?.length >= 0 ? true : false,
+          manualSessionActive: sessionBettings?.length >= 0 ? true : false,
           apiSession: apiSession,
           apiTideMatch: apiTiedMatch,
           apiTideMatch2: apiTiedMatch2,

@@ -562,9 +562,8 @@ const MatchOdds = ({ matchDetails, setShow, show }: any) => {
         matchDetails?.sessionBettings?.filter(
           (betting: any) =>
             JSON.parse(betting)?.selectionId === null &&
-            !(
-              JSON.parse(betting)?.activeStatus === "unSave" ||
-              JSON.parse(betting)?.activeStatus === "result"
+            (
+              JSON.parse(betting)?.activeStatus === "live"
             )
         ).length > 0 && (
           <QuickSessionMarket
