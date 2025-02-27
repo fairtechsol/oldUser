@@ -7,9 +7,10 @@ import {
   Football,
   GOLF,
   Hockey,
+  Mac88,
   MYACCOUNT,
   Play,
-  Slot,
+  // Slot,
   SNOOKER,
   Tennis,
 } from "../../../assets";
@@ -37,15 +38,15 @@ let EventNames = [
     active: false,
   },
   {
-    title: "LIVE CASINO",
-    image: Slot,
+    title: "LIVE GAMES",
+    image: Mac88,
     url: "/liveCasino",
     active: false,
   },
   {
-    title: "LIVE CARD",
+    title: "CRASH GAMES",
     image: Card,
-    url: "/comingsoon",
+    url: "/crashGames",
     active: false,
   },
   {

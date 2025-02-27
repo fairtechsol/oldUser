@@ -81,6 +81,7 @@ export const Constants = {
     changePassword: "my-account/change_password",
     secureAuth: "my-account/secure-auth",
     liveCasino: "liveCasino",
+    crashGames: "crashGames",
   },
   ReportsPaths: {
     root: "/",

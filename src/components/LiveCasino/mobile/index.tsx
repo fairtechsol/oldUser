@@ -20,7 +20,7 @@ const LiveCasinoMobile = () => {
   );
   const initialType: any =
     liveCasinoData && Object.keys(liveCasinoData).length > 0
-      ? Object.keys(liveCasinoData)[0]
+      ? Object.keys(liveCasinoData)[location.pathname === "/liveCasino" ? 0 : 1]
       : null;
 
   const [list, setList] = useState<Record<string, any>>({});
@@ -33,14 +33,16 @@ const LiveCasinoMobile = () => {
   useEffect(() => {
     if (liveCasinoData && Object.keys(liveCasinoData).length > 0) {
       setList(liveCasinoData);
-      setType(Object.keys(liveCasinoData)[0]);
+      setType(
+        Object.keys(liveCasinoData)[location.pathname === "/liveCasino" ? 0 : 1]
+      );
       const firstKey = Object.keys(liveCasinoData[initialType])[0];
       setType2(Object.keys(liveCasinoData[initialType])[0]);
       const firstObject = liveCasinoData[initialType][firstKey];
       setGame(firstObject);
       setIsLoading(false);
     }
-  }, [liveCasinoData]);
+  }, [liveCasinoData, location.pathname]);
 
   if (isLoading) {
     return (
@@ -131,15 +133,15 @@ const LiveCasinoMobile = () => {
   //     </div>
   //   );
   // };
-  const handleParent = (key: any) => {
-    setType(key);
-    const firstKey = Object.keys(liveCasinoData[key])[0];
-    setType2(firstKey);
-    setGame(liveCasinoData[key][firstKey]);
-  };
+  // const handleParent = (key: any) => {
+  //   setType(key);
+  //   const firstKey = Object.keys(liveCasinoData[key])[0];
+  //   setType2(firstKey);
+  //   setGame(liveCasinoData[key][firstKey]);
+  // };
   return (
     <>
-      <div className="w-100 d-flex flex-column gap-2 ">
+      {/* <div className="w-100 d-flex flex-column gap-2 ">
         <div className="w-100 d-flex man-tab px-6 bg-secondary">
           {Object.keys(list)?.map((key, index) => {
             const isActive = type === key;
@@ -166,7 +168,7 @@ const LiveCasinoMobile = () => {
             );
           })}
         </div>
-      </div>
+      </div> */}
       <Box
         className="d-flex flex-column"
         sx={{
