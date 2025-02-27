@@ -100,8 +100,6 @@ const MatchesComponent = () => {
     }
   }, [selectedMatchId]);
 
-  console.log(location.pathname);
-
   useEffect(() => {
     try {
       const handleVisibilityChange = () => {
