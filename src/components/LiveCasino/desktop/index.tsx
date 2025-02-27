@@ -1,13 +1,12 @@
+import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { AppDispatch, RootState } from "../../../store/store";
 import { Modal } from "react-bootstrap";
 import { FaHome } from "react-icons/fa";
-import { liveCasinoLogin } from "../../../store/actions/card/cardDetail";
+import { useDispatch, useSelector } from "react-redux";
 import { dt2020, FgLogo } from "../../../assets";
+import { liveCasinoLogin } from "../../../store/actions/card/cardDetail";
+import { AppDispatch, RootState } from "../../../store/store";
 import Loader from "../../Loader";
-import { Box } from "@mui/material";
 
 const LiveCasinoDesktop = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -149,7 +148,7 @@ const LiveCasinoDesktop = () => {
   // };
   return (
     <>
-      <div className="w-100 d-flex flex-row mt-1 gap-2">
+      <div className="w-100 d-flex flex-row mt-1 gap-2  px-2">
         {/* <div
           className="d-flex flex-column"
           style={{ width: "calc(16.66% - 10px)" }}
