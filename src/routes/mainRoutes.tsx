@@ -99,6 +99,10 @@ const MainRoutes = {
       element: <LiveCasino />,
     },
     {
+      path: Constants.MainPaths.crashGames,
+      element: <LiveCasino />,
+    },
+    {
       path: "*",
       element: <Navigate to={"/match"} replace />,
     },
