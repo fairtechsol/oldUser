@@ -16,6 +16,7 @@ import Rules from "../pages/rules";
 import ProfitLoss from "../pages/reports/ProfitLoss";
 import BetHistory from "../pages/betHistory";
 import AccountStatement from "../pages/reports/AccountStatement";
+import LiveCasino from "../pages/liveCasino";
 
 // const ChangeButtonValue = Loadable(
 //   lazy(() => import("../pages/changeButtonValue"))
@@ -54,6 +55,10 @@ const MainRoutes = {
       element: <MatchDetail />,
     },
     {
+      path: Constants.MainPaths.liveMarketSport,
+      element: <MatchDetail />,
+    },
+    {
       path: Constants.MainPaths.myAccount,
       element: <MyAccount />,
     },
@@ -88,6 +93,10 @@ const MainRoutes = {
     {
       path: Constants.ReportsPaths.accountStatement,
       element: <AccountStatement />,
+    },
+    {
+      path: Constants.MainPaths.liveCasino,
+      element: <LiveCasino />,
     },
     {
       path: "*",
