@@ -53,12 +53,12 @@ const MyAccount = () => {
   };
 
   const menutItems1 = [
-    { title: "Account Statement", link: "/account_statement" },
-    { title: "Profile/Loss Report", link: "/profit_loss" },
-    { title: "Bet History", link: "/bet_history" },
-    { title: "Set Button Values", link: "/change_button_value" },
+    { title: "Account Statement", link: "/my-account/account_statement" },
+    { title: "Profile/Loss Report", link: "/my-account/profit_loss" },
+    { title: "Bet History", link: "/my-account/bet_history" },
+    { title: "Set Button Values", link: "/my-account/change_button_value" },
     { title: "Security Auth Verification", link: "/comingsoon" },
-    { title: "Change Password", link: "/change_password" },
+    { title: "Change Password", link: "/my-account/change_password" },
   ];
 
   return (
@@ -107,11 +107,7 @@ const MyAccount = () => {
               dense={true}
               sx={classes.MenuItemsx}
               onClick={() => {
-                navigate(x.link, {
-                  state: {
-                    activeTab: "MY ACCOUNT",
-                  },
-                });
+                navigate(x.link);
               }}
             >
               {x.title}
