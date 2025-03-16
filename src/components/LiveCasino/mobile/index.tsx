@@ -1,13 +1,12 @@
+import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { AppDispatch, RootState } from "../../../store/store";
 import { Modal } from "react-bootstrap";
 import { FaHome } from "react-icons/fa";
-import { liveCasinoLogin } from "../../../store/actions/card/cardDetail";
+import { useDispatch, useSelector } from "react-redux";
 import { dt2020, FgLogo } from "../../../assets";
+import { liveCasinoLogin } from "../../../store/actions/card/cardDetail";
+import { AppDispatch, RootState } from "../../../store/store";
 import Loader from "../../Loader";
-import { Box } from "@mui/material";
 
 const LiveCasinoMobile = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -20,7 +19,13 @@ const LiveCasinoMobile = () => {
   );
   const initialType: any =
     liveCasinoData && Object.keys(liveCasinoData).length > 0
-      ? Object.keys(liveCasinoData)[location.pathname === "/liveCasino" ? 0 : 1]
+      ? Object.keys(liveCasinoData)[
+          location.pathname === "/liveCasino"
+            ? 0
+            : location.pathname === "/crashGames"
+            ? 1
+            : 2
+        ]
       : null;
 
   const [list, setList] = useState<Record<string, any>>({});
@@ -34,7 +39,13 @@ const LiveCasinoMobile = () => {
     if (liveCasinoData && Object.keys(liveCasinoData).length > 0) {
       setList(liveCasinoData);
       setType(
-        Object.keys(liveCasinoData)[location.pathname === "/liveCasino" ? 0 : 1]
+        Object.keys(liveCasinoData)[
+          location.pathname === "/liveCasino"
+            ? 0
+            : location.pathname === "/crashGames"
+            ? 1
+            : 2
+        ]
       );
       const firstKey = Object.keys(liveCasinoData[initialType])[0];
       setType2(Object.keys(liveCasinoData[initialType])[0]);
@@ -63,7 +74,7 @@ const LiveCasinoMobile = () => {
   };
   const LiveCasinoTab = ({ data2 }: { data2: any }) => {
     return (
-      <div className="w-100 d-flex flex-row">
+      <div className="w-100 d-flex flex-row overflow-auto">
         {Object.keys(data2)?.map((item: any, index: number) => {
           const isActive = item === type2 ? true : false;
           return (
@@ -77,6 +88,7 @@ const LiveCasinoMobile = () => {
               style={{
                 cursor: "pointer",
                 backgroundColor: isActive ? "#004A25" : "",
+                whiteSpace: "nowrap",
               }}
             >
               {item}

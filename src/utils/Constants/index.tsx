@@ -82,6 +82,7 @@ export const Constants = {
     secureAuth: "my-account/secure-auth",
     liveCasino: "liveCasino",
     crashGames: "crashGames",
+    macExcite: "macExcite",
   },
   ReportsPaths: {
     root: "/",

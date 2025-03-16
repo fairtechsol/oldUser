@@ -19,7 +19,13 @@ const LiveCasinoDesktop = () => {
   );
   const initialType: any =
     liveCasinoData && Object.keys(liveCasinoData).length > 0
-      ? Object.keys(liveCasinoData)[location.pathname === "/liveCasino" ? 0 : 1]
+      ? Object.keys(liveCasinoData)[
+          location.pathname === "/liveCasino"
+            ? 0
+            : location.pathname === "/crashGames"
+            ? 1
+            : 2
+        ]
       : null;
 
   const [list, setList] = useState<Record<string, any>>({});
@@ -33,7 +39,13 @@ const LiveCasinoDesktop = () => {
     if (liveCasinoData && Object.keys(liveCasinoData).length > 0) {
       setList(liveCasinoData);
       setType(
-        Object.keys(liveCasinoData)[location.pathname === "/liveCasino" ? 0 : 1]
+        Object.keys(liveCasinoData)[
+          location.pathname === "/liveCasino"
+            ? 0
+            : location.pathname === "/crashGames"
+            ? 1
+            : 2
+        ]
       );
       const firstKey = Object.keys(liveCasinoData[initialType])[0];
       setType2(Object.keys(liveCasinoData[initialType])[0]);
