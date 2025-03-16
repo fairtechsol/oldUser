@@ -1,22 +1,22 @@
 // import Loadable from "../utils/loadable";
 import { Navigate } from "react-router-dom";
-import { Constants } from "../utils/Constants";
 import SecureAuthVerification from "../pages/auth/secureAuthverification";
+import { Constants } from "../utils/Constants";
 
 import MainLayout from "../layout/main";
 // import { lazy } from "react";
-import Match from "../pages/match";
+import BetHistory from "../pages/betHistory";
+import ChangeButtonValue from "../pages/changeButtonValue";
+import ChangePassword from "../pages/changepassword";
 import Comingsoon from "../pages/comingsoon";
+import Inplay from "../pages/inplay";
+import LiveCasino from "../pages/liveCasino";
+import Match from "../pages/match";
 import MatchDetail from "../pages/matchDetail";
 import MyAccount from "../pages/myAccount";
-import Inplay from "../pages/inplay";
-import ChangePassword from "../pages/changepassword";
-import ChangeButtonValue from "../pages/changeButtonValue";
-import Rules from "../pages/rules";
-import ProfitLoss from "../pages/reports/ProfitLoss";
-import BetHistory from "../pages/betHistory";
 import AccountStatement from "../pages/reports/AccountStatement";
-import LiveCasino from "../pages/liveCasino";
+import ProfitLoss from "../pages/reports/ProfitLoss";
+import Rules from "../pages/rules";
 
 // const ChangeButtonValue = Loadable(
 //   lazy(() => import("../pages/changeButtonValue"))
@@ -100,6 +100,10 @@ const MainRoutes = {
     },
     {
       path: Constants.MainPaths.crashGames,
+      element: <LiveCasino />,
+    },
+    {
+      path: Constants.MainPaths.macExcite,
       element: <LiveCasino />,
     },
     {

@@ -8,6 +8,7 @@ import {
   GOLF,
   Hockey,
   Mac88,
+  MacExcite,
   MYACCOUNT,
   Play,
   // Slot,
@@ -15,8 +16,8 @@ import {
   Tennis,
 } from "../../../assets";
 
-import EventComponent from "./EventComponent";
 import { NavLink } from "react-router-dom";
+import EventComponent from "./EventComponent";
 
 let EventNames = [
   {
@@ -47,6 +48,12 @@ let EventNames = [
     title: "CRASH GAMES",
     image: Card,
     url: "/crashGames",
+    active: false,
+  },
+  {
+    title: "MAC EXCITE",
+    image: MacExcite,
+    url: "/macExcite",
     active: false,
   },
   {
