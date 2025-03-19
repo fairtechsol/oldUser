@@ -258,6 +258,24 @@ export const liveCasinoPics: any = {
   "fun games": "https://tezcdn.io/casino/int-casino-icon/fun-games.webp",
   crash: "https://tezcdn.io/casino/int-casino-icon/crash.webp",
   aviator: "https://tezcdn.io/casino/int-casino-icon/aviator.webp",
+  mines: "https://tezcdn.io/casino/int-casino-icon/mines.webp",
+  slots: "https://tezcdn.io/casino/int-casino-icon/slots.webp",
+  "live game show":
+    "https://tezcdn.io/casino/int-casino-icon/live-game-show.webp",
   "color prediction":
     "https://tezcdn.io/casino/int-casino-icon/color-prediction.webp",
+  "sic bo": "https://tezcdn.io/casino/int-casino-icon/sic-bo.webp",
+  "bac bo": "https://tezcdn.io/casino/int-casino-icon/bac-bo.webp",
+  "fan tan": "https://tezcdn.io/casino/int-casino-icon/fan-tan.webp",
+  craps: "https://tezcdn.io/casino/int-casino-icon/craps.webp",
+  blackjack: "https://tezcdn.io/casino/int-casino-icon/blackjack.webp",
+  "casino holdem":
+    "https://tezcdn.io/casino/int-casino-icon/casino-holdem.webp",
+  "double hand casino holdem poker":
+    "https://tezcdn.io/casino/int-casino-icon/double-hand-casino-holdem-poker.webp",
+  "video poker": "https://tezcdn.io/casino/int-casino-icon/video-poker.webp",
+  "extreme texas holdem":
+    "https://tezcdn.io/casino/int-casino-icon/extreme-texas-holdem.webp",
+  "triple card poker":
+    "https://tezcdn.io/casino/int-casino-icon/triple-card-poker.webp",
 };
