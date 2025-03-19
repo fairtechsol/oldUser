@@ -82,6 +82,8 @@ export const Constants = {
     secureAuth: "my-account/secure-auth",
     liveCasino: "liveCasino",
     crashGames: "crashGames",
+    macVirtual: "macVirtual",
+    coloPred: "colorPred",
     macExcite: "macExcite",
   },
   ReportsPaths: {
@@ -236,4 +238,26 @@ export const marketApiConst: { [key: string]: string } = {
   cricket: ApiConstants.MATCH.MARKET_MATCH_LIST_CRICKET,
   football: ApiConstants.MATCH.MARKET_MATCH_LIST_FOOTBALL,
   tennis: ApiConstants.MATCH.MARKET_MATCH_LIST_TENNIS,
+};
+
+export const liveCasinoPics: any = {
+  All: "https://tezcdn.io/casino/int-casino-icon/all.webp",
+  "dragon tiger": "https://tezcdn.io/casino/int-casino-icon/dragon-tiger.webp",
+  baccarat: "https://tezcdn.io/casino/int-casino-icon/baccarat.webp",
+  sicbo: "https://tezcdn.io/casino/int-casino-icon/sicbo.webp",
+  roulette: "https://tezcdn.io/casino/int-casino-icon/roulette.webp",
+  poker: "https://tezcdn.io/casino/int-casino-icon/poker.webp",
+  lucky7: "https://tezcdn.io/casino/int-casino-icon/lucky7.webp",
+  andarbahar: "https://tezcdn.io/casino/int-casino-icon/andarbahar.webp",
+  teenpatti: "https://tezcdn.io/casino/int-casino-icon/teenpatti.webp",
+  "32cards": "https://tezcdn.io/casino/int-casino-icon/32cards.webp",
+  others: "https://tezcdn.io/casino/int-casino-icon/others.webp",
+  lottery: "https://tezcdn.io/casino/int-casino-icon/lottery.webp",
+  cricketwar: "https://tezcdn.io/casino/int-casino-icon/cricketwar.webp",
+  "hi low": "https://tezcdn.io/casino/int-casino-icon/hi-low.webp",
+  "fun games": "https://tezcdn.io/casino/int-casino-icon/fun-games.webp",
+  crash: "https://tezcdn.io/casino/int-casino-icon/crash.webp",
+  aviator: "https://tezcdn.io/casino/int-casino-icon/aviator.webp",
+  "color prediction":
+    "https://tezcdn.io/casino/int-casino-icon/color-prediction.webp",
 };

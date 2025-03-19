@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { dt2020, FgLogo } from "../../../assets";
 import { liveCasinoLogin } from "../../../store/actions/card/cardDetail";
 import { AppDispatch, RootState } from "../../../store/store";
+import { liveCasinoPics } from "../../../utils/Constants";
 import Loader from "../../Loader";
 
 const LiveCasinoDesktop = () => {
@@ -18,15 +19,17 @@ const LiveCasinoDesktop = () => {
     (state: RootState) => state.user.profile
   );
   const initialType: any =
-    liveCasinoData && Object.keys(liveCasinoData).length > 0
-      ? Object.keys(liveCasinoData)[
-          location.pathname === "/liveCasino"
-            ? 0
-            : location.pathname === "/crashGames"
-            ? 1
-            : 2
-        ]
-      : null;
+    location.pathname === "/liveCasino"
+      ? "MAC88"
+      : location.pathname === "/crashGames"
+      ? "FUN GAMES"
+      : location.pathname === "/macVirtual"
+      ? "MAC88 VIRTUALS"
+      : location.pathname === "/colorPred"
+      ? "COLOR PREDICTION"
+      : location.pathname === "/macExcite"
+      ? "MAC EXCITE"
+      : "";
 
   const [list, setList] = useState<Record<string, any>>({});
   const [type, setType] = useState<string>("");
@@ -38,18 +41,9 @@ const LiveCasinoDesktop = () => {
   useEffect(() => {
     if (liveCasinoData && Object.keys(liveCasinoData).length > 0) {
       setList(liveCasinoData);
-      setType(
-        Object.keys(liveCasinoData)[
-          location.pathname === "/liveCasino"
-            ? 0
-            : location.pathname === "/crashGames"
-            ? 1
-            : 2
-        ]
-      );
-      const firstKey = Object.keys(liveCasinoData[initialType])[0];
-      setType2(Object.keys(liveCasinoData[initialType])[0]);
-      const firstObject = liveCasinoData[initialType][firstKey];
+      setType(initialType);
+      setType2("All");
+      const firstObject = liveCasinoData[initialType]["All"];
       setGame(firstObject);
       setIsLoading(false);
     }
@@ -75,30 +69,60 @@ const LiveCasinoDesktop = () => {
 
   const LiveCasinoTab = ({ data2 }: { data2: any }) => {
     return (
-      <div className="w-100 d-flex flex-row bg-tab">
-        {Object.keys(data2)?.map((item: any, index: number) => {
-          const isActive = item === type2 ? true : false;
-          return (
-            <>
-              <Box
-                key={index}
-                onClick={() => {
-                  setGame(data2[item]);
-                  setType2(item);
-                }}
-                className="d-flex justify-content-center align-items-center py-1 px-2"
-                sx={{
-                  cursor: "pointer",
-                  backgroundColor: isActive ? "#FDCB52" : "",
-                  color: isActive ? "#000" : "#fff",
-                  fontWeight: isActive ? "bold" : "",
-                }}
-              >
-                {item}
-              </Box>
-            </>
-          );
-        })}
+      <div
+        className="d-flex flex-row"
+        style={{
+          // width: "100%",
+          backgroundColor: "#bbbbbb",
+          whiteSpace: "nowrap",
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+          padding: "0px 2px",
+          overflowX: "auto",
+          flexWrap: "nowrap",
+        }}
+      >
+        {Object.keys(data2)
+          ?.sort((a, b) => {
+            if (a === "All") return -1;
+            if (b === "All") return 1;
+            return 0;
+          })
+          ?.map((item: any, index: number) => {
+            const isActive = item === type2 ? true : false;
+            return (
+              <>
+                <Box
+                  key={index}
+                  onClick={() => {
+                    setGame(data2[item]);
+                    setType2(item);
+                  }}
+                  className="d-flex justify-content-center flex-column align-items-center py-1 px-2"
+                  sx={{
+                    cursor: "pointer",
+                    backgroundColor: isActive ? "#004A25" : "",
+                    color: !isActive ? "#000" : "#fff",
+                    fontWeight: isActive ? "bold" : "",
+                    borderRight: "1px solid #000",
+                  }}
+                >
+                  <img
+                    src={liveCasinoPics[item]}
+                    alt="abc"
+                    style={{
+                      height: 30,
+                      width: 30,
+                      filter: isActive
+                        ? "invert(98%) sepia(0%) saturate(0%) hue-rotate(290deg) brightness(104%) contrast(101%)"
+                        : "",
+                    }}
+                  />
+                  {item}
+                </Box>
+              </>
+            );
+          })}
       </div>
     );
   };
@@ -131,27 +155,7 @@ const LiveCasinoDesktop = () => {
       </div>
     );
   };
-  // const GameScreen = ({ data4 }: { data4: any }) => {
-  //   return (
-  //     <div
-  //       className="w-100 d-flex flex-column mt-1"
-  //     >
-  //       <div className="w-100 d-flex flex-row justify-content-between align-items-center px-1 py-2 bg-primary text-white">
-  //         <span>{gameData?.game_name}</span>
-  //         <div className="fbold" onClick={() => setIsShow(false)}>EXIT</div>
-  //       </div>
-  //       <div className="w-100" style={{height:"80vh"}}>
-  //         <iframe
-  //           src={data4?.url}
-  //           title="Live Stream"
-  //           referrerPolicy={"strict-origin-when-cross-origin"}
-  //           width={"100%"}
-  //           height={"100%"}
-  //         ></iframe>
-  //       </div>
-  //     </div>
-  //   );
-  // };
+
   // const handleParent = (key: any) => {
   //   setType(key);
   //   const firstKey = Object.keys(liveCasinoData[key])[0];
@@ -191,7 +195,7 @@ const LiveCasinoDesktop = () => {
           })}
         </div> */}
 
-        <div className="d-flex flex-column" style={{ width: "85%" }}>
+        <div className="d-flex flex-column" style={{ width: "100%" }}>
           <LiveCasinoTab data2={list[type]} />
           <LiveCasinoGames data3={game ?? []} />
         </div>
