@@ -19,17 +19,9 @@ const LiveCasinoMobile = () => {
     (state: RootState) => state.user.profile
   );
   const initialType: any =
-    location.pathname === "/liveCasino"
-      ? "MAC88"
-      : location.pathname === "/crashGames"
-      ? "FUN GAMES"
-      : location.pathname === "/macVirtual"
-      ? "MAC88 VIRTUALS"
-      : location.pathname === "/colorPred"
-      ? "COLOR PREDICTION"
-      : location.pathname === "/macExcite"
-      ? "MAC EXCITE"
-      : "";
+    liveCasinoData && Object.keys(liveCasinoData).length > 0
+      ? Object.keys(liveCasinoData)[0]
+      : null;
 
   const [list, setList] = useState<Record<string, any>>({});
   const [type, setType] = useState<string>("");
@@ -38,12 +30,23 @@ const LiveCasinoMobile = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isShow, setIsShow] = useState(false);
 
+  const handleParent = (key: any) => {
+    setType(key);
+    const firstKey =
+      key === "All" ? Object.keys(liveCasinoData[key])[0] : "All";
+    setType2(firstKey);
+    setGame(liveCasinoData[key][firstKey]);
+  };
+
   useEffect(() => {
     if (liveCasinoData && Object.keys(liveCasinoData).length > 0) {
       setList(liveCasinoData);
       setType(initialType);
-      setType2("All");
-      const firstObject = liveCasinoData[initialType]["All"];
+      setType2(Object.keys(liveCasinoData[initialType])?.[0]);
+      const firstObject =
+        liveCasinoData[initialType][
+          Object.keys(liveCasinoData[initialType])?.[0]
+        ];
       setGame(firstObject);
       setIsLoading(false);
     }
@@ -159,42 +162,49 @@ const LiveCasinoMobile = () => {
   //     </div>
   //   );
   // };
-  // const handleParent = (key: any) => {
-  //   setType(key);
-  //   const firstKey = Object.keys(liveCasinoData[key])[0];
-  //   setType2(firstKey);
-  //   setGame(liveCasinoData[key][firstKey]);
-  // };
+
   return (
     <>
-      {/* <div className="w-100 d-flex flex-column gap-2 ">
-        <div className="w-100 d-flex man-tab px-6 bg-secondary">
-          {Object.keys(list)?.map((key, index) => {
-            const isActive = type === key;
-            return (
-              <>
-                <Box
-                  key={index}
-                  onClick={() => handleParent(key)}
-                  className={`w-100 d-flex justify-content-center px-3 align-items-center fbold py-2`}
-                  sx={{
-                    color: isActive ? "#000" : "white",
-                    cursor: "pointer",
-                    backgroundColor: isActive ? "#FDCB52" : "",
-                    fontWeight: isActive ? "bold" : "",
-                    fontSize: "14px",
-                  }}
-                  style={{
-                    cursor: "pointer",
-                  }}
-                >
-                  {key}
-                </Box>
-              </>
-            );
-          })}
-        </div>
-      </div> */}
+      <Box
+        className="d-flex flex-row"
+        sx={{
+          overflowX: "auto",
+          flexWrap: "nowrap",
+          backgroundColor: "#bbbbbb",
+          whiteSpace: "nowrap",
+          overflow: "auto",
+          textOverflow: "ellipsis",
+          padding: "0px 10px",
+          width: "100%",
+        }}
+      >
+        {Object.keys(list)?.map((key, index) => {
+          const isActive = type === key;
+          return (
+            <>
+              <Box
+                key={index}
+                onClick={() => handleParent(key)}
+                className={`w-100 d-flex justify-content-center px-3 align-items-center fbold py-2`}
+                sx={{
+                  color: isActive ? "#fff" : "#000",
+                  cursor: "pointer",
+                  backgroundColor: isActive ? "#004A25" : "",
+                  fontWeight: isActive ? "bold" : "",
+                  fontSize: "14px",
+                  borderRight: "1px solid #000",
+                  borderBottom: "1px solid #000",
+                }}
+                style={{
+                  cursor: "pointer",
+                }}
+              >
+                {key}
+              </Box>
+            </>
+          );
+        })}
+      </Box>
       <Box
         className="d-flex flex-column"
         sx={{

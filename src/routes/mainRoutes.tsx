@@ -99,22 +99,6 @@ const MainRoutes = {
       element: <LiveCasino />,
     },
     {
-      path: Constants.MainPaths.crashGames,
-      element: <LiveCasino />,
-    },
-    {
-      path: Constants.MainPaths.macVirtual,
-      element: <LiveCasino />,
-    },
-    {
-      path: Constants.MainPaths.coloPred,
-      element: <LiveCasino />,
-    },
-    {
-      path: Constants.MainPaths.macExcite,
-      element: <LiveCasino />,
-    },
-    {
       path: "*",
       element: <Navigate to={"/match"} replace />,
     },
