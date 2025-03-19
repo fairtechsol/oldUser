@@ -1,16 +1,12 @@
 import { Box } from "@mui/system";
 import {
   BASKETBALL,
-  Card,
   CHESS,
-  ColorPrediction,
   Cricket,
   Football,
   GOLF,
   Hockey,
   Mac88,
-  MacExcite,
-  MacVirtual,
   MYACCOUNT,
   Play,
   // Slot,
@@ -44,30 +40,6 @@ let EventNames = [
     title: "LIVE GAMES",
     image: Mac88,
     url: "/liveCasino",
-    active: false,
-  },
-  {
-    title: "CRASH GAMES",
-    image: Card,
-    url: "/crashGames",
-    active: false,
-  },
-  {
-    title: "MAC VIRTUAL",
-    image: MacVirtual,
-    url: "/macVirtual",
-    active: false,
-  },
-  {
-    title: "COLOR GAMES",
-    image: ColorPrediction,
-    url: "/colorPred",
-    active: false,
-  },
-  {
-    title: "MAC EXCITE",
-    image: MacExcite,
-    url: "/macExcite",
     active: false,
   },
   {

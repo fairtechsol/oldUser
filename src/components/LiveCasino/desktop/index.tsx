@@ -19,17 +19,11 @@ const LiveCasinoDesktop = () => {
     (state: RootState) => state.user.profile
   );
   const initialType: any =
-    location.pathname === "/liveCasino"
-      ? "MAC88"
-      : location.pathname === "/crashGames"
-      ? "FUN GAMES"
-      : location.pathname === "/macVirtual"
-      ? "MAC88 VIRTUALS"
-      : location.pathname === "/colorPred"
-      ? "COLOR PREDICTION"
-      : location.pathname === "/macExcite"
-      ? "MAC EXCITE"
-      : "";
+    liveCasinoData && Object.keys(liveCasinoData).length > 0
+      ? Object.keys(liveCasinoData)[0]
+      : null;
+
+  console.log(initialType, "abc");
 
   const [list, setList] = useState<Record<string, any>>({});
   const [type, setType] = useState<string>("");
@@ -38,12 +32,24 @@ const LiveCasinoDesktop = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isShow, setIsShow] = useState(false);
 
+  const handleParent = (key: any) => {
+    setType(key);
+    const firstKey =
+      key === "All" ? Object.keys(liveCasinoData[key])[0] : "All";
+    setType2(firstKey);
+    setGame(liveCasinoData[key][firstKey]);
+  };
+
   useEffect(() => {
     if (liveCasinoData && Object.keys(liveCasinoData).length > 0) {
       setList(liveCasinoData);
       setType(initialType);
-      setType2("All");
-      const firstObject = liveCasinoData[initialType]["All"];
+
+      setType2(Object.keys(liveCasinoData[initialType])?.[0]);
+      const firstObject =
+        liveCasinoData[initialType][
+          Object.keys(liveCasinoData[initialType])?.[0]
+        ];
       setGame(firstObject);
       setIsLoading(false);
     }
@@ -156,44 +162,40 @@ const LiveCasinoDesktop = () => {
     );
   };
 
-  // const handleParent = (key: any) => {
-  //   setType(key);
-  //   const firstKey = Object.keys(liveCasinoData[key])[0];
-  //   setType2(firstKey);
-  //   setGame(liveCasinoData[key][firstKey]);
-  // };
   return (
     <>
-      <div className="w-100 d-flex flex-row mt-1 gap-2  px-2">
-        {/* <div
-          className="d-flex flex-column"
-          style={{ width: "calc(16.66% - 10px)" }}
+      <div className="w-100 d-flex flex-column mt-1 gap-2 px-2">
+        <div
+          className="w-100 d-flex flex-row"
+          style={{
+            backgroundColor: "#bbbbbb",
+          }}
         >
           {Object.keys(list)?.map((key, index) => {
             const isActive = type === key;
             return (
-              <>
-                <Box
-                  key={index}
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    py: 2,
-                    fontSize: "14px",
-                    color: isActive ? "#000" : "white",
-                    cursor: "pointer",
-                    backgroundColor: isActive ? "#FDCB52" : "",
-                    fontWeight: isActive ? "bold" : "",
-                  }}
-                  onClick={() => handleParent(key)}
-                >
-                  {key}
-                </Box>
-              </>
+              <Box
+                key={index}
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  py: 1,
+                  px: 2,
+                  fontSize: "14px",
+                  color: isActive ? "#fff" : "#000",
+                  cursor: "pointer",
+                  backgroundColor: isActive ? "#004A25" : "",
+                  fontWeight: isActive ? "bold" : "",
+                  borderRight: "1px solid #000",
+                }}
+                onClick={() => handleParent(key)}
+              >
+                {key}
+              </Box>
             );
           })}
-        </div> */}
+        </div>
 
         <div className="d-flex flex-column" style={{ width: "100%" }}>
           <LiveCasinoTab data2={list[type]} />
