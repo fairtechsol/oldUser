@@ -53,6 +53,7 @@ export const ApiConstants = {
     PLACEBETTOURNAMENT: "bet/tournament",
     GETPLACEDBETS: "bet",
     RUN_AMOUNT: "bet/session/profitLoss",
+    BET_ACCOUNTSTATEMENT: "bet/accountStatement",
   },
   LIVESTREAM: {
     GET_CHANNEL_ID: "https://scoreapi.365cric.com/api/match/getStream",

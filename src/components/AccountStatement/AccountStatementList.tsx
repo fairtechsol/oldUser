@@ -6,9 +6,13 @@ import {
   transactionProviderBetsReset,
   transactionProviderName,
 } from "../../store/actions/card/cardDetail";
-import { getAccountStatement } from "../../store/actions/user/userAction";
+import {
+  getAccountStatement,
+  getBetAccountStatementModal,
+} from "../../store/actions/user/userAction";
 import { AppDispatch, RootState } from "../../store/store";
 import Loader from "../Loader";
+import AccountStatementModal from "./AccountStatementModal";
 import BetsListModal from "./BetsListModal";
 import EmptyRow from "./EmptyRow";
 import Footer from "./Footer";
@@ -26,6 +30,8 @@ const AccountStatementList = () => {
   const [toDate, setToDate] = useState<any>();
   const [searchValue, setSearchValue] = useState<string>("");
   const [showBetsModal, setShowBetsModal] = useState(false);
+  const [showAccountStatementModal, setShowAccountStatementModal] =
+    useState(false);
   const [updatedReport, setUpdateReports] = useState<any>([]);
   const [selectedUser, setSelectedUser] = useState<any>(null);
 
@@ -47,6 +53,34 @@ const AccountStatementList = () => {
     setShowBetsModal(false);
     dispatch(transactionProviderBetsReset());
     setUpdateReports([]);
+  };
+
+  const handleClickToOpenBetModal = (item: any, user: any) => {
+    const match = item?.description.match(/Rno\. (\d+\.\d+)/);
+    if (item?.betId) {
+      setShowAccountStatementModal((prev) => !prev);
+      setSelectedUser(item);
+      dispatch(
+        getBetAccountStatementModal({
+          id: user?.id,
+          betId: item?.betId,
+          status: null,
+          sort: "betPlaced.createdAt:DESC",
+        })
+      );
+    } else if (match && match[1]) {
+      setShowAccountStatementModal((prev) => !prev);
+      setSelectedUser(item);
+      dispatch(
+        getBetAccountStatementModal({
+          id: user?.id,
+          isCard: true,
+          runnerId: match[1],
+          result: `inArr${JSON.stringify(["WIN", "LOSS", "TIE"])}`,
+          sort: "betPlaced.createdAt:DESC",
+        })
+      );
+    }
   };
 
   useEffect(() => {
@@ -195,7 +229,9 @@ const AccountStatementList = () => {
                       touserName={item?.user?.userName}
                       onClick={() => {
                         if (item?.type === 3) {
-                        handleLiveCasinoModalOpen(item);
+                          handleLiveCasinoModalOpen(item);
+                        } else {
+                          handleClickToOpenBetModal(item, item?.user);
                         }
                       }}
                     />
@@ -222,7 +258,12 @@ const AccountStatementList = () => {
         onClose={handleCloseLiveCasinoModal}
         liveCasinoProvider={liveCasinoProvider}
         selected={selectedUser}
-        updatedReport={null}
+        updatedReport={updatedReport}
+      />
+      <AccountStatementModal
+        open={true}
+        onClose={() => setShowAccountStatementModal(false)}
+        selected={selectedUser}
       />
     </>
   );
