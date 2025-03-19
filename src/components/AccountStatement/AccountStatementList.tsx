@@ -261,7 +261,7 @@ const AccountStatementList = () => {
         updatedReport={updatedReport}
       />
       <AccountStatementModal
-        open={true}
+        open={showAccountStatementModal}
         onClose={() => setShowAccountStatementModal(false)}
         selected={selectedUser}
       />
