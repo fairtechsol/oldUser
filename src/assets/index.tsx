@@ -52,3 +52,5 @@ export { default as liveTv } from "./images/live_tv.svg";
 export { default as dt2020 } from "./images/dt202.webp";
 export { default as Mac88 } from "./images/mac88.png";
 export { default as MacExcite } from "./images/macExcite.png";
+export { default as MacVirtual } from "./images/macVirtual.png";
+export { default as ColorPrediction } from "./images/colorPrediction.png";

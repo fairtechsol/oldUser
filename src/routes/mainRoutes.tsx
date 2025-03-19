@@ -103,6 +103,14 @@ const MainRoutes = {
       element: <LiveCasino />,
     },
     {
+      path: Constants.MainPaths.macVirtual,
+      element: <LiveCasino />,
+    },
+    {
+      path: Constants.MainPaths.coloPred,
+      element: <LiveCasino />,
+    },
+    {
       path: Constants.MainPaths.macExcite,
       element: <LiveCasino />,
     },
