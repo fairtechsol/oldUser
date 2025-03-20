@@ -124,6 +124,30 @@ const combineAllGames = (gameData: any) => {
   return result;
 };
 
+const combineGameCasino = (gameData: any) => {
+  const result: any = {};
+
+  Object.keys(gameData).forEach((provider) => {
+    if (provider === "All") return;
+
+    result[provider] = { ...gameData[provider] };
+
+    result[provider].All = [];
+
+    Object.keys(gameData[provider]).forEach((category) => {
+      if (category === "All") return;
+
+      if (Array.isArray(gameData[provider][category])) {
+        result[provider].All = result[provider].All.concat(
+          gameData[provider][category]
+        );
+      }
+    });
+  });
+
+  return result;
+};
+
 export const liveCasinoList = createAsyncThunk<any, any>(
   "result/liveCasinoList",
   async (_, thunkApi) => {
@@ -131,7 +155,8 @@ export const liveCasinoList = createAsyncThunk<any, any>(
       const resp = await service.post(`${ApiConstants.LiveCasinoGame}`);
       if (resp?.data) {
         const updateData = combineAllGames(resp?.data);
-        return updateData;
+        const updateDataCasino = combineGameCasino(resp?.data);
+        return { casino: updateDataCasino, intCasino: updateData };
       }
     } catch (error) {
       const err = error as AxiosError;

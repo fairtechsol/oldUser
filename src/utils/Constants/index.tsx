@@ -82,6 +82,7 @@ export const Constants = {
     changePassword: "my-account/change_password",
     secureAuth: "my-account/secure-auth",
     liveCasino: "liveCasino",
+    casino: "casino",
     crashGames: "crashGames",
     macVirtual: "macVirtual",
     coloPred: "colorPred",

@@ -95,6 +95,10 @@ const MainRoutes = {
       element: <AccountStatement />,
     },
     {
+      path: Constants.MainPaths.casino,
+      element: <LiveCasino />,
+    },
+    {
       path: Constants.MainPaths.liveCasino,
       element: <LiveCasino />,
     },
