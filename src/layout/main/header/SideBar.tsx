@@ -130,9 +130,9 @@ const SideBar = ({ mobileShow, handleDrawerToggle }: any) => {
       <Box
         onClick={() => {
           navigate(item?.url, { state: { activeTab: item?.activeTab } });
-          handleDrawerToggle()
+          handleDrawerToggle();
 
-          setShowSideBarMobile(false)
+          setShowSideBarMobile(false);
         }}
         sx={{
           display: "flex",
