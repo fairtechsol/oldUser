@@ -13,6 +13,7 @@ import Loader from "../../Loader";
 const LiveCasinoDesktop = () => {
   const dispatch: AppDispatch = useDispatch();
   const location = useLocation();
+  const { state } = location;
   const { liveCasinoData, liveCasinoGame } = useSelector(
     (state: RootState) => state.card.cardDetail
   );
@@ -67,6 +68,16 @@ const LiveCasinoDesktop = () => {
     setGame(firstObject);
     setIsLoading(false);
   }, [liveCasinoData, location]);
+
+  useEffect(() => {
+    if (
+      state?.key &&
+      liveCasinoData &&
+      Object.keys(liveCasinoData).length > 0
+    ) {
+      handleParent("All", state.key);
+    }
+  }, [state, liveCasinoData]);
 
   if (isLoading) {
     return (

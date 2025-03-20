@@ -2,7 +2,7 @@ import { Pagination } from "@mui/material";
 import axios from "axios";
 import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { expertSocketService, socket } from "../../../socketManager";
 import {
   getMatchList,
@@ -18,6 +18,7 @@ const MatchesComponent = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [selectedMatchId, setSelectedMatchId] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
 
   const getMatchListMarket = async (matchType: string) => {
     try {
@@ -167,18 +168,20 @@ const MatchesComponent = () => {
             );
           })}
 
-      <Pagination
-        page={currentPage}
-        className="whiteTextPagination d-flex justify-content-center"
-        onChange={(_, page) => {
-          setCurrentPage(page);
-        }}
-        count={Math.ceil(
-          parseInt(matchList?.count ? matchList?.count : 1) /
-            Constants.pageLimit
-        )}
-        color="primary"
-      />
+      {!location.pathname.includes("/inplay") && (
+        <Pagination
+          page={currentPage}
+          className="whiteTextPagination d-flex justify-content-center"
+          onChange={(_, page) => {
+            setCurrentPage(page);
+          }}
+          count={Math.ceil(
+            parseInt(matchList?.count ? matchList?.count : 1) /
+              Constants.pageLimit
+          )}
+          color="primary"
+        />
+      )}
     </>
   );
 };

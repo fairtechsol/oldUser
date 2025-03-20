@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { FaHome } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { dt2020, FgLogo } from "../../../assets";
 import { liveCasinoLogin } from "../../../store/actions/card/cardDetail";
 import { AppDispatch, RootState } from "../../../store/store";
@@ -11,6 +12,7 @@ import Loader from "../../Loader";
 
 const LiveCasinoMobile = () => {
   const dispatch: AppDispatch = useDispatch();
+  const { state } = useLocation();
   const { liveCasinoData, liveCasinoGame } = useSelector(
     (state: RootState) => state.card.cardDetail
   );
@@ -78,6 +80,17 @@ const LiveCasinoMobile = () => {
     setGame(firstObject);
     setIsLoading(false);
   }, [liveCasinoData, casinoType]);
+
+  useEffect(() => {
+    if (
+      state?.key &&
+      liveCasinoData &&
+      Object.keys(liveCasinoData).length > 0
+    ) {
+      setCasinoType("intCasino");
+      handleParent("All", state.key, "intCasino");
+    }
+  }, [state, liveCasinoData]);
 
   if (isLoading) {
     return (
@@ -224,7 +237,7 @@ const LiveCasinoMobile = () => {
                   fontSize: "14px",
                   borderRight: "1px solid #000",
                   borderBottom: "1px solid #000",
-                  height: "3rem"
+                  height: "3rem",
                 }}
                 style={{
                   cursor: "pointer",
