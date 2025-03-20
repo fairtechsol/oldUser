@@ -118,16 +118,29 @@ const BetsListModal = ({
               <Autocomplete
                 id="movie"
                 options={liveCasinoProvider}
-                onChange={(_, value: any) => {
-                  setType(value);
-                }}
+                onChange={(_, value: any) => setType(value)}
                 renderInput={(params) => (
                   <TextField
                     {...params}
                     placeholder="Select Casino Type"
-                    label="Select Casino Type"
+                    InputProps={{
+                      ...params.InputProps,
+                      sx: { padding: 0, display: "flex", alignItems: "center" }, // Align text and icon center
+                    }}
                   />
                 )}
+                sx={{
+                  display: "flex",
+                  alignItems: "center", // Align dropdown items center
+                  "& .MuiOutlinedInput-root": {
+                    padding: 0, // Remove unnecessary padding
+                    display: "flex",
+                    alignItems: "center", // Ensure input content is centered
+                  },
+                  "& .MuiAutocomplete-input": {
+                    textAlign: "center", // Center text inside input
+                  },
+                }}
               />
             </Col>
             <Button
