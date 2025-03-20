@@ -188,7 +188,7 @@ const MatchesComponent = () => {
           }}
           count={Math.ceil(
             parseInt(matchList?.count ? matchList?.count : 1) /
-              Constants.pageLimit
+            Constants.pageLimit
           )}
           color="primary"
         />
