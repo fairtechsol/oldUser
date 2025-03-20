@@ -1,6 +1,6 @@
 import { Box, useMediaQuery, useTheme } from "@mui/material";
-import MatchesComponent from "./index";
 import { memo } from "react";
+import MatchesComponent from "./index";
 
 const Match = () => {
   const theme = useTheme();

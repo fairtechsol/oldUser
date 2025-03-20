@@ -5,14 +5,13 @@ import { ApiConstants, baseUrls } from "../../../utils/Constants";
 
 export const getMatchList = createAsyncThunk<any, any>(
   "/match/list",
-  async ({ type, searchKeyword }, thunkApi) => {
+  async ({ type, searchKeyword, matchType }, thunkApi) => {
     try {
       const resp = await service.get(
-        `${ApiConstants.MATCH.MATCHLIST}?sort=match.startAt:ASC${
-          type == "search"
-            ? `&searchBy=title&keyword=${searchKeyword || ""}`
-            : ""
-        }&match.matchType=cricket`
+        `${ApiConstants.MATCH.MATCHLIST}?sort=match.startAt:ASC${type == "search"
+          ? `&searchBy=title&keyword=${searchKeyword || ""}`
+          : ""
+        }${matchType ? `&match.matchType=${matchType}` : ""}`
       );
       if (resp) {
         return { data: resp?.data, type: type };
@@ -29,8 +28,7 @@ export const SearchList = createAsyncThunk<any, any>(
   async (requestData, thunkApi) => {
     try {
       const resp = await service.get(
-        `${ApiConstants.MATCH.MATCHLIST}?searchBy=title&keyword=${
-          requestData?.title ? requestData?.title : ""
+        `${ApiConstants.MATCH.MATCHLIST}?searchBy=title&keyword=${requestData?.title ? requestData?.title : ""
         }`
       );
       if (resp) {
@@ -131,8 +129,7 @@ export const betReportList = createAsyncThunk<any, any>(
   async (requestData, thunkApi) => {
     try {
       const resp = await service.get(
-        `${ApiConstants.MATCH.CURRENTBET}?status=${
-          requestData.status
+        `${ApiConstants.MATCH.CURRENTBET}?status=${requestData.status
         }&keyword=${requestData?.keyword || ""}${requestData?.filter || ""}`
       );
       if (resp?.data) {
@@ -155,8 +152,7 @@ export const settleUnsettleMatch = createAsyncThunk<any, any>(
   async ({ status, page, limit }, thunkApi) => {
     try {
       const resp = await service.get(
-        `${ApiConstants.MATCH.CURRENTBET}/?page=${page || 1}&limit=${
-          limit || 15
+        `${ApiConstants.MATCH.CURRENTBET}/?page=${page || 1}&limit=${limit || 15
         }&status=${status}`
       );
       if (resp?.data) {
@@ -211,7 +207,7 @@ export const updateMatchRates = createAsyncThunk<any, any>(
 
 export const getMatchRates = createAsyncThunk<any, any>(
   "/third/match/rates",
-  async (matchId,thunkApi) => {
+  async (matchId, thunkApi) => {
     try {
       const resp = await axios.get(
         `${baseUrls.matchSocket}${ApiConstants.MATCH.RATES}${matchId}`

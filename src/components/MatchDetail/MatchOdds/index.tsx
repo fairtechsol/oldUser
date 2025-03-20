@@ -2,7 +2,7 @@ import { Pagination } from "@mui/material";
 import axios from "axios";
 import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { expertSocketService, socket } from "../../../socketManager";
 import {
   getMatchList,
@@ -18,8 +18,10 @@ const MatchesComponent = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [selectedMatchId, setSelectedMatchId] = useState("");
   const navigate = useNavigate();
+  const { type } = useParams();
 
   const getMatchListMarket = async (matchType: string) => {
+    // alert(1)
     try {
       const resp: any = await axios.get(marketApiConst[matchType] || "", {
         timeout: 2000,
@@ -40,7 +42,8 @@ const MatchesComponent = () => {
   // };
 
   const getMatchListService = () => {
-    dispatch(getMatchList({}));
+    // dispatch(getMatchList({}));
+    dispatch(getMatchList({ matchType: type }));
   };
 
   useEffect(() => {
@@ -104,7 +107,8 @@ const MatchesComponent = () => {
     try {
       const handleVisibilityChange = () => {
         if (document.visibilityState === "visible") {
-          dispatch(getMatchList({}));
+          // dispatch(getMatchList({}));
+          dispatch(getMatchList({ matchType: type }));
         }
         // else if (document.visibilityState === "hidden") {
         //   if (matchList?.matches) {
@@ -129,7 +133,8 @@ const MatchesComponent = () => {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      dispatch(getMatchList({}));
+      // dispatch(getMatchList({}));
+      dispatch(getMatchList({ matchType: type }));
     }, 14100 * 1000);
 
     return () => {
@@ -139,11 +144,17 @@ const MatchesComponent = () => {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      getMatchListMarket("cricket");
+      getMatchListMarket(type || "");
     }, 500);
 
     return () => clearInterval(intervalId);
-  }, []);
+  }, [type]);
+
+  useEffect(() => {
+    if (type) {
+      dispatch(getMatchList({ matchType: type }));
+    }
+  }, [type]);
 
   return (
     <>
@@ -175,7 +186,7 @@ const MatchesComponent = () => {
         }}
         count={Math.ceil(
           parseInt(matchList?.count ? matchList?.count : 1) /
-            Constants.pageLimit
+          Constants.pageLimit
         )}
         color="primary"
       />
