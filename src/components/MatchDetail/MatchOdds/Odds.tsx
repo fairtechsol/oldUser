@@ -156,7 +156,7 @@ const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
           background: "white",
         }}
         onClick={(e) => {
-          dispatch(updateLogoutModal({modal : false}))
+          dispatch(updateLogoutModal({ modal: false }))
           e.stopPropagation();
           setSelectedMatchId(match?.id);
         }}
@@ -288,7 +288,7 @@ const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
                   display: "flex",
                   background: "#319E5B",
                   height: "25px",
-                  mr:"4px",
+                  mr: "4px",
                   width: { lg: "60%", xs: "80%" },
                   justifyContent: { lg: "flex-end", xs: "flex-end" },
                 }}

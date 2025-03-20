@@ -67,13 +67,13 @@ const MatchDetail = () => {
     liveScoreBoardData,
   } = useSelector((state: RootState) => state.match.matchList);
   const { placedBets } = useSelector((state: RootState) => state.bets);
-  
+
   useEffect(() => {
     if (state?.matchId) {
       matchService.connect([state?.matchId]);
     }
     return () => {
-      matchService.disconnect(); 
+      matchService.disconnect();
     };
   }, [state]);
 
@@ -473,7 +473,7 @@ const MatchDetail = () => {
                   flexDirection: "column",
                 }}
               >
-                { (
+                {(
                   <LiveScoreBoard
                     data={liveScoreBoardData}
                     width="100%"
@@ -482,7 +482,7 @@ const MatchDetail = () => {
                 )}
                 {isTv &&
                   matchDetails?.eventId &&
-                  matchDetails?.matchType !== "politics"  && (
+                  matchDetails?.matchType !== "politics" && (
                     <LiveMatchHome
                       eventId={matchDetails?.eventId}
                     />
@@ -519,18 +519,18 @@ const MatchDetail = () => {
                       (id) => placedBets.find((obj: any) => obj.id === id)
                     ).filter((bet: any) => bet?.marketBetType == "SESSION")
                       .length > 0 && (
-                      <SessionBetSeperate
-                        placedBets={Array.from(
-                          placedBets.reduce(
-                            (acc: any, obj: any) =>
-                              acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
-                            new Set()
-                          ),
-                          (id) => placedBets.find((obj: any) => obj.id === id)
-                        ).filter((bet: any) => bet?.marketBetType == "SESSION")}
-                        mark
-                      />
-                    )}
+                        <SessionBetSeperate
+                          placedBets={Array.from(
+                            placedBets.reduce(
+                              (acc: any, obj: any) =>
+                                acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
+                              new Set()
+                            ),
+                            (id) => placedBets.find((obj: any) => obj.id === id)
+                          ).filter((bet: any) => bet?.marketBetType == "SESSION")}
+                          mark
+                        />
+                      )}
                     {Array.from(
                       placedBets.reduce(
                         (acc: any, obj: any) =>
@@ -540,18 +540,18 @@ const MatchDetail = () => {
                       (id) => placedBets.find((obj: any) => obj.id === id)
                     ).filter((bet: any) => bet?.marketBetType != "SESSION")
                       .length > 0 && (
-                      <AllRateSeperate
-                        allBetsData={Array.from(
-                          placedBets.reduce(
-                            (acc: any, obj: any) =>
-                              acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
-                            new Set()
-                          ),
-                          (id) => placedBets.find((obj: any) => obj.id === id)
-                        ).filter((bet: any) => bet?.marketBetType != "SESSION")}
-                        mark
-                      />
-                    )}
+                        <AllRateSeperate
+                          allBetsData={Array.from(
+                            placedBets.reduce(
+                              (acc: any, obj: any) =>
+                                acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
+                              new Set()
+                            ),
+                            (id) => placedBets.find((obj: any) => obj.id === id)
+                          ).filter((bet: any) => bet?.marketBetType != "SESSION")}
+                          mark
+                        />
+                      )}
                   </Box>
                 </Box>
               </div>
@@ -580,7 +580,7 @@ const MatchDetail = () => {
                   />
                 </Box>
                 <Box sx={{ width: "30%", paddingRight: "1%" }}>
-                  { (
+                  {(
                     <LiveScoreBoard
                       data={liveScoreBoardData}
                       width="100%"
@@ -604,18 +604,18 @@ const MatchDetail = () => {
                     (id) => placedBets.find((obj: any) => obj.id === id)
                   ).filter((bet: any) => bet?.marketBetType != "SESSION")
                     .length > 0 && (
-                    <AllRateSeperate
-                      mark
-                      allBetsData={Array.from(
-                        placedBets.reduce(
-                          (acc: any, obj: any) =>
-                            acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
-                          new Set()
-                        ),
-                        (id) => placedBets.find((obj: any) => obj.id === id)
-                      ).filter((bet: any) => bet?.marketBetType != "SESSION")}
-                    />
-                  )}
+                      <AllRateSeperate
+                        mark
+                        allBetsData={Array.from(
+                          placedBets.reduce(
+                            (acc: any, obj: any) =>
+                              acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
+                            new Set()
+                          ),
+                          (id) => placedBets.find((obj: any) => obj.id === id)
+                        ).filter((bet: any) => bet?.marketBetType != "SESSION")}
+                      />
+                    )}
                   {Array.from(
                     placedBets.reduce(
                       (acc: any, obj: any) =>
@@ -625,18 +625,18 @@ const MatchDetail = () => {
                     (id) => placedBets.find((obj: any) => obj.id === id)
                   ).filter((bet: any) => bet?.marketBetType == "SESSION")
                     .length > 0 && (
-                    <SessionBetSeperate
-                      placedBets={Array.from(
-                        placedBets.reduce(
-                          (acc: any, obj: any) =>
-                            acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
-                          new Set()
-                        ),
-                        (id) => placedBets.find((obj: any) => obj.id === id)
-                      ).filter((bet: any) => bet?.marketBetType == "SESSION")}
-                      mark
-                    />
-                  )}
+                      <SessionBetSeperate
+                        placedBets={Array.from(
+                          placedBets.reduce(
+                            (acc: any, obj: any) =>
+                              acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
+                            new Set()
+                          ),
+                          (id) => placedBets.find((obj: any) => obj.id === id)
+                        ).filter((bet: any) => bet?.marketBetType == "SESSION")}
+                        mark
+                      />
+                    )}
                 </Box>
               </Box>
             )}

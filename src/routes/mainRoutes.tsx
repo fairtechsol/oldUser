@@ -9,6 +9,7 @@ import BetHistory from "../pages/betHistory";
 import ChangeButtonValue from "../pages/changeButtonValue";
 import ChangePassword from "../pages/changepassword";
 import Comingsoon from "../pages/comingsoon";
+import GameList from "../pages/gameList";
 import Inplay from "../pages/inplay";
 import LiveCasino from "../pages/liveCasino";
 import Match from "../pages/match";
@@ -47,6 +48,15 @@ const MainRoutes = {
       element: <Match />,
     },
     {
+      // path: Constants.MainPaths.match,
+      path: `${Constants.MainPaths.match}/:type`,
+      element: <GameList />,
+    },
+    // {
+    //   path: "game-list/:type",
+    //   element: <GameList />,
+    // },
+    {
       path: Constants.MainPaths.comingSoon,
       element: <Comingsoon />,
     },
@@ -56,6 +66,10 @@ const MainRoutes = {
     },
     {
       path: Constants.MainPaths.liveMarketSport,
+      element: <MatchDetail />,
+    },
+    {
+      path: `${Constants.MainPaths.match}/:type/matchDetail`,
       element: <MatchDetail />,
     },
     {

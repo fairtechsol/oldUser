@@ -29,7 +29,7 @@ let EventNames = [
   {
     title: "CRICKET",
     image: Cricket,
-    url: "/match",
+    url: "/match/cricket",
     active: false,
   },
   {
@@ -47,13 +47,15 @@ let EventNames = [
   {
     title: "SOCCER",
     image: Football,
-    url: "/comingsoon",
+    // url: "/comingsoon",
+    url: "/match/football",
     active: false,
   },
   {
     title: "TENNIS",
     image: Tennis,
-    url: "/comingsoon",
+    // url: "/comingsoon",
+    url: "/match/tennis",
     active: false,
   },
   {
@@ -126,7 +128,7 @@ const EventListing = () => {
             className={({ isActive }) => (isActive ? "activeEventTab" : "")}
             style={{ textDecoration: "none" }}
           >
-            <EventComponent data={item} setAnchor={() => {}} />
+            <EventComponent data={item} setAnchor={() => { }} />
           </NavLink>
         ))}
       </Box>

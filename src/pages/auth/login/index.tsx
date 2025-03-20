@@ -43,7 +43,8 @@ const Login = () => {
         sessionStorage.setItem("forceChangePassword", "true");
         navigate("/change-password");
       } else {
-        navigate("/match");
+        // navigate("/match");
+        navigate("/inplay");
       }
       dispatch(authReset());
     }
