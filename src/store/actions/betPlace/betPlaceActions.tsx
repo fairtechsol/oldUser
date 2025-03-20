@@ -74,6 +74,39 @@ export const getRunAmount = createAsyncThunk<any, any>(
   }
 );
 
+export const getPlacedBetsForAccountStatement = createAsyncThunk<any, any>(
+  "placed/betForAccountStatement",
+  async (requestData, thunkApi) => {
+    try {
+      const resp = await service.get(
+        `${ApiConstants.BET.GETPLACEDBETS}?${
+          requestData.betId
+            ? `&betId=inArr${JSON.stringify(requestData.betId)}`
+            : requestData.runnerId
+            ? requestData.isCard
+              ? `&betPlaced.runnerId=${requestData.runnerId}`
+              : `runnerId=eq${requestData.runnerId}`
+            : ""
+        }${
+          requestData.result
+            ? `&result=${requestData.result}`
+            : requestData.status
+            ? `&status=${requestData.status}`
+            : ""
+        }&createBy=eq${requestData.userId}&sort=betPlaced.createdAt:DESC${
+          requestData.isCard ? "" : "&isCurrentBets=true"
+        }`
+      );
+      if (resp) {
+        return resp?.data?.rows;
+      }
+    } catch (error: any) {
+      const err = error as AxiosError;
+      return thunkApi.rejectWithValue(err.response?.status);
+    }
+  }
+);
+
 export const updateBetsPlaced = createAsyncThunk<any, any>(
   "/placed/bets",
   async (placedBets) => {

@@ -5,13 +5,13 @@ const TableRowModal = ({
   fContainerStyle,
   fTextStyle,
   index,
-  gameName,
+  teamName,
+  betType,
+  odds,
   amount,
-  absAmount,
-  total,
+  result,
   createdAt,
-  roundId,
-  transactionId,
+  startAt,
 }: any) => {
   return (
     <Box
@@ -50,7 +50,7 @@ const TableRowModal = ({
             fTextStyle,
           ]}
         >
-          {gameName}
+          {index + 1}
         </Typography>
       </Box>
       <Box
@@ -67,7 +67,7 @@ const TableRowModal = ({
         <Typography
           sx={{ fontSize: "12px", fontWeight: "600", color: "white" }}
         >
-          {amount}
+          {teamName}
         </Typography>
       </Box>
       <Box
@@ -84,7 +84,7 @@ const TableRowModal = ({
         <Typography
           sx={{ fontSize: "12px", fontWeight: "600", color: "white" }}
         >
-          {absAmount}
+          {betType}
         </Typography>
       </Box>
       <Box
@@ -99,12 +99,12 @@ const TableRowModal = ({
         }}
       >
         <Typography sx={{ fontSize: "12px", fontWeight: "600" }}>
-          {total}
+          {odds}
         </Typography>
       </Box>
       <Box
         sx={{
-          width: { xs: "36%", lg: "36%", md: "36%" },
+          width: { xs: "18%", lg: "11%", md: "18%" },
           display: "flex",
           paddingLeft: "10px",
           alignItems: "center",
@@ -122,6 +122,46 @@ const TableRowModal = ({
         }}
       >
         <Typography sx={{ fontSize: "10px", fontWeight: "600" }}>
+          {amount}
+        </Typography>
+      </Box>
+      <Box
+        sx={{
+          width: { xs: "18%", lg: "11%", md: "18%" },
+          display: "flex",
+          alignItems: "center",
+          height: "45px",
+          borderRight: "2px solid white",
+          justifyContent: "center",
+          background: index % 2 != 0 ? "#FFE094" : "#ECECEC",
+        }}
+      >
+        <Typography
+          sx={{
+            fontSize: { xs: "10px", lg: "12px", md: "10px" },
+            fontWeight: "700",
+          }}
+        >
+          {result}
+        </Typography>
+      </Box>
+      <Box
+        sx={{
+          width: { xs: "18%", lg: "11%", md: "18%" },
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "45px",
+          borderRight: "2px solid white",
+          background: index % 2 != 0 ? "#FFE094" : "#ECECEC",
+        }}
+      >
+        <Typography
+          sx={{
+            fontSize: { xs: "10px", lg: "12px", md: "10px" },
+            fontWeight: "700",
+          }}
+        >
           {createdAt}
         </Typography>
       </Box>
@@ -129,26 +169,6 @@ const TableRowModal = ({
         sx={{
           width: { xs: "18%", lg: "11%", md: "18%" },
           display: "flex",
-          alignItems: "center",
-          height: "45px",
-          borderRight: "2px solid white",
-          justifyContent: "center",
-          background: index % 2 != 0 ? "#FFE094" : "#ECECEC",
-        }}
-      >
-        <Typography
-          sx={{
-            fontSize: { xs: "10px", lg: "12px", md: "10px" },
-            fontWeight: "700",
-          }}
-        >
-          {roundId}
-        </Typography>
-      </Box>
-      <Box
-        sx={{
-          width: { xs: "18%", lg: "11%", md: "18%" },
-          display: "flex",
           justifyContent: "center",
           alignItems: "center",
           height: "45px",
@@ -162,7 +182,7 @@ const TableRowModal = ({
             fontWeight: "700",
           }}
         >
-          {transactionId}
+          {startAt}
         </Typography>
       </Box>
     </Box>

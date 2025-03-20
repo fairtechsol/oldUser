@@ -25,12 +25,6 @@ let EventNames = [
     active: false,
   },
   {
-    title: "MY ACCOUNT",
-    image: MYACCOUNT,
-    url: "/my-account",
-    active: false,
-  },
-  {
     title: "CRICKET",
     image: Cricket,
     url: "/match",
@@ -82,6 +76,12 @@ let EventNames = [
     title: "BASKETBALL",
     image: BASKETBALL,
     url: "/comingsoon",
+    active: false,
+  },
+  {
+    title: "MY ACCOUNT",
+    image: MYACCOUNT,
+    url: "/my-account",
     active: false,
   },
 ];

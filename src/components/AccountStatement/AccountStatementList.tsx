@@ -34,6 +34,12 @@ const AccountStatementList = () => {
     useState(false);
   const [updatedReport, setUpdateReports] = useState<any>([]);
   const [selectedUser, setSelectedUser] = useState<any>(null);
+  const [show] = useState({
+    status: false,
+    betId: [],
+    runnerId: "",
+    casinoType: "",
+  });
 
   const dispatch: AppDispatch = useDispatch();
 
@@ -230,8 +236,8 @@ const AccountStatementList = () => {
                       onClick={() => {
                         if (item?.type === 3) {
                           handleLiveCasinoModalOpen(item);
-                        } else {
-                          handleClickToOpenBetModal(item, item?.user);
+                          // } else {
+                          //   handleClickToOpenBetModal(item, item?.user);
                         }
                       }}
                     />
@@ -263,7 +269,7 @@ const AccountStatementList = () => {
       <AccountStatementModal
         open={showAccountStatementModal}
         onClose={() => setShowAccountStatementModal(false)}
-        selected={selectedUser}
+        show={show}
       />
     </>
   );

@@ -23,9 +23,7 @@ const ListHeaderTModal = () => {
           borderRight: "2px solid white",
         }}
       >
-        <Typography sx={{ color: "white", fontSize: "12px" }}>
-          Game Name
-        </Typography>
+        <Typography sx={{ color: "white", fontSize: "12px" }}>No</Typography>
       </Box>
       <Box
         sx={{
@@ -50,7 +48,7 @@ const ListHeaderTModal = () => {
         }}
       >
         <Typography sx={{ color: "white", fontSize: "12px" }}>
-          Amount
+          Nation
         </Typography>
       </Box>
       <Box
@@ -63,11 +61,11 @@ const ListHeaderTModal = () => {
           borderRight: "2px solid white",
         }}
       >
-        <Typography sx={{ color: "white", fontSize: "12px" }}>Total</Typography>
+        <Typography sx={{ color: "white", fontSize: "12px" }}>Side</Typography>
       </Box>
       <Box
         sx={{
-          width: { xs: "36%", lg: "36%", md: "36%" },
+          width: { xs: "18%", lg: "11%", md: "18%" },
           display: "flex",
           paddingLeft: "10px",
           alignItems: "center",
@@ -75,7 +73,7 @@ const ListHeaderTModal = () => {
           borderRight: "2px solid white",
         }}
       >
-        <Typography sx={{ color: "white", fontSize: "12px" }}>Date</Typography>
+        <Typography sx={{ color: "white", fontSize: "12px" }}>Rate</Typography>
       </Box>
       <Box
         sx={{
@@ -88,7 +86,7 @@ const ListHeaderTModal = () => {
         }}
       >
         <Typography sx={{ color: "white", fontSize: "12px" }}>
-          Round Id
+          Amount
         </Typography>
       </Box>
       <Box
@@ -102,7 +100,35 @@ const ListHeaderTModal = () => {
         }}
       >
         <Typography sx={{ color: "white", fontSize: "12px" }}>
-          Transaction Id
+          Win/Loss
+        </Typography>
+      </Box>
+      <Box
+        sx={{
+          width: { xs: "18%", lg: "11%", md: "18%" },
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "35px",
+          borderRight: "2px solid white",
+        }}
+      >
+        <Typography sx={{ color: "white", fontSize: "12px" }}>
+          Place Date
+        </Typography>
+      </Box>
+      <Box
+        sx={{
+          width: { xs: "18%", lg: "11%", md: "18%" },
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "35px",
+          borderRight: "2px solid white",
+        }}
+      >
+        <Typography sx={{ color: "white", fontSize: "12px" }}>
+          Match Date
         </Typography>
       </Box>
     </Box>

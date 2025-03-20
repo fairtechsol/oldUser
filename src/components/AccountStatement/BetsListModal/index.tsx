@@ -15,16 +15,16 @@ import { transactionProviderBets } from "../../../store/actions/card/cardDetail"
 import { AppDispatch } from "../../../store/store";
 import Loader from "../../Loader";
 import EmptyRow from "../EmptyRow";
-import Footer from "../Footer";
 import ListHeaderTModal from "./ListheaderTModal";
 import TableRowModal from "./TableRowModal";
 
 const style = {
   position: "absolute",
-  top: "30%",
+  top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: "90%",
+
   boxShadow: 24,
   border: "2px solid white",
   background: "#F8C851",
@@ -40,6 +40,8 @@ const style = {
   },
   borderRadius: "2px",
   p: 1,
+  maxHeight: "80vh",
+  overflow: "auto",
 };
 
 const BetsListModal = ({
@@ -56,15 +58,11 @@ const BetsListModal = ({
   updatedReport: any;
 }) => {
   const dispatch: AppDispatch = useDispatch();
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageLimit] = useState<number>(15);
 
   const [type, setType] = useState<any>({
     label: "Select Casino Type",
     value: "",
   });
-
-  const transactions: any = {};
 
   const handleLiveCasinoSubmitClick = () => {
     if (type?.value === "") {
@@ -120,7 +118,9 @@ const BetsListModal = ({
               <Autocomplete
                 id="movie"
                 options={liveCasinoProvider}
-                onChange={setType}
+                onChange={(_, value: any) => {
+                  setType(value);
+                }}
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -184,17 +184,6 @@ const BetsListModal = ({
                   ))
                 )}
               </Box>
-              <Footer
-                currentPage={currentPage}
-                pages={Math.ceil(
-                  parseInt(
-                    transactions && transactions?.count
-                      ? transactions?.count
-                      : 1
-                  ) / pageLimit
-                )}
-                setCurrentPage={setCurrentPage}
-              />
             </>
           )}
         </Box>

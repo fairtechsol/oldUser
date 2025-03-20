@@ -67,7 +67,7 @@ const ListHeaderTModal = () => {
       </Box>
       <Box
         sx={{
-          width: { xs: "36%", lg: "36%", md: "36%" },
+          width: { xs: "18%", lg: "11%", md: "18%" },
           display: "flex",
           paddingLeft: "10px",
           alignItems: "center",
@@ -79,7 +79,7 @@ const ListHeaderTModal = () => {
       </Box>
       <Box
         sx={{
-          width: { xs: "18%", lg: "11%", md: "18%" },
+          width: { xs: "24%", lg: "17%", md: "24%" },
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -93,7 +93,7 @@ const ListHeaderTModal = () => {
       </Box>
       <Box
         sx={{
-          width: { xs: "18%", lg: "11%", md: "18%" },
+          width: { xs: "30%", lg: "30%", md: "30%" },
           display: "flex",
           justifyContent: "center",
           alignItems: "center",

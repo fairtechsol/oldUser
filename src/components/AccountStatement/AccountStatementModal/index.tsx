@@ -4,11 +4,10 @@ import { useState } from "react";
 import { Form, ModalHeader } from "react-bootstrap";
 import { IoClose } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
-import { getBetAccountStatementModal } from "../../../store/actions/user/userAction";
+import { getPlacedBetsForAccountStatement } from "../../../store/actions/betPlace/betPlaceActions";
 import { AppDispatch, RootState } from "../../../store/store";
 import Loader from "../../Loader";
 import EmptyRow from "../EmptyRow";
-import Footer from "../Footer";
 import ListHeaderTModal from "./ListheaderTModal";
 import TableRowModal from "./TableRowModal";
 
@@ -38,21 +37,20 @@ const style = {
 const AccountStatementModal = ({
   open,
   onClose,
-  selected,
+  show,
 }: {
   open: boolean;
   onClose: () => void;
-  selected: any;
+  show: any;
 }) => {
   const dispatch: AppDispatch = useDispatch();
   const [selectedOption, setSelectedOption] = useState("all");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageLimit] = useState<number>(15);
-  const { betAccountStatementModal } = useSelector(
+  const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
   );
-
-  const transactions: any = {};
+  const { placedBetsAccountStatement } = useSelector(
+    (state: RootState) => state.bets
+  );
 
   return (
     <Modal open={open} onClose={onClose}>
@@ -71,7 +69,7 @@ const AccountStatementModal = ({
                 fontSize: "1.5rem",
               }}
             >
-              Result
+              Placed Bets
             </Typography>
             <IoClose
               size={30}
@@ -92,96 +90,56 @@ const AccountStatementModal = ({
           <div className="d-flex align-items-center">
             <Form.Check
               inline
-              label="All"
-              name="group1"
-              type="radio"
-              id="all"
-              checked={selectedOption === "all"}
-              onChange={() => {
-                const match = selected?.description.match(/Rno\. (\d+\.\d+)/);
-                setSelectedOption("all");
-                if (selected?.betId) {
-                  dispatch(
-                    getBetAccountStatementModal({
-                      id: selected?.user?.id,
-                      betId: selected?.betId,
-                      sort: "betPlaced.createdAt:DESC",
-                    })
-                  );
-                } else if (match && match[1]) {
-                  dispatch(
-                    getBetAccountStatementModal({
-                      id: selected?.user?.id,
-                      isCard: true,
-                      runnerId: match[1],
-                      result: `inArr${JSON.stringify(["WIN", "LOSS", "TIE"])}`,
-                      sort: "betPlaced.createdAt:DESC",
-                    })
-                  );
-                }
-              }}
-            />
-            <Form.Check
-              color="secondary"
-              inline
               label="Matched"
               name="group1"
               type="radio"
-              id="matched"
+              id="inline-radio-1"
               checked={selectedOption === "matched"}
               onChange={() => {
-                const match = selected?.description.match(/Rno\. (\d+\.\d+)/);
                 setSelectedOption("matched");
-                if (selected?.betId) {
+                if (show?.betId?.length > 0) {
                   dispatch(
-                    getBetAccountStatementModal({
-                      id: selected?.user?.id,
-                      betId: selected?.betId,
+                    getPlacedBetsForAccountStatement({
+                      betId: show?.betId,
                       status: "MATCHED",
-                      sort: "betPlaced.createdAt:DESC",
+                      userId: profileDetail?.id,
                     })
                   );
-                } else if (match && match[1]) {
+                } else if (show?.runnerId) {
                   dispatch(
-                    getBetAccountStatementModal({
-                      id: selected?.user?.id,
+                    getPlacedBetsForAccountStatement({
+                      runnerId: show?.runnerId,
                       isCard: true,
-                      runnerId: match[1],
                       result: `inArr${JSON.stringify(["WIN", "LOSS", "TIE"])}`,
-                      sort: "betPlaced.createdAt:DESC",
+                      userId: profileDetail?.id,
                     })
                   );
                 }
               }}
             />
             <Form.Check
-              color="secondary"
               inline
-              label="Delete"
+              label="Deleted"
               name="group1"
               type="radio"
-              id="delete"
-              checked={selectedOption === "delete"}
+              id="inline-radio-2"
+              checked={selectedOption === "deleted"}
               onChange={() => {
-                const match = selected?.description.match(/Rno\. (\d+\.\d+)/);
-                setSelectedOption("delete");
-                if (selected?.betId) {
+                setSelectedOption("deleted");
+                if (show?.betId?.length > 0) {
                   dispatch(
-                    getBetAccountStatementModal({
-                      id: selected?.user?.id,
-                      betId: selected?.betId,
+                    getPlacedBetsForAccountStatement({
+                      betId: show?.betId,
                       status: "DELETED",
-                      sort: "betPlaced.createdAt:DESC",
+                      userId: profileDetail?.id,
                     })
                   );
-                } else if (match && match[1]) {
+                } else if (show?.runnerId) {
                   dispatch(
-                    getBetAccountStatementModal({
-                      id: selected?.user?.id,
-                      runnerId: match[1],
-                      isCard: true,
+                    getPlacedBetsForAccountStatement({
+                      runnerId: show?.runnerId,
                       status: "DELETED",
-                      sort: "betPlaced.createdAt:DESC",
+                      userId: profileDetail?.id,
                     })
                   );
                 }
@@ -204,45 +162,47 @@ const AccountStatementModal = ({
             <>
               <Box sx={{ overflowX: "scroll", width: "100%" }}>
                 <ListHeaderTModal />
-                {!betAccountStatementModal ? ( // Check if no records
+                {placedBetsAccountStatement.length > 0 ? ( // Check if no records
                   <EmptyRow containerStyle={{ background: "#FFE094" }} />
                 ) : (
-                  betAccountStatementModal?.rows?.map(
+                  placedBetsAccountStatement?.length >= 0 &&
+                  placedBetsAccountStatement?.map(
                     (item: any, index: number) => (
                       <TableRowModal
-                        key={item?.transactionId}
+                        key={index}
                         index={index}
                         containerStyle={{ background: "#FFE094" }}
                         profit={true}
                         fContainerStyle={{ background: "#0B4F26" }}
                         fTextStyle={{ color: "white" }}
-                        gameName={item?.gameName}
-                        amount={
-                          parseFloat(item?.amount) > 0 ? "CREDIT" : "DEBIT"
+                        teamName={item?.teamName}
+                        betType={item?.betType}
+                        odds={item?.odds}
+                        amount={item?.amount}
+                        result={
+                          item?.result === "LOSS"
+                            ? `-${parseFloat(item?.lossAmount).toFixed(2)}`
+                            : item?.result === "WIN"
+                            ? parseFloat(item?.winAmount).toFixed(2)
+                            : 0
                         }
-                        absAmount={Math.abs(item?.amount).toFixed(2)}
-                        total={parseFloat(item?.total).toFixed(2)}
-                        createdAt={moment(new Date(item?.createdAt)).format(
-                          "YYYY-MM-DD hh:mm"
+                        createdAt={moment(item?.createdAt).format(
+                          "MM/DD/YYYY hh:mm:ss A"
                         )}
-                        roundId={item?.roundId}
-                        transactionId={item?.transactionId}
+                        startAt={
+                          item?.racingMatch
+                            ? moment(item?.racingMatch?.startAt).format(
+                                "MM/DD/YYYY hh:mm:ss A"
+                              )
+                            : moment(item?.match?.startAt).format(
+                                "MM/DD/YYYY hh:mm:ss A"
+                              )
+                        }
                       />
                     )
                   )
                 )}
               </Box>
-              <Footer
-                currentPage={currentPage}
-                pages={Math.ceil(
-                  parseInt(
-                    transactions && transactions?.count
-                      ? transactions?.count
-                      : 1
-                  ) / pageLimit
-                )}
-                setCurrentPage={setCurrentPage}
-              />
             </>
           )}
         </Box>
