@@ -58,28 +58,29 @@ const MatchRatesCommonComp = (props: any) => {
       <SeparateBox
         value={
           (runnerPosition == 0
-            ? match?.back1
+            ? match?.back1 || match?.section?.[0]?.odds?.[0]?.odds || 0
             : runnerPosition == 1
-            ? match?.back11
-            : runnerPosition == 2
-            ? match?.back12
-            : 0) ?? 0
+              ? match?.back11 || match?.section?.[1]?.odds?.[0]?.odds || 0
+              : runnerPosition == 2
+                ? match?.back12 || match?.section?.[2]?.odds?.[0]?.odds || 0
+                : 0) ?? 0
         }
         value2={
           0
         }
         color={matchesMobile ? "#A7DCFF" : "#A7DCFF"}
       />
+
       <Box sx={{ width: ".25%", display: "flex", background: "pink" }}></Box>
       <SeparateBox
         value={
           (runnerPosition == 0
-            ? match?.lay1
+            ? match?.lay1 || match?.section?.[0]?.odds?.[1]?.odds || 0
             : runnerPosition == 1
-            ? match?.lay11
-            : runnerPosition == 2
-            ? match?.lay12
-            : 0) ?? 0
+              ? match?.lay11 || match?.section?.[1]?.odds?.[1]?.odds || 0
+              : runnerPosition == 2
+                ? match?.lay12 || match?.section?.[2]?.odds?.[1]?.odds || 0
+                : 0) ?? 0
         }
         value2={
           0

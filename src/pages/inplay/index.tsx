@@ -1,4 +1,5 @@
 import { Box, useMediaQuery, useTheme } from "@mui/material";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { FaHome } from "react-icons/fa";
@@ -7,9 +8,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { FgLogo } from "../../assets";
 import MatchesComponent from "../../components/MatchDetail/MatchOdds/index";
 import { liveCasinoLogin } from "../../store/actions/card/cardDetail";
-import { getMatchList } from "../../store/actions/match/matchListAction";
+import { getMatchList, updateMatchRatesFromApiOnList } from "../../store/actions/match/matchListAction";
 import { AppDispatch, RootState } from "../../store/store";
-import { homeCasinoListIcons, liveCasinoGameList } from "../../utils/Constants";
+import { homeCasinoListIcons, liveCasinoGameList, marketApiConst } from "../../utils/Constants";
 import "./style.scss";
 
 const Inplay = () => {
@@ -39,11 +40,34 @@ const Inplay = () => {
     }
   };
 
+  const getMatchListMarket = async (matchType: string) => {
+    try {
+      const resp: any = await axios.get(marketApiConst[matchType], {
+        timeout: 10000,
+      });
+      if (resp?.status) {
+        dispatch(updateMatchRatesFromApiOnList(resp?.data));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     if (sessionStorage.getItem("jwtUser")) {
       dispatch(getMatchList({}));
     }
   }, [sessionStorage]);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      getMatchListMarket("cricket");
+      getMatchListMarket("tennis");
+      getMatchListMarket("football");
+    }, 500);
+
+    return () => clearInterval(intervalId);
+  }, []);
 
   return (
     <>
@@ -164,7 +188,7 @@ const Inplay = () => {
                   <Link
                     to={item.url}
                     key={index}
-                    // onClick={() => dispatch(betPlacedReset())}
+                  // onClick={() => dispatch(betPlacedReset())}
                   >
                     <div className="d-inline-block casinoiconsm">
                       <img
@@ -239,8 +263,8 @@ const Inplay = () => {
                       {parseInt(profileDetail?.userBal?.exposure) === 0
                         ? 0
                         : -parseFloat(
-                            profileDetail?.userBal?.exposure || 0
-                          ).toFixed(2)}
+                          profileDetail?.userBal?.exposure || 0
+                        ).toFixed(2)}
                     </b>
                   </span>
                 </div>
