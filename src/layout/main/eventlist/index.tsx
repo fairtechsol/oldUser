@@ -1,15 +1,12 @@
 import { Box } from "@mui/system";
 import {
   BASKETBALL,
-  Card,
   CHESS,
-  ColorPrediction,
   Cricket,
   Football,
   GOLF,
   Hockey,
   Mac88,
-  MacExcite,
   MacVirtual,
   MYACCOUNT,
   Play,
@@ -18,6 +15,7 @@ import {
   Tennis,
 } from "../../../assets";
 
+import { useMediaQuery, useTheme } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import EventComponent from "./EventComponent";
 
@@ -29,45 +27,21 @@ let EventNames = [
     active: false,
   },
   {
-    title: "MY ACCOUNT",
-    image: MYACCOUNT,
-    url: "/my-account",
-    active: false,
-  },
-  {
     title: "CRICKET",
     image: Cricket,
     url: "/match/cricket",
     active: false,
   },
   {
+    title: "CASINO",
+    image: MacVirtual,
+    url: "/casino",
+    active: false,
+  },
+  {
     title: "LIVE GAMES",
     image: Mac88,
     url: "/liveCasino",
-    active: false,
-  },
-  {
-    title: "CRASH GAMES",
-    image: Card,
-    url: "/crashGames",
-    active: false,
-  },
-  {
-    title: "MAC VIRTUAL",
-    image: MacVirtual,
-    url: "/macVirtual",
-    active: false,
-  },
-  {
-    title: "COLOR GAMES",
-    image: ColorPrediction,
-    url: "/colorPred",
-    active: false,
-  },
-  {
-    title: "MAC EXCITE",
-    image: MacExcite,
-    url: "/macExcite",
     active: false,
   },
   {
@@ -114,9 +88,18 @@ let EventNames = [
     url: "/comingsoon",
     active: false,
   },
+  {
+    title: "MY ACCOUNT",
+    image: MYACCOUNT,
+    url: "/my-account",
+    active: false,
+  },
 ];
 
 const EventListing = () => {
+  const theme = useTheme();
+  const matchesMobile = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
     <>
       <Box
@@ -135,7 +118,10 @@ const EventListing = () => {
           },
         ]}
       >
-        {EventNames.map((item, idx) => (
+        {(matchesMobile
+          ? EventNames.filter((item: any) => item.title !== "CASINO")
+          : EventNames
+        ).map((item, idx) => (
           <NavLink
             key={idx}
             to={`${item.url}`}

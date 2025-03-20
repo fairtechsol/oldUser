@@ -1,25 +1,18 @@
 import { Box, Typography } from "@mui/material";
-import moment from "moment";
 
-const TableRow = ({
+const TableRowModal = ({
   containerStyle,
   fContainerStyle,
   fTextStyle,
   index,
-  date,
-  closing,
-  description,
-  touserName,
-  fromuserName,
-  transType,
+  teamName,
+  betType,
+  odds,
   amount,
-  onClick,
+  result,
+  createdAt,
+  startAt,
 }: any) => {
-  const dateString = date;
-  const formattedDate = moment
-    .utc(dateString)
-    .utcOffset("+05:30")
-    .format("DD-MM-YYYY HH:mm:ss");
   return (
     <Box
       sx={[
@@ -57,7 +50,7 @@ const TableRow = ({
             fTextStyle,
           ]}
         >
-          {formattedDate}
+          {index + 1}
         </Typography>
       </Box>
       <Box
@@ -74,9 +67,7 @@ const TableRow = ({
         <Typography
           sx={{ fontSize: "12px", fontWeight: "600", color: "white" }}
         >
-          {["win", "add"].includes(transType)
-            ? new Intl.NumberFormat("en-IN", { currency: "INR" }).format(amount)
-            : ""}
+          {teamName}
         </Typography>
       </Box>
       <Box
@@ -93,9 +84,7 @@ const TableRow = ({
         <Typography
           sx={{ fontSize: "12px", fontWeight: "600", color: "white" }}
         >
-          {["withDraw", "loss", "creditReference"].includes(transType)
-            ? new Intl.NumberFormat("en-IN", { currency: "INR" }).format(amount)
-            : ""}
+          {betType}
         </Typography>
       </Box>
       <Box
@@ -110,16 +99,12 @@ const TableRow = ({
         }}
       >
         <Typography sx={{ fontSize: "12px", fontWeight: "600" }}>
-          {closing !== null
-            ? new Intl.NumberFormat("en-IN", { currency: "INR" }).format(
-                closing
-              )
-            : ""}
+          {odds}
         </Typography>
       </Box>
       <Box
         sx={{
-          width: { xs: "36%", lg: "36%", md: "36%" },
+          width: { xs: "18%", lg: "11%", md: "18%" },
           display: "flex",
           paddingLeft: "10px",
           alignItems: "center",
@@ -134,13 +119,10 @@ const TableRow = ({
             backgroundColor: "#888", // Customize scrollbar thumb color
           },
           borderRight: "2px solid white",
-          background: transType === "creditReference" ? "#F8C851" : "#FFE094",
-          cursor: "pointer",
         }}
-        onClick={() => onClick && onClick()}
       >
         <Typography sx={{ fontSize: "10px", fontWeight: "600" }}>
-          {description}
+          {amount}
         </Typography>
       </Box>
       <Box
@@ -160,7 +142,7 @@ const TableRow = ({
             fontWeight: "700",
           }}
         >
-          {fromuserName}
+          {result}
         </Typography>
       </Box>
       <Box
@@ -180,11 +162,31 @@ const TableRow = ({
             fontWeight: "700",
           }}
         >
-          {touserName}
+          {createdAt}
+        </Typography>
+      </Box>
+      <Box
+        sx={{
+          width: { xs: "18%", lg: "11%", md: "18%" },
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "45px",
+          borderRight: "2px solid white",
+          background: index % 2 != 0 ? "#FFE094" : "#ECECEC",
+        }}
+      >
+        <Typography
+          sx={{
+            fontSize: { xs: "10px", lg: "12px", md: "10px" },
+            fontWeight: "700",
+          }}
+        >
+          {startAt}
         </Typography>
       </Box>
     </Box>
   );
 };
 
-export default TableRow;
+export default TableRowModal;

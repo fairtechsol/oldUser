@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { FaHome } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { dt2020, FgLogo } from "../../../assets";
 import { liveCasinoLogin } from "../../../store/actions/card/cardDetail";
 import { AppDispatch, RootState } from "../../../store/store";
@@ -11,6 +12,8 @@ import Loader from "../../Loader";
 
 const LiveCasinoDesktop = () => {
   const dispatch: AppDispatch = useDispatch();
+  const location = useLocation();
+  const { state } = location;
   const { liveCasinoData, liveCasinoGame } = useSelector(
     (state: RootState) => state.card.cardDetail
   );
@@ -18,18 +21,6 @@ const LiveCasinoDesktop = () => {
   const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
   );
-  const initialType: any =
-    location.pathname === "/liveCasino"
-      ? "MAC88"
-      : location.pathname === "/crashGames"
-      ? "FUN GAMES"
-      : location.pathname === "/macVirtual"
-      ? "MAC88 VIRTUALS"
-      : location.pathname === "/colorPred"
-      ? "COLOR PREDICTION"
-      : location.pathname === "/macExcite"
-      ? "MAC EXCITE"
-      : "";
 
   const [list, setList] = useState<Record<string, any>>({});
   const [type, setType] = useState<string>("");
@@ -38,16 +29,55 @@ const LiveCasinoDesktop = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isShow, setIsShow] = useState(false);
 
+  const handleParent = (key: string, secKey: string) => {
+    const isCasino = location.pathname.includes("/casino");
+    const casinoData = isCasino
+      ? liveCasinoData?.casino
+      : liveCasinoData?.intCasino;
+
+    if (!casinoData?.[key]) return;
+
+    const firstKey =
+      key === "All" ? Object.keys(casinoData[key] || {})[0] : "All";
+    const selectedKey = secKey || firstKey;
+
+    setType(key);
+    setType2(selectedKey);
+    setGame(casinoData[key]?.[selectedKey]);
+  };
+
   useEffect(() => {
-    if (liveCasinoData && Object.keys(liveCasinoData).length > 0) {
-      setList(liveCasinoData);
-      setType(initialType);
-      setType2("All");
-      const firstObject = liveCasinoData[initialType]["All"];
-      setGame(firstObject);
-      setIsLoading(false);
+    if (!liveCasinoData) return;
+
+    const isCasino = location.pathname.includes("/casino");
+    const casinoData = isCasino
+      ? liveCasinoData?.casino
+      : liveCasinoData?.intCasino;
+
+    if (!casinoData || Object.keys(casinoData).length === 0) return;
+
+    const initialType = Object.keys(casinoData)[0];
+    const firstKey = isCasino
+      ? "All"
+      : Object.keys(casinoData[initialType] || {})[0];
+    const firstObject = casinoData[initialType]?.[firstKey];
+
+    setList(casinoData);
+    setType(initialType);
+    setType2(firstKey);
+    setGame(firstObject);
+    setIsLoading(false);
+  }, [liveCasinoData, location]);
+
+  useEffect(() => {
+    if (
+      state?.key &&
+      liveCasinoData &&
+      Object.keys(liveCasinoData).length > 0
+    ) {
+      handleParent("All", state.key);
     }
-  }, [liveCasinoData, location.pathname]);
+  }, [state, liveCasinoData]);
 
   if (isLoading) {
     return (
@@ -156,44 +186,40 @@ const LiveCasinoDesktop = () => {
     );
   };
 
-  // const handleParent = (key: any) => {
-  //   setType(key);
-  //   const firstKey = Object.keys(liveCasinoData[key])[0];
-  //   setType2(firstKey);
-  //   setGame(liveCasinoData[key][firstKey]);
-  // };
   return (
     <>
-      <div className="w-100 d-flex flex-row mt-1 gap-2  px-2">
-        {/* <div
-          className="d-flex flex-column"
-          style={{ width: "calc(16.66% - 10px)" }}
+      <div className="w-100 d-flex flex-column mt-1 gap-2 px-2">
+        <div
+          className="w-100 d-flex flex-row"
+          style={{
+            backgroundColor: "#bbbbbb",
+          }}
         >
           {Object.keys(list)?.map((key, index) => {
             const isActive = type === key;
             return (
-              <>
-                <Box
-                  key={index}
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    py: 2,
-                    fontSize: "14px",
-                    color: isActive ? "#000" : "white",
-                    cursor: "pointer",
-                    backgroundColor: isActive ? "#FDCB52" : "",
-                    fontWeight: isActive ? "bold" : "",
-                  }}
-                  onClick={() => handleParent(key)}
-                >
-                  {key}
-                </Box>
-              </>
+              <Box
+                key={index}
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  py: 1,
+                  px: 2,
+                  fontSize: "14px",
+                  color: isActive ? "#fff" : "#000",
+                  cursor: "pointer",
+                  backgroundColor: isActive ? "#004A25" : "",
+                  fontWeight: isActive ? "bold" : "",
+                  borderRight: "1px solid #000",
+                }}
+                onClick={() => handleParent(key, "")}
+              >
+                {key}
+              </Box>
             );
           })}
-        </div> */}
+        </div>
 
         <div className="d-flex flex-column" style={{ width: "100%" }}>
           <LiveCasinoTab data2={list[type]} />

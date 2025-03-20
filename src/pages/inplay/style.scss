@@ -1,0 +1,133 @@
+.one-v-one-row td {
+  padding: 0px;
+  width: 100px;
+}
+.one-v-one-title:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.casinoicons {
+  position: relative;
+}
+.casinoicons {
+  // box-shadow: 0 12px 8px -8px;
+  border-radius: 4px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+.casino-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.casino-list-item {
+  width: calc(13.47%);
+  cursor: pointer;
+  position: relative;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+a {
+  color: blue;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+.casinoicons img {
+  // width: calc(10% - 0px);
+  height: auto;
+}
+
+.casino-name {
+  background-image: linear-gradient(red, green);
+  color: #fff;
+  padding: 2px;
+  width: 100%;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  // border-radius: 0px 0px 4px 4px;
+  font-size: 9px;
+  white-space: nowrap;
+}
+.d-inline-block {
+  display: inline-block !important;
+}
+
+.m-game-one-v-one {
+  padding-top: 1.5px;
+  border-bottom: 1px solid grey !important;
+}
+.scrollable-container {
+  flex: 1;
+  max-height: 300px;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+.sports-container {
+  height: 100%;
+  max-height: 100vh;
+  flex: 1;
+  // overflow-y: auto;
+  // overscroll-behavior-y: contain;
+  scroll-behavior: smooth;
+  // height: 100%;
+  // overflow-y: auto;
+}
+
+.match-list-containerm {
+  // height: 100%;
+  overflow-y: auto;
+  max-height: 100%;
+}
+// .tab-content>.active {
+//     display: block;
+// }
+// .end-of-scroll {
+//   overscroll-behavior-y: auto;
+// }
+// .casino-tables {
+//   background-color: #fff;
+//   display: flex !important;
+// }
+
+.container-fluid {
+  // display: flex;
+  // width: 100%;
+  // padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.casinoiconsm {
+  // box-shadow: 0 12px 8px -8px;
+  // border-radius: 4px;
+  white-space: nowrap;
+  margin-bottom: 6px;
+  margin-left: 3px;
+  margin-right: 3px;
+  // margin-right: 8px;
+  cursor: pointer;
+  width: calc(25% - 6px);
+  position: relative;
+  bottom: 0 !important;
+}
+.casinoiconsm img {
+  width: 100%;
+  height: auto;
+}
+
+.mcasino-name {
+  background-image: linear-gradient(red, green);
+  color: #fff;
+  padding: 2px;
+  width: 100%;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  // border-radius: 0px 0px 4px 4px;
+  font-size: 8px;
+  position: "absolute";
+}

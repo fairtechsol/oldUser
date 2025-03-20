@@ -3,14 +3,16 @@ import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { FaHome } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { dt2020, FgLogo } from "../../../assets";
 import { liveCasinoLogin } from "../../../store/actions/card/cardDetail";
 import { AppDispatch, RootState } from "../../../store/store";
-import Loader from "../../Loader";
 import { liveCasinoPics } from "../../../utils/Constants";
+import Loader from "../../Loader";
 
 const LiveCasinoMobile = () => {
   const dispatch: AppDispatch = useDispatch();
+  const { state } = useLocation();
   const { liveCasinoData, liveCasinoGame } = useSelector(
     (state: RootState) => state.card.cardDetail
   );
@@ -18,18 +20,6 @@ const LiveCasinoMobile = () => {
   const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
   );
-  const initialType: any =
-    location.pathname === "/liveCasino"
-      ? "MAC88"
-      : location.pathname === "/crashGames"
-      ? "FUN GAMES"
-      : location.pathname === "/macVirtual"
-      ? "MAC88 VIRTUALS"
-      : location.pathname === "/colorPred"
-      ? "COLOR PREDICTION"
-      : location.pathname === "/macExcite"
-      ? "MAC EXCITE"
-      : "";
 
   const [list, setList] = useState<Record<string, any>>({});
   const [type, setType] = useState<string>("");
@@ -37,17 +27,70 @@ const LiveCasinoMobile = () => {
   const [game, setGame] = useState<any>();
   const [isLoading, setIsLoading] = useState(true);
   const [isShow, setIsShow] = useState(false);
+  const [casinoType, setCasinoType] = useState("casino");
+
+  const handleParent = (key: string, secKey: string, casinoType: string) => {
+    const casinoData =
+      casinoType === "casino"
+        ? liveCasinoData?.casino
+        : liveCasinoData?.intCasino;
+    if (!casinoData?.[key]) return;
+
+    setList(casinoData);
+    setType(key);
+
+    const firstKey =
+      key === "All" ? Object.keys(casinoData[key] || {})[0] : "All";
+    const selectedKey = secKey || firstKey;
+
+    setType2(selectedKey);
+    setGame(casinoData[key]?.[selectedKey]);
+  };
+
+  const handleCasinoType = (key: string) => {
+    setCasinoType(key);
+    handleParent(
+      Object.keys(
+        key === "casino" ? liveCasinoData?.casino : liveCasinoData?.intCasino
+      )[0],
+      "",
+      key
+    );
+  };
 
   useEffect(() => {
-    if (liveCasinoData && Object.keys(liveCasinoData).length > 0) {
-      setList(liveCasinoData);
-      setType(initialType);
-      setType2("All");
-      const firstObject = liveCasinoData[initialType]["All"];
-      setGame(firstObject);
-      setIsLoading(false);
+    if (!liveCasinoData) return;
+
+    const isCasino = casinoType === "casino";
+    const casinoData = isCasino
+      ? liveCasinoData?.casino
+      : liveCasinoData?.intCasino;
+
+    if (!casinoData || Object.keys(casinoData).length === 0) return;
+
+    const initialType = Object.keys(casinoData)[0];
+    const firstKey = isCasino
+      ? "All"
+      : Object.keys(casinoData[initialType] || {})[0];
+    const firstObject = casinoData[initialType]?.[firstKey];
+
+    setList(casinoData);
+    setType(initialType);
+    setType2(firstKey);
+    setGame(firstObject);
+    setIsLoading(false);
+  }, [liveCasinoData, casinoType]);
+
+  useEffect(() => {
+    if (
+      state?.key &&
+      liveCasinoData &&
+      Object.keys(liveCasinoData).length > 0
+    ) {
+      setCasinoType("intCasino");
+      handleParent("All", state.key, "intCasino");
     }
-  }, [liveCasinoData, location.pathname]);
+  }, [state, liveCasinoData]);
 
   if (isLoading) {
     return (
@@ -159,42 +202,93 @@ const LiveCasinoMobile = () => {
   //     </div>
   //   );
   // };
-  // const handleParent = (key: any) => {
-  //   setType(key);
-  //   const firstKey = Object.keys(liveCasinoData[key])[0];
-  //   setType2(firstKey);
-  //   setGame(liveCasinoData[key][firstKey]);
-  // };
+
   return (
     <>
-      {/* <div className="w-100 d-flex flex-column gap-2 ">
-        <div className="w-100 d-flex man-tab px-6 bg-secondary">
-          {Object.keys(list)?.map((key, index) => {
-            const isActive = type === key;
-            return (
-              <>
-                <Box
-                  key={index}
-                  onClick={() => handleParent(key)}
-                  className={`w-100 d-flex justify-content-center px-3 align-items-center fbold py-2`}
-                  sx={{
-                    color: isActive ? "#000" : "white",
-                    cursor: "pointer",
-                    backgroundColor: isActive ? "#FDCB52" : "",
-                    fontWeight: isActive ? "bold" : "",
-                    fontSize: "14px",
-                  }}
-                  style={{
-                    cursor: "pointer",
-                  }}
-                >
-                  {key}
-                </Box>
-              </>
-            );
-          })}
-        </div>
-      </div> */}
+      <Box
+        className="d-flex flex-row"
+        sx={{
+          overflowX: "auto",
+          flexWrap: "nowrap",
+          backgroundColor: "#bbbbbb",
+          whiteSpace: "nowrap",
+          overflow: "auto",
+          textOverflow: "ellipsis",
+          padding: "0px 10px",
+          width: "100%",
+        }}
+      >
+        {[
+          { id: "casino", val: "Casino" },
+          { id: "intCasino", val: "Live Casino" },
+        ]?.map((key, index) => {
+          const isActive = casinoType === key.id;
+          return (
+            <>
+              <Box
+                key={index}
+                onClick={() => handleCasinoType(key.id)}
+                className={`w-100 d-flex justify-content-center px-3 align-items-center fbold py-2`}
+                sx={{
+                  color: isActive ? "#fff" : "#000",
+                  cursor: "pointer",
+                  backgroundColor: isActive ? "#004A25" : "",
+                  fontWeight: isActive ? "bold" : "",
+                  fontSize: "14px",
+                  borderRight: "1px solid #000",
+                  borderBottom: "1px solid #000",
+                  height: "3rem",
+                }}
+                style={{
+                  cursor: "pointer",
+                }}
+              >
+                {key.val}
+              </Box>
+            </>
+          );
+        })}
+      </Box>
+      <Box
+        className="d-flex flex-row"
+        sx={{
+          overflowX: "auto",
+          flexWrap: "nowrap",
+          backgroundColor: "#bbbbbb",
+          whiteSpace: "nowrap",
+          overflow: "auto",
+          textOverflow: "ellipsis",
+          padding: "0px 10px",
+          width: "100%",
+        }}
+      >
+        {Object.keys(list)?.map((key, index) => {
+          const isActive = type === key;
+          return (
+            <>
+              <Box
+                key={index}
+                onClick={() => handleParent(key, "", casinoType)}
+                className={`w-100 d-flex justify-content-center px-3 align-items-center fbold py-2`}
+                sx={{
+                  color: isActive ? "#fff" : "#000",
+                  cursor: "pointer",
+                  backgroundColor: isActive ? "#004A25" : "",
+                  fontWeight: isActive ? "bold" : "",
+                  fontSize: "14px",
+                  borderRight: "1px solid #000",
+                  borderBottom: "1px solid #000",
+                }}
+                style={{
+                  cursor: "pointer",
+                }}
+              >
+                {key}
+              </Box>
+            </>
+          );
+        })}
+      </Box>
       <Box
         className="d-flex flex-column"
         sx={{
