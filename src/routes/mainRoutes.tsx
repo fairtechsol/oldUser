@@ -17,6 +17,7 @@ import MatchDetail from "../pages/matchDetail";
 import MyAccount from "../pages/myAccount";
 import AccountStatement from "../pages/reports/AccountStatement";
 import ProfitLoss from "../pages/reports/ProfitLoss";
+import ProfitLossCard from "../pages/reports/ProfitLossCard";
 import Rules from "../pages/rules";
 
 // const ChangeButtonValue = Loadable(
@@ -99,6 +100,10 @@ const MainRoutes = {
     {
       path: Constants.ReportsPaths.profitLoss,
       element: <ProfitLoss />,
+    },
+    {
+      path: Constants.ReportsPaths.profitLossCard,
+      element: <ProfitLossCard />,
     },
     {
       path: Constants.ReportsPaths.betHistory,

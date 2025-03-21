@@ -46,6 +46,12 @@ export const ApiConstants = {
       PLACE_BET: "/bet/cardBetting",
       RESULT: "/card/result/detail",
     },
+    REPORT: {
+      GET_TOTAL_PROFIT_LOSS: "/total/profitLoss",
+      GET_GAME_WISE_PROFIT_LOSS: "/total/gameWise/profitLoss",
+      GET_TOTAL_BET_PROFIT_LOSS: "/total/bet/profitLoss",
+      GET_USERWISE_PROFIT_LOSS: "/userwise/profitLoss",
+    },
   },
   BET: {
     PLACEBETSESSION: "bet/session",
@@ -91,6 +97,7 @@ export const Constants = {
   ReportsPaths: {
     root: "/",
     profitLoss: "my-account/profit_loss",
+    profitLossCard: "my-account/profit_loss_card",
     accountStatement: "my-account/account_statement",
     currentBet: "my-account/current_bet",
     generalReport: "my-account/general_report",
