@@ -54,7 +54,7 @@ const ProfitLossComponent = ({
       }));
       dispatch(
         getMatchWiseProfitLossCard({
-          type: eventType,
+          providerName: eventType,
           searchId: userData?.id,
           startDate: startDate && moment(startDate)?.format("YYYY-MM-DD"),
           endDate: endDate && moment(endDate)?.format("YYYY-MM-DD"),

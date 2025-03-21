@@ -47,10 +47,10 @@ export const ApiConstants = {
       RESULT: "/card/result/detail",
     },
     REPORT: {
-      GET_TOTAL_PROFIT_LOSS: "/total/profitLoss",
-      GET_GAME_WISE_PROFIT_LOSS: "/total/gameWise/profitLoss",
-      GET_TOTAL_BET_PROFIT_LOSS: "/total/bet/profitLoss",
-      GET_USERWISE_PROFIT_LOSS: "/userwise/profitLoss",
+      GET_TOTAL_PROFIT_LOSS: "/virtual/total/profitLoss",
+      GET_GAME_WISE_PROFIT_LOSS: "/virtual/total/gameWise/profitLoss",
+      GET_TOTAL_BET_PROFIT_LOSS: "/virtual/total/bet/profitLoss",
+      GET_USERWISE_PROFIT_LOSS: "/virtual/userwise/profitLoss",
     },
   },
   BET: {
