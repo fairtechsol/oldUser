@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, useMediaQuery, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { FaHome } from "react-icons/fa";
@@ -11,6 +11,8 @@ import { liveCasinoPics } from "../../../utils/Constants";
 import Loader from "../../Loader";
 
 const LiveCasinoMobile = () => {
+  const theme = useTheme();
+  const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const dispatch: AppDispatch = useDispatch();
   const { state } = useLocation();
   const { liveCasinoData, liveCasinoGame } = useSelector(
@@ -320,15 +322,14 @@ const LiveCasinoMobile = () => {
                   setIsShow(false);
                 }}
               >
-                <FaHome color="#fff" size={20} />
+                <FaHome color="#fff" size={matchesMobile ? 20 : 40} />
                 <img
                   src={FgLogo}
                   width={"auto"}
-                  height="27px"
                   alt="fairGame"
                   style={{
                     margin: "5px 5px 0",
-                    maxWidth: "250px",
+                    maxWidth: matchesMobile ? "150px" : "250px",
                     display: "inline-block",
                     cursor: "pointer",
                   }}

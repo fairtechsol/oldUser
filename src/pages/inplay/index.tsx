@@ -8,9 +8,16 @@ import { Link, useNavigate } from "react-router-dom";
 import { FgLogo } from "../../assets";
 import MatchesComponent from "../../components/MatchDetail/MatchOdds/index";
 import { liveCasinoLogin } from "../../store/actions/card/cardDetail";
-import { getMatchList, updateMatchRatesFromApiOnList } from "../../store/actions/match/matchListAction";
+import {
+  getMatchList,
+  updateMatchRatesFromApiOnList,
+} from "../../store/actions/match/matchListAction";
 import { AppDispatch, RootState } from "../../store/store";
-import { homeCasinoListIcons, liveCasinoGameList, marketApiConst } from "../../utils/Constants";
+import {
+  homeCasinoListIcons,
+  liveCasinoGameList,
+  marketApiConst,
+} from "../../utils/Constants";
 import "./style.scss";
 
 const Inplay = () => {
@@ -152,7 +159,7 @@ const Inplay = () => {
           <Box sx={{ overflowX: "hidden", maxHeight: "45vh", width: "100%" }}>
             <MatchesComponent />
           </Box>
-          <div className="tab-pane active casino-tables d-flex">
+          <div className="w-100 tab-pane active casino-tables d-flex">
             <div>
               <div className="mt-2" style={{}}>
                 <div className="w-100 d-flex flex-row flex-wrap casinoiconsm">
@@ -161,8 +168,8 @@ const Inplay = () => {
                       <div
                         key={item}
                         style={{
-                          maxWidth: "49.7%",
-                          padding: 1,
+                          maxWidth: "50%",
+                          padding: "2px",
                         }}
                         onClick={() =>
                           navigate("/liveCasino", {
@@ -185,12 +192,12 @@ const Inplay = () => {
                   )}
                 </div>
                 {liveCasinoGameList.map((item: any, index: number) => (
-                  <Link
-                    to={item.url}
-                    key={index}
-                  // onClick={() => dispatch(betPlacedReset())}
-                  >
-                    <div className="d-inline-block casinoiconsm">
+                  <div className="d-inline-block casinoiconsm">
+                    <Link
+                      to={item.url}
+                      key={index}
+                      // onClick={() => dispatch(betPlacedReset())}
+                    >
                       <img
                         src={item.url_thumb || item.imgSrc}
                         // className="img-fluid"
@@ -203,10 +210,12 @@ const Inplay = () => {
                         }}
                       />
                       <div className="mcasino-name">
-                        {item.game_name || item.name}
+                        {(item.game_name || item.name).length > 15
+                          ? (item.game_name || item.name).slice(0, 15) + "..."
+                          : item.game_name || item.name}
                       </div>
-                    </div>
-                  </Link>
+                    </Link>
+                  </div>
                 ))}
               </div>
             </div>
@@ -229,14 +238,14 @@ const Inplay = () => {
                   setShow(false);
                 }}
               >
-                <FaHome color="#fff" size={40} />
+                <FaHome color="#fff" size={matchesMobile ? 20 : 40} />
                 <img
                   src={FgLogo}
                   width={"auto"}
                   alt="fairGame"
                   style={{
                     margin: "5px 5px 0",
-                    maxWidth: "250px",
+                    maxWidth: matchesMobile ? "150px" : "250px",
                     display: "inline-block",
                     cursor: "pointer",
                   }}
@@ -263,8 +272,8 @@ const Inplay = () => {
                       {parseInt(profileDetail?.userBal?.exposure) === 0
                         ? 0
                         : -parseFloat(
-                          profileDetail?.userBal?.exposure || 0
-                        ).toFixed(2)}
+                            profileDetail?.userBal?.exposure || 0
+                          ).toFixed(2)}
                     </b>
                   </span>
                 </div>
