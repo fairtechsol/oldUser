@@ -103,7 +103,7 @@ const MatchRatesCommonComp = (props: any) => {
           color={matchesMobile ? "white" : "#F2CBCB"}
         />
       )} */}
-      <Box sx={{ width: ".25%", display: "flex", background: "pink" }}></Box>
+      {/* <Box sx={{ width: ".10%", display: "flex", background: "pink" }}></Box> */}
       {/* {!matchesMobile && (
         <SeparateBox
           value={
@@ -119,7 +119,7 @@ const MatchRatesCommonComp = (props: any) => {
           color={matchesMobile ? "white" : "#ECD6D6"}
         />
       )} */}
-      <Box sx={{ width: ".25%", display: "flex", background: "pink" }}></Box>
+      {/* <Box sx={{ width: ".25%", display: "flex", background: "pink" }}></Box> */}
     </Box>
   );
 };
