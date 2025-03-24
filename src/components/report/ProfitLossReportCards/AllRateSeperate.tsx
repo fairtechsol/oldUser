@@ -130,8 +130,27 @@ const AllRateSeperate = ({
           </Box>
         </Box>
         {visible && (
-          <>
-            <Box sx={{ display: "flex", flexDirection: "row", gap: "1px" }}>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              maxHeight: { xs: "200px", lg: "420px" },
+              overflowY: "auto",
+              overflowX: matchesMobile ? "auto" : "hidden",
+              width: "100%",
+              "::-webkit-scrollbar": {
+                display: "none",
+              },
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                gap: "1px",
+                minWidth: matchesMobile ? "800px" : "auto",
+              }}
+            >
               <Box
                 sx={{
                   height: "25px",
@@ -192,6 +211,7 @@ const AllRateSeperate = ({
               sx={{
                 maxHeight: { xs: "200px", lg: "420px" },
                 overflowY: "auto",
+                minWidth: matchesMobile ? "800px" : "auto",
                 "::-webkit-scrollbar": {
                   display: "none",
                 },
@@ -447,7 +467,7 @@ const AllRateSeperate = ({
                 currentPageNo={allbetsPage}
               /> */}
             </Box>
-          </>
+          </Box>
         )}
       </Box>
 
