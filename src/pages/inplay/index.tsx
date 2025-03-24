@@ -1,4 +1,4 @@
-import { Box, useMediaQuery, useTheme } from "@mui/material";
+import { Box, Grid, useMediaQuery, useTheme } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
@@ -125,33 +125,37 @@ const Inplay = () => {
                 )
               )}
             </div>
-            {liveCasinoGameList.map((item: any) => (
-              <Link
-                to={item.url}
-                key={item?.name || item?.game_id}
-                className="casino-list-item"
-                onClick={() => {
-                  // dispatch(betPlacedReset());
-                }}
-              >
-                <div className="w-100 d-inline-block casinoicons">
-                  <img
-                    src={item.url_thumb || item.imgSrc}
-                    className=""
-                    alt={item.game_name || item.name}
-                    style={{ height: "120px", width: "100%" }}
+            <Grid container spacing={1} className="w-100">
+              {liveCasinoGameList.map((item: any) => (
+                <Grid xs={3} lg={2}  item>
+                  <Link
+                    to={item.url}
+                    key={item?.name || item?.game_id}
+                    className="casino-list-item"
                     onClick={() => {
-                      if (!item?.url) {
-                        handleModal(item);
-                      }
+                      // dispatch(betPlacedReset());
                     }}
-                  />
-                  <div className="casino-name">
-                    {item.game_name || item.name}
-                  </div>
-                </div>
-              </Link>
-            ))}
+                  >
+                    <div className="w-100 d-inline-block casinoicons">
+                      <img
+                        src={item.url_thumb || item.imgSrc}
+                        className=""
+                        alt={item.game_name || item.name}
+                        style={{ height: "120px", width: "100%" }}
+                        onClick={() => {
+                          if (!item?.url) {
+                            handleModal(item);
+                          }
+                        }}
+                      />
+                      <div className="casino-name">
+                        {item.game_name || item.name}
+                      </div>
+                    </div>
+                  </Link>
+                </Grid>
+              ))}
+            </Grid>
           </div>
         </Box>
       ) : (
