@@ -48,7 +48,9 @@ const MatchesComponent = () => {
 
   useEffect(() => {
     try {
-      window.scrollTo(0, 0);
+      if (!location.pathname.includes("/inplay")) {
+        window.scrollTo(0, 0);
+      }
       if (success && socket) {
         expertSocketService.match.matchAddedOff();
         // matchList?.matches?.forEach((element: any) => {
@@ -77,7 +79,7 @@ const MatchesComponent = () => {
     } catch (e) {
       console.log(e);
     }
-  }, [success, socket]);
+  }, [success, socket, location]);
 
   useEffect(() => {
     try {
@@ -189,7 +191,7 @@ const MatchesComponent = () => {
           }}
           count={Math.ceil(
             parseInt(matchList?.count ? matchList?.count : 1) /
-            Constants.pageLimit
+              Constants.pageLimit
           )}
           color="primary"
         />
