@@ -210,6 +210,23 @@ export const getMatchWiseProfitLoss = createAsyncThunk<any, any>(
     }
   }
 );
+export const getMatchWiseProfitLossCard = createAsyncThunk<any, any>(
+  "/matchWiseProfitLossCard",
+  async (requestData, thunkApi) => {
+    try {
+      const resp = await service.post(
+        `${ApiConstants.CARDS.REPORT.GET_GAME_WISE_PROFIT_LOSS}`,
+        requestData
+      );
+      if (resp) {
+        return resp?.data?.result;
+      }
+    } catch (error: any) {
+      const err = error as AxiosError;
+      return thunkApi.rejectWithValue(err.response?.status);
+    }
+  }
+);
 export const getUserTotalProfitLoss = createAsyncThunk<any, any>(
   "/usrTotalProfitLoss",
   async (requestData, thunkApi) => {
@@ -227,12 +244,46 @@ export const getUserTotalProfitLoss = createAsyncThunk<any, any>(
     }
   }
 );
+export const getUserTotalProfitLossCard = createAsyncThunk<any, any>(
+  "/usrTotalProfitLossCard",
+  async (requestData, thunkApi) => {
+    try {
+      const resp = await service.post(
+        `${ApiConstants.CARDS.REPORT.GET_TOTAL_PROFIT_LOSS}`,
+        requestData?.filter ? requestData?.filter : requestData
+      );
+      if (resp) {
+        return resp?.data;
+      }
+    } catch (error: any) {
+      const err = error as AxiosError;
+      return thunkApi.rejectWithValue(err.response?.status);
+    }
+  }
+);
 export const getTotalBetProfitLoss = createAsyncThunk<any, any>(
   "/totalBetProfitLoss",
   async (requestData, thunkApi) => {
     try {
       const resp = await service.post(
         `${ApiConstants.USER.TOTAL_BET_PROFITLOSS}`,
+        requestData
+      );
+      if (resp) {
+        return resp?.data;
+      }
+    } catch (error: any) {
+      const err = error as AxiosError;
+      return thunkApi.rejectWithValue(err.response?.status);
+    }
+  }
+);
+export const getTotalBetProfitLossCard = createAsyncThunk<any, any>(
+  "/totalBetProfitLossCard",
+  async (requestData, thunkApi) => {
+    try {
+      const resp = await service.post(
+        `${ApiConstants.CARDS.REPORT.GET_TOTAL_BET_PROFIT_LOSS}`,
         requestData
       );
       if (resp) {
