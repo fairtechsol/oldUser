@@ -97,7 +97,7 @@ const RowComponent = ({ header, data, match }: any) => {
           <div style={{ width: !state?.matchId ? "12%" : "16.55%" }}>
             <SingleBox
               color={getColor()}
-              data={formatToINR(data?.totalLoss)}
+              data={formatToINR(Math.abs(data?.totalLoss))}
               header={header}
 
               //boxWidth="100%"
