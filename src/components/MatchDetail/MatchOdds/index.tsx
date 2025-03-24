@@ -22,7 +22,6 @@ const MatchesComponent = () => {
   const { type } = useParams();
 
   const getMatchListMarket = async (matchType: string) => {
-    // alert(1)
     try {
       const resp: any = await axios.get(marketApiConst[matchType] || "", {
         timeout: 2000,
@@ -145,7 +144,9 @@ const MatchesComponent = () => {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      getMatchListMarket(type || "");
+      if (type) {
+        getMatchListMarket(type || "");
+      }
     }, 500);
 
     return () => clearInterval(intervalId);
