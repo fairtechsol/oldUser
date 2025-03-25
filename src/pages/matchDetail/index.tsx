@@ -54,8 +54,6 @@ const MatchDetail = () => {
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
   const [show, setShow] = useState({ open: false, id: "" });
-  // const [liveScoreBoardData, setLiveScoreBoardData] = useState(null);
-  // const [errorCount, setErrorCount] = useState<number>(0);
   const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
   );
@@ -314,7 +312,6 @@ const MatchDetail = () => {
   useEffect(() => {
     try {
       return () => {
-        // expertSocketService.match.leaveMatchRoom(state?.matchId);
         expertSocketService.match.getMatchRatesOff(state?.matchId);
         socketService.userBalance.userSessionBetPlacedOff();
         socketService.userBalance.userMatchBetPlacedOff();
