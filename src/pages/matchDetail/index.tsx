@@ -13,7 +13,7 @@ import {
   expertSocketService,
   matchService,
   socket,
-  socketService
+  socketService,
 } from "../../socketManager";
 import {
   getPlacedBets,
@@ -60,12 +60,8 @@ const MatchDetail = () => {
     (state: RootState) => state.user.profile
   );
   const [isTv, setIsTv] = useState(false);
-  const {
-    matchDetails,
-    success,
-    matchDetailloading,
-    liveScoreBoardData,
-  } = useSelector((state: RootState) => state.match.matchList);
+  const { matchDetails, success, matchDetailloading, liveScoreBoardData } =
+    useSelector((state: RootState) => state.match.matchList);
   const { placedBets } = useSelector((state: RootState) => state.bets);
 
   useEffect(() => {
@@ -273,9 +269,7 @@ const MatchDetail = () => {
         socketService.userBalance.sessionNoResultOff();
         socketService.userBalance.sessionResultUnDeclareOff();
         socketService.userBalance.updateDeleteReasonOff();
-        expertSocketService.match.joinMatchRoom(
-          state?.matchId
-        );
+        expertSocketService.match.joinMatchRoom(state?.matchId);
         expertSocketService.match.getMatchRates(
           state?.matchId,
           setMatchRatesInRedux
@@ -349,38 +343,6 @@ const MatchDetail = () => {
     }
   }, []);
 
-  // const getScoreBoard = async (marketId: string) => {
-  //   try {
-  //     const response: any = await service.get(
-  //       // `https://devscore.fairgame.club/score/getMatchScore/${marketId}`
-  //       // `https://fairscore7.com/score/getMatchScore/${marketId}`
-  //       `${Constants.thirdPartyLive}/cricketScore?eventId=${marketId}`
-  //     );
-  //     if (response) {
-  //       setLiveScoreBoardData(response?.data);
-  //       setErrorCount(0);
-  //     }
-  //   } catch (e) {
-  //     setErrorCount((prevCount: number) => prevCount + 1);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   if (matchDetails?.eventId) {
-  //     let intervalTime = 500;
-  //     if (errorCount >= 5 && errorCount < 10) {
-  //       intervalTime = 60000;
-  //     } else if (errorCount >= 10) {
-  //       intervalTime = 600000;
-  //     }
-  //     const interval = setInterval(() => {
-  //       getScoreBoard(matchDetails?.eventId);
-  //     }, intervalTime);
-
-  //     return () => clearInterval(interval);
-  //   }
-  // }, [matchDetails?.eventId, errorCount]);
-
   useEffect(() => {
     try {
       const handleVisibilityChange = () => {
@@ -389,12 +351,8 @@ const MatchDetail = () => {
             dispatch(selectedBetAction(null));
             dispatch(matchDetailAction(state?.matchId));
             dispatch(getPlacedBets(state?.matchId));
-            // if (matchDetails?.marketId) {
-            //   getScoreBoard(matchDetails?.marketId);
-            // }
           }
         } else if (document.visibilityState === "hidden") {
-          // expertSocketService.match.leaveMatchRoom(state?.matchId);
           expertSocketService.match.getMatchRatesOff(state?.matchId);
         }
       };
@@ -429,22 +387,6 @@ const MatchDetail = () => {
     }
   }, []);
 
-  // useEffect(() => {
-  //   try {
-  //     if (matchDetails?.eventId) {
-  //       const callApiForLiveStream = async () => {
-  //         let result = await getChannelId(matchDetails?.eventId);
-  //         if (result) {
-  //           setChannelId(result?.channelNo);
-  //         }
-  //       };
-  //       callApiForLiveStream();
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }, [matchDetails?.id]);
-
   return (
     <>
       {matchDetailloading && <Loader text="" />}
@@ -468,24 +410,21 @@ const MatchDetail = () => {
                   alignItems: "center",
                   justifyContent: "center",
                   display: "flex",
-                  // gap: { lg: "8px", xs: "0px", md: "0px" },
                   marginTop: "2%",
                   flexDirection: "column",
                 }}
               >
-                {(
+                {
                   <LiveScoreBoard
                     data={liveScoreBoardData}
                     width="100%"
                     setIsTv={setIsTv}
                   />
-                )}
+                }
                 {isTv &&
                   matchDetails?.eventId &&
                   matchDetails?.matchType !== "politics" && (
-                    <LiveMatchHome
-                      eventId={matchDetails?.eventId}
-                    />
+                    <LiveMatchHome eventId={matchDetails?.eventId} />
                   )}
                 <div style={{ width: "100%" }}>
                   <MatchOdds
@@ -519,18 +458,18 @@ const MatchDetail = () => {
                       (id) => placedBets.find((obj: any) => obj.id === id)
                     ).filter((bet: any) => bet?.marketBetType == "SESSION")
                       .length > 0 && (
-                        <SessionBetSeperate
-                          placedBets={Array.from(
-                            placedBets.reduce(
-                              (acc: any, obj: any) =>
-                                acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
-                              new Set()
-                            ),
-                            (id) => placedBets.find((obj: any) => obj.id === id)
-                          ).filter((bet: any) => bet?.marketBetType == "SESSION")}
-                          mark
-                        />
-                      )}
+                      <SessionBetSeperate
+                        placedBets={Array.from(
+                          placedBets.reduce(
+                            (acc: any, obj: any) =>
+                              acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
+                            new Set()
+                          ),
+                          (id) => placedBets.find((obj: any) => obj.id === id)
+                        ).filter((bet: any) => bet?.marketBetType == "SESSION")}
+                        mark
+                      />
+                    )}
                     {Array.from(
                       placedBets.reduce(
                         (acc: any, obj: any) =>
@@ -540,18 +479,18 @@ const MatchDetail = () => {
                       (id) => placedBets.find((obj: any) => obj.id === id)
                     ).filter((bet: any) => bet?.marketBetType != "SESSION")
                       .length > 0 && (
-                        <AllRateSeperate
-                          allBetsData={Array.from(
-                            placedBets.reduce(
-                              (acc: any, obj: any) =>
-                                acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
-                              new Set()
-                            ),
-                            (id) => placedBets.find((obj: any) => obj.id === id)
-                          ).filter((bet: any) => bet?.marketBetType != "SESSION")}
-                          mark
-                        />
-                      )}
+                      <AllRateSeperate
+                        allBetsData={Array.from(
+                          placedBets.reduce(
+                            (acc: any, obj: any) =>
+                              acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
+                            new Set()
+                          ),
+                          (id) => placedBets.find((obj: any) => obj.id === id)
+                        ).filter((bet: any) => bet?.marketBetType != "SESSION")}
+                        mark
+                      />
+                    )}
                   </Box>
                 </Box>
               </div>
@@ -580,20 +519,18 @@ const MatchDetail = () => {
                   />
                 </Box>
                 <Box sx={{ width: "30%", paddingRight: "1%" }}>
-                  {(
+                  {
                     <LiveScoreBoard
                       data={liveScoreBoardData}
                       width="100%"
                       setIsTv={setIsTv}
                       isTv={isTv}
                     />
-                  )}
+                  }
                   {isTv &&
                     matchDetails?.eventId &&
                     matchDetails?.matchType !== "politics" && (
-                      <LiveMatchHome
-                        eventId={matchDetails?.eventId}
-                      />
+                      <LiveMatchHome eventId={matchDetails?.eventId} />
                     )}
                   {Array.from(
                     placedBets.reduce(
@@ -604,18 +541,18 @@ const MatchDetail = () => {
                     (id) => placedBets.find((obj: any) => obj.id === id)
                   ).filter((bet: any) => bet?.marketBetType != "SESSION")
                     .length > 0 && (
-                      <AllRateSeperate
-                        mark
-                        allBetsData={Array.from(
-                          placedBets.reduce(
-                            (acc: any, obj: any) =>
-                              acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
-                            new Set()
-                          ),
-                          (id) => placedBets.find((obj: any) => obj.id === id)
-                        ).filter((bet: any) => bet?.marketBetType != "SESSION")}
-                      />
-                    )}
+                    <AllRateSeperate
+                      mark
+                      allBetsData={Array.from(
+                        placedBets.reduce(
+                          (acc: any, obj: any) =>
+                            acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
+                          new Set()
+                        ),
+                        (id) => placedBets.find((obj: any) => obj.id === id)
+                      ).filter((bet: any) => bet?.marketBetType != "SESSION")}
+                    />
+                  )}
                   {Array.from(
                     placedBets.reduce(
                       (acc: any, obj: any) =>
@@ -625,18 +562,18 @@ const MatchDetail = () => {
                     (id) => placedBets.find((obj: any) => obj.id === id)
                   ).filter((bet: any) => bet?.marketBetType == "SESSION")
                     .length > 0 && (
-                      <SessionBetSeperate
-                        placedBets={Array.from(
-                          placedBets.reduce(
-                            (acc: any, obj: any) =>
-                              acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
-                            new Set()
-                          ),
-                          (id) => placedBets.find((obj: any) => obj.id === id)
-                        ).filter((bet: any) => bet?.marketBetType == "SESSION")}
-                        mark
-                      />
-                    )}
+                    <SessionBetSeperate
+                      placedBets={Array.from(
+                        placedBets.reduce(
+                          (acc: any, obj: any) =>
+                            acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
+                          new Set()
+                        ),
+                        (id) => placedBets.find((obj: any) => obj.id === id)
+                      ).filter((bet: any) => bet?.marketBetType == "SESSION")}
+                      mark
+                    />
+                  )}
                 </Box>
               </Box>
             )}

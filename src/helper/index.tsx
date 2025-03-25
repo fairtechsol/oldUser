@@ -40,15 +40,6 @@ export const customSort = (a: any, b: any) => {
   return order[a?.activeStatus] - order[b?.activeStatus];
 };
 
-export const customBookmakerSort = (a: any, b: any) => {
-  const order: any = {
-    quickbookmaker1: 1,
-    quickbookmaker2: 2,
-    quickbookmaker3: 3,
-  };
-  return order[a?.type] - order[b?.type];
-};
-
 export const formatToINR = (amount: any) => {
   const formatter = new Intl.NumberFormat("en-IN", {
     currency: "INR",

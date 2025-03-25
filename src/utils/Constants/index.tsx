@@ -173,68 +173,6 @@ export const sessionBettingType = {
   tournament: "tournament",
 };
 
-export const profitLossDataForMatchConstants = {
-  [matchBettingType.matchOdd]: {
-    A: "teamARate",
-    B: "teamBRate",
-    C: "teamCRate",
-  },
-  [matchBettingType.bookmaker]: {
-    A: "teamARate",
-    B: "teamBRate",
-    C: "teamCRate",
-  },
-  [matchBettingType.bookmaker2]: {
-    A: "teamARate",
-    B: "teamBRate",
-    C: "teamCRate",
-  },
-  [matchBettingType.quickbookmaker1]: {
-    A: "teamARate",
-    B: "teamBRate",
-    C: "teamCRate",
-  },
-  [matchBettingType.quickbookmaker2]: {
-    A: "teamARate",
-    B: "teamBRate",
-    C: "teamCRate",
-  },
-  [matchBettingType.quickbookmaker3]: {
-    A: "teamARate",
-    B: "teamBRate",
-    C: "teamCRate",
-  },
-  [matchBettingType.tiedMatch1]: {
-    A: "yesRateTie",
-    B: "noRateTie",
-  },
-  [matchBettingType.tiedMatch2]: {
-    A: "yesRateTie",
-    B: "noRateTie",
-  },
-  [matchBettingType.tiedMatch3]: {
-    A: "yesRateTie",
-    B: "noRateTie",
-  },
-  [matchBettingType.completeMatch]: {
-    A: "yesRateComplete",
-    B: "noRateComplete",
-  },
-  [matchBettingType.completeMatch1]: {
-    A: "yesRateComplete",
-    B: "noRateComplete",
-  },
-  [matchBettingType.completeManual]: {
-    A: "yesRateComplete",
-    B: "noRateComplete",
-  },
-  [matchBettingType.other]: {
-    A: "userTeamARateOther",
-    B: "userTeamBRateOther",
-    C: "userTeamCRateOther",
-  },
-};
-
 export const serviceUrl = import.meta.env.VITE_BASE_URL;
 
 export const baseUrls = {

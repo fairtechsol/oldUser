@@ -20,22 +20,6 @@ import ProfitLoss from "../pages/reports/ProfitLoss";
 import ProfitLossCard from "../pages/reports/ProfitLossCard";
 import Rules from "../pages/rules";
 
-// const ChangeButtonValue = Loadable(
-//   lazy(() => import("../pages/changeButtonValue"))
-// );
-// const Rules = Loadable(lazy(() => import("../pages/rules")));
-// const MyAccount = Loadable(lazy(() => import("../pages/myAccount")));
-// const Comingsoon = Loadable(lazy(() => import("../pages/comingsoon/index")));
-// const Match = Loadable(lazy(() => import("../pages/match")));
-// const MatchDetail = Loadable(lazy(() => import("../pages/matchDetail")));
-// const Inplay = Loadable(lazy(() => import("../pages/inplay")));
-// const ChangePassword = Loadable(lazy(() => import("../pages/changepassword")));
-// const ProfitLoss = Loadable(lazy(() => import("../pages/reports/ProfitLoss")));
-// const BetHistory = Loadable(lazy(() => import("../pages/betHistory")));
-// const AccountStatement = Loadable(
-//   lazy(() => import("../pages/reports/AccountStatement"))
-// );
-
 const MainRoutes = {
   path: Constants.MainPaths.root,
   element: <MainLayout />,
@@ -49,14 +33,9 @@ const MainRoutes = {
       element: <Match />,
     },
     {
-      // path: Constants.MainPaths.match,
       path: `${Constants.MainPaths.match}/:type`,
       element: <GameList />,
     },
-    // {
-    //   path: "game-list/:type",
-    //   element: <GameList />,
-    // },
     {
       path: Constants.MainPaths.comingSoon,
       element: <Comingsoon />,
