@@ -6,7 +6,7 @@ import "./style.scss";
 const LiveScoreBoard = ({ data, width, setIsTv }: any) => {
   // const theme = useTheme();
   // const matchesMobile = useMediaQuery(theme.breakpoints.down("md"));
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
 
   return (
     <>
@@ -83,7 +83,10 @@ const LiveScoreBoard = ({ data, width, setIsTv }: any) => {
             }}
           >
             <img
-              onClick={() => setIsTv((prev: any) => !prev)}
+              onClick={() => {
+                setIsTv((prev: any) => !prev);
+                setVisible((prev: any) => !prev);
+              }}
               style={{
                 width: "35px",
                 height: "30px",
@@ -96,6 +99,7 @@ const LiveScoreBoard = ({ data, width, setIsTv }: any) => {
             />
             <img
               onClick={() => {
+                setIsTv((prev: any) => !prev);
                 setVisible(!visible);
               }}
               src={ARROWUP}
