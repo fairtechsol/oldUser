@@ -1,12 +1,12 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { memo } from "react";
 import { BallStart } from "../../../assets";
-import SeparateModal from "../MatchOdds/SeparateModal";
-import PlaceBetComponentWeb from "../MatchOdds/Bets/PlaceBetComponentWeb";
-import FastTimePlaceBet from "../MatchOdds/Bets/FastTimePlaceBet";
-import PlaceBetComponent from "../MatchOdds/Bets/PlaceBetComponent";
 import { formatToINR } from "../../../helper";
 import CommissionDot from "../../Common/CommissionDot";
+import FastTimePlaceBet from "../MatchOdds/Bets/FastTimePlaceBet";
+import PlaceBetComponent from "../MatchOdds/Bets/PlaceBetComponent";
+import PlaceBetComponentWeb from "../MatchOdds/Bets/PlaceBetComponentWeb";
+import SeparateModal from "../MatchOdds/SeparateModal";
 
 const QuickSessionMarketBox = ({
   index,
@@ -94,7 +94,7 @@ const QuickSessionMarketBox = ({
           >
             {data?.name}
           </Typography> */}
-          <Typography>
+          <Box>
             <Typography
               sx={{
                 color: "black",
@@ -104,10 +104,13 @@ const QuickSessionMarketBox = ({
                 textAlign: "start",
                 width: "100%",
                 lineHeight: "0.9",
+                display: "flex",
+                alignItems: "center",
+                gap: "5px",
               }}
             >
-              {data?.isCommissionActive && <CommissionDot />}
               {data?.name}
+              {data?.isCommissionActive && <CommissionDot />}
             </Typography>
             <Typography
               sx={{
@@ -121,7 +124,7 @@ const QuickSessionMarketBox = ({
             >
               max:{formatToINR(data?.maxBet)}
             </Typography>
-          </Typography>
+          </Box>
           {/* <MoneyBox
             rates={maxLoss ?? 0}
             color={(maxLoss || 0) > 0 ? "#319E5B" : "#FF4D4D"}
