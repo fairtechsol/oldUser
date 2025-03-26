@@ -1,13 +1,8 @@
 import { Box } from "@mui/material";
 import moment from "moment-timezone";
 import { Fragment, memo, useEffect, useState } from "react";
-import {
-  customSortBySessionMarketName,
-  formatToINR,
-} from "../../../helper";
-import {
-  sessionBettingType,
-} from "../../../utils/Constants";
+import { customSortBySessionMarketName, formatToINR } from "../../../helper";
+import { sessionBettingType } from "../../../utils/Constants";
 import { MatchType } from "../../../utils/enum";
 import CricketCasinoMarket from "../CricketCasinoOdds/CricketCasinoMarket";
 import QuickSessionMarket from "../QuickSession/QuickSessionMarket";

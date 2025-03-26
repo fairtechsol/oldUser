@@ -13,10 +13,6 @@ const Matches = () => {
     }
   }, [sessionStorage]);
 
-  return (
-    <>
-      <Match />
-    </>
-  );
+  return <Match />;
 };
 export default memo(Matches);

@@ -4,7 +4,10 @@ import { Fragment, memo, useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { ARROWUP, LockIcon } from "../../../../assets";
-import { calculateRequiredStack, handleDecimalAmount } from "../../../../helper";
+import {
+  calculateRequiredStack,
+  handleDecimalAmount,
+} from "../../../../helper";
 import Divider from "../../../../helper/Divider";
 import {
   selectedBetAction,
@@ -144,7 +147,9 @@ const TournamentOdds = ({
   })();
 
   const handleCashout = () => {
-    const [teamAId, teamBId] = marketDetails?.runners?.map(team => team.id);
+    const [teamAId, teamBId] = marketDetails?.runners?.map(
+      (team: any) => team.id
+    );
     const profitA = Math.round(profitLossObj?.[teamAId] ?? 0);
     const profitB = Math.round(profitLossObj?.[teamBId] ?? 0);
 
@@ -155,9 +160,13 @@ const TournamentOdds = ({
       return;
     }
     // profitLossObj?.[teamAId] < profitLossObj?.[teamBId]
-    const getBackAndLayRates = (team) => {
-      const back1 = team?.ex?.availableToBack?.find(item => item.oname === "back1")?.price || 0;
-      const lay1 = team?.ex?.availableToLay?.find(item => item.oname === "lay1")?.price || 0;
+    const getBackAndLayRates = (team: any) => {
+      const back1 =
+        team?.ex?.availableToBack?.find((item: any) => item.oname === "back1")
+          ?.price || 0;
+      const lay1 =
+        team?.ex?.availableToLay?.find((item: any) => item.oname === "lay1")
+          ?.price || 0;
 
       return {
         id: team?.id,
@@ -165,7 +174,8 @@ const TournamentOdds = ({
         teamName: team?.nat || team?.runnerName,
         back1,
         lay1,
-        back1Price: marketDetails?.gtype === "match" ? (back1 - 1) * 100 : back1,
+        back1Price:
+          marketDetails?.gtype === "match" ? (back1 - 1) * 100 : back1,
         lay1Price: marketDetails?.gtype === "match" ? (lay1 - 1) * 100 : lay1,
       };
     };
@@ -174,26 +184,44 @@ const TournamentOdds = ({
     const teamA = getBackAndLayRates(marketDetails?.runners[0]);
     const teamB = getBackAndLayRates(marketDetails?.runners[1]);
 
-    let runner = {};
+    let runner: any = {};
     let odds = 0;
     let type = "";
     let stake = 0;
 
-    const getKeyByValue = (obj, value) => Object.keys(obj).find(key => obj[key] === value);
+    const getKeyByValue = (obj: any, value: any) =>
+      Object.keys(obj).find((key) => obj[key] === value);
 
     if (teamA.back1Price < 100 && teamA.lay1Price < 100) {
-      odds = profitA < profitB ? teamA.back1 : teamA.lay1
-      const perc = profitLossObj?.[teamAId] < profitLossObj?.[teamBId] ? teamA.back1Price : teamA.lay1Price;
+      odds = profitA < profitB ? teamA.back1 : teamA.lay1;
+      const perc =
+        profitLossObj?.[teamAId] < profitLossObj?.[teamBId]
+          ? teamA.back1Price
+          : teamA.lay1Price;
 
-      stake = Math.abs(calculateRequiredStack(profitLossObj?.[teamAId], profitLossObj?.[teamBId], perc));
+      stake = Math.abs(
+        calculateRequiredStack(
+          profitLossObj?.[teamAId],
+          profitLossObj?.[teamBId],
+          perc
+        )
+      );
       runner = teamA;
       const key = getKeyByValue(teamA, odds);
       type = key === "lay1" ? "lay" : "back";
-
     } else {
-      odds = profitA < profitB ? teamB.lay1 : teamB.back1
-      const perc = profitLossObj?.[teamAId] < profitLossObj?.[teamBId] ? teamB.lay1Price : teamB.back1Price;
-      stake = Math.abs(calculateRequiredStack(profitLossObj?.[teamAId], profitLossObj?.[teamBId], perc));
+      odds = profitA < profitB ? teamB.lay1 : teamB.back1;
+      const perc =
+        profitLossObj?.[teamAId] < profitLossObj?.[teamBId]
+          ? teamB.lay1Price
+          : teamB.back1Price;
+      stake = Math.abs(
+        calculateRequiredStack(
+          profitLossObj?.[teamAId],
+          profitLossObj?.[teamBId],
+          perc
+        )
+      );
       runner = teamB;
       const key = getKeyByValue(teamB, odds);
       type = key === "lay1" ? "lay" : "back";
@@ -247,11 +275,12 @@ const TournamentOdds = ({
     );
   };
 
-  const key = `${marketDetails.parentBetId || marketDetails?.id}_profitLoss_${matchDetails?.id}`;
+  const key = `${marketDetails.parentBetId || marketDetails?.id}_profitLoss_${
+    matchDetails?.id
+  }`;
   const profitLossJson = matchDetails?.profitLossDataMatch?.[key];
-
   const profitLossObj = profitLossJson ? JSON.parse(profitLossJson) : {};
-  // console.log("data?.runners lll:", profitLossObj)
+
   return (
     <>
       <Box
@@ -278,7 +307,7 @@ const TournamentOdds = ({
             display: "flex",
             height: 38,
             flexDirection: "row",
-            width: "99.7%",
+            width: "100%",
             alignSelf: "center",
           }}
         >
@@ -326,28 +355,16 @@ const TournamentOdds = ({
             }}
           >
             <SmallBox valueA={bookRatioA} valueB={bookRatioB} />
-            <Box
-              sx={{
-                // paddingY: "2vh",
-              }}
-            >
-
+            <Box>
               <button
                 type="submit"
-                disabled={
-                  Object.keys(profitLossObj).length <= 0 ? true : false
-                }
-                // disabled={loading || !stakeValue ? true : false}
+                disabled={Object.keys(profitLossObj).length <= 0 ? true : false}
                 style={{
                   color: "#319E5B",
                   backgroundColor: "#fff",
-                  // width: "150px",
-                  // cursor: loading || !stakeValue ? "not-allowed" : "pointer",
-                  // width: { lg: "150px", xs: "130px" },
-                  // height: "35px",
                   borderRadius: "3px",
                   border: "2px solid white",
-                  opacity: Object.keys(profitLossObj).length <= 0 ? 0.65 : 1
+                  opacity: Object.keys(profitLossObj).length <= 0 ? 0.65 : 1,
                 }}
                 onClick={() => handleCashout()}
               >
@@ -360,7 +377,6 @@ const TournamentOdds = ({
                 flex: 1,
                 background: { lg: "#262626", xs: "none" },
                 position: { lg: "static", xs: "absolute" },
-                // '#262626' ,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "flex-end",
@@ -382,7 +398,6 @@ const TournamentOdds = ({
                 alt={"Banner"}
               />
             </Box>
-
           </Box>
         </Box>
         {visible && (
@@ -394,7 +409,7 @@ const TournamentOdds = ({
                 display: "flex",
                 background: "#319E5B",
                 height: "25px",
-                width: { lg: "100%", xs: "99.9%" },
+                width: "100%",
                 alignSelf: "center",
               }}
             >
@@ -403,7 +418,7 @@ const TournamentOdds = ({
                   display: "flex",
                   background: "'#319E5B'",
                   height: "25px",
-                  width: "40%",
+                  width: { lg: "40%", xs: "60%" },
                   alignItems: "center",
                 }}
               >
@@ -423,22 +438,18 @@ const TournamentOdds = ({
                   background: "#319E5B",
                   height: "25px",
                   gap: { xs: "0px", lg: "1px", md: "1px" },
-                  width: { lg: "60%", xs: "80%" },
+                  width: { lg: "60%", xs: "40.2%" },
                   justifyContent: { lg: "center", xs: "flex-end" },
                 }}
               >
                 <Box
                   sx={{
                     background: "#00C0F9",
-                    width: { lg: "16.5%", xs: "30%" },
+                    width: { lg: "16.5%", xs: "50%" },
                     height: "100%",
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    borderLeft: {
-                      lg: "3px solid #319e5b",
-                      xs: "1px solid #319e5b",
-                    },
                   }}
                 >
                   <Typography
@@ -447,11 +458,11 @@ const TournamentOdds = ({
                     Back
                   </Typography>
                 </Box>
-                <Box sx={{ width: ".35%", display: "flex" }}></Box>
+                <Box sx={{ width: "0.2%", display: "flex" }} />
                 <Box
                   sx={{
                     background: "#FF9292",
-                    width: { lg: "16.4%", xs: "29.9%" },
+                    width: { lg: "16.4%", xs: "50%" },
                     height: "100%",
                     display: "flex",
                     justifyContent: "center",
@@ -512,42 +523,6 @@ const TournamentOdds = ({
                 </Box>
               </Box>
             )}
-
-            {(upcoming ||
-              showBox ||
-              !marketDetails?.isActive ||
-              (!["ACTIVE", "OPEN", ""].includes(marketDetails?.status) &&
-                marketDetails?.gtype == "match")) && (
-                <Box
-                  sx={{
-                    position: "absolute",
-                    height: "83%",
-                    // top: "18%",
-                    width: "100%",
-                    display: "flex",
-                    zIndex: "999",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    background: "rgba(0, 0, 0, 0.71)",
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      fontSize: { xs: "12px", lg: "22px" },
-                      textTransform: "uppercase",
-                      width: "100%",
-                      textAlign: "center",
-                      color: "white",
-                      fontWeight: "400",
-                    }}
-                  >
-                    {!["ACTIVE", "OPEN", ""].includes(marketDetails?.status) &&
-                      marketDetails?.gtype == "match"
-                      ? marketDetails?.status
-                      : ""}
-                  </Typography>
-                </Box>
-              )}
             {marketDetails?.runners?.map((item: any) => (
               <Fragment key={item?.selectionId}>
                 <BoxComponent
@@ -561,20 +536,20 @@ const TournamentOdds = ({
                   color={
                     matchDetails?.profitLossDataMatch?.[
                       (marketDetails?.parentBetId || marketDetails?.id) +
-                      "_" +
-                      "profitLoss" +
-                      "_" +
-                      matchDetails?.id
-                    ]
-                      ? JSON.parse(
-                        matchDetails?.profitLossDataMatch?.[
-                        (marketDetails?.parentBetId || marketDetails?.id) +
                         "_" +
                         "profitLoss" +
                         "_" +
                         matchDetails?.id
-                        ]
-                      )?.[item?.parentRunnerId || item?.id] <= 0
+                    ]
+                      ? JSON.parse(
+                          matchDetails?.profitLossDataMatch?.[
+                            (marketDetails?.parentBetId || marketDetails?.id) +
+                              "_" +
+                              "profitLoss" +
+                              "_" +
+                              matchDetails?.id
+                          ]
+                        )?.[item?.parentRunnerId || item?.id] <= 0
                         ? "#FF4D4D"
                         : "#319E5B"
                       : "#319E5B"
@@ -582,20 +557,20 @@ const TournamentOdds = ({
                   rate={
                     matchDetails?.profitLossDataMatch?.[
                       (marketDetails?.parentBetId || marketDetails?.id) +
-                      "_" +
-                      "profitLoss" +
-                      "_" +
-                      matchDetails?.id
-                    ]
-                      ? JSON.parse(
-                        matchDetails?.profitLossDataMatch?.[
-                        (marketDetails?.parentBetId || marketDetails?.id) +
                         "_" +
                         "profitLoss" +
                         "_" +
                         matchDetails?.id
-                        ]
-                      )?.[item?.parentRunnerId || item?.id]
+                    ]
+                      ? JSON.parse(
+                          matchDetails?.profitLossDataMatch?.[
+                            (marketDetails?.parentBetId || marketDetails?.id) +
+                              "_" +
+                              "profitLoss" +
+                              "_" +
+                              matchDetails?.id
+                          ]
+                        )?.[item?.parentRunnerId || item?.id]
                       : 0
                   }
                   name={item?.nat ?? item?.runnerName}

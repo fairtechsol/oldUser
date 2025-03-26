@@ -156,7 +156,7 @@ const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
           background: "white",
         }}
         onClick={(e) => {
-          dispatch(updateLogoutModal({ modal: false }))
+          dispatch(updateLogoutModal({ modal: false }));
           e.stopPropagation();
           setSelectedMatchId(match?.id);
         }}
@@ -268,7 +268,7 @@ const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
                   display: "flex",
                   background: "'#319E5B'",
                   height: "25px",
-                  width: "40%",
+                  width: "67%",
                   alignItems: "center",
                 }}
               >
@@ -288,14 +288,14 @@ const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
                   display: "flex",
                   background: "#319E5B",
                   height: "25px",
-                  width: { lg: "60%", xs: "80%" },
+                  width: { lg: "33%", xs: "33%" },
                   justifyContent: { lg: "flex-end", xs: "flex-end" },
                 }}
               >
                 <Box
                   sx={{
                     background: "#00C0F9",
-                    width: { lg: "24%", xs: "24.8%" },
+                    width: { lg: "43.7%", xs: "50%" },
                     height: "100%",
                     display: "flex",
                     justifyContent: "center",
@@ -309,11 +309,10 @@ const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
                   </Typography>
                 </Box>
                 <Box sx={{ width: ".35%", display: "flex" }}></Box>
-
                 <Box
                   sx={{
                     background: "#FF9292",
-                    width: { lg: "24%", xs: "24.3%" },
+                    width: { lg: "43.7%", xs: "50%" },
                     height: "100%",
                     display: "flex",
                     justifyContent: "center",
@@ -347,12 +346,6 @@ const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
                 alignItems: "center",
               }}
             >
-              {/* <img
-               
-                  style={{ width: "25px", height: "25px", marginLeft: "10px" }}
-                  alt={"teamA"}
-                /> */}
-
               <Typography
                 sx={{
                   color: "black",
@@ -364,44 +357,56 @@ const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
                 {match?.teamA}
               </Typography>
             </Box>
-            <MatchRatesCommonComp data={data} match={match} runnerPosition={0} />
+            <MatchRatesCommonComp
+              data={data}
+              match={match}
+              runnerPosition={0}
+            />
           </Box>
-          <Divider />
-          <Box
-            sx={{
-              display: "flex",
-              background: "white",
-              height: "40px",
-              width: "100%",
-              alignItems: "center",
-            }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                background: "white",
-                height: "40px",
-                width: "40%",
-                alignItems: "center",
-              }}
-            >
-              <Typography
+          {match.teamB && (
+            <>
+              <Divider />
+              <Box
                 sx={{
-                  color: "black",
-                  fontSize: { lg: "12px", xs: "11px" },
-                  marginLeft: "7px",
-                  fontWeight: "600",
+                  display: "flex",
+                  background: "white",
+                  height: "40px",
+                  width: "100%",
+                  alignItems: "center",
                 }}
               >
-                {match.teamB}
-              </Typography>
-            </Box>
-            <MatchRatesCommonComp match={match} data={data} runnerPosition={1} />
-          </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    background: "white",
+                    height: "40px",
+                    width: "40%",
+                    alignItems: "center",
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      color: "black",
+                      fontSize: { lg: "12px", xs: "11px" },
+                      marginLeft: "7px",
+                      fontWeight: "600",
+                    }}
+                  >
+                    {match.teamB}
+                  </Typography>
+                </Box>
+                <MatchRatesCommonComp
+                  match={match}
+                  data={data}
+                  runnerPosition={1}
+                />
+              </Box>
+            </>
+          )}
 
-          <>
-            <Divider />
-            {match.teamC && (
+          {match.teamC && (
+            <>
+              <Divider />
               <Box
                 sx={{
                   display: "flex",
@@ -431,10 +436,14 @@ const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
                     {match.teamC}
                   </Typography>
                 </Box>
-                <MatchRatesCommonComp match={match} data={data} runnerPosition={2} />
+                <MatchRatesCommonComp
+                  match={match}
+                  data={data}
+                  runnerPosition={2}
+                />
               </Box>
-            )}
-          </>
+            </>
+          )}
         </Box>
       </Box>
     </>
