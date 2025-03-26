@@ -345,7 +345,7 @@ const TournamentOdds = ({
                   // cursor: loading || !stakeValue ? "not-allowed" : "pointer",
                   // width: { lg: "150px", xs: "130px" },
                   // height: "35px",
-                  borderRadius: "5px",
+                  borderRadius: "3px",
                   border: "2px solid white",
                   opacity: Object.keys(profitLossObj).length <= 0 ? 0.65 : 1
                 }}
