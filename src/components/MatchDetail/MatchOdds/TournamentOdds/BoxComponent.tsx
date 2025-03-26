@@ -198,9 +198,7 @@ const BoxComponent = ({
               matchDetails={matchDetails}
             />
           )}
-          <Box
-            sx={{ width: ".25%", display: "flex", background: "pink" }}
-          ></Box>
+          <Box sx={{ width: ".25%", display: "flex", background: "pink" }} />
           {!matchesMobile && (
             <SeparateModal
               po={ex?.availableToBack[1]?.tno}
@@ -233,9 +231,7 @@ const BoxComponent = ({
               matchDetails={matchDetails}
             />
           )}
-          <Box
-            sx={{ width: ".25%", display: "flex", background: "pink" }}
-          ></Box>
+          <Box sx={{ width: ".25%", display: "flex", background: "pink" }} />
 
           <SeparateModal
             po={
@@ -274,9 +270,7 @@ const BoxComponent = ({
             matchDetails={matchDetails}
           />
 
-          <Box
-            sx={{ width: ".25%", display: "flex", background: "pink" }}
-          ></Box>
+          <Box sx={{ width: ".25%", display: "flex", background: "pink" }} />
 
           <SeparateModal
             po={ex?.availableToLay[0]?.tno}
@@ -372,7 +366,7 @@ const BoxComponent = ({
               matchDetails={matchDetails}
             />
           )}
-          <Box sx={{ width: ".25%", display: "flex", background: "pink" }} />
+          {/* <Box sx={{ width: ".25%", display: "flex", background: "pink" }} /> */}
         </Box>
       )}
     </Box>
