@@ -1,6 +1,5 @@
 import { Box } from "@mui/material";
-import moment from "moment-timezone";
-import { Fragment, memo, useEffect, useState } from "react";
+import { Fragment, memo } from "react";
 import { customSortBySessionMarketName, formatToINR } from "../../../helper";
 import { sessionBettingType } from "../../../utils/Constants";
 import { MatchType } from "../../../utils/enum";
@@ -10,43 +9,7 @@ import SessionMarket from "../SessionOdds/SessionMarket";
 import TournamentOdds from "./TournamentOdds";
 
 const MatchOdds = ({ matchDetails, setShow, show }: any) => {
-  function calculateTimeLeft() {
-    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    const targetDate = moment(matchDetails?.startAt).tz(timezone);
-
-    const difference = targetDate.diff(moment().tz(timezone), "milliseconds");
-    let timeLeft = {};
-    if (difference > 0) {
-      timeLeft = {
-        days:
-          ("0" + Math.floor(difference / (1000 * 60 * 60 * 24))).slice(-2) || 0,
-        hours:
-          ("0" + Math.floor((difference / (1000 * 60 * 60)) % 24)).slice(-2) ||
-          0,
-        minutes:
-          ("0" + Math.floor((difference / 1000 / 60) % 60)).slice(-2) || 0,
-        seconds: ("0" + Math.floor((difference / 1000) % 60)).slice(-2) || 0,
-      };
-    } else {
-      timeLeft = {
-        days: "00",
-        hours: "00",
-        minutes: "00",
-      };
-    }
-
-    return timeLeft;
-  }
-
-  const [_, setTimeLeft] = useState<any>(calculateTimeLeft);
-
   const upcoming = true;
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setTimeLeft(calculateTimeLeft);
-    }, 0);
-    return () => clearTimeout(timer);
-  }, []);
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
