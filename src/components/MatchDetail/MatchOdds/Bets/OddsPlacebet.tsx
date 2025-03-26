@@ -73,10 +73,9 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
       sessionButtonValues = buttonValuesArray;
     }
   });
-
   const buttonToShow: any =
     Object.values(sessionBettingType)?.includes(selectedBet?.data?.type) &&
-    selectedBet?.data?.type != "tournament"
+      selectedBet?.data?.type != "tournament"
       ? sessionButtonValues
       : matchButtonValues;
 
@@ -84,6 +83,7 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
 
   useEffect(() => {
     setStake(selectedBet?.team?.stake);
+    setStakeValue(selectedBet?.team?.stake);
   }, [selectedBet]);
 
   useEffect(() => {
@@ -138,12 +138,12 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
         selectedBet?.team?.type === "no" || selectedBet?.team?.type === "lay"
           ? value
           : [
-              sessionBettingType.cricketCasino,
-              sessionBettingType.fancy1,
-              sessionBettingType.oddEven,
-            ].includes(selectedBet?.data?.type)
-          ? value * (parseFloat(selectedBet?.team?.percent) - 1)
-          : (value * selectedBet?.team?.percent) / 100;
+            sessionBettingType.cricketCasino,
+            sessionBettingType.fancy1,
+            sessionBettingType.oddEven,
+          ].includes(selectedBet?.data?.type)
+            ? value * (parseFloat(selectedBet?.team?.percent) - 1)
+            : (value * selectedBet?.team?.percent) / 100;
     } else if (
       ["matchOdd", "tiedMatch1", "completeMatch", "tournament"].includes(
         selectedBet?.data?.type
@@ -185,12 +185,12 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
         selectedBet?.team?.type === "yes" || selectedBet?.team?.type === "back"
           ? value
           : [
-              sessionBettingType.cricketCasino,
-              sessionBettingType.fancy1,
-              sessionBettingType.oddEven,
-            ].includes(selectedBet?.data?.type)
-          ? value * (parseFloat(selectedBet?.team?.percent) - 1)
-          : (value * selectedBet?.team?.percent) / 100;
+            sessionBettingType.cricketCasino,
+            sessionBettingType.fancy1,
+            sessionBettingType.oddEven,
+          ].includes(selectedBet?.data?.type)
+            ? value * (parseFloat(selectedBet?.team?.percent) - 1)
+            : (value * selectedBet?.team?.percent) / 100;
     } else if (
       ["matchOdd", "tiedMatch1", "completeMatch", "tournament"].includes(
         selectedBet?.data?.type
@@ -421,9 +421,8 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
             containerStyle={{ flex: season ? { xs: 2.5, lg: 2 } : 1 }}
             value={
               selectedBet?.data?.type === "khado"
-                ? `${selectedBet?.team?.name ?? selectedBet?.team?.betOnTeam}-${
-                    selectedBet?.data.ex?.availableToLay[0]?.price
-                  }`
+                ? `${selectedBet?.team?.name ?? selectedBet?.team?.betOnTeam}-${selectedBet?.data.ex?.availableToLay[0]?.price
+                }`
                 : selectedBet?.team?.name ?? selectedBet?.team?.betOnTeam
             }
           />
@@ -435,14 +434,14 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
             }}
             value={selectedBet?.team?.rate}
             containerStyle={{ marginLeft: "2px", flex: 1 }}
-            // onChange={(e:any) => {
-            //   dispatch(
-            //     selectedBetAction({
-            //       ...selectedBet,
-            //       team: { ...selectedBet?.team, stake: +e.target.value },
-            //     })
-            //   );
-            // }}
+          // onChange={(e:any) => {
+          //   dispatch(
+          //     selectedBetAction({
+          //       ...selectedBet,
+          //       team: { ...selectedBet?.team, stake: +e.target.value },
+          //     })
+          //   );
+          // }}
           />
           <TeamsOdssData
             title={"Back/Lay"}
