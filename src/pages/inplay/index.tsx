@@ -133,7 +133,6 @@ const Inplay = () => {
                     key={item?.name || item?.game_id}
                     className="casino-list-item"
                     onClick={() => {
-                      // dispatch(betPlacedReset());
                     }}
                   >
                     <div className="w-100 d-inline-block casinoicons">
@@ -229,8 +228,6 @@ const Inplay = () => {
 
       <Modal show={show} fullscreen={true} onHide={() => setShow(false)}>
         <Modal.Header
-          // closeButton
-          // closeVariant={"white"}
           style={{ color: "#fff", backgroundColor: "#004A25" }}
         >
           <Modal.Title className="w-100">

@@ -37,12 +37,8 @@ const MatchesComponent = () => {
   const { matchList, success } = useSelector(
     (state: RootState) => state.match.matchList
   );
-  // const setMatchOddRatesInRedux = (event: any) => {
-  //   dispatch(updateMatchOddRates(event));
-  // };
 
   const getMatchListService = () => {
-    // dispatch(getMatchList({}));
     dispatch(getMatchList({ matchType: type }));
   };
 
@@ -53,29 +49,9 @@ const MatchesComponent = () => {
       }
       if (success && socket) {
         expertSocketService.match.matchAddedOff();
-        // matchList?.matches?.forEach((element: any) => {
-        //   expertSocketService.match.getMatchRatesOff(element?.id);
-        // });
-        // matchList?.matches?.forEach((element: any) => {
-        //   expertSocketService.match.joinMatchRoom(element?.id, "user");
-        // });
-        // matchList?.matches?.forEach((element: any) => {
-        //   expertSocketService.match.getMatchRates(
-        //     element?.id,
-        //     setMatchOddRatesInRedux
-        //   );
-        // });
         expertSocketService.match.matchAdded(getMatchListService);
       }
-      return () => {
-        // expertSocketService.match.matchAddedOff();
-        // matchList?.matches?.forEach((element: any) => {
-        //   expertSocketService.match.leaveMatchRoom(element?.id);
-        // });
-        // matchList?.matches?.forEach((element: any) => {
-        //   expertSocketService.match.getMatchRatesOff(element?.id);
-        // });
-      };
+      return () => {};
     } catch (e) {
       console.log(e);
     }
@@ -91,15 +67,7 @@ const MatchesComponent = () => {
           },
         });
       }
-      return () => {
-        // if (selectedMatchId !== "") {
-        //   matchList?.matches?.forEach((element: any) => {
-        //     if (element?.id !== selectedMatchId) {
-        //       expertSocketService.match.leaveMatchRoom(element?.id);
-        //     }
-        //   });
-        // }
-      };
+      return () => {};
     } catch (error) {
       console.error(error);
     }
@@ -109,18 +77,9 @@ const MatchesComponent = () => {
     try {
       const handleVisibilityChange = () => {
         if (document.visibilityState === "visible") {
-          // dispatch(getMatchList({}));
           dispatch(getMatchList({ matchType: type }));
         }
-        // else if (document.visibilityState === "hidden") {
-        //   if (matchList?.matches) {
-        //     matchList?.matches?.forEach((element: any) => {
-        //       expertSocketService.match.getMatchRatesOff(element?.id);
-        //     });
-        //   }
-        // }
       };
-
       document.addEventListener("visibilitychange", handleVisibilityChange);
       return () => {
         document.removeEventListener(
@@ -135,7 +94,6 @@ const MatchesComponent = () => {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      // dispatch(getMatchList({}));
       dispatch(getMatchList({ matchType: type }));
     }, 14100 * 1000);
 
@@ -163,26 +121,27 @@ const MatchesComponent = () => {
   return (
     <>
       {matchList &&
-        matchList?.matches
-          .slice(
-            (currentPage - 1) * Constants.pageLimit,
-            currentPage * Constants.pageLimit
-          )
-          .map((match: any) => {
-            return (
-              <Odds
-                key={match?.id}
-                top={true}
-                blur={false}
-                match={match}
-                data={match?.matchOdds}
-                selectedMatchId={selectedMatchId}
-                setSelectedMatchId={setSelectedMatchId}
-              />
-            );
-          })}
+        (["/inplay"].includes(location.pathname)
+          ? matchList?.matches
+          : matchList?.matches.slice(
+              (currentPage - 1) * Constants.pageLimit,
+              currentPage * Constants.pageLimit
+            )
+        ).map((match: any) => {
+          return (
+            <Odds
+              key={match?.id}
+              top={true}
+              blur={false}
+              match={match}
+              data={match?.matchOdds}
+              selectedMatchId={selectedMatchId}
+              setSelectedMatchId={setSelectedMatchId}
+            />
+          );
+        })}
 
-      {!location.pathname.includes("/inplay") && (
+      {!["/inplay"].includes(location.pathname) && (
         <Pagination
           page={currentPage}
           className="whiteTextPagination d-flex justify-content-center"
