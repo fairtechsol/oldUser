@@ -206,7 +206,7 @@ const TournamentOdds = ({
       return;
     }
     if (!isFinite(stake) || stake <= 0) {
-      toast.error("Invalid stake calculation. Cashout not possible!", {
+      toast.error("You are not eligible for cashout!", {
         style: { backgroundColor: "#ffffff", color: "#000000" },
       });
       return;
@@ -328,7 +328,9 @@ const TournamentOdds = ({
             <SmallBox valueA={bookRatioA} valueB={bookRatioB} />
             <Box
               sx={{
+                position: { lg: "static", xs: "relative" },
                 // paddingY: "2vh",
+                right: 25
               }}
             >
 
