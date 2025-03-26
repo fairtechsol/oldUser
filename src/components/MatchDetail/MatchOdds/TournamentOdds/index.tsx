@@ -579,7 +579,13 @@ const TournamentOdds = ({
                   marketDetails={marketDetails}
                   upcoming={upcoming}
                 />
-                <Divider />
+                {!(
+                  upcoming ||
+                  showBox ||
+                  !marketDetails?.isActive ||
+                  (!["ACTIVE", "OPEN", ""].includes(marketDetails?.status) &&
+                    marketDetails?.gtype == "match")
+                ) && <Divider />}
               </Fragment>
             ))}
           </Box>
