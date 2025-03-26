@@ -67,10 +67,9 @@ const Inplay = () => {
   }, [sessionStorage]);
 
   useEffect(() => {
+    const markets = ["cricket", "tennis", "football"];
     const intervalId = setInterval(() => {
-      getMatchListMarket("cricket");
-      getMatchListMarket("tennis");
-      getMatchListMarket("football");
+      markets.forEach((market) => getMatchListMarket(market));
     }, 500);
 
     return () => clearInterval(intervalId);
@@ -127,13 +126,12 @@ const Inplay = () => {
             </div>
             <Grid container spacing={1} className="w-100">
               {liveCasinoGameList.map((item: any) => (
-                <Grid xs={3} lg={2}  item>
+                <Grid xs={3} lg={2} item>
                   <Link
                     to={item.url}
                     key={item?.name || item?.game_id}
                     className="casino-list-item"
-                    onClick={() => {
-                    }}
+                    onClick={() => {}}
                   >
                     <div className="w-100 d-inline-block casinoicons">
                       <img
@@ -227,9 +225,7 @@ const Inplay = () => {
       )}
 
       <Modal show={show} fullscreen={true} onHide={() => setShow(false)}>
-        <Modal.Header
-          style={{ color: "#fff", backgroundColor: "#004A25" }}
-        >
+        <Modal.Header style={{ color: "#fff", backgroundColor: "#004A25" }}>
           <Modal.Title className="w-100">
             <div className="w-100 d-flex justify-content-between align-items-center">
               <div
