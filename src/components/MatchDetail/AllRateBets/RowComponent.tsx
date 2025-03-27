@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import { formatToINR } from "../../../helper";
 import SingleBox from "./SingleBox";
 
-const RowComponent = ({ header, data, match }: any) => {
+const RowComponent = ({ header, data }: any) => {
   const { state } = useLocation();
 
   const getTime = (date: any) => {
@@ -60,7 +60,7 @@ const RowComponent = ({ header, data, match }: any) => {
             <div style={{ width: "23.5%" }}>
               <SingleBox
                 color={getColor()}
-                data={data?.match?.title || match || data?.eventName}
+                data={data?.match?.title || data?.eventName}
                 header={header}
               />
             </div>

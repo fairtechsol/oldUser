@@ -4,23 +4,18 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getMatchWiseProfitLoss } from "../../../store/actions/user/userAction";
 import { AppDispatch, RootState } from "../../../store/store";
-import Footer from "../../AccountStatement/Footer";
 import RowComponentMatches from "./RowComponentMatches";
 import RowHeaderMatches from "./RowHeaderMatches";
 
 const ProfitLossComponent = ({
-  eventData,
-  betData,
-  sessionBetData,
-  handleReport,
-  currentPage,
-  pageCount,
-  setCurrentPage,
-  sessionBets,
-  setShow,
   show,
-  endDate,
+  setShow,
+  eventData,
+  // pageCount,
+  // currentPage,
+  // setCurrentPage,
   startDate,
+  endDate,
 }: any) => {
   const dispatch: AppDispatch = useDispatch();
   const { matchWiseProfitLoss } = useSelector(
@@ -35,8 +30,8 @@ const ProfitLossComponent = ({
   });
   const [event, setEvent] = useState("");
   const getHandleReport = (eventType: any) => {
-    setEvent(eventType);
-    if (show) {
+    if (eventType === event) {
+      setShow((prev: boolean) => !prev);
       setSelectedId((prev) => ({
         ...prev,
         type: "",
@@ -44,8 +39,12 @@ const ProfitLossComponent = ({
         betId: "",
         sessionBet: false,
       }));
-    }
-    if (!show) {
+      setEvent("");
+    } else {
+      if (!show) {
+        setShow((prev: boolean) => !prev);
+      }
+      setEvent(eventType);
       setSelectedId((prev) => ({
         ...prev,
         type: "",
@@ -62,13 +61,7 @@ const ProfitLossComponent = ({
         })
       );
     }
-    setShow(!show);
   };
-
-  function callPage(val: any) {
-    setCurrentPage(parseInt(val));
-    handleReport(event, parseInt(val));
-  }
 
   const getBetReport = (value: any) => {
     setSelectedId({
@@ -78,7 +71,6 @@ const ProfitLossComponent = ({
       sessionBet: value?.sessionBet,
     });
   };
-
   return eventData?.length > 0 ? (
     <Box>
       {eventData?.map((item: any, index: number) => {
@@ -89,37 +81,30 @@ const ProfitLossComponent = ({
             index={index}
             getHandleReport={getHandleReport}
             show={show}
-          />
+            event={event}
+          >
+            {item?.eventType === event &&
+              matchWiseProfitLoss?.map((item: any, index: number) => {
+                return (
+                  <RowComponentMatches
+                    key={index}
+                    item={item}
+                    index={index + 1}
+                    selectedId={selectedId}
+                    getBetReport={getBetReport}
+                  />
+                );
+              })}
+          </RowHeaderMatches>
         );
       })}
-
-      <Box>
-        {show &&
-          matchWiseProfitLoss?.map((item: any, index: number) => {
-            return (
-              <RowComponentMatches
-                key={index}
-                item={item}
-                index={index + 1}
-                selectedId={selectedId}
-                betData={betData}
-                sessionBetData={sessionBetData}
-                sessionBets={sessionBets}
-                getBetReport={getBetReport}
-              />
-            );
-          })}
-      </Box>
-
-      {show && (
+      {/* {show && (
         <Footer
-          getListOfUser={() => handleReport(event)}
           setCurrentPage={setCurrentPage}
           currentPage={currentPage}
           pages={Math.ceil(parseInt(pageCount))}
-          callPage={callPage}
         />
-      )}
+      )} */}
     </Box>
   ) : (
     <Box>

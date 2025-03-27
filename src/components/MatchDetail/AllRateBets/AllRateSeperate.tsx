@@ -12,8 +12,6 @@ const AllRateSeperate = ({
   betHistory,
   allBetsData,
   count,
-  isArrow,
-  match,
 }: any) => {
   const [visible, setVisible] = useState(true);
 
@@ -134,7 +132,6 @@ const AllRateSeperate = ({
                   "Odds",
                   "Stake",
                 ]}
-                match={match}
               />
 
               {profit && (
@@ -213,7 +210,7 @@ const AllRateSeperate = ({
                         {formattedNum}
                       </Typography>
                     </Box>
-                    <RowComponent header={false} data={i} match={match} />
+                    <RowComponent header={false} data={i} />
                     {i?.deleteReason && betHistory && (
                       <Box
                         sx={{
@@ -328,7 +325,7 @@ const AllRateSeperate = ({
                             )}
                           </Typography>
 
-                          {!matchesMobile && !isArrow && (
+                          {!matchesMobile && (
                             <StyledImage
                               sx={{
                                 width: { xs: "12px", lg: "15px" },

@@ -11,12 +11,11 @@ import SessionBetSeperate from "../../MatchDetail/SessionOdds/SessionBetSeperate
 const SessionComponentMatches = ({
   item,
   index,
+  matchId,
   showSessionBets,
   setShowSessionBets,
-  userId,
   getBetReport,
   selectedId,
-  matchId,
   match,
 }: any) => {
   const theme = useTheme();
@@ -37,7 +36,6 @@ const SessionComponentMatches = ({
             getBetReport({
               eventType: item?.eventType,
               match_id: item?.matchid || item?.matchId || matchId,
-              userId: userId,
               type: "session_bet",
               betId: item?.betId,
               sessionBet: true,

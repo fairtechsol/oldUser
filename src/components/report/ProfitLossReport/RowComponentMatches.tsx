@@ -18,10 +18,7 @@ const RowComponentMatches = ({
   item,
   index,
   selectedId,
-  betData,
-  sessionBetData,
   getBetReport,
-  user,
 }: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -124,20 +121,6 @@ const RowComponentMatches = ({
               ({moment(item?.startAt).format("DD-MM-YYYY")})
             </Typography>
           </Box>
-          {user === "admin" && (
-            <StyledImage
-              src={ArrowDown}
-              sx={{
-                width: { lg: "20px", xs: "10px" },
-                height: { lg: "10px", xs: "6px" },
-                transform:
-                  selectedId?.id === item?.matchId
-                    ? "rotate(180deg)"
-                    : "rotate(0deg)",
-              }}
-              alt=""
-            />
-          )}
         </Box>
         <Box
           onClick={(e) => {
@@ -348,8 +331,6 @@ const RowComponentMatches = ({
               >
                 <AllRateSeperate
                   betHistory={false}
-                  count={betData?.length}
-                  match={item?.title}
                   allBetsData={totalBetProfitLoss && totalBetProfitLoss}
                   profit
                 />
@@ -390,7 +371,6 @@ const RowComponentMatches = ({
                           setShowSessionBets={setShowSessionBets}
                           getBetReport={getBetReport}
                           selectedId={selectedId}
-                          sessionBetData={sessionBetData}
                           match={item?.title}
                         />
                       );

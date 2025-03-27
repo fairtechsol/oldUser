@@ -8,7 +8,6 @@ const SingleBox = ({
   up,
   first,
   time,
-  width,
   boxWidth,
   isCommissionActive,
 }: any) => {
@@ -16,7 +15,7 @@ const SingleBox = ({
     first ? (
       <Box
         sx={{
-          width: width ? width : "100%",
+          width: "100%",
           height: "40px",
           background: "#F1C550",
           display: "flex",

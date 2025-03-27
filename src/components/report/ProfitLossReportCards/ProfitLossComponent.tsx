@@ -113,12 +113,9 @@ const ProfitLossComponent = ({
 
       {show && (
         <Footer
-          getListOfUser={() => handleReport(event)}
           setCurrentPage={setCurrentPage}
           currentPage={currentPage}
-          // pages={pageCount}
           pages={Math.ceil(parseInt(pageCount))}
-          callPage={callPage}
         />
       )}
     </Box>

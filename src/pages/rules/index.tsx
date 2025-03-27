@@ -120,12 +120,12 @@ const Rules = ({ userPadding }: any) => {
           paddingTop: userPadding,
         }}
       >
-        {"RULES"}
+        RULES
       </Typography>
       <ListHeader />
       {["", "", "", ""].map((_, index) => {
         return <RowComponent key={index} index={index} />;
-      })}{" "}
+      })}
     </>
   );
 };

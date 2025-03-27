@@ -20,7 +20,6 @@ import YellowHeader from "./YellowHeader";
 
 const AccountStatementList = () => {
   const [loading] = useState(false);
-
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [pageLimit, setPageLimit] = useState<number>(15);
   const [fromDate, setFromDate] = useState<any>();
