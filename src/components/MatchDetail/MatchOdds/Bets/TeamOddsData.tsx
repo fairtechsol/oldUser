@@ -2,13 +2,11 @@ import { Box, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
 const TeamsOdssData = ({
-  input,
-  title,
-  value,
-  containerStyle,
-  valueContainerStyle,
-  valueTextStyle,
-  bet_condition,
+  input, //
+  title, //
+  value, //
+  containerStyle, //
+  valueContainerStyle, //
 }: any) => {
   const [oddValue, setOddValue] = useState(value);
   useEffect(() => {
@@ -43,7 +41,6 @@ const TeamsOdssData = ({
             {
               background: "white",
               border: "1px solid #FFF",
-              // border: "0px solid #C7B6B6",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -54,27 +51,18 @@ const TeamsOdssData = ({
           ]}
         >
           <Typography
-            sx={[
-              {
-                overflow: bet_condition && "hidden",
-                textOverflow: bet_condition && "ellipsis",
-                whiteSpace: bet_condition && "nowrap",
-                width: bet_condition && { lg: "140px", xs: "100px" },
-                margin: bet_condition && "auto",
-                marginTop: bet_condition && "5px",
-                color: "#262626",
-                padding: "1px",
-                lineHeight: "0.9",
-                fontSize: {
-                  xs: "12px",
-                  md: "12px",
-                  lg: "12px",
-                },
-                fontWeight: { xs: "700", lg: "600" },
-                textTransform: "capitalize",
+            sx={{
+              color: "#262626",
+              padding: "1px",
+              lineHeight: "0.9",
+              fontSize: {
+                xs: "12px",
+                md: "12px",
+                lg: "12px",
               },
-              valueTextStyle,
-            ]}
+              fontWeight: { xs: "700", lg: "600" },
+              textTransform: "capitalize",
+            }}
           >
             {value}
           </Typography>
@@ -84,9 +72,7 @@ const TeamsOdssData = ({
         <Box
           sx={[
             {
-              // background: selectedColorBox,
               border: "1px solid #FFF",
-              // border: "0px solid #C7B6B6",
               display: "flex",
               justifyContent: "center",
               paddingX: "4px",

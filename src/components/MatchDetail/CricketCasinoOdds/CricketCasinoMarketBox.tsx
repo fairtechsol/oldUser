@@ -182,7 +182,7 @@ const CricketCasinoMarketBox = ({
                       lock={
                         [null, 0, "0"].includes(item?.odds ?? 0) ? true : false
                       }
-                      color={"#B3E0FF"}
+                      color={"#B3E0FF"}//
                       type={{
                         color: "#A7DCFF",
                         type: "YN",

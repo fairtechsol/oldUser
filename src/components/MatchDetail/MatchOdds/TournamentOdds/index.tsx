@@ -17,17 +17,17 @@ import BookRatioBox from "./BookRatioBox";
 import BoxComponent from "./BoxComponent";
 
 const TournamentOdds = ({
-  teamARates, //
-  teamBRates, //
-  title, //
-  min, //
-  max, //
-  showBox, //
-  isRound, //
-  betLock, //
-  upcoming, //
-  marketDetails, //
-  matchDetails, //
+  teamARates,
+  teamBRates,
+  title,
+  min,
+  max,
+  showBox,
+  isRound,
+  betLock,
+  upcoming,
+  marketDetails,
+  matchDetails,
 }: any) => {
   const dispatch: AppDispatch = useDispatch();
   const [visible, setVisible] = useState(true);

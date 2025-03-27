@@ -88,7 +88,7 @@ const QuickSessionMarket = ({
               background: "#262626",
             }}
           >
-            <div className="slanted"></div>
+            <div className="slanted" />
           </Box>
           <Box
             sx={{
@@ -103,7 +103,6 @@ const QuickSessionMarket = ({
               },
             }}
           >
-            {/* {console.warn("newData11 ",newData)} */}
             <SmallBoxSeason
               allBetsData={Array.from(new Set(allBetsData))?.filter(
                 (item: any) =>
@@ -122,7 +121,6 @@ const QuickSessionMarket = ({
                 flex: 1,
                 background: { lg: "#262626", xs: "none" },
                 position: { lg: "static", xs: "absolute" },
-                // '#262626' ,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "flex-end",
@@ -288,7 +286,6 @@ const QuickSessionMarket = ({
                 </Box>
               </Box>
             )}
-
             <Box
               sx={{
                 display: "flex",

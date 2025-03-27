@@ -487,7 +487,6 @@ const MatchDetail = () => {
                     setShow={setShow}
                     show={show}
                     matchDetails={matchDetails && matchDetails}
-                    data={matchDetails && matchDetails}
                   />
                 </Box>
                 <Box sx={{ width: "30%", paddingRight: "1%" }}>

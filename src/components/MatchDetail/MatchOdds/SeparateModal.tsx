@@ -1,10 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import MUIModal from "@mui/material/Modal";
 import React, { memo } from "react";
-import { useDispatch } from "react-redux";
-
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Lock } from "../../../assets/index";
 import {
   selectedBetAction,
@@ -22,17 +19,14 @@ const SeparateModal = ({
   value2,
   lock,
   session,
-  back,
   currentMatch,
   type,
   name,
   data,
   typeOfBet,
   mainData,
-  rates,
   betType,
   selectedFastAmount,
-  fromOdds,
   setFastBetLoading,
   eventType,
   bettingOn,
@@ -44,12 +38,8 @@ const SeparateModal = ({
   teamName,
 }: any) => {
   const dispatch: AppDispatch = useDispatch();
-  const [isBack, setIsBack] = React.useState(false);
-  const [isSessionYes, setIsSessionYes] = React.useState(false);
   const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
-  const [selectedValue, setSelectedValue] = useState("");
   const { loading } = useSelector((state: RootState) => state.match.bet);
-  const [betPlaceLoading, setBetPlaceLoading] = useState(false);
 
   const handleClick = (team: any, data: any) => {
     dispatch(
@@ -186,10 +176,6 @@ const SeparateModal = ({
             data
           );
         }
-        setSelectedValue(value);
-        type?.type === "BL"
-          ? setIsBack(type?.color === "#A7DCFF")
-          : setIsSessionYes(type?.color === "#A7DCFF");
       }
     }
   };
@@ -275,31 +261,11 @@ const SeparateModal = ({
             }}
           >
             <OddsPlaceBet
-              betPlaceLoading={betPlaceLoading}
-              name={"name"}
-              rates={rates}
-              onCancel={() => {
-                setIsPopoverOpen(false);
-                setBetPlaceLoading(false);
-              }}
               handleClose={() => {
                 setIsPopoverOpen(false);
-                setBetPlaceLoading(false);
               }}
-              season={session}
-              back={back}
-              po={po}
-              currentMatch={currentMatch}
-              isBack={isBack}
-              betType={betType}
-              fromOdds={fromOdds}
-              selectedValue={selectedValue}
-              isSessionYes={isSessionYes}
+              session={session}
               type={type}
-              data={data}
-              betOn={name}
-              typeOfBet={typeOfBet}
-              mainData={mainData}
             />
           </Box>
         </MUIModal>

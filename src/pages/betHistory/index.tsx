@@ -90,19 +90,8 @@ const BetHistory = () => {
                   ).length || 0
                 }
               />
-              <Box sx={{ width: { lg: "1vw", xs: 0 } }}/>
+              <Box sx={{ width: { lg: "1vw", xs: 0 } }} />
               <SessionBetSeperate
-                betHistory={true}
-                allBetsData={placedBets?.filter((b: any) =>
-                  [
-                    "session",
-                    "cricketcasino",
-                    "overByover",
-                    "ballByBall",
-                    "oddEven",
-                    "fancy1",
-                  ].includes(b?.marketType)
-                )}
                 placedBets={placedBets?.filter((b: any) =>
                   [
                     "session",

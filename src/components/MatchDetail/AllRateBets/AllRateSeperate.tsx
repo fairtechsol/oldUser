@@ -346,7 +346,6 @@ const AllRateSeperate = ({
                         sx={{
                           height: "40px",
                           width: "30%",
-                          // margin: { xs: "1px", lg: "1px" },
                           display: "flex",
                           background: "black",
                           justifyContent: "center",

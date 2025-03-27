@@ -6,13 +6,7 @@ import { formatToINR } from "../../../helper";
 import StyledImage from "../../Common/StyledImages";
 import RowComponent from "./RowComponent";
 
-const SessionBetSeperate = ({
-  profit,
-  mark2,
-  placedBets,
-  isArrow,
-  match,
-}: any) => {
+const SessionBetSeperate = ({ profit, placedBets, isArrow, match }: any) => {
   const [visible, setVisible] = useState(true);
   return (
     <Box
@@ -195,38 +189,38 @@ const SessionBetSeperate = ({
                     <Box
                       sx={{
                         width: {
-                          xs: profit ? "100%" : "100%",
+                          xs: "100%",
                           alignItems: "flex-end",
                           justifyContent: "center",
                           display: "flex",
-                          lg: profit ? "100 % " : "100% ",
+                          lg: "100% ",
                         },
                         height: "100%",
                         position: "absolute",
                       }}
                     >
-                      <Box sx={{ width: mark2 ? "35%" : "35%" }}></Box>
+                      <Box sx={{ width: "35%" }}></Box>
                     </Box>
                   )}
                   {i?.deleteReason && (
                     <Box
                       sx={{
                         width: {
-                          xs: profit ? "100%" : "100%",
+                          xs: "100%",
                           alignItems: "flex-end",
                           justifyContent: "center",
                           display: "flex",
-                          lg: profit ? "100 % " : "100% ",
+                          lg: "100% ",
                         },
                         background: "rgba(0, 0, 0, 0.5)",
                         height: "100%",
                         position: "absolute",
                       }}
                     >
-                      <Box sx={{ width: mark2 ? "35%" : "35%" }}></Box>
+                      <Box sx={{ width: "35%" }}/>
                       <Box
                         sx={{
-                          width: mark2 ? "65%" : "65%",
+                          width: "65%",
                           height: "100%",
                           display: "flex",
                           justifyContent: "center",

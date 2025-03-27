@@ -5,7 +5,6 @@ const BoxInput = ({
   title,
   stakeValue,
   containerStyle,
-  valueContainerStyle,
   setStakeValue,
   selectedColorBox,
 }: any) => {
@@ -46,18 +45,15 @@ const BoxInput = ({
         </Typography>
       </Box>
       <Box
-        sx={[
-          {
-            background: selectedColorBox ? selectedColorBox : "#0B4F26",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "32px",
-            marginTop: "1px",
-            border: "1px solid #FFF",
-          },
-          valueContainerStyle,
-        ]}
+        sx={{
+          background: selectedColorBox ? selectedColorBox : "#0B4F26",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "32px",
+          marginTop: "1px",
+          border: "1px solid #FFF",
+        }}
       >
         <TextField
           value={stakeValue}

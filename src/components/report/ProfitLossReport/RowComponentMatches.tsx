@@ -409,7 +409,6 @@ const RowComponentMatches = ({
                       }}
                     >
                       <SessionBetSeperate
-                        betHistory={false}
                         placedBets={totalBetProfitLoss && totalBetProfitLoss}
                         profit
                         isArrow={true}
