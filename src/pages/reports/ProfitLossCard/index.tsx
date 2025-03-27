@@ -80,7 +80,7 @@ const ProfitLossCard = () => {
             fontWeight: "bold",
           }}
         >
-          {"PROFIT/LOSS REPORT"}
+          PROFIT/LOSS REPORT
         </Typography>
         <ProfitLossComponent
           show={show}
