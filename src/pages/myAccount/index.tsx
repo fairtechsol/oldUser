@@ -32,22 +32,16 @@ const MyAccount = () => {
       fontSize: { lg: "16px", xs: "10px" },
       fontWeight: "600",
       marginX: "0px",
-      // width: { lg: "140px", xs: "170px" },
       borderBottomWidth: 0,
       borderColor: "#EAEFEC",
-      // paddingY: "-10px",
       marginTop: "0px",
       borderStyle: "solid",
-      // marginLeft: "-10px",
       minHeight: "40px",
       lineHeight: "18px",
       color: "black",
       "&:hover": {
         backgroundColor: "#e5b744",
-        // color: "white",
         border: 0,
-
-        // transform: "scale(1.02)",
       },
     },
   };

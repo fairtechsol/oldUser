@@ -7,6 +7,7 @@ import { AppDispatch, RootState } from "../../../store/store";
 import Footer from "../../AccountStatement/Footer";
 import RowComponentMatches from "./RowComponentMatches";
 import RowHeaderMatches from "./RowHeaderMatches";
+
 const ProfitLossComponent = ({
   eventData,
   betData,
@@ -65,9 +66,7 @@ const ProfitLossComponent = ({
   };
 
   function callPage(val: any) {
-    // setCurrentPage(setProfitLossReportPage(parseInt(val)));
     setCurrentPage(parseInt(val));
-
     handleReport(event, parseInt(val));
   }
 

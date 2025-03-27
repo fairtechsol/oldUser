@@ -1,24 +1,9 @@
 import { Box, Typography } from "@mui/material";
 import { memo } from "react";
 
-
 const EventComponent = ({ data, selected }: any) => {
-  // const navigate = useNavigate();
   return (
     <Box
-      // onClick={(e) => {
-      //   if (selected === data.title) {
-      //     navigate(`/match`, { state: { activeTab: "EmptyComponent" } });
-      //   } else {
-
-      //     if (data?.url) {
-      //       if (data.title === "MY ACCOUNT") {
-      //         setAnchor(e);
-      //       }
-      //       navigate(`/${data?.url}`, { state: { activeTab: data?.title } });
-      //     }
-      //   }
-      // }}
       className="eventTab"
       sx={[
         {

@@ -38,7 +38,7 @@ const betPlace = createSlice({
         state.loading = false;
       })
       .addCase(placeBet.rejected, (state, action: any) => {
-        const { data } = action?.payload
+        const { data } = action?.payload;
         state.loading = false;
         if (data?.statusCode == 400) {
           state.betPlaceError = true;

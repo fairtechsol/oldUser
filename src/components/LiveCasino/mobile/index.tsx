@@ -183,27 +183,6 @@ const LiveCasinoMobile = () => {
       </div>
     );
   };
-  // const GameScreen = ({ data4 }: { data4: any }) => {
-  //   return (
-  //     <div className="d-flex flex-column mt-1 position-absolute" style={{width:"100vw",height:"vh"}}>
-  //       <div className="w-100 d-flex flex-row justify-content-between align-items-center px-1 py-2 bg-primary text-white">
-  //         <span>{gameData?.game_name}</span>
-  //         <div className="fbold" onClick={() => setIsShow(false)}>
-  //           EXIT
-  //         </div>
-  //       </div>
-  //       <div className="w-100" style={{ height: "80vh" }}>
-  //         <iframe
-  //           src={data4?.url}
-  //           title="Live Stream"
-  //           referrerPolicy={"strict-origin-when-cross-origin"}
-  //           width={"100%"}
-  //           height={"100%"}
-  //         ></iframe>
-  //       </div>
-  //     </div>
-  //   );
-  // };
 
   return (
     <>
@@ -318,7 +297,6 @@ const LiveCasinoMobile = () => {
               <div
                 className="d-flex flex-row align-items-center"
                 onClick={() => {
-                  // navigate("/home");
                   setIsShow(false);
                 }}
               >
@@ -373,7 +351,7 @@ const LiveCasinoMobile = () => {
               referrerPolicy={"strict-origin-when-cross-origin"}
               width={"100%"}
               height={"100%"}
-            ></iframe>
+            />
           </div>
         </Modal.Body>
       </Modal>

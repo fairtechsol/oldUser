@@ -17,7 +17,7 @@ const SessionComponentMatches = ({
   getBetReport,
   selectedId,
   matchId,
-  match
+  match,
 }: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -99,10 +99,7 @@ const SessionComponentMatches = ({
               top: 0,
               right: 5,
             }}
-          >
-            {/* ({moment(item?.betDate).format("DD-MM-YYYY")}) */}
-          </Typography>
-
+          ></Typography>
           <Box
             sx={{
               flexDirection: "row",
@@ -131,9 +128,7 @@ const SessionComponentMatches = ({
                 marginLeft: "5px",
                 fontWeight: "600",
               }}
-            >
-              {/* ({moment(item?.betDate).format("DD-MM-YYYY")}) */}
-            </Typography>
+            ></Typography>
           </Box>
         </Box>
 
@@ -194,7 +189,6 @@ const SessionComponentMatches = ({
               ) : (
                 formatToINR(Number(item.totalLoss).toFixed(2))
               )}
-              {/* {Number(item.totalLoss).toFixed(2)} */}
             </Typography>
             <StyledImage
               src={ArrowDown}

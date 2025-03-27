@@ -4,10 +4,7 @@ import { Fragment, memo, useState } from "react";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { ARROWUP, LockIcon } from "../../../../assets";
-import {
-  calculateRequiredStack,
-  handleDecimalAmount,
-} from "../../../../helper";
+import { calculateRequiredStack } from "../../../../helper";
 import Divider from "../../../../helper/Divider";
 import {
   selectedBetAction,
@@ -16,97 +13,8 @@ import {
 import { AppDispatch } from "../../../../store/store";
 import CommissionDot from "../../../Common/CommissionDot";
 import OddsPlaceBet from "../Bets/OddsPlacebet";
+import BookRatioBox from "./BookRatioBox";
 import BoxComponent from "./BoxComponent";
-
-const SmallBox = ({ valueA, valueB, color }: any) => {
-  return (
-    <Box
-      sx={{
-        marginLeft: { xs: 0, lg: "-14px", md: 0 },
-        justifyContent: {
-          xs: "center",
-          lg: "center",
-          md: "center",
-        },
-        display: "flex",
-        width: { xs: "85%", lg: "80%", md: "85%" },
-        gap: "4px",
-      }}
-    >
-      <Box
-        sx={{
-          width: { lg: "70px", xs: "45px", md: "70px" },
-          // position: "absolute",
-          flexDirection: "column",
-          paddingX: "5px",
-          display: "flex",
-          left: { xs: "53%", lg: "49vw", md: "53%" },
-          justifyContent: "center",
-          alignItems: "center",
-          height: "30px",
-          background: "white",
-          borderRadius: "3px",
-        }}
-      >
-        <Typography
-          sx={{
-            color: "#FF4D4D",
-            fontSize: "8px",
-            fontWeight: "bold",
-          }}
-        >
-          Book
-        </Typography>
-        <Typography
-          sx={{
-            fontSize: { lg: "12px", xs: "10px", md: "10px" },
-            fontWeight: "bold",
-            color: valueA < 0 ? `#FF4D4D` : `#319E5B`,
-          }}
-        >
-          {handleDecimalAmount(parseFloat(valueA || 0.0), color)}
-          {/* {valueA < 0 ? ` ${valueA}` : `${valueA}`} */}
-        </Typography>
-      </Box>
-      <Box
-        sx={{
-          width: { lg: "70px", xs: "45px", md: "70px" },
-          // position: "absolute",
-          paddingX: "5px",
-          display: "flex",
-          flexDirection: "column",
-          left: { xs: "65%", lg: "55vw", md: "65%" },
-          justifyContent: "center",
-          alignItems: "center",
-          height: "30px",
-          background: "white",
-          borderRadius: "3px",
-        }}
-      >
-        <Typography
-          sx={{
-            color: "#FF4D4D",
-            fontSize: "8px",
-            fontWeight: "bold",
-          }}
-        >
-          Book
-        </Typography>
-
-        <Typography
-          sx={{
-            fontSize: { lg: "12px", xs: "10px", md: "10px" },
-            fontWeight: "bold",
-            color: valueB < 0 ? `#FF4D4D` : `#319E5B`,
-          }}
-        >
-          {handleDecimalAmount(parseFloat(valueB || 0.0), color)}
-          {/* {valueB < 0 ? ` ${valueB}` : `${valueB}`} */}
-        </Typography>
-      </Box>
-    </Box>
-  );
-};
 
 const TournamentOdds = ({
   data,
@@ -180,7 +88,6 @@ const TournamentOdds = ({
       };
     };
 
-    // Get back1 & lay1 values for Team A & Team B
     const teamA = getBackAndLayRates(marketDetails?.runners[0]);
     const teamB = getBackAndLayRates(marketDetails?.runners[1]);
 
@@ -354,7 +261,7 @@ const TournamentOdds = ({
               },
             }}
           >
-            <SmallBox valueA={bookRatioA} valueB={bookRatioB} />
+            <BookRatioBox valueA={bookRatioA} valueB={bookRatioB} />
             <Box>
               <button
                 type="submit"

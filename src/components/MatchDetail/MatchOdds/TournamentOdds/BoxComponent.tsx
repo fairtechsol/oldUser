@@ -366,7 +366,6 @@ const BoxComponent = ({
               matchDetails={matchDetails}
             />
           )}
-          {/* <Box sx={{ width: ".25%", display: "flex", background: "pink" }} /> */}
         </Box>
       )}
     </Box>

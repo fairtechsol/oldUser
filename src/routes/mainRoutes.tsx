@@ -1,10 +1,8 @@
-// import Loadable from "../utils/loadable";
 import { Navigate } from "react-router-dom";
 import SecureAuthVerification from "../pages/auth/secureAuthverification";
 import { Constants } from "../utils/Constants";
 
 import MainLayout from "../layout/main";
-// import { lazy } from "react";
 import BetHistory from "../pages/betHistory";
 import ChangeButtonValue from "../pages/changeButtonValue";
 import ChangePassword from "../pages/changepassword";

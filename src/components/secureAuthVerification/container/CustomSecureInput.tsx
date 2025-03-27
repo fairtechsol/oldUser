@@ -1,8 +1,7 @@
 import { Form } from "react-bootstrap";
 
-
-import "./style.scss";
 import isMobile from "./isMobile";
+import "./style.scss";
 
 interface SelectItem {
   value: string;
@@ -25,7 +24,6 @@ const CustomSecureInput = (props: any) => {
     customStyle,
     inputIcon,
     isUnderlinedInput,
-
     ...prop
   } = props;
   return (
@@ -67,7 +65,6 @@ const CustomSecureInput = (props: any) => {
           />
         )}
         {inputIcon && <div className="input-icon">{inputIcon}</div>}
-        {/* <CustomErrorMessage touched={touched} errors={errors} /> */}
       </Form.Group>
     </>
   );

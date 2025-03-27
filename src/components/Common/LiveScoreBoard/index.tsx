@@ -4,8 +4,6 @@ import { ARROWUP, liveTv } from "../../../assets";
 import "./style.scss";
 
 const LiveScoreBoard = ({ data, width, setIsTv }: any) => {
-  // const theme = useTheme();
-  // const matchesMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [visible, setVisible] = useState(false);
 
   return (

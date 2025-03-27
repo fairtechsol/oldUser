@@ -28,7 +28,6 @@ const AllRateSeperate = ({
             width: { md: "100%", xs: "100%", lg: "100%" },
             display: "flex",
             flexDirection: "column",
-            // alignSelf: "center",
             marginX: { lg: "0vw", xs: "0px", md: "0px" },
             marginY: { lg: ".5vh", xs: "2px" },
             marginTop: { xs: "0" },
@@ -77,27 +76,15 @@ const AllRateSeperate = ({
             sx={{
               flex: 0.1,
               background: "#262626",
-              // '#262626'
             }}
           >
-            <div className="slanted"></div>
+            <div className="slanted" />
           </Box>
-          {/* <Box
-            sx={{
-              flex: 1,
-              background: "#262626",
-              // '#262626' ,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "flex-end",
-            }}
-          ></Box> */}
 
           <Box
             sx={{
               flex: 1,
               background: "#262626",
-              // '#262626' ,
               display: "flex",
               alignItems: "center",
               justifyContent: "flex-end",
@@ -117,16 +104,6 @@ const AllRateSeperate = ({
               }}
               alt=""
             />
-            {/* <Typography
-              sx={{ fontSize: "12px", fontWeight: "700", color: "#FF1111" }}
-            >
-              All Bet
-            </Typography>
-            <Typography
-              sx={{ fontSize: "12px", fontWeight: "700", color: "#0B4F26" }}
-            >
-              {count || 0}
-            </Typography> */}
           </Box>
         </Box>
         {visible && (
@@ -154,7 +131,6 @@ const AllRateSeperate = ({
               <Box
                 sx={{
                   height: "25px",
-                  // margin: { xs: "1px", lg: "0.5px" },
                   width: "30px",
                   display: "flex",
                   background: "black",
@@ -190,7 +166,6 @@ const AllRateSeperate = ({
                     background: "#319E5B",
                     justifyContent: "center",
                     alignItems: "center",
-                    // margin: { xs: "1px", lg: "0" },
                   }}
                 >
                   <Typography
@@ -207,7 +182,6 @@ const AllRateSeperate = ({
             </Box>
 
             <Box
-              // className="myScroll"
               sx={{
                 maxHeight: { xs: "200px", lg: "420px" },
                 overflowY: "auto",
@@ -217,7 +191,6 @@ const AllRateSeperate = ({
                 },
               }}
             >
-              {/* {console.log("allBetsData :", allBetsData)} */}
               {[...new Set(allBetsData)]?.map((i: any, k: number) => {
                 const num = allBetsData?.length - k;
                 const formattedNum = num < 10 ? "0" + num : num.toString();
@@ -229,7 +202,6 @@ const AllRateSeperate = ({
                       flexDirection: "row",
                       position: "relative",
                       gap: "1px",
-                      // marginBottom: { xs: "1px", lg: "1px" },
                     }}
                   >
                     <Box
@@ -238,7 +210,6 @@ const AllRateSeperate = ({
                         width: "30px",
                         display: "flex",
                         background: "black",
-                        // marginBottom: { xs: "1px", lg: "1px" },
                         justifyContent: "center",
                         alignItems: "center",
                       }}
@@ -264,7 +235,6 @@ const AllRateSeperate = ({
                             display: "flex",
                             lg: profit ? "100 % " : "100% ",
                           },
-                          // background: "rgba(0, 0, 0, 0.6)",
                           height: "100%",
                           position: "absolute",
                         }}
@@ -325,7 +295,6 @@ const AllRateSeperate = ({
                             display: "flex",
                             lg: profit ? "100 % " : "100% ",
                           },
-                          // background: "rgba(0, 0, 0, 0.6)",
                           height: "100%",
                           position: "absolute",
                         }}
@@ -338,7 +307,6 @@ const AllRateSeperate = ({
                         sx={{
                           height: "40px",
                           width: "30%",
-                          // margin: { xs: "1px", lg: "1px" },
                           display: "flex",
                           background: i?.totalLoss > 0 ? "#10DC61" : "#E32A2A",
                           justifyContent: "center",
@@ -389,7 +357,6 @@ const AllRateSeperate = ({
                         sx={{
                           height: "40px",
                           width: "30%",
-                          // margin: { xs: "1px", lg: "1px" },
                           display: "flex",
                           background: "black",
                           justifyContent: "center",
@@ -420,52 +387,9 @@ const AllRateSeperate = ({
                         </Typography>
                       </Box>
                     )}
-                    {/* {i?.deleteReason && betHistory && (
-                      <Box
-                        sx={{
-                          height: "40px",
-                          width: "30%",
-                          // margin: { xs: "1px", lg: "1px" },
-                          display: "flex",
-                          // background: "black",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          zIndex: 999,
-                          position: "absolute",
-                          right: 0,
-                        }}
-                      > */}
-                    {/* <StyledImage
-                        sx={{
-                          width: { xs: "15px", lg: "20px" },
-                          height: { lg: "20px", xs: "14px" },
-                          marginRight: "5px",
-                        }}
-                        src={DELETE}
-                      />
-                      <Typography
-                        sx={{
-                          fontSize: { xs: "7px", lg: ".5vw" },
-                          color: "white",
-                          fontWeight: "700",
-                          width: { lg: "65%", xs: "55%" },
-                          textTransform: "uppercase",
-                        }}
-                      >
-                        Bet <span style={{ color: "#e41b23" }}>Deleted</span>{" "}
-                        Due {"\n"} {"i?.deleteReason"}
-                      </Typography> */}
                   </Box>
-                  // )}
-                  // </Box>
                 );
               })}
-              {/* <Footer
-                currentPage={currentPage}
-                pages={pageCount}
-                callPage={callPage}
-                currentPageNo={allbetsPage}
-              /> */}
             </Box>
           </Box>
         )}

@@ -17,7 +17,7 @@ const ValueButton = ({ value, onChange }: any) => {
         value={value.value}
         onChange={onChange}
         variant="outlined"
-        type="number" // Allow only numeric input
+        type="number"
         size="small"
         fullWidth
         sx={{ fontSize: "14px", fontWeight: "600" }}

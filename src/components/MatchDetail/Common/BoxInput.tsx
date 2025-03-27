@@ -11,18 +11,14 @@ const BoxInput = ({
 }: any) => {
   const handleInputChange = (e: any) => {
     let value = e.target.value.trim();
-
-    // Remove non-numeric and non-decimal characters
     value = value.replace(/[^0-9.]/g, "");
-
-    // Only allow one decimal point
     const decimalCount = value.split(".").length - 1;
     if (decimalCount > 1) {
       return;
     }
 
     if (value === "") {
-      setStakeValue(" "); // Set your desired default value here
+      setStakeValue(" ");
     } else {
       setStakeValue(value);
     }
@@ -65,7 +61,6 @@ const BoxInput = ({
       >
         <TextField
           value={stakeValue}
-          // autoFocus
           variant="standard"
           InputProps={{
             sx: {

@@ -6,17 +6,16 @@ import {
   debounce,
 } from "@mui/material";
 
+import { useFormik } from "formik";
+import { useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { eye, eyeLock } from "../../assets";
 import Input from "../../components/login/input";
-import { useDispatch } from "react-redux";
-import { AppDispatch, RootState } from "../../store/store";
 import {
   changePassword,
   checkOldPassword,
 } from "../../store/actions/auth/authAction";
-import { useFormik } from "formik";
-import { useMemo } from "react";
-import { useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store/store";
 import { changePasswordValidation } from "../../utils/Validations";
 
 const initialValues: any = {

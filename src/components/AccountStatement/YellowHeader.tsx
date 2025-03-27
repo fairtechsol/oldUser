@@ -4,9 +4,13 @@ import "react-datepicker/dist/react-datepicker.css";
 import Calendar from "../Common/Calendar";
 import CustomButton from "../Common/CustomButton";
 
-const YellowHeader = (props: any) => {
-  const { getAccountStatement, fromDate, toDate, setFromDate, setToDate } =
-    props;
+const YellowHeader = ({
+  getAccountStatement,
+  fromDate,
+  toDate,
+  setFromDate,
+  setToDate,
+}: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const tab = useMediaQuery(theme.breakpoints.between("xs", "lg"));

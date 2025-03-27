@@ -53,13 +53,12 @@ const SessionMarketBox = ({
               background: "rgba(0,0,0,0.5)",
               zIndex: 2,
             }}
-          ></Box>
+          />
         )}
 
         <Box
           sx={{
             display: "flex",
-            // background: "white",
             height: "38px",
             overflow: "hidden",
             width: { xs: "100%", lg: "100%" },
@@ -78,7 +77,6 @@ const SessionMarketBox = ({
                 fontWeight: "600",
                 textAlign: "start",
                 width: "100%",
-                // paddingRight: "5rem",
                 lineHeight: "0.8rem",
               }}
             >
@@ -101,7 +99,13 @@ const SessionMarketBox = ({
             </Typography>
           </Typography>
           {data?.isCommissionActive && (
-            <Box sx={{ position: "absolute", right: { xs: "58vw", sm: "49vw", lg: "28vw", md: "50vw" }, zIndex: "123"}}>
+            <Box
+              sx={{
+                position: "absolute",
+                right: { xs: "58vw", sm: "49vw", lg: "28vw", md: "50vw" },
+                zIndex: "123",
+              }}
+            >
               <CommissionDot />
             </Box>
           )}
@@ -123,10 +127,6 @@ const SessionMarketBox = ({
               profitLoss={(profitLossData && profitLossData[0]) ?? {}}
             />
           )}
-          {/* <Box
-              sx={{ width: "20%", display: "flex", background: "pink" }}
-            ></Box> */}
-
           {!["ACTIVE", "active", "", undefined, null, ""].includes(
             data?.GameStatus
           ) ||
@@ -190,7 +190,6 @@ const SessionMarketBox = ({
                   minWidth: { lg: "60%", xs: "40%" },
                   marginRight: "auto",
                   overflow: "hidden",
-                  // left: {lg:"23%", xs: "0%", sm: "40%"}
                   marginLeft: { lg: "37.5%", xs: "59.6%", sm: "59.6%" },
                 }}
               >
@@ -277,7 +276,7 @@ const SessionMarketBox = ({
                     display: "flex",
                     background: "pink",
                   }}
-                ></Box>
+                />
                 <Box
                   sx={{
                     width: { xs: "100%", lg: "20%" },
@@ -345,7 +344,7 @@ const SessionMarketBox = ({
               {!matchesMobile && (
                 <Box
                   sx={{ width: "33%", display: "flex", background: "pink" }}
-                ></Box>
+                />
               )}
               {!matchesMobile && (
                 <PlaceBetComponentWeb
@@ -360,7 +359,6 @@ const SessionMarketBox = ({
           )}
         </Box>
       </Box>
-      {/* <Divider /> */}
       {Array.from(
         {
           length:
@@ -399,7 +397,6 @@ const SessionMarketBox = ({
             <Box
               sx={{
                 display: "flex",
-                // background: "white",
                 height: "38px",
                 overflow: "hidden",
                 width: { xs: "100%", lg: "100%" },
@@ -465,7 +462,6 @@ const SessionMarketBox = ({
                       minWidth: { lg: "60%", xs: "40%" },
                       marginRight: "auto",
                       overflow: "hidden",
-                      // left: {lg:"23%", xs: "0%", sm: "40%"}
                       marginLeft: { lg: "37.5%", xs: "59.8%", sm: "59.8%" },
                     }}
                   >
@@ -551,7 +547,7 @@ const SessionMarketBox = ({
                         display: "flex",
                         background: "pink",
                       }}
-                    ></Box>
+                    />
                     <Box
                       sx={{
                         width: { xs: "100%", lg: "20%" },
@@ -620,13 +616,12 @@ const SessionMarketBox = ({
                   {!matchesMobile && (
                     <Box
                       sx={{ width: "33%", display: "flex", background: "pink" }}
-                    ></Box>
+                    />
                   )}
                 </>
               )}
             </Box>
           </Box>
-          {/* <Divider /> */}
         </>
       ))}
     </>

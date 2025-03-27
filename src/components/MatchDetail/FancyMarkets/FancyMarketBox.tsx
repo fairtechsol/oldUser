@@ -1,10 +1,10 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { memo } from "react";
 import { BallStart } from "../../../assets";
-import SeparateModal from "../MatchOdds/SeparateModal";
+import { formatToINR } from "../../../helper";
 import PlaceBetComponent from "../MatchOdds/Bets/PlaceBetComponent";
 import PlaceBetComponentWeb from "../MatchOdds/Bets/PlaceBetComponentWeb";
-import { formatToINR } from "../../../helper";
+import SeparateModal from "../MatchOdds/SeparateModal";
 
 const FancyMarketBox = ({
   index,
@@ -109,9 +109,6 @@ const FancyMarketBox = ({
             profitLoss={(profitLossData && profitLossData[0]) ?? {}}
           />
         )}
-        {/* <Box
-              sx={{ width: "20%", display: "flex", background: "pink" }}
-            ></Box> */}
         {!["ACTIVE", "active", "", undefined, null, ""].includes(
           data?.GameStatus
         ) ||
@@ -165,7 +162,6 @@ const FancyMarketBox = ({
                 minWidth: { lg: "60%", xs: "40%" },
                 marginRight: "auto",
                 overflow: "hidden",
-                // left: {lg:"23%", xs: "0%", sm: "40%"}
                 marginLeft: { lg: "38%", xs: "60%", sm: "60%" },
               }}
             >
@@ -195,7 +191,7 @@ const FancyMarketBox = ({
               />
               <Box
                 sx={{ width: ".45%", display: "flex", background: "pink" }}
-              ></Box>
+              />
               <SeparateModal
                 bettingOn={"session"}
                 closeModal={closeModal}
@@ -222,9 +218,7 @@ const FancyMarketBox = ({
               />
             </Box>
             {!matchesMobile && (
-              <Box
-                sx={{ width: "33%", display: "flex", background: "pink" }}
-              ></Box>
+              <Box sx={{ width: "33%", display: "flex", background: "pink" }} />
             )}
             {!matchesMobile && (
               <PlaceBetComponentWeb

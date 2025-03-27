@@ -12,7 +12,6 @@ const AuthLayout = () => {
 
   useEffect(() => {
     if (sessionStorage.getItem("jwtUser")) {
-      // navigate("/match");
       navigate("/inplay");
     }
   }, [navigate]);

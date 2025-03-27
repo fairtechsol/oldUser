@@ -1,17 +1,15 @@
 import { Box, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../components/Loader";
 import AllRateSeperate from "../../components/MatchDetail/AllRateBets/AllRateSeperate";
 import SessionBetSeperate from "../../components/MatchDetail/SessionOdds/SessionBetSeperate";
-// import { Constants } from "../../utils/Constants";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../store/store";
 import { getCurrentBets } from "../../store/actions/betPlace/betPlaceActions";
+import { AppDispatch, RootState } from "../../store/store";
 
 const BetHistory = () => {
   const dispatch: AppDispatch = useDispatch();
   const [allBets] = useState([]);
-  // const [pageCount, setPageCount] = useState(Constants.pageLimit);
   const [loading] = useState(false);
   const { placedBets } = useSelector((state: RootState) => state.bets);
 
@@ -23,7 +21,6 @@ const BetHistory = () => {
 
   return (
     <>
-      {/* <BackgroundLayout> */}
       {loading ? (
         <Box
           sx={{
@@ -69,24 +66,52 @@ const BetHistory = () => {
                 mark2
                 mark
                 allBetsData={placedBets?.filter(
-                  (b: any) => !["session","cricketcasino","overByover","ballByBall","oddEven","fancy1"].includes(b?.marketType)
+                  (b: any) =>
+                    ![
+                      "session",
+                      "cricketcasino",
+                      "overByover",
+                      "ballByBall",
+                      "oddEven",
+                      "fancy1",
+                    ].includes(b?.marketType)
                 )}
                 count={
                   allBets?.filter(
-                    (b: any) => !["session","cricketcasino","overByover","ballByBall","oddEven","fancy1"].includes(b?.marketType)
+                    (b: any) =>
+                      ![
+                        "session",
+                        "cricketcasino",
+                        "overByover",
+                        "ballByBall",
+                        "oddEven",
+                        "fancy1",
+                      ].includes(b?.marketType)
                   ).length || 0
                 }
-                // setPageCountOuter={setPageCount}
-                //   callPage={callPage}
               />
               <Box sx={{ width: { lg: "1vw", xs: 0 } }}></Box>
               <SessionBetSeperate
                 betHistory={true}
                 allBetsData={placedBets?.filter((b: any) =>
-                  ["session","cricketcasino","overByover","ballByBall","oddEven","fancy1"].includes(b?.marketType)
+                  [
+                    "session",
+                    "cricketcasino",
+                    "overByover",
+                    "ballByBall",
+                    "oddEven",
+                    "fancy1",
+                  ].includes(b?.marketType)
                 )}
                 placedBets={placedBets?.filter((b: any) =>
-                  ["session","cricketcasino","overByover","ballByBall","oddEven","fancy1"].includes(b?.marketType)
+                  [
+                    "session",
+                    "cricketcasino",
+                    "overByover",
+                    "ballByBall",
+                    "oddEven",
+                    "fancy1",
+                  ].includes(b?.marketType)
                 )}
                 mark
               />
@@ -94,7 +119,6 @@ const BetHistory = () => {
           </Box>
         </>
       )}
-      {/* </BackgroundLayout> */}
     </>
   );
 };

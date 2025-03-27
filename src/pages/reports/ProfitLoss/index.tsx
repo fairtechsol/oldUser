@@ -1,15 +1,14 @@
 import { Box, Typography } from "@mui/material";
+import moment from "moment";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import ProfitLossComponent from "../../../components/report/ProfitLossReport/ProfitLossComponent";
 import YellowHeaderProfitLoss from "../../../components/report/ProfitLossReport/YellowheaderProfitLoss";
-import { AppDispatch, RootState } from "../../../store/store";
-import { useDispatch } from "react-redux";
 import {
   getUserTotalProfitLoss,
   updateUserSearchId,
 } from "../../../store/actions/user/userAction";
-import moment from "moment";
-import ProfitLossComponent from "../../../components/report/ProfitLossReport/ProfitLossComponent";
-import { useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../store/store";
 interface FilterObject {
   userId?: any;
   startDate?: string;

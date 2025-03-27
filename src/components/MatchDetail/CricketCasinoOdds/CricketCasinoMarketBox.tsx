@@ -53,7 +53,6 @@ const CricketCasinoMarketBox = ({
       <Box
         sx={{
           display: "flex",
-          // background: "white",
           height: "38px",
           overflow: "hidden",
           width: { xs: "100%", lg: "100%" },
@@ -71,7 +70,6 @@ const CricketCasinoMarketBox = ({
               fontWeight: "600",
               textAlign: "start",
               width: "100%",
-              // paddingRight: "5rem",
               lineHeight: "0.8rem",
             }}
           >
@@ -102,9 +100,6 @@ const CricketCasinoMarketBox = ({
             index={index}
           />
         )}
-        {/* <Box
-              sx={{ width: "20%", display: "flex", background: "pink" }}
-            ></Box> */}
         {!["ACTIVE", "active", "", undefined, null, "", "OPEN"].includes(
           data?.gstatus
         ) || !data.odds?.length ? (
@@ -157,7 +152,6 @@ const CricketCasinoMarketBox = ({
                 minWidth: { lg: "60%", xs: "40%" },
                 marginRight: "auto",
                 overflow: "hidden",
-                // left: {lg:"23%", xs: "0%", sm: "40%"}
                 marginLeft: { lg: "37.9%", xs: "59.9%", sm: "59.9%" },
               }}
             >

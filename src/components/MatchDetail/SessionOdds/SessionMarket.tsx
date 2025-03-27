@@ -34,11 +34,6 @@ const SessionMarket = ({
   mid,
 }: any) => {
   const [showFastTimeBox, setShowFastTimeBox] = useState(false);
-  // const [fastBetLoading, setFastBetLoading] = useState(false);
-  // const [localData, setLocalData] = useState(newData);
-  // useEffect(() => {
-  //   setLocalData(newData);
-  // }, [newData]);
   const [visible, setVisible] = useState(true);
   return (
     <>
@@ -102,7 +97,6 @@ const SessionMarket = ({
             sx={{
               flex: 0.1,
               background: "#262626",
-              // '#262626'
             }}
           >
             <div className="slanted"></div>
@@ -111,7 +105,6 @@ const SessionMarket = ({
             sx={{
               flex: 1,
               background: "#262626",
-              // '#262626' ,
               display: "flex",
               alignItems: "center",
               justifyContent: {
@@ -137,7 +130,6 @@ const SessionMarket = ({
                 flex: 1,
                 background: { lg: "#262626", xs: "none" },
                 position: { lg: "static", xs: "absolute" },
-                // '#262626' ,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "flex-end",
@@ -200,8 +192,6 @@ const SessionMarket = ({
                     }}
                   >
                     MIN:{min}
-                    {/* MAX:g
-                    {max} */}
                   </Typography>
                 </Box>
                 <Box
@@ -215,51 +205,57 @@ const SessionMarket = ({
                     justifyContent: { lg: "center", xs: "flex-end" },
                   }}
                 >
-                  { data?.gtype!="khado" ?<Box
-                    sx={{
-                      background:
-                        sessionBettingType.oddEven == type
-                          ? "#00C0F9"
-                          : "#FF9292",
-                      width: { lg: "20%", xs: "30%" },
-                      height: "100%",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-
-                      borderLeft: {
-                        lg: "0 solid #319e5b",
-                        xs: "1px solid #319e5b",
-                      },
-                    }}
-                  >
-                    <Typography
+                  {data?.gtype != "khado" ? (
+                    <Box
                       sx={{
-                        fontSize: "12px",
-                        color: "black",
-                        fontWeight: "600",
+                        background:
+                          sessionBettingType.oddEven == type
+                            ? "#00C0F9"
+                            : "#FF9292",
+                        width: { lg: "20%", xs: "30%" },
+                        height: "100%",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+
+                        borderLeft: {
+                          lg: "0 solid #319e5b",
+                          xs: "1px solid #319e5b",
+                        },
                       }}
                     >
-                      {sessionBettingType.oddEven == type
-                        ? "BACK"
-                        : sessionBettingType.fancy1 == type
-                        ? "LAY"
-                        : "NO"}
-                    </Typography>
-                  </Box>:<Box sx={{
-                      background:"none",
-                      width: { lg: "20%", xs: "30%" },
-                      height: "100%",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
+                      <Typography
+                        sx={{
+                          fontSize: "12px",
+                          color: "black",
+                          fontWeight: "600",
+                        }}
+                      >
+                        {sessionBettingType.oddEven == type
+                          ? "BACK"
+                          : sessionBettingType.fancy1 == type
+                          ? "LAY"
+                          : "NO"}
+                      </Typography>
+                    </Box>
+                  ) : (
+                    <Box
+                      sx={{
+                        background: "none",
+                        width: { lg: "20%", xs: "30%" },
+                        height: "100%",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
 
-                      borderLeft: {
-                        lg: "0 solid #319e5b",
-                        xs: "1px solid #319e5b",
-                      },
-                    }}></Box>}
-                  <Box sx={{ width: ".35%", display: "flex" }}></Box>
+                        borderLeft: {
+                          lg: "0 solid #319e5b",
+                          xs: "1px solid #319e5b",
+                        },
+                      }}
+                    />
+                  )}
+                  <Box sx={{ width: ".35%", display: "flex" }} />
                   <Box
                     sx={{
                       background: "#00C0F9",
@@ -338,31 +334,12 @@ const SessionMarket = ({
                 </Box>
               </Box>
             )}
-            {/* 
-            {upcoming && (
-              <Box
-                sx={{
-                  position: "absolute",
-                  height: "100%",
-                  // top: "29%",
-                  width: "100%",
-                  display: "flex",
-                  zIndex: "999",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  background: "rgba(0, 0, 0, .5)",
-                }}
-              ></Box>
-            )} */}
-
             <Box
               sx={{
                 display: "flex",
                 flexDirection: "column",
                 width: "100%",
                 position: "relative",
-                // maxHeight: "387px",
-                // overflowY: "visible",
               }}
             >
               {newData?.length > 0 &&

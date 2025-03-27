@@ -10,7 +10,6 @@ import {
   MacVirtual,
   MYACCOUNT,
   Play,
-  // Slot,
   SNOOKER,
   Tennis,
 } from "../../../assets";
@@ -47,14 +46,12 @@ let EventNames = [
   {
     title: "SOCCER",
     image: Football,
-    // url: "/comingsoon",
     url: "/match/football",
     active: false,
   },
   {
     title: "TENNIS",
     image: Tennis,
-    // url: "/comingsoon",
     url: "/match/tennis",
     active: false,
   },
@@ -109,7 +106,6 @@ const EventListing = () => {
             msOverflowStyle: "none",
             overflowY: "hidden",
             minHeight: { xs: 80, lg: 80 },
-            // marginLeft: { xs: "0", lg: ".5vw" },
             overflowX: "auto",
             marginTop: "1vh",
             paddingX: { xs: "1vh", lg: "0" },
@@ -128,7 +124,7 @@ const EventListing = () => {
             className={({ isActive }) => (isActive ? "activeEventTab" : "")}
             style={{ textDecoration: "none" }}
           >
-            <EventComponent data={item} setAnchor={() => { }} />
+            <EventComponent data={item} setAnchor={() => {}} />
           </NavLink>
         ))}
       </Box>

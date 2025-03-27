@@ -3,7 +3,7 @@ import React from "react";
 import { formatToINR } from "../../../helper";
 
 const SmallBoxSeason = ({ allBetsData }: any) => {
-  console.log("allBetsData",allBetsData)
+  console.log("allBetsData", allBetsData);
   return (
     <Box
       sx={{
@@ -22,7 +22,6 @@ const SmallBoxSeason = ({ allBetsData }: any) => {
         sx={{
           width: { lg: "70px", xs: "50px", md: "70px" },
           flexDirection: "column",
-          // position: "absolute",
           display: "flex",
           left: { xs: "53%", lg: "49vw", md: "53%" },
           justifyContent: "center",
@@ -57,7 +56,6 @@ const SmallBoxSeason = ({ allBetsData }: any) => {
         sx={{
           width: { lg: "70px", xs: "50px", md: "70px" },
           flexDirection: "column",
-          // position: "absolute",
           display: "flex",
           left: { xs: "60%", lg: "55vw", md: "65%" },
           justifyContent: "space-around",

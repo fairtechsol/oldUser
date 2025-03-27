@@ -229,17 +229,12 @@ const LiveCasinoDesktop = () => {
         </div>
       </div>
       <Modal show={isShow} fullscreen={true} onHide={() => setIsShow(false)}>
-        <Modal.Header
-          // closeButton
-          // closeVariant={"white"}
-          style={{ color: "#fff", backgroundColor: "#004A25" }}
-        >
+        <Modal.Header style={{ color: "#fff", backgroundColor: "#004A25" }}>
           <Modal.Title className="w-100">
             <div className="w-100 d-flex justify-content-between align-items-center">
               <div
                 className="d-flex flex-row align-items-center"
                 onClick={() => {
-                  // navigate("/home");
                   setIsShow(false);
                 }}
               >
@@ -294,7 +289,7 @@ const LiveCasinoDesktop = () => {
               referrerPolicy={"strict-origin-when-cross-origin"}
               width={"100%"}
               height={"100%"}
-            ></iframe>
+            />
           </div>
         </Modal.Body>
       </Modal>

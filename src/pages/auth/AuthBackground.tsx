@@ -18,7 +18,7 @@ const AuthBackground = () => {
         backgroundImage: `url(${LoginBg})`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
-        backgroundPosition: 'center', 
+        backgroundPosition: "center",
       }}
     />
   );

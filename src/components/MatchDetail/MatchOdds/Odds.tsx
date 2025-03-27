@@ -27,7 +27,7 @@ const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
       days: "",
       hours: "",
       minutes: "",
-    }; // Initialize with the defined type
+    };
 
     if (difference > 0) {
       timeLeft = {

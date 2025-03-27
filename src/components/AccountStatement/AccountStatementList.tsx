@@ -58,34 +58,6 @@ const AccountStatementList = () => {
     setUpdateReports([]);
   };
 
-  // const handleClickToOpenBetModal = (item: any, user: any) => {
-  //   const match = item?.description.match(/Rno\. (\d+\.\d+)/);
-  //   if (item?.betId) {
-  //     setShowAccountStatementModal((prev) => !prev);
-  //     setSelectedUser(item);
-  //     dispatch(
-  //       getBetAccountStatementModal({
-  //         id: user?.id,
-  //         betId: item?.betId,
-  //         status: null,
-  //         sort: "betPlaced.createdAt:DESC",
-  //       })
-  //     );
-  //   } else if (match && match[1]) {
-  //     setShowAccountStatementModal((prev) => !prev);
-  //     setSelectedUser(item);
-  //     dispatch(
-  //       getBetAccountStatementModal({
-  //         id: user?.id,
-  //         isCard: true,
-  //         runnerId: match[1],
-  //         result: `inArr${JSON.stringify(["WIN", "LOSS", "TIE"])}`,
-  //         sort: "betPlaced.createdAt:DESC",
-  //       })
-  //     );
-  //   }
-  // };
-
   useEffect(() => {
     if (profileDetail?.id) {
       let filter = "";
@@ -233,8 +205,6 @@ const AccountStatementList = () => {
                       onClick={() => {
                         if (item?.type === 3) {
                           handleLiveCasinoModalOpen(item);
-                          // } else {
-                          //   handleClickToOpenBetModal(item, item?.user);
                         }
                       }}
                     />

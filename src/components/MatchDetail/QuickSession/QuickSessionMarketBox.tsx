@@ -82,18 +82,6 @@ const QuickSessionMarketBox = ({
             overflow: "hidden",
           }}
         >
-          {/* <Typography
-            sx={{
-              color: "black",
-              fontSize: { lg: "11px", md: "10px", xs: "8px" },
-              marginLeft: "7px",
-              fontWeight: "600",
-              textAlign: "start",
-              width: "100%",
-            }}
-          >
-            {data?.name}
-          </Typography> */}
           <Box>
             <Typography
               sx={{
@@ -125,11 +113,6 @@ const QuickSessionMarketBox = ({
               max:{formatToINR(data?.maxBet)}
             </Typography>
           </Box>
-          {/* <MoneyBox
-            rates={maxLoss ?? 0}
-            color={(maxLoss || 0) > 0 ? "#319E5B" : "#FF4D4D"}
-          /> */}
-
           {matchesMobile && (
             <PlaceBetComponent
               amount={index == 2}
@@ -148,17 +131,12 @@ const QuickSessionMarketBox = ({
               profitLoss={(profitLossData && profitLossData[0]) ?? {}}
             />
           )}
-          {/* <Box
-              sx={{ width: "20%", display: "flex", background: "pink" }}
-            ></Box> */}
           {!["active", "", undefined, null, ""].includes(data?.status) ||
           (data.yesRate === null && data.noRate === null) ? (
             <Box
               sx={{
                 background: "rgba(0,0,0,1)",
-                // marginLeft: "-2px",
                 height: "38px",
-                // position: "absolute",
                 minWidth: "10%",
                 marginRight: { lg: "20%", xs: "0" },
                 marginLeft: "auto",
@@ -207,27 +185,6 @@ const QuickSessionMarketBox = ({
                   marginLeft: { lg: "40%", xs: "60%", sm: "60%" },
                 }}
               >
-                {/* {!matchesMobile && <SeparateModal po={1} color={"white"} />} */}
-
-                {/* {false && (
-                <>
-                  <Box
-                    sx={{ width: ".45%", display: "flex", background: "pink" }}
-                  ></Box>
-                  <SeparateModal po={2} color={"white"} rates={allRates} />
-                  <Box
-                    sx={{ width: ".45%", display: "flex", background: "pink" }}
-                  ></Box>
-                  <Box
-                    sx={{ width: ".45%", display: "flex", background: "pink" }}
-                  ></Box>
-                  <SeparateModal po={3} color={"white"} rates={allRates} />
-                </>
-              )} */}
-                {/* <Box
-                sx={{ width: ".45%", display: "flex", background: "pink" }}
-              ></Box> */}
-                {/* {!matchesMobile && <SeparateModal po={6} color={"white"} />} */}
                 <SeparateModal
                   bettingOn={"session"}
                   closeModal={closeModal}
@@ -280,18 +237,6 @@ const QuickSessionMarketBox = ({
                     sx={{ width: "32%", display: "flex", background: "pink" }}
                   ></Box>
                 )}
-                {/* {!matchesMobile && (
-                <>
-                  <Box
-                    sx={{ width: ".45%", display: "flex", background: "pink" }}
-                  ></Box>
-                  <SeparateModal color={"white"} rates={allRates} />
-                  <Box
-                    sx={{ width: ".45%", display: "flex", background: "pink" }}
-                  ></Box>
-                  <SeparateModal color={"white"} rates={allRates} />
-                </>
-              )} */}
               </Box>
               {!matchesMobile && (
                 <PlaceBetComponentWeb

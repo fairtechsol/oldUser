@@ -19,14 +19,11 @@ const SingleBox = ({
           width: width ? width : "100%",
           height: "40px",
           background: "#F1C550",
-          // marginX: { xs: "0.5px", lg: "0.5px" },
           display: "flex",
-          // gap: '0.5px',
           justifyContent: "center",
           alignItems: "center",
         }}
       >
-        {/* <Box sx={{ height: ".4vh" }}></Box> */}
         {data === "Bookmaker" ? (
           <>
             <Box>
@@ -80,7 +77,6 @@ const SingleBox = ({
                   alignItems: "center",
                 }}
               >
-                {" "}
                 {isCommissionActive && <CommissionDot />}
                 {data}
               </Typography>
@@ -95,7 +91,6 @@ const SingleBox = ({
           height: "40px",
           flexDirection: "column",
           background: color,
-          // marginX: { xs: "1px", lg: "1px" },
           display: "flex",
           justifyContent: "center",
         }}
@@ -110,7 +105,6 @@ const SingleBox = ({
         >
           {time}
         </Typography>
-        {/* <Box sx={{ height: ".4vh" }}></Box> */}
         <Typography
           sx={{
             fontWeight: "600",
@@ -134,11 +128,9 @@ const SingleBox = ({
     ) : (
       <Box
         sx={{
-          // width: "100%",
           width: boxWidth,
           height: "40px",
           background: color,
-          // marginX: { xs: "1px", lg: "1px" },
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -169,12 +161,9 @@ const SingleBox = ({
     header && (
       <Box
         sx={{
-          // width: "100%",
           width: boxWidth,
           height: "25px",
           background: "#319E5B",
-          // gap: '0.5px',
-          // marginX: { xs: "1px", lg: "1px" },
           display: "flex",
           justifyContent: "center",
           alignItems: "center",

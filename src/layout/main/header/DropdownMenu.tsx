@@ -1,12 +1,11 @@
 import { Box, CircularProgress, MenuItem } from "@mui/material";
-import StyledImage from "../../../components/Common/StyledImages";
-import Logout from "../../../assets/images/logout.webp";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { memo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import Logout from "../../../assets/images/logout.webp";
+import StyledImage from "../../../components/Common/StyledImages";
 import { logout } from "../../../store/actions/auth/authAction";
 import { AppDispatch, RootState } from "../../../store/store";
-import { useSelector } from "react-redux";
 
 const DropdownMenu = ({ handleClose }: any) => {
   const { loading } = useSelector((state: RootState) => state.auth);
@@ -15,7 +14,6 @@ const DropdownMenu = ({ handleClose }: any) => {
   const menutItems = [{ title: "Rules", link: "/rules" }];
   return (
     <Box
-      // ref={innerRef}
       sx={{
         position: "absolute",
         background: "white",
@@ -26,7 +24,7 @@ const DropdownMenu = ({ handleClose }: any) => {
         borderRadius: "5px",
         marginTop: "2px",
         marginRight: "10px",
-        zIndex: "999"
+        zIndex: "999",
       }}
     >
       {menutItems.map((x, idx) => (

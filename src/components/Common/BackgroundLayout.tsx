@@ -1,5 +1,4 @@
 import { Box } from "@mui/material";
-// import Background from "../../assets/images/new_back.webp";
 import { BACKIMAGE } from "../../assets";
 import EventListing from "../../layout/main/eventlist";
 import SideBar from "../../layout/main/header/SideBar";
@@ -9,7 +8,6 @@ const BackgroundLayout = ({ children }: any) => {
       sx={{
         fetchPriority: "high",
         minHeight: "100vh",
-        // padding: "0.2% 1% 1% 1%",
         paddingBottom: "1rem",
         width: "100%",
         backgroundImage: `url(${BACKIMAGE})`,

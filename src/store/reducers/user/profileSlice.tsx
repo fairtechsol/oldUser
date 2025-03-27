@@ -189,9 +189,6 @@ const profileSlice = createSlice({
             ...state?.profileDetail?.userBal,
             exposure:
               action?.payload?.newUserExposure ?? action?.payload?.exposure,
-            // currentBalance:
-            //   action.payload.newUserCurrentBalance ??
-            //   action.payload.currentBalance,
           },
         };
       })

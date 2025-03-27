@@ -8,9 +8,10 @@ export const getMatchList = createAsyncThunk<any, any>(
   async ({ type, searchKeyword, matchType }, thunkApi) => {
     try {
       const resp = await service.get(
-        `${ApiConstants.MATCH.MATCHLIST}?sort=match.startAt:ASC${type == "search"
-          ? `&searchBy=title&keyword=${searchKeyword || ""}`
-          : ""
+        `${ApiConstants.MATCH.MATCHLIST}?sort=match.startAt:ASC${
+          type == "search"
+            ? `&searchBy=title&keyword=${searchKeyword || ""}`
+            : ""
         }${matchType ? `&match.matchType=${matchType}` : ""}`
       );
       if (resp) {
@@ -28,7 +29,8 @@ export const SearchList = createAsyncThunk<any, any>(
   async (requestData, thunkApi) => {
     try {
       const resp = await service.get(
-        `${ApiConstants.MATCH.MATCHLIST}?searchBy=title&keyword=${requestData?.title ? requestData?.title : ""
+        `${ApiConstants.MATCH.MATCHLIST}?searchBy=title&keyword=${
+          requestData?.title ? requestData?.title : ""
         }`
       );
       if (resp) {
@@ -40,21 +42,6 @@ export const SearchList = createAsyncThunk<any, any>(
     }
   }
 );
-
-// export const userChangePassword = createAsyncThunk<any, any>(
-//   "user/changePassword",
-//   async (requestData) => {
-//     try {
-//       const resp = await service.post("/user/changePassword", requestData);
-//       if (resp) {
-//         return resp?.data;
-//       }
-//     } catch (error: any) {
-//       const err = error as AxiosError;
-//       throw err;
-//     }
-//   }
-// );
 
 export const matchDetailAction = createAsyncThunk<any, any>(
   "/match/details",
@@ -129,7 +116,8 @@ export const betReportList = createAsyncThunk<any, any>(
   async (requestData, thunkApi) => {
     try {
       const resp = await service.get(
-        `${ApiConstants.MATCH.CURRENTBET}?status=${requestData.status
+        `${ApiConstants.MATCH.CURRENTBET}?status=${
+          requestData.status
         }&keyword=${requestData?.keyword || ""}${requestData?.filter || ""}`
       );
       if (resp?.data) {
@@ -143,16 +131,11 @@ export const betReportList = createAsyncThunk<any, any>(
 );
 export const settleUnsettleMatch = createAsyncThunk<any, any>(
   "/bet/",
-  // async (requestData, thunkApi) => {
-  //   try {
-  //     const resp = await service.get(
-  //       `${ApiConstants.MATCH.CURRENTBET}?status=${requestData.status}&keyword=${requestData?.keyword || ""}${requestData?.filter || ""}`
-  //       ?status MATCHED(bet history) pending(current bet) DELETED(UNSETTLED) gameType(FOR ALL BETS) UNmATCHED(PENDING)
-  //     );
   async ({ status, page, limit }, thunkApi) => {
     try {
       const resp = await service.get(
-        `${ApiConstants.MATCH.CURRENTBET}/?page=${page || 1}&limit=${limit || 15
+        `${ApiConstants.MATCH.CURRENTBET}/?page=${page || 1}&limit=${
+          limit || 15
         }&status=${status}`
       );
       if (resp?.data) {
@@ -203,7 +186,6 @@ export const updateMatchRates = createAsyncThunk<any, any>(
     return matchDetails;
   }
 );
-
 
 export const getMatchRates = createAsyncThunk<any, any>(
   "/third/match/rates",

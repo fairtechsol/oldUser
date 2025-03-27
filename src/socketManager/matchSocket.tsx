@@ -6,19 +6,6 @@ export const matchSocketService = {
     expertSocket?.emit("matchRoom", {
       id: matchId,
     });
-
-    // matchSocket.emit("initCricketData", {
-    //   matchId: matchId,
-    //   roleName: roleName,
-    // });
-    // currSocket.push(
-    //   setInterval(() => {
-    //     matchSocket.emit("initCricketData", {
-    //       matchId: matchId,
-    //       roleName: roleName,
-    //     });
-    //   }, 120000)
-    // );
   },
   leaveAllRooms: () => {
     for (let item of currSocket) {

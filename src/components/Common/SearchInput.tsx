@@ -1,28 +1,26 @@
 import { Box, TextField, Typography, debounce } from "@mui/material";
-import { useState } from "react";
-import { useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../store/store";
-import { useDispatch } from "react-redux";
-import { getAccountStatement } from "../../store/actions/user/userAction";
-import StyledImage from "./StyledImages";
-import { Search } from "../../assets";
 import moment from "moment";
-const SearchInput = (props: any) => {
-  const {
-    title,
-    inputContainerStyle,
-    setShowSearch,
-    onChange,
-    searchFor,
-    pageLimit,
-    search,
-    data,
-    containerStyle,
-    fromDate,
-    toDate,
-    setCurrentPage,
-  } = props;
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Search } from "../../assets";
+import { getAccountStatement } from "../../store/actions/user/userAction";
+import { AppDispatch, RootState } from "../../store/store";
+import StyledImage from "./StyledImages";
 
+const SearchInput = ({
+  title,
+  inputContainerStyle,
+  setShowSearch,
+  onChange,
+  searchFor,
+  pageLimit,
+  search,
+  data,
+  containerStyle,
+  fromDate,
+  toDate,
+  setCurrentPage,
+}: any) => {
   const [open, setOpen] = useState(false);
 
   const Item = ({ item }: any) => {

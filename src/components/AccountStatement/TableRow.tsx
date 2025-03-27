@@ -126,12 +126,12 @@ const TableRow = ({
           overflow: "auto",
           height: "45px",
           lineHeight: "1",
-          scrollbarWidth: "thin", // Customize scrollbar width (for Firefox)
+          scrollbarWidth: "thin",
           "&::-webkit-scrollbar": {
-            width: "8px", // Customize scrollbar width (for WebKit browsers)
+            width: "8px",
           },
           "&::-webkit-scrollbar-thumb": {
-            backgroundColor: "#888", // Customize scrollbar thumb color
+            backgroundColor: "#888",
           },
           borderRight: "2px solid white",
           background: transType === "creditReference" ? "#F8C851" : "#FFE094",

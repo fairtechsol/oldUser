@@ -1,6 +1,6 @@
 import { Box } from "@mui/system";
-import { FASTTIME } from "../../../assets";
 import { memo } from "react";
+import { FASTTIME } from "../../../assets";
 import LiveMarket from "../Common/LiveMarket";
 
 const FastTime = ({
@@ -8,14 +8,8 @@ const FastTime = ({
   setShowFastTimeBox,
   session,
   setFastAmount,
-  // setPlaceBetData,
   typeOfBet,
-}: // data1,
-// setSelectedItem,
-// selectedItem,
-// matchOddsData,
-any) => {
-  // console.log(matchOddsData, "matchOddsData");
+}: any) => {
   return (
     <Box
       title="Faster Bet"
@@ -57,20 +51,7 @@ any) => {
           src={FASTTIME}
           alt=""
           onClick={() => {
-            // if (
-            //   matchOddsData?.statusTeamA === "active" ||
-            //   matchOddsData?.statusTeamB === "active" ||
-            //   matchOddsData?.statusTeamC === "active"
-            // ) {
             setShowFastTimeBox((prev: boolean) => !prev);
-            // }
-            // if (setPlaceBetData !== undefined) {
-            //   setPlaceBetData(null);
-            // }
-            // setSelectedItem(data1?.id);
-            // else {
-            // setShowFastTimeBox((prev: any) => !prev);
-            // }
           }}
         />
       )}

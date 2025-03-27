@@ -1,12 +1,11 @@
 import { Box, Typography } from "@mui/material";
-import React from "react";
-import { formatToINR } from "../../../helper";
+import { handleDecimalAmount } from "../../../../helper";
 
-const SmallBoxSeason = ({ allBetsData }: any) => {
+const BookRatioBox = ({ valueA, valueB, color }: any) => {
   return (
     <Box
       sx={{
-        marginLeft: { xs: 0, lg: "-15px", md: 0 },
+        marginLeft: { xs: 0, lg: "-14px", md: 0 },
         justifyContent: {
           xs: "center",
           lg: "center",
@@ -19,8 +18,9 @@ const SmallBoxSeason = ({ allBetsData }: any) => {
     >
       <Box
         sx={{
-          width: { lg: "70px", xs: "50px", md: "70px" },
+          width: { lg: "70px", xs: "45px", md: "70px" },
           flexDirection: "column",
+          paddingX: "5px",
           display: "flex",
           left: { xs: "53%", lg: "49vw", md: "53%" },
           justifyContent: "center",
@@ -32,32 +32,31 @@ const SmallBoxSeason = ({ allBetsData }: any) => {
       >
         <Typography
           sx={{
-            fontSize: { lg: "8px", xs: "7px", md: "8px" },
-            fontWeight: "bold",
             color: "#FF4D4D",
+            fontSize: "8px",
+            fontWeight: "bold",
           }}
         >
-          Session Bet
+          Book
         </Typography>
         <Typography
           sx={{
-            fontSize: { xs: "10px", md: "10px", lg: "12px" },
+            fontSize: { lg: "12px", xs: "10px", md: "10px" },
             fontWeight: "bold",
-            color: "#319E5B",
+            color: valueA < 0 ? `#FF4D4D` : `#319E5B`,
           }}
         >
-          {allBetsData?.reduce((accumulator: any, bet: any) => {
-            return accumulator + (+bet?.totalBet || 0);
-          }, 0)}
+          {handleDecimalAmount(parseFloat(valueA || 0.0), color)}
         </Typography>
       </Box>
       <Box
         sx={{
-          width: { lg: "70px", xs: "50px", md: "70px" },
-          flexDirection: "column",
+          width: { lg: "70px", xs: "45px", md: "70px" },
+          paddingX: "5px",
           display: "flex",
-          left: { xs: "60%", lg: "55vw", md: "65%" },
-          justifyContent: "space-around",
+          flexDirection: "column",
+          left: { xs: "65%", lg: "55vw", md: "65%" },
+          justifyContent: "center",
           alignItems: "center",
           height: "30px",
           background: "white",
@@ -66,32 +65,26 @@ const SmallBoxSeason = ({ allBetsData }: any) => {
       >
         <Typography
           sx={{
-            fontSize: { xs: "7px", md: "8px", lg: "8px" },
-            fontWeight: "bold",
             color: "#FF4D4D",
-            textAlign: "center",
-            lineHeight: "1",
+            fontSize: "8px",
+            fontWeight: "bold",
           }}
         >
-          Total Amount
+          Book
         </Typography>
+
         <Typography
           sx={{
-            fontSize: { xs: "10px", md: "10px", lg: "12px" },
+            fontSize: { lg: "12px", xs: "10px", md: "10px" },
             fontWeight: "bold",
-            color: "#319E5B",
-            lineHeight: "1.5",
+            color: valueB < 0 ? `#FF4D4D` : `#319E5B`,
           }}
         >
-          {formatToINR(
-            allBetsData?.reduce((accumulator: any, bet: any) => {
-              return accumulator + (+bet?.maxLoss || 0);
-            }, 0)
-          )}
+          {handleDecimalAmount(parseFloat(valueB || 0.0), color)}
         </Typography>
       </Box>
     </Box>
   );
 };
 
-export default React.memo(SmallBoxSeason);
+export default BookRatioBox;

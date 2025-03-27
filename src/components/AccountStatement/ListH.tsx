@@ -4,18 +4,17 @@ import SearchInput from "../Common/SearchInput";
 import { ApiConstants } from "../../utils/Constants";
 import NumberDropDown from "../Common/NumberDropDown";
 
-const ListH = (props: any) => {
-  const {
-    getLimitEntries,
-    getAccountStatement,
-    searchFor,
-    pageLimit,
-    setPageLimit,
-    fromDate,
-    toDate,
-    setCurrentPage,
-    setSearchValue,
-  } = props;
+const ListH = ({
+  getLimitEntries,
+  getAccountStatement,
+  searchFor,
+  pageLimit,
+  setPageLimit,
+  fromDate,
+  toDate,
+  setCurrentPage,
+  setSearchValue,
+}: any) => {
   return (
     <Box
       sx={{

@@ -5,6 +5,7 @@ import { ARROWUP, ArrowDown, DELETE } from "../../../assets";
 import { formatToINR } from "../../../helper";
 import StyledImage from "../../Common/StyledImages";
 import RowComponent from "./RowComponent";
+
 const SessionBetSeperate = ({
   profit,
   mark2,
@@ -68,7 +69,6 @@ const SessionBetSeperate = ({
           sx={{
             flex: 0.1,
             background: "#262626",
-            // '#262626'
           }}
         >
           <div className="slanted"></div>
@@ -78,7 +78,6 @@ const SessionBetSeperate = ({
           sx={{
             flex: 1,
             background: "#262626",
-            // '#262626' ,
             display: "flex",
             alignItems: "center",
             justifyContent: "flex-end",
@@ -105,7 +104,6 @@ const SessionBetSeperate = ({
           <Box sx={{ display: "flex", flexDirection: "row", gap: "1px" }}>
             <Box
               sx={{
-                // margin: { xs: "1px", lg: "0.5px" },
                 height: "25px",
                 width: "30px",
                 display: "flex",
@@ -123,7 +121,6 @@ const SessionBetSeperate = ({
             <RowComponent
               header={true}
               match={match}
-              //data={["Matched Bet", "Username", "Odds", "Yes/No", "Stake"]}
               data={["Matched Bet", "Match", "Odds", "Yes/No", "Stake"]}
             />
             {profit && (
@@ -135,7 +132,6 @@ const SessionBetSeperate = ({
                   background: "#319E5B",
                   justifyContent: "center",
                   alignItems: "center",
-                  // margin: { xs: "1px", lg: "1px" },
                 }}
               >
                 <Typography
@@ -161,7 +157,6 @@ const SessionBetSeperate = ({
             }}
           >
             {Array.from(new Set(placedBets))?.map((i: any, k: any) => {
-              // console.log(placedBets, "placedBets");
               const num = placedBets?.length - k;
               const formattedNum = num < 10 ? "0" + num : num.toString();
               return (
@@ -177,7 +172,6 @@ const SessionBetSeperate = ({
                   <Box
                     sx={{
                       height: "40px",
-                      // margin: { xs: "1px", lg: "1px" },
                       marginBottom: { xs: "1px", lg: "1px" },
                       width: "30px",
                       display: "flex",
@@ -207,7 +201,6 @@ const SessionBetSeperate = ({
                           display: "flex",
                           lg: profit ? "100 % " : "100% ",
                         },
-                        // background: "rgba(0, 0, 0, 0.6)",// double overlay
                         height: "100%",
                         position: "absolute",
                       }}
@@ -242,7 +235,6 @@ const SessionBetSeperate = ({
                           marginBottom: "0%",
                         }}
                       >
-                        {/* {mark && ( */}
                         <Typography
                           sx={{
                             fontSize: "10px",
@@ -254,7 +246,6 @@ const SessionBetSeperate = ({
                           Bet <span style={{ color: "#e41b23" }}>deleted</span>{" "}
                           due to {i?.deleteReason}
                         </Typography>
-                        {/* )} */}
                       </Box>
                     </Box>
                   )}
@@ -263,7 +254,6 @@ const SessionBetSeperate = ({
                       sx={{
                         height: "40px",
                         width: "20%",
-                        // margin: { xs: "1px", lg: "1px", my: 0 },
                         background: i.totalLoss > 0 ? "#10DC61" : "#E32A2A",
                       }}
                     >
@@ -291,7 +281,6 @@ const SessionBetSeperate = ({
                           ) : (
                             formatToINR(Number(i.totalLoss).toFixed(2))
                           )}
-                          {/* {Number(i.totalLoss).toFixed(2)} */}
                         </Typography>
                         {!isArrow && (
                           <StyledImage
@@ -342,45 +331,6 @@ const SessionBetSeperate = ({
                       </Typography>
                     </Box>
                   )}
-                  {/* {i?.deleteReason && betHistory && (
-                      <Box
-                        sx={{
-                          height: "40px",
-                          width: "30%",
-                          margin: { xs: "1px", lg: "1px" },
-                          display: "flex",
-                          // background: "black",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          paddingX: "2px",
-                          zIndex: 999,
-                          position: "absolute",
-                          right: 0,
-                        }}
-                      >
-                        <StyledImage
-                          sx={{
-                            width: { xs: "15px", lg: "20px" },
-                            height: { lg: "20px", xs: "14px" },
-                            marginRight: "5px",
-                          }}
-                          src={DELETE}
-                        />
-                        <Typography
-                          sx={{
-                            fontSize: { xs: "7px", lg: ".5vw" },
-                            color: "white",
-                            fontWeight: "700",
-                            width: { lg: "65%", xs: "55%" },
-                            textTransform: "uppercase",
-                          }}
-                        >
-                          Bet <span style={{ color: "#e41b23" }}>Deleted</span>{" "}
-                          Due {"\n"}
-                          {i?.deleteReason}
-                        </Typography>
-                      </Box>
-                    )} */}
                 </Box>
               );
             })}

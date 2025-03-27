@@ -1,7 +1,7 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
-import service from "../../../service";
 import moment from "moment";
+import service from "../../../service";
 import { ApiConstants, Constants } from "../../../utils/Constants";
 
 export const getDragonTigerDetailHorseRacing = createAsyncThunk<any, any>(
@@ -36,35 +36,6 @@ export const getDragonTigerDetail = createAsyncThunk<any, any>(
     }
   }
 );
-// export const deleteHorseRacingBets = createAsyncThunk<any, any>(
-//   "horseRacing/deleteBet",
-//   async (requestData, thunkApi) => {
-//     try {
-//       const resp = await service.post(
-//         `${ApiConstants.HORSERACING.MATCH.DELETE_BET}`,
-//         { requestData }
-//       );
-//       if (resp?.data) {
-//         return resp?.data;
-//       }
-//     } catch (error) {
-//       const err = error as AxiosError;
-//       return thunkApi.rejectWithValue(err.response?.status);
-//     }
-//   }
-// );
-// export const updateMatchRatesForHorseRacing = createAsyncThunk<any, any>(
-//   "horseRacing/matchRatesUpdate",
-//   async (data) => {
-//     return data;
-//   }
-// );
-// export const updateTeamRatesForHorseRacing = createAsyncThunk<any, any>(
-//   "horseRacing/teamRatesUpdate",
-//   async (data) => {
-//     return data;
-//   }
-// );
 export const resultDragonTiger = createAsyncThunk<any, any>(
   "result/placeBetDragonTiger",
   async (requestData, thunkApi) => {
@@ -221,12 +192,6 @@ export const transactionProviderBets = createAsyncThunk<any, any>(
     }
   }
 );
-// export const updateTeamRatesForHorseRacingOnDelete = createAsyncThunk<any, any>(
-//   "horseRacing/teamRatesUpdateOnDelete",
-//   async (data) => {
-//     return data;
-//   }
-// );
 export const updateCardMatchRates = createAsyncThunk<any, any>(
   "dt20/matchRatesUpdate",
   async (data) => {

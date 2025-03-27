@@ -13,7 +13,6 @@ const RowComponentMatches = ({
   index,
   selectedId,
   betData,
-  // sessionBetData,
   getBetReport,
 }: any) => {
   const { totalBetProfitLossCard } = useSelector(

@@ -1,9 +1,7 @@
 import SecureAuthVerificationComponent from "../../../components/secureAuthVerification";
 
 const SecureAuthVerification = () => {
-  return (
-    <SecureAuthVerificationComponent/>
-  );
-}
+  return <SecureAuthVerificationComponent />;
+};
 
 export default SecureAuthVerification;

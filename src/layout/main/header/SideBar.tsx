@@ -89,7 +89,6 @@ const SideBar = ({ mobileShow, handleDrawerToggle }: any) => {
             }}
           >
             <Typography
-              //   variant="menuListHeader"
               sx={{
                 fontSize: {
                   lg: showSideBarMobile ? "18px" : "16px",
@@ -156,7 +155,6 @@ const SideBar = ({ mobileShow, handleDrawerToggle }: any) => {
           }}
         ></Box>
         <Typography
-          //   variant="menuListItem"
           sx={{
             fontSize: {
               lg: showSideBarMobile ? "15px" : "13px",

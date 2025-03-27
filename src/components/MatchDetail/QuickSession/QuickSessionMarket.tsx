@@ -81,20 +81,11 @@ const QuickSessionMarket = ({
             >
               {title}
             </Typography>
-            {/* {showFast && (
-              <FastTime
-                session={session}
-                setFastAmount={setFastAmount}
-                setShowFastTimeBox={setShowFastTimeBox}
-                data={fastAmount ? currencyFormatter(fastAmount) : ""}
-              />
-            )} */}
           </Box>
           <Box
             sx={{
               flex: 0.1,
               background: "#262626",
-              // '#262626'
             }}
           >
             <div className="slanted"></div>
@@ -103,7 +94,6 @@ const QuickSessionMarket = ({
             sx={{
               flex: 1,
               background: "#262626",
-              // '#262626' ,
               display: "flex",
               alignItems: "center",
               justifyContent: {
@@ -186,8 +176,6 @@ const QuickSessionMarket = ({
                     }}
                   >
                     MIN:{minBet}
-                    {/* MAX:
-                    {maxBet} */}
                   </Typography>
                 </Box>
                 <Box
@@ -323,7 +311,6 @@ const QuickSessionMarket = ({
                       }}
                     >
                       <QuickSessionMarketBox
-                        // betStatus={false}
                         index={index}
                         upcoming={upcoming}
                         closeModal={

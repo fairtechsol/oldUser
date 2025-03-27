@@ -2,18 +2,6 @@ import { Box, Typography } from "@mui/material";
 import React from "react";
 
 const SmallBoxSeason = ({ allBetsData }: any) => {
-  // function countObjectsWithNullDeletedReason(array:any) {
-  //   let count = 0;
-  //   for (const obj of array) {
-  //     if (obj?.deleteReason === null) {
-  //       count++;
-  //     }
-  //   }
-  //   return count;
-  // }
-
-  // // Call the function and get the count
-  // const countNullDeletedReason = countObjectsWithNullDeletedReason(sessionBets);
   return (
     <Box
       sx={{
@@ -96,9 +84,11 @@ const SmallBoxSeason = ({ allBetsData }: any) => {
             lineHeight: "1.5",
           }}
         >
-          {new Intl.NumberFormat("en-IN").format(allBetsData?.reduce((accumulator: any, bet: any) => {
-            return accumulator + (+bet?.maxLoss || 0);
-          }, 0))}
+          {new Intl.NumberFormat("en-IN").format(
+            allBetsData?.reduce((accumulator: any, bet: any) => {
+              return accumulator + (+bet?.maxLoss || 0);
+            }, 0)
+          )}
         </Typography>
       </Box>
     </Box>

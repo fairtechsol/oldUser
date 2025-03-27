@@ -1,8 +1,8 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { memo } from "react";
 import { ARROW_DOWN, ARROW_UP, ArrowDown, Cricket } from "../../../assets";
-import StyledImage from "../../Common/StyledImages";
 import { formatToINR } from "../../../helper";
+import StyledImage from "../../Common/StyledImages";
 
 const RowHeaderMatches = ({ item, getHandleReport, show }: any) => {
   const theme = useTheme();

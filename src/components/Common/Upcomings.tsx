@@ -5,7 +5,6 @@ import isMobile from "../secureAuthVerification/container/isMobile";
 
 const Upcomings = (props: any) => {
   const { match, timeLeft, upcoming } = props;
-  // console.log(upcoming , "up");
   return (
     <Box
       sx={{
@@ -45,14 +44,19 @@ const Upcomings = (props: any) => {
       </Box>
       <div style={{ background: "#f1c550" }}>
         {location.pathname === "/inplay" && (
-          <img className="inplayicon" src={IconConstants[match?.matchType]} alt="Inplay Icon" width={25} height={25} />
+          <img
+            className="inplayicon"
+            src={IconConstants[match?.matchType]}
+            alt="Inplay Icon"
+            width={25}
+            height={25}
+          />
         )}
       </div>
       <Box
         sx={{
           flex: 0.1,
           background: "#262626",
-          // '#262626'
         }}
       >
         <div className="slanted"></div>
@@ -82,8 +86,8 @@ const Upcomings = (props: any) => {
               alignSelf: "flex-end",
               visibility:
                 Number(timeLeft) === 0 &&
-                  Number(timeLeft) === 0 &&
-                  Number(timeLeft) === 0
+                Number(timeLeft) === 0 &&
+                Number(timeLeft) === 0
                   ? "hidden"
                   : "visible",
             }}

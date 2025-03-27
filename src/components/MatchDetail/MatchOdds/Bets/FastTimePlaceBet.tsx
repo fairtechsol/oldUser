@@ -11,9 +11,6 @@ import { AppDispatch, RootState } from "../../../../store/store";
 import { ApiConstants } from "../../../../utils/Constants";
 import NotificationModal from "../../../Common/NotificationModal";
 import NumberData from "./NumberDataFastTime";
-// import MUIModal from "@mui/material/Modal";
-// import Loader from "../../../Loader";
-// import { NOT } from "../../../../assets";
 
 const FastTimePlaceBet = ({
   session,
@@ -23,8 +20,7 @@ const FastTimePlaceBet = ({
   fromOdds,
   selectedValue,
   matchOddsData,
-}: // setShowFastTimeBox,
-any) => {
+}: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const { success, loading, betPlaceError } = useSelector(
@@ -211,10 +207,7 @@ any) => {
 
   return (
     <>
-      {/* {loading && <SmallCustomLoader height="100%" />} */}
-
       <Box
-        // ref={refs}
         ref={myDivRef}
         sx={[
           {
@@ -247,18 +240,12 @@ any) => {
 
           {
             <>
-              {/* {matchOddsData?.isSingle === false || matchOddsData?.teamB_suspend !== "suspended" ? ( */}
               {matchOddsData?.statusTeamC === "active" ||
               (matchOddsData.statusTeamA === "active" &&
                 matchOddsData.statusTeamB === "active") ? (
-                // ||
-                //   ((matchOddsData?.teamA_suspend === null || false) &&
-                //     (matchOddsData?.teamB_suspend === null || false))
                 <>
                   <Box
                     sx={{
-                      // display: "flex",
-                      // marginTop: "15px",
                       marginX: "2px",
                       flexWrap: "wrap",
                       width: { lg: "49.1%", xs: "48%" },
@@ -271,13 +258,10 @@ any) => {
                     <Box
                       sx={{
                         display: "flex",
-                        // marginTop: "15px",
                         ml: "6px",
                         flexWrap: "wrap",
                         maxWidth: "100%",
                         flex: 1,
-                        // border: "1px solid black",
-                        // padding: "0.5rem",
                         marginBottom: "5px",
                         textAlign: "center",
                       }}
@@ -299,13 +283,10 @@ any) => {
                     <Box
                       sx={{
                         display: "flex",
-                        // marginTop: "15px",
                         marginX: "2px",
                         flexWrap: "wrap",
                         maxWidth: "100%",
                         flex: 1,
-                        // border: "1px solid black",
-                        // padding: "0.5rem",
                         gap: { xs: "3px", lg: 1, md: 1 },
                       }}
                     >
@@ -369,8 +350,6 @@ any) => {
 
                   <Box
                     sx={{
-                      // display: "flex",
-                      // marginTop: "15px",
                       marginX: "2px",
                       flexWrap: "wrap",
                       width: { lg: "49.1%", xs: "48%" },
@@ -383,13 +362,10 @@ any) => {
                     <Box
                       sx={{
                         display: "flex",
-                        // marginTop: "15px",
                         ml: "6px",
                         flexWrap: "wrap",
                         maxWidth: "100%",
                         flex: 1,
-                        // border: "1px solid black",
-                        // padding: "0.5rem",
                         marginBottom: "5px",
                         textAlign: "center",
                       }}
@@ -411,13 +387,10 @@ any) => {
                     <Box
                       sx={{
                         display: "flex",
-                        // marginTop: "15px",
                         marginX: "2px",
                         flexWrap: "wrap",
                         maxWidth: "100%",
                         flex: 1,
-                        // border: "1px solid black",
-                        // padding: "0.5rem",
                         gap: { xs: "3px", lg: 1, md: 1 },
                       }}
                     >
@@ -480,8 +453,6 @@ any) => {
                     matchOddsData?.type !== "completeManual" && (
                       <Box
                         sx={{
-                          // display: "flex",
-                          // marginTop: "15px",
                           marginX: "2px",
                           flexWrap: "wrap",
                           width: { lg: "49.1%", xs: "48%" },
@@ -495,13 +466,10 @@ any) => {
                         <Box
                           sx={{
                             display: "flex",
-                            // marginTop: "15px",
                             ml: "6px",
                             flexWrap: "wrap",
                             maxWidth: "100%",
                             flex: 1,
-                            // border: "1px solid black",
-                            // padding: "0.5rem",
                             marginBottom: "5px",
                             textAlign: "center",
                           }}
@@ -520,13 +488,10 @@ any) => {
                         <Box
                           sx={{
                             display: "flex",
-                            // marginTop: "15px",
                             marginX: "2px",
                             flexWrap: "wrap",
                             maxWidth: "100%",
                             flex: 1,
-                            // border: "1px solid black",
-                            // padding: "0.5rem",
                             gap: { xs: "3px", lg: 1, md: 1 },
                           }}
                         >
@@ -587,7 +552,6 @@ any) => {
                   <Box
                     sx={{
                       display: "flex",
-                      // marginTop: "15px",
                       marginX: "2px",
                       flexWrap: "wrap",
                       maxWidth: "50%",
@@ -663,7 +627,6 @@ any) => {
                   <Box
                     sx={{
                       display: "flex",
-                      // marginY: "8px",
                       marginX: "2px",
                       flexWrap: "wrap",
                       maxWidth: "50%",
@@ -745,7 +708,6 @@ any) => {
 
       {session === "sessionOdds" && (
         <Box
-          // ref={refs}
           ref={myDivRef}
           sx={[
             {
@@ -765,8 +727,6 @@ any) => {
               width: { xs: "100%", lg: "100%" },
               overflow: "hidden",
               display: "flex",
-
-              // justifyContent: "center",
               flexDirection: "row",
               alignItems: "center",
               paddingY: "8px",
@@ -777,182 +737,35 @@ any) => {
             )}
             {
               <>
-                <>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      // marginTop: "15px",
-                      marginX: "2px",
-                      flexWrap: "wrap",
-                      maxWidth: "50%",
-                      flex: 1,
-                      gap: { xs: "3px", lg: 1, md: 1 },
-                    }}
-                  >
-                    {/* {matchButtonList.length > 0 &&
-                      matchButtonList?.map((v: any, index: any) => (
-                        <NumberData
-                          key={index}
-                          containerStyle={{
-                            marginLeft: "2px",
-                            flex: 1,
-                            background: selectedFastAmount === v && "#FF4949",
-                            borderRadius: "5px",
-                            border: "2px solid white",
-                          }}
-                          value={v.value}
-                          lable={v.lable}
-                          type={"back"}
-                          session={session}
-                          teamSuspend={data?.suspended}
-                          odds={data?.no_rate}
-                          typeOfBet={typeOfBet}
-                          backgroundColor={"#FFB5B5"}
-                          matchOddsData={matchOddsData}
-                          data={data}
-                          placeIndex={2}
-                            handleAmountClick={handleAmountClick}
-                          setShowFastTimeBox={setShowFastTimeBox}
-                        />
-                      ))} */}
-                  </Box>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      // marginY: "8px",
-                      marginX: "2px",
-                      flexWrap: "wrap",
-                      maxWidth: "50%",
-                      flex: 1,
-                      gap: { xs: "3px", lg: 1, md: 1 },
-                    }}
-                  >
-                    {/* {matchButtonList.length > 0 &&
-                      matchButtonList?.map((v: any, index: any) => (
-                        <NumberData
-                          key={index}
-                          containerStyle={{
-                            marginLeft: "2px",
-                            flex: 1,
-                            background: selectedFastAmount === v && "#FF4949",
-                            borderRadius: "5px",
-                            border: "2px solid white",
-                          }}
-                          value={v.value}
-                          lable={v.lable}
-                          type={"lay"}
-                          session={session}
-                          teamSuspend={data?.suspended}
-                          odds={data?.YES_rate}
-                          typeOfBet={typeOfBet}
-                          backgroundColor={"#A7DCFF"}
-                          matchOddsData={matchOddsData}
-                          data={data}
-                          placeIndex={1}
-                            handleAmountClick={handleAmountClick}
-                          setShowFastTimeBox={setShowFastTimeBox}
-                        />
-                      ))} */}
-                  </Box>
-                </>
+                <Box
+                  sx={{
+                    display: "flex",
+                    marginX: "2px",
+                    flexWrap: "wrap",
+                    maxWidth: "50%",
+                    flex: 1,
+                    gap: { xs: "3px", lg: 1, md: 1 },
+                  }}
+                />
+                <Box
+                  sx={{
+                    display: "flex",
+                    marginX: "2px",
+                    flexWrap: "wrap",
+                    maxWidth: "50%",
+                    flex: 1,
+                    gap: { xs: "3px", lg: 1, md: 1 },
+                  }}
+                />
               </>
             }
           </Box>
         </Box>
       )}
 
-      {canceled.value && (
-        <NotificationModal
-        // time={
-        //   typeOfBet == "MATCH ODDS"
-        //     ? currentMatch?.delaySecond
-        //       ? currentMatch?.delaySecond
-        //       : 0
-        //     : 0
-        // }
-        // open={canceled}
-        // handleClose={() =>
-        //   setCanceled({
-        //     value: false,
-        //     msg: "",
-        //     loading: false,
-        //     type: false,
-        //   })
-        // }
-        />
-      )}
+      {canceled.value && <NotificationModal />}
       {openModal && <NotificationModal />}
       {openModal1 && <NotificationModal />}
-      {/* <MUIModal
-        open={openModal}
-        // onClose={() => {
-        //   setIsPopoverOpen(false);
-        // }}
-      >
-        <Box
-          sx={{
-            width: "100%",
-            height: "300px",
-            position: "absolute",
-            display: "flex",
-            alignItems: "center",
-            top: "33%",
-            overflow: "hidden",
-            justifyContent: "center",
-            outline: "none",
-          }}
-        >
-          <Loader />
-        </Box>
-      </MUIModal>
-      <MUIModal
-        open={openModal1}
-        // onClose={() => {
-        //   setIsPopoverOpen(false);
-        // }}
-      >
-        <Box
-          sx={{
-            width: "100%",
-            height: "300px",
-            position: "absolute",
-            display: "flex",
-            alignItems: "center",
-            top: "33%",
-            overflow: "hidden",
-            justifyContent: "center",
-            outline: "none",
-          }}
-        >
-          <Box
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              width: "200px",
-              // flex: 1,
-              height: "160px",
-              alignItems: "center",
-              flexDirection: "column",
-              // marginTop: "70px",
-              backgroundColor: "#fff",
-              borderRadius: "10px",
-            }}
-          >
-            <img src={NOT} width={"50"} height={"50px"} />
-            <Typography
-              sx={{
-                fontSize: "15px",
-                fontWeight: "500",
-                color: "#000",
-                textAlign: "center",
-                margin: "10px",
-              }}
-            >
-              {error}
-            </Typography>
-          </Box>
-        </Box>
-      </MUIModal> */}
     </>
   );
 };

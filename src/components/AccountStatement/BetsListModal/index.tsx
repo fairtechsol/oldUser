@@ -125,20 +125,20 @@ const BetsListModal = ({
                     placeholder="Select Casino Type"
                     InputProps={{
                       ...params.InputProps,
-                      sx: { padding: 0, display: "flex", alignItems: "center" }, // Align text and icon center
+                      sx: { padding: 0, display: "flex", alignItems: "center" },
                     }}
                   />
                 )}
                 sx={{
                   display: "flex",
-                  alignItems: "center", // Align dropdown items center
+                  alignItems: "center",
                   "& .MuiOutlinedInput-root": {
-                    padding: 0, // Remove unnecessary padding
+                    padding: 0,
                     display: "flex",
-                    alignItems: "center", // Ensure input content is centered
+                    alignItems: "center",
                   },
                   "& .MuiAutocomplete-input": {
-                    textAlign: "center", // Center text inside input
+                    textAlign: "center",
                   },
                 }}
               />
@@ -173,7 +173,7 @@ const BetsListModal = ({
             <>
               <Box sx={{ overflowX: "scroll", width: "100%" }}>
                 <ListHeaderTModal />
-                {updatedReport?.length === 0 ? ( // Check if no records
+                {updatedReport?.length === 0 ? (
                   <EmptyRow containerStyle={{ background: "#FFE094" }} />
                 ) : (
                   updatedReport?.map((item: any, index: number) => (

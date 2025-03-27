@@ -1,24 +1,14 @@
 import { Box } from "@mui/material";
-import SingleBox from "./SingleBox";
-import { RootState } from "../../../store/store";
-import { useSelector } from "react-redux";
 import moment from "moment";
+import { useSelector } from "react-redux";
 import { formatToINR } from "../../../helper";
+import { RootState } from "../../../store/store";
+import SingleBox from "./SingleBox";
 
 const RowComponent = ({ header, data }: any) => {
   const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
   );
-  // const getTime = (date: any) => {
-  //   const now = new Date(date);
-  //   const timeString = now.toLocaleTimeString("en-US", {
-  //     hour: "numeric",
-  //     minute: "numeric",
-  //     hour12: true,
-  //     second: "numeric"
-  //   });
-  //   return timeString;
-  // };// fixed timeZone
   const getTime = (date: any) => {
     const timeString = moment
       .utc(date)
@@ -30,10 +20,8 @@ const RowComponent = ({ header, data }: any) => {
     if (header) {
       return "black";
     } else if (data?.betType === "BACK" || data?.betType == "YES") {
-      // return "#00C0F9";
       return "#CEEBFF";
     } else if (data?.betType === "LAY" || data?.betType == "NO") {
-      // return "#FF9292";
       return "#F2CBCB";
     }
   };
@@ -47,7 +35,6 @@ const RowComponent = ({ header, data }: any) => {
         alignItems: "center",
         display: "flex",
         gap: "1px",
-        // marginTop: "1px"
         marginBottom: { xs: "1px", lg: "1px" },
       }}
     >

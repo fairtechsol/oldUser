@@ -10,9 +10,6 @@ const NumberData = ({
   return (
     <Box
       onClick={() => {
-        // setNewRatesValue(
-        //   value?.value
-        // );
         setNewRatesValue({
           lossAmount: value?.value,
           winAmount: value?.value,

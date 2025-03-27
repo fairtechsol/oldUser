@@ -30,7 +30,6 @@ const CustomHeader = () => {
 
   const marqueeTextRef = useRef<HTMLDivElement | null>(null);
 
-
   useEffect(() => {
     if (!matchesMobile) {
       setMobileOpen(false);
@@ -55,7 +54,6 @@ const CustomHeader = () => {
       window.removeEventListener("offline", offlineHandler);
     };
   }, []);
-
 
   useEffect(() => {
     const marqueeText = marqueeTextRef.current;
@@ -93,11 +91,9 @@ const CustomHeader = () => {
             </Typography>
           </Box>
         )}
-        {/* <CustomLoader height={"100%"} /> */}
       </Box>
 
       <AppBar position="fixed" sx={{ zIndex: 999 }}>
-        {/* <IdleTimer role="user" /> */}
         {!isOnline && (
           <Box
             sx={{
@@ -129,7 +125,6 @@ const CustomHeader = () => {
               flexDirection: matchesMobile ? "column" : "row",
               alignItems: !matchesMobile ? "center" : "flex-start",
               justifyContent: "space-between",
-              // paddingLeft: { lg: "6.5%" },
               paddingRight: { lg: "1%" },
               paddingX: { xs: "2%", lg: "1%" },
               paddingY: matchesMobile ? "5px" : "0px",
@@ -247,6 +242,3 @@ const CustomHeader = () => {
 };
 
 export default memo(CustomHeader);
-// function dispatch(arg0: any) {
-//   throw new Error("Function not implemented.");
-// }

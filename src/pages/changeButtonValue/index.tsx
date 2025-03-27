@@ -1,10 +1,10 @@
 import { Box } from "@mui/material";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import MatchValues from "../../components/ChangeValueButtons/MatchValues";
 import SessionValue from "../../components/ChangeValueButtons/SessionValue";
-import { AppDispatch } from "../../store/store";
-import { useDispatch } from "react-redux";
 import { getButtonValue } from "../../store/actions/user/userAction";
-import { useEffect } from "react";
+import { AppDispatch } from "../../store/store";
 
 const ChangeButtonValue = () => {
   const dispatch: AppDispatch = useDispatch();

@@ -128,26 +128,9 @@ const ManualBoxComponent = ({
             alignItems: "center",
           }}
         >
-          {/* {name != "DRAW" ? (
-            <></>
-          ) : (
-            <><img
-                // src={name == "INDIA" ? INDIA : PAKISTAN}
-                style={{
-                  width: "22px",
-                  height: "25px",
-                  marginLeft: "10px",
-                  backgroundSize: "contains",
-                }}
-                alt="draw" /><Box
-                  sx={{ width: "22px", height: "25px", marginLeft: "10px" }}
-                ></Box></>
-          )} */}
-
           {teamImage != null && (
             <>
               <img
-                // src={`${apiBasePath}/${teamImage}`}
                 style={{
                   width: "22px",
                   height: "25px",
@@ -156,9 +139,7 @@ const ManualBoxComponent = ({
                 }}
                 alt={name}
               />
-              <Box
-                sx={{ width: "22px", height: "25px", marginLeft: "10px" }}
-              ></Box>
+              <Box sx={{ width: "22px", height: "25px", marginLeft: "10px" }} />
             </>
           )}
           <Typography
@@ -183,7 +164,7 @@ const ManualBoxComponent = ({
             <Box
               sx={{
                 background: "#000",
-                height:"100%",
+                height: "100%",
                 position: "absolute",
                 right: 0,
                 top: 0,
@@ -235,7 +216,6 @@ const ManualBoxComponent = ({
               }}
             >
               {ballStatus ? null : (
-                // <img src={BallStart} style={{ width: '113px', height: "32px" }} />
                 <Typography
                   sx={{
                     fontSize: { xs: "12px", lg: "22px" },
@@ -346,7 +326,6 @@ const ManualBoxComponent = ({
                         : true
                     }
                     rates={allRates}
-                    // value={matchOddsData?.back ? matchOddsData?.back - 1 : 0}
                     value={
                       matchOddsData?.back
                         ? handleDecimal(
@@ -386,7 +365,6 @@ const ManualBoxComponent = ({
                   back={true}
                   currentMatch={newData}
                   betType={"back"}
-                  // lock={lock}
                   lock={matchOddsData?.back > 0 ? false : true}
                   rates={allRates}
                   value={matchOddsData?.back ? +matchOddsData?.back : 0}
@@ -403,7 +381,7 @@ const ManualBoxComponent = ({
 
                 <Box
                   sx={{ width: ".25%", display: "flex", background: "pink" }}
-                ></Box>
+                />
 
                 <SeparateModal
                   closeModal={ballStatus}
@@ -505,7 +483,6 @@ const ManualBoxComponent = ({
                         ? false
                         : true
                     }
-                    // value={matchOddsData?.lay ? matchOddsData?.lay + 2 : 0}
                     value={
                       matchOddsData?.lay
                         ? handleDecimal(
@@ -529,7 +506,7 @@ const ManualBoxComponent = ({
                 )}
                 <Box
                   sx={{ width: ".25%", display: "flex", background: "pink" }}
-                ></Box>
+                />
               </Box>
             </>
           )}

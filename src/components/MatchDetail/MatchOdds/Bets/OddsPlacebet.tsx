@@ -1,5 +1,4 @@
 import { Typography, useMediaQuery, useTheme } from "@mui/material";
-// import MUIModal from "@mui/material/Modal";
 import { Box } from "@mui/system";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -75,7 +74,7 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
   });
   const buttonToShow: any =
     Object.values(sessionBettingType)?.includes(selectedBet?.data?.type) &&
-      selectedBet?.data?.type != "tournament"
+    selectedBet?.data?.type != "tournament"
       ? sessionButtonValues
       : matchButtonValues;
 
@@ -138,12 +137,12 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
         selectedBet?.team?.type === "no" || selectedBet?.team?.type === "lay"
           ? value
           : [
-            sessionBettingType.cricketCasino,
-            sessionBettingType.fancy1,
-            sessionBettingType.oddEven,
-          ].includes(selectedBet?.data?.type)
-            ? value * (parseFloat(selectedBet?.team?.percent) - 1)
-            : (value * selectedBet?.team?.percent) / 100;
+              sessionBettingType.cricketCasino,
+              sessionBettingType.fancy1,
+              sessionBettingType.oddEven,
+            ].includes(selectedBet?.data?.type)
+          ? value * (parseFloat(selectedBet?.team?.percent) - 1)
+          : (value * selectedBet?.team?.percent) / 100;
     } else if (
       ["matchOdd", "tiedMatch1", "completeMatch", "tournament"].includes(
         selectedBet?.data?.type
@@ -185,12 +184,12 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
         selectedBet?.team?.type === "yes" || selectedBet?.team?.type === "back"
           ? value
           : [
-            sessionBettingType.cricketCasino,
-            sessionBettingType.fancy1,
-            sessionBettingType.oddEven,
-          ].includes(selectedBet?.data?.type)
-            ? value * (parseFloat(selectedBet?.team?.percent) - 1)
-            : (value * selectedBet?.team?.percent) / 100;
+              sessionBettingType.cricketCasino,
+              sessionBettingType.fancy1,
+              sessionBettingType.oddEven,
+            ].includes(selectedBet?.data?.type)
+          ? value * (parseFloat(selectedBet?.team?.percent) - 1)
+          : (value * selectedBet?.team?.percent) / 100;
     } else if (
       ["matchOdd", "tiedMatch1", "completeMatch", "tournament"].includes(
         selectedBet?.data?.type
@@ -421,8 +420,9 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
             containerStyle={{ flex: season ? { xs: 2.5, lg: 2 } : 1 }}
             value={
               selectedBet?.data?.type === "khado"
-                ? `${selectedBet?.team?.name ?? selectedBet?.team?.betOnTeam}-${selectedBet?.data.ex?.availableToLay[0]?.price
-                }`
+                ? `${selectedBet?.team?.name ?? selectedBet?.team?.betOnTeam}-${
+                    selectedBet?.data.ex?.availableToLay[0]?.price
+                  }`
                 : selectedBet?.team?.name ?? selectedBet?.team?.betOnTeam
             }
           />
@@ -434,14 +434,6 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
             }}
             value={selectedBet?.team?.rate}
             containerStyle={{ marginLeft: "2px", flex: 1 }}
-          // onChange={(e:any) => {
-          //   dispatch(
-          //     selectedBetAction({
-          //       ...selectedBet,
-          //       team: { ...selectedBet?.team, stake: +e.target.value },
-          //     })
-          //   );
-          // }}
           />
           <TeamsOdssData
             title={"Back/Lay"}
@@ -513,12 +505,10 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
           }}
         >
           <button
-            // style={classes.CustomButton_Btn("#262626")}
             style={{
               color: "#FFF",
               backgroundColor: "#FF4949",
               width: "150px",
-              // width: { lg: "150px", xs: "130px" },
               height: "35px",
               borderRadius: "5px",
               border: "2px solid white",
@@ -542,7 +532,6 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
               backgroundColor: "#262626",
               width: "150px",
               cursor: loading || !stakeValue ? "not-allowed" : "pointer",
-              // width: { lg: "150px", xs: "130px" },
               height: "35px",
               borderRadius: "5px",
               border: "2px solid white",
@@ -554,61 +543,8 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
         </Box>
       </Box>
 
-      {(loading || matchOddLoading) && (
-        <NotificationModal
-        // open={{ value: true, loading: loading }}
-        // handleClose={""}
-        />
-      )}
+      {(loading || matchOddLoading) && <NotificationModal />}
       {openModal1 && <NotificationModal />}
-      {/* <MUIModal
-        open={openModal1}
-        // onClose={() => {
-        //   setIsPopoverOpen(false);
-        // }}
-      >
-        <Box
-          sx={{
-            width: "100%",
-            height: "300px",
-            position: "absolute",
-            display: "flex",
-            alignItems: "center",
-            top: "33%",
-            overflow: "hidden",
-            justifyContent: "center",
-            outline: "none",
-          }}
-        >
-          <Box
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              width: "200px",
-              // flex: 1,
-              height: "160px",
-              alignItems: "center",
-              flexDirection: "column",
-              // marginTop: "70px",
-              backgroundColor: "#fff",
-              borderRadius: "10px",
-            }}
-          >
-            <img src={NOT} width={"50"} height={"50px"} />
-            <Typography
-              sx={{
-                fontSize: "15px",
-                fontWeight: "500",
-                color: "#000",
-                textAlign: "center",
-                margin: "10px",
-              }}
-            >
-              {errorText}
-            </Typography>
-          </Box>
-        </Box>
-      </MUIModal> */}
     </Box>
   );
 };

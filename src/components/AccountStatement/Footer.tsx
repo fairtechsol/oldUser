@@ -1,8 +1,11 @@
 import { Box, Typography } from "@mui/material";
 import { PaginationInterface } from "../../interface/common";
 
-const Footer = (props: PaginationInterface) => {
-  const { currentPage, pages, setCurrentPage } = props;
+const Footer = ({
+  currentPage,
+  pages,
+  setCurrentPage,
+}: PaginationInterface) => {
   return (
     <Box
       sx={{

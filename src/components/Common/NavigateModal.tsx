@@ -1,8 +1,8 @@
 import { Button, Modal } from "react-bootstrap";
 import { IoCloseCircle } from "react-icons/io5";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { changePasswordReset } from "../../store/actions/auth/authAction";
-import { useDispatch } from "react-redux";
 
 const NavigateModal = ({
   modalTitle,

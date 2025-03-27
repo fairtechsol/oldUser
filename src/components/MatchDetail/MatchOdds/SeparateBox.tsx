@@ -35,11 +35,15 @@ const SeparateBox = ({ color, empty, value, value2, lock, boxWidth }: any) => {
       {!empty && !lock && (
         <Box sx={classes.emptylockWrapper}>
           <Typography sx={classes.value1}>{value}</Typography>
-         {value2? <Typography sx={classes.value2}>
-            {value2 >= 1000
-              ? (value2 / 1000)?.toFixed(1) + "k"
-              : value2?.toString()}
-          </Typography>:""}
+          {value2 ? (
+            <Typography sx={classes.value2}>
+              {value2 >= 1000
+                ? (value2 / 1000)?.toFixed(1) + "k"
+                : value2?.toString()}
+            </Typography>
+          ) : (
+            ""
+          )}
         </Box>
       )}
       {lock && <img src={Lock} style={classes.lockImage} alt="Lock" />}

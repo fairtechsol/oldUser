@@ -162,7 +162,7 @@ const AccountStatementModal = ({
             <>
               <Box sx={{ overflowX: "scroll", width: "100%" }}>
                 <ListHeaderTModal />
-                {placedBetsAccountStatement.length > 0 ? ( // Check if no records
+                {placedBetsAccountStatement.length > 0 ? (
                   <EmptyRow containerStyle={{ background: "#FFE094" }} />
                 ) : (
                   placedBetsAccountStatement?.length >= 0 &&

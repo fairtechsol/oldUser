@@ -70,7 +70,6 @@ const BoxComponent = ({
           {teamImage != null && (
             <>
               <img
-                // src={`${apiBasePath}/${teamImage}`}
                 style={{
                   width: "22px",
                   height: "25px",
@@ -79,9 +78,7 @@ const BoxComponent = ({
                 }}
                 alt={name}
               />
-              <Box
-                sx={{ width: "22px", height: "25px", marginLeft: "10px" }}
-              ></Box>
+              <Box sx={{ width: "22px", height: "25px", marginLeft: "10px" }} />
             </>
           )}
           <Typography
@@ -192,7 +189,6 @@ const BoxComponent = ({
               setFastRate={setFastRate}
               fastRate={fastRate}
               sessionMain={sessionMain}
-              // setPlaceBetData={setPlaceBetData}
               setFastAmount={setFastAmount}
               selectedFastAmount={selectedFastAmount}
               fromOdds={fromOdds}
@@ -233,9 +229,7 @@ const BoxComponent = ({
               selectionId={selectionId}
             />
           )}
-          <Box
-            sx={{ width: ".25%", display: "flex", background: "pink" }}
-          ></Box>
+          <Box sx={{ width: ".25%", display: "flex", background: "pink" }} />
           {!matchesMobile && (
             <SeparateModal
               selectionId={selectionId}
@@ -267,7 +261,6 @@ const BoxComponent = ({
               placeBetData={placeBetData}
               setFastRate={setFastRate}
               fastRate={fastRate}
-              // setPlaceBetData={setPlaceBetData}
               sessionMain={sessionMain}
               setFastAmount={setFastAmount}
               selectedFastAmount={selectedFastAmount}
@@ -303,9 +296,7 @@ const BoxComponent = ({
               upcoming={upcoming}
             />
           )}
-          <Box
-            sx={{ width: ".25%", display: "flex", background: "pink" }}
-          ></Box>
+          <Box sx={{ width: ".25%", display: "flex", background: "pink" }} />
 
           <SeparateModal
             closeModal={
@@ -342,7 +333,6 @@ const BoxComponent = ({
             placeBetData={placeBetData}
             setFastRate={setFastRate}
             fastRate={fastRate}
-            // setPlaceBetData={setPlaceBetData}
             sessionMain={sessionMain}
             setFastAmount={setFastAmount}
             back={true}
@@ -383,9 +373,7 @@ const BoxComponent = ({
             selectionId={selectionId}
           />
 
-          <Box
-            sx={{ width: ".25%", display: "flex", background: "pink" }}
-          ></Box>
+          <Box sx={{ width: ".25%", display: "flex", background: "pink" }} />
 
           <SeparateModal
             closeModal={
@@ -416,7 +404,6 @@ const BoxComponent = ({
             placeBetData={placeBetData}
             setFastRate={setFastRate}
             fastRate={fastRate}
-            // setPlaceBetData={setPlaceBetData}
             setFastAmount={setFastAmount}
             selectedFastAmount={selectedFastAmount}
             back={true}
@@ -482,7 +469,6 @@ const BoxComponent = ({
               placeBetData={placeBetData}
               setFastRate={setFastRate}
               fastRate={fastRate}
-              // setPlaceBetData={setPlaceBetData}
               sessionMain={sessionMain}
               setFastAmount={setFastAmount}
               selectedFastAmount={selectedFastAmount}
@@ -549,7 +535,6 @@ const BoxComponent = ({
               placeBetData={placeBetData}
               setFastRate={setFastRate}
               fastRate={fastRate}
-              // setPlaceBetData={setPlaceBetData}
               sessionMain={sessionMain}
               setFastAmount={setFastAmount}
               selectedFastAmount={selectedFastAmount}
@@ -586,9 +571,7 @@ const BoxComponent = ({
               selectionId={selectionId}
             />
           )}
-          <Box
-            sx={{ width: ".25%", display: "flex", background: "pink" }}
-          ></Box>
+          <Box sx={{ width: ".25%", display: "flex", background: "pink" }} />
         </Box>
       )}
     </Box>

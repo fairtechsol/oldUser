@@ -13,13 +13,11 @@ const order: any = {
 
 export const formatNumber = (value: number, isRound: any) => {
   if (value >= 1000) {
-    // return (value / 1000).toFixed(1) + "k";
     return isRound
       ? Math.round(value / 1000) + "k"
       : (value / 1000).toFixed(1) + "k";
   } else {
     return isRound ? Math.round(value) : value;
-    // return value
   }
 };
 
@@ -44,7 +42,6 @@ export const formatToINR = (amount: any) => {
   const formatter = new Intl.NumberFormat("en-IN", {
     currency: "INR",
   });
-  // console.log(amount, "amoutn")
   return formatter.format(parseFloat(amount || 0));
 };
 

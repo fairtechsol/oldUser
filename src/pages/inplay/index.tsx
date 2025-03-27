@@ -197,11 +197,9 @@ const Inplay = () => {
                     <Link
                       to={item.url}
                       key={index}
-                      // onClick={() => dispatch(betPlacedReset())}
                     >
                       <img
                         src={item.url_thumb || item.imgSrc}
-                        // className="img-fluid"
                         alt={item.game_name || item.name}
                         style={{ height: "100px", width: "100%" }}
                         onClick={() => {
@@ -231,7 +229,6 @@ const Inplay = () => {
               <div
                 className="d-flex flex-row align-items-center"
                 onClick={() => {
-                  // navigate("/home");
                   setShow(false);
                 }}
               >

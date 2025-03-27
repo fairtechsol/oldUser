@@ -99,9 +99,7 @@ const SessionComponentMatches = ({
               top: 0,
               right: 5,
             }}
-          >
-            {/* ({moment(item?.betDate).format("DD-MM-YYYY")}) */}
-          </Typography>
+          ></Typography>
 
           <Box
             sx={{
@@ -123,16 +121,6 @@ const SessionComponentMatches = ({
               }}
             >
               {item?.eventName}
-            </Typography>
-            <Typography
-              sx={{
-                fontSize: { lg: "10px", xs: "0" },
-                color: "white",
-                marginLeft: "5px",
-                fontWeight: "600",
-              }}
-            >
-              {/* ({moment(item?.betDate).format("DD-MM-YYYY")}) */}
             </Typography>
           </Box>
         </Box>
@@ -194,7 +182,6 @@ const SessionComponentMatches = ({
               ) : (
                 formatToINR(Number(item.totalLoss).toFixed(2))
               )}
-              {/* {Number(item.totalLoss).toFixed(2)} */}
             </Typography>
             <StyledImage
               src={ArrowDown}

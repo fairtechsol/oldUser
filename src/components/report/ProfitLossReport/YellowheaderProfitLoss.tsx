@@ -74,7 +74,7 @@ const YellowHeaderProfitLoss = ({
                 limit={startDate}
               />
             </Box>
-            <Box sx={{ width: "10px" }}></Box>
+            <Box sx={{ width: "10px" }} />
             <Box
               sx={{
                 width: { xs: "40%", lg: "30%" },

@@ -1,11 +1,10 @@
-import Divider from "../../../helper/Divider";
 import { Box, Typography } from "@mui/material";
+import { memo, useState } from "react";
 import { ARROWUP } from "../../../assets";
-import { memo } from "react";
-import { useState } from "react";
+import Divider from "../../../helper/Divider";
 import { customSort } from "../../../helper/index";
-import SmallBoxSeason from "./SmallBoxSeason";
 import FancyMarketBox from "./FancyMarketBox";
+import SmallBoxSeason from "./SmallBoxSeason";
 
 const FancyMarket = ({
   show,

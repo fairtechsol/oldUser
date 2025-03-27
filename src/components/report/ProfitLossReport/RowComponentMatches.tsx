@@ -138,18 +138,6 @@ const RowComponentMatches = ({
               alt=""
             />
           )}
-          {/* <StyledImage
-              src={ArrowDown}
-              sx={{
-                marginTop: { xs: "5px", lg: "0" },
-                width: { lg: "20px", xs: "10px" },
-                height: { lg: "10px", xs: "6px" },
-                transform:
-                  selectedId === item?.matchId
-                    ? "rotate(180deg)"
-                    : "rotate(0deg)",
-              }}
-            /> */}
         </Box>
         <Box
           onClick={(e) => {
@@ -225,7 +213,7 @@ const RowComponentMatches = ({
                 fontSize: { xs: "10px", lg: "14px" },
                 fontWeight: "700",
                 color: "white",
-                lineHeight: "0.9"
+                lineHeight: "0.9",
               }}
             >
               {formatToINR(Number(item?.rateProfitLoss).toFixed(2))}{" "}

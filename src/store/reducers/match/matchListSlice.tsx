@@ -136,20 +136,6 @@ const matchListSlice = createSlice({
           scoreBoard,
         } = action?.payload;
         state.liveScoreBoardData = scoreBoard?.data;
-
-        // let parsedSessionBettings = state?.matchDetails?.sessionBettings?.map(
-        //   (item: any) => {
-        //     let parsedItem = JSON.parse(item);
-        //     return parsedItem;
-        //   }
-        // );
-
-        // let updatedFormat = convertData(parsedSessionBettings);
-
-        // let updatedSessionBettings = updateSessionBettingsItem(
-        //   updatedFormat,
-        //   apiSession
-        // );
         const parsedSessionBettings =
           state.matchDetails?.sessionBettings?.map(JSON.parse) || [];
         const apiParsedSessionBettings = sessionBettings?.map(JSON.parse) || [];
@@ -222,19 +208,6 @@ const matchListSlice = createSlice({
           scoreBoard,
         } = action?.payload;
         state.liveScoreBoardData = scoreBoard?.data;
-        // let parsedSessionBettings = state?.matchDetails?.sessionBettings?.map(
-        //   (item: any) => {
-        //     let parsedItem = JSON.parse(item);
-        //     return parsedItem;
-        //   }
-        // );
-
-        // let updatedFormat = convertData(parsedSessionBettings);
-
-        // let updatedSessionBettings = updateSessionBettingsItem(
-        //   updatedFormat,
-        //   apiSession
-        // );
         const parsedSessionBettings =
           state.matchDetails?.sessionBettings?.map(JSON.parse) || [];
         const apiParsedSessionBettings = sessionBettings?.map(JSON.parse) || [];
@@ -320,9 +293,8 @@ const matchListSlice = createSlice({
             ...state.matchDetails,
             profitLossDataMatch: {
               ...state.matchDetails.profitLossDataMatch,
-              [betId + "_profitLoss_" + matchId]: JSON.stringify(
-                newTeamRateData
-              ),
+              [betId + "_profitLoss_" + matchId]:
+                JSON.stringify(newTeamRateData),
             },
           };
         } else {
@@ -340,8 +312,8 @@ const matchListSlice = createSlice({
       .addCase(updateMaxLossForBet.fulfilled, (state, action) => {
         const { betPlaced, profitLossData } = action?.payload;
         if (state?.matchDetails?.id === betPlaced?.placedBet?.matchId) {
-          const updatedProfitLossDataSession = state?.matchDetails?.profitLossDataSession?.map(
-            (item: any) => {
+          const updatedProfitLossDataSession =
+            state?.matchDetails?.profitLossDataSession?.map((item: any) => {
               if (item?.betId === betPlaced?.placedBet?.betId) {
                 return {
                   ...item,
@@ -351,8 +323,7 @@ const matchListSlice = createSlice({
                 };
               }
               return item;
-            }
-          );
+            });
 
           const betIndex = updatedProfitLossDataSession?.findIndex(
             (item: any) => item?.betId === betPlaced?.placedBet?.betId
@@ -376,8 +347,8 @@ const matchListSlice = createSlice({
       .addCase(updateProfitLossOnDeleteSession.fulfilled, (state, action) => {
         const { betId, profitLoss, matchId } = action?.payload;
         if (state?.matchDetails?.id === matchId) {
-          const updatedProfitLossDataSession = state?.matchDetails?.profitLossDataSession?.map(
-            (item: any) => {
+          const updatedProfitLossDataSession =
+            state?.matchDetails?.profitLossDataSession?.map((item: any) => {
               if (item?.betId === betId) {
                 return {
                   ...item,
@@ -387,8 +358,7 @@ const matchListSlice = createSlice({
                 };
               }
               return item;
-            }
-          );
+            });
 
           state.matchDetails = {
             ...state.matchDetails,
@@ -399,9 +369,10 @@ const matchListSlice = createSlice({
       .addCase(updateBetDataOnDeclare.fulfilled, (state, action) => {
         const { betId, matchId } = action?.payload;
         if (state?.matchDetails?.id === matchId) {
-          const updatedProfitLossDataSession = state?.matchDetails?.profitLossDataSession?.filter(
-            (item: any) => item?.betId !== betId
-          );
+          const updatedProfitLossDataSession =
+            state?.matchDetails?.profitLossDataSession?.filter(
+              (item: any) => item?.betId !== betId
+            );
 
           state.matchDetails = {
             ...state.matchDetails,
@@ -412,30 +383,31 @@ const matchListSlice = createSlice({
       .addCase(updateBetDataOnUndeclare.fulfilled, (state, action) => {
         const { betId, profitLoss, matchId } = action?.payload;
         if (state?.matchDetails?.id === matchId) {
-          const isBetIdPresent = state?.matchDetails?.profitLossDataSession?.find(
-            (item: any) => item?.betId === betId
-          );
+          const isBetIdPresent =
+            state?.matchDetails?.profitLossDataSession?.find(
+              (item: any) => item?.betId === betId
+            );
 
           const updatedProfitLossDataSession = isBetIdPresent
             ? state?.matchDetails?.profitLossDataSession?.map((item: any) =>
-              item?.betId === betId
-                ? {
-                  ...item,
+                item?.betId === betId
+                  ? {
+                      ...item,
+                      maxLoss: JSON.parse(profitLoss)?.maxLoss,
+                      totalBet: JSON.parse(profitLoss)?.totalBet,
+                      profitLoss: JSON.parse(profitLoss)?.betPlaced,
+                    }
+                  : item
+              )
+            : [
+                ...state.matchDetails?.profitLossDataSession,
+                {
+                  betId: betId,
                   maxLoss: JSON.parse(profitLoss)?.maxLoss,
                   totalBet: JSON.parse(profitLoss)?.totalBet,
                   profitLoss: JSON.parse(profitLoss)?.betPlaced,
-                }
-                : item
-            )
-            : [
-              ...state.matchDetails?.profitLossDataSession,
-              {
-                betId: betId,
-                maxLoss: JSON.parse(profitLoss)?.maxLoss,
-                totalBet: JSON.parse(profitLoss)?.totalBet,
-                profitLoss: JSON.parse(profitLoss)?.betPlaced,
-              },
-            ];
+                },
+              ];
 
           state.matchDetails = {
             ...state.matchDetails,
@@ -459,9 +431,8 @@ const matchListSlice = createSlice({
             ...state.matchDetails,
             profitLossDataMatch: {
               ...state.matchDetails.profitLossDataMatch,
-              [betId + "_profitLoss_" + state.matchDetails.id]: JSON.stringify(
-                teamRate
-              ),
+              [betId + "_profitLoss_" + state.matchDetails.id]:
+                JSON.stringify(teamRate),
             },
           };
         } else {

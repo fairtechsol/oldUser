@@ -1,10 +1,8 @@
 import { Box } from "@mui/material";
-import SingleBox from "./SingleBox";
-// import { useSelector } from "react-redux";
-// import { RootState } from "../../../store/store";
 import moment from "moment";
-import { formatToINR } from "../../../helper";
 import { useLocation } from "react-router-dom";
+import { formatToINR } from "../../../helper";
+import SingleBox from "./SingleBox";
 
 const RowComponent = ({ header, data, match }: any) => {
   const { state } = useLocation();
@@ -40,7 +38,6 @@ const RowComponent = ({ header, data, match }: any) => {
     >
       {!header && (
         <>
-          {/* <Box sx={{ width: "48%", minWidth: "22%" }}> */}
           <div style={{ width: !state?.matchId ? "23.5%" : "33.137%" }}>
             <SingleBox
               color={getColor}
@@ -50,7 +47,6 @@ const RowComponent = ({ header, data, match }: any) => {
               isCommissionActive={data?.isCommissionActive}
             />
           </div>
-          {/* <Box sx={{ width: "52%", minWidth: "19%" }}> */}
           <div style={{ width: !state?.matchId ? "17%" : "23.137%" }}>
             <SingleBox
               time={getTime(data.createdAt)}
@@ -58,8 +54,6 @@ const RowComponent = ({ header, data, match }: any) => {
               data={data.teamName}
               up={true}
               header={header}
-
-              // time={data.teamName}
             />
           </div>
           {!state?.matchId && (
@@ -68,42 +62,26 @@ const RowComponent = ({ header, data, match }: any) => {
                 color={getColor()}
                 data={data?.match?.title || match || data?.eventName}
                 header={header}
-                //boxWidth="50%"
               />
             </div>
           )}
-          {/* </Box>
-          <Box sx={{ width: "30%" }}> */}
           <div style={{ width: !state?.matchId ? "12%" : "16.55%" }}>
             <SingleBox
               color={getColor()}
               data={data?.bet_type || data?.betType}
               header={header}
-              //boxWidth="50%"
             />
           </div>
-          {/* </Box>
-          <Box sx={{ width: "30%" }}> */}
           <div style={{ width: !state?.matchId ? "12%" : "16.55%" }}>
-            <SingleBox
-              color={getColor()}
-              data={data?.odds}
-              header={header}
-              //boxWidth="50%"
-            />
+            <SingleBox color={getColor()} data={data?.odds} header={header} />
           </div>
-          {/* </Box>
-          <Box sx={{ width: "41%" }}> */}
           <div style={{ width: !state?.matchId ? "12%" : "16.55%" }}>
             <SingleBox
               color={getColor()}
               data={formatToINR(data?.amount)}
               header={header}
-
-              //boxWidth="100%"
             />
           </div>
-          {/* </Box> */}
         </>
       )}
       {header && (
@@ -151,103 +129,5 @@ const RowComponent = ({ header, data, match }: any) => {
     </Box>
   );
 };
-
-// const Footer = ({ currentPage, pages, callPage, currentPageNo }: any) => {
-//     return (
-//         <Box
-//             sx={{
-//                 height: "35px",
-//                 display: "flex",
-//                 alignItems: "center",
-//                 px: { xs: "5px", lg: "10px" },
-//                 justifyContent: "space-between",
-//                 background: "#FAFAFA",
-//                 // marginX: "0%",
-//                 // marginBottom: "10px",
-//             }}
-//         >
-//             <Typography
-//                 sx={{ fontSize: { xs: "10px", lg: "12px" }, fontWeight: "600" }}
-//             >
-//                 Showing 1 to {pages}
-//             </Typography>
-//             <Box sx={{ display: "flex", alignItems: "center" }}>
-//                 <Box
-//                     sx={{
-//                         height: "25px",
-//                         width: { xs: "60px", lg: "80px" },
-//                         background: "#0B4F26",
-//                         display: "flex",
-//                         justifyContent: "center",
-//                         alignItems: "center",
-//                         borderRadius: "5px",
-//                     }}
-//                     onClick={() => {
-//                         callPage(
-//                             parseInt(currentPage) - 1 === -1 ? 0 : parseInt(currentPage) - 1
-//                         );
-//                     }}
-//                 >
-//                     <Typography
-//                         sx={{
-//                             color: "white",
-//                             fontSize: { lg: "12px", xs: "10px" },
-//                         }}
-//                     >
-//                         Previous
-//                     </Typography>
-//                 </Box>
-//                 <Box
-//                     sx={{
-//                         height: "25px",
-//                         marginX: { lg: "8px", xs: "3.5px" },
-//                         width: "40px",
-//                         background: "#262626",
-//                         display: "flex",
-//                         borderRadius: "5px",
-//                         justifyContent: "center",
-//                         alignItems: "center",
-//                     }}
-//                 >
-//                     <Typography
-//                         sx={{
-//                             color: "white",
-//                             fontSize: { lg: "12px", xs: "12px" },
-//                         }}
-//                     >
-//                         {currentPageNo + 1}
-//                     </Typography>
-//                 </Box>
-//                 <Box
-//                     sx={{
-//                         height: "25px",
-//                         width: { xs: "60px", lg: "80px" },
-//                         background: "#0B4F26",
-//                         display: "flex",
-//                         borderRadius: "5px",
-//                         justifyContent: "center",
-//                         alignItems: "center",
-//                     }}
-//                     onClick={() => {
-//                         callPage(
-//                             parseInt(currentPage) === pages - 1
-//                                 ? pages - 1
-//                                 : parseInt(currentPage) + 1
-//                         );
-//                     }}
-//                 >
-//                     <Typography
-//                         sx={{
-//                             color: "white",
-//                             fontSize: { lg: "14px", xs: "12px" },
-//                         }}
-//                     >
-//                         Next
-//                     </Typography>
-//                 </Box>
-//             </Box>
-//         </Box>
-//     );
-// };
 
 export default RowComponent;

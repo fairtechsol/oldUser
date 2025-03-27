@@ -105,10 +105,6 @@ const Login = () => {
         }}
       >
         <Button
-          // onClick={(e) => {
-          //     navigate("/match", { state: { activeTab: "CRICKET" } });
-          //     e.stopPropagation();
-          // }}
           type="submit"
           variant="contained"
           color="secondary"

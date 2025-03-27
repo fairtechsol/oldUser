@@ -1,8 +1,6 @@
 import { Box, TextField } from "@mui/material";
 
-
-const LabelButton = ({ value, onChange, }: any) => {
-
+const LabelButton = ({ value, onChange }: any) => {
   return (
     <Box
       sx={{

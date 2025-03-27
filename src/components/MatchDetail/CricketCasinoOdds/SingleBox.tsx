@@ -10,7 +10,6 @@ const SingleBox = ({
   isPercent,
   rate,
 }: any) => {
-  // console.log(data, "dataaaa")
   return !header ? (
     first ? (
       <Box
@@ -19,10 +18,8 @@ const SingleBox = ({
           height: "40px",
           flexDirection: "column",
           background: "#F8C851",
-          // marginX: { xs: "1px", lg: "1px" },
           display: "flex",
           justifyContent: "center",
-          // margin: "1px"
         }}
       >
         <Typography
@@ -92,7 +89,6 @@ const SingleBox = ({
           width: "70%",
           height: "40px",
           background: color,
-          // marginX: { xs: "1px", lg: "1px" },
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -133,7 +129,6 @@ const SingleBox = ({
         width: "200%",
         height: "25px",
         background: "#319E5B",
-        // marginX: { xs: "1px", lg: "1px" },
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -145,7 +140,7 @@ const SingleBox = ({
           fontSize: "12px",
           color: "white",
           wordWrap: "break-word",
-          lineHeight: "0.9"
+          lineHeight: "0.9",
         }}
       >
         {data}

@@ -32,11 +32,6 @@ const CricketCasinoMarket = ({
   mid,
 }: any) => {
   const [showFastTimeBox, setShowFastTimeBox] = useState(false);
-  // const [fastBetLoading, setFastBetLoading] = useState(false);
-  // const [localData, setLocalData] = useState(newData);
-  // useEffect(() => {
-  //   setLocalData(newData);
-  // }, [newData]);
   const [visible, setVisible] = useState(true);
 
   return (
@@ -101,7 +96,6 @@ const CricketCasinoMarket = ({
             sx={{
               flex: 0.1,
               background: "#262626",
-              // '#262626'
             }}
           >
             <div className="slanted"></div>
@@ -110,7 +104,6 @@ const CricketCasinoMarket = ({
             sx={{
               flex: 1,
               background: "#262626",
-              // '#262626' ,
               display: "flex",
               alignItems: "center",
               justifyContent: {
@@ -131,7 +124,6 @@ const CricketCasinoMarket = ({
                 flex: 1,
                 background: { lg: "#262626", xs: "none" },
                 position: { lg: "static", xs: "absolute" },
-                // '#262626' ,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "flex-end",
@@ -179,7 +171,7 @@ const CricketCasinoMarket = ({
                   background: "rgba(0, 0, 0, 0.4)",
                   zIndex: 2,
                 }}
-              ></Box>
+              />
             )}
             <Box
               sx={{
@@ -207,8 +199,6 @@ const CricketCasinoMarket = ({
                   }}
                 >
                   MIN:{min}
-                  {/* MAX:
-                    {max} */}
                 </Typography>
                 <Typography
                   sx={{
@@ -218,8 +208,6 @@ const CricketCasinoMarket = ({
                   }}
                 >
                   MAX:{data?.max}
-                  {/* MAX:
-                    {max} */}
                 </Typography>
               </Box>
               <Box
@@ -307,31 +295,12 @@ const CricketCasinoMarket = ({
                 </Box>
               </Box>
             )}
-            {/* 
-            {upcoming && (
-              <Box
-                sx={{
-                  position: "absolute",
-                  height: "100%",
-                  // top: "29%",
-                  width: "100%",
-                  display: "flex",
-                  zIndex: "999",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  background: "rgba(0, 0, 0, .5)",
-                }}
-              ></Box>
-            )} */}
-
             <Box
               sx={{
                 display: "flex",
                 flexDirection: "column",
                 width: "100%",
                 position: "relative",
-                // maxHeight: "387px",
-                // overflowY: "visible",
               }}
             >
               {!(
