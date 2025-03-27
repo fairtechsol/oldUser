@@ -11,6 +11,28 @@ import TournamentOdds from "./TournamentOdds";
 const MatchOdds = ({ matchDetails, setShow, show }: any) => {
   const upcoming = true;
 
+  const isActiveSession = (betting: any) => {
+    const parsedBetting = JSON.parse(betting);
+    return (
+      parsedBetting?.selectionId === null &&
+      parsedBetting?.activeStatus === "live"
+    );
+  };
+
+  const filterActiveSessions = (betting: any) => {
+    const parsedBetting = JSON.parse(betting);
+    return (
+      parsedBetting?.selectionId === null &&
+      !["unSave", "result"].includes(parsedBetting?.activeStatus)
+    );
+  };
+
+  const filterApiSessions = ([key, value]: any) =>
+    value?.section?.length > 0 && key !== sessionBettingType.cricketCasino;
+
+  const filterValidItems = (item: any) =>
+    !["unSave", "result"].includes(item?.activeStatus);
+
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
       {matchDetails?.tournament &&
@@ -24,52 +46,29 @@ const MatchOdds = ({ matchDetails, setShow, show }: any) => {
           )
           ?.sort((a: any, b: any) => a.sNo - b.sNo)
           ?.map((market: any) => {
+            const profitLossKey =
+              (market?.parentBetId || market?.id) +
+              "_profitLoss_" +
+              matchDetails?.id;
+            const profitLossData = JSON.parse(
+              matchDetails?.profitLossDataMatch?.[profitLossKey] || "{}"
+            );
             return (
               <TournamentOdds
                 key={market?.id}
                 upcoming={!upcoming}
                 betLock={matchDetails?.blockMarket?.BOOKMAKER?.block}
                 showBox={market?.activeStatus === "save"}
-                lock={
-                  matchDetails?.bookmakerLive?.length > 0 &&
-                  matchDetails?.bookmakerLive[0]?.betStatus === 0
-                    ? true
-                    : false
-                }
                 teamARates={
-                  JSON.parse(
-                    matchDetails?.profitLossDataMatch?.[
-                      (market?.parentBetId || market?.id) +
-                        "_profitLoss_" +
-                        matchDetails?.id
-                    ] || "{}"
-                  )?.[
+                  profitLossData?.[
                     market?.runners?.[0]?.parentRunnerId ||
                       market?.runners?.[0]?.id
                   ] ?? 0
                 }
                 teamBRates={
-                  JSON.parse(
-                    matchDetails?.profitLossDataMatch?.[
-                      (market?.parentBetId || market?.id) +
-                        "_profitLoss_" +
-                        matchDetails?.id
-                    ] || "{}"
-                  )?.[
+                  profitLossData?.[
                     market?.runners?.[1]?.parentRunnerId ||
                       market?.runners?.[1]?.id
-                  ] ?? 0
-                }
-                teamCRates={
-                  JSON.parse(
-                    matchDetails?.profitLossDataMatch?.[
-                      (market?.parentBetId || market?.id) +
-                        "_profitLoss_" +
-                        matchDetails?.id
-                    ] || "{}"
-                  )?.[
-                    market?.runners?.[2]?.parentRunnerId ||
-                      market?.runners?.[2]?.id
                   ] ?? 0
                 }
                 min={formatToINR(market?.minBet) || 0}
@@ -82,27 +81,18 @@ const MatchOdds = ({ matchDetails, setShow, show }: any) => {
             );
           })}
       {matchDetails?.manualSessionActive &&
-        matchDetails?.sessionBettings?.filter(
-          (betting: any) =>
-            JSON.parse(betting)?.selectionId === null &&
-            JSON.parse(betting)?.activeStatus === "live"
-        ).length > 0 && (
+        matchDetails?.sessionBettings?.some(isActiveSession) && (
           <QuickSessionMarket
             allBetsData={matchDetails?.profitLossDataSession}
-            title={"Quick Session Market"}
-            session={"sessionOdds"}
+            title="Quick Session Market"
+            session="sessionOdds"
             setShow={setShow}
             show={show}
             upcoming={!upcoming}
             type={MatchType.SESSION_MARKET}
             matchOddsData={matchDetails?.sessionBettings}
             newData={matchDetails?.sessionBettings?.filter(
-              (betting: any) =>
-                JSON.parse(betting)?.selectionId === null &&
-                !(
-                  JSON.parse(betting)?.activeStatus === "unSave" ||
-                  JSON.parse(betting)?.activeStatus === "result"
-                )
+              filterActiveSessions
             )}
             eventType={matchDetails?.matchType}
             minBet={formatToINR(matchDetails?.betFairSessionMinBet)}
@@ -110,85 +100,54 @@ const MatchOdds = ({ matchDetails, setShow, show }: any) => {
             matchDetails={matchDetails}
           />
         )}
-
       {matchDetails?.apiSessionActive &&
         Object.entries(matchDetails?.apiSession || {})
-          ?.filter(
-            ([key, value]: any) =>
-              value?.section?.length > 0 &&
-              key !== sessionBettingType.cricketCasino
-          )
-          ?.slice()
-          ?.sort(customSortBySessionMarketName)
-          ?.map(([key, value]: any) => {
-            return (
-              <Fragment key={key}>
-                {value?.section?.filter(
-                  (item: any) =>
-                    !item?.isManual &&
-                    !(
-                      item?.activeStatus === "unSave" ||
-                      item?.activeStatus === "result"
-                    )
-                )?.length > 0 && (
-                  <SessionMarket
-                    key={key}
-                    allBetsData={matchDetails?.profitLossDataSession}
-                    newData={value?.section?.filter(
-                      (items: any) =>
-                        !(
-                          items?.activeStatus === "unSave" ||
-                          items?.activeStatus === "result"
-                        )
-                    )}
-                    matchOddsData={value?.section}
-                    typeOfBet={matchDetails?.type}
-                    title={value?.mname || key}
-                    setShow={setShow}
-                    show={show}
-                    type={key}
-                    data={value}
-                    eventType={matchDetails?.matchType}
-                    min={formatToINR(matchDetails?.betFairSessionMinBet)}
-                    upcoming={!upcoming}
-                    matchDetails={matchDetails}
-                    mid={value?.mid}
-                  />
-                )}
-              </Fragment>
-            );
-          })}
-
+          .filter(filterApiSessions)
+          .sort(customSortBySessionMarketName)
+          .map(([key, value]: any) => (
+            <Fragment key={key}>
+              {value?.section?.some(filterValidItems) && (
+                <SessionMarket
+                  key={key}
+                  allBetsData={matchDetails?.profitLossDataSession}
+                  newData={value?.section?.filter(filterValidItems)}
+                  matchOddsData={value?.section}
+                  typeOfBet={matchDetails?.type}
+                  title={value?.mname || key}
+                  setShow={setShow}
+                  show={show}
+                  type={key}
+                  data={value}
+                  eventType={matchDetails?.matchType}
+                  min={formatToINR(matchDetails?.betFairSessionMinBet)}
+                  upcoming={!upcoming}
+                  matchDetails={matchDetails}
+                  mid={value?.mid}
+                />
+              )}
+            </Fragment>
+          ))}
       {matchDetails?.apiSessionActive &&
         (matchDetails?.apiSession?.cricketCasino?.section || [])
-          ?.filter(
-            (item: any) =>
-              !(
-                item?.activeStatus === "unSave" ||
-                item?.activeStatus === "result"
-              )
-          )
-          ?.map((item: any) => {
-            return (
-              <CricketCasinoMarket
-                key={item?.id}
-                allBetsData={matchDetails?.profitLossDataSession}
-                newData={item}
-                matchOddsData={item}
-                typeOfBet={matchDetails?.type}
-                title={item?.RunnerName}
-                setShow={setShow}
-                show={show}
-                type={sessionBettingType.cricketCasino}
-                data={item}
-                eventType={matchDetails?.matchType}
-                min={formatToINR(matchDetails?.betFairSessionMinBet)}
-                upcoming={!upcoming}
-                matchDetails={matchDetails}
-              />
-            );
-          })}
-
+          .filter(filterValidItems)
+          .map((item: any) => (
+            <CricketCasinoMarket
+              key={item?.id}
+              allBetsData={matchDetails?.profitLossDataSession}
+              newData={item}
+              matchOddsData={item}
+              typeOfBet={matchDetails?.type}
+              title={item?.RunnerName}
+              setShow={setShow}
+              show={show}
+              type={sessionBettingType.cricketCasino}
+              data={item}
+              eventType={matchDetails?.matchType}
+              min={formatToINR(matchDetails?.betFairSessionMinBet)}
+              upcoming={!upcoming}
+              matchDetails={matchDetails}
+            />
+          ))}
       {matchDetails?.tournament &&
         matchDetails?.tournament
           ?.filter(
@@ -200,53 +159,30 @@ const MatchOdds = ({ matchDetails, setShow, show }: any) => {
           )
           ?.sort((a: any, b: any) => a.sNo - b.sNo)
           ?.map((market: any) => {
+            const profitLossKey =
+              (market?.parentBetId || market?.id) +
+              "_profitLoss_" +
+              matchDetails?.id;
+            const profitLossData = JSON.parse(
+              matchDetails?.profitLossDataMatch?.[profitLossKey] || "{}"
+            );
             return (
               <TournamentOdds
                 key={market?.id}
                 upcoming={!upcoming}
                 betLock={matchDetails?.blockMarket?.BOOKMAKER?.block}
                 showBox={market?.activeStatus === "save"}
-                lock={
-                  matchDetails?.bookmakerLive?.length > 0 &&
-                  matchDetails?.bookmakerLive[0]?.betStatus === 0
-                    ? true
-                    : false
-                }
                 teamARates={
-                  JSON.parse(
-                    matchDetails?.profitLossDataMatch?.[
-                      (market?.parentBetId || market?.id) +
-                        "_profitLoss_" +
-                        matchDetails?.id
-                    ] || "{}"
-                  )?.[
+                  profitLossData?.[
                     market?.runners?.[0]?.parentRunnerId ||
                       market?.runners?.[0]?.id
-                  ] ?? 0
+                  ] || 0
                 }
                 teamBRates={
-                  JSON.parse(
-                    matchDetails?.profitLossDataMatch?.[
-                      (market?.parentBetId || market?.id) +
-                        "_profitLoss_" +
-                        matchDetails?.id
-                    ] || "{}"
-                  )?.[
+                  profitLossData?.[
                     market?.runners?.[1]?.parentRunnerId ||
                       market?.runners?.[1]?.id
-                  ] ?? 0
-                }
-                teamCRates={
-                  JSON.parse(
-                    matchDetails?.profitLossDataMatch?.[
-                      (market?.parentBetId || market?.id) +
-                        "_profitLoss_" +
-                        matchDetails?.id
-                    ] || "{}"
-                  )?.[
-                    market?.runners?.[2]?.parentRunnerId ||
-                      market?.runners?.[2]?.id
-                  ] ?? 0
+                  ] || 0
                 }
                 min={formatToINR(market?.minBet) || 0}
                 max={formatToINR(market?.maxBet) || 0}

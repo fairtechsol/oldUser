@@ -17,18 +17,17 @@ import BookRatioBox from "./BookRatioBox";
 import BoxComponent from "./BoxComponent";
 
 const TournamentOdds = ({
-  data,
-  teamARates,
-  teamBRates,
-  title,
-  min,
-  max,
-  showBox,
-  isRound,
-  betLock,
-  upcoming,
-  marketDetails,
-  matchDetails,
+  teamARates, //
+  teamBRates, //
+  title, //
+  min, //
+  max, //
+  showBox, //
+  isRound, //
+  betLock, //
+  upcoming, //
+  marketDetails, //
+  matchDetails, //
 }: any) => {
   const dispatch: AppDispatch = useDispatch();
   const [visible, setVisible] = useState(true);
@@ -434,11 +433,6 @@ const TournamentOdds = ({
               <Fragment key={item?.selectionId}>
                 <BoxComponent
                   showBox={showBox}
-                  livestatus={
-                    data?.[0]?.status?.toLowerCase() === "suspended"
-                      ? true
-                      : false
-                  }
                   matchDetails={matchDetails}
                   color={
                     matchDetails?.profitLossDataMatch?.[

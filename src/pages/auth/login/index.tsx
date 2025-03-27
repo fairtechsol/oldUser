@@ -10,7 +10,13 @@ import { authReset, login } from "../../../store/actions/auth/authAction";
 import { AppDispatch, RootState } from "../../../store/store";
 import { loginValidationSchema } from "../../../utils/Validations";
 
-const initialValues: any = {
+interface LoginProps {
+  userName: string;
+  password: string;
+  loginType: string;
+}
+
+const initialValues: LoginProps = {
   userName: "",
   password: "",
   loginType: "user",
@@ -27,7 +33,7 @@ const Login = () => {
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema: loginValidationSchema,
-    onSubmit: (values: any) => {
+    onSubmit: (values: LoginProps) => {
       if (loading) {
         return;
       }
@@ -43,7 +49,6 @@ const Login = () => {
         sessionStorage.setItem("forceChangePassword", "true");
         navigate("/change-password");
       } else {
-        // navigate("/match");
         navigate("/inplay");
       }
       dispatch(authReset());
@@ -56,7 +61,6 @@ const Login = () => {
       style={{
         width: "75%",
         justifyContent: "center",
-        // marginTop: "45px",
       }}
     >
       <Box

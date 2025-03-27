@@ -11,7 +11,6 @@ const BoxComponent = ({
   rate,
   matchDetails,
   showBox,
-  livestatus,
   isRound,
   marketDetails,
   upcoming,
@@ -116,8 +115,7 @@ const BoxComponent = ({
         ></Box>
       )}
       {(!["ACTIVE", "", "OPEN", undefined, null].includes(status) ||
-        matchDetails?.bettings?.length === 0 ||
-        livestatus) &&
+        matchDetails?.bettings?.length === 0) &&
       !(
         !["ACTIVE", "OPEN", ""].includes(marketDetails?.status) &&
         marketDetails?.gtype == "match"
@@ -142,9 +140,7 @@ const BoxComponent = ({
               fontWeight: "400",
             }}
           >
-            {matchDetails?.bettings?.length === 0 || livestatus
-              ? "suspended"
-              : status}
+            {matchDetails?.bettings?.length === 0 ? "suspended" : status}
           </Typography>
         </Box>
       ) : (
