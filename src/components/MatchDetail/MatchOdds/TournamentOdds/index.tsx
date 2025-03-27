@@ -12,6 +12,7 @@ import {
 } from "../../../../store/actions/match/matchListAction";
 import { AppDispatch } from "../../../../store/store";
 import CommissionDot from "../../../Common/CommissionDot";
+import isMobile from "../../../secureAuthVerification/container/isMobile";
 import OddsPlaceBet from "../Bets/OddsPlacebet";
 import BookRatioBox from "./BookRatioBox";
 import BoxComponent from "./BoxComponent";
@@ -55,7 +56,7 @@ const TournamentOdds = ({
 
   const handleCashout = () => {
     const [teamAId, teamBId] = marketDetails?.runners?.map(
-      (team: any) => team.id
+      (team: any) => team.parentRunnerId || team.id
     );
     const profitA = Math.round(profitLossObj?.[teamAId] ?? 0);
     const profitB = Math.round(profitLossObj?.[teamBId] ?? 0);
@@ -140,7 +141,7 @@ const TournamentOdds = ({
       return;
     }
     if (!isFinite(stake) || stake <= 0) {
-      toast.error("Invalid stake calculation. Cashout not possible!", {
+      toast.error("You are not eligible for cashout!", {
         style: { backgroundColor: "#ffffff", color: "#000000" },
       });
       return;
@@ -153,7 +154,6 @@ const TournamentOdds = ({
       rate: odds,
       type: type,
       stake: stake,
-      percent: "value2",
       betId: marketDetails?.id,
       eventType: marketDetails?.gtype,
       matchId: matchDetails?.id,
@@ -261,22 +261,32 @@ const TournamentOdds = ({
             }}
           >
             <BookRatioBox valueA={bookRatioA} valueB={bookRatioB} />
-            <Box>
-              <button
-                type="submit"
-                disabled={Object.keys(profitLossObj).length <= 0 ? true : false}
-                style={{
-                  color: "#319E5B",
-                  backgroundColor: "#fff",
-                  borderRadius: "3px",
-                  border: "2px solid white",
-                  opacity: Object.keys(profitLossObj).length <= 0 ? 0.65 : 1,
+            {!isMobile && (
+              <Box
+                sx={{
+                  position: { lg: "static", xs: "relative" },
+                  // paddingY: "2vh",
+                  right: 25,
                 }}
-                onClick={() => handleCashout()}
               >
-                Cashout
-              </button>
-            </Box>
+                <button
+                  type="submit"
+                  disabled={
+                    Object.keys(profitLossObj).length <= 0 ? true : false
+                  }
+                  style={{
+                    color: "#319E5B",
+                    backgroundColor: "#fff",
+                    borderRadius: "3px",
+                    border: "2px solid white",
+                    opacity: Object.keys(profitLossObj).length <= 0 ? 0.65 : 1,
+                  }}
+                  onClick={() => handleCashout()}
+                >
+                  Cashout
+                </button>
+              </Box>
+            )}
             <Box
               className="arrowUpCollapse"
               sx={{
@@ -338,6 +348,7 @@ const TournamentOdds = ({
                   {min === max ? `MAX:${max}` : `MIN: ${min} MAX:${max}`}
                 </Typography>
               </Box>
+
               <Box
                 sx={{
                   display: "flex",
@@ -348,6 +359,41 @@ const TournamentOdds = ({
                   justifyContent: { lg: "center", xs: "flex-end" },
                 }}
               >
+                {isMobile && (
+                  <Box
+                    sx={{
+                      // position: { lg: "static", xs: "relative" },
+                      // paddingY: "2vh",
+                      marginRight: "14px",
+                    }}
+                  >
+                    <button
+                      type="submit"
+                      disabled={
+                        Object.keys(profitLossObj).length <= 0 ? true : false
+                      }
+                      // disabled={loading || !stakeValue ? true : false}
+                      style={{
+                        color: "#319E5B",
+                        backgroundColor: "#fff",
+                        // width: "150px",
+                        // cursor: loading || !stakeValue ? "not-allowed" : "pointer",
+                        // width: { lg: "150px", xs: "130px" },
+                        // height: "35px",
+                        borderRadius: "3px",
+                        border: "0px solid white",
+                        opacity:
+                          Object.keys(profitLossObj).length <= 0 ? 0.65 : 1,
+                        height: 23,
+                        marginTop: 1,
+                        padding: "0 6px",
+                      }}
+                      onClick={() => handleCashout()}
+                    >
+                      Cashout
+                    </button>
+                  </Box>
+                )}
                 <Box
                   sx={{
                     background: "#00C0F9",
