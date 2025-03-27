@@ -422,13 +422,11 @@ const MatchDetail = () => {
                   flexDirection: "column",
                 }}
               >
-                {
-                  <LiveScoreBoard
-                    data={liveScoreBoardData}
-                    width="100%"
-                    setIsTv={setIsTv}
-                  />
-                }
+                <LiveScoreBoard
+                  data={liveScoreBoardData}
+                  width="100%"
+                  setIsTv={setIsTv}
+                />
                 {isTv &&
                   matchDetails?.eventId &&
                   matchDetails?.matchType !== "politics" && (
@@ -458,7 +456,7 @@ const MatchDetail = () => {
                     }}
                   >
                     {sessionBets.length > 0 && (
-                      <SessionBetSeperate placedBets={sessionBets}  />
+                      <SessionBetSeperate placedBets={sessionBets} />
                     )}
                     {nonSessionBets.length > 0 && (
                       <AllRateSeperate allBetsData={nonSessionBets} mark />
@@ -490,14 +488,12 @@ const MatchDetail = () => {
                   />
                 </Box>
                 <Box sx={{ width: "30%", paddingRight: "1%" }}>
-                  {
-                    <LiveScoreBoard
-                      data={liveScoreBoardData}
-                      width="100%"
-                      setIsTv={setIsTv}
-                      isTv={isTv}
-                    />
-                  }
+                  <LiveScoreBoard
+                    data={liveScoreBoardData}
+                    width="100%"
+                    setIsTv={setIsTv}
+                    isTv={isTv}
+                  />
                   {isTv &&
                     matchDetails?.eventId &&
                     matchDetails?.matchType !== "politics" && (
