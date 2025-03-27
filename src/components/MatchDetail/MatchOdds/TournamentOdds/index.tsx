@@ -145,7 +145,7 @@ const TournamentOdds = ({
   })();
 
   const handleCashout = () => {
-    const [teamAId, teamBId] = marketDetails?.runners?.map(team => team.id);
+    const [teamAId, teamBId] = data?.runners?.map(team => team.parentRunnerId || team.id);
     const profitA = Math.round(profitLossObj?.[teamAId] ?? 0);
     const profitB = Math.round(profitLossObj?.[teamBId] ?? 0);
 
@@ -220,8 +220,7 @@ const TournamentOdds = ({
       rate: odds,
       type: type,
       stake: stake,
-      percent: "value2",
-      betId: marketDetails?.id,
+      betId: marketDetails?.parentBetId || marketDetails?.id,
       eventType: marketDetails?.gtype,
       matchId: matchDetails?.id,
       matchBetType: marketDetails?.type,
