@@ -220,7 +220,7 @@ const TournamentOdds = ({
       rate: odds,
       type: type,
       stake: stake,
-      betId: marketDetails?.parentBetId || marketDetails?.id,
+      betId: marketDetails?.id,
       eventType: marketDetails?.gtype,
       matchId: matchDetails?.id,
       matchBetType: marketDetails?.type,
