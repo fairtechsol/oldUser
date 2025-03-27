@@ -145,10 +145,9 @@ const TournamentOdds = ({
   })();
 
   const handleCashout = () => {
-    const [teamAId, teamBId] = data?.runners?.map(team => team.parentRunnerId || team.id);
+    const [teamAId, teamBId] = marketDetails?.runners?.map(team => team.parentRunnerId || team.id);
     const profitA = Math.round(profitLossObj?.[teamAId] ?? 0);
     const profitB = Math.round(profitLossObj?.[teamBId] ?? 0);
-
     if (profitA === profitB) {
       toast.error("You are not eligible for cashout!", {
         style: { backgroundColor: "#ffffff", color: "#000000" },
