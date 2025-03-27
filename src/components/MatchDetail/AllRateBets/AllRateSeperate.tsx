@@ -228,7 +228,7 @@ const AllRateSeperate = ({
                           position: "absolute",
                         }}
                       >
-                        <Box sx={{ width: mark2 ? "20%" : "35%" }}></Box>
+                        <Box sx={{ width: mark2 ? "20%" : "35%" }} />
                       </Box>
                     )}
                     {i?.deleteReason && (
@@ -246,7 +246,7 @@ const AllRateSeperate = ({
                           position: "absolute",
                         }}
                       >
-                        <Box sx={{ width: mark2 ? "20%" : "35%" }}></Box>
+                        <Box sx={{ width: mark2 ? "20%" : "35%" }} />
                         <Box
                           sx={{
                             width: mark2 ? "80%" : "65%",

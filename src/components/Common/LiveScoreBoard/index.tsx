@@ -25,11 +25,6 @@ const LiveScoreBoard = ({ data, width, setIsTv }: any) => {
             borderRadius: "2px",
             background: "white",
             padding: "1px",
-            // alignSelf: {
-            //     xs: "center",
-            //     md: "center",
-            //     lg: "flex-start",
-            // },
           },
         ]}
       >
@@ -65,7 +60,6 @@ const LiveScoreBoard = ({ data, width, setIsTv }: any) => {
             sx={{
               flex: 0.1,
               background: "#262626",
-              // '#262626'
             }}
           >
             <div className="slanted"></div>
@@ -74,7 +68,6 @@ const LiveScoreBoard = ({ data, width, setIsTv }: any) => {
             sx={{
               flex: 1,
               background: "#262626",
-              // '#262626' ,
               display: "flex",
               alignItems: "center",
               justifyContent: "flex-end",

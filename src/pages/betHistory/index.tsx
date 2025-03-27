@@ -90,7 +90,7 @@ const BetHistory = () => {
                   ).length || 0
                 }
               />
-              <Box sx={{ width: { lg: "1vw", xs: 0 } }}></Box>
+              <Box sx={{ width: { lg: "1vw", xs: 0 } }}/>
               <SessionBetSeperate
                 betHistory={true}
                 allBetsData={placedBets?.filter((b: any) =>
@@ -113,7 +113,6 @@ const BetHistory = () => {
                     "fancy1",
                   ].includes(b?.marketType)
                 )}
-                mark
               />
             </Box>
           </Box>
