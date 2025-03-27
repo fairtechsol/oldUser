@@ -12,6 +12,7 @@ import {
 } from "../../../../store/actions/match/matchListAction";
 import { AppDispatch } from "../../../../store/store";
 import CommissionDot from "../../../Common/CommissionDot";
+import isMobile from "../../../secureAuthVerification/container/isMobile";
 import OddsPlaceBet from "../Bets/OddsPlacebet";
 import BoxComponent from "./BoxComponent";
 
@@ -326,7 +327,7 @@ const TournamentOdds = ({
             }}
           >
             <SmallBox valueA={bookRatioA} valueB={bookRatioB} />
-            <Box
+            {!isMobile && (<Box
               sx={{
                 position: { lg: "static", xs: "relative" },
                 // paddingY: "2vh",
@@ -355,7 +356,7 @@ const TournamentOdds = ({
               >
                 Cashout
               </button>
-            </Box>
+            </Box>)}
             <Box
               className="arrowUpCollapse"
               sx={{
@@ -419,6 +420,7 @@ const TournamentOdds = ({
                   {min === max ? `MAX:${max}` : `MIN: ${min} MAX:${max}`}
                 </Typography>
               </Box>
+
               <Box
                 sx={{
                   display: "flex",
@@ -429,6 +431,39 @@ const TournamentOdds = ({
                   justifyContent: { lg: "center", xs: "flex-end" },
                 }}
               >
+                {isMobile && (<Box
+                  sx={{
+                    // position: { lg: "static", xs: "relative" },
+                    // paddingY: "2vh",
+                    marginRight: "14px"
+                  }}
+                >
+
+                  <button
+                    type="submit"
+                    disabled={
+                      Object.keys(profitLossObj).length <= 0 ? true : false
+                    }
+                    // disabled={loading || !stakeValue ? true : false}
+                    style={{
+                      color: "#319E5B",
+                      backgroundColor: "#fff",
+                      // width: "150px",
+                      // cursor: loading || !stakeValue ? "not-allowed" : "pointer",
+                      // width: { lg: "150px", xs: "130px" },
+                      // height: "35px",
+                      borderRadius: "3px",
+                      border: "0px solid white",
+                      opacity: Object.keys(profitLossObj).length <= 0 ? 0.65 : 1,
+                      height: 23,
+                      marginTop: 1,
+                      padding: "0 6px"
+                    }}
+                    onClick={() => handleCashout()}
+                  >
+                    Cashout
+                  </button>
+                </Box>)}
                 <Box
                   sx={{
                     background: "#00C0F9",
