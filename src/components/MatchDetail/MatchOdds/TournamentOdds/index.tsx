@@ -60,7 +60,6 @@ const TournamentOdds = ({
     );
     const profitA = Math.round(profitLossObj?.[teamAId] ?? 0);
     const profitB = Math.round(profitLossObj?.[teamBId] ?? 0);
-
     if (profitA === profitB) {
       toast.error("You are not eligible for cashout!", {
         style: { backgroundColor: "#ffffff", color: "#000000" },
@@ -134,13 +133,15 @@ const TournamentOdds = ({
       type = key === "lay1" ? "lay" : "back";
     }
 
-    if (odds < 1) {
+    if (odds < 1 || !isFinite(stake) || stake <= 0) {
       toast.error("You are not eligible for cashout!", {
         style: { backgroundColor: "#ffffff", color: "#000000" },
       });
       return;
     }
-    if (!isFinite(stake) || stake <= 0) {
+
+    const [teamAStatus, teamBStatus] = marketDetails?.runners?.map(team => team.status);
+    if (teamAStatus == "SUSPENDED" || teamBStatus == "SUSPENDED") {
       toast.error("You are not eligible for cashout!", {
         style: { backgroundColor: "#ffffff", color: "#000000" },
       });
