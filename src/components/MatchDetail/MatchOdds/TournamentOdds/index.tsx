@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import MUIModal from "@mui/material/Modal";
 import { Fragment, memo, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -15,7 +15,6 @@ import {
 } from "../../../../store/actions/match/matchListAction";
 import { AppDispatch } from "../../../../store/store";
 import CommissionDot from "../../../Common/CommissionDot";
-import isMobile from "../../../secureAuthVerification/container/isMobile";
 import OddsPlaceBet from "../Bets/OddsPlacebet";
 import BoxComponent from "./BoxComponent";
 
@@ -126,6 +125,9 @@ const TournamentOdds = ({
   const dispatch: AppDispatch = useDispatch();
   const [visible, setVisible] = useState(true);
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+
+  const theme = useTheme();
+  const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
   const bookRatioB = (() => {
     if (teamARates === 0) {
@@ -358,7 +360,7 @@ const TournamentOdds = ({
             }}
           >
             <SmallBox valueA={bookRatioA} valueB={bookRatioB} />
-            {!isMobile && (
+            {!matchesMobile && (
               <Box
                 sx={{
                   position: { lg: "static", xs: "relative" },
@@ -382,6 +384,7 @@ const TournamentOdds = ({
                     borderRadius: "3px",
                     border: "2px solid white",
                     opacity: Object.keys(profitLossObj).length <= 0 ? 0.65 : 1,
+                    cursor: "pointer",
                   }}
                   onClick={() => handleCashout()}
                 >
@@ -462,7 +465,7 @@ const TournamentOdds = ({
                   justifyContent: { lg: "center", xs: "flex-end" },
                 }}
               >
-                {isMobile && (
+                {matchesMobile && (
                   <Box
                     sx={{
                       // position: { lg: "static", xs: "relative" },
@@ -490,6 +493,7 @@ const TournamentOdds = ({
                         height: 23,
                         marginTop: 1,
                         padding: "0 6px",
+                        cursor: "pointer",
                       }}
                       onClick={() => handleCashout()}
                     >
