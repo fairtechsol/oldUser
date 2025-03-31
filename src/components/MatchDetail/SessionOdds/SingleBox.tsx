@@ -11,7 +11,6 @@ const SingleBox = ({
   rate,
   isCommissionActive,
 }: any) => {
-  // console.log(data, "dataaaa")
   return !header ? (
     first ? (
       <Box

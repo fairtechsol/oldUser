@@ -197,7 +197,6 @@ const AllRateSeperate = ({
                 },
               }}
             >
-              {/* {console.log("allBetsData :", allBetsData)} */}
               {[
                 ...new Set(
                   allBetsData?.filter(

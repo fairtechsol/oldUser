@@ -7,7 +7,6 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { InputInterface } from "../../interface/common";
-import isMobile from "../secureAuthVerification/container/isMobile";
 
 const Input: React.FC<InputInterface> = (props: any) => {
   const {
@@ -37,6 +36,7 @@ const Input: React.FC<InputInterface> = (props: any) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("md"));
   const [showPass, setShowPass] = useState(false);
+  const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
   return (
     <Box sx={[{}, containerStyle]}>
@@ -108,7 +108,7 @@ const Input: React.FC<InputInterface> = (props: any) => {
             }}
             alt="side input"
             style={{
-              height: isMobile ? "0.9em" : matches ? "0.5em" : "0.6rem",
+              height: matchesMobile ? "0.9em" : matches ? "0.5em" : "0.6rem",
               width: "auto",
               marginRight: ".5em",
               ...imgstyle,

@@ -11,7 +11,6 @@ const Matches = () => {
 
     useEffect(() => {
         if (sessionStorage.getItem("jwtUser")) {
-            console.log("type :", type)
             if (type) {
                 dispatch(getMatchList({ matchType: type }));
             }

@@ -1,10 +1,13 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import MUIModal from "@mui/material/Modal";
 import { Fragment, memo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { ARROWUP, LockIcon } from "../../../../assets";
-import { calculateRequiredStack, handleDecimalAmount } from "../../../../helper";
+import {
+  calculateRequiredStack,
+  handleDecimalAmount,
+} from "../../../../helper";
 import Divider from "../../../../helper/Divider";
 import {
   selectedBetAction,
@@ -12,7 +15,6 @@ import {
 } from "../../../../store/actions/match/matchListAction";
 import { AppDispatch, RootState } from "../../../../store/store";
 import CommissionDot from "../../../Common/CommissionDot";
-import isMobile from "../../../secureAuthVerification/container/isMobile";
 import OddsPlaceBet from "../Bets/OddsPlacebet";
 import BoxComponent from "./BoxComponent";
 
@@ -127,6 +129,9 @@ const TournamentOdds = ({
     (state: RootState) => state.match.matchList
   );
 
+  const theme = useTheme();
+  const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
+
   const bookRatioB = (() => {
     if (teamARates === 0) {
       return 0;
@@ -158,9 +163,13 @@ const TournamentOdds = ({
       return;
     }
     // profitLossObj?.[teamAId] < profitLossObj?.[teamBId]
-    const getBackAndLayRates = (team) => {
-      const back1 = team?.ex?.availableToBack?.find(item => item.oname === "back1")?.price || 0;
-      const lay1 = team?.ex?.availableToLay?.find(item => item.oname === "lay1")?.price || 0;
+    const getBackAndLayRates = (team: any) => {
+      const back1 =
+        team?.ex?.availableToBack?.find((item: any) => item.oname === "back1")
+          ?.price || 0;
+      const lay1 =
+        team?.ex?.availableToLay?.find((item: any) => item.oname === "lay1")
+          ?.price || 0;
 
       return {
         id: team?.id,
@@ -168,7 +177,8 @@ const TournamentOdds = ({
         teamName: team?.nat || team?.runnerName,
         back1,
         lay1,
-        back1Price: marketDetails?.gtype === "match" ? (back1 - 1) * 100 : back1,
+        back1Price:
+          marketDetails?.gtype === "match" ? (back1 - 1) * 100 : back1,
         lay1Price: marketDetails?.gtype === "match" ? (lay1 - 1) * 100 : lay1,
       };
     };
@@ -177,26 +187,44 @@ const TournamentOdds = ({
     const teamA = getBackAndLayRates(marketDetails?.runners[0]);
     const teamB = getBackAndLayRates(marketDetails?.runners[1]);
 
-    let runner = {};
+    let runner: any = {};
     let odds = 0;
     let type = "";
     let stake = 0;
 
-    const getKeyByValue = (obj, value) => Object.keys(obj).find(key => obj[key] === value);
+    const getKeyByValue = (obj: any, value: any) =>
+      Object.keys(obj).find((key) => obj[key] === value);
 
     if (teamA.back1Price < 100 && teamA.lay1Price < 100) {
-      odds = profitA < profitB ? teamA.back1 : teamA.lay1
-      const perc = profitLossObj?.[teamAId] < profitLossObj?.[teamBId] ? teamA.back1Price : teamA.lay1Price;
+      odds = profitA < profitB ? teamA.back1 : teamA.lay1;
+      const perc =
+        profitLossObj?.[teamAId] < profitLossObj?.[teamBId]
+          ? teamA.back1Price
+          : teamA.lay1Price;
 
-      stake = Math.abs(calculateRequiredStack(profitLossObj?.[teamAId], profitLossObj?.[teamBId], perc));
+      stake = Math.abs(
+        calculateRequiredStack(
+          profitLossObj?.[teamAId],
+          profitLossObj?.[teamBId],
+          perc
+        )
+      );
       runner = teamA;
       const key = getKeyByValue(teamA, odds);
       type = key === "lay1" ? "lay" : "back";
-
     } else {
-      odds = profitA < profitB ? teamB.lay1 : teamB.back1
-      const perc = profitLossObj?.[teamAId] < profitLossObj?.[teamBId] ? teamB.lay1Price : teamB.back1Price;
-      stake = Math.abs(calculateRequiredStack(profitLossObj?.[teamAId], profitLossObj?.[teamBId], perc));
+      odds = profitA < profitB ? teamB.lay1 : teamB.back1;
+      const perc =
+        profitLossObj?.[teamAId] < profitLossObj?.[teamBId]
+          ? teamB.lay1Price
+          : teamB.back1Price;
+      stake = Math.abs(
+        calculateRequiredStack(
+          profitLossObj?.[teamAId],
+          profitLossObj?.[teamBId],
+          perc
+        )
+      );
       runner = teamB;
       const key = getKeyByValue(teamB, odds);
       type = key === "lay1" ? "lay" : "back";
@@ -209,7 +237,9 @@ const TournamentOdds = ({
       return;
     }
 
-    const [teamAStatus, teamBStatus] = marketDetails?.runners?.map(team => team.status);
+    const [teamAStatus, teamBStatus] = marketDetails?.runners?.map(
+      (team: any) => team.status
+    );
     if (teamAStatus == "SUSPENDED" || teamBStatus == "SUSPENDED") {
       toast.error("You are not eligible for cashout!", {
         style: { backgroundColor: "#ffffff", color: "#000000" },
@@ -250,11 +280,11 @@ const TournamentOdds = ({
     );
   };
 
-  const key = `${marketDetails.parentBetId || marketDetails?.id}_profitLoss_${matchDetails?.id}`;
+  const key = `${marketDetails.parentBetId || marketDetails?.id}_profitLoss_${matchDetails?.id
+    }`;
   const profitLossJson = matchDetails?.profitLossDataMatch?.[key];
 
   const profitLossObj = profitLossJson ? JSON.parse(profitLossJson) : {};
-  // console.log("data?.runners lll:", profitLossObj)
   return (
     <>
       <Box
@@ -388,7 +418,6 @@ const TournamentOdds = ({
                 alt={"Banner"}
               />
             </Box>
-
           </Box>
         </Box>
         {visible && (
