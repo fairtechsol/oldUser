@@ -145,7 +145,9 @@ const MatchesComponent = () => {
   }, []);
 
   useEffect(() => {
-    getMatchListMarket(type || "");
+    setTimeout(() => {
+      getMatchListMarket(type || "");
+    }, 1500);
     const intervalId = setInterval(() => {
       if (type) {
         getMatchListMarket(type || "");
