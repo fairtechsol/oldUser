@@ -88,7 +88,7 @@ const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
             background-size: 400% 400%;
             background-attachment: fixed;
             position: absolute;
-            top: 0;
+            top: -2px;
             left: -9px;
             width: 60px;
           }
@@ -228,7 +228,7 @@ const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
               sx={{
                 width: "50px",
                 border: "1px solid white",
-                height: { xs: "20px", lg: "13px" },
+                height: { xs: "18px", lg: "13px" },
                 justifyContent: "center",
                 display: "flex",
                 alignItems: "center",
