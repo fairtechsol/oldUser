@@ -359,7 +359,7 @@ const TournamentOdds = ({
             }}
           >
             <SmallBox valueA={bookRatioA} valueB={bookRatioB} />
-            {!isMobile && (<Box
+            {!matchesMobile && (<Box
               sx={{
                 position: { lg: "static", xs: "relative" },
                 // paddingY: "2vh",
@@ -463,7 +463,7 @@ const TournamentOdds = ({
                   justifyContent: { lg: "center", xs: "flex-end" },
                 }}
               >
-                {isMobile && (<Box
+                {matchesMobile && (<Box
                   sx={{
                     // position: { lg: "static", xs: "relative" },
                     // paddingY: "2vh",
