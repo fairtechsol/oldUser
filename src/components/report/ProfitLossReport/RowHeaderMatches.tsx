@@ -1,8 +1,9 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { memo } from "react";
-import { ARROW_DOWN, ARROW_UP, ArrowDown, Cricket } from "../../../assets";
+import { ARROW_DOWN, ARROW_UP, ArrowDown } from "../../../assets";
 import { formatToINR } from "../../../helper";
 import StyledImage from "../../Common/StyledImages";
+import { gameIconConstants } from "../../../utils/Constants";
 
 const RowHeaderMatches = ({
   item,
@@ -36,7 +37,7 @@ const RowHeaderMatches = ({
           }}
         >
           <StyledImage
-            src={Cricket}
+            src={gameIconConstants[item?.eventType]}
             sx={{ width: { lg: "35px", xs: "25px" } }}
             alt=""
           />
