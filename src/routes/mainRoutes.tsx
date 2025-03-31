@@ -9,6 +9,7 @@ import BetHistory from "../pages/betHistory";
 import ChangeButtonValue from "../pages/changeButtonValue";
 import ChangePassword from "../pages/changepassword";
 import Comingsoon from "../pages/comingsoon";
+import GameList from "../pages/gameList";
 import Inplay from "../pages/inplay";
 import LiveCasino from "../pages/liveCasino";
 import Match from "../pages/match";
@@ -16,6 +17,7 @@ import MatchDetail from "../pages/matchDetail";
 import MyAccount from "../pages/myAccount";
 import AccountStatement from "../pages/reports/AccountStatement";
 import ProfitLoss from "../pages/reports/ProfitLoss";
+import ProfitLossCard from "../pages/reports/ProfitLossCard";
 import Rules from "../pages/rules";
 
 // const ChangeButtonValue = Loadable(
@@ -47,6 +49,15 @@ const MainRoutes = {
       element: <Match />,
     },
     {
+      // path: Constants.MainPaths.match,
+      path: `${Constants.MainPaths.match}/:type`,
+      element: <GameList />,
+    },
+    // {
+    //   path: "game-list/:type",
+    //   element: <GameList />,
+    // },
+    {
       path: Constants.MainPaths.comingSoon,
       element: <Comingsoon />,
     },
@@ -56,6 +67,10 @@ const MainRoutes = {
     },
     {
       path: Constants.MainPaths.liveMarketSport,
+      element: <MatchDetail />,
+    },
+    {
+      path: `${Constants.MainPaths.match}/:type/matchDetail`,
       element: <MatchDetail />,
     },
     {
@@ -87,12 +102,20 @@ const MainRoutes = {
       element: <ProfitLoss />,
     },
     {
+      path: Constants.ReportsPaths.profitLossCard,
+      element: <ProfitLossCard />,
+    },
+    {
       path: Constants.ReportsPaths.betHistory,
       element: <BetHistory />,
     },
     {
       path: Constants.ReportsPaths.accountStatement,
       element: <AccountStatement />,
+    },
+    {
+      path: Constants.MainPaths.casino,
+      element: <LiveCasino />,
     },
     {
       path: Constants.MainPaths.liveCasino,

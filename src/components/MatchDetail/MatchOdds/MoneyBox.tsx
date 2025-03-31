@@ -25,7 +25,7 @@ const MoneyBox = ({ color, rates }: any) => {
     >
       <Typography sx={{ fontSize: "10px", fontWeight: "bold", color: color }}>
         {handleDecimalAmount((val), color)}
-      {/* {new Intl.NumberFormat("en-IN").format(parseFloat(parseFloat(rates).toFixed(2)))} */}
+        {/* {new Intl.NumberFormat("en-IN").format(parseFloat(parseFloat(rates).toFixed(2)))} */}
       </Typography>
     </Box>
   );

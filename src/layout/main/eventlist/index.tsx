@@ -7,6 +7,7 @@ import {
   GOLF,
   Hockey,
   Mac88,
+  MacVirtual,
   MYACCOUNT,
   Play,
   // Slot,
@@ -14,6 +15,7 @@ import {
   Tennis,
 } from "../../../assets";
 
+import { useMediaQuery, useTheme } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import EventComponent from "./EventComponent";
 
@@ -25,15 +27,15 @@ let EventNames = [
     active: false,
   },
   {
-    title: "MY ACCOUNT",
-    image: MYACCOUNT,
-    url: "/my-account",
+    title: "CRICKET",
+    image: Cricket,
+    url: "/match/cricket",
     active: false,
   },
   {
-    title: "CRICKET",
-    image: Cricket,
-    url: "/match",
+    title: "CASINO",
+    image: MacVirtual,
+    url: "/casino",
     active: false,
   },
   {
@@ -45,13 +47,15 @@ let EventNames = [
   {
     title: "SOCCER",
     image: Football,
-    url: "/comingsoon",
+    // url: "/comingsoon",
+    url: "/match/football",
     active: false,
   },
   {
     title: "TENNIS",
     image: Tennis,
-    url: "/comingsoon",
+    // url: "/comingsoon",
+    url: "/match/tennis",
     active: false,
   },
   {
@@ -84,9 +88,18 @@ let EventNames = [
     url: "/comingsoon",
     active: false,
   },
+  {
+    title: "MY ACCOUNT",
+    image: MYACCOUNT,
+    url: "/my-account",
+    active: false,
+  },
 ];
 
 const EventListing = () => {
+  const theme = useTheme();
+  const matchesMobile = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
     <>
       <Box
@@ -105,14 +118,17 @@ const EventListing = () => {
           },
         ]}
       >
-        {EventNames.map((item, idx) => (
+        {(matchesMobile
+          ? EventNames.filter((item: any) => item.title !== "CASINO")
+          : EventNames
+        ).map((item, idx) => (
           <NavLink
             key={idx}
             to={`${item.url}`}
             className={({ isActive }) => (isActive ? "activeEventTab" : "")}
             style={{ textDecoration: "none" }}
           >
-            <EventComponent data={item} setAnchor={() => {}} />
+            <EventComponent data={item} setAnchor={() => { }} />
           </NavLink>
         ))}
       </Box>

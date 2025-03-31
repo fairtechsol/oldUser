@@ -1,16 +1,20 @@
-import { Box } from "@mui/material";
+import { Box, useMediaQuery, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { FaHome } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import { dt2020, FgLogo } from "../../../assets";
 import { liveCasinoLogin } from "../../../store/actions/card/cardDetail";
 import { AppDispatch, RootState } from "../../../store/store";
-import Loader from "../../Loader";
 import { liveCasinoPics } from "../../../utils/Constants";
+import Loader from "../../Loader";
 
 const LiveCasinoMobile = () => {
+  const theme = useTheme();
+  const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const dispatch: AppDispatch = useDispatch();
+  const { state } = useLocation();
   const { liveCasinoData, liveCasinoGame } = useSelector(
     (state: RootState) => state.card.cardDetail
   );
@@ -18,10 +22,6 @@ const LiveCasinoMobile = () => {
   const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
   );
-  const initialType: any =
-    liveCasinoData && Object.keys(liveCasinoData).length > 0
-      ? Object.keys(liveCasinoData)[0]
-      : null;
 
   const [list, setList] = useState<Record<string, any>>({});
   const [type, setType] = useState<string>("");
@@ -29,28 +29,70 @@ const LiveCasinoMobile = () => {
   const [game, setGame] = useState<any>();
   const [isLoading, setIsLoading] = useState(true);
   const [isShow, setIsShow] = useState(false);
+  const [casinoType, setCasinoType] = useState("casino");
 
-  const handleParent = (key: any) => {
+  const handleParent = (key: string, secKey: string, casinoType: string) => {
+    const casinoData =
+      casinoType === "casino"
+        ? liveCasinoData?.casino
+        : liveCasinoData?.intCasino;
+    if (!casinoData?.[key]) return;
+
+    setList(casinoData);
     setType(key);
+
     const firstKey =
-      key === "All" ? Object.keys(liveCasinoData[key])[0] : "All";
-    setType2(firstKey);
-    setGame(liveCasinoData[key][firstKey]);
+      key === "All" ? Object.keys(casinoData[key] || {})[0] : "All";
+    const selectedKey = secKey || firstKey;
+
+    setType2(selectedKey);
+    setGame(casinoData[key]?.[selectedKey]);
+  };
+
+  const handleCasinoType = (key: string) => {
+    setCasinoType(key);
+    handleParent(
+      Object.keys(
+        key === "casino" ? liveCasinoData?.casino : liveCasinoData?.intCasino
+      )[0],
+      "",
+      key
+    );
   };
 
   useEffect(() => {
-    if (liveCasinoData && Object.keys(liveCasinoData).length > 0) {
-      setList(liveCasinoData);
-      setType(initialType);
-      setType2(Object.keys(liveCasinoData[initialType])?.[0]);
-      const firstObject =
-        liveCasinoData[initialType][
-          Object.keys(liveCasinoData[initialType])?.[0]
-        ];
-      setGame(firstObject);
-      setIsLoading(false);
+    if (!liveCasinoData) return;
+
+    const isCasino = casinoType === "casino";
+    const casinoData = isCasino
+      ? liveCasinoData?.casino
+      : liveCasinoData?.intCasino;
+
+    if (!casinoData || Object.keys(casinoData).length === 0) return;
+
+    const initialType = Object.keys(casinoData)[0];
+    const firstKey = isCasino
+      ? "All"
+      : Object.keys(casinoData[initialType] || {})[0];
+    const firstObject = casinoData[initialType]?.[firstKey];
+
+    setList(casinoData);
+    setType(initialType);
+    setType2(firstKey);
+    setGame(firstObject);
+    setIsLoading(false);
+  }, [liveCasinoData, casinoType]);
+
+  useEffect(() => {
+    if (
+      state?.key &&
+      liveCasinoData &&
+      Object.keys(liveCasinoData).length > 0
+    ) {
+      setCasinoType("intCasino");
+      handleParent("All", state.key, "intCasino");
     }
-  }, [liveCasinoData, location.pathname]);
+  }, [state, liveCasinoData]);
 
   if (isLoading) {
     return (
@@ -178,13 +220,57 @@ const LiveCasinoMobile = () => {
           width: "100%",
         }}
       >
+        {[
+          { id: "casino", val: "Casino" },
+          { id: "intCasino", val: "Live Casino" },
+        ]?.map((key, index) => {
+          const isActive = casinoType === key.id;
+          return (
+            <>
+              <Box
+                key={index}
+                onClick={() => handleCasinoType(key.id)}
+                className={`w-100 d-flex justify-content-center px-3 align-items-center fbold py-2`}
+                sx={{
+                  color: isActive ? "#fff" : "#000",
+                  cursor: "pointer",
+                  backgroundColor: isActive ? "#004A25" : "",
+                  fontWeight: isActive ? "bold" : "",
+                  fontSize: "14px",
+                  borderRight: "1px solid #000",
+                  borderBottom: "1px solid #000",
+                  height: "3rem",
+                }}
+                style={{
+                  cursor: "pointer",
+                }}
+              >
+                {key.val}
+              </Box>
+            </>
+          );
+        })}
+      </Box>
+      <Box
+        className="d-flex flex-row"
+        sx={{
+          overflowX: "auto",
+          flexWrap: "nowrap",
+          backgroundColor: "#bbbbbb",
+          whiteSpace: "nowrap",
+          overflow: "auto",
+          textOverflow: "ellipsis",
+          padding: "0px 10px",
+          width: "100%",
+        }}
+      >
         {Object.keys(list)?.map((key, index) => {
           const isActive = type === key;
           return (
             <>
               <Box
                 key={index}
-                onClick={() => handleParent(key)}
+                onClick={() => handleParent(key, "", casinoType)}
                 className={`w-100 d-flex justify-content-center px-3 align-items-center fbold py-2`}
                 sx={{
                   color: isActive ? "#fff" : "#000",
@@ -236,15 +322,14 @@ const LiveCasinoMobile = () => {
                   setIsShow(false);
                 }}
               >
-                <FaHome color="#fff" size={20} />
+                <FaHome color="#fff" size={matchesMobile ? 20 : 40} />
                 <img
                   src={FgLogo}
                   width={"auto"}
-                  height="27px"
                   alt="fairGame"
                   style={{
                     margin: "5px 5px 0",
-                    maxWidth: "250px",
+                    maxWidth: matchesMobile ? "150px" : "250px",
                     display: "inline-block",
                     cursor: "pointer",
                   }}

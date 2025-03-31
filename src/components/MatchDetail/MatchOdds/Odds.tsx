@@ -156,7 +156,7 @@ const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
           background: "white",
         }}
         onClick={(e) => {
-          dispatch(updateLogoutModal({modal : false}))
+          dispatch(updateLogoutModal({ modal: false }))
           e.stopPropagation();
           setSelectedMatchId(match?.id);
         }}
@@ -288,7 +288,6 @@ const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
                   display: "flex",
                   background: "#319E5B",
                   height: "25px",
-                  mr:"4px",
                   width: { lg: "60%", xs: "80%" },
                   justifyContent: { lg: "flex-end", xs: "flex-end" },
                 }}
@@ -296,7 +295,7 @@ const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
                 <Box
                   sx={{
                     background: "#00C0F9",
-                    width: { lg: "24%", xs: "25%" },
+                    width: { lg: "24%", xs: "24.8%" },
                     height: "100%",
                     display: "flex",
                     justifyContent: "center",
@@ -314,7 +313,7 @@ const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
                 <Box
                   sx={{
                     background: "#FF9292",
-                    width: { lg: "24%", xs: "25%" },
+                    width: { lg: "24%", xs: "24.3%" },
                     height: "100%",
                     display: "flex",
                     justifyContent: "center",

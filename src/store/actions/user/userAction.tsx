@@ -210,12 +210,46 @@ export const getMatchWiseProfitLoss = createAsyncThunk<any, any>(
     }
   }
 );
+export const getMatchWiseProfitLossCard = createAsyncThunk<any, any>(
+  "/matchWiseProfitLossCard",
+  async (requestData, thunkApi) => {
+    try {
+      const resp = await service.post(
+        `${ApiConstants.CARDS.REPORT.GET_GAME_WISE_PROFIT_LOSS}`,
+        requestData
+      );
+      if (resp) {
+        return resp?.data?.result;
+      }
+    } catch (error: any) {
+      const err = error as AxiosError;
+      return thunkApi.rejectWithValue(err.response?.status);
+    }
+  }
+);
 export const getUserTotalProfitLoss = createAsyncThunk<any, any>(
   "/usrTotalProfitLoss",
   async (requestData, thunkApi) => {
     try {
       const resp = await service.post(
         `${ApiConstants.USER.TOTAL_PROFITLOSS}`,
+        requestData?.filter ? requestData?.filter : requestData
+      );
+      if (resp) {
+        return resp?.data;
+      }
+    } catch (error: any) {
+      const err = error as AxiosError;
+      return thunkApi.rejectWithValue(err.response?.status);
+    }
+  }
+);
+export const getUserTotalProfitLossCard = createAsyncThunk<any, any>(
+  "/usrTotalProfitLossCard",
+  async (requestData, thunkApi) => {
+    try {
+      const resp = await service.post(
+        `${ApiConstants.CARDS.REPORT.GET_TOTAL_PROFIT_LOSS}`,
         requestData?.filter ? requestData?.filter : requestData
       );
       if (resp) {
@@ -244,6 +278,23 @@ export const getTotalBetProfitLoss = createAsyncThunk<any, any>(
     }
   }
 );
+export const getTotalBetProfitLossCard = createAsyncThunk<any, any>(
+  "/totalBetProfitLossCard",
+  async (requestData, thunkApi) => {
+    try {
+      const resp = await service.post(
+        `${ApiConstants.CARDS.REPORT.GET_TOTAL_BET_PROFIT_LOSS}`,
+        requestData
+      );
+      if (resp) {
+        return resp?.data;
+      }
+    } catch (error: any) {
+      const err = error as AxiosError;
+      return thunkApi.rejectWithValue(err.response?.status);
+    }
+  }
+);
 export const getSessionProfitLoss = createAsyncThunk<any, any>(
   "/sessionProfitLoss",
   async (requestData, thunkApi) => {
@@ -256,6 +307,33 @@ export const getSessionProfitLoss = createAsyncThunk<any, any>(
         return resp?.data;
       }
     } catch (error: any) {
+      const err = error as AxiosError;
+      return thunkApi.rejectWithValue(err.response?.status);
+    }
+  }
+);
+
+export const getBetAccountStatementModal = createAsyncThunk<any, any>(
+  "transaction/BetAccountStatementModal",
+  async ({ id, sort, betId, status, runnerId, result, isCard }, thunkApi) => {
+    try {
+      const resp = await service.get(
+        `${ApiConstants.BET.BET_ACCOUNTSTATEMENT}?createBy=eq${id}&sort=${
+          sort ? sort : ""
+        }${
+          betId
+            ? `&betId=inArr${JSON.stringify(betId)}`
+            : runnerId
+            ? isCard
+              ? `&betPlaced.runnerId=${runnerId}`
+              : `&runnerId=eq${runnerId}`
+            : ""
+        }${result ? `&result=${result}` : status ? `&status=${status}` : ""}`
+      );
+      if (resp?.data) {
+        return resp?.data;
+      }
+    } catch (error) {
       const err = error as AxiosError;
       return thunkApi.rejectWithValue(err.response?.status);
     }

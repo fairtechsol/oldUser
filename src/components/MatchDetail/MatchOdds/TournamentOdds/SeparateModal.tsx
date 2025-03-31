@@ -45,7 +45,6 @@ const SeparateModal = ({
       })
     );
   };
-
   const handleRateClick = () => {
     if (lock || [0, "0", null, undefined].includes(value) || upcoming) {
       return false;

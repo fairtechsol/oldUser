@@ -418,24 +418,24 @@ const matchListSlice = createSlice({
 
           const updatedProfitLossDataSession = isBetIdPresent
             ? state?.matchDetails?.profitLossDataSession?.map((item: any) =>
-                item?.betId === betId
-                  ? {
-                      ...item,
-                      maxLoss: JSON.parse(profitLoss)?.maxLoss,
-                      totalBet: JSON.parse(profitLoss)?.totalBet,
-                      profitLoss: JSON.parse(profitLoss)?.betPlaced,
-                    }
-                  : item
-              )
-            : [
-                ...state.matchDetails?.profitLossDataSession,
-                {
-                  betId: betId,
+              item?.betId === betId
+                ? {
+                  ...item,
                   maxLoss: JSON.parse(profitLoss)?.maxLoss,
                   totalBet: JSON.parse(profitLoss)?.totalBet,
                   profitLoss: JSON.parse(profitLoss)?.betPlaced,
-                },
-              ];
+                }
+                : item
+            )
+            : [
+              ...state.matchDetails?.profitLossDataSession,
+              {
+                betId: betId,
+                maxLoss: JSON.parse(profitLoss)?.maxLoss,
+                totalBet: JSON.parse(profitLoss)?.totalBet,
+                profitLoss: JSON.parse(profitLoss)?.betPlaced,
+              },
+            ];
 
           state.matchDetails = {
             ...state.matchDetails,

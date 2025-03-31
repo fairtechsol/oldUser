@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import moment from "moment";
-import { Cricket } from "../../assets";
+import { IconConstants } from "../../helper/gameConstants";
 import isMobile from "../secureAuthVerification/container/isMobile";
 
 const Upcomings = (props: any) => {
@@ -45,13 +45,7 @@ const Upcomings = (props: any) => {
       </Box>
       <div style={{ background: "#f1c550" }}>
         {location.pathname === "/inplay" && (
-          <img
-            className="inplayicon"
-            src={Cricket}
-            alt="Inplay Icon"
-            width={25}
-            height={25}
-          />
+          <img className="inplayicon" src={IconConstants[match?.matchType]} alt="Inplay Icon" width={25} height={25} />
         )}
       </div>
       <Box
@@ -88,8 +82,8 @@ const Upcomings = (props: any) => {
               alignSelf: "flex-end",
               visibility:
                 Number(timeLeft) === 0 &&
-                Number(timeLeft) === 0 &&
-                Number(timeLeft) === 0
+                  Number(timeLeft) === 0 &&
+                  Number(timeLeft) === 0
                   ? "hidden"
                   : "visible",
             }}

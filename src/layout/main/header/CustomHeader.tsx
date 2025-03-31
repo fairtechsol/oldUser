@@ -1,21 +1,21 @@
 import {
-  Typography,
+  AppBar,
   Box,
+  Typography,
   useMediaQuery,
   useTheme,
-  AppBar,
 } from "@mui/material";
-import { useState, useEffect, useRef } from "react";
-import "./index.css";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import MobileSideBar from "./MobileSideBar";
 import StyledImage from "../../../components/Common/StyledImages";
+import "./index.css";
+import MobileSideBar from "./MobileSideBar";
 
 import { memo } from "react";
-import NewBoxData from "./NewBoxData";
-import { Draw, logo } from "../../../assets";
 import { useSelector } from "react-redux";
+import { Draw, logo } from "../../../assets";
 import { RootState } from "../../../store/store";
+import NewBoxData from "./NewBoxData";
 
 const CustomHeader = () => {
   const theme = useTheme();
@@ -30,7 +30,7 @@ const CustomHeader = () => {
 
   const marqueeTextRef = useRef<HTMLDivElement | null>(null);
 
-  
+
   useEffect(() => {
     if (!matchesMobile) {
       setMobileOpen(false);

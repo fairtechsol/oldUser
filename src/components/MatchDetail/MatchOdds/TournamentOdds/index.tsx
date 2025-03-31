@@ -1,9 +1,19 @@
 import { Box, Typography } from "@mui/material";
+import MUIModal from "@mui/material/Modal";
 import { Fragment, memo, useState } from "react";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 import { ARROWUP, LockIcon } from "../../../../assets";
-import { handleDecimalAmount } from "../../../../helper";
+import { calculateRequiredStack, handleDecimalAmount } from "../../../../helper";
 import Divider from "../../../../helper/Divider";
+import {
+  selectedBetAction,
+  selectedBetMinMax,
+} from "../../../../store/actions/match/matchListAction";
+import { AppDispatch } from "../../../../store/store";
 import CommissionDot from "../../../Common/CommissionDot";
+import isMobile from "../../../secureAuthVerification/container/isMobile";
+import OddsPlaceBet from "../Bets/OddsPlacebet";
 import BoxComponent from "./BoxComponent";
 
 const SmallBox = ({ valueA, valueB, color }: any) => {
@@ -110,7 +120,9 @@ const TournamentOdds = ({
   marketDetails,
   matchDetails,
 }: any) => {
+  const dispatch: AppDispatch = useDispatch();
   const [visible, setVisible] = useState(true);
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
   const bookRatioB = (() => {
     if (teamARates === 0) {
@@ -132,6 +144,116 @@ const TournamentOdds = ({
     }
   })();
 
+  const handleCashout = () => {
+    console.log("marketDetails?.runners :", marketDetails?.runners)
+    const [teamAId, teamBId] = marketDetails?.runners?.map(team => team.parentRunnerId || team.id);
+    const profitA = Math.round(profitLossObj?.[teamAId] ?? 0);
+    const profitB = Math.round(profitLossObj?.[teamBId] ?? 0);
+    if (profitA === profitB) {
+      toast.error("You are not eligible for cashout!", {
+        style: { backgroundColor: "#ffffff", color: "#000000" },
+      });
+      return;
+    }
+    // profitLossObj?.[teamAId] < profitLossObj?.[teamBId]
+    const getBackAndLayRates = (team) => {
+      const back1 = team?.ex?.availableToBack?.find(item => item.oname === "back1")?.price || 0;
+      const lay1 = team?.ex?.availableToLay?.find(item => item.oname === "lay1")?.price || 0;
+
+      return {
+        id: team?.id,
+        selectionId: team?.selectionId,
+        teamName: team?.nat || team?.runnerName,
+        back1,
+        lay1,
+        back1Price: marketDetails?.gtype === "match" ? (back1 - 1) * 100 : back1,
+        lay1Price: marketDetails?.gtype === "match" ? (lay1 - 1) * 100 : lay1,
+      };
+    };
+
+    // Get back1 & lay1 values for Team A & Team B
+    const teamA = getBackAndLayRates(marketDetails?.runners[0]);
+    const teamB = getBackAndLayRates(marketDetails?.runners[1]);
+
+    let runner = {};
+    let odds = 0;
+    let type = "";
+    let stake = 0;
+
+    const getKeyByValue = (obj, value) => Object.keys(obj).find(key => obj[key] === value);
+
+    if (teamA.back1Price < 100 && teamA.lay1Price < 100) {
+      odds = profitA < profitB ? teamA.back1 : teamA.lay1
+      const perc = profitLossObj?.[teamAId] < profitLossObj?.[teamBId] ? teamA.back1Price : teamA.lay1Price;
+
+      stake = Math.abs(calculateRequiredStack(profitLossObj?.[teamAId], profitLossObj?.[teamBId], perc));
+      runner = teamA;
+      const key = getKeyByValue(teamA, odds);
+      type = key === "lay1" ? "lay" : "back";
+
+    } else {
+      odds = profitA < profitB ? teamB.lay1 : teamB.back1
+      const perc = profitLossObj?.[teamAId] < profitLossObj?.[teamBId] ? teamB.lay1Price : teamB.back1Price;
+      stake = Math.abs(calculateRequiredStack(profitLossObj?.[teamAId], profitLossObj?.[teamBId], perc));
+      runner = teamB;
+      const key = getKeyByValue(teamB, odds);
+      type = key === "lay1" ? "lay" : "back";
+    }
+
+    if (odds < 1 || !isFinite(stake) || stake <= 0) {
+      toast.error("You are not eligible for cashout!", {
+        style: { backgroundColor: "#ffffff", color: "#000000" },
+      });
+      return;
+    }
+
+    const [teamAStatus, teamBStatus] = marketDetails?.runners?.map(team => team.status);
+    if (teamAStatus == "SUSPENDED" || teamBStatus == "SUSPENDED") {
+      toast.error("You are not eligible for cashout!", {
+        style: { backgroundColor: "#ffffff", color: "#000000" },
+      });
+      return;
+    }
+
+    setIsPopoverOpen(true);
+    let team = {
+      name: runner?.teamName,
+      bettingName: marketDetails?.name,
+      rate: odds,
+      type: type,
+      stake: stake,
+      betId: marketDetails?.id,
+      eventType: marketDetails?.gtype,
+      matchId: matchDetails?.id,
+      matchBetType: marketDetails?.type,
+      betPlaceIndex: 0,
+      mid: marketDetails?.mid?.toString(),
+      selectionId: runner?.selectionId?.toString(),
+      runnerId: runner?.id?.toString(),
+    };
+    handleClick(team, marketDetails);
+  };
+
+  const handleClick = (team: any, data: any) => {
+    dispatch(
+      selectedBetAction({
+        team,
+        data,
+      })
+    );
+    dispatch(
+      selectedBetMinMax({
+        team,
+        data,
+      })
+    );
+  };
+
+  const key = `${marketDetails.parentBetId || marketDetails?.id}_profitLoss_${matchDetails?.id}`;
+  const profitLossJson = matchDetails?.profitLossDataMatch?.[key];
+
+  const profitLossObj = profitLossJson ? JSON.parse(profitLossJson) : {};
+  // console.log("data?.runners lll:", profitLossObj)
   return (
     <>
       <Box
@@ -206,6 +328,36 @@ const TournamentOdds = ({
             }}
           >
             <SmallBox valueA={bookRatioA} valueB={bookRatioB} />
+            {!isMobile && (<Box
+              sx={{
+                position: { lg: "static", xs: "relative" },
+                // paddingY: "2vh",
+                right: 25
+              }}
+            >
+
+              <button
+                type="submit"
+                disabled={
+                  Object.keys(profitLossObj).length <= 0 ? true : false
+                }
+                // disabled={loading || !stakeValue ? true : false}
+                style={{
+                  color: "#319E5B",
+                  backgroundColor: "#fff",
+                  // width: "150px",
+                  // cursor: loading || !stakeValue ? "not-allowed" : "pointer",
+                  // width: { lg: "150px", xs: "130px" },
+                  // height: "35px",
+                  borderRadius: "3px",
+                  border: "2px solid white",
+                  opacity: Object.keys(profitLossObj).length <= 0 ? 0.65 : 1
+                }}
+                onClick={() => handleCashout()}
+              >
+                Cashout
+              </button>
+            </Box>)}
             <Box
               className="arrowUpCollapse"
               sx={{
@@ -234,6 +386,7 @@ const TournamentOdds = ({
                 alt={"Banner"}
               />
             </Box>
+
           </Box>
         </Box>
         {visible && (
@@ -268,6 +421,7 @@ const TournamentOdds = ({
                   {min === max ? `MAX:${max}` : `MIN: ${min} MAX:${max}`}
                 </Typography>
               </Box>
+
               <Box
                 sx={{
                   display: "flex",
@@ -278,6 +432,39 @@ const TournamentOdds = ({
                   justifyContent: { lg: "center", xs: "flex-end" },
                 }}
               >
+                {isMobile && (<Box
+                  sx={{
+                    // position: { lg: "static", xs: "relative" },
+                    // paddingY: "2vh",
+                    marginRight: "14px"
+                  }}
+                >
+
+                  <button
+                    type="submit"
+                    disabled={
+                      Object.keys(profitLossObj).length <= 0 ? true : false
+                    }
+                    // disabled={loading || !stakeValue ? true : false}
+                    style={{
+                      color: "#319E5B",
+                      backgroundColor: "#fff",
+                      // width: "150px",
+                      // cursor: loading || !stakeValue ? "not-allowed" : "pointer",
+                      // width: { lg: "150px", xs: "130px" },
+                      // height: "35px",
+                      borderRadius: "3px",
+                      border: "0px solid white",
+                      opacity: Object.keys(profitLossObj).length <= 0 ? 0.65 : 1,
+                      height: 23,
+                      marginTop: 1,
+                      padding: "0 6px"
+                    }}
+                    onClick={() => handleCashout()}
+                  >
+                    Cashout
+                  </button>
+                </Box>)}
                 <Box
                   sx={{
                     background: "#00C0F9",
@@ -369,36 +556,36 @@ const TournamentOdds = ({
               !marketDetails?.isActive ||
               (!["ACTIVE", "OPEN", ""].includes(marketDetails?.status) &&
                 marketDetails?.gtype == "match")) && (
-              <Box
-                sx={{
-                  position: "absolute",
-                  height: "83%",
-                  // top: "18%",
-                  width: "100%",
-                  display: "flex",
-                  zIndex: "999",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  background: "rgba(0, 0, 0, 0.71)",
-                }}
-              >
-                <Typography
+                <Box
                   sx={{
-                    fontSize: { xs: "12px", lg: "22px" },
-                    textTransform: "uppercase",
+                    position: "absolute",
+                    height: "83%",
+                    // top: "18%",
                     width: "100%",
-                    textAlign: "center",
-                    color: "white",
-                    fontWeight: "400",
+                    display: "flex",
+                    zIndex: "999",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    background: "rgba(0, 0, 0, 0.71)",
                   }}
                 >
-                  {!["ACTIVE", "OPEN", ""].includes(marketDetails?.status) &&
-                  marketDetails?.gtype == "match"
-                    ? marketDetails?.status
-                    : ""}
-                </Typography>
-              </Box>
-            )}
+                  <Typography
+                    sx={{
+                      fontSize: { xs: "12px", lg: "22px" },
+                      textTransform: "uppercase",
+                      width: "100%",
+                      textAlign: "center",
+                      color: "white",
+                      fontWeight: "400",
+                    }}
+                  >
+                    {!["ACTIVE", "OPEN", ""].includes(marketDetails?.status) &&
+                      marketDetails?.gtype == "match"
+                      ? marketDetails?.status
+                      : ""}
+                  </Typography>
+                </Box>
+              )}
             {marketDetails?.runners?.map((item: any) => (
               <Fragment key={item?.selectionId}>
                 <BoxComponent
@@ -412,20 +599,20 @@ const TournamentOdds = ({
                   color={
                     matchDetails?.profitLossDataMatch?.[
                       (marketDetails?.parentBetId || marketDetails?.id) +
+                      "_" +
+                      "profitLoss" +
+                      "_" +
+                      matchDetails?.id
+                    ]
+                      ? JSON.parse(
+                        matchDetails?.profitLossDataMatch?.[
+                        (marketDetails?.parentBetId || marketDetails?.id) +
                         "_" +
                         "profitLoss" +
                         "_" +
                         matchDetails?.id
-                    ]
-                      ? JSON.parse(
-                          matchDetails?.profitLossDataMatch?.[
-                            (marketDetails?.parentBetId || marketDetails?.id) +
-                              "_" +
-                              "profitLoss" +
-                              "_" +
-                              matchDetails?.id
-                          ]
-                        )?.[item?.parentRunnerId || item?.id] <= 0
+                        ]
+                      )?.[item?.parentRunnerId || item?.id] <= 0
                         ? "#FF4D4D"
                         : "#319E5B"
                       : "#319E5B"
@@ -433,20 +620,20 @@ const TournamentOdds = ({
                   rate={
                     matchDetails?.profitLossDataMatch?.[
                       (marketDetails?.parentBetId || marketDetails?.id) +
+                      "_" +
+                      "profitLoss" +
+                      "_" +
+                      matchDetails?.id
+                    ]
+                      ? JSON.parse(
+                        matchDetails?.profitLossDataMatch?.[
+                        (marketDetails?.parentBetId || marketDetails?.id) +
                         "_" +
                         "profitLoss" +
                         "_" +
                         matchDetails?.id
-                    ]
-                      ? JSON.parse(
-                          matchDetails?.profitLossDataMatch?.[
-                            (marketDetails?.parentBetId || marketDetails?.id) +
-                              "_" +
-                              "profitLoss" +
-                              "_" +
-                              matchDetails?.id
-                          ]
-                        )?.[item?.parentRunnerId || item?.id]
+                        ]
+                      )?.[item?.parentRunnerId || item?.id]
                       : 0
                   }
                   name={item?.nat ?? item?.runnerName}
@@ -460,6 +647,32 @@ const TournamentOdds = ({
             ))}
           </Box>
         )}
+        <MUIModal
+          open={isPopoverOpen}
+          onClose={() => {
+            setIsPopoverOpen(false);
+          }}
+        >
+          <Box
+            sx={{
+              width: "100%",
+              position: "absolute",
+              display: "flex",
+              alignItems: "center",
+              top: "33%",
+              overflow: "hidden",
+              justifyContent: "center",
+              outline: "none",
+            }}
+          >
+            <OddsPlaceBet
+              handleClose={() => {
+                setIsPopoverOpen(false);
+              }}
+              type={{ color: "#FFB5B5", type: "BL" }}
+            />
+          </Box>
+        </MUIModal>
       </Box>
       <style>
         {`

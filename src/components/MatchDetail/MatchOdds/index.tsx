@@ -2,7 +2,7 @@ import { Pagination } from "@mui/material";
 import axios from "axios";
 import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { expertSocketService, socket } from "../../../socketManager";
 import {
   getMatchList,
@@ -18,6 +18,8 @@ const MatchesComponent = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [selectedMatchId, setSelectedMatchId] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
+  const { type } = useParams();
 
   const getMatchListMarket = async (matchType: string) => {
     try {
@@ -40,12 +42,15 @@ const MatchesComponent = () => {
   // };
 
   const getMatchListService = () => {
-    dispatch(getMatchList({}));
+    // dispatch(getMatchList({}));
+    dispatch(getMatchList({ matchType: type }));
   };
 
   useEffect(() => {
     try {
-      window.scrollTo(0, 0);
+      if (!location.pathname.includes("/inplay")) {
+        window.scrollTo(0, 0);
+      }
       if (success && socket) {
         expertSocketService.match.matchAddedOff();
         // matchList?.matches?.forEach((element: any) => {
@@ -74,7 +79,7 @@ const MatchesComponent = () => {
     } catch (e) {
       console.log(e);
     }
-  }, [success, socket]);
+  }, [success, socket, location]);
 
   useEffect(() => {
     try {
@@ -104,7 +109,8 @@ const MatchesComponent = () => {
     try {
       const handleVisibilityChange = () => {
         if (document.visibilityState === "visible") {
-          dispatch(getMatchList({}));
+          // dispatch(getMatchList({}));
+          dispatch(getMatchList({ matchType: type }));
         }
         // else if (document.visibilityState === "hidden") {
         //   if (matchList?.matches) {
@@ -129,7 +135,8 @@ const MatchesComponent = () => {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      dispatch(getMatchList({}));
+      // dispatch(getMatchList({}));
+      dispatch(getMatchList({ matchType: type }));
     }, 14100 * 1000);
 
     return () => {
@@ -138,12 +145,21 @@ const MatchesComponent = () => {
   }, []);
 
   useEffect(() => {
+    getMatchListMarket(type || "");
     const intervalId = setInterval(() => {
-      getMatchListMarket("cricket");
-    }, 500);
+      if (type) {
+        getMatchListMarket(type || "");
+      }
+    }, 60000);
 
     return () => clearInterval(intervalId);
-  }, []);
+  }, [type]);
+
+  useEffect(() => {
+    if (type) {
+      dispatch(getMatchList({ matchType: type }));
+    }
+  }, [type]);
 
   return (
     <>
@@ -167,18 +183,20 @@ const MatchesComponent = () => {
             );
           })}
 
-      <Pagination
-        page={currentPage}
-        className="whiteTextPagination d-flex justify-content-center"
-        onChange={(_, page) => {
-          setCurrentPage(page);
-        }}
-        count={Math.ceil(
-          parseInt(matchList?.count ? matchList?.count : 1) /
-            Constants.pageLimit
-        )}
-        color="primary"
-      />
+      {!location.pathname.includes("/inplay") && (
+        <Pagination
+          page={currentPage}
+          className="whiteTextPagination d-flex justify-content-center"
+          onChange={(_, page) => {
+            setCurrentPage(page);
+          }}
+          count={Math.ceil(
+            parseInt(matchList?.count ? matchList?.count : 1) /
+              Constants.pageLimit
+          )}
+          color="primary"
+        />
+      )}
     </>
   );
 };

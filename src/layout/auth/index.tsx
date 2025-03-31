@@ -1,6 +1,6 @@
 import { Box, Card, useMediaQuery, useTheme } from "@mui/material";
-import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 import { FgLogo } from "../../assets";
 import StyledImage from "../../components/Common/StyledImages";
 import AuthBackground from "../../pages/auth/AuthBackground";
@@ -12,7 +12,8 @@ const AuthLayout = () => {
 
   useEffect(() => {
     if (sessionStorage.getItem("jwtUser")) {
-      navigate("/match");
+      // navigate("/match");
+      navigate("/inplay");
     }
   }, [navigate]);
 

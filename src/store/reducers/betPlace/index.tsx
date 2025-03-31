@@ -3,6 +3,7 @@ import {
   betsSuccessReset,
   getCurrentBets,
   getPlacedBets,
+  getPlacedBetsForAccountStatement,
   getRunAmount,
   resetRunAmount,
   updateBetsPlaced,
@@ -15,6 +16,7 @@ import {
 } from "../../actions/user/userAction";
 
 interface InitialState {
+  placedBetsAccountStatement: any;
   placedBets: any;
   runAmount: any;
   success: boolean;
@@ -23,6 +25,7 @@ interface InitialState {
 }
 
 const initialState: InitialState = {
+  placedBetsAccountStatement: [],
   placedBets: [],
   runAmount: {},
   loading: false,
@@ -78,6 +81,21 @@ const placedBet = createSlice({
         state.runAmount = action?.payload;
       })
       .addCase(getRunAmount.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action?.error?.message;
+      })
+      .addCase(getPlacedBetsForAccountStatement.pending, (state) => {
+        state.loading = true;
+        state.success = false;
+        state.error = null;
+        state.placedBetsAccountStatement = [];
+      })
+      .addCase(getPlacedBetsForAccountStatement.fulfilled, (state, action) => {
+        state.loading = false;
+        state.success = true;
+        state.placedBetsAccountStatement = action.payload;
+      })
+      .addCase(getPlacedBetsForAccountStatement.rejected, (state, action) => {
         state.loading = false;
         state.error = action?.error?.message;
       })
