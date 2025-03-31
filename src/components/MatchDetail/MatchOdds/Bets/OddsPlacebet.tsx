@@ -118,7 +118,6 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
 
   const handleProfit = (value: any) => {
     let profit;
-    console.log(selectedBet?.data?.type);
     if (selectedBet?.data?.type == "tournament") {
       if (selectedBet?.team?.eventType == "match1") {
         profit =

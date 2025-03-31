@@ -10,7 +10,6 @@ export function encryptWithAES(data: any, aesKey: any) {
     const encrypted = CryptoJS.AES.encrypt(JSON.stringify(data), key, {
       iv: iv,
     });
-    console.log(JSON.stringify(data));
     return encrypted.toString(); // Base64 encoded string
   } catch (error) {
     console.error("AES Encryption Error:", error);
