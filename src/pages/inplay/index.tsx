@@ -68,9 +68,10 @@ const Inplay = () => {
 
   useEffect(() => {
     const markets = ["cricket", "tennis", "football"];
+    markets.forEach((market) => getMatchListMarket(market));
     const intervalId = setInterval(() => {
       markets.forEach((market) => getMatchListMarket(market));
-    }, 500);
+    }, 60000);
 
     return () => clearInterval(intervalId);
   }, []);
@@ -194,10 +195,7 @@ const Inplay = () => {
                 </div>
                 {liveCasinoGameList.map((item: any, index: number) => (
                   <div className="d-inline-block casinoiconsm">
-                    <Link
-                      to={item.url}
-                      key={index}
-                    >
+                    <Link to={item.url} key={index}>
                       <img
                         src={item.url_thumb || item.imgSrc}
                         alt={item.game_name || item.name}

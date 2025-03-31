@@ -103,11 +103,12 @@ const MatchesComponent = () => {
   }, []);
 
   useEffect(() => {
+    getMatchListMarket(type || "");
     const intervalId = setInterval(() => {
       if (type) {
         getMatchListMarket(type || "");
       }
-    }, 500);
+    }, 60000);
 
     return () => clearInterval(intervalId);
   }, [type]);
