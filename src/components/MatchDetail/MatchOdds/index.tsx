@@ -150,7 +150,7 @@ const MatchesComponent = () => {
       if (type) {
         getMatchListMarket(type || "");
       }
-    }, 60000);
+    }, 3000);
 
     return () => clearInterval(intervalId);
   }, [type]);
