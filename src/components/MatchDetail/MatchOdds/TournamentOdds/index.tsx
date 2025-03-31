@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import MUIModal from "@mui/material/Modal";
 import { Fragment, memo, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { ARROWUP, LockIcon } from "../../../../assets";
 import { calculateRequiredStack, handleDecimalAmount } from "../../../../helper";
@@ -10,7 +10,7 @@ import {
   selectedBetAction,
   selectedBetMinMax,
 } from "../../../../store/actions/match/matchListAction";
-import { AppDispatch } from "../../../../store/store";
+import { AppDispatch, RootState } from "../../../../store/store";
 import CommissionDot from "../../../Common/CommissionDot";
 import isMobile from "../../../secureAuthVerification/container/isMobile";
 import OddsPlaceBet from "../Bets/OddsPlacebet";
@@ -123,6 +123,9 @@ const TournamentOdds = ({
   const dispatch: AppDispatch = useDispatch();
   const [visible, setVisible] = useState(true);
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+  const { selectedBet } = useSelector(
+    (state: RootState) => state.match.matchList
+  );
 
   const bookRatioB = (() => {
     if (teamARates === 0) {
@@ -145,7 +148,6 @@ const TournamentOdds = ({
   })();
 
   const handleCashout = () => {
-    console.log("marketDetails?.runners :", marketDetails?.runners)
     const [teamAId, teamBId] = marketDetails?.runners?.map(team => team.parentRunnerId || team.id);
     const profitA = Math.round(profitLossObj?.[teamAId] ?? 0);
     const profitB = Math.round(profitLossObj?.[teamBId] ?? 0);
@@ -214,7 +216,6 @@ const TournamentOdds = ({
       });
       return;
     }
-
     setIsPopoverOpen(true);
     let team = {
       name: runner?.teamName,
@@ -335,28 +336,29 @@ const TournamentOdds = ({
                 right: 25
               }}
             >
-
-              <button
-                type="submit"
-                disabled={
-                  Object.keys(profitLossObj).length <= 0 ? true : false
-                }
-                // disabled={loading || !stakeValue ? true : false}
-                style={{
-                  color: "#319E5B",
-                  backgroundColor: "#fff",
-                  // width: "150px",
-                  // cursor: loading || !stakeValue ? "not-allowed" : "pointer",
-                  // width: { lg: "150px", xs: "130px" },
-                  // height: "35px",
-                  borderRadius: "3px",
-                  border: "2px solid white",
-                  opacity: Object.keys(profitLossObj).length <= 0 ? 0.65 : 1
-                }}
-                onClick={() => handleCashout()}
-              >
-                Cashout
-              </button>
+              {marketDetails?.runners?.length === 2 && (
+                <button
+                  type="submit"
+                  disabled={
+                    Object.keys(profitLossObj).length <= 0 ? true : false
+                  }
+                  // disabled={loading || !stakeValue ? true : false}
+                  style={{
+                    color: "#319E5B",
+                    backgroundColor: "#fff",
+                    // width: "150px",
+                    // cursor: loading || !stakeValue ? "not-allowed" : "pointer",
+                    // width: { lg: "150px", xs: "130px" },
+                    // height: "35px",
+                    borderRadius: "3px",
+                    border: "2px solid white",
+                    opacity: Object.keys(profitLossObj).length <= 0 ? 0.65 : 1
+                  }}
+                  onClick={() => handleCashout()}
+                >
+                  Cashout
+                </button>
+              )}
             </Box>)}
             <Box
               className="arrowUpCollapse"
@@ -439,31 +441,32 @@ const TournamentOdds = ({
                     marginRight: "14px"
                   }}
                 >
-
-                  <button
-                    type="submit"
-                    disabled={
-                      Object.keys(profitLossObj).length <= 0 ? true : false
-                    }
-                    // disabled={loading || !stakeValue ? true : false}
-                    style={{
-                      color: "#319E5B",
-                      backgroundColor: "#fff",
-                      // width: "150px",
-                      // cursor: loading || !stakeValue ? "not-allowed" : "pointer",
-                      // width: { lg: "150px", xs: "130px" },
-                      // height: "35px",
-                      borderRadius: "3px",
-                      border: "0px solid white",
-                      opacity: Object.keys(profitLossObj).length <= 0 ? 0.65 : 1,
-                      height: 23,
-                      marginTop: 1,
-                      padding: "0 6px"
-                    }}
-                    onClick={() => handleCashout()}
-                  >
-                    Cashout
-                  </button>
+                  {marketDetails?.runners?.length === 2 && (
+                    <button
+                      type="submit"
+                      disabled={
+                        Object.keys(profitLossObj).length <= 0 ? true : false
+                      }
+                      // disabled={loading || !stakeValue ? true : false}
+                      style={{
+                        color: "#319E5B",
+                        backgroundColor: "#fff",
+                        // width: "150px",
+                        // cursor: loading || !stakeValue ? "not-allowed" : "pointer",
+                        // width: { lg: "150px", xs: "130px" },
+                        // height: "35px",
+                        borderRadius: "3px",
+                        border: "0px solid white",
+                        opacity: Object.keys(profitLossObj).length <= 0 ? 0.65 : 1,
+                        height: 23,
+                        marginTop: 1,
+                        padding: "0 6px"
+                      }}
+                      onClick={() => handleCashout()}
+                    >
+                      Cashout
+                    </button>
+                  )}
                 </Box>)}
                 <Box
                   sx={{
@@ -669,7 +672,7 @@ const TournamentOdds = ({
               handleClose={() => {
                 setIsPopoverOpen(false);
               }}
-              type={{ color: "#FFB5B5", type: "BL" }}
+              type={{ color: selectedBet?.team?.type === "back" ? "#A7DCFF" : "#FFB5B5", type: "BL" }}
             />
           </Box>
         </MUIModal>
