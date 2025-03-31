@@ -5,7 +5,6 @@ import isMobile from "../secureAuthVerification/container/isMobile";
 
 const Upcomings = (props: any) => {
   const { match, timeLeft, upcoming } = props;
-  // console.log(upcoming , "up");
   return (
     <Box
       sx={{

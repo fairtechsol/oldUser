@@ -217,7 +217,6 @@ const AllRateSeperate = ({
                 },
               }}
             >
-              {/* {console.log("allBetsData :", allBetsData)} */}
               {[...new Set(allBetsData)]?.map((i: any, k: number) => {
                 const num = allBetsData?.length - k;
                 const formattedNum = num < 10 ? "0" + num : num.toString();

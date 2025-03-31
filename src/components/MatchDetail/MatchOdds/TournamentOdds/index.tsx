@@ -148,7 +148,6 @@ const TournamentOdds = ({
   })();
 
   const handleCashout = () => {
-    console.log("marketDetails?.runners :", marketDetails?.runners);
     const [teamAId, teamBId] = marketDetails?.runners?.map(
       (team: any) => team.parentRunnerId || team.id
     );
@@ -285,7 +284,6 @@ const TournamentOdds = ({
   const profitLossJson = matchDetails?.profitLossDataMatch?.[key];
 
   const profitLossObj = profitLossJson ? JSON.parse(profitLossJson) : {};
-  // console.log("data?.runners lll:", profitLossObj)
   return (
     <>
       <Box

@@ -154,7 +154,6 @@ const CricketCasinoBetSeperate = ({ profit, mark2, placedBets, isArrow }: any) =
               }}
             >
               {Array.from(new Set(placedBets))?.map((i: any, k: any) => {
-                // console.log(placedBets, "placedBets");
                 const num = placedBets?.length - k;
                 const formattedNum = num < 10 ? "0" + num : num.toString();
                 return (

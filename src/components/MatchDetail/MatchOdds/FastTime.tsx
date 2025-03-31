@@ -15,7 +15,6 @@ const FastTime = ({
 // selectedItem,
 // matchOddsData,
 any) => {
-  // console.log(matchOddsData, "matchOddsData");
   return (
     <Box
       title="Faster Bet"

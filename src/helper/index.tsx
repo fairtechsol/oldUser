@@ -53,7 +53,6 @@ export const formatToINR = (amount: any) => {
   const formatter = new Intl.NumberFormat("en-IN", {
     currency: "INR",
   });
-  // console.log(amount, "amoutn")
   return formatter.format(parseFloat(amount || 0));
 };
 
