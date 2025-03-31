@@ -1,7 +1,7 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import MUIModal from "@mui/material/Modal";
 import { Fragment, memo, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { ARROWUP, LockIcon } from "../../../../assets";
 import {
@@ -13,7 +13,7 @@ import {
   selectedBetAction,
   selectedBetMinMax,
 } from "../../../../store/actions/match/matchListAction";
-import { AppDispatch } from "../../../../store/store";
+import { AppDispatch, RootState } from "../../../../store/store";
 import CommissionDot from "../../../Common/CommissionDot";
 import OddsPlaceBet from "../Bets/OddsPlacebet";
 import BoxComponent from "./BoxComponent";
@@ -125,6 +125,9 @@ const TournamentOdds = ({
   const dispatch: AppDispatch = useDispatch();
   const [visible, setVisible] = useState(true);
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+  const { selectedBet } = useSelector(
+    (state: RootState) => state.match.matchList
+  );
 
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -150,9 +153,7 @@ const TournamentOdds = ({
   })();
 
   const handleCashout = () => {
-    const [teamAId, teamBId] = marketDetails?.runners?.map(
-      (team: any) => team.parentRunnerId || team.id
-    );
+    const [teamAId, teamBId] = marketDetails?.runners?.map(team => team.parentRunnerId || team.id);
     const profitA = Math.round(profitLossObj?.[teamAId] ?? 0);
     const profitB = Math.round(profitLossObj?.[teamBId] ?? 0);
     if (profitA === profitB) {
@@ -245,7 +246,6 @@ const TournamentOdds = ({
       });
       return;
     }
-
     setIsPopoverOpen(true);
     let team = {
       name: runner?.teamName,
@@ -280,9 +280,8 @@ const TournamentOdds = ({
     );
   };
 
-  const key = `${marketDetails.parentBetId || marketDetails?.id}_profitLoss_${
-    matchDetails?.id
-  }`;
+  const key = `${marketDetails.parentBetId || marketDetails?.id}_profitLoss_${matchDetails?.id
+    }`;
   const profitLossJson = matchDetails?.profitLossDataMatch?.[key];
 
   const profitLossObj = profitLossJson ? JSON.parse(profitLossJson) : {};
@@ -360,14 +359,14 @@ const TournamentOdds = ({
             }}
           >
             <SmallBox valueA={bookRatioA} valueB={bookRatioB} />
-            {!matchesMobile && (
-              <Box
-                sx={{
-                  position: { lg: "static", xs: "relative" },
-                  // paddingY: "2vh",
-                  right: 25,
-                }}
-              >
+            {!matchesMobile && (<Box
+              sx={{
+                position: { lg: "static", xs: "relative" },
+                // paddingY: "2vh",
+                right: 25
+              }}
+            >
+              {marketDetails?.runners?.length === 2 && (
                 <button
                   type="submit"
                   disabled={
@@ -383,15 +382,14 @@ const TournamentOdds = ({
                     // height: "35px",
                     borderRadius: "3px",
                     border: "2px solid white",
-                    opacity: Object.keys(profitLossObj).length <= 0 ? 0.65 : 1,
-                    cursor: "pointer",
+                    opacity: Object.keys(profitLossObj).length <= 0 ? 0.65 : 1
                   }}
                   onClick={() => handleCashout()}
                 >
                   Cashout
                 </button>
-              </Box>
-            )}
+              )}
+            </Box>)}
             <Box
               className="arrowUpCollapse"
               sx={{
@@ -465,14 +463,14 @@ const TournamentOdds = ({
                   justifyContent: { lg: "center", xs: "flex-end" },
                 }}
               >
-                {matchesMobile && (
-                  <Box
-                    sx={{
-                      // position: { lg: "static", xs: "relative" },
-                      // paddingY: "2vh",
-                      marginRight: "14px",
-                    }}
-                  >
+                {matchesMobile && (<Box
+                  sx={{
+                    // position: { lg: "static", xs: "relative" },
+                    // paddingY: "2vh",
+                    marginRight: "14px"
+                  }}
+                >
+                  {marketDetails?.runners?.length === 2 && (
                     <button
                       type="submit"
                       disabled={
@@ -488,19 +486,17 @@ const TournamentOdds = ({
                         // height: "35px",
                         borderRadius: "3px",
                         border: "0px solid white",
-                        opacity:
-                          Object.keys(profitLossObj).length <= 0 ? 0.65 : 1,
+                        opacity: Object.keys(profitLossObj).length <= 0 ? 0.65 : 1,
                         height: 23,
                         marginTop: 1,
-                        padding: "0 6px",
-                        cursor: "pointer",
+                        padding: "0 6px"
                       }}
                       onClick={() => handleCashout()}
                     >
                       Cashout
                     </button>
-                  </Box>
-                )}
+                  )}
+                </Box>)}
                 <Box
                   sx={{
                     background: "#00C0F9",
@@ -592,36 +588,36 @@ const TournamentOdds = ({
               !marketDetails?.isActive ||
               (!["ACTIVE", "OPEN", ""].includes(marketDetails?.status) &&
                 marketDetails?.gtype == "match")) && (
-              <Box
-                sx={{
-                  position: "absolute",
-                  height: "83%",
-                  // top: "18%",
-                  width: "100%",
-                  display: "flex",
-                  zIndex: "999",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  background: "rgba(0, 0, 0, 0.71)",
-                }}
-              >
-                <Typography
+                <Box
                   sx={{
-                    fontSize: { xs: "12px", lg: "22px" },
-                    textTransform: "uppercase",
+                    position: "absolute",
+                    height: "83%",
+                    // top: "18%",
                     width: "100%",
-                    textAlign: "center",
-                    color: "white",
-                    fontWeight: "400",
+                    display: "flex",
+                    zIndex: "999",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    background: "rgba(0, 0, 0, 0.71)",
                   }}
                 >
-                  {!["ACTIVE", "OPEN", ""].includes(marketDetails?.status) &&
-                  marketDetails?.gtype == "match"
-                    ? marketDetails?.status
-                    : ""}
-                </Typography>
-              </Box>
-            )}
+                  <Typography
+                    sx={{
+                      fontSize: { xs: "12px", lg: "22px" },
+                      textTransform: "uppercase",
+                      width: "100%",
+                      textAlign: "center",
+                      color: "white",
+                      fontWeight: "400",
+                    }}
+                  >
+                    {!["ACTIVE", "OPEN", ""].includes(marketDetails?.status) &&
+                      marketDetails?.gtype == "match"
+                      ? marketDetails?.status
+                      : ""}
+                  </Typography>
+                </Box>
+              )}
             {marketDetails?.runners?.map((item: any) => (
               <Fragment key={item?.selectionId}>
                 <BoxComponent
@@ -635,20 +631,20 @@ const TournamentOdds = ({
                   color={
                     matchDetails?.profitLossDataMatch?.[
                       (marketDetails?.parentBetId || marketDetails?.id) +
+                      "_" +
+                      "profitLoss" +
+                      "_" +
+                      matchDetails?.id
+                    ]
+                      ? JSON.parse(
+                        matchDetails?.profitLossDataMatch?.[
+                        (marketDetails?.parentBetId || marketDetails?.id) +
                         "_" +
                         "profitLoss" +
                         "_" +
                         matchDetails?.id
-                    ]
-                      ? JSON.parse(
-                          matchDetails?.profitLossDataMatch?.[
-                            (marketDetails?.parentBetId || marketDetails?.id) +
-                              "_" +
-                              "profitLoss" +
-                              "_" +
-                              matchDetails?.id
-                          ]
-                        )?.[item?.parentRunnerId || item?.id] <= 0
+                        ]
+                      )?.[item?.parentRunnerId || item?.id] <= 0
                         ? "#FF4D4D"
                         : "#319E5B"
                       : "#319E5B"
@@ -656,20 +652,20 @@ const TournamentOdds = ({
                   rate={
                     matchDetails?.profitLossDataMatch?.[
                       (marketDetails?.parentBetId || marketDetails?.id) +
+                      "_" +
+                      "profitLoss" +
+                      "_" +
+                      matchDetails?.id
+                    ]
+                      ? JSON.parse(
+                        matchDetails?.profitLossDataMatch?.[
+                        (marketDetails?.parentBetId || marketDetails?.id) +
                         "_" +
                         "profitLoss" +
                         "_" +
                         matchDetails?.id
-                    ]
-                      ? JSON.parse(
-                          matchDetails?.profitLossDataMatch?.[
-                            (marketDetails?.parentBetId || marketDetails?.id) +
-                              "_" +
-                              "profitLoss" +
-                              "_" +
-                              matchDetails?.id
-                          ]
-                        )?.[item?.parentRunnerId || item?.id]
+                        ]
+                      )?.[item?.parentRunnerId || item?.id]
                       : 0
                   }
                   name={item?.nat ?? item?.runnerName}
@@ -705,7 +701,7 @@ const TournamentOdds = ({
               handleClose={() => {
                 setIsPopoverOpen(false);
               }}
-              type={{ color: "#FFB5B5", type: "BL" }}
+              type={{ color: selectedBet?.team?.type === "back" ? "#A7DCFF" : "#FFB5B5", type: "BL" }}
             />
           </Box>
         </MUIModal>
