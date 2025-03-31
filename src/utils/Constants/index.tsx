@@ -16,6 +16,7 @@ import {
   HorseRacing,
   InstantWorli,
   Lucky7A,
+  MAC88,
   Poker,
   Politics,
   Race2020,
@@ -239,6 +240,7 @@ export const cardGamesTypeConstants: any = {
   cmeter: "cmeter",
   queen: "queen",
   worli: "worli",
+  mac88: "MAC88",
 };
 
 export const gameIconConstants = {
@@ -280,6 +282,7 @@ export const gameIconConstants = {
   [cardGamesTypeConstants.cmeter]: CasinoMeter,
   [cardGamesTypeConstants.queen]: CasinoQueen,
   [cardGamesTypeConstants.worli]: WorliMatka,
+  [cardGamesTypeConstants.mac88]: MAC88,
 };
 
 export const serviceUrl = import.meta.env.VITE_BASE_URL;

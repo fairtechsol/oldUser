@@ -69,6 +69,7 @@ export { default as GreyHound } from "./images/greyHound.png";
 export { default as HorseRacing } from "./images/horseRacing.png";
 export { default as InstantWorli } from "./images/instantWorli.png";
 export { default as Lucky7A } from "./images/lucky7A.png";
+export { default as MAC88 } from "./images/mac88.png";
 export { default as Poker } from "./images/poker.png";
 export { default as Politics } from "./images/politics.png";
 export { default as Race2020 } from "./images/race20.png";
