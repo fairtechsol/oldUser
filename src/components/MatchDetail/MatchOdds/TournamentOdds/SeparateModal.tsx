@@ -21,11 +21,10 @@ const SeparateModal = ({
   betType,
   marketDetails,
   upcoming,
-  width,
   mid,
-  teamName,
   matchDetails,
   selectionId,
+  show6Box,
 }: any) => {
   const dispatch: AppDispatch = useDispatch();
   const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
@@ -65,7 +64,6 @@ const SeparateModal = ({
           bettingName: marketDetails?.name,
           betPlaceIndex: po,
           mid: mid || data?.mid,
-          teamName: teamName,
           runnerId: data?.id,
           matchBetType: marketDetails?.type,
           matchId: matchDetails?.id,
@@ -82,7 +80,7 @@ const SeparateModal = ({
         sx={{
           cursor: loading ? "not-allowed" : "pointer",
           padding: { xs: "0px", lg: "0px", md: "0px" },
-          width: { xs: "100%", lg: width ?? "20%" },
+          width: { xs: "100%", lg: show6Box ? "20%" : "100%" },
           height: "94%",
         }}
       >
@@ -93,7 +91,7 @@ const SeparateModal = ({
             background: lock || [0, "0"].includes(value) ? "#FDF21A" : color,
             border:
               color != "white" ? "1px solid #2626264D" : "0px solid white",
-            width: { lg: "99%", sm: "101%" },
+            width: { lg: "100%", sm: "101%" },
             height: "100%",
             display: "flex",
             justifyContent: "center",
@@ -139,34 +137,33 @@ const SeparateModal = ({
             />
           )}
         </Box>
-
-        <MUIModal
-          open={isPopoverOpen}
-          onClose={() => {
-            setIsPopoverOpen(false);
+      </Box>
+      <MUIModal
+        open={isPopoverOpen}
+        onClose={() => {
+          setIsPopoverOpen(false);
+        }}
+      >
+        <Box
+          sx={{
+            width: "100%",
+            position: "absolute",
+            display: "flex",
+            alignItems: "center",
+            top: "33%",
+            overflow: "hidden",
+            justifyContent: "center",
+            outline: "none",
           }}
         >
-          <Box
-            sx={{
-              width: "100%",
-              position: "absolute",
-              display: "flex",
-              alignItems: "center",
-              top: "33%",
-              overflow: "hidden",
-              justifyContent: "center",
-              outline: "none",
+          <OddsPlaceBet
+            handleClose={() => {
+              setIsPopoverOpen(false);
             }}
-          >
-            <OddsPlaceBet
-              handleClose={() => {
-                setIsPopoverOpen(false);
-              }}
-              type={type}
-            />
-          </Box>
-        </MUIModal>
-      </Box>
+            type={type}
+          />
+        </Box>
+      </MUIModal>
     </>
   );
 };

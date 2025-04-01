@@ -14,6 +14,7 @@ const BoxComponent = ({
   isRound,
   marketDetails,
   upcoming,
+  show6Box,
 }: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -71,7 +72,7 @@ const BoxComponent = ({
           background: "white",
           position: "relative",
           height: "40px",
-          width: { xs: "60%", lg: "40%" },
+          width: { xs: "60%", lg: show6Box ? "40%" : "60%" },
           alignItems: "center",
         }}
       >
@@ -79,7 +80,7 @@ const BoxComponent = ({
           sx={{
             flexDirection: "row",
             display: "flex",
-            width: { xs: "70%", lg: "100%", md: "100%" },
+            width: { xs: "70%", lg: show6Box ? "100%" : "70%", md: "100%" },
             alignItems: "center",
           }}
         >
@@ -107,12 +108,15 @@ const BoxComponent = ({
             position: "absolute",
             right: 0,
             zIndex: 10,
-            width: { lg: "60%", xs: "40%" },
-            justifyContent: { xs: "flex-end", lg: "center" },
+            width: { lg: show6Box ? "60%" : "40%", xs: "40%" },
+            justifyContent: {
+              xs: "flex-end",
+              lg: show6Box ? "center" : "flex-end",
+            },
             alignItems: "center",
             display: "flex",
           }}
-        ></Box>
+        />
       )}
       {(!["ACTIVE", "", "OPEN", undefined, null].includes(status) ||
         matchDetails?.bettings?.length === 0) &&
@@ -124,7 +128,7 @@ const BoxComponent = ({
           sx={{
             background: "rgba(0,0,0,1)",
             height: "40px",
-            width: { lg: "60%", xs: "40.5%" },
+            width: { lg: show6Box ? "60%" : "40.5%", xs: "40.5%" },
             justifyContent: { xs: "center", lg: "center" },
             alignItems: "center",
             display: "flex",
@@ -149,85 +153,97 @@ const BoxComponent = ({
             display: "flex",
             background: "white",
             height: "40px",
-            width: { lg: "60%", xs: "40.5%" },
+            width: { lg: show6Box ? "60%" : "40%", xs: "40.5%" },
             justifyContent: { xs: "flex-end", lg: "center" },
             alignItems: "center",
             position: "relative",
           }}
         >
-          {!matchesMobile && (
-            <SeparateModal
-              po={
-                ex?.availableToBack[ex?.availableToBack?.length > 1 ? 0 : 2]
-                  ?.tno
-              }
-              betType={"back"}
-              lock={ex?.availableToBack?.length > 0 ? false : true}
-              value={
-                isRound
-                  ? Math.round(
-                      ex?.availableToBack?.length > 0
-                        ? ex?.availableToBack[
-                            ex?.availableToBack?.length > 1 ? 0 : 2
-                          ]?.price ?? 0
-                        : 0
-                    )
-                  : ex?.availableToBack?.length > 0
-                  ? ex?.availableToBack[ex?.availableToBack?.length > 1 ? 0 : 2]
-                      ?.price ?? 0
-                  : 0
-              }
-              value2={formatNumber(
-                ex?.availableToBack?.length > 0
-                  ? ex?.availableToBack[ex?.availableToBack?.length > 1 ? 0 : 2]
-                      ?.size ?? 0
-                  : 0,
-                isRound
-              )}
-              color={matchesMobile ? "white" : "#CEEBFF"}
-              type={{ color: "#A7DCFF", type: "BL" }}
-              data={data}
-              marketDetails={marketDetails}
-              upcoming={upcoming}
-              mid={marketDetails?.mid}
-              selectionId={selectionId}
-              matchDetails={matchDetails}
-            />
+          {!matchesMobile && show6Box && (
+            <>
+              <SeparateModal
+                po={
+                  ex?.availableToBack[ex?.availableToBack?.length > 1 ? 0 : 2]
+                    ?.tno
+                }
+                betType={"back"}
+                lock={ex?.availableToBack?.length > 0 ? false : true}
+                value={
+                  isRound
+                    ? Math.round(
+                        ex?.availableToBack?.length > 0
+                          ? ex?.availableToBack[
+                              ex?.availableToBack?.length > 1 ? 0 : 2
+                            ]?.price ?? 0
+                          : 0
+                      )
+                    : ex?.availableToBack?.length > 0
+                    ? ex?.availableToBack[
+                        ex?.availableToBack?.length > 1 ? 0 : 2
+                      ]?.price ?? 0
+                    : 0
+                }
+                value2={formatNumber(
+                  ex?.availableToBack?.length > 0
+                    ? ex?.availableToBack[
+                        ex?.availableToBack?.length > 1 ? 0 : 2
+                      ]?.size ?? 0
+                    : 0,
+                  isRound
+                )}
+                color={matchesMobile ? "white" : "#CEEBFF"}
+                type={{ color: "#A7DCFF", type: "BL" }}
+                data={data}
+                marketDetails={marketDetails}
+                upcoming={upcoming}
+                mid={marketDetails?.mid}
+                selectionId={selectionId}
+                matchDetails={matchDetails}
+                show6Box={show6Box}
+              />
+              <Box
+                sx={{ width: ".25%", display: "flex", background: "pink" }}
+              />
+            </>
           )}
-          <Box sx={{ width: ".25%", display: "flex", background: "pink" }} />
-          {!matchesMobile && (
-            <SeparateModal
-              po={ex?.availableToBack[1]?.tno}
-              betType={"back"}
-              lock={ex?.availableToBack?.length > 0 ? false : true}
-              value={
-                isRound
-                  ? Math.round(
-                      ex?.availableToBack?.length > 0
-                        ? ex?.availableToBack[1]?.price ?? 0
-                        : 0
-                    )
-                  : ex?.availableToBack?.length > 0
-                  ? ex?.availableToBack[1]?.price ?? 0
-                  : 0
-              }
-              value2={formatNumber(
-                ex?.availableToBack?.length > 0
-                  ? ex?.availableToBack[1]?.size ?? 0
-                  : 0,
-                isRound
-              )}
-              color={matchesMobile ? "white" : "#C2E6FF"}
-              type={{ color: "#A7DCFF", type: "BL" }}
-              data={data}
-              marketDetails={marketDetails}
-              upcoming={upcoming}
-              mid={marketDetails?.mid}
-              selectionId={selectionId}
-              matchDetails={matchDetails}
-            />
+          {!matchesMobile && show6Box && (
+            <>
+              <SeparateModal
+                po={ex?.availableToBack[1]?.tno}
+                betType={"back"}
+                lock={ex?.availableToBack?.length > 0 ? false : true}
+                value={
+                  isRound
+                    ? Math.round(
+                        ex?.availableToBack?.length > 0
+                          ? ex?.availableToBack[1]?.price ?? 0
+                          : 0
+                      )
+                    : ex?.availableToBack?.length > 0
+                    ? ex?.availableToBack[1]?.price ?? 0
+                    : 0
+                }
+                value2={formatNumber(
+                  ex?.availableToBack?.length > 0
+                    ? ex?.availableToBack[1]?.size ?? 0
+                    : 0,
+                  isRound
+                )}
+                color={matchesMobile ? "white" : "#C2E6FF"}
+                type={{ color: "#A7DCFF", type: "BL" }}
+                data={data}
+                marketDetails={marketDetails}
+                upcoming={upcoming}
+                mid={marketDetails?.mid}
+                selectionId={selectionId}
+                matchDetails={matchDetails}
+                show6Box={show6Box}
+              />
+              <Box
+                sx={{ width: ".25%", display: "flex", background: "pink" }}
+              />
+            </>
           )}
-          <Box sx={{ width: ".25%", display: "flex", background: "pink" }} />
 
           <SeparateModal
             po={
@@ -264,6 +280,7 @@ const BoxComponent = ({
             mid={marketDetails?.mid}
             selectionId={selectionId}
             matchDetails={matchDetails}
+            show6Box={show6Box}
           />
 
           <Box sx={{ width: ".25%", display: "flex", background: "pink" }} />
@@ -297,8 +314,9 @@ const BoxComponent = ({
             mid={marketDetails?.mid}
             selectionId={selectionId}
             matchDetails={matchDetails}
+            show6Box={show6Box}
           />
-          {!matchesMobile && (
+          {!matchesMobile && show6Box && (
             <SeparateModal
               po={ex?.availableToLay[1]?.tno}
               betType={"lay"}
@@ -328,9 +346,10 @@ const BoxComponent = ({
               mid={marketDetails?.mid}
               selectionId={selectionId}
               matchDetails={matchDetails}
+              show6Box={show6Box}
             />
           )}
-          {!matchesMobile && (
+          {!matchesMobile && show6Box && (
             <SeparateModal
               po={ex?.availableToLay[2]?.tno}
               betType={"lay"}
@@ -360,6 +379,7 @@ const BoxComponent = ({
               mid={marketDetails?.mid}
               selectionId={selectionId}
               matchDetails={matchDetails}
+              show6Box={show6Box}
             />
           )}
         </Box>

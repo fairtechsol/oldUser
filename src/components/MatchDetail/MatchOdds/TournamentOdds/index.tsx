@@ -193,6 +193,10 @@ const TournamentOdds = ({
   }`;
   const profitLossJson = matchDetails?.profitLossDataMatch?.[key];
   const profitLossObj = profitLossJson ? JSON.parse(profitLossJson) : {};
+
+  const show6Box =
+    marketDetails?.runners?.[0]?.ex?.availableToBack?.length > 1 ||
+    marketDetails?.runners?.[0]?.ex?.availableToLay?.length > 1;
   return (
     <>
       <Box
@@ -267,7 +271,7 @@ const TournamentOdds = ({
             }}
           >
             <BookRatioBox valueA={bookRatioA} valueB={bookRatioB} />
-            {!matchesMobile && (
+            {!matchesMobile && marketDetails?.runners?.length === 2 && (
               <Box
                 sx={{
                   position: { lg: "static", xs: "relative" },
@@ -275,30 +279,27 @@ const TournamentOdds = ({
                   right: 25,
                 }}
               >
-                {marketDetails?.runners?.length === 2 && (
-                  <button
-                    type="submit"
-                    disabled={
-                      Object.keys(profitLossObj).length <= 0 ? true : false
-                    }
-                    // disabled={loading || !stakeValue ? true : false}
-                    style={{
-                      color: "#319E5B",
-                      backgroundColor: "#fff",
-                      // width: "150px",
-                      // cursor: loading || !stakeValue ? "not-allowed" : "pointer",
-                      // width: { lg: "150px", xs: "130px" },
-                      // height: "35px",
-                      borderRadius: "3px",
-                      border: "2px solid white",
-                      opacity:
-                        Object.keys(profitLossObj).length <= 0 ? 0.65 : 1,
-                    }}
-                    onClick={() => handleCashout()}
-                  >
-                    Cashout
-                  </button>
-                )}
+                <button
+                  type="submit"
+                  disabled={
+                    Object.keys(profitLossObj).length <= 0 ? true : false
+                  }
+                  // disabled={loading || !stakeValue ? true : false}
+                  style={{
+                    color: "#319E5B",
+                    backgroundColor: "#fff",
+                    // width: "150px",
+                    // cursor: loading || !stakeValue ? "not-allowed" : "pointer",
+                    // width: { lg: "150px", xs: "130px" },
+                    // height: "35px",
+                    borderRadius: "3px",
+                    border: "2px solid white",
+                    opacity: Object.keys(profitLossObj).length <= 0 ? 0.65 : 1,
+                  }}
+                  onClick={() => handleCashout()}
+                >
+                  Cashout
+                </button>
               </Box>
             )}
             <Box
@@ -348,8 +349,9 @@ const TournamentOdds = ({
                   display: "flex",
                   background: "'#319E5B'",
                   height: "25px",
-                  width: { lg: "40%", xs: "60%" },
+                  width: { lg: show6Box ? "40%" : "60%", xs: "60%" },
                   alignItems: "center",
+                  justifyContent: "space-between",
                 }}
               >
                 <Typography
@@ -361,6 +363,41 @@ const TournamentOdds = ({
                 >
                   {min === max ? `MAX:${max}` : `MIN: ${min} MAX:${max}`}
                 </Typography>
+                {matchesMobile && marketDetails?.runners?.length === 2 && (
+                  <Box
+                    sx={{
+                      // position: { lg: "static", xs: "relative" },
+                      // paddingY: "2vh",
+                      marginRight: "14px",
+                    }}
+                  >
+                    <button
+                      type="submit"
+                      disabled={
+                        Object.keys(profitLossObj).length <= 0 ? true : false
+                      }
+                      // disabled={loading || !stakeValue ? true : false}
+                      style={{
+                        color: "#319E5B",
+                        backgroundColor: "#fff",
+                        // width: "150px",
+                        // cursor: loading || !stakeValue ? "not-allowed" : "pointer",
+                        // width: { lg: "150px", xs: "130px" },
+                        // height: "35px",
+                        borderRadius: "3px",
+                        border: "0px solid white",
+                        opacity:
+                          Object.keys(profitLossObj).length <= 0 ? 0.65 : 1,
+                        height: 23,
+                        marginTop: 1,
+                        padding: "0 6px",
+                      }}
+                      onClick={() => handleCashout()}
+                    >
+                      Cashout
+                    </button>
+                  </Box>
+                )}
               </Box>
 
               <Box
@@ -369,51 +406,14 @@ const TournamentOdds = ({
                   background: "#319E5B",
                   height: "25px",
                   gap: { xs: "0px", lg: "1px", md: "1px" },
-                  width: { lg: "60%", xs: "40.2%" },
+                  width: { lg: show6Box ? "60%" : "40.2%", xs: "40.2%" },
                   justifyContent: { lg: "center", xs: "flex-end" },
                 }}
               >
-                {matchesMobile && (
-                  <Box
-                    sx={{
-                      // position: { lg: "static", xs: "relative" },
-                      // paddingY: "2vh",
-                      marginRight: "14px",
-                    }}
-                  >
-                    {marketDetails?.runners?.length === 2 && (
-                      <button
-                        type="submit"
-                        disabled={
-                          Object.keys(profitLossObj).length <= 0 ? true : false
-                        }
-                        // disabled={loading || !stakeValue ? true : false}
-                        style={{
-                          color: "#319E5B",
-                          backgroundColor: "#fff",
-                          // width: "150px",
-                          // cursor: loading || !stakeValue ? "not-allowed" : "pointer",
-                          // width: { lg: "150px", xs: "130px" },
-                          // height: "35px",
-                          borderRadius: "3px",
-                          border: "0px solid white",
-                          opacity:
-                            Object.keys(profitLossObj).length <= 0 ? 0.65 : 1,
-                          height: 23,
-                          marginTop: 1,
-                          padding: "0 6px",
-                        }}
-                        onClick={() => handleCashout()}
-                      >
-                        Cashout
-                      </button>
-                    )}
-                  </Box>
-                )}
                 <Box
                   sx={{
                     background: "#00C0F9",
-                    width: { lg: "16.5%", xs: "50%" },
+                    width: { lg: show6Box ? "16.5%" : "50%", xs: "50%" },
                     height: "100%",
                     display: "flex",
                     justifyContent: "center",
@@ -430,7 +430,7 @@ const TournamentOdds = ({
                 <Box
                   sx={{
                     background: "#FF9292",
-                    width: { lg: "16.4%", xs: "50%" },
+                    width: { lg: show6Box ? "16.4%" : "50%", xs: "50%" },
                     height: "100%",
                     display: "flex",
                     justifyContent: "center",
@@ -463,7 +463,7 @@ const TournamentOdds = ({
                   sx={{
                     width: { xs: "60%", lg: "40%", md: "60%" },
                   }}
-                ></Box>
+                />
                 <Box
                   sx={{
                     width: { xs: "40%", lg: "60%", md: "40%" },
@@ -577,6 +577,7 @@ const TournamentOdds = ({
                   isRound={isRound}
                   marketDetails={marketDetails}
                   upcoming={upcoming}
+                  show6Box={show6Box}
                 />
                 {!(
                   upcoming ||
