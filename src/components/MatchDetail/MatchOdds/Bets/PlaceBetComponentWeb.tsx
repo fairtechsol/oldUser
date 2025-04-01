@@ -85,7 +85,7 @@ const PlaceBetComponentWeb = ({
               }}
             >
               {proLoss?.totalBet < 10 ? 0 : ""}
-              {proLoss?.totalBet || 0}
+              {proLoss?.totalBet == 0 ? "" : proLoss?.totalBet || 0}
             </Typography>
           </Box>
         )}
@@ -110,16 +110,16 @@ const PlaceBetComponentWeb = ({
               data?.type
             ) && profitLoss?.profitLoss
               ? Math.min(
-                  ...Object.values(profitLoss.profitLoss)?.map((item: any) =>
-                    parseInt(item)
-                  )
+                ...Object.values(profitLoss.profitLoss)?.map((item: any) =>
+                  parseInt(item)
                 )
+              )
               : data?.type == sessionBettingType.cricketCasino &&
                 profitLoss?.profitLoss
-              ? profitLoss?.profitLoss?.[index]
-              : !profitLoss?.maxLoss
-              ? "Profit/Loss"
-              : handleDecimalAmount(profitLoss?.maxLoss, color)}
+                ? profitLoss?.profitLoss?.[index]
+                : !profitLoss?.maxLoss
+                  ? "Profit/Loss"
+                  : handleDecimalAmount(profitLoss?.maxLoss, color)}
           </Typography>
           <img
             src={UD}
