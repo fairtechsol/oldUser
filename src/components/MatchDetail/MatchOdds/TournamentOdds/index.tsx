@@ -491,42 +491,6 @@ const TournamentOdds = ({
                 </Box>
               </Box>
             )}
-
-            {(upcoming ||
-              showBox ||
-              !marketDetails?.isActive ||
-              (!["ACTIVE", "OPEN", ""].includes(marketDetails?.status) &&
-                marketDetails?.gtype == "match")) && (
-              <Box
-                sx={{
-                  position: "absolute",
-                  height: "83%",
-                  // top: "18%",
-                  width: "100%",
-                  display: "flex",
-                  zIndex: "999",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  background: "rgba(0, 0, 0, 0.71)",
-                }}
-              >
-                <Typography
-                  sx={{
-                    fontSize: { xs: "12px", lg: "22px" },
-                    textTransform: "uppercase",
-                    width: "100%",
-                    textAlign: "center",
-                    color: "white",
-                    fontWeight: "400",
-                  }}
-                >
-                  {!["ACTIVE", "OPEN", ""].includes(marketDetails?.status) &&
-                  marketDetails?.gtype == "match"
-                    ? marketDetails?.status
-                    : ""}
-                </Typography>
-              </Box>
-            )}
             {marketDetails?.runners?.map((item: any) => (
               <Fragment key={item?.selectionId}>
                 <BoxComponent
