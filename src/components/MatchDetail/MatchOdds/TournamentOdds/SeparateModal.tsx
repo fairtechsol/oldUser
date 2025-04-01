@@ -138,6 +138,7 @@ const SeparateModal = ({
           )}
         </Box>
       </Box>
+      <Box sx={{ width: ".25%", display: "flex", background: "pink" }} />
       <MUIModal
         open={isPopoverOpen}
         onClose={() => {

@@ -160,89 +160,77 @@ const BoxComponent = ({
           }}
         >
           {!matchesMobile && show6Box && (
-            <>
-              <SeparateModal
-                po={
-                  ex?.availableToBack[ex?.availableToBack?.length > 1 ? 0 : 2]
-                    ?.tno
-                }
-                betType={"back"}
-                lock={ex?.availableToBack?.length > 0 ? false : true}
-                value={
-                  isRound
-                    ? Math.round(
-                        ex?.availableToBack?.length > 0
-                          ? ex?.availableToBack[
-                              ex?.availableToBack?.length > 1 ? 0 : 2
-                            ]?.price ?? 0
-                          : 0
-                      )
-                    : ex?.availableToBack?.length > 0
-                    ? ex?.availableToBack[
-                        ex?.availableToBack?.length > 1 ? 0 : 2
-                      ]?.price ?? 0
-                    : 0
-                }
-                value2={formatNumber(
-                  ex?.availableToBack?.length > 0
-                    ? ex?.availableToBack[
-                        ex?.availableToBack?.length > 1 ? 0 : 2
-                      ]?.size ?? 0
-                    : 0,
-                  isRound
-                )}
-                color={matchesMobile ? "white" : "#CEEBFF"}
-                type={{ color: "#A7DCFF", type: "BL" }}
-                data={data}
-                marketDetails={marketDetails}
-                upcoming={upcoming}
-                mid={marketDetails?.mid}
-                selectionId={selectionId}
-                matchDetails={matchDetails}
-                show6Box={show6Box}
-              />
-              <Box
-                sx={{ width: ".25%", display: "flex", background: "pink" }}
-              />
-            </>
+            <SeparateModal
+              po={
+                ex?.availableToBack[ex?.availableToBack?.length > 1 ? 0 : 2]
+                  ?.tno
+              }
+              betType={"back"}
+              lock={ex?.availableToBack?.length > 0 ? false : true}
+              value={
+                isRound
+                  ? Math.round(
+                      ex?.availableToBack?.length > 0
+                        ? ex?.availableToBack[
+                            ex?.availableToBack?.length > 1 ? 0 : 2
+                          ]?.price ?? 0
+                        : 0
+                    )
+                  : ex?.availableToBack?.length > 0
+                  ? ex?.availableToBack[ex?.availableToBack?.length > 1 ? 0 : 2]
+                      ?.price ?? 0
+                  : 0
+              }
+              value2={formatNumber(
+                ex?.availableToBack?.length > 0
+                  ? ex?.availableToBack[ex?.availableToBack?.length > 1 ? 0 : 2]
+                      ?.size ?? 0
+                  : 0,
+                isRound
+              )}
+              color={matchesMobile ? "white" : "#CEEBFF"}
+              type={{ color: "#A7DCFF", type: "BL" }}
+              data={data}
+              marketDetails={marketDetails}
+              upcoming={upcoming}
+              mid={marketDetails?.mid}
+              selectionId={selectionId}
+              matchDetails={matchDetails}
+              show6Box={show6Box}
+            />
           )}
           {!matchesMobile && show6Box && (
-            <>
-              <SeparateModal
-                po={ex?.availableToBack[1]?.tno}
-                betType={"back"}
-                lock={ex?.availableToBack?.length > 0 ? false : true}
-                value={
-                  isRound
-                    ? Math.round(
-                        ex?.availableToBack?.length > 0
-                          ? ex?.availableToBack[1]?.price ?? 0
-                          : 0
-                      )
-                    : ex?.availableToBack?.length > 0
-                    ? ex?.availableToBack[1]?.price ?? 0
-                    : 0
-                }
-                value2={formatNumber(
-                  ex?.availableToBack?.length > 0
-                    ? ex?.availableToBack[1]?.size ?? 0
-                    : 0,
-                  isRound
-                )}
-                color={matchesMobile ? "white" : "#C2E6FF"}
-                type={{ color: "#A7DCFF", type: "BL" }}
-                data={data}
-                marketDetails={marketDetails}
-                upcoming={upcoming}
-                mid={marketDetails?.mid}
-                selectionId={selectionId}
-                matchDetails={matchDetails}
-                show6Box={show6Box}
-              />
-              <Box
-                sx={{ width: ".25%", display: "flex", background: "pink" }}
-              />
-            </>
+            <SeparateModal
+              po={ex?.availableToBack[1]?.tno}
+              betType={"back"}
+              lock={ex?.availableToBack?.length > 0 ? false : true}
+              value={
+                isRound
+                  ? Math.round(
+                      ex?.availableToBack?.length > 0
+                        ? ex?.availableToBack[1]?.price ?? 0
+                        : 0
+                    )
+                  : ex?.availableToBack?.length > 0
+                  ? ex?.availableToBack[1]?.price ?? 0
+                  : 0
+              }
+              value2={formatNumber(
+                ex?.availableToBack?.length > 0
+                  ? ex?.availableToBack[1]?.size ?? 0
+                  : 0,
+                isRound
+              )}
+              color={matchesMobile ? "white" : "#C2E6FF"}
+              type={{ color: "#A7DCFF", type: "BL" }}
+              data={data}
+              marketDetails={marketDetails}
+              upcoming={upcoming}
+              mid={marketDetails?.mid}
+              selectionId={selectionId}
+              matchDetails={matchDetails}
+              show6Box={show6Box}
+            />
           )}
 
           <SeparateModal
@@ -282,8 +270,6 @@ const BoxComponent = ({
             matchDetails={matchDetails}
             show6Box={show6Box}
           />
-
-          <Box sx={{ width: ".25%", display: "flex", background: "pink" }} />
 
           <SeparateModal
             po={ex?.availableToLay[0]?.tno}
