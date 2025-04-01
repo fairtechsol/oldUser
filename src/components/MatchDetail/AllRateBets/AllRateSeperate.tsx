@@ -119,7 +119,7 @@ const AllRateSeperate = ({
                 <Typography
                   sx={{ fontWeight: "400", fontSize: "10px", color: "white" }}
                 >
-                  {"No"}
+                  No
                 </Typography>
               </Box>
               <RowComponent
@@ -152,7 +152,7 @@ const AllRateSeperate = ({
                       color: "white",
                     }}
                   >
-                    {"Profit/Loss"}
+                    Profit/Loss
                   </Typography>
                 </Box>
               )}
