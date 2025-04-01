@@ -1,10 +1,11 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import moment from "moment";
 import { IconConstants } from "../../helper/gameConstants";
-import isMobile from "../secureAuthVerification/container/isMobile";
 
 const Upcomings = (props: any) => {
   const { match, timeLeft, upcoming } = props;
+  const theme = useTheme();
+  const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   return (
     <Box
       sx={{
@@ -33,7 +34,7 @@ const Upcomings = (props: any) => {
             fontWeight: "bold",
             marginLeft: "7px",
             display: "flex",
-            flexDirection: isMobile ? "column" : "row",
+            flexDirection: matchesMobile ? "column" : "row",
           }}
         >
           {match?.title}{" "}

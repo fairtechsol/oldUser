@@ -3,7 +3,6 @@ import React from "react";
 import { formatToINR } from "../../../helper";
 
 const SmallBoxSeason = ({ allBetsData }: any) => {
-  console.log("allBetsData", allBetsData);
   return (
     <Box
       sx={{

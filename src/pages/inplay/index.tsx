@@ -67,11 +67,16 @@ const Inplay = () => {
   }, [sessionStorage]);
 
   useEffect(() => {
-    const markets = ["cricket", "tennis", "football"];
-    markets.forEach((market) => getMatchListMarket(market));
+    setTimeout(() => {
+      getMatchListMarket("cricket");
+      getMatchListMarket("tennis");
+      getMatchListMarket("football");
+    }, 1500);
     const intervalId = setInterval(() => {
-      markets.forEach((market) => getMatchListMarket(market));
-    }, 60000);
+      getMatchListMarket("cricket");
+      getMatchListMarket("tennis");
+      getMatchListMarket("football");
+    }, 3000);
 
     return () => clearInterval(intervalId);
   }, []);

@@ -1,21 +1,23 @@
 import { useState } from "react";
 import {
-    Col,
-    Form,
-    Row,
-    ToggleButton,
-    ToggleButtonGroup,
+  Col,
+  Form,
+  Row,
+  ToggleButton,
+  ToggleButtonGroup,
 } from "react-bootstrap";
 import { TfiAndroid } from "react-icons/tfi";
 
+import { useMediaQuery, useTheme } from "@mui/material";
 import { teamStatus } from "../../utils/Constants";
 import CustomSecureInput from "./container/CustomSecureInput";
 import ReportContainer from "./container/ReportContainer";
 import CustomSecureButton from "./container/SecureButton";
-import isMobile from "./container/isMobile";
 import "./style.scss";
 
 const SecureAuthVerificationComponent = () => {
+  const theme = useTheme();
+  const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const [selectedValue, setSelectedValue] = useState(null);
 
   const handleChange = (value: any) => {
@@ -28,27 +30,27 @@ const SecureAuthVerificationComponent = () => {
           <Col lg={6}>
             <div
               className={`secureAuth-status d-flex align-items-center ${
-                isMobile
+                matchesMobile
                   ? "mt-2 justify-content-between"
                   : "justify-content-center"
               } `}
             >
               <h3
                 className={`m-10 me-2 fw-normal ${
-                  isMobile ? "title-16" : "title-24"
+                  matchesMobile ? "title-16" : "title-24"
                 }`}
               >
                 Secure Auth Verification Status:{" "}
               </h3>
               <span
                 className={`pdf ${
-                  isMobile ? "title-14" : "title-16"
+                  matchesMobile ? "title-14" : "title-16"
                 } fw-bold text-white  px-2`}
               >
                 Disabled
               </span>
             </div>
-            <p className={`${isMobile ? "title-12" : "title-16"} mt-2`}>
+            <p className={`${matchesMobile ? "title-12" : "title-16"} mt-2`}>
               Please select below option to enable secure auth verification
             </p>
             <div id="left-tabs-example">
@@ -126,11 +128,11 @@ const SecureAuthVerificationComponent = () => {
                       />
                       <CustomSecureButton
                         className={`ms-2 ${
-                          !isMobile && "bg-primaryBlue"
+                          !matchesMobile && "bg-primaryBlue"
                         } border-0`}
                       >
                         Get Connection Id
-                      </CustomSecureButton>
+                      </CustomSecureButton>{" "}
                     </div>
                   </Form>
                 </>

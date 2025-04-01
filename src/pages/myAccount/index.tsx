@@ -49,7 +49,7 @@ const MyAccount = () => {
   const menutItems = [
     { title: "Account Statement", link: "/my-account/account_statement" },
     { title: "Profile/Loss Report", link: "/my-account/profit_loss" },
-    { title: "Profile/Loss Card Report", link: "/my-account/profit_loss_card" },
+    // { title: "Profile/Loss Card Report", link: "/my-account/profit_loss_card" },
     { title: "Bet History", link: "/my-account/bet_history" },
     { title: "Set Button Values", link: "/my-account/change_button_value" },
     { title: "Security Auth Verification", link: "/comingsoon" },

@@ -1,7 +1,7 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import MUIModal from "@mui/material/Modal";
 import { Fragment, memo, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { ARROWUP, LockIcon } from "../../../../assets";
 import { calculateRequiredStack } from "../../../../helper";
@@ -10,9 +10,8 @@ import {
   selectedBetAction,
   selectedBetMinMax,
 } from "../../../../store/actions/match/matchListAction";
-import { AppDispatch } from "../../../../store/store";
+import { AppDispatch, RootState } from "../../../../store/store";
 import CommissionDot from "../../../Common/CommissionDot";
-import isMobile from "../../../secureAuthVerification/container/isMobile";
 import OddsPlaceBet from "../Bets/OddsPlacebet";
 import BookRatioBox from "./BookRatioBox";
 import BoxComponent from "./BoxComponent";
@@ -33,6 +32,12 @@ const TournamentOdds = ({
   const dispatch: AppDispatch = useDispatch();
   const [visible, setVisible] = useState(true);
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+  const { selectedBet } = useSelector(
+    (state: RootState) => state.match.matchList
+  );
+
+  const theme = useTheme();
+  const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
   const bookRatioB = (() => {
     if (teamARates === 0) {
@@ -140,14 +145,15 @@ const TournamentOdds = ({
       return;
     }
 
-    const [teamAStatus, teamBStatus] = marketDetails?.runners?.map(team => team.status);
+    const [teamAStatus, teamBStatus] = marketDetails?.runners?.map(
+      (team: any) => team.status
+    );
     if (teamAStatus == "SUSPENDED" || teamBStatus == "SUSPENDED") {
       toast.error("You are not eligible for cashout!", {
         style: { backgroundColor: "#ffffff", color: "#000000" },
       });
       return;
     }
-
     setIsPopoverOpen(true);
     let team = {
       name: runner?.teamName,
@@ -187,7 +193,6 @@ const TournamentOdds = ({
   }`;
   const profitLossJson = matchDetails?.profitLossDataMatch?.[key];
   const profitLossObj = profitLossJson ? JSON.parse(profitLossJson) : {};
-
   return (
     <>
       <Box
@@ -262,7 +267,7 @@ const TournamentOdds = ({
             }}
           >
             <BookRatioBox valueA={bookRatioA} valueB={bookRatioB} />
-            {!isMobile && (
+            {!matchesMobile && (
               <Box
                 sx={{
                   position: { lg: "static", xs: "relative" },
@@ -270,22 +275,30 @@ const TournamentOdds = ({
                   right: 25,
                 }}
               >
-                <button
-                  type="submit"
-                  disabled={
-                    Object.keys(profitLossObj).length <= 0 ? true : false
-                  }
-                  style={{
-                    color: "#319E5B",
-                    backgroundColor: "#fff",
-                    borderRadius: "3px",
-                    border: "2px solid white",
-                    opacity: Object.keys(profitLossObj).length <= 0 ? 0.65 : 1,
-                  }}
-                  onClick={() => handleCashout()}
-                >
-                  Cashout
-                </button>
+                {marketDetails?.runners?.length === 2 && (
+                  <button
+                    type="submit"
+                    disabled={
+                      Object.keys(profitLossObj).length <= 0 ? true : false
+                    }
+                    // disabled={loading || !stakeValue ? true : false}
+                    style={{
+                      color: "#319E5B",
+                      backgroundColor: "#fff",
+                      // width: "150px",
+                      // cursor: loading || !stakeValue ? "not-allowed" : "pointer",
+                      // width: { lg: "150px", xs: "130px" },
+                      // height: "35px",
+                      borderRadius: "3px",
+                      border: "2px solid white",
+                      opacity:
+                        Object.keys(profitLossObj).length <= 0 ? 0.65 : 1,
+                    }}
+                    onClick={() => handleCashout()}
+                  >
+                    Cashout
+                  </button>
+                )}
               </Box>
             )}
             <Box
@@ -360,7 +373,7 @@ const TournamentOdds = ({
                   justifyContent: { lg: "center", xs: "flex-end" },
                 }}
               >
-                {isMobile && (
+                {matchesMobile && (
                   <Box
                     sx={{
                       // position: { lg: "static", xs: "relative" },
@@ -368,31 +381,33 @@ const TournamentOdds = ({
                       marginRight: "14px",
                     }}
                   >
-                    <button
-                      type="submit"
-                      disabled={
-                        Object.keys(profitLossObj).length <= 0 ? true : false
-                      }
-                      // disabled={loading || !stakeValue ? true : false}
-                      style={{
-                        color: "#319E5B",
-                        backgroundColor: "#fff",
-                        // width: "150px",
-                        // cursor: loading || !stakeValue ? "not-allowed" : "pointer",
-                        // width: { lg: "150px", xs: "130px" },
-                        // height: "35px",
-                        borderRadius: "3px",
-                        border: "0px solid white",
-                        opacity:
-                          Object.keys(profitLossObj).length <= 0 ? 0.65 : 1,
-                        height: 23,
-                        marginTop: 1,
-                        padding: "0 6px",
-                      }}
-                      onClick={() => handleCashout()}
-                    >
-                      Cashout
-                    </button>
+                    {marketDetails?.runners?.length === 2 && (
+                      <button
+                        type="submit"
+                        disabled={
+                          Object.keys(profitLossObj).length <= 0 ? true : false
+                        }
+                        // disabled={loading || !stakeValue ? true : false}
+                        style={{
+                          color: "#319E5B",
+                          backgroundColor: "#fff",
+                          // width: "150px",
+                          // cursor: loading || !stakeValue ? "not-allowed" : "pointer",
+                          // width: { lg: "150px", xs: "130px" },
+                          // height: "35px",
+                          borderRadius: "3px",
+                          border: "0px solid white",
+                          opacity:
+                            Object.keys(profitLossObj).length <= 0 ? 0.65 : 1,
+                          height: 23,
+                          marginTop: 1,
+                          padding: "0 6px",
+                        }}
+                        onClick={() => handleCashout()}
+                      >
+                        Cashout
+                      </button>
+                    )}
                   </Box>
                 )}
                 <Box
@@ -474,6 +489,42 @@ const TournamentOdds = ({
                     Locked
                   </Typography>
                 </Box>
+              </Box>
+            )}
+
+            {(upcoming ||
+              showBox ||
+              !marketDetails?.isActive ||
+              (!["ACTIVE", "OPEN", ""].includes(marketDetails?.status) &&
+                marketDetails?.gtype == "match")) && (
+              <Box
+                sx={{
+                  position: "absolute",
+                  height: "83%",
+                  // top: "18%",
+                  width: "100%",
+                  display: "flex",
+                  zIndex: "999",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  background: "rgba(0, 0, 0, 0.71)",
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontSize: { xs: "12px", lg: "22px" },
+                    textTransform: "uppercase",
+                    width: "100%",
+                    textAlign: "center",
+                    color: "white",
+                    fontWeight: "400",
+                  }}
+                >
+                  {!["ACTIVE", "OPEN", ""].includes(marketDetails?.status) &&
+                  marketDetails?.gtype == "match"
+                    ? marketDetails?.status
+                    : ""}
+                </Typography>
               </Box>
             )}
             {marketDetails?.runners?.map((item: any) => (
@@ -560,7 +611,11 @@ const TournamentOdds = ({
               handleClose={() => {
                 setIsPopoverOpen(false);
               }}
-              type={{ color: "#FFB5B5", type: "BL" }}
+              type={{
+                color:
+                  selectedBet?.team?.type === "back" ? "#A7DCFF" : "#FFB5B5",
+                type: "BL",
+              }}
             />
           </Box>
         </MUIModal>

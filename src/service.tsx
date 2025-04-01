@@ -1,7 +1,7 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 import { serviceUrl } from "./utils/Constants";
-console.log(import.meta.env);
+
 const toastOptions = {
   autoClose: 2000,
   hideProgressBar: false,

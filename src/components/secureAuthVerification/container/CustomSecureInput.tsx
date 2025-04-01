@@ -1,6 +1,6 @@
 import { Form } from "react-bootstrap";
 
-import isMobile from "./isMobile";
+import { useMediaQuery, useTheme } from "@mui/material";
 import "./style.scss";
 
 interface SelectItem {
@@ -26,6 +26,10 @@ const CustomSecureInput = (props: any) => {
     isUnderlinedInput,
     ...prop
   } = props;
+
+  const theme = useTheme();
+  const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
+
   return (
     <>
       <Form.Group
@@ -34,7 +38,7 @@ const CustomSecureInput = (props: any) => {
         } d-flex gap-1 position-relative inputMain`}
       >
         {title ? (
-          <Form.Label className={`${isMobile && "title-12"} mb-0`}>
+          <Form.Label className={`${matchesMobile && "title-12"} mb-0`}>
             {title}
           </Form.Label>
         ) : (
