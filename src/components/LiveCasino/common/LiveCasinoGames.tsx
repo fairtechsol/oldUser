@@ -1,10 +1,10 @@
 import { dt2020 } from "../../../assets";
 
-const LiveCasinoGames = ({ data3, handleGame }: any) => {
+const LiveCasinoGames = ({ data3, handleGame, width, gap, ms }: any) => {
   return (
     <div
-      className="w-100 d-flex flex-row flex-wrap mt-1 ms-1"
-      style={{ gap: "8px" }}
+      className={`w-100 d-flex flex-row flex-wrap mt-1 cursor-pointer ${ms}`}
+      style={{ gap: gap }}
     >
       {data3?.map((item: any, index: number) => {
         return (
@@ -18,8 +18,11 @@ const LiveCasinoGames = ({ data3, handleGame }: any) => {
             className="img-fluid"
             alt={item?.game_name}
             loading="lazy"
-            style={{ width: "calc(50% - 10px)", height: "14vh" }}
-            onClick={() => handleGame(item)}
+            style={{ width: width, height: "10vh" }}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleGame(item);
+            }}
           />
         );
       })}

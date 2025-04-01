@@ -6,7 +6,6 @@ const LiveCasinoTab = ({ data2, type2, setGame, setType2 }: any) => {
     <div
       className="d-flex flex-row"
       style={{
-        // width: "100%",
         backgroundColor: "#bbbbbb",
         whiteSpace: "nowrap",
         overflow: "hidden",
@@ -25,36 +24,34 @@ const LiveCasinoTab = ({ data2, type2, setGame, setType2 }: any) => {
         ?.map((item: any, index: number) => {
           const isActive = item === type2 ? true : false;
           return (
-            <>
-              <Box
-                key={index}
-                onClick={() => {
-                  setGame(data2[item]);
-                  setType2(item);
+            <Box
+              key={index}
+              onClick={() => {
+                setGame(data2[item]);
+                setType2(item);
+              }}
+              className="d-flex justify-content-center flex-column align-items-center py-1 px-2"
+              sx={{
+                cursor: "pointer",
+                backgroundColor: isActive ? "#004A25" : "",
+                color: !isActive ? "#000" : "#fff",
+                fontWeight: isActive ? "bold" : "",
+                borderRight: "1px solid #000",
+              }}
+            >
+              <img
+                src={liveCasinoPics[item]}
+                alt="abc"
+                style={{
+                  height: 30,
+                  width: 30,
+                  filter: isActive
+                    ? "invert(98%) sepia(0%) saturate(0%) hue-rotate(290deg) brightness(104%) contrast(101%)"
+                    : "",
                 }}
-                className="d-flex justify-content-center flex-column align-items-center py-1 px-2"
-                sx={{
-                  cursor: "pointer",
-                  backgroundColor: isActive ? "#004A25" : "",
-                  color: !isActive ? "#000" : "#fff",
-                  fontWeight: isActive ? "bold" : "",
-                  borderRight: "1px solid #000",
-                }}
-              >
-                <img
-                  src={liveCasinoPics[item]}
-                  alt="abc"
-                  style={{
-                    height: 30,
-                    width: 30,
-                    filter: isActive
-                      ? "invert(98%) sepia(0%) saturate(0%) hue-rotate(290deg) brightness(104%) contrast(101%)"
-                      : "",
-                  }}
-                />
-                {item}
-              </Box>
-            </>
+              />
+              {item}
+            </Box>
           );
         })}
     </div>

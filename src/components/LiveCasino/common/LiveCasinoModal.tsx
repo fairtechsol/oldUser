@@ -14,15 +14,15 @@ const LiveCasinoModal = ({ isShow, setIsShow }: any) => {
   const { liveCasinoGame } = useSelector(
     (state: RootState) => state.card.cardDetail
   );
+
   return (
     <Modal show={isShow} fullscreen={true} onHide={() => setIsShow(false)}>
       <Modal.Header
-        // closeButton
-        className="p-2"
+        className="p-1"
         style={{ color: "#fff", backgroundColor: "#004A25" }}
       >
         <Modal.Title className="w-100">
-          <div className="w-100 d-flex justify-content-between align-items-center lh-1">
+          <div className="w-100 d-flex justify-content-between align-items-center">
             <div
               className="d-flex flex-row align-items-center"
               onClick={() => {
@@ -57,7 +57,7 @@ const LiveCasinoModal = ({ isShow, setIsShow }: any) => {
                 </b>
               </div>
               <div>
-                <span className="white-text  cursor-pointer">
+                <span className="white-text cursor-pointer">
                   Exposure:
                   <b>
                     {parseInt(profileDetail?.userBal?.exposure) === 0
@@ -77,9 +77,9 @@ const LiveCasinoModal = ({ isShow, setIsShow }: any) => {
           <iframe
             src={liveCasinoGame?.url}
             title="Live Stream"
-            referrerPolicy={"strict-origin-when-cross-origin"}
-            width={"100%"}
-            height={"100%"}
+            referrerPolicy="strict-origin-when-cross-origin"
+            width="100%"
+            height="100%"
           />
         </div>
       </Modal.Body>

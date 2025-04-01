@@ -5,8 +5,8 @@ import { useLocation } from "react-router-dom";
 import { liveCasinoLogin } from "../../../store/actions/card/cardDetail";
 import { AppDispatch, RootState } from "../../../store/store";
 import Loader from "../../Loader";
-import LiveCasinoGames from "./LiveCasinoGames";
-import LiveCasinoModal from "./LiveCasinoModal";
+import LiveCasinoGames from "../common/LiveCasinoGames";
+import LiveCasinoModal from "../common/LiveCasinoModal";
 import LiveCasinoTab from "./LiveCasinoTab";
 
 const LiveCasinoMobile = () => {
@@ -210,7 +210,13 @@ const LiveCasinoMobile = () => {
           setType2={setType2}
         />
       </Box>
-      <LiveCasinoGames data3={game ?? []} handleGame={handleGame} />
+      <LiveCasinoGames
+        data3={game ?? []}
+        handleGame={handleGame}
+        width="calc(50% - 10px)"
+        gap="8px"
+        ms="ms-1"
+      />
       <LiveCasinoModal isShow={isShow} setIsShow={setIsShow} />
     </>
   );
