@@ -295,7 +295,7 @@ const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
                 <Box
                   sx={{
                     background: "#00C0F9",
-                    width: { lg: "43.7%", xs: "50%" },
+                    width: { lg: "43.6%", xs: "50%" },
                     height: "100%",
                     display: "flex",
                     justifyContent: "center",
@@ -308,11 +308,13 @@ const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
                     Back
                   </Typography>
                 </Box>
-                <Box sx={{ width: ".35%", display: "flex" }}></Box>
+                <Box
+                  sx={{ width: ".25%", display: "flex", background: "pink" }}
+                />
                 <Box
                   sx={{
                     background: "#FF9292",
-                    width: { lg: "43.7%", xs: "50%" },
+                    width: { lg: "43.5%", xs: "50%" },
                     height: "100%",
                     display: "flex",
                     justifyContent: "center",
