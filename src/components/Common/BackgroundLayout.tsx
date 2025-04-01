@@ -2,6 +2,7 @@ import { Box } from "@mui/material";
 import { BACKIMAGE } from "../../assets";
 import EventListing from "../../layout/main/eventlist";
 import SideBar from "../../layout/main/header/SideBar";
+
 const BackgroundLayout = ({ children }: any) => {
   return (
     <Box

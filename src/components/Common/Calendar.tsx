@@ -1,11 +1,11 @@
 import { Box, Typography } from "@mui/material";
+import moment from "moment";
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker-cssmodules.css";
 import "react-datepicker/dist/react-datepicker.css";
-
-import moment from "moment";
 import CalendarImage from "../../assets/images/calendar.webp";
+
 const Calendar = ({
   title,
   containerStyle,
