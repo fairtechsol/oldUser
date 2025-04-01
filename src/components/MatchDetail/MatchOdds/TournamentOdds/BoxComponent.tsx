@@ -366,6 +366,7 @@ const BoxComponent = ({
               selectionId={selectionId}
               matchDetails={matchDetails}
               show6Box={show6Box}
+              lastIndex
             />
           )}
         </Box>

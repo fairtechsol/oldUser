@@ -25,6 +25,7 @@ const SeparateModal = ({
   matchDetails,
   selectionId,
   show6Box,
+  lastIndex,
 }: any) => {
   const dispatch: AppDispatch = useDispatch();
   const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
@@ -138,7 +139,9 @@ const SeparateModal = ({
           )}
         </Box>
       </Box>
-      <Box sx={{ width: ".25%", display: "flex", background: "pink" }} />
+      {!lastIndex && (
+        <Box sx={{ width: ".25%", display: "flex", background: "pink" }} />
+      )}
       <MUIModal
         open={isPopoverOpen}
         onClose={() => {
