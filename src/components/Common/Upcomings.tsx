@@ -43,10 +43,16 @@ const Upcomings = (props: any) => {
           </span>
         </Typography>{" "}
       </Box>
-      <div style={{ background: "#f1c550" }}>
+      <div
+        style={{
+          background: "#f1c550",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         {location.pathname === "/inplay" && (
           <img
-            className="inplayicon"
             src={IconConstants[match?.matchType]}
             alt="Inplay Icon"
             width={25}
@@ -60,7 +66,7 @@ const Upcomings = (props: any) => {
           background: "#262626",
         }}
       >
-        <div className="slanted"></div>
+        <div className="slanted" />
       </Box>
 
       <Box

@@ -173,7 +173,7 @@ const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
               right: 0,
               height: "100%",
             }}
-          ></Box>
+          />
         )}
 
         {!upcoming && (
@@ -239,7 +239,7 @@ const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
                 marginLeft: 1,
               }}
             >
-              <Box className="wave"> </Box>
+              <Box className="wave" />
               <Typography
                 sx={{
                   fontStyle: "italic",
