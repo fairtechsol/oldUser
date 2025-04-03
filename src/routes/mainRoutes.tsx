@@ -7,11 +7,10 @@ import BetHistory from "../pages/betHistory";
 import ChangeButtonValue from "../pages/changeButtonValue";
 import ChangePassword from "../pages/changepassword";
 import Comingsoon from "../pages/comingsoon";
-import GameList from "../pages/gameList";
 import Inplay from "../pages/inplay";
 import LiveCasino from "../pages/liveCasino";
-import Match from "../pages/match";
 import MatchDetail from "../pages/matchDetail";
+import MatchList from "../pages/matchList";
 import MyAccount from "../pages/myAccount";
 import AccountStatement from "../pages/reports/AccountStatement";
 import ProfitLoss from "../pages/reports/ProfitLoss";
@@ -24,15 +23,11 @@ const MainRoutes = {
   children: [
     {
       index: true,
-      element: <Navigate to={Constants.MainPaths.match} />,
-    },
-    {
-      path: Constants.MainPaths.match,
-      element: <Match />,
+      element: <Navigate to={Constants.MainPaths.match + "/cricket"} />,
     },
     {
       path: `${Constants.MainPaths.match}/:type`,
-      element: <GameList />,
+      element: <MatchList />,
     },
     {
       path: Constants.MainPaths.comingSoon,
@@ -100,7 +95,7 @@ const MainRoutes = {
     },
     {
       path: "*",
-      element: <Navigate to={"/match"} replace />,
+      element: <Navigate to={"/match/cricket"} replace />,
     },
   ],
 };

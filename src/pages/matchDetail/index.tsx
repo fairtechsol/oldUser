@@ -177,7 +177,7 @@ const MatchDetail = () => {
       if (event?.matchId === state?.matchId) {
         dispatch(getProfileInMatchDetail());
         if (event.isMatchDeclare) {
-          navigate("/match");
+          navigate("/match" + `/${matchDetails?.matchType}`);
         }
       }
     } catch (e) {
@@ -238,7 +238,7 @@ const MatchDetail = () => {
 
   useEffect(() => {
     if (matchDetails && matchDetails?.stopAt) {
-      navigate("/match");
+      navigate("/match" + `/${matchDetails?.matchType}`);
     }
   }, [matchDetails]);
 

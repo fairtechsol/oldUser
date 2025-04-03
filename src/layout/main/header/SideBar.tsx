@@ -15,7 +15,7 @@ const SideBar = ({ mobileShow, handleDrawerToggle }: any) => {
         { title: "In Play", url: "/inplay", activeTab: "INPLAY" },
         {
           title: "Cricket",
-          url: "/match",
+          url: "/match/cricket",
           activeTab: "CRICKET",
           matchType: "cricket",
         },

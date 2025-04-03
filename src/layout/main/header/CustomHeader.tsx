@@ -162,7 +162,7 @@ const CustomHeader = () => {
               />
               <StyledImage
                 onClick={(e) => {
-                  navigate("/match", { state: { activeTab: "CRICKET" } });
+                  navigate("/match/cricket");
                   e.stopPropagation();
                 }}
                 src={logo}

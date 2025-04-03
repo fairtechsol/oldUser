@@ -13,13 +13,23 @@ import { AppDispatch, RootState } from "../../../store/store";
 import { Constants, marketApiConst } from "../../../utils/Constants";
 import Odds from "./Odds";
 
-const MatchesComponent = () => {
+interface MatchesComponent {
+  currentPage?: number | any;
+  setCurrentPage?: (page: number) => void;
+}
+
+const MatchesComponent = ({
+  currentPage,
+  setCurrentPage,
+}: MatchesComponent) => {
   const dispatch: AppDispatch = useDispatch();
-  const [currentPage, setCurrentPage] = useState<number>(1);
   const [selectedMatchId, setSelectedMatchId] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
   const { type } = useParams();
+  const { matchList, success } = useSelector(
+    (state: RootState) => state.match.matchList
+  );
 
   const getMatchListMarket = async (matchType: string) => {
     try {
@@ -34,12 +44,21 @@ const MatchesComponent = () => {
     }
   };
 
-  const { matchList, success } = useSelector(
-    (state: RootState) => state.match.matchList
-  );
-
   const getMatchListService = () => {
-    dispatch(getMatchList({ matchType: type }));
+    if (["/inplay"].includes(location.pathname)) {
+      dispatch(getMatchList({ matchType: type }));
+    } else {
+      dispatch(
+        getMatchList({
+          matchType: type,
+          page:
+            matchList?.count % Constants.pageLimit === 0
+              ? currentPage + 1
+              : currentPage,
+          limit: Constants.pageLimit,
+        })
+      );
+    }
   };
 
   useEffect(() => {
@@ -67,7 +86,6 @@ const MatchesComponent = () => {
           },
         });
       }
-      return () => {};
     } catch (error) {
       console.error(error);
     }
@@ -77,7 +95,17 @@ const MatchesComponent = () => {
     try {
       const handleVisibilityChange = () => {
         if (document.visibilityState === "visible") {
-          dispatch(getMatchList({ matchType: type }));
+          if (["/inplay"].includes(location.pathname)) {
+            dispatch(getMatchList({ matchType: type }));
+          } else {
+            dispatch(
+              getMatchList({
+                matchType: type,
+                page: currentPage,
+                limit: Constants.pageLimit,
+              })
+            );
+          }
         }
       };
       document.addEventListener("visibilitychange", handleVisibilityChange);
@@ -90,17 +118,27 @@ const MatchesComponent = () => {
     } catch (error) {
       console.error(error);
     }
-  }, []);
+  }, [currentPage, type]);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      dispatch(getMatchList({ matchType: type }));
+      if (["/inplay"].includes(location.pathname)) {
+        dispatch(getMatchList({ matchType: type }));
+      } else {
+        dispatch(
+          getMatchList({
+            matchType: type,
+            page: currentPage,
+            limit: Constants.pageLimit,
+          })
+        );
+      }
     }, 14100 * 1000);
 
     return () => {
       clearInterval(intervalId);
     };
-  }, []);
+  }, [type]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -115,22 +153,10 @@ const MatchesComponent = () => {
     return () => clearInterval(intervalId);
   }, [type]);
 
-  useEffect(() => {
-    if (type) {
-      dispatch(getMatchList({ matchType: type }));
-    }
-  }, [type]);
-
   return (
     <>
       {matchList &&
-        (["/inplay"].includes(location.pathname)
-          ? matchList?.matches
-          : matchList?.matches.slice(
-              (currentPage - 1) * Constants.pageLimit,
-              currentPage * Constants.pageLimit
-            )
-        ).map((match: any) => {
+        (matchList?.matches).map((match: any) => {
           return (
             <Odds
               key={match?.id}
@@ -149,7 +175,7 @@ const MatchesComponent = () => {
           page={currentPage}
           className="whiteTextPagination d-flex justify-content-center"
           onChange={(_, page) => {
-            setCurrentPage(page);
+            setCurrentPage?.(page);
           }}
           count={Math.ceil(
             parseInt(matchList?.count ? matchList?.count : 1) /
