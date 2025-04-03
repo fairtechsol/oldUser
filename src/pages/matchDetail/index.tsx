@@ -177,7 +177,7 @@ const MatchDetail = () => {
       if (event?.matchId === state?.matchId) {
         dispatch(getProfileInMatchDetail());
         if (event.isMatchDeclare) {
-          navigate("/match" + `/${matchDetails?.matchType}`);
+          navigate("/inplay");
         }
       }
     } catch (e) {

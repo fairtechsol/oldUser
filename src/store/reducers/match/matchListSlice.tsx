@@ -12,6 +12,7 @@ import {
   searchListReset,
   selectedBetAction,
   selectedBetMinMax,
+  setCurrentPageRedux,
   updateMatchOddRates,
   updateMatchRates,
   updateMatchRatesFromApiOnList,
@@ -37,6 +38,7 @@ interface InitialState {
   searchedMatchList: any;
   minMax: any;
   liveScoreBoardData?: any;
+  currentPageRedux: number;
 }
 
 const initialState: InitialState = {
@@ -51,6 +53,7 @@ const initialState: InitialState = {
   searchedMatchList: null,
   minMax: null,
   liveScoreBoardData: null,
+  currentPageRedux: 1,
 };
 
 const matchListSlice = createSlice({
@@ -449,7 +452,10 @@ const matchListSlice = createSlice({
       })
       .addCase(updateMatchRatesFromApiOnList.fulfilled, (state, action) => {
         let matchListFromApi = action.payload;
-        if (state.matchList?.matches?.length > 0) {
+        if (
+          state.matchList?.matches?.length > 0 &&
+          matchListFromApi?.length > 0
+        ) {
           state.matchList.matches = state.matchList?.matches?.map(
             (items: any) => {
               const itemToUpdate = matchListFromApi?.find(
@@ -537,6 +543,9 @@ const matchListSlice = createSlice({
           };
         }
         state.minMax = value;
+      })
+      .addCase(setCurrentPageRedux.fulfilled, (state, action) => {
+        state.currentPageRedux = action.payload;
       });
   },
 });

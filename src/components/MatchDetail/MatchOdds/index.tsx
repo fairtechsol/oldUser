@@ -7,27 +7,23 @@ import { expertSocketService, socket } from "../../../socketManager";
 import {
   getMatchList,
   matchDetailReset,
+  setCurrentPageRedux,
   updateMatchRatesFromApiOnList,
 } from "../../../store/actions/match/matchListAction";
 import { AppDispatch, RootState } from "../../../store/store";
 import { Constants, marketApiConst } from "../../../utils/Constants";
 import Odds from "./Odds";
 
-interface MatchesComponent {
-  currentPage?: number | any;
-  setCurrentPage?: (page: number) => void;
-}
-
-const MatchesComponent = ({
-  currentPage,
-  setCurrentPage,
-}: MatchesComponent) => {
+const MatchesComponent = () => {
   const dispatch: AppDispatch = useDispatch();
   const [selectedMatchId, setSelectedMatchId] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
   const { type } = useParams();
   const { matchList, success } = useSelector(
+    (state: RootState) => state.match.matchList
+  );
+  const { currentPageRedux } = useSelector(
     (state: RootState) => state.match.matchList
   );
 
@@ -53,8 +49,8 @@ const MatchesComponent = ({
           matchType: type,
           page:
             matchList?.count % Constants.pageLimit === 0
-              ? currentPage + 1
-              : currentPage,
+              ? currentPageRedux + 1
+              : currentPageRedux,
           limit: Constants.pageLimit,
         })
       );
@@ -101,7 +97,7 @@ const MatchesComponent = ({
             dispatch(
               getMatchList({
                 matchType: type,
-                page: currentPage,
+                page: currentPageRedux,
                 limit: Constants.pageLimit,
               })
             );
@@ -118,7 +114,7 @@ const MatchesComponent = ({
     } catch (error) {
       console.error(error);
     }
-  }, [currentPage, type]);
+  }, [currentPageRedux, type]);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -128,7 +124,7 @@ const MatchesComponent = ({
         dispatch(
           getMatchList({
             matchType: type,
-            page: currentPage,
+            page: currentPageRedux,
             limit: Constants.pageLimit,
           })
         );
@@ -172,10 +168,10 @@ const MatchesComponent = ({
 
       {!["/inplay"].includes(location.pathname) && (
         <Pagination
-          page={currentPage}
+          page={currentPageRedux}
           className="whiteTextPagination d-flex justify-content-center"
           onChange={(_, page) => {
-            setCurrentPage?.(page);
+            dispatch(setCurrentPageRedux(page));
           }}
           count={Math.ceil(
             parseInt(matchList?.count ? matchList?.count : 1) /

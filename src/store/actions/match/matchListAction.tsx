@@ -218,6 +218,12 @@ export const updateMatchRatesFromApiOnList = createAsyncThunk<any, any>(
     return data;
   }
 );
+export const setCurrentPageRedux = createAsyncThunk<any, any>(
+  "/setCurrentPageRedux/rates",
+  async (data) => {
+    return data;
+  }
+);
 
 export const searchListReset = createAction("search/list");
 export const matchListReset = createAction("matchList/reset");

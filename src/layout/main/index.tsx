@@ -1,7 +1,7 @@
 import { memo, useEffect } from "react";
 
 import { Box } from "@mui/material";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { BACKIMAGE } from "../../assets";
 import BackgroundLayout from "../../components/Common/BackgroundLayout";
@@ -15,13 +15,17 @@ import {
   updateBalanceFromSocket,
   updateBalanceOnSessionResult,
 } from "../../store/actions/user/userAction";
-import { AppDispatch } from "../../store/store";
+import { AppDispatch, RootState } from "../../store/store";
+import { Constants } from "../../utils/Constants";
 import CustomHeader from "./header/CustomHeader";
 
 const MainLayout = () => {
   const location = useLocation();
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
+  const { currentPageRedux } = useSelector(
+    (state: RootState) => state.match.matchList
+  );
 
   useEffect(() => {
     if (!sessionStorage.getItem("jwtUser")) {
@@ -43,9 +47,21 @@ const MainLayout = () => {
 
   const handleMatchResult = () => {
     dispatch(getProfile());
-    setTimeout(() => {
-      dispatch(getMatchList({}));
-    }, 1000);
+    if (["/inplay"].includes(location.pathname)) {
+      setTimeout(() => {
+        dispatch(getMatchList({}));
+      }, 1000);
+    } else if (["/match"].includes(location.pathname)) {
+      setTimeout(() => {
+        dispatch(
+          getMatchList({
+            matchType: location.pathname.split("/").pop(),
+            page: currentPageRedux,
+            limit: Constants.pageLimit,
+          })
+        );
+      }, 1000);
+    }
   };
   const getUserProfile = () => {
     dispatch(getProfile());

@@ -1,10 +1,13 @@
 import { Box, useMediaQuery, useTheme } from "@mui/material";
-import { memo, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { memo, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import MatchesComponent from "../../components/MatchDetail/MatchOdds/index";
-import { getMatchList } from "../../store/actions/match/matchListAction";
-import { AppDispatch } from "../../store/store";
+import {
+  getMatchList,
+  setCurrentPageRedux,
+} from "../../store/actions/match/matchListAction";
+import { AppDispatch, RootState } from "../../store/store";
 import { Constants } from "../../utils/Constants";
 
 const MatchList = () => {
@@ -12,7 +15,9 @@ const MatchList = () => {
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const dispatch: AppDispatch = useDispatch();
   const { type } = useParams();
-  const [currentPage, setCurrentPage] = useState<number>(1);
+  const { currentPageRedux } = useSelector(
+    (state: RootState) => state.match.matchList
+  );
 
   useEffect(() => {
     if (sessionStorage.getItem("jwtUser")) {
@@ -20,13 +25,13 @@ const MatchList = () => {
         dispatch(
           getMatchList({
             matchType: type,
-            page: currentPage,
+            page: currentPageRedux,
             limit: Constants.pageLimit,
           })
         );
       }
     }
-  }, [sessionStorage, currentPage]);
+  }, [sessionStorage, currentPageRedux]);
 
   useEffect(() => {
     if (type) {
@@ -37,7 +42,7 @@ const MatchList = () => {
           limit: Constants.pageLimit,
         })
       );
-      setCurrentPage(1);
+      dispatch(setCurrentPageRedux(1));
     }
   }, [type]);
 
@@ -57,17 +62,11 @@ const MatchList = () => {
           }}
         >
           <div style={{ height: "1vh" }} />
-          <MatchesComponent
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-          />
+          <MatchesComponent />
         </Box>
       ) : (
         <Box sx={{ overflowX: "hidden", minHeight: "100vh", width: "100%" }}>
-          <MatchesComponent
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-          />
+          <MatchesComponent />
         </Box>
       )}
     </>
