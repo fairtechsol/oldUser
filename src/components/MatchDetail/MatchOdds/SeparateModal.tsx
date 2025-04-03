@@ -181,96 +181,93 @@ const SeparateModal = ({
   };
 
   return (
-    <>
+    <Box
+      sx={{
+        cursor: loading ? "not-allowed" : "pointer",
+        padding: { xs: "0px", lg: "0px", md: "0px" },
+        width: { xs: "100%", lg: width ?? "20%" },
+        height: "100%",
+      }}
+    >
       <Box
+        onClick={handleBoxClick}
+        style={{ position: "relative" }}
         sx={{
-          cursor: loading ? "not-allowed" : "pointer",
-          padding: { xs: "0px", lg: "0px", md: "0px" },
-          width: { xs: "100%", lg: width ?? "20%" },
+          background: lock || [0, "0"].includes(value) ? "#FDF21A" : color,
+          border: color != "white" ? "1px solid #2626264D" : "0px solid white",
+          width: { lg: "99%", sm: "101%" },
           height: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+          cursor: !empty && !lock && value && value2 && "pointer",
+        }}
+      >
+        {!empty && !lock && ![0, "0", null, undefined].includes(value) && (
+          <Box sx={{ alignItems: "center", justifyContent: "space-around" }}>
+            <Typography
+              sx={{
+                fontSize: "15px",
+                color: color == "white" ? "white" : "black",
+                fontWeight: "700",
+                textAlign: "center",
+              }}
+            >
+              {value}
+            </Typography>
+            {typeOfBet != "MANUAL BOOKMAKER" ? (
+              <Typography
+                sx={{
+                  fontSize: "8px",
+                  marginTop: -0.4,
+                  color: color == "white" ? "white" : "black",
+                  textAlign: "center",
+                  fontWeight: "bold",
+                }}
+              >
+                {value2}
+              </Typography>
+            ) : null}
+          </Box>
+        )}
+        {(lock || [0, "0"].includes(value)) && (
+          <img
+            src={Lock}
+            style={{ width: "10px", height: "15px" }}
+            alt="lock"
+          />
+        )}
+      </Box>
+
+      <MUIModal
+        open={isPopoverOpen}
+        onClose={() => {
+          setIsPopoverOpen(false);
         }}
       >
         <Box
-          onClick={handleBoxClick}
-          style={{ position: "relative" }}
           sx={{
-            background: lock || [0, "0"].includes(value) ? "#FDF21A" : color,
-            border:
-              color != "white" ? "1px solid #2626264D" : "0px solid white",
-            width: { lg: "99%", sm: "101%" },
-            height: "100%",
+            width: "100%",
+            position: "absolute",
             display: "flex",
-            justifyContent: "center",
             alignItems: "center",
-            flexDirection: "column",
-            cursor: !empty && !lock && value && value2 && "pointer",
+            top: "33%",
+            overflow: "hidden",
+            justifyContent: "center",
+            outline: "none",
           }}
         >
-          {!empty && !lock && ![0, "0", null, undefined].includes(value) && (
-            <Box sx={{ alignItems: "center", justifyContent: "space-around" }}>
-              <Typography
-                sx={{
-                  fontSize: "15px",
-                  color: color == "white" ? "white" : "black",
-                  fontWeight: "700",
-                  textAlign: "center",
-                }}
-              >
-                {value}
-              </Typography>
-              {typeOfBet != "MANUAL BOOKMAKER" ? (
-                <Typography
-                  sx={{
-                    fontSize: "8px",
-                    marginTop: -0.4,
-                    color: color == "white" ? "white" : "black",
-                    textAlign: "center",
-                    fontWeight: "bold",
-                  }}
-                >
-                  {value2}
-                </Typography>
-              ) : null}
-            </Box>
-          )}
-          {(lock || [0, "0"].includes(value)) && (
-            <img
-              src={Lock}
-              style={{ width: "10px", height: "15px" }}
-              alt="lock"
-            />
-          )}
-        </Box>
-
-        <MUIModal
-          open={isPopoverOpen}
-          onClose={() => {
-            setIsPopoverOpen(false);
-          }}
-        >
-          <Box
-            sx={{
-              width: "100%",
-              position: "absolute",
-              display: "flex",
-              alignItems: "center",
-              top: "33%",
-              overflow: "hidden",
-              justifyContent: "center",
-              outline: "none",
+          <OddsPlaceBet
+            handleClose={() => {
+              setIsPopoverOpen(false);
             }}
-          >
-            <OddsPlaceBet
-              handleClose={() => {
-                setIsPopoverOpen(false);
-              }}
-              session={session}
-              type={type}
-            />
-          </Box>
-        </MUIModal>
-      </Box>
-    </>
+            session={session}
+            type={type}
+          />
+        </Box>
+      </MUIModal>
+    </Box>
   );
 };
 

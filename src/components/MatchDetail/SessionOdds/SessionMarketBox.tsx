@@ -190,7 +190,12 @@ const SessionMarketBox = ({
                   minWidth: { lg: "60%", xs: "40%" },
                   marginRight: "auto",
                   overflow: "hidden",
-                  marginLeft: { lg: "37.5%", xs: "59.6%", sm: "59.6%" },
+                  marginLeft: {
+                    xl: "37.7%",
+                    lg: "37.5%",
+                    xs: "59.8%",
+                    sm: "59.9%",
+                  },
                 }}
               >
                 <Box
@@ -199,7 +204,6 @@ const SessionMarketBox = ({
                     height: "100%",
                     display: "flex",
                     flexDirection: "row",
-                    marginLeft: "1px",
                   }}
                 >
                   {data?.type != "khado" && (
@@ -369,260 +373,254 @@ const SessionMarketBox = ({
         },
         (_, i) => i + 1
       )?.map((item: number) => (
-        <>
-          <Box
-            key={item}
-            sx={{
-              display: "flex",
-              position: "relative",
-              background: "white",
-              height: "38px",
-              width: "100%",
-              justifyContent: "flex-start",
-            }}
-          >
-            {(upcoming || data?.activeStatus === "save") && (
-              <Box
-                sx={{
-                  margin: "1px",
-                  width: "100%",
-                  height: "100%",
-                  position: "absolute",
-                  right: 0,
-                  background: "rgba(0,0,0,0.5)",
-                  zIndex: 2,
-                }}
-              ></Box>
-            )}
+        <Box
+          key={item}
+          sx={{
+            display: "flex",
+            position: "relative",
+            background: "white",
+            height: "38px",
+            width: "100%",
+            justifyContent: "flex-start",
+          }}
+        >
+          {(upcoming || data?.activeStatus === "save") && (
             <Box
               sx={{
-                display: "flex",
-                height: "38px",
-                overflow: "hidden",
-                width: { xs: "100%", lg: "100%" },
-                justifyContent: "flex-start",
-                alignItems: "center",
-                background: index % 2 === 0 ? "#FFE094" : "#ECECEC",
+                margin: "1px",
+                width: "100%",
+                height: "100%",
+                position: "absolute",
+                right: 0,
+                background: "rgba(0,0,0,0.5)",
+                zIndex: 2,
               }}
-            >
-              {!["ACTIVE", "active", "", undefined, null, ""].includes(
-                data?.GameStatus
-              ) ||
-              (!data.ex?.availableToBack?.length &&
-                !data.ex?.availableToLay?.length) ? (
-                <Box
-                  sx={{
-                    background: "rgba(0,0,0,1)",
-                    height: "38px",
-                    minWidth: "10%",
-                    width: { lg: "24%", md: "40%", xs: "40%" },
-                    justifyContent: { xs: "center", lg: "center" },
-                    marginLeft: "auto",
-                    alignItems: "center",
-                    display: "flex",
-                    marginRight: { lg: "20.5%", xs: "0%" },
-                    zIndex: 1,
-                  }}
-                >
-                  {data?.GameStatus == "Ball Running" ? (
-                    item === 1 && (
-                      <img
-                        src={BallStart}
-                        style={{ width: "113px", height: "32px" }}
-                        alt="ball start"
-                      />
-                    )
-                  ) : (
-                    <Typography
-                      sx={{
-                        fontSize: { xs: "12px", lg: "20px" },
-                        textTransform: "uppercase",
-                        textAlign: "center",
-                        width: "100%",
-                        color: "white",
-                        fontWeight: "400",
-                      }}
-                    >
-                      {item === 1 &&
-                        (!data?.GameStatus ? "SUSPENDED" : data?.GameStatus)}
-                    </Typography>
-                  )}
-                </Box>
-              ) : (
-                <>
-                  <Box
+            ></Box>
+          )}
+          <Box
+            sx={{
+              display: "flex",
+              height: "38px",
+              overflow: "hidden",
+              width: { xs: "100%", lg: "100%" },
+              justifyContent: "flex-start",
+              alignItems: "center",
+              background: index % 2 === 0 ? "#FFE094" : "#ECECEC",
+            }}
+          >
+            {!["ACTIVE", "active", "", undefined, null, ""].includes(
+              data?.GameStatus
+            ) ||
+            (!data.ex?.availableToBack?.length &&
+              !data.ex?.availableToLay?.length) ? (
+              <Box
+                sx={{
+                  background: "rgba(0,0,0,1)",
+                  height: "38px",
+                  minWidth: "10%",
+                  width: { lg: "24%", md: "40%", xs: "40%" },
+                  justifyContent: { xs: "center", lg: "center" },
+                  marginLeft: "auto",
+                  alignItems: "center",
+                  display: "flex",
+                  marginRight: { lg: "20.5%", xs: "0%" },
+                  zIndex: 1,
+                }}
+              >
+                {data?.GameStatus == "Ball Running" ? (
+                  item === 1 && (
+                    <img
+                      src={BallStart}
+                      style={{ width: "113px", height: "32px" }}
+                      alt="ball start"
+                    />
+                  )
+                ) : (
+                  <Typography
                     sx={{
-                      display: "flex",
-                      position: "absolute",
-                      background: index % 2 === 0 ? "#FFE094" : "#ECECEC",
-                      height: "38px",
-                      width: { lg: "60%", xs: "40%", sm: "40%" },
-                      justifyContent: { lg: "center", xs: "end" },
-                      alignItems: "center",
-                      minWidth: { lg: "60%", xs: "40%" },
-                      marginRight: "auto",
-                      overflow: "hidden",
-                      marginLeft: { lg: "37.5%", xs: "59.8%", sm: "59.8%" },
+                      fontSize: { xs: "12px", lg: "20px" },
+                      textTransform: "uppercase",
+                      textAlign: "center",
+                      width: "100%",
+                      color: "white",
+                      fontWeight: "400",
                     }}
                   >
-                    <Box
-                      sx={{
-                        width: { xs: "100%", lg: "20%" },
-                        height: "100%",
-                        display: "flex",
-                        flexDirection: "row",
-                      }}
-                    >
-                      <SeparateModal
-                        key={index}
-                        bettingOn={"session"}
-                        closeModal={closeModal}
-                        setFastBetLoading={setFastBetLoading}
-                        po={
-                          sessionBettingType.oddEven == data?.type
-                            ? data.ex?.availableToBack[item]?.tno
-                            : data.ex?.availableToLay[item]?.tno
-                        }
-                        eventType={eventType}
-                        setFastAmount={setFastAmount}
-                        rates={allRates}
-                        session={true}
-                        sessionMain={sessionMain}
-                        selectedFastAmount={selectedFastAmount}
-                        betType={
-                          sessionBettingType.oddEven == data?.type
-                            ? "back"
-                            : sessionBettingType.fancy1 == data?.type
-                            ? "lay"
-                            : "no"
-                        }
-                        value={
+                    {item === 1 &&
+                      (!data?.GameStatus ? "SUSPENDED" : data?.GameStatus)}
+                  </Typography>
+                )}
+              </Box>
+            ) : (
+              <>
+                <Box
+                  sx={{
+                    display: "flex",
+                    position: "absolute",
+                    background: index % 2 === 0 ? "#FFE094" : "#ECECEC",
+                    height: "38px",
+                    width: { lg: "60%", xs: "40%", sm: "40%" },
+                    justifyContent: { lg: "center", xs: "end" },
+                    alignItems: "center",
+                    minWidth: { lg: "60%", xs: "40%" },
+                    marginRight: "auto",
+                    overflow: "hidden",
+                    marginLeft: { lg: "37.5%", xs: "59.8%", sm: "59.8%" },
+                  }}
+                >
+                  <Box
+                    sx={{
+                      width: { xs: "100%", lg: "20%" },
+                      height: "100%",
+                      display: "flex",
+                      flexDirection: "row",
+                    }}
+                  >
+                    <SeparateModal
+                      key={index}
+                      bettingOn={"session"}
+                      closeModal={closeModal}
+                      setFastBetLoading={setFastBetLoading}
+                      po={
+                        sessionBettingType.oddEven == data?.type
+                          ? data.ex?.availableToBack[item]?.tno
+                          : data.ex?.availableToLay[item]?.tno
+                      }
+                      eventType={eventType}
+                      setFastAmount={setFastAmount}
+                      rates={allRates}
+                      session={true}
+                      sessionMain={sessionMain}
+                      selectedFastAmount={selectedFastAmount}
+                      betType={
+                        sessionBettingType.oddEven == data?.type
+                          ? "back"
+                          : sessionBettingType.fancy1 == data?.type
+                          ? "lay"
+                          : "no"
+                      }
+                      value={
+                        sessionBettingType.oddEven == data?.type
+                          ? data.ex?.availableToBack[item]?.price ?? 0
+                          : data.ex?.availableToLay[item]?.price ?? 0
+                      }
+                      value2={
+                        sessionBettingType.oddEven == data?.type
+                          ? data.ex?.availableToBack[item]?.size ?? 0
+                          : data.ex?.availableToLay[item]?.size ?? 0
+                      }
+                      lock={
+                        [null, 0, "0"].includes(
                           sessionBettingType.oddEven == data?.type
                             ? data.ex?.availableToBack[item]?.price ?? 0
                             : data.ex?.availableToLay[item]?.price ?? 0
-                        }
-                        value2={
+                        )
+                          ? true
+                          : false
+                      }
+                      color={
+                        sessionBettingType.oddEven == data?.type
+                          ? "#B3E0FF"
+                          : "#F6D0CB"
+                      }
+                      type={{
+                        color:
                           sessionBettingType.oddEven == data?.type
-                            ? data.ex?.availableToBack[item]?.size ?? 0
-                            : data.ex?.availableToLay[item]?.size ?? 0
-                        }
-                        lock={
-                          [null, 0, "0"].includes(
-                            sessionBettingType.oddEven == data?.type
-                              ? data.ex?.availableToBack[item]?.price ?? 0
-                              : data.ex?.availableToLay[item]?.price ?? 0
-                          )
-                            ? true
-                            : false
-                        }
-                        color={
-                          sessionBettingType.oddEven == data?.type
-                            ? "#B3E0FF"
-                            : "#F6D0CB"
-                        }
-                        type={{
-                          color:
-                            sessionBettingType.oddEven == data?.type
-                              ? "#A7DCFF"
-                              : "#FFB5B5",
-                          type: "YN",
-                        }}
-                        typeOfBet={typeOfBet}
-                        data={data}
-                        mainData={mainData}
-                        handleRateChange={handleRateChange}
-                        width={"100%"}
-                        mid={mid}
-                        teamName={
-                          sessionBettingType.oddEven == data?.type
-                            ? "odd"
-                            : null
-                        }
-                      />
-                    </Box>
-
-                    <Box
-                      sx={{
-                        width: ".45%",
-                        display: "flex",
-                        background: "pink",
+                            ? "#A7DCFF"
+                            : "#FFB5B5",
+                        type: "YN",
                       }}
+                      typeOfBet={typeOfBet}
+                      data={data}
+                      mainData={mainData}
+                      handleRateChange={handleRateChange}
+                      width={"100%"}
+                      mid={mid}
+                      teamName={
+                        sessionBettingType.oddEven == data?.type ? "odd" : null
+                      }
                     />
-                    <Box
-                      sx={{
-                        width: { xs: "100%", lg: "20%" },
-                        height: "100%",
-                        display: "flex",
-                        flexDirection: "row",
-                      }}
-                    >
-                      <SeparateModal
-                        key={index}
-                        bettingOn={"session"}
-                        closeModal={closeModal}
-                        setFastBetLoading={setFastBetLoading}
-                        po={
-                          sessionBettingType.oddEven == data?.type
-                            ? data.ex?.availableToLay[item]?.tno
-                            : data.ex?.availableToBack[item]?.tno
-                        }
-                        eventType={eventType}
-                        sessionMain={sessionMain}
-                        rates={allRates}
-                        setFastAmount={setFastAmount}
-                        selectedFastAmount={selectedFastAmount}
-                        session={true}
-                        betType={
-                          sessionBettingType.oddEven == data?.type ||
-                          sessionBettingType.fancy1 == data?.type
-                            ? "back"
-                            : "yes"
-                        }
-                        value={
-                          sessionBettingType.oddEven == data?.type
-                            ? data.ex?.availableToLay[item]?.price ?? 0
-                            : data.ex?.availableToBack[item]?.price ?? 0
-                        }
-                        value2={
-                          sessionBettingType.oddEven == data?.type
-                            ? data.ex?.availableToBack[item]?.size ?? 0
-                            : data.ex?.availableToBack[item]?.size ?? 0
-                        }
-                        lock={
-                          [null, 0, "0"].includes(
-                            sessionBettingType.oddEven == data?.type
-                              ? data.ex?.availableToBack[item]?.price ?? 0
-                              : data.ex?.availableToLay[item]?.price ?? 0
-                          )
-                            ? true
-                            : false
-                        }
-                        color={"#B3E0FF"}
-                        type={{ color: "#A7DCFF", type: "YN" }}
-                        typeOfBet={typeOfBet}
-                        data={data}
-                        mainData={mainData}
-                        handleRateChange={handleRateChange}
-                        width={"100%"}
-                        mid={mid}
-                        teamName={
-                          sessionBettingType.oddEven == data?.type
-                            ? "even"
-                            : null
-                        }
-                      />
-                    </Box>
                   </Box>
-                  {!matchesMobile && (
-                    <Box
-                      sx={{ width: "33%", display: "flex", background: "pink" }}
+
+                  <Box
+                    sx={{
+                      width: ".45%",
+                      display: "flex",
+                      background: "pink",
+                    }}
+                  />
+                  <Box
+                    sx={{
+                      width: { xs: "100%", lg: "20%" },
+                      height: "100%",
+                      display: "flex",
+                      flexDirection: "row",
+                    }}
+                  >
+                    <SeparateModal
+                      key={index}
+                      bettingOn={"session"}
+                      closeModal={closeModal}
+                      setFastBetLoading={setFastBetLoading}
+                      po={
+                        sessionBettingType.oddEven == data?.type
+                          ? data.ex?.availableToLay[item]?.tno
+                          : data.ex?.availableToBack[item]?.tno
+                      }
+                      eventType={eventType}
+                      sessionMain={sessionMain}
+                      rates={allRates}
+                      setFastAmount={setFastAmount}
+                      selectedFastAmount={selectedFastAmount}
+                      session={true}
+                      betType={
+                        sessionBettingType.oddEven == data?.type ||
+                        sessionBettingType.fancy1 == data?.type
+                          ? "back"
+                          : "yes"
+                      }
+                      value={
+                        sessionBettingType.oddEven == data?.type
+                          ? data.ex?.availableToLay[item]?.price ?? 0
+                          : data.ex?.availableToBack[item]?.price ?? 0
+                      }
+                      value2={
+                        sessionBettingType.oddEven == data?.type
+                          ? data.ex?.availableToBack[item]?.size ?? 0
+                          : data.ex?.availableToBack[item]?.size ?? 0
+                      }
+                      lock={
+                        [null, 0, "0"].includes(
+                          sessionBettingType.oddEven == data?.type
+                            ? data.ex?.availableToBack[item]?.price ?? 0
+                            : data.ex?.availableToLay[item]?.price ?? 0
+                        )
+                          ? true
+                          : false
+                      }
+                      color={"#B3E0FF"}
+                      type={{ color: "#A7DCFF", type: "YN" }}
+                      typeOfBet={typeOfBet}
+                      data={data}
+                      mainData={mainData}
+                      handleRateChange={handleRateChange}
+                      width={"100%"}
+                      mid={mid}
+                      teamName={
+                        sessionBettingType.oddEven == data?.type ? "even" : null
+                      }
                     />
-                  )}
-                </>
-              )}
-            </Box>
+                  </Box>
+                </Box>
+                {!matchesMobile && (
+                  <Box
+                    sx={{ width: "33%", display: "flex", background: "pink" }}
+                  />
+                )}
+              </>
+            )}
           </Box>
-        </>
+        </Box>
       ))}
     </>
   );
