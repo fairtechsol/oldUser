@@ -283,6 +283,7 @@ const SessionBetSeperate = ({ profit, placedBets, isArrow, match }: any) => {
                               height: { xs: "12px", lg: "15px" },
                             }}
                             src={i.totalLoss > 0 ? ARROWUP : ArrowDown}
+                            alt="arrow"
                           />
                         )}
                       </Box>
@@ -309,6 +310,7 @@ const SessionBetSeperate = ({ profit, placedBets, isArrow, match }: any) => {
                           marginRight: "5px",
                         }}
                         src={DELETE}
+                        alt="delete"
                       />
                       <Typography
                         sx={{

@@ -32,7 +32,7 @@ const MoneyBox = ({ color, trendingDown, rate, trendingUp }: any) => {
             filter: "invert(.9) sepia(1) saturate(5) hue-rotate(175deg);",
             width: "20px",
           }}
-          alt=""
+          alt="up icon"
         />
       )}
       {trendingDown && (
@@ -44,7 +44,7 @@ const MoneyBox = ({ color, trendingDown, rate, trendingUp }: any) => {
             filter: "invert(.9) sepia(1) saturate(5) hue-rotate(175deg);",
             width: "20px",
           }}
-          alt=""
+          alt="down icon"
         />
       )}
     </Box>

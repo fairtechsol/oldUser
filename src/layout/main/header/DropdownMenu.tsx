@@ -95,7 +95,7 @@ const DropdownMenu = ({ handleClose }: any) => {
           <StyledImage
             src={Logout}
             sx={{ width: "35%", height: "auto" }}
-            alt=""
+            alt="logout"
           />
         )}
       </Box>

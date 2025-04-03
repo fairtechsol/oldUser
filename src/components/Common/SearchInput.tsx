@@ -160,7 +160,7 @@ const SearchInput = ({
           <StyledImage
             src={Search}
             sx={{ height: "40%", width: "auto" }}
-            alt=""
+            alt="search"
           />
         </Box>
       </Box>

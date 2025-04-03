@@ -158,6 +158,7 @@ const CustomHeader = () => {
                   height: { lg: "24px", xs: "20px" },
                   width: "auto",
                 }}
+                alt="draw"
               />
               <StyledImage
                 onClick={(e) => {
@@ -170,6 +171,7 @@ const CustomHeader = () => {
                   width: "auto",
                   marginLeft: { lg: "20px", xs: "10px" },
                 }}
+                alt="Fairgame Logo"
               />
             </Box>
 

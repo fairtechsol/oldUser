@@ -39,7 +39,7 @@ const RowHeaderMatches = ({
           <StyledImage
             src={gameIconConstants[item?.eventType]}
             sx={{ width: { lg: "35px", xs: "25px" } }}
-            alt=""
+            alt="Game icon"
           />
         </Box>
         <Box
@@ -69,7 +69,7 @@ const RowHeaderMatches = ({
                   : "rotate(0deg)",
               height: { lg: "10px", xs: "6px" },
             }}
-            alt=""
+            alt="arrow down"
           />
         </Box>
         <Box
@@ -108,7 +108,7 @@ const RowHeaderMatches = ({
                 width: { lg: "25px", xs: "15px" },
                 height: { lg: "12px", xs: "8px" },
               }}
-              alt=""
+              alt="arrow"
             />
           </Box>
           <Box sx={{ display: "flex", alignItems: "center" }}>

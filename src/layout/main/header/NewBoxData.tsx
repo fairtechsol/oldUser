@@ -147,7 +147,7 @@ const NewBoxData = ({
             <StyledImage
               src={DownIcon}
               sx={{ height: "10px", width: "10px", marginRight: "5px" }}
-              alt=""
+              alt="down"
             />
           </Box>
         )}

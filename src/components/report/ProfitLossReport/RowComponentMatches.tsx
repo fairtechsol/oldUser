@@ -181,7 +181,7 @@ const RowComponentMatches = ({
                 width: { lg: "25px", xs: "15px" },
                 height: { lg: "12px", xs: "8px" },
               }}
-              alt=""
+              alt="arrow"
             />
           </Box>
           <Box
@@ -217,7 +217,7 @@ const RowComponentMatches = ({
                     ? "rotate(180deg)"
                     : "rotate(0deg)",
               }}
-              alt=""
+              alt="arrow down"
             />
           </Box>
         </Box>
@@ -280,7 +280,7 @@ const RowComponentMatches = ({
                 width: { lg: "25px", xs: "15px" },
                 height: { lg: "12px", xs: "8px" },
               }}
-              alt=""
+              alt="arrow"
             />
           </Box>
           <Box
@@ -311,7 +311,7 @@ const RowComponentMatches = ({
                     ? "rotate(180deg)"
                     : "rotate(0deg)",
               }}
-              alt=""
+              alt="arrow down"
             />
           </Box>
         </Box>

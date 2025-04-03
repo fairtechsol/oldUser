@@ -404,7 +404,7 @@ const OddsPlaceBet = ({ handleClose, session, type }: any) => {
               width: "50px",
               cursor: "pointer",
             }}
-            alt=""
+            alt="cancel"
           />
         </Box>
         <Box sx={{ display: "flex", marginTop: "2px", marginX: "2px" }}>

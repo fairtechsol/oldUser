@@ -289,6 +289,7 @@ const CricketCasinoBetSeperate = ({
                               height: { xs: "12px", lg: "15px" },
                             }}
                             src={i.totalLoss > 0 ? ARROWUP : ArrowDown}
+                            alt="arrow"
                           />
                         )}
                       </Box>
@@ -315,6 +316,7 @@ const CricketCasinoBetSeperate = ({
                           marginRight: "5px",
                         }}
                         src={DELETE}
+                        alt="delete"
                       />
                       <Typography
                         sx={{

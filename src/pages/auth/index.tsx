@@ -33,7 +33,7 @@ const Auth = () => {
         >
           <StyledImage
             src={FgLogo}
-            alt="Fairgame"
+            alt="Fairgame Logo"
             sx={{ height: "8%", width: "300px" }}
           />
           <Outlet />
