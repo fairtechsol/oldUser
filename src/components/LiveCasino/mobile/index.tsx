@@ -209,7 +209,7 @@ const LiveCasinoMobile = () => {
       <LiveCasinoGames
         data3={game ?? []}
         handleGame={handleGame}
-        width="calc(50% - 5px)"
+        width="calc(50% - 4px)"
         gap="8px"
       />
       <LiveCasinoModal isShow={isShow} setIsShow={setIsShow} />

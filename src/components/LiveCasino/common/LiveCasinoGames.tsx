@@ -4,7 +4,7 @@ import { dt2020 } from "../../../assets";
 const LiveCasinoGames = ({ data3, handleGame, width, gap }: any) => {
   return (
     <Box
-      className={`w-100 d-flex flex-row flex-wrap mt-2 cursor-pointer justify-content-between p-auto`}
+      className="w-100 d-flex flex-row flex-wrap mt-2 cursor-pointer"
       style={{ gap: gap }}
     >
       {data3?.map((item: any, index: number) => {

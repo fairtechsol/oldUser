@@ -139,7 +139,7 @@ const LiveCasinoDesktop = () => {
           <LiveCasinoGames
             data3={game ?? []}
             handleGame={handleGame}
-            width="calc(16.66% - 10px)"
+            width="calc(16.66% - 8.3px)"
             gap="10px"
           />
         </Box>
