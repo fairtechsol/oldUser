@@ -142,7 +142,7 @@ const CricketCasinoMarket = ({
                   marginLeft: "5px",
                   cursor: "pointer",
                 }}
-                alt=""
+                alt="arrow up"
               />
             </Box>
           </Box>
@@ -280,7 +280,7 @@ const CricketCasinoMarket = ({
                   <img
                     style={{ width: "35px", height: "40px" }}
                     src={LockIcon}
-                    alt=""
+                    alt="lock"
                   />
                   <Typography
                     sx={{

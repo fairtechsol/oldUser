@@ -89,7 +89,7 @@ const SessionBetSeperate = ({ profit, placedBets, isArrow, match }: any) => {
               marginRight: "5px",
               marginLeft: "5px",
             }}
-            alt=""
+            alt="arrow up"
           />
         </Box>
       </Box>

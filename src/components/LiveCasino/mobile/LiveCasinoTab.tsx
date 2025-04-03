@@ -30,7 +30,7 @@ const LiveCasinoTab = ({ data2, type2, setGame, setType2 }: any) => {
             >
               <img
                 src={liveCasinoPics[item]}
-                alt="abc"
+                alt="casino pic"
                 style={{
                   height: 30,
                   width: 30,

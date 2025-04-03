@@ -31,7 +31,7 @@ const SmallDropDown = ({ setPageLimit, pageLimit }: any) => {
             zIndex: 5,
             transform: open ? "rotate(0deg)" : "rotate(180deg)",
           }}
-          alt=""
+          alt="arrow down"
         />
       </Box>
       {open && (

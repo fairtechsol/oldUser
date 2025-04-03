@@ -151,7 +151,7 @@ const QuickSessionMarketBox = ({
                 <img
                   src={BallStart}
                   style={{ width: "113px", height: "32px" }}
-                  alt=""
+                  alt="ball start"
                 />
               ) : (
                 <Typography

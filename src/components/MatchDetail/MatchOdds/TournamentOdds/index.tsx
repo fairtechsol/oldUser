@@ -326,7 +326,7 @@ const TournamentOdds = ({
                   marginLeft: "5px",
                   cursor: "pointer",
                 }}
-                alt={"Banner"}
+                alt="arrow up"
               />
             </Box>
           </Box>
@@ -476,7 +476,7 @@ const TournamentOdds = ({
                   <img
                     style={{ width: "35px", height: "40px" }}
                     src={LockIcon}
-                    alt=""
+                    alt="lock"
                   />
                   <Typography
                     sx={{

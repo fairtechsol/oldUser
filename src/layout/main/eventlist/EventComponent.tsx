@@ -30,7 +30,7 @@ const EventComponent = ({ data, selected }: any) => {
       <img
         src={data.image}
         style={{ width: "35px", height: "35px", alignSelf: "center" }}
-        alt=""
+        alt="image"
       />
       <Typography
         noWrap

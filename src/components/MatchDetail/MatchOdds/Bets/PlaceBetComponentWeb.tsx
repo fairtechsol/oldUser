@@ -124,7 +124,7 @@ const PlaceBetComponentWeb = ({
           <img
             src={UD}
             style={{ width: "12px", height: "12px", marginLeft: "5px" }}
-            alt=""
+            alt="UD"
           />
         </Box>
         {show?.open &&

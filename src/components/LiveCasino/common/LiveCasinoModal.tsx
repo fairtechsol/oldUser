@@ -32,7 +32,7 @@ const LiveCasinoModal = ({ isShow, setIsShow }: any) => {
               <FaHome color="#fff" size={matchesMobile ? 20 : 40} />
               <img
                 src={FgLogo}
-                width={"auto"}
+                width="auto"
                 alt="fairGame"
                 style={{
                   margin: "5px 5px 0",

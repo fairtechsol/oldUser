@@ -154,7 +154,7 @@ const SessionMarketBox = ({
                   <img
                     src={BallStart}
                     style={{ width: "113px", height: "32px" }}
-                    alt=""
+                    alt="ball start"
                   />
                 )
               ) : (
@@ -429,7 +429,7 @@ const SessionMarketBox = ({
                       <img
                         src={BallStart}
                         style={{ width: "113px", height: "32px" }}
-                        alt=""
+                        alt="ball start"
                       />
                     )
                   ) : (

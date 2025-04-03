@@ -102,7 +102,7 @@ const AllRateSeperate = ({
                 marginRight: "5px",
                 marginLeft: "5px",
               }}
-              alt=""
+              alt="arrow up"
             />
           </Box>
         </Box>

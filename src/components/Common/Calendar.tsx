@@ -74,7 +74,7 @@ const Calendar = ({
         <img
           src={CalendarImage}
           style={{ width: "12px", height: "13px" }}
-          alt=""
+          alt="calender"
         />
       </Box>
     </Box>

@@ -86,7 +86,7 @@ const LiveScoreBoard = ({ data, width, setIsTv }: any) => {
                 cursor: "pointer",
               }}
               src={liveTv}
-              alt=""
+              alt="live tv"
             />
             <img
               onClick={() => {
@@ -101,7 +101,7 @@ const LiveScoreBoard = ({ data, width, setIsTv }: any) => {
                 marginRight: "5px",
                 marginLeft: "5px",
               }}
-              alt=""
+              alt="arrow up"
             />
           </Box>
         </Box>

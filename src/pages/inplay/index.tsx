@@ -142,8 +142,7 @@ const Inplay = () => {
                     <div className="w-100 d-inline-block casinoicons">
                       <img
                         src={item.url_thumb || item.imgSrc}
-                        className=""
-                        alt={item.game_name || item.name}
+                        alt={item.game_name || item.name || "casino icon"}
                         style={{ height: "120px", width: "100%" }}
                         onClick={() => {
                           if (!item?.url) {
@@ -188,7 +187,7 @@ const Inplay = () => {
                       >
                         <img
                           src={homeCasinoListIcons[item]}
-                          alt={item}
+                          alt={item || "casino icon"}
                           style={{
                             maxWidth: "100%",
                             height: "auto",
@@ -203,7 +202,7 @@ const Inplay = () => {
                     <Link to={item.url} key={index}>
                       <img
                         src={item.url_thumb || item.imgSrc}
-                        alt={item.game_name || item.name}
+                        alt={item.game_name || item.name || "casino icon"}
                         style={{ height: "100px", width: "100%" }}
                         onClick={() => {
                           if (!item?.url) {
@@ -238,7 +237,7 @@ const Inplay = () => {
                 <FaHome color="#fff" size={matchesMobile ? 20 : 40} />
                 <img
                   src={FgLogo}
-                  width={"auto"}
+                  width="auto"
                   alt="fairGame"
                   style={{
                     margin: "5px 5px 0",

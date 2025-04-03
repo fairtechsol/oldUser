@@ -116,7 +116,7 @@ const FancyMarket = ({
                   marginLeft: "5px",
                   cursor: "pointer",
                 }}
-                alt=""
+                alt="arrow up"
               />
             </Box>
           </Box>

@@ -87,7 +87,7 @@ const LiveScore = ({ liveScoreData, submit }: any) => {
               marginRight: "5px",
               marginLeft: "5px",
             }}
-            alt=""
+            alt="arrow up"
           />
         </Box>
       </Box>
