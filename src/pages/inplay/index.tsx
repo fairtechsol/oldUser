@@ -97,7 +97,7 @@ const Inplay = () => {
           <Box sx={{ overflowX: "hidden", maxHeight: "45vh", width: "100%" }}>
             <MatchesComponent />
           </Box>
-          <div className=" mt-2 casino-list">
+          <div className="mt-2 mx-1 casino-list">
             <div className="w-100 d-flex flex-row casino-list-item">
               {["mines", "aviator", "fun games", "color prediction"].map(
                 (item: any, index: number) => (
@@ -105,7 +105,7 @@ const Inplay = () => {
                     key={index}
                     style={{
                       maxWidth: "25%",
-                      padding: 1,
+                      padding: "2px",
                     }}
                     onClick={() =>
                       navigate("/liveCasino", {
@@ -134,18 +134,17 @@ const Inplay = () => {
                     to={item.url}
                     key={item?.name || item?.game_id}
                     className="casino-list-item"
-                    onClick={() => {}}
+                    onClick={() => {
+                      if (!item?.url) {
+                        handleModal(item);
+                      }
+                    }}
                   >
                     <div className="w-100 d-inline-block casinoicons">
                       <img
                         src={item.url_thumb || item.imgSrc}
                         alt={item.game_name || item.name || "casino icon"}
                         style={{ height: "120px", width: "100%" }}
-                        onClick={() => {
-                          if (!item?.url) {
-                            handleModal(item);
-                          }
-                        }}
                       />
                       <div className="casino-name">
                         {item.game_name || item.name}
@@ -163,59 +162,62 @@ const Inplay = () => {
             <MatchesComponent />
           </Box>
           <div className="w-100 tab-pane active casino-tables d-flex">
-            <div>
-              <div className="mt-2">
-                <div className="w-100 d-flex flex-row flex-wrap casinoiconsm">
-                  {["aviator", "mines", "fun games", "color prediction"].map(
-                    (item: any, index: number) => (
-                      <div
-                        key={index}
-                        style={{
-                          maxWidth: "50%",
-                          padding: "2px",
-                        }}
-                        onClick={() =>
-                          navigate("/liveCasino", {
-                            state: {
-                              key: item,
-                            },
-                          })
-                        }
-                      >
-                        <img
-                          src={homeCasinoListIcons[item]}
-                          alt={item || "casino icon"}
-                          style={{
-                            maxWidth: "100%",
-                            height: "auto",
-                          }}
-                        />
-                      </div>
-                    )
-                  )}
-                </div>
-                {liveCasinoGameList.map((item: any, index: number) => (
-                  <div className="d-inline-block casinoiconsm">
-                    <Link to={item.url} key={index}>
+            <div className="mt-2 mx-1">
+              <div className="w-100 d-flex flex-row flex-wrap casinoiconsm">
+                {["aviator", "mines", "fun games", "color prediction"].map(
+                  (item: any, index: number) => (
+                    <div
+                      key={index}
+                      style={{
+                        maxWidth: "50%",
+                        padding: "2px",
+                      }}
+                      onClick={() =>
+                        navigate("/liveCasino", {
+                          state: {
+                            key: item,
+                          },
+                        })
+                      }
+                    >
                       <img
-                        src={item.url_thumb || item.imgSrc}
-                        alt={item.game_name || item.name || "casino icon"}
-                        style={{ height: "100px", width: "100%" }}
-                        onClick={() => {
-                          if (!item?.url) {
-                            handleModal(item);
-                          }
+                        src={homeCasinoListIcons[item]}
+                        alt={item || "casino icon"}
+                        style={{
+                          maxWidth: "100%",
+                          height: "auto",
                         }}
                       />
-                      <div className="mcasino-name">
-                        {(item.game_name || item.name).length > 15
-                          ? (item.game_name || item.name).slice(0, 15) + "..."
-                          : item.game_name || item.name}
-                      </div>
-                    </Link>
-                  </div>
-                ))}
+                    </div>
+                  )
+                )}
               </div>
+              {liveCasinoGameList.map((item: any, index: number) => (
+                <div
+                  className="d-inline-block casinoiconsm"
+                  style={{
+                    padding: "2px",
+                  }}
+                >
+                  <Link to={item.url} key={index} style={{}}>
+                    <img
+                      src={item.url_thumb || item.imgSrc}
+                      alt={item.game_name || item.name || "casino icon"}
+                      style={{ height: "100px", width: "100%" }}
+                      onClick={() => {
+                        if (!item?.url) {
+                          handleModal(item);
+                        }
+                      }}
+                    />
+                    <div className="mcasino-name">
+                      {(item.game_name || item.name).length > 15
+                        ? (item.game_name || item.name).slice(0, 15) + "..."
+                        : item.game_name || item.name}
+                    </div>
+                  </Link>
+                </div>
+              ))}
             </div>
           </div>
         </>
