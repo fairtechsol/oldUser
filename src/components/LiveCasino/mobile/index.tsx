@@ -125,28 +125,26 @@ const LiveCasinoMobile = () => {
         ]?.map((key, index) => {
           const isActive = casinoType === key.id;
           return (
-            <>
-              <Box
-                key={index}
-                onClick={() => handleCasinoType(key.id)}
-                className={`w-100 d-flex justify-content-center px-3 align-items-center fbold py-2`}
-                sx={{
-                  color: isActive ? "#fff" : "#000",
-                  cursor: "pointer",
-                  backgroundColor: isActive ? "#004A25" : "",
-                  fontWeight: isActive ? "bold" : "",
-                  fontSize: "14px",
-                  borderRight: "1px solid #000",
-                  borderBottom: "1px solid #000",
-                  height: "3rem",
-                }}
-                style={{
-                  cursor: "pointer",
-                }}
-              >
-                {key.val}
-              </Box>
-            </>
+            <Box
+              key={index}
+              onClick={() => handleCasinoType(key.id)}
+              className={`w-100 d-flex justify-content-center px-3 align-items-center fbold py-2`}
+              sx={{
+                color: isActive ? "#fff" : "#000",
+                cursor: "pointer",
+                backgroundColor: isActive ? "#004A25" : "",
+                fontWeight: isActive ? "bold" : "",
+                fontSize: "14px",
+                borderRight: "1px solid #000",
+                borderBottom: "1px solid #000",
+                height: "3rem",
+              }}
+              style={{
+                cursor: "pointer",
+              }}
+            >
+              {key.val}
+            </Box>
           );
         })}
       </Box>
@@ -166,27 +164,25 @@ const LiveCasinoMobile = () => {
         {Object.keys(list)?.map((key, index) => {
           const isActive = type === key;
           return (
-            <>
-              <Box
-                key={index}
-                onClick={() => handleParent(key, "", casinoType)}
-                className={`w-100 d-flex justify-content-center px-3 align-items-center fbold py-2`}
-                sx={{
-                  color: isActive ? "#fff" : "#000",
-                  cursor: "pointer",
-                  backgroundColor: isActive ? "#004A25" : "",
-                  fontWeight: isActive ? "bold" : "",
-                  fontSize: "14px",
-                  borderRight: "1px solid #000",
-                  borderBottom: "1px solid #000",
-                }}
-                style={{
-                  cursor: "pointer",
-                }}
-              >
-                {key}
-              </Box>
-            </>
+            <Box
+              key={index}
+              onClick={() => handleParent(key, "", casinoType)}
+              className={`w-100 d-flex justify-content-center px-3 align-items-center fbold py-2`}
+              sx={{
+                color: isActive ? "#fff" : "#000",
+                cursor: "pointer",
+                backgroundColor: isActive ? "#004A25" : "",
+                fontWeight: isActive ? "bold" : "",
+                fontSize: "14px",
+                borderRight: "1px solid #000",
+                borderBottom: "1px solid #000",
+              }}
+              style={{
+                cursor: "pointer",
+              }}
+            >
+              {key}
+            </Box>
           );
         })}
       </Box>

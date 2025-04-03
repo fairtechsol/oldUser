@@ -2,8 +2,7 @@ import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import moment from "moment";
 import { IconConstants } from "../../helper/gameConstants";
 
-const Upcomings = (props: any) => {
-  const { match, timeLeft, upcoming } = props;
+const Upcomings = ({ match, timeLeft, upcoming }: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   return (

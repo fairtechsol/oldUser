@@ -2,11 +2,11 @@ import { Box, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
 const TeamsOdssData = ({
-  input, //
-  title, //
-  value, //
-  containerStyle, //
-  valueContainerStyle, //
+  input,
+  title,
+  value,
+  containerStyle,
+  valueContainerStyle,
 }: any) => {
   const [oddValue, setOddValue] = useState(value);
   useEffect(() => {

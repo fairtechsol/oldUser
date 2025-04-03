@@ -103,9 +103,9 @@ const Inplay = () => {
           <div className=" mt-2 casino-list">
             <div className="w-100 d-flex flex-row casino-list-item">
               {["mines", "aviator", "fun games", "color prediction"].map(
-                (item: any) => (
+                (item: any, index: number) => (
                   <div
-                    key={item}
+                    key={index}
                     style={{
                       maxWidth: "25%",
                       padding: 1,
@@ -131,8 +131,8 @@ const Inplay = () => {
               )}
             </div>
             <Grid container spacing={1} className="w-100">
-              {liveCasinoGameList.map((item: any) => (
-                <Grid xs={3} lg={2} item>
+              {liveCasinoGameList.map((item: any, index: number) => (
+                <Grid xs={3} lg={2} item key={index}>
                   <Link
                     to={item.url}
                     key={item?.name || item?.game_id}
@@ -167,12 +167,12 @@ const Inplay = () => {
           </Box>
           <div className="w-100 tab-pane active casino-tables d-flex">
             <div>
-              <div className="mt-2" style={{}}>
+              <div className="mt-2">
                 <div className="w-100 d-flex flex-row flex-wrap casinoiconsm">
                   {["aviator", "mines", "fun games", "color prediction"].map(
-                    (item: any) => (
+                    (item: any, index: number) => (
                       <div
-                        key={item}
+                        key={index}
                         style={{
                           maxWidth: "50%",
                           padding: "2px",

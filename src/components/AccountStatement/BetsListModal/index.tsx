@@ -170,34 +170,32 @@ const BetsListModal = ({
               <Loader text="" />
             </Box>
           ) : (
-            <>
-              <Box sx={{ overflowX: "scroll", width: "100%" }}>
-                <ListHeaderTModal />
-                {updatedReport?.length === 0 ? (
-                  <EmptyRow containerStyle={{ background: "#FFE094" }} />
-                ) : (
-                  updatedReport?.map((item: any, index: number) => (
-                    <TableRowModal
-                      key={item?.transactionId}
-                      index={index}
-                      containerStyle={{ background: "#FFE094" }}
-                      profit={true}
-                      fContainerStyle={{ background: "#0B4F26" }}
-                      fTextStyle={{ color: "white" }}
-                      gameName={item?.gameName}
-                      amount={parseFloat(item?.amount) > 0 ? "CREDIT" : "DEBIT"}
-                      absAmount={Math.abs(item?.amount).toFixed(2)}
-                      total={parseFloat(item?.total).toFixed(2)}
-                      createdAt={moment(new Date(item?.createdAt)).format(
-                        "YYYY-MM-DD hh:mm"
-                      )}
-                      roundId={item?.roundId}
-                      transactionId={item?.transactionId}
-                    />
-                  ))
-                )}
-              </Box>
-            </>
+            <Box sx={{ overflowX: "scroll", width: "100%" }}>
+              <ListHeaderTModal />
+              {updatedReport?.length === 0 ? (
+                <EmptyRow containerStyle={{ background: "#FFE094" }} />
+              ) : (
+                updatedReport?.map((item: any, index: number) => (
+                  <TableRowModal
+                    key={item?.transactionId}
+                    index={index}
+                    containerStyle={{ background: "#FFE094" }}
+                    profit={true}
+                    fContainerStyle={{ background: "#0B4F26" }}
+                    fTextStyle={{ color: "white" }}
+                    gameName={item?.gameName}
+                    amount={parseFloat(item?.amount) > 0 ? "CREDIT" : "DEBIT"}
+                    absAmount={Math.abs(item?.amount).toFixed(2)}
+                    total={parseFloat(item?.total).toFixed(2)}
+                    createdAt={moment(new Date(item?.createdAt)).format(
+                      "YYYY-MM-DD hh:mm"
+                    )}
+                    roundId={item?.roundId}
+                    transactionId={item?.transactionId}
+                  />
+                ))
+              )}
+            </Box>
           )}
         </Box>
       </Box>

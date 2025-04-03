@@ -159,51 +159,47 @@ const AccountStatementModal = ({
               <Loader text="" />
             </Box>
           ) : (
-            <>
-              <Box sx={{ overflowX: "scroll", width: "100%" }}>
-                <ListHeaderTModal />
-                {placedBetsAccountStatement.length > 0 ? (
-                  <EmptyRow containerStyle={{ background: "#FFE094" }} />
-                ) : (
-                  placedBetsAccountStatement?.length >= 0 &&
-                  placedBetsAccountStatement?.map(
-                    (item: any, index: number) => (
-                      <TableRowModal
-                        key={index}
-                        index={index}
-                        containerStyle={{ background: "#FFE094" }}
-                        profit={true}
-                        fContainerStyle={{ background: "#0B4F26" }}
-                        fTextStyle={{ color: "white" }}
-                        teamName={item?.teamName}
-                        betType={item?.betType}
-                        odds={item?.odds}
-                        amount={item?.amount}
-                        result={
-                          item?.result === "LOSS"
-                            ? `-${parseFloat(item?.lossAmount).toFixed(2)}`
-                            : item?.result === "WIN"
-                            ? parseFloat(item?.winAmount).toFixed(2)
-                            : 0
-                        }
-                        createdAt={moment(item?.createdAt).format(
-                          "MM/DD/YYYY hh:mm:ss A"
-                        )}
-                        startAt={
-                          item?.racingMatch
-                            ? moment(item?.racingMatch?.startAt).format(
-                                "MM/DD/YYYY hh:mm:ss A"
-                              )
-                            : moment(item?.match?.startAt).format(
-                                "MM/DD/YYYY hh:mm:ss A"
-                              )
-                        }
-                      />
-                    )
-                  )
-                )}
-              </Box>
-            </>
+            <Box sx={{ overflowX: "scroll", width: "100%" }}>
+              <ListHeaderTModal />
+              {placedBetsAccountStatement.length > 0 ? (
+                <EmptyRow containerStyle={{ background: "#FFE094" }} />
+              ) : (
+                placedBetsAccountStatement?.length >= 0 &&
+                placedBetsAccountStatement?.map((item: any, index: number) => (
+                  <TableRowModal
+                    key={index}
+                    index={index}
+                    containerStyle={{ background: "#FFE094" }}
+                    profit={true}
+                    fContainerStyle={{ background: "#0B4F26" }}
+                    fTextStyle={{ color: "white" }}
+                    teamName={item?.teamName}
+                    betType={item?.betType}
+                    odds={item?.odds}
+                    amount={item?.amount}
+                    result={
+                      item?.result === "LOSS"
+                        ? `-${parseFloat(item?.lossAmount).toFixed(2)}`
+                        : item?.result === "WIN"
+                        ? parseFloat(item?.winAmount).toFixed(2)
+                        : 0
+                    }
+                    createdAt={moment(item?.createdAt).format(
+                      "MM/DD/YYYY hh:mm:ss A"
+                    )}
+                    startAt={
+                      item?.racingMatch
+                        ? moment(item?.racingMatch?.startAt).format(
+                            "MM/DD/YYYY hh:mm:ss A"
+                          )
+                        : moment(item?.match?.startAt).format(
+                            "MM/DD/YYYY hh:mm:ss A"
+                          )
+                    }
+                  />
+                ))
+              )}
+            </Box>
           )}
         </Box>
       </Box>

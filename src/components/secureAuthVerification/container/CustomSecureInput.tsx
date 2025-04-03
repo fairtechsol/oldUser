@@ -8,25 +8,23 @@ interface SelectItem {
   name: string;
 }
 
-const CustomSecureInput = (props: any) => {
-  const {
-    title,
-    formInline,
-    labelCol,
-    inputCol,
-    bgColor,
-    errors,
-    id,
-    touched,
-    inputClass,
-    type,
-    options,
-    customStyle,
-    inputIcon,
-    isUnderlinedInput,
-    ...prop
-  } = props;
-
+const CustomSecureInput = ({
+  title,
+  formInline,
+  labelCol,
+  inputCol,
+  bgColor,
+  errors,
+  id,
+  touched,
+  inputClass,
+  type,
+  options,
+  customStyle,
+  inputIcon,
+  isUnderlinedInput,
+  ...prop
+}: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
