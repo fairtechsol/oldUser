@@ -141,7 +141,7 @@ const SessionMarket = ({
                 }}
                 src={ARROWUP}
                 style={{
-                  transform: visible ? "rotate(180deg)" : "rotate(0deg)",
+                  transform: !visible ? "rotate(180deg)" : "rotate(0deg)",
                   width: "15px",
                   height: "15px",
                   marginRight: "5px",

@@ -13,11 +13,8 @@ import {
   updateMatchRatesFromApiOnList,
 } from "../../store/actions/match/matchListAction";
 import { AppDispatch, RootState } from "../../store/store";
-import {
-  homeCasinoListIcons,
-  liveCasinoGameList,
-  marketApiConst,
-} from "../../utils/Constants";
+import { homeCasinoListIcons, marketApiConst } from "../../utils/Constants";
+import liveCasinoGameList from "../../utils/liveCasinoGameList.json";
 import "./style.scss";
 
 const Inplay = () => {
