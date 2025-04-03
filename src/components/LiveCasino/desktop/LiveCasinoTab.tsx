@@ -3,9 +3,9 @@ import { liveCasinoPics } from "../../../utils/Constants";
 
 const LiveCasinoTab = ({ data2, type2, setGame, setType2 }: any) => {
   return (
-    <div
+    <Box
       className="d-flex flex-row"
-      style={{
+      sx={{
         backgroundColor: "#bbbbbb",
         whiteSpace: "nowrap",
         overflow: "hidden",
@@ -54,7 +54,7 @@ const LiveCasinoTab = ({ data2, type2, setGame, setType2 }: any) => {
             </Box>
           );
         })}
-    </div>
+    </Box>
   );
 };
 

@@ -6,8 +6,8 @@ import { liveCasinoLogin } from "../../../store/actions/card/cardDetail";
 import { AppDispatch, RootState } from "../../../store/store";
 import Loader from "../../Loader";
 import LiveCasinoGames from "../common/LiveCasinoGames";
-import LiveCasinoTab from "./LiveCasinoTab";
 import LiveCasinoModal from "../common/LiveCasinoModal";
+import LiveCasinoTab from "./LiveCasinoTab";
 
 const LiveCasinoDesktop = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -94,10 +94,12 @@ const LiveCasinoDesktop = () => {
 
   return (
     <>
-      <div className="w-100 d-flex flex-column mt-1 gap-2 px-2">
-        <div
-          className="w-100 d-flex flex-row"
-          style={{
+      <Box className="w-100 d-flex flex-column mt-1 gap-2 px-2">
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            flexDirection: "row",
             backgroundColor: "#bbbbbb",
           }}
         >
@@ -125,9 +127,9 @@ const LiveCasinoDesktop = () => {
               </Box>
             );
           })}
-        </div>
+        </Box>
 
-        <div className="d-flex flex-column" style={{ width: "100%" }}>
+        <Box className="d-flex flex-column" sx={{ width: "100%" }}>
           <LiveCasinoTab
             data2={list[type]}
             type2={type2}
@@ -140,8 +142,8 @@ const LiveCasinoDesktop = () => {
             width="calc(16.66% - 10px)"
             gap="10px"
           />
-        </div>
-      </div>
+        </Box>
+      </Box>
       <LiveCasinoModal isShow={isShow} setIsShow={setIsShow} />
     </>
   );

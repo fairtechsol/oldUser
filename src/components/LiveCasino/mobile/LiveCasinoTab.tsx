@@ -1,8 +1,9 @@
+import { Box } from "@mui/material";
 import { liveCasinoPics } from "../../../utils/Constants";
 
 const LiveCasinoTab = ({ data2, type2, setGame, setType2 }: any) => {
   return (
-    <div className="w-100 d-flex flex-row overflow-auto">
+    <Box className="w-100 d-flex flex-row overflow-auto">
       {Object.keys(data2)
         ?.sort((a, b) => {
           if (a === "All") return -1;
@@ -12,14 +13,14 @@ const LiveCasinoTab = ({ data2, type2, setGame, setType2 }: any) => {
         ?.map((item: any, index: number) => {
           const isActive = item === type2 ? true : false;
           return (
-            <div
+            <Box
               key={index}
               onClick={() => {
                 setGame(data2[item]);
                 setType2(item);
               }}
               className="w-100 d-flex flex-column justify-content-center align-items-center py-2 px-3 title-14 fbold"
-              style={{
+              sx={{
                 cursor: "pointer",
                 backgroundColor: isActive ? "#004A25" : "",
                 whiteSpace: "nowrap",
@@ -40,10 +41,10 @@ const LiveCasinoTab = ({ data2, type2, setGame, setType2 }: any) => {
                 }}
               />
               {item}
-            </div>
+            </Box>
           );
         })}
-    </div>
+    </Box>
   );
 };
 

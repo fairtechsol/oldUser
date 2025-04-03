@@ -1,9 +1,10 @@
+import { Box } from "@mui/material";
 import { dt2020 } from "../../../assets";
 
-const LiveCasinoGames = ({ data3, handleGame, width, gap, ms }: any) => {
+const LiveCasinoGames = ({ data3, handleGame, width, gap }: any) => {
   return (
-    <div
-      className={`w-100 d-flex flex-row flex-wrap mt-1 cursor-pointer ${ms}`}
+    <Box
+      className={`w-100 d-flex flex-row flex-wrap mt-2 cursor-pointer justify-content-between p-auto`}
       style={{ gap: gap }}
     >
       {data3?.map((item: any, index: number) => {
@@ -18,7 +19,7 @@ const LiveCasinoGames = ({ data3, handleGame, width, gap, ms }: any) => {
             className="img-fluid"
             alt={item?.game_name}
             loading="lazy"
-            style={{ width: width, height: "10vh" }}
+            style={{ width: width, height: "12.5vh" }}
             onClick={(e) => {
               e.stopPropagation();
               handleGame(item);
@@ -26,7 +27,7 @@ const LiveCasinoGames = ({ data3, handleGame, width, gap, ms }: any) => {
           />
         );
       })}
-    </div>
+    </Box>
   );
 };
 
