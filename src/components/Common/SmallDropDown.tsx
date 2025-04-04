@@ -5,7 +5,7 @@ import { ARROWDROPDOWN } from "../../assets";
 const SmallDropDown = ({ setPageLimit, pageLimit }: any) => {
   const [open, setOpen] = useState(false);
   return (
-    <Box>
+    <>
       <Box
         onClick={() => {
           setOpen(!open);
@@ -70,7 +70,7 @@ const SmallDropDown = ({ setPageLimit, pageLimit }: any) => {
           })}
         </Box>
       )}
-    </Box>
+    </>
   );
 };
 

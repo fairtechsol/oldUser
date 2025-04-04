@@ -32,7 +32,7 @@ const SingleBox = ({
         >
           {time}
         </Typography>
-        <Box sx={{ height: ".4vh" }}></Box>
+        <Box sx={{ height: ".4vh" }} />
         <Typography
           sx={{
             maxHeight: "1em",
@@ -70,7 +70,7 @@ const SingleBox = ({
         >
           {data.time}
         </Typography>
-        <Box sx={{ height: ".4vh" }}></Box>
+        <Box sx={{ height: ".4vh" }} />
         <Typography
           sx={{
             fontWeight: "600",

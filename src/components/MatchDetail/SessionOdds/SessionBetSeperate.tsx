@@ -65,9 +65,8 @@ const SessionBetSeperate = ({ profit, placedBets, isArrow, match }: any) => {
             background: "#262626",
           }}
         >
-          <div className="slanted"></div>
+          <div className="slanted" />
         </Box>
-
         <Box
           sx={{
             flex: 1,
@@ -109,7 +108,7 @@ const SessionBetSeperate = ({ profit, placedBets, isArrow, match }: any) => {
               <Typography
                 sx={{ fontWeight: "400", fontSize: "10px", color: "white" }}
               >
-                {"No"}
+                No
               </Typography>
             </Box>
             <RowComponent
@@ -135,7 +134,7 @@ const SessionBetSeperate = ({ profit, placedBets, isArrow, match }: any) => {
                     color: "white",
                   }}
                 >
-                  {"Profit/Loss"}
+                  Profit/Loss
                 </Typography>
               </Box>
             )}
@@ -199,7 +198,7 @@ const SessionBetSeperate = ({ profit, placedBets, isArrow, match }: any) => {
                         position: "absolute",
                       }}
                     >
-                      <Box sx={{ width: "35%" }}></Box>
+                      <Box sx={{ width: "35%" }} />
                     </Box>
                   )}
                   {i?.deleteReason && (
@@ -217,7 +216,7 @@ const SessionBetSeperate = ({ profit, placedBets, isArrow, match }: any) => {
                         position: "absolute",
                       }}
                     >
-                      <Box sx={{ width: "35%" }}/>
+                      <Box sx={{ width: "35%" }} />
                       <Box
                         sx={{
                           width: "65%",

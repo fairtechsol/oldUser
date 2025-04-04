@@ -141,7 +141,7 @@ const AllRateSeperate = ({
                 <Typography
                   sx={{ fontWeight: "400", fontSize: "10px", color: "white" }}
                 >
-                  {"No"}
+                  No
                 </Typography>
               </Box>
               <RowComponent
@@ -175,7 +175,7 @@ const AllRateSeperate = ({
                       color: "white",
                     }}
                   >
-                    {"Profit/Loss"}
+                    Profit/Loss
                   </Typography>
                 </Box>
               )}
@@ -239,7 +239,7 @@ const AllRateSeperate = ({
                           position: "absolute",
                         }}
                       >
-                        <Box sx={{ width: mark2 ? "20%" : "35%" }}></Box>
+                        <Box sx={{ width: mark2 ? "20%" : "35%" }} />
                       </Box>
                     )}
                     {i?.deleteReason && (
@@ -257,7 +257,7 @@ const AllRateSeperate = ({
                           position: "absolute",
                         }}
                       >
-                        <Box sx={{ width: mark2 ? "20%" : "35%" }}></Box>
+                        <Box sx={{ width: mark2 ? "20%" : "35%" }} />
                         <Box
                           sx={{
                             width: mark2 ? "80%" : "65%",
@@ -299,7 +299,7 @@ const AllRateSeperate = ({
                           position: "absolute",
                         }}
                       >
-                        <Box sx={{ width: mark2 ? "20%" : "35%" }}></Box>
+                        <Box sx={{ width: mark2 ? "20%" : "35%" }} />
                       </Box>
                     )}
                     {profit && !i?.deleteReason && (

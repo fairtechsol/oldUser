@@ -124,7 +124,6 @@ const PlaceBetComponent = ({
             list={runAmount && runAmount?.runAmount}
             open={Boolean(anchorEl)}
             anchorEl={anchorEl}
-            //   handleClose={handleClose}
           />
         )}
     </Box>

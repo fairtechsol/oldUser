@@ -32,7 +32,6 @@ const SingleBox = ({
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            // lineHeight: 0.5,
           }}
         >
           {isCommissionActive && (
@@ -48,7 +47,7 @@ const SingleBox = ({
           )}
           {time}
         </Typography>
-        <Box sx={{ height: ".4vh" }}></Box>
+        <Box sx={{ height: ".4vh" }} />
         <Typography
           sx={{
             maxHeight: "1em",

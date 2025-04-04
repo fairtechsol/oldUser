@@ -8,7 +8,7 @@ const NumberDropDown = ({
   pageLimit,
 }: any) => {
   return (
-    <Box display={"flex"} alignItems="center" sx={{ width: "100%" }}>
+    <Box display="flex" alignItems="center" sx={{ width: "100%" }}>
       <Typography
         sx={{ fontSize: "10px", color: `${textColor}`, fontWeight: "500" }}
       >

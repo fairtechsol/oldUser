@@ -5,16 +5,14 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Draw, logo } from "../../../assets";
 import StyledImage from "../../../components/Common/StyledImages";
+import { RootState } from "../../../store/store";
 import "./index.css";
 import MobileSideBar from "./MobileSideBar";
-
-import { memo } from "react";
-import { useSelector } from "react-redux";
-import { Draw, logo } from "../../../assets";
-import { RootState } from "../../../store/store";
 import NewBoxData from "./NewBoxData";
 
 const CustomHeader = () => {

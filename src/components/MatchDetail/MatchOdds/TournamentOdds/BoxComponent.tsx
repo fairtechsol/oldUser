@@ -273,7 +273,7 @@ const BoxComponent = ({
 
           <SeparateModal
             po={ex?.availableToLay[0]?.tno}
-            betType={"lay"}
+            betType="lay"
             lock={ex?.availableToLay?.length > 0 ? false : true}
             value={
               isRound
@@ -305,7 +305,7 @@ const BoxComponent = ({
           {!matchesMobile && show6Box && (
             <SeparateModal
               po={ex?.availableToLay[1]?.tno}
-              betType={"lay"}
+              betType="lay"
               lock={ex?.availableToLay?.length > 0 ? false : true}
               value={
                 isRound
@@ -338,7 +338,7 @@ const BoxComponent = ({
           {!matchesMobile && show6Box && (
             <SeparateModal
               po={ex?.availableToLay[2]?.tno}
-              betType={"lay"}
+              betType="lay"
               lock={ex?.availableToLay?.length > 0 ? false : true}
               value={
                 isRound

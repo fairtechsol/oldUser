@@ -38,7 +38,7 @@ const SessionMarket = ({
   return (
     <>
       <Box
-        id={"test"}
+        id="test"
         sx={{
           display: "flex",
           position: "relative",
@@ -99,7 +99,7 @@ const SessionMarket = ({
               background: "#262626",
             }}
           >
-            <div className="slanted"></div>
+            <div className="slanted" />
           </Box>
           <Box
             sx={{
@@ -306,7 +306,7 @@ const SessionMarket = ({
                   sx={{
                     width: { xs: "60%", lg: "40%", md: "60%" },
                   }}
-                ></Box>
+                />
                 <Box
                   sx={{
                     width: { xs: "40%", lg: "60%", md: "40%" },

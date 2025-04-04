@@ -212,7 +212,7 @@ const QuickSessionMarket = ({
                       NO
                     </Typography>
                   </Box>
-                  <Box sx={{ width: ".35%", display: "flex" }}></Box>
+                  <Box sx={{ width: ".35%", display: "flex" }} />
                   <Box
                     sx={{
                       background: "#00C0F9",
@@ -258,7 +258,7 @@ const QuickSessionMarket = ({
                   sx={{
                     width: { xs: "60%", lg: "40%", md: "60%" },
                   }}
-                ></Box>
+                />
                 <Box
                   sx={{
                     width: { xs: "40%", lg: "60%", md: "40%" },

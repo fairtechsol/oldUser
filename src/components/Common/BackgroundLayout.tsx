@@ -32,7 +32,6 @@ const BackgroundLayout = ({ children }: any) => {
             <Box
               sx={{
                 display: "flex",
-                // overflowX: "hidden",
                 flexDirection: "column",
                 flex: 1,
                 width: "100%",

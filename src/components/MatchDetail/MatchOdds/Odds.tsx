@@ -175,7 +175,6 @@ const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
             }}
           />
         )}
-
         {!upcoming && (
           <Box
             sx={{
@@ -405,7 +404,6 @@ const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
               </Box>
             </>
           )}
-
           {match.teamC && (
             <>
               <Divider />

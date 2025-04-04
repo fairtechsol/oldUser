@@ -138,7 +138,6 @@ const PlaceBetComponentWeb = ({
               open={Boolean(anchorEl)}
               anchorEl={anchorEl}
               list={runAmount && runAmount?.runAmount}
-              // list={profitLoss?.betData}
               handleClose={handleClose}
             />
           )}

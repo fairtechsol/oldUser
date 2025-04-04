@@ -2,8 +2,8 @@ import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { memo } from "react";
 import { ARROW_DOWN, ARROW_UP, ArrowDown } from "../../../assets";
 import { formatToINR } from "../../../helper";
-import StyledImage from "../../Common/StyledImages";
 import { gameIconConstants } from "../../../utils/Constants";
+import StyledImage from "../../Common/StyledImages";
 
 const RowHeaderMatches = ({
   item,

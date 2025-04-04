@@ -1,6 +1,5 @@
 import { Box } from "@mui/material";
 import SearchInput from "../Common/SearchInput";
-
 import { ApiConstants } from "../../utils/Constants";
 import NumberDropDown from "../Common/NumberDropDown";
 
@@ -34,7 +33,7 @@ const ListH = ({
         getLimitEntries={getLimitEntries}
         setPageLimit={setPageLimit}
         pageLimit={pageLimit}
-        textColor={"000"}
+        textColor="#000"
       />
 
       <SearchInput
@@ -47,8 +46,8 @@ const ListH = ({
         fromDate={fromDate}
         toDate={toDate}
         onChange={setSearchValue}
-        width={"100%"}
-        placeholder={"Search..."}
+        width="100%"
+        placeholder="Search..."
         inputContainerStyle={{
           width: { xs: "50vw", lg: "17vw" },
           marginLeft: "auto",

@@ -126,7 +126,7 @@ const SessionComponentMatches = ({
                 marginLeft: "5px",
                 fontWeight: "600",
               }}
-            ></Typography>
+            />
           </Box>
         </Box>
 

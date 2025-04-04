@@ -209,7 +209,7 @@ const SessionMarketBox = ({
                   {data?.type != "khado" && (
                     <SeparateModal
                       key={index}
-                      bettingOn={"session"}
+                      bettingOn="session"
                       closeModal={closeModal}
                       setFastBetLoading={setFastBetLoading}
                       po={
@@ -265,7 +265,7 @@ const SessionMarketBox = ({
                       data={data}
                       mainData={mainData}
                       handleRateChange={handleRateChange}
-                      width={"100%"}
+                      width="100%"
                       mid={mid}
                       teamName={
                         sessionBettingType.oddEven == data?.type ? "odd" : null
@@ -292,7 +292,7 @@ const SessionMarketBox = ({
                 >
                   <SeparateModal
                     key={index}
-                    bettingOn={"session"}
+                    bettingOn="session"
                     closeModal={closeModal}
                     setFastBetLoading={setFastBetLoading}
                     po={
@@ -331,13 +331,13 @@ const SessionMarketBox = ({
                         ? true
                         : false
                     }
-                    color={"#B3E0FF"}
+                    color="#B3E0FF"
                     type={{ color: "#A7DCFF", type: "YN" }}
                     typeOfBet={typeOfBet}
                     data={data}
                     mainData={mainData}
                     handleRateChange={handleRateChange}
-                    width={"100%"}
+                    width="100%"
                     mid={mid}
                     teamName={
                       sessionBettingType.oddEven == data?.type ? "even" : null
@@ -395,7 +395,7 @@ const SessionMarketBox = ({
                 background: "rgba(0,0,0,0.5)",
                 zIndex: 2,
               }}
-            ></Box>
+            />
           )}
           <Box
             sx={{

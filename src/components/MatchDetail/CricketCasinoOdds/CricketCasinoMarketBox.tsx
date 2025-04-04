@@ -167,7 +167,7 @@ const CricketCasinoMarketBox = ({
                   return (
                     <SeparateModal
                       key={index}
-                      bettingOn={"session"}
+                      bettingOn="session"
                       closeModal={closeModal}
                       setFastBetLoading={setFastBetLoading}
                       po={item?.tno}
@@ -182,7 +182,7 @@ const CricketCasinoMarketBox = ({
                       lock={
                         [null, 0, "0"].includes(item?.odds ?? 0) ? true : false
                       }
-                      color={"#B3E0FF"}//
+                      color="#B3E0FF"
                       type={{
                         color: "#A7DCFF",
                         type: "YN",
@@ -191,7 +191,7 @@ const CricketCasinoMarketBox = ({
                       data={data}
                       mainData={mainData}
                       handleRateChange={handleRateChange}
-                      width={"100%"}
+                      width="100%"
                       mid={data?.mid}
                       teamName={data?.nat}
                     />

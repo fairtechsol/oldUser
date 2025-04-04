@@ -3,6 +3,7 @@ import { Box } from "@mui/system";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import { CancelDark } from "../../../../assets";
 import {
   betPlaceSuccessReset,
@@ -18,8 +19,6 @@ import PlaceBetMoneyBox from "../PlaceBetMoneyBox";
 import NumberData from "./NumberDataOdds";
 import TeamsOdssData from "./TeamOddsData";
 
-import { toast } from "react-toastify";
-
 const toastOptions = {
   autoClose: 2000,
   hideProgressBar: false,
@@ -33,14 +32,8 @@ const OddsPlaceBet = ({ handleClose, session, type }: any) => {
   const [stakeValue, setStakeValue] = useState<any>(" ");
   const [matchOddLoading, setMatchOddLoading] = useState<any>(false);
   const [openModal1, setOpenModal1] = useState(false);
-  const [___, setErrorText] = useState("");
   const [browserInfo, setBrowserInfo] = useState<any>(null);
   const [ipAddress, setIpAddress] = useState(null);
-  const [_, setStake] = useState<any>(0);
-  const [__, setNewRates] = useState({
-    lossAmount: 0,
-    winAmount: 0,
-  });
 
   const { buttonValues, profileDetail } = useSelector(
     (state: RootState) => state.user.profile
@@ -79,7 +72,6 @@ const OddsPlaceBet = ({ handleClose, session, type }: any) => {
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
   useEffect(() => {
-    setStake(selectedBet?.team?.stake);
     setStakeValue(selectedBet?.team?.stake);
   }, [selectedBet]);
 
@@ -211,7 +203,6 @@ const OddsPlaceBet = ({ handleClose, session, type }: any) => {
     setOpenModal1(true);
     setTimeout(() => {
       setOpenModal1(false);
-      setErrorText("");
     }, 1500);
   };
 
@@ -228,7 +219,6 @@ const OddsPlaceBet = ({ handleClose, session, type }: any) => {
       ].includes(selectedBet?.team?.matchBetType)
     ) {
       if (stakeValue > minMax?.max) {
-        setErrorText("Amount should be less than the maximum bet amount!");
         toast.error(
           "Amount should be less than the maximum bet amount!",
           toastOptions
@@ -238,7 +228,6 @@ const OddsPlaceBet = ({ handleClose, session, type }: any) => {
       }
 
       if (stakeValue < minMax?.min) {
-        setErrorText("Amount should be greater than the minimum bet amount!");
         toast.error(
           "Amount should be greater than the minimum bet amount!",
           toastOptions
@@ -385,15 +374,15 @@ const OddsPlaceBet = ({ handleClose, session, type }: any) => {
             <PlaceBetMoneyBox
               trendingUp={false}
               rate={handleProfit(stakeValue)}
-              color={"#10DC61"}
+              color="#10DC61"
             />
-            <Box sx={{ width: "5px" }}></Box>
+            <Box sx={{ width: "5px" }} />
             <PlaceBetMoneyBox
               trendingDown={false}
               rate={handleLoss(stakeValue)}
-              color={"#FF4D4D"}
+              color="#FF4D4D"
             />
-            <Box sx={{ width: "5px", marginRight: "20px" }}></Box>
+            <Box sx={{ width: "5px", marginRight: "20px" }} />
           </Box>
           <StyledImage
             onClick={handleClose}
@@ -409,7 +398,7 @@ const OddsPlaceBet = ({ handleClose, session, type }: any) => {
         </Box>
         <Box sx={{ display: "flex", marginTop: "2px", marginX: "2px" }}>
           <TeamsOdssData
-            title={"Team"}
+            title="Team"
             valueContainerStyle={{
               background: type?.color ? type?.color : "#F8C851",
             }}
@@ -424,7 +413,7 @@ const OddsPlaceBet = ({ handleClose, session, type }: any) => {
           />
           <TeamsOdssData
             input={true}
-            title={"Odds"}
+            title="Odds"
             valueContainerStyle={{
               background: type?.color ? type?.color : "#F8C851",
             }}
@@ -432,18 +421,18 @@ const OddsPlaceBet = ({ handleClose, session, type }: any) => {
             containerStyle={{ marginLeft: "2px", flex: 1 }}
           />
           <TeamsOdssData
-            title={"Back/Lay"}
+            title="Back/Lay"
             value={selectedBet?.team?.type}
             valueContainerStyle={{ background: type?.color }}
             containerStyle={{ marginLeft: "2px", flex: 1 }}
           />
-          {!matchesMobile && <Box sx={{ width: "20px" }}></Box>}
+          {!matchesMobile && <Box sx={{ width: "20px" }} />}
           <BoxInput
             setStakeValue={setStakeValue}
             stakeValue={stakeValue}
             selectedColorBox={type?.color}
             containerStyle={{ marginLeft: "2px", flex: 1.3 }}
-            title={"Stake"}
+            title="Stake"
           />
         </Box>
         {matchesMobile && (
@@ -468,7 +457,6 @@ const OddsPlaceBet = ({ handleClose, session, type }: any) => {
                     value && selectedBetAction(selectedBet?.data)
                   }
                   setStakeValue={setStakeValue}
-                  setNewRatesValue={setNewRates}
                 />
               ))}
             </Box>
@@ -482,7 +470,6 @@ const OddsPlaceBet = ({ handleClose, session, type }: any) => {
                     value && selectedBetAction(selectedBet?.data)
                   }
                   setStakeValue={setStakeValue}
-                  setNewRatesValue={setNewRates}
                 />
               ))}
             </Box>
@@ -507,10 +494,6 @@ const OddsPlaceBet = ({ handleClose, session, type }: any) => {
             }}
             onClick={() => {
               setStakeValue(" ");
-              setNewRates({
-                lossAmount: 0,
-                winAmount: 0,
-              });
             }}
           >
             Reset

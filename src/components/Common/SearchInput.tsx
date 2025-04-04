@@ -25,27 +25,25 @@ const SearchInput = ({
 
   const Item = ({ item }: any) => {
     return (
-      <>
-        <Typography
-          onClick={() => {
-            setShowSearch(item);
-            setOpen(false);
-          }}
-          sx={{
-            paddingY: "5px",
-            paddingLeft: "10px",
-            fontSize: "10px",
-            fontWeight: "500",
-            color: "black",
-            "&:hover": {
-              cursor: "pointer",
-              background: "#3498ff33",
-            },
-          }}
-        >
-          {item?.userName}
-        </Typography>
-      </>
+      <Typography
+        onClick={() => {
+          setShowSearch(item);
+          setOpen(false);
+        }}
+        sx={{
+          paddingY: "5px",
+          paddingLeft: "10px",
+          fontSize: "10px",
+          fontWeight: "500",
+          color: "black",
+          "&:hover": {
+            cursor: "pointer",
+            background: "#3498ff33",
+          },
+        }}
+      >
+        {item?.userName}
+      </Typography>
     );
   };
   const Block = ({ i }: any) => {
@@ -130,7 +128,6 @@ const SearchInput = ({
           onChange={handleInputChange}
           InputProps={{
             disableUnderline: true,
-            // textTransform:"lowercase",
             style: { fontSize: "11px", fontWeight: "500" },
           }}
           sx={{
@@ -175,7 +172,6 @@ const SearchInput = ({
             borderRadius: "2px",
             marginTop: "2px",
             position: "absolute",
-
             border: "2px solid #DEDEDE",
             zIndex: 9999,
           }}

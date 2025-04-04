@@ -1,8 +1,8 @@
 import { Box } from "@mui/material";
-import SingleBox from "./SingleBox";
 import moment from "moment";
 import { useLocation } from "react-router-dom";
 import { formatToINR } from "../../../helper";
+import SingleBox from "./SingleBox";
 
 const RowComponent = ({ header, data, match }: any) => {
   const { state } = useLocation();

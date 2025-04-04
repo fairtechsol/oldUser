@@ -71,7 +71,6 @@ const TournamentOdds = ({
       });
       return;
     }
-    // profitLossObj?.[teamAId] < profitLossObj?.[teamBId]
     const getBackAndLayRates = (team: any) => {
       const back1 =
         team?.ex?.availableToBack?.find((item: any) => item.oname === "back1")
@@ -366,8 +365,6 @@ const TournamentOdds = ({
                 {matchesMobile && marketDetails?.runners?.length === 2 && (
                   <Box
                     sx={{
-                      // position: { lg: "static", xs: "relative" },
-                      // paddingY: "2vh",
                       marginRight: "14px",
                     }}
                   >
@@ -376,14 +373,9 @@ const TournamentOdds = ({
                       disabled={
                         Object.keys(profitLossObj).length <= 0 ? true : false
                       }
-                      // disabled={loading || !stakeValue ? true : false}
                       style={{
                         color: "#319E5B",
                         backgroundColor: "#fff",
-                        // width: "150px",
-                        // cursor: loading || !stakeValue ? "not-allowed" : "pointer",
-                        // width: { lg: "150px", xs: "130px" },
-                        // height: "35px",
                         borderRadius: "3px",
                         border: "0px solid white",
                         opacity:
@@ -399,7 +391,6 @@ const TournamentOdds = ({
                   </Box>
                 )}
               </Box>
-
               <Box
                 sx={{
                   display: "flex",

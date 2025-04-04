@@ -5,28 +5,26 @@ import { liveStreamUrl } from "../../../utils/Constants";
 const LiveMatchHome = ({ eventId }: any) => {
   return (
     <Box
-      sx={[
-        {
-          width: {
-            md: "98%",
-            xs: "98%",
-            lg: "100%",
-          },
-          display: "flex",
-          flexDirection: "column",
-          marginX: { lg: "0vw", xs: "0px", md: "0px" },
-          marginY: { lg: ".5vh", xs: "0px" },
-          marginTop: { xs: "0px" },
-          borderRadius: "2px",
-          background: "white",
-          padding: "1px",
-          alignSelf: {
-            xs: "center",
-            md: "center",
-            lg: "flex-start",
-          },
+      sx={{
+        width: {
+          md: "98%",
+          xs: "98%",
+          lg: "100%",
         },
-      ]}
+        display: "flex",
+        flexDirection: "column",
+        marginX: { lg: "0vw", xs: "0px", md: "0px" },
+        marginY: { lg: ".5vh", xs: "0px" },
+        marginTop: { xs: "0px" },
+        borderRadius: "2px",
+        background: "white",
+        padding: "1px",
+        alignSelf: {
+          xs: "center",
+          md: "center",
+          lg: "flex-start",
+        },
+      }}
     >
       <Container>
         <Row className="justify-content-md-center">

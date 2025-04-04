@@ -5,17 +5,11 @@ const NumberData = ({
   containerStyle,
   setStakeValue,
   selectedBetAction,
-  setNewRatesValue,
 }: any) => {
   return (
     <Box
       onClick={() => {
-        setNewRatesValue({
-          lossAmount: value?.value,
-          winAmount: value?.value,
-        });
         setStakeValue(value?.value);
-
         selectedBetAction(value);
       }}
       sx={[

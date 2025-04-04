@@ -25,61 +25,57 @@ const SingleBox = ({
       >
         {data === "Bookmaker" ? (
           <>
-            <Box>
-              <Typography
-                sx={{
-                  fontWeight: "700",
-                  fontSize: { xs: "9px", lg: "11px" },
-                  color: "black",
-                  textAlign: "center",
-                }}
-              >
-                {time}
-              </Typography>
-              <Typography
-                sx={{
-                  fontWeight: "700",
-                  fontSize: { xs: "8px", md: "10px", lg: ".7vw" },
-                  color: "black",
-                  textAlign: "center",
-                  display: "flex",
-                }}
-              >
-                {isCommissionActive && <CommissionDot />}
-                {data}
-              </Typography>
-            </Box>
+            <Typography
+              sx={{
+                fontWeight: "700",
+                fontSize: { xs: "9px", lg: "11px" },
+                color: "black",
+                textAlign: "center",
+              }}
+            >
+              {time}
+            </Typography>
+            <Typography
+              sx={{
+                fontWeight: "700",
+                fontSize: { xs: "8px", md: "10px", lg: ".7vw" },
+                color: "black",
+                textAlign: "center",
+                display: "flex",
+              }}
+            >
+              {isCommissionActive && <CommissionDot />}
+              {data}
+            </Typography>
           </>
         ) : (
           <>
-            <Box>
-              <Typography
-                sx={{
-                  fontWeight: "700",
-                  fontSize: { xs: "9px", lg: "11px" },
-                  color: "black",
-                  textAlign: "center",
-                }}
-              >
-                {time}
-              </Typography>
-              <Typography
-                sx={{
-                  fontWeight: "700",
-                  fontSize: { xs: "8px", md: "10px", lg: ".7vw" },
-                  color: "black",
-                  textAlign: "center",
-                  maxHeight: "2em",
-                  overflowWrap: "anywhere",
-                  lineHeight: 1,
-                  display: "flex",
-                  alignItems: "center",
-                }}
-              >
-                {isCommissionActive && <CommissionDot />}
-                {data}
-              </Typography>
-            </Box>
+            <Typography
+              sx={{
+                fontWeight: "700",
+                fontSize: { xs: "9px", lg: "11px" },
+                color: "black",
+                textAlign: "center",
+              }}
+            >
+              {time}
+            </Typography>
+            <Typography
+              sx={{
+                fontWeight: "700",
+                fontSize: { xs: "8px", md: "10px", lg: ".7vw" },
+                color: "black",
+                textAlign: "center",
+                maxHeight: "2em",
+                overflowWrap: "anywhere",
+                lineHeight: 1,
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              {isCommissionActive && <CommissionDot />}
+              {data}
+            </Typography>
           </>
         )}
       </Box>

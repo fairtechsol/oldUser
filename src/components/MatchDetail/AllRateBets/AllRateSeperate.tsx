@@ -14,7 +14,6 @@ const AllRateSeperate = ({
   count,
 }: any) => {
   const [visible, setVisible] = useState(true);
-
   const theme = useTheme();
   const matchesMobile = theme.breakpoints.down("lg");
 
@@ -380,8 +379,6 @@ const AllRateSeperate = ({
           </>
         )}
       </Box>
-
-      {/* --------- */}
       <style>
         {`
                 /* width */

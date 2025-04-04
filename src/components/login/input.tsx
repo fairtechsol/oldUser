@@ -38,7 +38,7 @@ const Input: React.FC<InputInterface> = ({
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
   return (
-    <Box sx={[{}, containerStyle]}>
+    <Box sx={[containerStyle]}>
       <Typography
         sx={[
           {
