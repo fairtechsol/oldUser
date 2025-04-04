@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 
 import { useFormik } from "formik";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { eye, eyeLock } from "../../assets";
 import Input from "../../components/login/input";
@@ -44,10 +44,11 @@ const ChangePassword = (props: any) => {
 
   const { handleSubmit, touched, errors } = formik;
 
-  const debouncedInputValue = useMemo(() => {
-    return debounce((value) => {
+  const debouncedInputValue: any = useMemo(() => {
+    const debouncedFn = debounce((value) => {
       dispatch(checkOldPassword({ oldPassword: value }));
     }, 500);
+    return debouncedFn;
   }, []);
 
   const handleOldPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,6 +56,18 @@ const ChangePassword = (props: any) => {
     formik.handleChange(e);
     debouncedInputValue(query);
   };
+
+  useEffect(() => {
+    return () => {
+      debouncedInputValue.cancel();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (formik.values.oldPassword) {
+      formik.validateForm();
+    }
+  }, [oldPasswordMatched]);
 
   return (
     <>
