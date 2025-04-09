@@ -53,7 +53,7 @@ const SessionMarketBox = ({
               background: "rgba(0,0,0,0.5)",
               zIndex: 2,
             }}
-          ></Box>
+          />
         )}
 
         <Box
@@ -98,20 +98,6 @@ const SessionMarketBox = ({
             >
               max:{formatToINR(data?.max || 0)}
             </Typography>
-            {data?.rem && (
-              <Typography
-                sx={{
-                  color: "black",
-                  fontSize: { lg: "10px", md: "10px", xs: "9px" },
-                  marginLeft: "7px",
-                  fontWeight: "600",
-                  textAlign: "start",
-                  lineHeight: "0.8rem",
-                }}
-              >
-                {data?.rem}
-              </Typography>
-            )}
           </Typography>
           {data?.isCommissionActive && (
             <Box
@@ -144,7 +130,7 @@ const SessionMarketBox = ({
           )}
           {/* <Box
               sx={{ width: "20%", display: "flex", background: "pink" }}
-            ></Box> */}
+            /> */}
 
           {!["ACTIVE", "active", "", undefined, null, ""].includes(
             data?.GameStatus
@@ -296,7 +282,7 @@ const SessionMarketBox = ({
                     display: "flex",
                     background: "pink",
                   }}
-                ></Box>
+                />
                 <Box
                   sx={{
                     width: { xs: "100%", lg: "20%" },
@@ -364,7 +350,7 @@ const SessionMarketBox = ({
               {!matchesMobile && (
                 <Box
                   sx={{ width: "33%", display: "flex", background: "pink" }}
-                ></Box>
+                />
               )}
               {!matchesMobile && (
                 <PlaceBetComponentWeb
@@ -413,7 +399,7 @@ const SessionMarketBox = ({
                   background: "rgba(0,0,0,0.5)",
                   zIndex: 2,
                 }}
-              ></Box>
+              />
             )}
             <Box
               sx={{
@@ -570,7 +556,7 @@ const SessionMarketBox = ({
                         display: "flex",
                         background: "pink",
                       }}
-                    ></Box>
+                    />
                     <Box
                       sx={{
                         width: { xs: "100%", lg: "20%" },
@@ -639,15 +625,51 @@ const SessionMarketBox = ({
                   {!matchesMobile && (
                     <Box
                       sx={{ width: "33%", display: "flex", background: "pink" }}
-                    ></Box>
+                    />
                   )}
                 </>
               )}
             </Box>
           </Box>
-          {/* <Divider /> */}
         </>
       ))}
+      {data?.rem && (
+        <Box
+          sx={{
+            background: index % 2 === 0 ? "#FFE094" : "#ECECEC",
+            height: "10px",
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            position: "relative",
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <Typography
+            sx={{
+              color: "black",
+              fontSize: "9px",
+              fontWeight: "500",
+              display: "inline-block",
+              paddingLeft: { xs: "100%", md: "0" },
+              paddingRight: { md: "2px" },
+              textAlign: { md: "right" },
+              width: { md: "100%" },
+              animation: {
+                xs: "marquee 50s linear infinite",
+                md: "none",
+              },
+              "@keyframes marquee": {
+                "0%": { transform: "translateX(0)" },
+                "100%": { transform: "translateX(-100%)" },
+              },
+            }}
+          >
+            {data?.rem}
+          </Typography>
+        </Box>
+      )}
     </>
   );
 };
