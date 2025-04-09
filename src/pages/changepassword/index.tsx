@@ -58,12 +58,6 @@ const ChangePassword = (props: any) => {
   };
 
   useEffect(() => {
-    return () => {
-      debouncedInputValue.cancel();
-    };
-  }, []);
-
-  useEffect(() => {
     if (formik.values.oldPassword) {
       formik.validateForm();
     }
