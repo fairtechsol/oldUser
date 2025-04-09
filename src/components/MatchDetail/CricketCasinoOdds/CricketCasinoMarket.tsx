@@ -98,7 +98,7 @@ const CricketCasinoMarket = ({
               background: "#262626",
             }}
           >
-            <div className="slanted"></div>
+            <div className="slanted" />
           </Box>
           <Box
             sx={{
@@ -148,14 +148,12 @@ const CricketCasinoMarket = ({
           </Box>
         </Box>
         {showFastTimeBox && (
-          <Box>
-            <FastTimePlaceBet
-              session={session}
-              setFastAmount={setFastAmount}
-              selectedFastAmount={fastAmount}
-              setShowFastTimeBox={setShowFastTimeBox}
-            />
-          </Box>
+          <FastTimePlaceBet
+            session={session}
+            setFastAmount={setFastAmount}
+            selectedFastAmount={fastAmount}
+            setShowFastTimeBox={setShowFastTimeBox}
+          />
         )}
 
         {visible && (
@@ -248,7 +246,6 @@ const CricketCasinoMarket = ({
                 </Box>
               </Box>
             </Box>
-
             {betLock && (
               <Box
                 sx={{
@@ -267,7 +264,7 @@ const CricketCasinoMarket = ({
                   sx={{
                     width: { xs: "60%", lg: "40%", md: "60%" },
                   }}
-                ></Box>
+                />
                 <Box
                   sx={{
                     width: { xs: "40%", lg: "60%", md: "40%" },

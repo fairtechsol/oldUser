@@ -281,10 +281,10 @@ const Inplay = () => {
             <iframe
               src={liveCasinoGame?.url}
               title="Live Stream"
-              referrerPolicy={"strict-origin-when-cross-origin"}
-              width={"100%"}
-              height={"100%"}
-            ></iframe>
+              referrerPolicy="strict-origin-when-cross-origin"
+              width="100%"
+              height="100%"
+            />
           </div>
         </Modal.Body>
       </Modal>

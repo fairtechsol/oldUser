@@ -1,7 +1,19 @@
 import { Box } from "@mui/material";
 import { dt2020 } from "../../../assets";
 
-const LiveCasinoGames = ({ data3, handleGame, width, gap }: any) => {
+interface LiveCasinoGamesProps {
+  data3: any;
+  handleGame: (val: any) => void;
+  width: string;
+  gap: string;
+}
+
+const LiveCasinoGames = ({
+  data3,
+  handleGame,
+  width,
+  gap,
+}: LiveCasinoGamesProps) => {
   return (
     <Box
       className="w-100 d-flex flex-row flex-wrap mt-2 cursor-pointer"

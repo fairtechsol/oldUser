@@ -48,7 +48,7 @@ const CricketCasinoMarketBox = ({
             background: "rgba(0,0,0,0.5)",
             zIndex: 2,
           }}
-        ></Box>
+        />
       )}
       <Box
         sx={{
@@ -163,46 +163,42 @@ const CricketCasinoMarketBox = ({
                   flexDirection: "row",
                 }}
               >
-                {data?.odds?.map((item: any, index: number) => {
-                  return (
-                    <SeparateModal
-                      key={index}
-                      bettingOn="session"
-                      closeModal={closeModal}
-                      setFastBetLoading={setFastBetLoading}
-                      po={item?.tno}
-                      eventType={eventType}
-                      setFastAmount={setFastAmount}
-                      rates={allRates}
-                      session={true}
-                      sessionMain={sessionMain}
-                      selectedFastAmount={selectedFastAmount}
-                      betType={"back"}
-                      value={item?.odds ?? 0}
-                      lock={
-                        [null, 0, "0"].includes(item?.odds ?? 0) ? true : false
-                      }
-                      color="#B3E0FF"
-                      type={{
-                        color: "#A7DCFF",
-                        type: "YN",
-                      }}
-                      typeOfBet={typeOfBet}
-                      data={data}
-                      mainData={mainData}
-                      handleRateChange={handleRateChange}
-                      width="100%"
-                      mid={data?.mid}
-                      teamName={data?.nat}
-                    />
-                  );
-                })}
+                {data?.odds?.map((item: any, index: number) => (
+                  <SeparateModal
+                    key={index}
+                    bettingOn="session"
+                    closeModal={closeModal}
+                    setFastBetLoading={setFastBetLoading}
+                    po={item?.tno}
+                    eventType={eventType}
+                    setFastAmount={setFastAmount}
+                    rates={allRates}
+                    session={true}
+                    sessionMain={sessionMain}
+                    selectedFastAmount={selectedFastAmount}
+                    betType={"back"}
+                    value={item?.odds ?? 0}
+                    lock={
+                      [null, 0, "0"].includes(item?.odds ?? 0) ? true : false
+                    }
+                    color="#B3E0FF"
+                    type={{
+                      color: "#A7DCFF",
+                      type: "YN",
+                    }}
+                    typeOfBet={typeOfBet}
+                    data={data}
+                    mainData={mainData}
+                    handleRateChange={handleRateChange}
+                    width="100%"
+                    mid={data?.mid}
+                    teamName={data?.nat}
+                  />
+                ))}
               </Box>
             </Box>
             {!matchesMobile && (
-              <Box
-                sx={{ width: "33%", display: "flex", background: "pink" }}
-              ></Box>
+              <Box sx={{ width: "33%", display: "flex", background: "pink" }} />
             )}
             {!matchesMobile && (
               <PlaceBetComponentWeb

@@ -24,7 +24,7 @@ const ComingSoon = () => {
           alignItems: "center",
         }}
       >
-        <Loader height={"70vh"} text={"Coming Soon"} />
+        <Loader height="70vh" text="Coming Soon" />
       </Box>
     </Box>
   );

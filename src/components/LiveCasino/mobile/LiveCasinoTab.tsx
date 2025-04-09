@@ -1,7 +1,14 @@
 import { Box } from "@mui/material";
 import { liveCasinoPics } from "../../../utils/Constants";
 
-const LiveCasinoTab = ({ data2, type2, setGame, setType2 }: any) => {
+interface LiveCasinoTabProps {
+  data2: any;
+  type2: string;
+  setGame: (val: any) => void;
+  setType2: (val: any) => void;
+}
+
+const LiveCasinoTab = ({ data2, type2, setGame, setType2 }: LiveCasinoTabProps) => {
   return (
     <Box className="w-100 d-flex flex-row overflow-auto">
       {Object.keys(data2)

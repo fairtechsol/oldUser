@@ -66,7 +66,7 @@ const LiveScoreBoard = ({ data, width, setIsTv }: LiveScoreBoardProps) => {
             background: "#262626",
           }}
         >
-          <div className="slanted"></div>
+          <div className="slanted" />
         </Box>
         <Box
           sx={{
@@ -128,7 +128,6 @@ const LiveScoreBoard = ({ data, width, setIsTv }: LiveScoreBoardProps) => {
                     </div>
                   )}
                 </p>
-
                 <p className="team-1 row mt-2" style={{ fontSize: "12px" }}>
                   <span className="team-name col-2">{data?.spnnation2}</span>
                   <span className="score col-5 text-end">{data?.score2}</span>
@@ -144,7 +143,6 @@ const LiveScoreBoard = ({ data, width, setIsTv }: LiveScoreBoardProps) => {
                   )}
                 </p>
               </div>
-
               <div className="col-12 d-flex align-items-center justify-content-xl-end">
                 <div className="row">
                   <div className="col-12">

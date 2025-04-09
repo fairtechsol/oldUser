@@ -410,18 +410,83 @@ const MatchDetail = () => {
           }}
         >
           <BetPlaced visible={visible} setVisible={setVisible} />
-          <>
-            {matchesMobile && (
-              <div
-                style={{
-                  width: "100%",
-                  alignItems: "center",
-                  justifyContent: "center",
+          {matchesMobile && (
+            <div
+              style={{
+                width: "100%",
+                alignItems: "center",
+                justifyContent: "center",
+                display: "flex",
+                marginTop: "2%",
+                flexDirection: "column",
+              }}
+            >
+              <LiveScoreBoard
+                data={liveScoreBoardData}
+                width="100%"
+                setIsTv={setIsTv}
+              />
+              {isTv &&
+                matchDetails?.eventId &&
+                matchDetails?.matchType !== "politics" && (
+                  <LiveMatchHome eventId={matchDetails?.eventId} />
+                )}
+              <div style={{ width: "100%" }}>
+                <MatchOdds
+                  setShow={setShow}
+                  show={show}
+                  matchDetails={matchDetails && matchDetails}
+                />
+              </div>
+              <Box
+                sx={{
                   display: "flex",
-                  marginTop: "2%",
                   flexDirection: "column",
+                  width: "100%",
+                  alignSelf: "center",
+                  alignItems: "center",
                 }}
               >
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    width: "98%",
+                  }}
+                >
+                  {sessionBets.length > 0 && (
+                    <SessionBetSeperate placedBets={sessionBets} />
+                  )}
+                  {nonSessionBets.length > 0 && (
+                    <AllRateSeperate allBetsData={nonSessionBets} mark />
+                  )}
+                </Box>
+              </Box>
+            </div>
+          )}
+          {!matchesMobile && (
+            <Box
+              sx={{
+                display: "flex",
+                width: "100%",
+                gap: "8px",
+                marginTop: "1%",
+              }}
+            >
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  width: "70%",
+                }}
+              >
+                <MatchOdds
+                  setShow={setShow}
+                  show={show}
+                  matchDetails={matchDetails && matchDetails}
+                />
+              </Box>
+              <Box sx={{ width: "30%", paddingRight: "1%" }}>
                 <LiveScoreBoard
                   data={liveScoreBoardData}
                   width="100%"
@@ -432,82 +497,15 @@ const MatchDetail = () => {
                   matchDetails?.matchType !== "politics" && (
                     <LiveMatchHome eventId={matchDetails?.eventId} />
                   )}
-                <div style={{ width: "100%" }}>
-                  <MatchOdds
-                    setShow={setShow}
-                    show={show}
-                    matchDetails={matchDetails && matchDetails}
-                  />
-                </div>
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    width: "100%",
-                    alignSelf: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                      width: "98%",
-                    }}
-                  >
-                    {sessionBets.length > 0 && (
-                      <SessionBetSeperate placedBets={sessionBets} />
-                    )}
-                    {nonSessionBets.length > 0 && (
-                      <AllRateSeperate allBetsData={nonSessionBets} mark />
-                    )}
-                  </Box>
-                </Box>
-              </div>
-            )}
-            {!matchesMobile && (
-              <Box
-                sx={{
-                  display: "flex",
-                  width: "100%",
-                  gap: "8px",
-                  marginTop: "1%",
-                }}
-              >
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    width: "70%",
-                  }}
-                >
-                  <MatchOdds
-                    setShow={setShow}
-                    show={show}
-                    matchDetails={matchDetails && matchDetails}
-                  />
-                </Box>
-                <Box sx={{ width: "30%", paddingRight: "1%" }}>
-                  <LiveScoreBoard
-                    data={liveScoreBoardData}
-                    width="100%"
-                    setIsTv={setIsTv}
-                  />
-                  {isTv &&
-                    matchDetails?.eventId &&
-                    matchDetails?.matchType !== "politics" && (
-                      <LiveMatchHome eventId={matchDetails?.eventId} />
-                    )}
-                  {nonSessionBets.length > 0 && (
-                    <AllRateSeperate allBetsData={nonSessionBets} mark />
-                  )}
-                  {sessionBets.length > 0 && (
-                    <SessionBetSeperate placedBets={sessionBets} />
-                  )}
-                </Box>
+                {nonSessionBets.length > 0 && (
+                  <AllRateSeperate allBetsData={nonSessionBets} mark />
+                )}
+                {sessionBets.length > 0 && (
+                  <SessionBetSeperate placedBets={sessionBets} />
+                )}
               </Box>
-            )}
-          </>
+            </Box>
+          )}
         </Box>
       )}
     </>

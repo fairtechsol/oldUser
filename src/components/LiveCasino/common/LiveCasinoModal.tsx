@@ -5,7 +5,12 @@ import { useSelector } from "react-redux";
 import { FgLogo } from "../../../assets";
 import { RootState } from "../../../store/store";
 
-const LiveCasinoModal = ({ isShow, setIsShow }: any) => {
+interface LiveCasinoModalProps {
+  isShow: boolean;
+  setIsShow: (val: boolean) => void;
+}
+
+const LiveCasinoModal = ({ isShow, setIsShow }: LiveCasinoModalProps) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const { profileDetail } = useSelector(
