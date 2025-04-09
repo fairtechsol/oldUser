@@ -1,13 +1,21 @@
 import { TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 
+interface BoxInputProps {
+  title: string;
+  stakeValue: string | number;
+  containerStyle: any;
+  setStakeValue: (val: any) => void;
+  selectedColorBox: string;
+}
+
 const BoxInput = ({
   title,
   stakeValue,
   containerStyle,
   setStakeValue,
   selectedColorBox,
-}: any) => {
+}: BoxInputProps) => {
   const handleInputChange = (e: any) => {
     let value = e.target.value.trim();
     value = value.replace(/[^0-9.]/g, "");

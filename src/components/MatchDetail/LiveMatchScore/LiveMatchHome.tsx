@@ -2,7 +2,11 @@ import { Box } from "@mui/material";
 import { Col, Container, Ratio, Row } from "react-bootstrap";
 import { liveStreamUrl } from "../../../utils/Constants";
 
-const LiveMatchHome = ({ eventId }: any) => {
+interface LiveMatchHomeProps {
+  eventId: string | number;
+}
+
+const LiveMatchHome = ({ eventId }: LiveMatchHomeProps) => {
   return (
     <Box
       sx={{

@@ -17,7 +17,7 @@ interface TimeLeft {
   seconds?: string;
 }
 
-const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
+const Odds = ({ onClick, top, blur, match, setSelectedMatchId }: any) => {
   const dispatch: AppDispatch = useDispatch();
   function calculateTimeLeft(): TimeLeft {
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -155,8 +155,8 @@ const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
           background: "white",
         }}
         onClick={(e) => {
-          dispatch(updateLogoutModal({ modal: false }));
           e.stopPropagation();
+          dispatch(updateLogoutModal({ modal: false }));
           setSelectedMatchId(match?.id);
         }}
       >

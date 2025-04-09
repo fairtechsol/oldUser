@@ -71,17 +71,15 @@ const MyAccount = () => {
     >
       <Box sx={{ width: "100%" }}>
         <Typography
-          sx={[
-            {
-              fontSize: { lg: "18px", xs: "10px" },
-              fontWeight: "600",
-              fontFamily: "Montserrat",
-              padding: "10px 13px",
-              paddingBottom: "15px",
-              color: "#fff",
-              textTransform: "uppercase",
-            },
-          ]}
+          sx={{
+            fontSize: { lg: "18px", xs: "10px" },
+            fontWeight: "600",
+            fontFamily: "Montserrat",
+            padding: "10px 13px",
+            paddingBottom: "15px",
+            color: "#fff",
+            textTransform: "uppercase",
+          }}
         >
           My Account
         </Typography>

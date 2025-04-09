@@ -3,7 +3,13 @@ import { useState } from "react";
 import { ARROWUP, liveTv } from "../../../assets";
 import "./style.scss";
 
-const LiveScoreBoard = ({ data, width, setIsTv }: any) => {
+interface LiveScoreBoardProps {
+  data: any;
+  width: string;
+  setIsTv: (val: any) => void;
+}
+
+const LiveScoreBoard = ({ data, width, setIsTv }: LiveScoreBoardProps) => {
   const [visible, setVisible] = useState(false);
   return (
     <Box
@@ -73,7 +79,7 @@ const LiveScoreBoard = ({ data, width, setIsTv }: any) => {
         >
           <img
             onClick={() => {
-              setIsTv((prev: any) => !prev);
+              setIsTv((prev: boolean) => !prev);
               setVisible((prev: any) => !prev);
             }}
             style={{
@@ -88,7 +94,7 @@ const LiveScoreBoard = ({ data, width, setIsTv }: any) => {
           />
           <img
             onClick={() => {
-              setIsTv((prev: any) => !prev);
+              setIsTv((prev: boolean) => !prev);
               setVisible(!visible);
             }}
             src={ARROWUP}

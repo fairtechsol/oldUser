@@ -1,13 +1,21 @@
 import { Box, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
+interface TeamsOdssDataProps {
+  input?: boolean;
+  title: string;
+  value: string;
+  containerStyle: any;
+  valueContainerStyle: any;
+}
+
 const TeamsOdssData = ({
   input,
   title,
   value,
   containerStyle,
   valueContainerStyle,
-}: any) => {
+}: TeamsOdssDataProps) => {
   const [oddValue, setOddValue] = useState(value);
   useEffect(() => {
     setOddValue(value);

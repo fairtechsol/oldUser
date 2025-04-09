@@ -8,7 +8,16 @@ import QuickSessionMarket from "../QuickSession/QuickSessionMarket";
 import SessionMarket from "../SessionOdds/SessionMarket";
 import TournamentOdds from "./TournamentOdds";
 
-const MatchOdds = ({ matchDetails, setShow, show }: any) => {
+interface MatchOddsProps {
+  matchDetails: any;
+  setShow: (val: any) => void;
+  show: {
+    open: boolean;
+    id: string;
+  };
+}
+
+const MatchOdds = ({ matchDetails, setShow, show }: MatchOddsProps) => {
   const upcoming = true;
 
   const isActiveSession = (betting: any) => {

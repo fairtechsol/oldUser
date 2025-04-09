@@ -159,7 +159,6 @@ const MatchesComponent = () => {
               top={true}
               blur={false}
               match={match}
-              data={match?.matchOdds}
               selectedMatchId={selectedMatchId}
               setSelectedMatchId={setSelectedMatchId}
             />

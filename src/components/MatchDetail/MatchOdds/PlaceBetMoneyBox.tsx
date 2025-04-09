@@ -1,7 +1,19 @@
 import { Box, Typography } from "@mui/material";
 import StyledImage from "../../Common/StyledImages";
 
-const PlaceBetMoneyBox = ({ color, trendingDown, rate, trendingUp }: any) => {
+interface PlaceBetMoneyBoxProps {
+  color: string;
+  trendingDown?: boolean;
+  trendingUp?: boolean;
+  rate: string | number;
+}
+
+const PlaceBetMoneyBox = ({
+  color,
+  trendingDown,
+  rate,
+  trendingUp,
+}: PlaceBetMoneyBoxProps) => {
   return (
     <Box
       sx={{

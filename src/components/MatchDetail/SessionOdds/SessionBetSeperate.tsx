@@ -6,7 +6,19 @@ import { formatToINR } from "../../../helper";
 import StyledImage from "../../Common/StyledImages";
 import RowComponent from "./RowComponent";
 
-const SessionBetSeperate = ({ profit, placedBets, isArrow, match }: any) => {
+interface SessionBetSeperateProps {
+  profit?: boolean;
+  placedBets: any;
+  isArrow?: boolean;
+  match?: string;
+}
+
+const SessionBetSeperate = ({
+  profit,
+  placedBets,
+  isArrow,
+  match,
+}: SessionBetSeperateProps) => {
   const [visible, setVisible] = useState(true);
   return (
     <Box

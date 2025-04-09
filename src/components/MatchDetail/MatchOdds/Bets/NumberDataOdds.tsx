@@ -1,11 +1,18 @@
 import { Box, Typography } from "@mui/material";
 
+interface NumberDataProps {
+  value: any;
+  containerStyle: any;
+  setStakeValue: (val: any) => void;
+  selectedBetAction: (val: any) => void;
+}
+
 const NumberData = ({
   value,
   containerStyle,
   setStakeValue,
   selectedBetAction,
-}: any) => {
+}: NumberDataProps) => {
   return (
     <Box
       onClick={() => {

@@ -438,43 +438,39 @@ const OddsPlaceBet = ({ handleClose, session, type }: any) => {
         {matchesMobile && (
           <Box sx={{ display: "flex", marginTop: "2px", marginX: "2px" }} />
         )}
-        {
-          <>
-            <Box
-              sx={{
-                display: "flex",
-                marginTop: "15px",
-                marginX: "2px",
-                border: "2px solid white",
-              }}
-            >
-              {buttonToShow?.slice(0, 4)?.map((v: any, idx: number) => (
-                <NumberData
-                  key={idx}
-                  containerStyle={{ marginLeft: "2px", flex: 1 }}
-                  value={v}
-                  selectedBetAction={(value: any) =>
-                    value && selectedBetAction(selectedBet?.data)
-                  }
-                  setStakeValue={setStakeValue}
-                />
-              ))}
-            </Box>
-            <Box sx={{ display: "flex", marginTop: "2px", marginX: "2px" }}>
-              {buttonToShow?.slice(4, 8)?.map((v: any, idx: number) => (
-                <NumberData
-                  key={idx}
-                  containerStyle={{ marginLeft: "2px", flex: 1 }}
-                  value={v}
-                  selectedBetAction={(value: any) =>
-                    value && selectedBetAction(selectedBet?.data)
-                  }
-                  setStakeValue={setStakeValue}
-                />
-              ))}
-            </Box>
-          </>
-        }
+        <Box
+          sx={{
+            display: "flex",
+            marginTop: "15px",
+            marginX: "2px",
+            border: "2px solid white",
+          }}
+        >
+          {buttonToShow?.slice(0, 4)?.map((v: any, idx: number) => (
+            <NumberData
+              key={idx}
+              containerStyle={{ marginLeft: "2px", flex: 1 }}
+              value={v}
+              selectedBetAction={(value: any) =>
+                value && selectedBetAction(selectedBet?.data)
+              }
+              setStakeValue={setStakeValue}
+            />
+          ))}
+        </Box>
+        <Box sx={{ display: "flex", marginTop: "2px", marginX: "2px" }}>
+          {buttonToShow?.slice(4, 8)?.map((v: any, idx: number) => (
+            <NumberData
+              key={idx}
+              containerStyle={{ marginLeft: "2px", flex: 1 }}
+              value={v}
+              selectedBetAction={(value: any) =>
+                value && selectedBetAction(selectedBet?.data)
+              }
+              setStakeValue={setStakeValue}
+            />
+          ))}
+        </Box>
         <Box
           sx={{
             display: "flex",
@@ -498,7 +494,6 @@ const OddsPlaceBet = ({ handleClose, session, type }: any) => {
           >
             Reset
           </button>
-
           <button
             type="submit"
             disabled={loading || !stakeValue ? true : false}

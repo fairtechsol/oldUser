@@ -492,7 +492,6 @@ const MatchDetail = () => {
                     data={liveScoreBoardData}
                     width="100%"
                     setIsTv={setIsTv}
-                    isTv={isTv}
                   />
                   {isTv &&
                     matchDetails?.eventId &&

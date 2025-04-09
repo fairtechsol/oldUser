@@ -5,6 +5,14 @@ import { formatToINR } from "../../../helper";
 import StyledImage from "../../Common/StyledImages";
 import RowComponent from "./RowComponent";
 
+interface AllRateSeperateProps {
+  profit?: boolean;
+  mark?: boolean;
+  mark2?: boolean;
+  betHistory?: boolean;
+  allBetsData: any;
+  count?: number;
+}
 const AllRateSeperate = ({
   profit,
   mark,
@@ -12,7 +20,7 @@ const AllRateSeperate = ({
   betHistory,
   allBetsData,
   count,
-}: any) => {
+}: AllRateSeperateProps) => {
   const [visible, setVisible] = useState(true);
   const theme = useTheme();
   const matchesMobile = theme.breakpoints.down("lg");

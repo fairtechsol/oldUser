@@ -274,7 +274,6 @@ const TournamentOdds = ({
               <Box
                 sx={{
                   position: { lg: "static", xs: "relative" },
-                  // paddingY: "2vh",
                   right: 25,
                 }}
               >
@@ -283,14 +282,9 @@ const TournamentOdds = ({
                   disabled={
                     Object.keys(profitLossObj).length <= 0 ? true : false
                   }
-                  // disabled={loading || !stakeValue ? true : false}
                   style={{
                     color: "#319E5B",
                     backgroundColor: "#fff",
-                    // width: "150px",
-                    // cursor: loading || !stakeValue ? "not-allowed" : "pointer",
-                    // width: { lg: "150px", xs: "130px" },
-                    // height: "35px",
                     borderRadius: "3px",
                     border: "2px solid white",
                     opacity: Object.keys(profitLossObj).length <= 0 ? 0.65 : 1,
