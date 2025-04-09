@@ -6,7 +6,6 @@ import { IoClose } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
 import { getPlacedBetsForAccountStatement } from "../../../store/actions/betPlace/betPlaceActions";
 import { AppDispatch, RootState } from "../../../store/store";
-import Loader from "../../Loader";
 import EmptyRow from "../EmptyRow";
 import ListHeaderTModal from "./ListheaderTModal";
 import TableRowModal from "./TableRowModal";
@@ -52,6 +51,41 @@ const AccountStatementModal = ({
     (state: RootState) => state.bets
   );
 
+  const handleButtonClick = (option: string) => {
+    setSelectedOption(option);
+
+    const commonPayload = {
+      userId: profileDetail?.id,
+    };
+
+    if (show?.betId?.length > 0) {
+      dispatch(
+        getPlacedBetsForAccountStatement({
+          ...commonPayload,
+          betId: show.betId,
+          status: option === "matched" ? "MATCHED" : "DELETED",
+        })
+      );
+      return;
+    }
+
+    if (show?.runnerId) {
+      const payload = {
+        ...commonPayload,
+        runnerId: show.runnerId,
+        ...(option === "matched"
+          ? {
+              isCard: true,
+              result: `inArr${JSON.stringify(["WIN", "LOSS", "TIE"])}`,
+            }
+          : {
+              status: "DELETED",
+            }),
+      };
+      dispatch(getPlacedBetsForAccountStatement(payload));
+    }
+  };
+
   return (
     <Modal open={open} onClose={onClose}>
       <Box sx={style}>
@@ -80,12 +114,10 @@ const AccountStatementModal = ({
           </Box>
         </ModalHeader>
         <Box
-          sx={[
-            {
-              minHeight: "100px",
-              width: "100%",
-            },
-          ]}
+          sx={{
+            minHeight: "100px",
+            width: "100%",
+          }}
         >
           <div className="d-flex align-items-center">
             <Form.Check
@@ -95,27 +127,7 @@ const AccountStatementModal = ({
               type="radio"
               id="inline-radio-1"
               checked={selectedOption === "matched"}
-              onChange={() => {
-                setSelectedOption("matched");
-                if (show?.betId?.length > 0) {
-                  dispatch(
-                    getPlacedBetsForAccountStatement({
-                      betId: show?.betId,
-                      status: "MATCHED",
-                      userId: profileDetail?.id,
-                    })
-                  );
-                } else if (show?.runnerId) {
-                  dispatch(
-                    getPlacedBetsForAccountStatement({
-                      runnerId: show?.runnerId,
-                      isCard: true,
-                      result: `inArr${JSON.stringify(["WIN", "LOSS", "TIE"])}`,
-                      userId: profileDetail?.id,
-                    })
-                  );
-                }
-              }}
+              onChange={() => handleButtonClick("matched")}
             />
             <Form.Check
               inline
@@ -124,83 +136,51 @@ const AccountStatementModal = ({
               type="radio"
               id="inline-radio-2"
               checked={selectedOption === "deleted"}
-              onChange={() => {
-                setSelectedOption("deleted");
-                if (show?.betId?.length > 0) {
-                  dispatch(
-                    getPlacedBetsForAccountStatement({
-                      betId: show?.betId,
-                      status: "DELETED",
-                      userId: profileDetail?.id,
-                    })
-                  );
-                } else if (show?.runnerId) {
-                  dispatch(
-                    getPlacedBetsForAccountStatement({
-                      runnerId: show?.runnerId,
-                      status: "DELETED",
-                      userId: profileDetail?.id,
-                    })
-                  );
-                }
-              }}
+              onChange={() => handleButtonClick("deleted")}
             />
           </div>
           <hr />
-          {false ? (
-            <Box
-              sx={{
-                minHeight: "60vh",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Loader text="" />
-            </Box>
-          ) : (
-            <Box sx={{ overflowX: "scroll", width: "100%" }}>
-              <ListHeaderTModal />
-              {placedBetsAccountStatement.length > 0 ? (
-                <EmptyRow containerStyle={{ background: "#FFE094" }} />
-              ) : (
-                placedBetsAccountStatement?.length >= 0 &&
-                placedBetsAccountStatement?.map((item: any, index: number) => (
-                  <TableRowModal
-                    key={index}
-                    index={index}
-                    containerStyle={{ background: "#FFE094" }}
-                    profit={true}
-                    fContainerStyle={{ background: "#0B4F26" }}
-                    fTextStyle={{ color: "white" }}
-                    teamName={item?.teamName}
-                    betType={item?.betType}
-                    odds={item?.odds}
-                    amount={item?.amount}
-                    result={
-                      item?.result === "LOSS"
-                        ? `-${parseFloat(item?.lossAmount).toFixed(2)}`
-                        : item?.result === "WIN"
-                        ? parseFloat(item?.winAmount).toFixed(2)
-                        : 0
-                    }
-                    createdAt={moment(item?.createdAt).format(
-                      "MM/DD/YYYY hh:mm:ss A"
-                    )}
-                    startAt={
-                      item?.racingMatch
-                        ? moment(item?.racingMatch?.startAt).format(
-                            "MM/DD/YYYY hh:mm:ss A"
-                          )
-                        : moment(item?.match?.startAt).format(
-                            "MM/DD/YYYY hh:mm:ss A"
-                          )
-                    }
-                  />
-                ))
-              )}
-            </Box>
-          )}
+          <Box sx={{ overflowX: "scroll", width: "100%" }}>
+            <ListHeaderTModal />
+            {placedBetsAccountStatement.length > 0 ? (
+              <EmptyRow containerStyle={{ background: "#FFE094" }} />
+            ) : (
+              placedBetsAccountStatement?.length >= 0 &&
+              placedBetsAccountStatement?.map((item: any, index: number) => (
+                <TableRowModal
+                  key={index}
+                  index={index}
+                  containerStyle={{ background: "#FFE094" }}
+                  profit={true}
+                  fContainerStyle={{ background: "#0B4F26" }}
+                  fTextStyle={{ color: "white" }}
+                  teamName={item?.teamName}
+                  betType={item?.betType}
+                  odds={item?.odds}
+                  amount={item?.amount}
+                  result={
+                    item?.result === "LOSS"
+                      ? `-${parseFloat(item?.lossAmount).toFixed(2)}`
+                      : item?.result === "WIN"
+                      ? parseFloat(item?.winAmount).toFixed(2)
+                      : 0
+                  }
+                  createdAt={moment(item?.createdAt).format(
+                    "MM/DD/YYYY hh:mm:ss A"
+                  )}
+                  startAt={
+                    item?.racingMatch
+                      ? moment(item?.racingMatch?.startAt).format(
+                          "MM/DD/YYYY hh:mm:ss A"
+                        )
+                      : moment(item?.match?.startAt).format(
+                          "MM/DD/YYYY hh:mm:ss A"
+                        )
+                  }
+                />
+              ))
+            )}
+          </Box>
         </Box>
       </Box>
     </Modal>

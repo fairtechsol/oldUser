@@ -13,7 +13,6 @@ import { IoClose } from "react-icons/io5";
 import { useDispatch } from "react-redux";
 import { transactionProviderBets } from "../../../store/actions/card/cardDetail";
 import { AppDispatch } from "../../../store/store";
-import Loader from "../../Loader";
 import EmptyRow from "../EmptyRow";
 import ListHeaderTModal from "./ListheaderTModal";
 import TableRowModal from "./TableRowModal";
@@ -104,16 +103,12 @@ const BetsListModal = ({
           </Box>
         </ModalHeader>
         <Box
-          sx={[
-            {
-              minHeight: "100px",
-              width: "100%",
-            },
-          ]}
+          sx={{
+            minHeight: "100px",
+            width: "100%",
+          }}
         >
-          <div
-            className={`w-100 d-flex flex-row justify-content-start align-items-center gap-2 mb-2`}
-          >
+          <div className="w-100 d-flex flex-row justify-content-start align-items-center gap-2 mb-2">
             <Col md={4} lg={2} xs={4}>
               <Autocomplete
                 id="movie"
@@ -158,45 +153,32 @@ const BetsListModal = ({
             </Button>
           </div>
           <hr />
-          {false ? (
-            <Box
-              sx={{
-                minHeight: "60vh",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Loader text="" />
-            </Box>
-          ) : (
-            <Box sx={{ overflowX: "scroll", width: "100%" }}>
-              <ListHeaderTModal />
-              {updatedReport?.length === 0 ? (
-                <EmptyRow containerStyle={{ background: "#FFE094" }} />
-              ) : (
-                updatedReport?.map((item: any, index: number) => (
-                  <TableRowModal
-                    key={item?.transactionId}
-                    index={index}
-                    containerStyle={{ background: "#FFE094" }}
-                    profit={true}
-                    fContainerStyle={{ background: "#0B4F26" }}
-                    fTextStyle={{ color: "white" }}
-                    gameName={item?.gameName}
-                    amount={parseFloat(item?.amount) > 0 ? "CREDIT" : "DEBIT"}
-                    absAmount={Math.abs(item?.amount).toFixed(2)}
-                    total={parseFloat(item?.total).toFixed(2)}
-                    createdAt={moment(new Date(item?.createdAt)).format(
-                      "YYYY-MM-DD hh:mm"
-                    )}
-                    roundId={item?.roundId}
-                    transactionId={item?.transactionId}
-                  />
-                ))
-              )}
-            </Box>
-          )}
+          <Box sx={{ overflowX: "scroll", width: "100%" }}>
+            <ListHeaderTModal />
+            {updatedReport?.length === 0 ? (
+              <EmptyRow containerStyle={{ background: "#FFE094" }} />
+            ) : (
+              updatedReport?.map((item: any, index: number) => (
+                <TableRowModal
+                  key={item?.transactionId}
+                  index={index}
+                  containerStyle={{ background: "#FFE094" }}
+                  profit={true}
+                  fContainerStyle={{ background: "#0B4F26" }}
+                  fTextStyle={{ color: "white" }}
+                  gameName={item?.gameName}
+                  amount={parseFloat(item?.amount) > 0 ? "CREDIT" : "DEBIT"}
+                  absAmount={Math.abs(item?.amount).toFixed(2)}
+                  total={parseFloat(item?.total).toFixed(2)}
+                  createdAt={moment(new Date(item?.createdAt)).format(
+                    "YYYY-MM-DD hh:mm"
+                  )}
+                  roundId={item?.roundId}
+                  transactionId={item?.transactionId}
+                />
+              ))
+            )}
+          </Box>
         </Box>
       </Box>
     </Modal>

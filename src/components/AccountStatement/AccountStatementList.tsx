@@ -8,7 +8,6 @@ import {
 } from "../../store/actions/card/cardDetail";
 import { getAccountStatement } from "../../store/actions/user/userAction";
 import { AppDispatch, RootState } from "../../store/store";
-import Loader from "../Loader";
 import AccountStatementModal from "./AccountStatementModal";
 import BetsListModal from "./BetsListModal";
 import EmptyRow from "./EmptyRow";
@@ -19,7 +18,6 @@ import TableRow from "./TableRow";
 import YellowHeader from "./YellowHeader";
 
 const AccountStatementList = () => {
-  const [loading] = useState(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [pageLimit, setPageLimit] = useState<number>(15);
   const [fromDate, setFromDate] = useState<any>();
@@ -135,31 +133,28 @@ const AccountStatementList = () => {
             setFromDate={setFromDate}
           />
         </Box>
-
         <Box
-          sx={[
-            {
-              marginX: { xs: "2vw", lg: "1vw" },
-              minHeight: "100px",
-              borderRadius: "2px",
-              border: "2px solid white",
-              width: "97.5%",
-              borderTopRightRadius: {
-                xs: "10px",
-                lg: "0px",
-                md: "10px",
-              },
-              borderTopLeftRadius: {
-                xs: "10px",
-                lg: "0px",
-                md: "10px",
-              },
-              background: "#F8C851",
+          sx={{
+            marginX: { xs: "2vw", lg: "1vw" },
+            minHeight: "100px",
+            borderRadius: "2px",
+            border: "2px solid white",
+            width: "97.5%",
+            borderTopRightRadius: {
+              xs: "10px",
+              lg: "0px",
+              md: "10px",
             },
-          ]}
+            borderTopLeftRadius: {
+              xs: "10px",
+              lg: "0px",
+              md: "10px",
+            },
+            background: "#F8C851",
+          }}
         >
           <ListH
-            searchFor={"accountStatement"}
+            searchFor="accountStatement"
             pageLimit={pageLimit}
             setPageLimit={setPageLimit}
             fromDate={fromDate}
@@ -167,62 +162,46 @@ const AccountStatementList = () => {
             setCurrentPage={setCurrentPage}
             setSearchValue={setSearchValue}
           />
-
-          {loading ? (
-            <Box
-              sx={{
-                minHeight: "60vh",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Loader text="" />
+          <>
+            <Box sx={{ overflowX: "scroll", width: "100%" }}>
+              <ListHeaderT />
+              {transactions?.transactions?.length === 0 ? (
+                <EmptyRow containerStyle={{ background: "#FFE094" }} />
+              ) : (
+                transactions?.transactions?.map((item: any) => (
+                  <TableRow
+                    key={item?.id}
+                    index={item?.id}
+                    containerStyle={{ background: "#FFE094" }}
+                    profit={true}
+                    fContainerStyle={{ background: "#0B4F26" }}
+                    fTextStyle={{ color: "white" }}
+                    date={item?.createdAt}
+                    description={item?.description}
+                    closing={item?.closingBalance}
+                    transType={item?.transType}
+                    amount={item?.amount}
+                    fromuserName={item?.actionByUser?.userName}
+                    touserName={item?.user?.userName}
+                    onClick={() => {
+                      if (item?.type === 3) {
+                        handleLiveCasinoModalOpen(item);
+                      }
+                    }}
+                  />
+                ))
+              )}
             </Box>
-          ) : (
-            <>
-              <Box sx={{ overflowX: "scroll", width: "100%" }}>
-                <ListHeaderT />
-                {transactions?.transactions?.length === 0 ? ( // Check if no records
-                  <EmptyRow containerStyle={{ background: "#FFE094" }} />
-                ) : (
-                  transactions?.transactions?.map((item: any) => (
-                    <TableRow
-                      key={item?.id}
-                      index={item?.id}
-                      containerStyle={{ background: "#FFE094" }}
-                      profit={true}
-                      fContainerStyle={{ background: "#0B4F26" }}
-                      fTextStyle={{ color: "white" }}
-                      date={item?.createdAt}
-                      description={item?.description}
-                      closing={item?.closingBalance}
-                      transType={item?.transType}
-                      amount={item?.amount}
-                      fromuserName={item?.actionByUser?.userName}
-                      touserName={item?.user?.userName}
-                      onClick={() => {
-                        if (item?.type === 3) {
-                          handleLiveCasinoModalOpen(item);
-                        }
-                      }}
-                    />
-                  ))
-                )}
-              </Box>
-              <Footer
-                currentPage={currentPage}
-                pages={Math.ceil(
-                  parseInt(
-                    transactions && transactions?.count
-                      ? transactions?.count
-                      : 1
-                  ) / pageLimit
-                )}
-                setCurrentPage={setCurrentPage}
-              />
-            </>
-          )}
+            <Footer
+              currentPage={currentPage}
+              pages={Math.ceil(
+                parseInt(
+                  transactions && transactions?.count ? transactions?.count : 1
+                ) / pageLimit
+              )}
+              setCurrentPage={setCurrentPage}
+            />
+          </>
         </Box>
       </Box>
       <BetsListModal
