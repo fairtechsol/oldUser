@@ -59,7 +59,6 @@ const SessionMarketBox = ({
         <Box
           sx={{
             display: "flex",
-            // background: "white",
             height: "38px",
             overflow: "hidden",
             width: { xs: "100%", lg: "100%" },
@@ -78,7 +77,6 @@ const SessionMarketBox = ({
                 fontWeight: "600",
                 textAlign: "start",
                 width: "100%",
-                // paddingRight: "5rem",
                 lineHeight: "0.8rem",
               }}
             >
@@ -95,13 +93,34 @@ const SessionMarketBox = ({
                 marginLeft: "7px",
                 fontWeight: "500",
                 textAlign: "start",
+                lineHeight: "0.8rem",
               }}
             >
               max:{formatToINR(data?.max || 0)}
             </Typography>
+            {data?.rem && (
+              <Typography
+                sx={{
+                  color: "black",
+                  fontSize: { lg: "10px", md: "10px", xs: "9px" },
+                  marginLeft: "7px",
+                  fontWeight: "600",
+                  textAlign: "start",
+                  lineHeight: "0.8rem",
+                }}
+              >
+                {data?.rem}
+              </Typography>
+            )}
           </Typography>
           {data?.isCommissionActive && (
-            <Box sx={{ position: "absolute", right: { xs: "58vw", sm: "49vw", lg: "28vw", md: "50vw" }, zIndex: "123"}}>
+            <Box
+              sx={{
+                position: "absolute",
+                right: { xs: "58vw", sm: "49vw", lg: "28vw", md: "50vw" },
+                zIndex: "123",
+              }}
+            >
               <CommissionDot />
             </Box>
           )}
