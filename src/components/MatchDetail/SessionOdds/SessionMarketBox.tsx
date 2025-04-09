@@ -7,6 +7,7 @@ import CommissionDot from "../../Common/CommissionDot";
 import PlaceBetComponent from "../MatchOdds/Bets/PlaceBetComponent";
 import PlaceBetComponentWeb from "../MatchOdds/Bets/PlaceBetComponentWeb";
 import SeparateModal from "../MatchOdds/SeparateModal";
+import MarqueeText from "./MarqueeText";
 
 const SessionMarketBox = ({
   index,
@@ -98,20 +99,6 @@ const SessionMarketBox = ({
             >
               max:{formatToINR(data?.max || 0)}
             </Typography>
-            {data?.rem && (
-              <Typography
-                sx={{
-                  color: "black",
-                  fontSize: { lg: "10px", md: "10px", xs: "9px" },
-                  marginLeft: "7px",
-                  fontWeight: "600",
-                  textAlign: "start",
-                  lineHeight: "0.8rem",
-                }}
-              >
-                {data?.rem}
-              </Typography>
-            )}
           </Typography>
           {data?.isCommissionActive && (
             <Box
@@ -637,6 +624,7 @@ const SessionMarketBox = ({
           </Box>
         </Box>
       ))}
+      {data?.rem && <MarqueeText index={index}>{data?.rem}</MarqueeText>}
     </>
   );
 };
