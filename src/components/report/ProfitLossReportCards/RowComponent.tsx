@@ -9,13 +9,13 @@ import SingleBox from "./SingleBox";
 const RowComponent = ({ header, data }: any) => {
   const { state } = useLocation();
 
-  const getTime = (date: any) => {
-    const timeString = moment
-      .utc(date)
-      .utcOffset("+05:30")
-      .format("hh:mm:ss A");
-    return timeString;
-  };
+  // const getTime = (date: any) => {
+  //   const timeString = moment
+  //     .utc(date)
+  //     .utcOffset("+05:30")
+  //     .format("hh:mm:ss A");
+  //   return timeString;
+  // };
   const getColor = () => {
     if (header) {
       return "black";
@@ -53,7 +53,7 @@ const RowComponent = ({ header, data }: any) => {
           {/* <Box sx={{ width: "52%", minWidth: "19%" }}> */}
           <div style={{ width: !state?.matchId ? "17%" : "23.137%" }}>
             <SingleBox
-              time={getTime(data.createdAt)}
+              time={moment(data.createdAt).format("DD-MM-YYYY HH:mm:ss")}
               color={getColor()}
               data={data.teamName}
               up={true}
