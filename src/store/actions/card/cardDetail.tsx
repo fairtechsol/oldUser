@@ -9,7 +9,7 @@ export const getDragonTigerDetailHorseRacing = createAsyncThunk<any, any>(
   async (requestData, thunkApi) => {
     try {
       const resp = await service.get(
-        `${ApiConstants.CARDS.MATCH.GET_CARD_DETAIL}/${requestData}`
+        ApiConstants.CARDS.MATCH.GET_CARD_DETAIL + "/" + requestData
       );
       if (resp?.data) {
         return resp?.data;
@@ -25,7 +25,7 @@ export const getDragonTigerDetail = createAsyncThunk<any, any>(
   async (requestData, thunkApi) => {
     try {
       const resp = await service.get(
-        `${ApiConstants.CARDS.MATCH.GET_CARD_DETAIL_INITIAL}/${requestData}`
+        ApiConstants.CARDS.MATCH.GET_CARD_DETAIL_INITIAL + "/" + requestData
       );
       if (resp?.data) {
         return resp?.data;
@@ -41,7 +41,7 @@ export const resultDragonTiger = createAsyncThunk<any, any>(
   async (requestData, thunkApi) => {
     try {
       const resp = await service.get(
-        `${ApiConstants.CARDS.MATCH.RESULT}/${requestData}`
+        ApiConstants.CARDS.MATCH.RESULT + "/" + requestData
       );
       if (resp?.data) {
         return resp?.data;
@@ -123,7 +123,7 @@ export const liveCasinoList = createAsyncThunk<any, any>(
   "result/liveCasinoList",
   async (_, thunkApi) => {
     try {
-      const resp = await service.post(`${ApiConstants.LiveCasinoGame}`);
+      const resp = await service.post(ApiConstants.LiveCasinoGame);
       if (resp?.data) {
         const updateData = combineAllGames(resp?.data);
         const updateDataCasino = combineGameCasino(resp?.data);
@@ -140,7 +140,7 @@ export const liveCasinoLogin = createAsyncThunk<any, any>(
   async (requestData, thunkApi) => {
     try {
       const resp = await service.post(
-        `${ApiConstants.LiveCasinoGameLogin}`,
+        ApiConstants.LiveCasinoGameLogin,
         requestData
       );
       if (resp?.data) {
@@ -156,7 +156,7 @@ export const transactionProviderName = createAsyncThunk<any, any>(
   "result/transactionProviderName",
   async (_, thunkApi) => {
     try {
-      const resp = await service.get(`${ApiConstants.LiveCasinoGameProvider}`);
+      const resp = await service.get(ApiConstants.LiveCasinoGameProvider);
       if (resp?.data) {
         return resp?.data;
       }
@@ -434,7 +434,6 @@ export const casinoScoreboardMatchRates = createAsyncThunk<any, any>(
         },
       };
       const resp = await axios.get(
-        // `${Constants.thirdPartyCard}${ApiConstants.SCOREBOARD.match}/${requestData?.id}?gameName=${requestData?.type}`,
         `${Constants.thirdPartyLive}/cricketScore?eventId=${requestData?.id}`,
         config
       );

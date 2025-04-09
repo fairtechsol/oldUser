@@ -7,7 +7,7 @@ export const marqueeNotification = createAsyncThunk<any>(
   "user/notification",
   async (_, thunkApi) => {
     try {
-      const resp = await service.get(`${ApiConstants.USER.MARQUEE}`);
+      const resp = await service.get(ApiConstants.USER.MARQUEE);
       if (resp) {
         return resp?.data;
       }
@@ -22,7 +22,7 @@ export const getProfile = createAsyncThunk<any>(
   "/user/profile",
   async (_, thunkApi) => {
     try {
-      const resp = await service.get(`${ApiConstants.USER.GET_PROFILE}`);
+      const resp = await service.get(ApiConstants.USER.GET_PROFILE);
       if (resp) {
         if (resp?.data?.[0]?.[0].loginAt === null) {
           window.location.replace("/login");
@@ -41,8 +41,7 @@ export const getProfileInMatchDetail = createAsyncThunk<any>(
   "/user/profileInMatchDetail",
   async (_, thunkApi) => {
     try {
-      const resp = await service.get(`${ApiConstants.USER.GET_PROFILE}`);
-      // console.log("API Request user: Success", resp.data);
+      const resp = await service.get(ApiConstants.USER.GET_PROFILE);
       if (resp) {
         return resp?.data;
       }
@@ -143,11 +142,16 @@ export const getAccountStatement = createAsyncThunk<any, any>(
   async ({ userId, page, limit, searchBy, keyword, filter }, thunkApi) => {
     try {
       const resp = await service.get(
-        `${ApiConstants.USER.ACCOUNT_STATEMENT}${userId}?page=${
-          page || 1
-        }&limit=${limit}&searchBy=${searchBy ?? ""}&keyword=${keyword ?? ""}${
-          filter ?? ""
-        }&sort=transaction.createdAt:DESC,transaction.uniqueId:DESC`
+        `${ApiConstants.USER.ACCOUNT_STATEMENT}${userId}?${filter ?? ""}`,
+        {
+          params: {
+            sort: "transaction.createdAt:DESC,transaction.uniqueId:DESC",
+            page: page || 1,
+            limit,
+            searchBy,
+            keyword,
+          },
+        }
       );
       if (resp) {
         return resp?.data;
@@ -163,7 +167,7 @@ export const getButtonValue = createAsyncThunk<any>(
   "user/getButtonValue",
   async (_, thunkApi) => {
     try {
-      const resp = await service.get(`${ApiConstants.USER.GET_BTN_VALUE}`);
+      const resp = await service.get(ApiConstants.USER.GET_BTN_VALUE);
 
       if (resp) {
         return resp?.data;
@@ -180,7 +184,7 @@ export const setButtonValue = createAsyncThunk<any, any>(
   async (requestData, thunkApi) => {
     try {
       const resp = await service.post(
-        `${ApiConstants.USER.SET_BTN_VALUE}`,
+        ApiConstants.USER.SET_BTN_VALUE,
         requestData
       );
       if (resp) {
@@ -197,7 +201,7 @@ export const getMatchWiseProfitLoss = createAsyncThunk<any, any>(
   async (requestData, thunkApi) => {
     try {
       const resp = await service.post(
-        `${ApiConstants.USER.MATCH_WISE_PROFITLOSS}`,
+        ApiConstants.USER.MATCH_WISE_PROFITLOSS,
         requestData
       );
       if (resp) {
@@ -214,7 +218,7 @@ export const getMatchWiseProfitLossCard = createAsyncThunk<any, any>(
   async (requestData, thunkApi) => {
     try {
       const resp = await service.post(
-        `${ApiConstants.CARDS.REPORT.GET_GAME_WISE_PROFIT_LOSS}`,
+        ApiConstants.CARDS.REPORT.GET_GAME_WISE_PROFIT_LOSS,
         requestData
       );
       if (resp) {
@@ -231,7 +235,7 @@ export const getUserTotalProfitLoss = createAsyncThunk<any, any>(
   async (requestData, thunkApi) => {
     try {
       const resp = await service.post(
-        `${ApiConstants.USER.TOTAL_PROFITLOSS}`,
+        ApiConstants.USER.TOTAL_PROFITLOSS,
         requestData?.filter ? requestData?.filter : requestData
       );
       if (resp) {
@@ -248,7 +252,7 @@ export const getUserTotalProfitLossCard = createAsyncThunk<any, any>(
   async (requestData, thunkApi) => {
     try {
       const resp = await service.post(
-        `${ApiConstants.CARDS.REPORT.GET_TOTAL_PROFIT_LOSS}`,
+        ApiConstants.CARDS.REPORT.GET_TOTAL_PROFIT_LOSS,
         requestData?.filter ? requestData?.filter : requestData
       );
       if (resp) {
@@ -265,7 +269,7 @@ export const getTotalBetProfitLoss = createAsyncThunk<any, any>(
   async (requestData, thunkApi) => {
     try {
       const resp = await service.post(
-        `${ApiConstants.USER.TOTAL_BET_PROFITLOSS}`,
+        ApiConstants.USER.TOTAL_BET_PROFITLOSS,
         requestData
       );
       if (resp) {
@@ -282,7 +286,7 @@ export const getTotalBetProfitLossCard = createAsyncThunk<any, any>(
   async (requestData, thunkApi) => {
     try {
       const resp = await service.post(
-        `${ApiConstants.CARDS.REPORT.GET_TOTAL_BET_PROFIT_LOSS}`,
+        ApiConstants.CARDS.REPORT.GET_TOTAL_BET_PROFIT_LOSS,
         requestData
       );
       if (resp) {
@@ -299,7 +303,7 @@ export const getSessionProfitLoss = createAsyncThunk<any, any>(
   async (requestData, thunkApi) => {
     try {
       const resp = await service.post(
-        `${ApiConstants.USER.TOTAL_SESSION_PROFITLOSS}`,
+        ApiConstants.USER.TOTAL_SESSION_PROFITLOSS,
         requestData
       );
       if (resp) {

@@ -7,7 +7,7 @@ export const placeBet = createAsyncThunk<any, any>(
   "/placeBet",
   async (requestData, thunkApi) => {
     try {
-      const resp = await service.post(`${requestData.url}`, requestData.data);
+      const resp = await service.post(requestData.url, requestData.data);
       if (resp) {
         return resp?.data;
       }
@@ -22,12 +22,13 @@ export const getPlacedBets = createAsyncThunk<any, any>(
   "/bet",
   async (id, thunkApi) => {
     try {
-      const resp = await service.get(
-        `${ApiConstants.BET.GETPLACEDBETS}?result=inArr${JSON.stringify([
-          "PENDING",
-          "UNDECLARE",
-        ])}&betPlaced.matchId=${id}&sort=betPlaced.createdAt:DESC`
-      );
+      const resp = await service.get(ApiConstants.BET.GETPLACEDBETS, {
+        params: {
+          result: `inArr${JSON.stringify(["PENDING", "UNDECLARE"])}`,
+          "betPlaced.matchId": id,
+          sort: "betPlaced.createdAt:DESC",
+        },
+      });
       if (resp) {
         return resp?.data?.rows;
       }
@@ -42,7 +43,7 @@ export const getCurrentBets = createAsyncThunk<any>(
   "current/bet",
   async (_, thunkApi) => {
     try {
-      const resp = await service.get(`${ApiConstants.BET.GETPLACEDBETS}`);
+      const resp = await service.get(ApiConstants.BET.GETPLACEDBETS);
       if (resp) {
         return resp?.data?.rows;
       }
@@ -57,7 +58,7 @@ export const getRunAmount = createAsyncThunk<any, any>(
   "/runAmount",
   async (id, thunkApi) => {
     try {
-      const resp = await service.get(`${ApiConstants.BET.RUN_AMOUNT}/${id}`);
+      const resp = await service.get(ApiConstants.BET.RUN_AMOUNT + "/" + id);
       if (resp) {
         return {
           betId: id,
@@ -93,9 +94,13 @@ export const getPlacedBetsForAccountStatement = createAsyncThunk<any, any>(
             : requestData.status
             ? `&status=${requestData.status}`
             : ""
-        }&createBy=eq${requestData.userId}&sort=betPlaced.createdAt:DESC${
-          requestData.isCard ? "" : "&isCurrentBets=true"
-        }`
+        }${requestData.isCard ? "" : "&isCurrentBets=true"}`,
+        {
+          params: {
+            createBy: `eq${requestData.userId}`,
+            sort: "betPlaced.createdAt:DESC",
+          },
+        }
       );
       if (resp) {
         return resp?.data?.rows;

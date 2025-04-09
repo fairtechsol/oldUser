@@ -19,10 +19,7 @@ export const login = createAsyncThunk<any, LoginData>(
   "auth/login",
   async (requestData, thunkApi) => {
     try {
-      const { data } = await service.post(
-        `${ApiConstants.AUTH.LOGIN}`,
-        requestData
-      );
+      const { data } = await service.post(ApiConstants.AUTH.LOGIN, requestData);
       const { token } = data;
       sessionStorage.setItem("jwtUser", token);
       return data;
@@ -38,7 +35,7 @@ export const changePassword = createAsyncThunk<any, ChangePassword>(
   async (requestData, thunkApi) => {
     try {
       const resp = await service.post(
-        `${ApiConstants.AUTH.CHANGEPASSWORD}`,
+        ApiConstants.AUTH.CHANGEPASSWORD,
         requestData
       );
       if (resp) {
@@ -56,7 +53,7 @@ export const checkOldPassword = createAsyncThunk<any, any>(
   async (requestData, thunkApi) => {
     try {
       const resp = await service.post(
-        `${ApiConstants.AUTH.OLD_PASSWORD}`,
+        ApiConstants.AUTH.OLD_PASSWORD,
         requestData
       );
       if (resp) {
@@ -73,7 +70,7 @@ export const logout = createAsyncThunk<any>(
   "auth/logout",
   async (_, thunkApi) => {
     try {
-      const response = await service.post(`${ApiConstants.AUTH.LOGOUT}`);
+      const response = await service.post(ApiConstants.AUTH.LOGOUT);
       sessionStorage.clear();
       window.location.replace("/login");
       return response;

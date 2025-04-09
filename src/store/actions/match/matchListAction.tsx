@@ -7,7 +7,7 @@ export const getMatchList = createAsyncThunk<any, any>(
   "/match/list",
   async ({ type, matchType, page, limit }, thunkApi) => {
     try {
-      const resp = await service.get(`${ApiConstants.MATCH.MATCHLIST}`, {
+      const resp = await service.get(ApiConstants.MATCH.MATCHLIST, {
         params: {
           sort: "match.startAt:ASC",
           "match.matchType": matchType,
@@ -29,11 +29,12 @@ export const SearchList = createAsyncThunk<any, any>(
   "/match/searchlist",
   async (requestData, thunkApi) => {
     try {
-      const resp = await service.get(
-        `${ApiConstants.MATCH.MATCHLIST}?searchBy=title&keyword=${
-          requestData?.title ? requestData?.title : ""
-        }`
-      );
+      const resp = await service.get(ApiConstants.MATCH.MATCHLIST, {
+        params: {
+          searchBy: "title",
+          keyword: requestData?.title,
+        },
+      });
       if (resp) {
         return resp?.data?.matches;
       }
@@ -48,17 +49,13 @@ export const matchDetailAction = createAsyncThunk<any, any>(
   "/match/details",
   async (matchId, thunkApi) => {
     try {
-      // console.log("API Request: Start");
       const resp = await service.get(
         `${ApiConstants.MATCH.MATCHDETAILS}${matchId}`
       );
-      // console.log("API Request: Success", resp.data);
       if (resp) {
         return resp?.data;
       }
     } catch (error: any) {
-      // console.error("API Request: Error", error);
-
       const err = error as AxiosError;
       return thunkApi.rejectWithValue(err.response?.status);
     }
@@ -70,7 +67,7 @@ export const setButtonValue = createAsyncThunk<any, any>(
   async (requestData, thunkApi) => {
     try {
       const resp = await service.post(
-        `${ApiConstants.USER.SET_BTN_VALUE}`,
+        ApiConstants.USER.SET_BTN_VALUE,
         requestData
       );
       if (resp) {
@@ -134,11 +131,13 @@ export const settleUnsettleMatch = createAsyncThunk<any, any>(
   "/bet/",
   async ({ status, page, limit }, thunkApi) => {
     try {
-      const resp = await service.get(
-        `${ApiConstants.MATCH.CURRENTBET}/?page=${page || 1}&limit=${
-          limit || 15
-        }&status=${status}`
-      );
+      const resp = await service.get(ApiConstants.MATCH.CURRENTBET, {
+        params: {
+          status,
+          limit: limit || 15,
+          page: page || 1,
+        },
+      });
       if (resp?.data) {
         return resp?.data;
       }
