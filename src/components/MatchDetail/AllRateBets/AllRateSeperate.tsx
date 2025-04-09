@@ -14,12 +14,11 @@ interface AllRateSeperateProps {
   count?: number;
 }
 const AllRateSeperate = ({
-  profit,
+  profit, //
   mark,
   mark2,
-  betHistory,
-  allBetsData,
-  count,
+  betHistory, //
+  allBetsData, //
 }: AllRateSeperateProps) => {
   const [visible, setVisible] = useState(true);
   const theme = useTheme();
@@ -72,7 +71,7 @@ const AllRateSeperate = ({
                 marginLeft: "7px",
               }}
             >
-              All Rate Bets: {count ? count : allBetsData?.length}
+              All Rate Bets: {allBetsData?.length}
             </Typography>
           </Box>
           <Box
