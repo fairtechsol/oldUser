@@ -25,30 +25,32 @@ const SessionComponentMatches = ({
     (state: RootState) => state.user.profitLoss
   );
 
+  const handleSessionBetClick = () => {
+    if (selectedId?.betId === item?.betId) {
+      setShowSessionBets((prev: any) => !prev);
+    } else {
+      setShowSessionBets(true);
+      getBetReport({
+        eventType: item?.eventType,
+        match_id: item?.matchid || item?.matchId || matchId,
+        type: "session_bet",
+        betId: item?.betId,
+        sessionBet: true,
+      });
+      dispatch(
+        getTotalBetProfitLoss({
+          betId: item?.betId,
+          matchId: item?.matchid || item?.matchId || matchId,
+          isSession: true,
+        })
+      );
+    }
+  };
+
   return (
     <Box key={index} sx={{ width: "100%" }}>
       <Box
-        onClick={() => {
-          if (selectedId?.betId === item?.betId) {
-            setShowSessionBets((prev: any) => !prev);
-          } else {
-            setShowSessionBets(true);
-            getBetReport({
-              eventType: item?.eventType,
-              match_id: item?.matchid || item?.matchId || matchId,
-              type: "session_bet",
-              betId: item?.betId,
-              sessionBet: true,
-            });
-            dispatch(
-              getTotalBetProfitLoss({
-                betId: item?.betId,
-                matchId: item?.matchid || item?.matchId || matchId,
-                isSession: true,
-              })
-            );
-          }
-        }}
+        onClick={() => handleSessionBetClick()}
         sx={{
           width: "100%",
           height: "45px",
@@ -129,7 +131,6 @@ const SessionComponentMatches = ({
             />
           </Box>
         </Box>
-
         <Box
           sx={{
             background: item?.totalLoss > 0 ? "#27AC1E" : "#E32A2A",

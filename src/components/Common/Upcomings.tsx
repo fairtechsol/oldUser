@@ -2,7 +2,13 @@ import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import moment from "moment";
 import { IconConstants } from "../../helper/gameConstants";
 
-const Upcomings = ({ match, timeLeft, upcoming }: any) => {
+interface UpcomingsProps {
+  match: any;
+  timeLeft: any;
+  upcoming: boolean;
+}
+
+const Upcomings = ({ match, timeLeft, upcoming }: UpcomingsProps) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   return (
@@ -40,7 +46,7 @@ const Upcomings = ({ match, timeLeft, upcoming }: any) => {
           <span style={{ fontWeight: "500" }}>
             ({moment(match.startAt).format("LLL")})
           </span>
-        </Typography>{" "}
+        </Typography>
       </Box>
       <div
         style={{

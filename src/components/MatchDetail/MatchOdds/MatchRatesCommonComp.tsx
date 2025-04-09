@@ -1,7 +1,15 @@
 import { Box, useMediaQuery, useTheme } from "@mui/material";
 import SeparateBox from "./SeparateBox";
 
-const MatchRatesCommonComp = ({ runnerPosition, match }: any) => {
+interface MatchRatesCommonCompProps {
+  runnerPosition: number;
+  match: any;
+}
+
+const MatchRatesCommonComp = ({
+  runnerPosition,
+  match,
+}: MatchRatesCommonCompProps) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   return (

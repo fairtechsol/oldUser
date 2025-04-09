@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import moment from "moment";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -72,7 +72,7 @@ const ProfitLossComponent = ({
     });
   };
   return eventData?.length > 0 ? (
-    <Box>
+    <>
       {eventData?.map((item: any, index: number) => {
         return (
           <RowHeaderMatches
@@ -105,21 +105,19 @@ const ProfitLossComponent = ({
           pages={Math.ceil(parseInt(pageCount))}
         />
       )} */}
-    </Box>
+    </>
   ) : (
-    <Box>
-      <Typography
-        sx={{
-          color: "#fff",
-          textAlign: "center",
-          fontSize: { lg: "16px", xs: "10px" },
-          fontWeight: "600",
-          margin: "1rem",
-        }}
-      >
-        No Matching Records Found
-      </Typography>
-    </Box>
+    <Typography
+      sx={{
+        color: "#fff",
+        textAlign: "center",
+        fontSize: { lg: "16px", xs: "10px" },
+        fontWeight: "600",
+        margin: "1rem",
+      }}
+    >
+      No Matching Records Found
+    </Typography>
   );
 };
 export default ProfitLossComponent;

@@ -144,7 +144,6 @@ const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
       <Box
         sx={{
           position: "relative",
-          //   width: "100%",
           marginY: { xs: "13px", lg: "3px" },
           marginTop: {
             xs: top ? "13px" : "1.2vh",
@@ -252,83 +251,81 @@ const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
             </Box>
           )}
           <Upcomings upcoming={upcoming} match={match} timeLeft={timeLeft} />
-          {
+          <Box
+            sx={{
+              display: "flex",
+              background: "#319E5B",
+              height: "25px",
+              width: "99.7%",
+              alignSelf: "center",
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                background: "'#319E5B'",
+                height: "25px",
+                width: "67%",
+                alignItems: "center",
+              }}
+            >
+              <Typography
+                sx={{
+                  color: "white",
+                  fontSize: { lg: "11px", xs: "9px" },
+                  marginLeft: "7px",
+                }}
+              >
+                MIN: {formatToINR(match.betFairSessionMinBet)} MAX:{""}
+                {formatToINR(match.betFairSessionMaxBet)}
+              </Typography>
+            </Box>
             <Box
               sx={{
                 display: "flex",
                 background: "#319E5B",
                 height: "25px",
-                width: "99.7%",
-                alignSelf: "center",
+                width: { lg: "33%", xs: "33%" },
+                justifyContent: { lg: "flex-end", xs: "flex-end" },
               }}
             >
               <Box
                 sx={{
+                  background: "#00C0F9",
+                  width: { lg: "43.6%", xs: "50%" },
+                  height: "100%",
                   display: "flex",
-                  background: "'#319E5B'",
-                  height: "25px",
-                  width: "67%",
+                  justifyContent: "center",
                   alignItems: "center",
                 }}
               >
                 <Typography
-                  sx={{
-                    color: "white",
-                    fontSize: { lg: "11px", xs: "9px" },
-                    marginLeft: "7px",
-                  }}
+                  sx={{ fontSize: "12px", color: "black", fontWeight: "600" }}
                 >
-                  MIN: {formatToINR(match.betFairSessionMinBet)} MAX:{""}
-                  {formatToINR(match.betFairSessionMaxBet)}
+                  Back
                 </Typography>
               </Box>
               <Box
+                sx={{ width: ".25%", display: "flex", background: "pink" }}
+              />
+              <Box
                 sx={{
+                  background: "#FF9292",
+                  width: { lg: "43.5%", xs: "50%" },
+                  height: "100%",
                   display: "flex",
-                  background: "#319E5B",
-                  height: "25px",
-                  width: { lg: "33%", xs: "33%" },
-                  justifyContent: { lg: "flex-end", xs: "flex-end" },
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
               >
-                <Box
-                  sx={{
-                    background: "#00C0F9",
-                    width: { lg: "43.6%", xs: "50%" },
-                    height: "100%",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
+                <Typography
+                  sx={{ fontSize: "12px", color: "black", fontWeight: "600" }}
                 >
-                  <Typography
-                    sx={{ fontSize: "12px", color: "black", fontWeight: "600" }}
-                  >
-                    Back
-                  </Typography>
-                </Box>
-                <Box
-                  sx={{ width: ".25%", display: "flex", background: "pink" }}
-                />
-                <Box
-                  sx={{
-                    background: "#FF9292",
-                    width: { lg: "43.5%", xs: "50%" },
-                    height: "100%",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Typography
-                    sx={{ fontSize: "12px", color: "black", fontWeight: "600" }}
-                  >
-                    Lay
-                  </Typography>
-                </Box>
+                  Lay
+                </Typography>
               </Box>
             </Box>
-          }
+          </Box>
           <Box
             sx={{
               display: "flex",
@@ -358,11 +355,7 @@ const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
                 {match?.teamA}
               </Typography>
             </Box>
-            <MatchRatesCommonComp
-              data={data}
-              match={match}
-              runnerPosition={0}
-            />
+            <MatchRatesCommonComp match={match} runnerPosition={0} />
           </Box>
           {match.teamB && (
             <>
@@ -396,11 +389,7 @@ const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
                     {match.teamB}
                   </Typography>
                 </Box>
-                <MatchRatesCommonComp
-                  match={match}
-                  data={data}
-                  runnerPosition={1}
-                />
+                <MatchRatesCommonComp match={match} runnerPosition={1} />
               </Box>
             </>
           )}
@@ -436,11 +425,7 @@ const Odds = ({ onClick, top, blur, match, data, setSelectedMatchId }: any) => {
                     {match.teamC}
                   </Typography>
                 </Box>
-                <MatchRatesCommonComp
-                  match={match}
-                  data={data}
-                  runnerPosition={2}
-                />
+                <MatchRatesCommonComp match={match} runnerPosition={2} />
               </Box>
             </>
           )}

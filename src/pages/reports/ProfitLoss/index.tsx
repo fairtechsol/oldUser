@@ -59,40 +59,38 @@ const ProfitLoss = () => {
 
   return (
     <Box sx={{ width: "100%", paddingX: "1vw" }}>
-      <>
-        <YellowHeaderProfitLoss
-          title="PROFIT/LOSS"
-          type="user"
-          onClick={handleClick}
-          setEndDate={setEndDate}
-          endDate={endDate}
-          startDate={startDate}
-          setStartDate={setStartDate}
-          setSearch={setSearch}
-        />
-        <Typography
-          sx={{
-            fontSize: { xs: "12px", lg: "15px" },
-            marginLeft: { lg: "2px", xs: "6px" },
-            marginTop: "10px",
-            marginBottom: "5px",
-            color: "white",
-            fontWeight: "bold",
-          }}
-        >
-          PROFIT/LOSS REPORT
-        </Typography>
-        <ProfitLossComponent
-          show={show}
-          setShow={setShow}
-          eventData={userTotalProfitLoss && userTotalProfitLoss}
-          pageCount={pageCount}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          startDate={startDate}
-          endDate={endDate}
-        />
-      </>
+      <YellowHeaderProfitLoss
+        title="PROFIT/LOSS"
+        type="user"
+        onClick={handleClick}
+        setEndDate={setEndDate}
+        endDate={endDate}
+        startDate={startDate}
+        setStartDate={setStartDate}
+        setSearch={setSearch}
+      />
+      <Typography
+        sx={{
+          fontSize: { xs: "12px", lg: "15px" },
+          marginLeft: { lg: "2px", xs: "6px" },
+          marginTop: "10px",
+          marginBottom: "5px",
+          color: "white",
+          fontWeight: "bold",
+        }}
+      >
+        PROFIT/LOSS REPORT
+      </Typography>
+      <ProfitLossComponent
+        show={show}
+        setShow={setShow}
+        eventData={userTotalProfitLoss && userTotalProfitLoss}
+        pageCount={pageCount}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        startDate={startDate}
+        endDate={endDate}
+      />
     </Box>
   );
 };

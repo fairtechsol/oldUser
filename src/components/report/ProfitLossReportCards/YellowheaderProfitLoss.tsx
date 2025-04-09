@@ -59,7 +59,7 @@ const YellowHeaderProfitLoss = ({
           <Box sx={{ display: "flex", width: { xs: "100%", lg: "60%" } }}>
             <Box sx={{ display: "flex", width: { lg: "70%", xs: "60%" } }}>
               <Calendar
-                title={"From"}
+                title="From"
                 startDate={startDate}
                 setStartDate={setStartDate}
                 sx={{ width: "50%" }}
@@ -67,7 +67,7 @@ const YellowHeaderProfitLoss = ({
               <Box sx={{ width: "10px" }} />
 
               <Calendar
-                title={"To"}
+                title="To"
                 startDate={endDate}
                 setStartDate={setEndDate}
                 sx={{ width: "50%" }}
