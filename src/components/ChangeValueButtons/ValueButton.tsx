@@ -29,8 +29,8 @@ const ValueButton = ({ value, onChange }: any) => {
               event.code !== "ArrowUp" &&
               event.code !== "ArrowDown" &&
               event.code !== "Enter" &&
-              event.code !== "Tab" && // Allow Tab key
-              event.code !== "ArrowRight" && // Allow Right Arrow key
+              event.code !== "Tab" &&
+              event.code !== "ArrowRight" &&
               event.code !== "ArrowLeft")
           ) {
             event.preventDefault();

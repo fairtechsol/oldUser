@@ -346,3 +346,46 @@ export const homeCasinoListIcons: any = {
   "color prediction":
     "https://tezcdn.io/casino/casino-highlight/wingogames-730-280.gif",
 };
+
+export const initialValues = [
+  {
+    label: "",
+    value: "",
+  },
+  {
+    label: "",
+    value: "",
+  },
+  {
+    label: "",
+    value: "",
+  },
+  {
+    label: "",
+    value: "",
+  },
+  {
+    label: "",
+    value: "",
+  },
+  {
+    label: "",
+    value: "",
+  },
+  {
+    label: "",
+    value: "",
+  },
+  {
+    label: "",
+    value: "",
+  },
+  {
+    label: "",
+    value: "",
+  },
+  {
+    label: "",
+    value: "",
+  },
+];

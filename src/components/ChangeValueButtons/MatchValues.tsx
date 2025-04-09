@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setButtonValue } from "../../store/actions/user/userAction";
 import { AppDispatch, RootState } from "../../store/store";
+import { initialValues } from "../../utils/Constants";
 import LabelButton from "./LabelButton";
 import ValueButton from "./ValueButton";
 
@@ -14,48 +15,7 @@ interface ButtonProps {
 
 const MatchValues = () => {
   const [loader, setLoader] = useState(false);
-  const initialValues = [
-    {
-      label: "",
-      value: "",
-    },
-    {
-      label: "",
-      value: "",
-    },
-    {
-      label: "",
-      value: "",
-    },
-    {
-      label: "",
-      value: "",
-    },
-    {
-      label: "",
-      value: "",
-    },
-    {
-      label: "",
-      value: "",
-    },
-    {
-      label: "",
-      value: "",
-    },
-    {
-      label: "",
-      value: "",
-    },
-    {
-      label: "",
-      value: "",
-    },
-    {
-      label: "",
-      value: "",
-    },
-  ];
+
   interface ButtonValue {
     id: string;
     type: string;
