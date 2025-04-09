@@ -1,3 +1,5 @@
+import { Cricket, Football, Tennis } from "../../assets";
+
 export const ApiConstants = {
   LiveCasinoGame: "/mac88/casino/list",
   LiveCasinoGameLogin: "/mac88/casino/login",
@@ -171,6 +173,21 @@ export const sessionBettingType = {
   oddEven: "oddEven",
   cricketCasino: "cricketCasino",
   tournament: "tournament",
+};
+
+export const gameConstants = {
+  cricket: "cricket",
+  football: "football",
+  tennis: "tennis",
+  horseRacing: "horseRacing",
+  greyHound: "greyHound",
+  politics: "politics",
+};
+
+export const gameIconConstants = {
+  [gameConstants.cricket]: Cricket,
+  [gameConstants.football]: Football,
+  [gameConstants.tennis]: Tennis,
 };
 
 export const profitLossDataForMatchConstants = {
