@@ -41,3 +41,9 @@ export interface PaginationInterface {
   className?: any;
   callPage?: any;
 }
+export interface TimeLeft {
+  days: string;
+  hours: string;
+  minutes: string;
+  seconds?: string;
+}

@@ -9,13 +9,9 @@ import { updateLogoutModal } from "../../../store/actions/user/userAction";
 import { AppDispatch } from "../../../store/store";
 import Upcomings from "../../Common/Upcomings";
 import MatchRatesCommonComp from "./MatchRatesCommonComp";
+import { TimeLeft } from "../../../interface/common";
 
-interface TimeLeft {
-  days: string;
-  hours: string;
-  minutes: string;
-  seconds?: string;
-}
+
 
 const Odds = ({ onClick, top, blur, match, setSelectedMatchId }: any) => {
   const dispatch: AppDispatch = useDispatch();
@@ -140,7 +136,6 @@ const Odds = ({ onClick, top, blur, match, setSelectedMatchId }: any) => {
           }
         `}
       </style>
-
       <Box
         sx={{
           position: "relative",

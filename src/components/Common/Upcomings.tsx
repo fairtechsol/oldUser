@@ -1,10 +1,11 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import moment from "moment";
 import { IconConstants } from "../../helper/gameConstants";
+import { TimeLeft } from "../../interface/common";
 
 interface UpcomingsProps {
   match: any;
-  timeLeft: any;
+  timeLeft: TimeLeft;
   upcoming: boolean;
 }
 
@@ -73,13 +74,11 @@ const Upcomings = ({ match, timeLeft, upcoming }: UpcomingsProps) => {
       >
         <div className="slanted" />
       </Box>
-
       <Box
         sx={{
           flex: 1,
           background: "#262626",
           display: "flex",
-
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
@@ -97,9 +96,9 @@ const Upcomings = ({ match, timeLeft, upcoming }: UpcomingsProps) => {
               display: "flex",
               alignSelf: "flex-end",
               visibility:
-                Number(timeLeft) === 0 &&
-                Number(timeLeft) === 0 &&
-                Number(timeLeft) === 0
+                Number(timeLeft?.days) === 0 &&
+                Number(timeLeft?.hours) === 0 &&
+                Number(timeLeft?.minutes) === 0
                   ? "hidden"
                   : "visible",
             }}

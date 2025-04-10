@@ -45,7 +45,6 @@ const MatchRatesCommonComp = ({
         value2={0}
         color={matchesMobile ? "#A7DCFF" : "#A7DCFF"}
       />
-
       <Box sx={{ width: ".25%", display: "flex", background: "pink" }} />
       <SeparateBox
         value={
