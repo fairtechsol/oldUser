@@ -1,5 +1,17 @@
 import { Box, Typography } from "@mui/material";
 
+interface SingleBoxProps {
+  color: string | undefined | any;
+  isCommissionActive?: boolean;
+  data: any;
+  header: boolean;
+  up?: boolean;
+  first?: boolean;
+  time?: string;
+  isPercent?: boolean;
+  rate?: string | number;
+}
+
 const SingleBox = ({
   data,
   header,
@@ -10,7 +22,7 @@ const SingleBox = ({
   isPercent,
   rate,
   isCommissionActive,
-}: any) => {
+}: SingleBoxProps) => {
   return !header ? (
     first ? (
       <Box

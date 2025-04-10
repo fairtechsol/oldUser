@@ -4,21 +4,22 @@ import { ARROWUP, DELETE } from "../../../assets";
 import { formatToINR } from "../../../helper";
 import StyledImage from "../../Common/StyledImages";
 import RowComponent from "./RowComponent";
+import { Bet } from "../../../interface/betPlace";
 
 interface AllRateSeperateProps {
   profit?: boolean;
   mark?: boolean;
   mark2?: boolean;
   betHistory?: boolean;
-  allBetsData: any;
+  allBetsData: Bet[];
   count?: number;
 }
 const AllRateSeperate = ({
-  profit, //
+  profit,
   mark,
   mark2,
-  betHistory, //
-  allBetsData, //
+  betHistory,
+  allBetsData,
 }: AllRateSeperateProps) => {
   const [visible, setVisible] = useState(true);
   const theme = useTheme();

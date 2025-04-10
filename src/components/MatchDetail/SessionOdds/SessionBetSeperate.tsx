@@ -150,7 +150,6 @@ const SessionBetSeperate = ({
               </Box>
             )}
           </Box>
-
           <Box
             sx={{
               maxHeight: { xs: "200px", lg: "420px" },

@@ -71,9 +71,9 @@ const Login = () => {
         }}
       >
         <Input
-          id={"userName"}
-          placeholder={"Enter Username"}
-          title={"Username"}
+          id="userName"
+          placeholder="Enter Username"
+          title="Username"
           type="text"
           name="userName"
           img={mail}
@@ -85,10 +85,10 @@ const Login = () => {
           <p style={{ color: "#fa1e1e" }}>{errors.userName as string}</p>
         )}
         <Input
-          id={"password"}
-          title={"Password"}
+          id="password"
+          title="Password"
           type="password"
-          placeholder={"Enter Password"}
+          placeholder="Enter Password"
           containerStyle={{ marginTop: "10px" }}
           img={eye}
           img1={eyeLock}
