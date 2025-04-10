@@ -1,6 +1,17 @@
 import { Box, Typography } from "@mui/material";
 import CommissionDot from "../../Common/CommissionDot";
 
+interface SingleBoxProps {
+  data: any;
+  header: boolean;
+  color: string | any;
+  up?: boolean;
+  first?: boolean;
+  time?: string;
+  boxWidth?: string;
+  isCommissionActive?: boolean;
+}
+
 const SingleBox = ({
   data,
   header,
@@ -10,7 +21,7 @@ const SingleBox = ({
   time,
   boxWidth,
   isCommissionActive,
-}: any) => {
+}: SingleBoxProps) => {
   return !header ? (
     first ? (
       <Box
@@ -25,62 +36,58 @@ const SingleBox = ({
       >
         {data === "Bookmaker" ? (
           <>
-            <Box>
-              <Typography
-                sx={{
-                  fontWeight: "700",
-                  fontSize: { xs: "9px", lg: "11px" },
-                  color: "black",
-                  textAlign: "center",
-                }}
-              >
-                {time}
-              </Typography>
-              <Typography
-                sx={{
-                  fontWeight: "700",
-                  fontSize: { xs: "8px", md: "10px", lg: ".7vw" },
-                  color: "black",
-                  textAlign: "center",
-                  display: "flex",
-                }}
-              >
-                {isCommissionActive && <CommissionDot />}
-                {data}
-              </Typography>
-            </Box>
+            <Typography
+              sx={{
+                fontWeight: "700",
+                fontSize: { xs: "9px", lg: "11px" },
+                color: "black",
+                textAlign: "center",
+              }}
+            >
+              {time}
+            </Typography>
+            <Typography
+              sx={{
+                fontWeight: "700",
+                fontSize: { xs: "8px", md: "10px", lg: ".7vw" },
+                color: "black",
+                textAlign: "center",
+                display: "flex",
+              }}
+            >
+              {isCommissionActive && <CommissionDot />}
+              {data}
+            </Typography>
           </>
         ) : (
           <>
-            <Box>
-              <Typography
-                sx={{
-                  fontWeight: "700",
-                  fontSize: { xs: "9px", lg: "11px" },
-                  color: "black",
-                  textAlign: "center",
-                }}
-              >
-                {time}
-              </Typography>
-              <Typography
-                sx={{
-                  fontWeight: "700",
-                  fontSize: { xs: "8px", md: "10px", lg: ".7vw" },
-                  color: "black",
-                  textAlign: "center",
-                  maxHeight: "2em",
-                  overflowWrap: "anywhere",
-                  lineHeight: 1,
-                  display: "flex",
-                  alignItems: "center",
-                }}
-              >
-                {" "}
-                {isCommissionActive && <CommissionDot />}
-                {data}
-              </Typography>
-            </Box>
+            <Typography
+              sx={{
+                fontWeight: "700",
+                fontSize: { xs: "9px", lg: "11px" },
+                color: "black",
+                textAlign: "center",
+              }}
+            >
+              {time}
+            </Typography>
+            <Typography
+              sx={{
+                fontWeight: "700",
+                fontSize: { xs: "8px", md: "10px", lg: ".7vw" },
+                color: "black",
+                textAlign: "center",
+                maxHeight: "2em",
+                overflowWrap: "anywhere",
+                lineHeight: 1,
+                display: "flex",
+                alignItems: "center",
+              }}
+            >
+              {" "}
+              {isCommissionActive && <CommissionDot />}
+              {data}
+            </Typography>
           </>
         )}
       </Box>

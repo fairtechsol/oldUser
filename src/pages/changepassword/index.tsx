@@ -64,11 +64,17 @@ const ChangePassword = (props: any) => {
   }, [oldPasswordMatched]);
 
   return (
-    <>
+    <Box
+      sx={{
+        width: "100%",
+        paddingLeft: "1vw",
+        paddingRight: "1vw",
+      }}
+    >
       <form onSubmit={handleSubmit}>
         <Box
           sx={{
-            width: { xs: "96vw", lg: "19vw", md: "19vw" },
+            width: { xs: "95%", lg: "19vw", md: "19vw" },
             minWidth: {
               lg: width ? width : "350px",
               md: width ? width : "350px",
@@ -205,7 +211,7 @@ const ChangePassword = (props: any) => {
           </Box>
         </Box>
       </form>
-    </>
+    </Box>
   );
 };
 
