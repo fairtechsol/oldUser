@@ -1,11 +1,11 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import moment from "moment";
 import { IconConstants } from "../../helper/gameConstants";
-import { TimeLeft } from "../../interface/common";
+import { TimeLeftProps } from "../../interface/common";
 
 interface UpcomingsProps {
   match: any;
-  timeLeft: TimeLeft;
+  timeLeft: TimeLeftProps;
   upcoming: boolean;
 }
 

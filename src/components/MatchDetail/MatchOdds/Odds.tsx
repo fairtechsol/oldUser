@@ -5,21 +5,19 @@ import Divider from "../../../helper/Divider";
 
 import { useDispatch } from "react-redux";
 import { formatToINR } from "../../../helper";
+import { TimeLeftProps } from "../../../interface/common";
 import { updateLogoutModal } from "../../../store/actions/user/userAction";
 import { AppDispatch } from "../../../store/store";
 import Upcomings from "../../Common/Upcomings";
 import MatchRatesCommonComp from "./MatchRatesCommonComp";
-import { TimeLeft } from "../../../interface/common";
-
-
 
 const Odds = ({ onClick, top, blur, match, setSelectedMatchId }: any) => {
   const dispatch: AppDispatch = useDispatch();
-  function calculateTimeLeft(): TimeLeft {
+  function calculateTimeLeft(): TimeLeftProps {
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     const targetDate = moment(match?.startAt).tz(timezone);
     const difference = targetDate.diff(moment().tz(timezone), "milliseconds");
-    let timeLeft: TimeLeft = {
+    let timeLeft: TimeLeftProps = {
       days: "",
       hours: "",
       minutes: "",

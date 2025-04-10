@@ -2,16 +2,16 @@ import { Box, Typography, useTheme } from "@mui/material";
 import { useState } from "react";
 import { ARROWUP, DELETE } from "../../../assets";
 import { formatToINR } from "../../../helper";
+import { Bet } from "../../../interface/betPlace";
 import StyledImage from "../../Common/StyledImages";
 import RowComponent from "./RowComponent";
-import { Bet } from "../../../interface/betPlace";
 
 interface AllRateSeperateProps {
   profit?: boolean;
   mark?: boolean;
   mark2?: boolean;
   betHistory?: boolean;
-  allBetsData: Bet[];
+  allBetsData: Bet[] | any;
   count?: number;
 }
 const AllRateSeperate = ({

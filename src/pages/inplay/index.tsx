@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { FgLogo } from "../../assets";
 import MatchesComponent from "../../components/MatchDetail/MatchOdds/index";
+import { CasinoGameProps } from "../../interface/common";
 import { liveCasinoLogin } from "../../store/actions/card/cardDetail";
 import {
   getMatchList,
@@ -100,7 +101,7 @@ const Inplay = () => {
           <div className="mt-2 mx-1 casino-list">
             <div className="w-100 d-flex flex-row casino-list-item">
               {["mines", "aviator", "fun games", "color prediction"].map(
-                (item: any, index: number) => (
+                (item: string, index: number) => (
                   <div
                     key={index}
                     style={{
@@ -128,31 +129,33 @@ const Inplay = () => {
               )}
             </div>
             <Grid container spacing={1} className="w-100">
-              {liveCasinoGameList.map((item: any, index: number) => (
-                <Grid xs={3} lg={2} item key={index}>
-                  <Link
-                    to={item.url}
-                    key={item?.name || item?.game_id}
-                    className="casino-list-item"
-                    onClick={() => {
-                      if (!item?.url) {
-                        handleModal(item);
-                      }
-                    }}
-                  >
-                    <div className="w-100 d-inline-block casinoicons">
-                      <img
-                        src={item.url_thumb || item.imgSrc}
-                        alt={item.game_name || item.name || "casino icon"}
-                        style={{ height: "120px", width: "100%" }}
-                      />
-                      <div className="casino-name">
-                        {item.game_name || item.name}
+              {liveCasinoGameList.map(
+                (item: CasinoGameProps, index: number) => (
+                  <Grid xs={3} lg={2} item key={index}>
+                    <Link
+                      to={item?.url || "#"}
+                      key={item?.name || item?.game_id}
+                      className="casino-list-item"
+                      onClick={() => {
+                        if (!item?.url) {
+                          handleModal(item);
+                        }
+                      }}
+                    >
+                      <div className="w-100 d-inline-block casinoicons">
+                        <img
+                          src={item.url_thumb || item.imgSrc}
+                          alt={item.game_name || item.name || "casino icon"}
+                          style={{ height: "120px", width: "100%" }}
+                        />
+                        <div className="casino-name">
+                          {item.game_name || item.name}
+                        </div>
                       </div>
-                    </div>
-                  </Link>
-                </Grid>
-              ))}
+                    </Link>
+                  </Grid>
+                )
+              )}
             </Grid>
           </div>
         </Box>
@@ -192,32 +195,34 @@ const Inplay = () => {
                   )
                 )}
               </div>
-              {liveCasinoGameList.map((item: any, index: number) => (
-                <div
-                  className="d-inline-block casinoiconsm"
-                  style={{
-                    padding: "2px",
-                  }}
-                >
-                  <Link to={item.url} key={index} style={{}}>
-                    <img
-                      src={item.url_thumb || item.imgSrc}
-                      alt={item.game_name || item.name || "casino icon"}
-                      style={{ height: "100px", width: "100%" }}
-                      onClick={() => {
-                        if (!item?.url) {
-                          handleModal(item);
-                        }
-                      }}
-                    />
-                    <div className="mcasino-name">
-                      {(item.game_name || item.name).length > 15
-                        ? (item.game_name || item.name).slice(0, 15) + "..."
-                        : item.game_name || item.name}
-                    </div>
-                  </Link>
-                </div>
-              ))}
+              {liveCasinoGameList.map(
+                (item: CasinoGameProps, index: number) => (
+                  <div
+                    className="d-inline-block casinoiconsm"
+                    style={{
+                      padding: "2px",
+                    }}
+                  >
+                    <Link to={item.url || "#"} key={index} style={{}}>
+                      <img
+                        src={item.url_thumb || item.imgSrc}
+                        alt={item.game_name || item.name || "casino icon"}
+                        style={{ height: "100px", width: "100%" }}
+                        onClick={() => {
+                          if (!item?.url) {
+                            handleModal(item);
+                          }
+                        }}
+                      />
+                      <div className="mcasino-name">
+                        {(item?.game_name).length > 15
+                          ? (item?.game_name).slice(0, 15) + "..."
+                          : item?.game_name}
+                      </div>
+                    </Link>
+                  </div>
+                )
+              )}
             </div>
           </div>
         </>
