@@ -37,7 +37,7 @@ const LiveMatchHome = ({ eventId }: LiveMatchHomeProps) => {
               <iframe
                 src={`${liveStreamUrl}${eventId}/cricket`}
                 title="Live Stream"
-                referrerPolicy={"strict-origin-when-cross-origin"}
+                referrerPolicy="strict-origin-when-cross-origin"
               />
             </Ratio>
           </Col>

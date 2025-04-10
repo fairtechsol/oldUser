@@ -1,7 +1,13 @@
 import { Box, Modal, Typography } from "@mui/material";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
-const CountDownTimer = ({ visible, setVisible, time }: any) => {
+interface CountDownTimerProps {
+  visible: boolean;
+  setVisible: (val: boolean) => void;
+  time: number;
+}
+
+const CountDownTimer = ({ visible, setVisible, time }: CountDownTimerProps) => {
   return (
     <Modal
       disableAutoFocus={true}

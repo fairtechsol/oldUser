@@ -1,7 +1,12 @@
 import { Box, Typography } from "@mui/material";
 import { handleDecimalAmount } from "../../../../helper";
 
-const BookRatioBox = ({ valueA, valueB, color }: any) => {
+interface BookRatioBoxProps {
+  valueA: number | any;
+  valueB: number | any;
+}
+
+const BookRatioBox = ({ valueA, valueB }: BookRatioBoxProps) => {
   return (
     <Box
       sx={{
@@ -46,7 +51,7 @@ const BookRatioBox = ({ valueA, valueB, color }: any) => {
             color: valueA < 0 ? `#FF4D4D` : `#319E5B`,
           }}
         >
-          {handleDecimalAmount(parseFloat(valueA || 0.0), color)}
+          {handleDecimalAmount(parseFloat(valueA || 0.0), "")}
         </Typography>
       </Box>
       <Box
@@ -80,7 +85,7 @@ const BookRatioBox = ({ valueA, valueB, color }: any) => {
             color: valueB < 0 ? `#FF4D4D` : `#319E5B`,
           }}
         >
-          {handleDecimalAmount(parseFloat(valueB || 0.0), color)}
+          {handleDecimalAmount(parseFloat(valueB || 0.0), "")}
         </Typography>
       </Box>
     </Box>

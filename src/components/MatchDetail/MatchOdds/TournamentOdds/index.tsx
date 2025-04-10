@@ -16,6 +16,20 @@ import OddsPlaceBet from "../Bets/OddsPlacebet";
 import BookRatioBox from "./BookRatioBox";
 import BoxComponent from "./BoxComponent";
 
+interface TournamentOddsProps {
+  teamARates: string | number | any;
+  teamBRates: string | number | any;
+  title: string;
+  min: string | number;
+  max: string | number;
+  showBox: boolean;
+  isRound: boolean;
+  betLock: boolean;
+  upcoming: boolean;
+  marketDetails: any;
+  matchDetails: any;
+}
+
 const TournamentOdds = ({
   teamARates,
   teamBRates,
@@ -28,7 +42,7 @@ const TournamentOdds = ({
   upcoming,
   marketDetails,
   matchDetails,
-}: any) => {
+}: TournamentOddsProps) => {
   const dispatch: AppDispatch = useDispatch();
   const [visible, setVisible] = useState(true);
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
@@ -253,13 +267,12 @@ const TournamentOdds = ({
               background: "#262626",
             }}
           >
-            <div className="slanted"></div>
+            <div className="slanted" />
           </Box>
           <Box
             sx={{
               flex: 1,
               background: "#262626",
-              // '#262626' ,
               display: "flex",
               alignItems: "center",
               justifyContent: {

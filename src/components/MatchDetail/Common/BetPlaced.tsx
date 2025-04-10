@@ -1,7 +1,14 @@
 import { useEffect, useState } from "react";
 import CountDownTimer from "./CountDownTimer";
 
-const BetPlaced = ({ visible, setVisible, not, time }: any) => {
+interface BetPlacedProps {
+  visible: boolean;
+  setVisible: (val: boolean) => void;
+  not?: boolean;
+  time?: number;
+}
+
+const BetPlaced = ({ visible, setVisible, not, time }: BetPlacedProps) => {
   const [flag, setFlag] = useState(false);
   useEffect(() => {
     if (visible && !not && time) {

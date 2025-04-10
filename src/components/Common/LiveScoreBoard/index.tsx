@@ -159,7 +159,7 @@ const LiveScoreBoard = ({ data, width, setIsTv }: LiveScoreBoardProps) => {
                 </div>
               </div>
             </div>
-            <div className="col-12 ">
+            <div className="col-12">
               <div className="row">
                 <div className="col-12">
                   <p className="text-xl-end ball-by-ball mt-2 mb-0">
