@@ -4,7 +4,13 @@ import { useLocation } from "react-router-dom";
 import { formatToINR } from "../../../helper";
 import SingleBox from "./SingleBox";
 
-const RowComponent = ({ header, data, match }: any) => {
+interface RowComponentProps {
+  header: boolean;
+  data: any;
+  match: any;
+}
+
+const RowComponent = ({ header, data, match }: RowComponentProps) => {
   const { state } = useLocation();
   const getTime = (date: any) => {
     const timeString = moment

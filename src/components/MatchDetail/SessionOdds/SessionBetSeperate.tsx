@@ -3,12 +3,13 @@ import { useState } from "react";
 import { ARROWUP, ArrowDown, DELETE } from "../../../assets";
 
 import { formatToINR } from "../../../helper";
+import { Bet } from "../../../interface/betPlace";
 import StyledImage from "../../Common/StyledImages";
 import RowComponent from "./RowComponent";
 
 interface SessionBetSeperateProps {
   profit?: boolean;
-  placedBets: any;
+  placedBets: Bet[] | any;
   isArrow?: boolean;
   match?: string;
 }

@@ -9,6 +9,7 @@ import BetPlaced from "../../components/MatchDetail/Common/BetPlaced";
 import LiveMatchHome from "../../components/MatchDetail/LiveMatchScore/LiveMatchHome";
 import MatchOdds from "../../components/MatchDetail/MatchOdds/MatchOdds";
 import SessionBetSeperate from "../../components/MatchDetail/SessionOdds/SessionBetSeperate";
+import { Bet } from "../../interface/betPlace";
 import {
   expertSocketService,
   matchService,
@@ -310,7 +311,7 @@ const MatchDetail = () => {
   };
 
   const uniqueBets = Array.from(
-    new Map(placedBets.map((bet: any) => [bet.id, bet])).values()
+    new Map(placedBets.map((bet: Bet) => [bet.id, bet])).values()
   );
 
   const sessionBets = uniqueBets.filter(
