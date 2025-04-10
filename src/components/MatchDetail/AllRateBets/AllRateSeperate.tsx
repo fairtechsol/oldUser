@@ -138,7 +138,6 @@ const AllRateSeperate = ({
                   "Stake",
                 ]}
               />
-
               {profit && (
                 <Box
                   sx={{
@@ -162,7 +161,6 @@ const AllRateSeperate = ({
                 </Box>
               )}
             </Box>
-
             <Box
               sx={{
                 maxHeight: { xs: "200px", lg: "420px" },
@@ -387,26 +385,23 @@ const AllRateSeperate = ({
       </Box>
       <style>
         {`
-                /* width */
-                .myScroll::-webkit-scrollbar {
-                  width: 0px;
-                }
-
-                /* Track */
-                .myScroll::-webkit-scrollbar-track {
-                  background: #f1f1f1;
-                }
-
-                /* Handle */
-                .myScroll::-webkit-scrollbar-thumb {
-                  background: #888;
-                }
-
-                /* Handle on hover */
-                .myScroll::-webkit-scrollbar-thumb:hover {
-                  background: #555;
-                }
-              `}
+          /* width */
+          .myScroll::-webkit-scrollbar {
+            width: 0px;
+          }
+          /* Track */
+          .myScroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+          }
+          /* Handle */
+          .myScroll::-webkit-scrollbar-thumb {
+            background: #888;
+          }
+          /* Handle on hover */
+          .myScroll::-webkit-scrollbar-thumb:hover {
+            background: #555;
+          }
+        `}
       </style>
     </>
   );
