@@ -1,7 +1,7 @@
 import { Box, useMediaQuery, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import LiveScoreBoard from "../../components/Common/LiveScoreBoard";
 import Loader from "../../components/Loader";
 import AllRateSeperate from "../../components/MatchDetail/AllRateBets/AllRateSeperate";
@@ -51,6 +51,7 @@ const MatchDetail = () => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const dispatch: AppDispatch = useDispatch();
+  const { type } = useParams();
   const { state } = useLocation();
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
@@ -239,7 +240,7 @@ const MatchDetail = () => {
 
   useEffect(() => {
     if (matchDetails && matchDetails?.stopAt) {
-      navigate("/match" + `/${matchDetails?.matchType}`);
+      navigate(`/match/${type}`);
     }
   }, [matchDetails]);
 

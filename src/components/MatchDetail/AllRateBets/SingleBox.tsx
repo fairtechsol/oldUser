@@ -105,7 +105,7 @@ const SingleBox = ({
         <Typography
           sx={{
             fontWeight: "600",
-            fontSize: { lg: "9px", md: "9px", xs: "9px" },
+            fontSize: { lg: "9px", md: "9px", xs: "7px" },
             color: "black",
             textAlign: "center",
           }}
@@ -115,7 +115,7 @@ const SingleBox = ({
         <Typography
           sx={{
             fontWeight: "600",
-            fontSize: { lg: "9px", md: "10px", xs: "10px" },
+            fontSize: { lg: "9px", md: "10px", xs: "8px" },
             color: "black",
             textAlign: "center",
             textTransform: "uppercase",
