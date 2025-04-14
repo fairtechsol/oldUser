@@ -1,41 +1,42 @@
-
-
 .marquee-container {
-    /* overflow: hidden; */
-    display: inline-block;
-    white-space: nowrap;
-    position: relative;
-    color: white;
-    font-size: 10px;
-    font-style: italic;
-    letter-spacing: 1px;
-    width: 100%;
-    animation: marqueeAnimation 50s linear infinite; 
-  }
+  /* overflow: hidden; */
+  display: inline-block;
+  white-space: nowrap;
+  position: relative;
+  color: white;
+  font-size: 10px;
+  font-style: italic;
+  letter-spacing: 1px;
+  width: 100%;
+  animation: marqueeAnimation 50s linear infinite;
+}
 
-  /* overflow: hidden;
+/* overflow: hidden;
   white-space: nowrap;
   width: 100%;
   animation: marqueeAnimation 50s linear infinite; */
 
-  
-  @keyframes marqueeAnimation {
-    from {
-      transform: translateX(100%); /* Start off-screen to the right */
-    }
-    
-    to {
-      transform: translateX(-100%); /* Move off-screen to the left */
-    }
+
+@keyframes marqueeAnimation {
+  from {
+    transform: translateX(100%);
+    /* Start off-screen to the right */
   }
-  /* .marquee-text {
+
+  to {
+    transform: translateX(-100%);
+    /* Move off-screen to the left */
+  }
+}
+
+/* .marquee-text {
     animation: marqueeAnimation 50s linear infinite;
   }
    */
-  /* Media query for screens with max-width 768px */
-  @media screen and (max-width: 768px) {
-    .marquee-container .marquee-text {
-      /* The animation duration will be dynamically calculated */
-      animation: marqueeAnimation 50s linear infinite;
-    }
-  }
+/* Media query for screens with max-width 768px */
+@media screen and (max-width: 768px) {
+  /* .marquee-container .marquee-text { */
+  /* The animation duration will be dynamically calculated */
+  /* animation: marqueeAnimation 50s linear infinite; */
+  /* } */
+}
