@@ -153,7 +153,9 @@ const TournamentOdds = ({
   })();
 
   const handleCashout = () => {
-    const [teamAId, teamBId] = marketDetails?.runners?.map(team => team.parentRunnerId || team.id);
+    const [teamAId, teamBId] = marketDetails?.runners?.map(
+      (team: any) => team.parentRunnerId || team.id
+    );
     const profitA = Math.round(profitLossObj?.[teamAId] ?? 0);
     const profitB = Math.round(profitLossObj?.[teamBId] ?? 0);
     if (profitA === profitB) {
@@ -280,8 +282,9 @@ const TournamentOdds = ({
     );
   };
 
-  const key = `${marketDetails.parentBetId || marketDetails?.id}_profitLoss_${matchDetails?.id
-    }`;
+  const key = `${marketDetails.parentBetId || marketDetails?.id}_profitLoss_${
+    matchDetails?.id
+  }`;
   const profitLossJson = matchDetails?.profitLossDataMatch?.[key];
 
   const profitLossObj = profitLossJson ? JSON.parse(profitLossJson) : {};
@@ -359,37 +362,40 @@ const TournamentOdds = ({
             }}
           >
             <SmallBox valueA={bookRatioA} valueB={bookRatioB} />
-            {!matchesMobile && (<Box
-              sx={{
-                position: { lg: "static", xs: "relative" },
-                // paddingY: "2vh",
-                right: 25
-              }}
-            >
-              {marketDetails?.runners?.length === 2 && (
-                <button
-                  type="submit"
-                  disabled={
-                    Object.keys(profitLossObj).length <= 0 ? true : false
-                  }
-                  // disabled={loading || !stakeValue ? true : false}
-                  style={{
-                    color: "#319E5B",
-                    backgroundColor: "#fff",
-                    // width: "150px",
-                    // cursor: loading || !stakeValue ? "not-allowed" : "pointer",
-                    // width: { lg: "150px", xs: "130px" },
-                    // height: "35px",
-                    borderRadius: "3px",
-                    border: "2px solid white",
-                    opacity: Object.keys(profitLossObj).length <= 0 ? 0.65 : 1
-                  }}
-                  onClick={() => handleCashout()}
-                >
-                  Cashout
-                </button>
-              )}
-            </Box>)}
+            {!matchesMobile && (
+              <Box
+                sx={{
+                  position: { lg: "static", xs: "relative" },
+                  // paddingY: "2vh",
+                  right: 25,
+                }}
+              >
+                {marketDetails?.runners?.length === 2 && (
+                  <button
+                    type="submit"
+                    disabled={
+                      Object.keys(profitLossObj).length <= 0 ? true : false
+                    }
+                    // disabled={loading || !stakeValue ? true : false}
+                    style={{
+                      color: "#319E5B",
+                      backgroundColor: "#fff",
+                      // width: "150px",
+                      // cursor: loading || !stakeValue ? "not-allowed" : "pointer",
+                      // width: { lg: "150px", xs: "130px" },
+                      // height: "35px",
+                      borderRadius: "3px",
+                      border: "2px solid white",
+                      opacity:
+                        Object.keys(profitLossObj).length <= 0 ? 0.65 : 1,
+                    }}
+                    onClick={() => handleCashout()}
+                  >
+                    Cashout
+                  </button>
+                )}
+              </Box>
+            )}
             <Box
               className="arrowUpCollapse"
               sx={{
@@ -463,40 +469,43 @@ const TournamentOdds = ({
                   justifyContent: { lg: "center", xs: "flex-end" },
                 }}
               >
-                {matchesMobile && (<Box
-                  sx={{
-                    // position: { lg: "static", xs: "relative" },
-                    // paddingY: "2vh",
-                    marginRight: "14px"
-                  }}
-                >
-                  {marketDetails?.runners?.length === 2 && (
-                    <button
-                      type="submit"
-                      disabled={
-                        Object.keys(profitLossObj).length <= 0 ? true : false
-                      }
-                      // disabled={loading || !stakeValue ? true : false}
-                      style={{
-                        color: "#319E5B",
-                        backgroundColor: "#fff",
-                        // width: "150px",
-                        // cursor: loading || !stakeValue ? "not-allowed" : "pointer",
-                        // width: { lg: "150px", xs: "130px" },
-                        // height: "35px",
-                        borderRadius: "3px",
-                        border: "0px solid white",
-                        opacity: Object.keys(profitLossObj).length <= 0 ? 0.65 : 1,
-                        height: 23,
-                        marginTop: 1,
-                        padding: "0 6px"
-                      }}
-                      onClick={() => handleCashout()}
-                    >
-                      Cashout
-                    </button>
-                  )}
-                </Box>)}
+                {matchesMobile && (
+                  <Box
+                    sx={{
+                      // position: { lg: "static", xs: "relative" },
+                      // paddingY: "2vh",
+                      marginRight: "14px",
+                    }}
+                  >
+                    {marketDetails?.runners?.length === 2 && (
+                      <button
+                        type="submit"
+                        disabled={
+                          Object.keys(profitLossObj).length <= 0 ? true : false
+                        }
+                        // disabled={loading || !stakeValue ? true : false}
+                        style={{
+                          color: "#319E5B",
+                          backgroundColor: "#fff",
+                          // width: "150px",
+                          // cursor: loading || !stakeValue ? "not-allowed" : "pointer",
+                          // width: { lg: "150px", xs: "130px" },
+                          // height: "35px",
+                          borderRadius: "3px",
+                          border: "0px solid white",
+                          opacity:
+                            Object.keys(profitLossObj).length <= 0 ? 0.65 : 1,
+                          height: 23,
+                          marginTop: 1,
+                          padding: "0 6px",
+                        }}
+                        onClick={() => handleCashout()}
+                      >
+                        Cashout
+                      </button>
+                    )}
+                  </Box>
+                )}
                 <Box
                   sx={{
                     background: "#00C0F9",
@@ -588,36 +597,36 @@ const TournamentOdds = ({
               !marketDetails?.isActive ||
               (!["ACTIVE", "OPEN", ""].includes(marketDetails?.status) &&
                 marketDetails?.gtype == "match")) && (
-                <Box
+              <Box
+                sx={{
+                  position: "absolute",
+                  height: "83%",
+                  // top: "18%",
+                  width: "100%",
+                  display: "flex",
+                  zIndex: "999",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  background: "rgba(0, 0, 0, 0.71)",
+                }}
+              >
+                <Typography
                   sx={{
-                    position: "absolute",
-                    height: "83%",
-                    // top: "18%",
+                    fontSize: { xs: "12px", lg: "22px" },
+                    textTransform: "uppercase",
                     width: "100%",
-                    display: "flex",
-                    zIndex: "999",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    background: "rgba(0, 0, 0, 0.71)",
+                    textAlign: "center",
+                    color: "white",
+                    fontWeight: "400",
                   }}
                 >
-                  <Typography
-                    sx={{
-                      fontSize: { xs: "12px", lg: "22px" },
-                      textTransform: "uppercase",
-                      width: "100%",
-                      textAlign: "center",
-                      color: "white",
-                      fontWeight: "400",
-                    }}
-                  >
-                    {!["ACTIVE", "OPEN", ""].includes(marketDetails?.status) &&
-                      marketDetails?.gtype == "match"
-                      ? marketDetails?.status
-                      : ""}
-                  </Typography>
-                </Box>
-              )}
+                  {!["ACTIVE", "OPEN", ""].includes(marketDetails?.status) &&
+                  marketDetails?.gtype == "match"
+                    ? marketDetails?.status
+                    : ""}
+                </Typography>
+              </Box>
+            )}
             {marketDetails?.runners?.map((item: any) => (
               <Fragment key={item?.selectionId}>
                 <BoxComponent
@@ -631,20 +640,20 @@ const TournamentOdds = ({
                   color={
                     matchDetails?.profitLossDataMatch?.[
                       (marketDetails?.parentBetId || marketDetails?.id) +
-                      "_" +
-                      "profitLoss" +
-                      "_" +
-                      matchDetails?.id
-                    ]
-                      ? JSON.parse(
-                        matchDetails?.profitLossDataMatch?.[
-                        (marketDetails?.parentBetId || marketDetails?.id) +
                         "_" +
                         "profitLoss" +
                         "_" +
                         matchDetails?.id
-                        ]
-                      )?.[item?.parentRunnerId || item?.id] <= 0
+                    ]
+                      ? JSON.parse(
+                          matchDetails?.profitLossDataMatch?.[
+                            (marketDetails?.parentBetId || marketDetails?.id) +
+                              "_" +
+                              "profitLoss" +
+                              "_" +
+                              matchDetails?.id
+                          ]
+                        )?.[item?.parentRunnerId || item?.id] <= 0
                         ? "#FF4D4D"
                         : "#319E5B"
                       : "#319E5B"
@@ -652,20 +661,20 @@ const TournamentOdds = ({
                   rate={
                     matchDetails?.profitLossDataMatch?.[
                       (marketDetails?.parentBetId || marketDetails?.id) +
-                      "_" +
-                      "profitLoss" +
-                      "_" +
-                      matchDetails?.id
-                    ]
-                      ? JSON.parse(
-                        matchDetails?.profitLossDataMatch?.[
-                        (marketDetails?.parentBetId || marketDetails?.id) +
                         "_" +
                         "profitLoss" +
                         "_" +
                         matchDetails?.id
-                        ]
-                      )?.[item?.parentRunnerId || item?.id]
+                    ]
+                      ? JSON.parse(
+                          matchDetails?.profitLossDataMatch?.[
+                            (marketDetails?.parentBetId || marketDetails?.id) +
+                              "_" +
+                              "profitLoss" +
+                              "_" +
+                              matchDetails?.id
+                          ]
+                        )?.[item?.parentRunnerId || item?.id]
                       : 0
                   }
                   name={item?.nat ?? item?.runnerName}
@@ -701,7 +710,11 @@ const TournamentOdds = ({
               handleClose={() => {
                 setIsPopoverOpen(false);
               }}
-              type={{ color: selectedBet?.team?.type === "back" ? "#A7DCFF" : "#FFB5B5", type: "BL" }}
+              type={{
+                color:
+                  selectedBet?.team?.type === "back" ? "#A7DCFF" : "#FFB5B5",
+                type: "BL",
+              }}
             />
           </Box>
         </MUIModal>

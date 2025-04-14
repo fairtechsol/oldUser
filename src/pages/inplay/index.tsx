@@ -67,9 +67,11 @@ const Inplay = () => {
   }, [sessionStorage]);
 
   useEffect(() => {
-    getMatchListMarket("cricket");
-    getMatchListMarket("tennis");
-    getMatchListMarket("football");
+    setTimeout(() => {
+      getMatchListMarket("cricket");
+      getMatchListMarket("tennis");
+      getMatchListMarket("football");
+    }, 1500);
     const intervalId = setInterval(() => {
       getMatchListMarket("cricket");
       getMatchListMarket("tennis");
@@ -130,7 +132,7 @@ const Inplay = () => {
             </div>
             <Grid container spacing={1} className="w-100">
               {liveCasinoGameList.map((item: any) => (
-                <Grid xs={3} lg={2}  item>
+                <Grid xs={3} lg={2} item>
                   <Link
                     to={item.url}
                     key={item?.name || item?.game_id}
