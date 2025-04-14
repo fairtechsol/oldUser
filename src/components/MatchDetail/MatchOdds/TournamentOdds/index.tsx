@@ -373,6 +373,9 @@ const TournamentOdds = ({
                   <Box
                     sx={{
                       marginRight: "14px",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
                     }}
                   >
                     <button
@@ -387,8 +390,7 @@ const TournamentOdds = ({
                         border: "0px solid white",
                         opacity:
                           Object.keys(profitLossObj).length <= 0 ? 0.65 : 1,
-                        height: 23,
-                        marginTop: 1,
+                        fontSize: "12px",
                         padding: "0 6px",
                       }}
                       onClick={() => handleCashout()}
