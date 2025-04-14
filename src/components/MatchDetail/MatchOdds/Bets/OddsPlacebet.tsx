@@ -355,7 +355,7 @@ const OddsPlaceBet = ({ handleClose, session, type }: any) => {
               px: "10px",
             },
             (theme: any) => ({
-              backgroundImage: `${theme.palette.primary.headerGradient}`,
+              backgroundImage: theme?.palette?.primary?.headerGradient,
             }),
           ]}
         >

@@ -69,7 +69,7 @@ const SideBar = ({ mobileShow, handleDrawerToggle }: any) => {
             borderTopRightRadius: ".5vh",
           },
           (theme) => ({
-            backgroundImage: `${theme.palette.primary.headerGradient}`,
+            backgroundImage: theme?.palette?.primary?.headerGradient,
           }),
         ]}
       >

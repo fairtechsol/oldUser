@@ -41,7 +41,7 @@ const AuthLayout = () => {
               width: { lg: "380px", md: "43%", xs: "100%" },
             },
             (theme: any) => ({
-              background: `${theme.palette.primary.mainGradient}`,
+              background: theme?.palette?.primary?.mainGradient,
             }),
           ]}
         >

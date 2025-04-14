@@ -23,7 +23,7 @@ const BackgroundLayout = ({ children }: any) => {
             { flex: 1, display: "flex", width: "100%", paddingBottom: "1rem" },
 
             (theme: any) => ({
-              backgroundImage: `${theme.palette.primary.homeBodyGradient}`,
+              backgroundImage: theme?.palette?.primary?.homeBodyGradient,
             }),
           ]}
         >

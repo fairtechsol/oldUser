@@ -129,7 +129,7 @@ const CustomHeader = () => {
               paddingBottom: matchesMobile ? "5px" : "0px",
             },
             (theme: any) => ({
-              backgroundImage: `${theme.palette.primary.headerGradient}`,
+              backgroundImage: theme?.palette?.primary?.headerGradient,
             }),
           ]}
         >
