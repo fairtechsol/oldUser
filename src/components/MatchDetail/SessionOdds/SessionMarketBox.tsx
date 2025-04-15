@@ -68,7 +68,7 @@ const SessionMarketBox = ({
             background: index % 2 === 0 ? "#FFE094" : "#ECECEC",
           }}
         >
-          <>
+          <Typography>
             <Typography
               sx={{
                 display: "flex",
@@ -100,7 +100,7 @@ const SessionMarketBox = ({
             >
               max:{formatToINR(data?.max || 0)}
             </Typography>
-          </>
+          </Typography>
           {data?.isCommissionActive && (
             <Box
               sx={{

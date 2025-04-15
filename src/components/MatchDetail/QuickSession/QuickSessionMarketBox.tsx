@@ -81,7 +81,7 @@ const QuickSessionMarketBox = ({
           overflow: "hidden",
         }}
       >
-        <>
+        <Typography>
           <Typography
             sx={{
               color: "black",
@@ -111,7 +111,7 @@ const QuickSessionMarketBox = ({
           >
             max:{formatToINR(data?.maxBet)}
           </Typography>
-        </>
+        </Typography>
         {matchesMobile && (
           <PlaceBetComponent
             amount={index == 2}
