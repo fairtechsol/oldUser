@@ -139,20 +139,18 @@ const SearchInput = ({
           }}
         />
         <Box
-          sx={[
-            {
-              height: "30px",
-              width: "30px",
-              borderRadius: "50px",
-              border: "1px solid white",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor: "primary.main",
-              marginRight: -0.3,
-              cursor: "pointer",
-            },
-          ]}
+          sx={{
+            height: "30px",
+            width: "30px",
+            borderRadius: "50px",
+            border: "1px solid white",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "primary.main",
+            marginRight: -0.3,
+            cursor: "pointer",
+          }}
         >
           <StyledImage
             src={Search}

@@ -171,17 +171,20 @@ export const transactionProviderBets = createAsyncThunk<any, any>(
   async (requestData, thunkApi) => {
     try {
       const resp = await service.get(
-        `${ApiConstants.LiveCasinoGameBets}/${
-          requestData?.id
-        }?sort=virtualCasinoBetPlaced.createdAt:ASC&providerName=eq${
-          requestData?.name
-        }&createdAt=between${moment(new Date(requestData?.date))?.format(
-          "YYYY-MM-DD"
-        )}|${moment(
-          new Date(requestData?.date).setDate(
-            new Date(requestData?.date).getDate() + 1
-          )
-        )?.format("YYYY-MM-DD")}`
+        `${ApiConstants.LiveCasinoGameBets}/${requestData?.id}`,
+        {
+          params: {
+            sort: "virtualCasinoBetPlaced.createdAt:ASC",
+            providerName: `eq${requestData?.name}`,
+            createdAt: `between${moment(new Date(requestData?.date))?.format(
+              "YYYY-MM-DD"
+            )}|${moment(
+              new Date(requestData?.date).setDate(
+                new Date(requestData?.date).getDate() + 1
+              )
+            )?.format("YYYY-MM-DD")}`,
+          },
+        }
       );
       if (resp?.data) {
         return resp?.data;

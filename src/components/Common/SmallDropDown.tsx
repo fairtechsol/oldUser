@@ -2,7 +2,12 @@ import { Box, Typography } from "@mui/material";
 import { useState } from "react";
 import { ARROWDROPDOWN } from "../../assets";
 
-const SmallDropDown = ({ setPageLimit, pageLimit }: any) => {
+interface SmallDropDownProps {
+  pageLimit: number;
+  setPageLimit: (val: number) => void;
+}
+
+const SmallDropDown = ({ setPageLimit, pageLimit }: SmallDropDownProps) => {
   const [open, setOpen] = useState(false);
   return (
     <>

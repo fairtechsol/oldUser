@@ -1,19 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { convertData, updateSessionBettingsItem } from "../../../helper";
 import {
-  SearchList,
-  SearchListReset,
   getMatchList,
-  getMatchRates,
   matchDetailAction,
   matchDetailReset,
-  matchDetailSuccessReset,
-  matchListReset,
-  searchListReset,
   selectedBetAction,
   selectedBetMinMax,
   setCurrentPageRedux,
-  updateMatchOddRates,
   updateMatchRates,
   updateMatchRatesFromApiOnList,
 } from "../../actions/match/matchListAction";
@@ -32,7 +25,6 @@ interface InitialState {
   matchDetailloading: boolean;
   error: any;
   matchList: any;
-  getMatchListBySearch: any;
   matchDetails: any;
   selectedBet: any;
   searchedMatchList: any;
@@ -43,7 +35,6 @@ interface InitialState {
 
 const initialState: InitialState = {
   matchList: null,
-  getMatchListBySearch: [],
   loading: false,
   matchDetailloading: false,
   success: false,
@@ -80,25 +71,6 @@ const matchListSlice = createSlice({
         state.loading = false;
         state.error = action?.error?.message;
       })
-      .addCase(SearchList.fulfilled, (state, action) => {
-        state.loading = false;
-        state.success = true;
-        state.getMatchListBySearch = action?.payload;
-      })
-      .addCase(SearchList.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action?.error?.message;
-      })
-      .addCase(SearchList.pending, (state) => {
-        state.loading = true;
-        state.success = false;
-        state.error = null;
-      })
-      .addCase(SearchListReset, (state) => {
-        // Reset the state to initial state
-        state.success = false;
-        state.getMatchListBySearch = [];
-      })
       .addCase(matchDetailAction.pending, (state) => {
         state.matchDetailloading = true;
         state.success = false;
@@ -116,9 +88,6 @@ const matchListSlice = createSlice({
       })
       .addCase(matchDetailReset, (state) => {
         state.matchDetails = null;
-      })
-      .addCase(matchDetailSuccessReset, (state) => {
-        state.success = false;
       })
       .addCase(updateMatchRates.fulfilled, (state, action) => {
         const {
@@ -192,94 +161,8 @@ const matchListSlice = createSlice({
           ),
         };
       })
-      .addCase(getMatchRates.fulfilled, (state, action) => {
-        const {
-          apiSession,
-          apiTiedMatch,
-          bookmaker,
-          bookmaker2,
-          marketCompleteMatch,
-          marketCompleteMatch1,
-          matchOdd,
-          sessionBettings,
-          manualTideMatch,
-          quickbookmaker,
-          completeManual,
-          apiTiedMatch2,
-          other,
-          tournament,
-          scoreBoard,
-        } = action?.payload;
-        state.liveScoreBoardData = scoreBoard?.data;
-        const parsedSessionBettings =
-          state.matchDetails?.sessionBettings?.map(JSON.parse) || [];
-        const apiParsedSessionBettings = sessionBettings?.map(JSON.parse) || [];
-
-        apiParsedSessionBettings.forEach((apiItem: any) => {
-          const index = parsedSessionBettings.findIndex(
-            (parsedItem: any) => parsedItem.id === apiItem.id
-          );
-          if (index !== -1) {
-            parsedSessionBettings[index] = {
-              ...parsedSessionBettings[index],
-              ...apiItem,
-            };
-          } else {
-            parsedSessionBettings.push(apiItem);
-          }
-        });
-        const stringifiedSessionBetting = parsedSessionBettings.map(
-          JSON.stringify
-        );
-        state.matchDetails = {
-          ...state.matchDetails,
-          manualSessionActive: sessionBettings?.length >= 0 ? true : false,
-          apiSession: apiSession,
-          apiTideMatch: apiTiedMatch,
-          apiTideMatch2: apiTiedMatch2,
-          bookmaker: bookmaker,
-          marketBookmaker2: bookmaker2,
-          manualTiedMatch: manualTideMatch,
-          marketCompleteMatch: marketCompleteMatch,
-          marketCompleteMatch1: marketCompleteMatch1,
-          matchOdd: matchOdd,
-          quickBookmaker: quickbookmaker,
-          manualCompleteMatch: completeManual,
-          sessionBettings: stringifiedSessionBetting,
-          other: other,
-          tournament: tournament?.sort((a: any, b: any) => {
-            // Primary sort by sno (ascending)
-            if (a.sno !== b.sno) {
-              return a.sno - b.sno;
-            }
-            // If sno values are equal, sort so that null parentId comes first
-            if (a.parentBetId === null && b.parentBetId !== null) return -1;
-            if (a.parentBetId !== null && b.parentBetId === null) return 1;
-            return 0;
-          }),
-          updatedSessionBettings: updateSessionBettingsItem(
-            convertData(parsedSessionBettings),
-            apiSession
-          ),
-        };
-      })
-      .addCase(updateMatchOddRates.fulfilled, (state, action) => {
-        const { id, matchOdd } = action?.payload;
-        const indexOfItemToUpdate = state?.matchList?.matches?.findIndex(
-          (item: any) => item?.id === id
-        );
-        if (indexOfItemToUpdate !== -1) {
-          state.matchList.matches[indexOfItemToUpdate].matchOdds[0] = matchOdd;
-        }
-      })
-      .addCase(matchListReset, (state) => {
-        return { ...state, matchList: null };
-      })
       .addCase(selectedBetAction.fulfilled, (state, action) => {
         state.selectedBet = action?.payload;
-      })
-      .addCase(searchListReset, (state) => {
-        state.searchedMatchList = null;
       })
       .addCase(updateBalance.fulfilled, (state, action) => {
         const {

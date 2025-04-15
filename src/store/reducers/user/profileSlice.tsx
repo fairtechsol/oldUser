@@ -1,8 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  buttonValueSuccessReset,
   getAccountStatement,
-  getBetAccountStatementModal,
   getButtonValue,
   getProfile,
   getProfileInMatchDetail,
@@ -27,7 +25,6 @@ interface InitialState {
   buttonValueSuccess: boolean;
   transactions: any;
   matchDetails: any;
-  betAccountStatementModal: any;
 }
 
 const initialState: InitialState = {
@@ -42,7 +39,6 @@ const initialState: InitialState = {
   loading: false,
   success: false,
   error: null,
-  betAccountStatementModal: null,
 };
 
 const profileSlice = createSlice({
@@ -121,9 +117,6 @@ const profileSlice = createSlice({
         state.loading = false;
         state.error = action?.error?.message;
       })
-      .addCase(buttonValueSuccessReset, (state) => {
-        return { ...state, buttonValueSuccess: false };
-      })
       .addCase(getButtonValue.pending, (state) => {
         state.loading = true;
         state.success = false;
@@ -138,19 +131,6 @@ const profileSlice = createSlice({
         state.loading = false;
         state.error = action?.error?.message;
       })
-      .addCase(getBetAccountStatementModal.pending, (state) => {
-        state.loading = false;
-        state.error = null;
-        state.betAccountStatementModal = null;
-      })
-      .addCase(getBetAccountStatementModal.fulfilled, (state, action) => {
-        state.betAccountStatementModal = action.payload;
-        state.loading = false;
-      })
-      .addCase(getBetAccountStatementModal.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action?.error?.message;
-      })
       .addCase(updateBalance.fulfilled, (state, action) => {
         state.profileDetail = {
           ...state.profileDetail,
@@ -158,7 +138,6 @@ const profileSlice = createSlice({
             ...state?.profileDetail?.userBal,
             exposure:
               action?.payload?.newUserExposure ?? action?.payload?.exposure,
-            // currentBalance: action.payload.userCurrentBalance,
           },
         };
       })

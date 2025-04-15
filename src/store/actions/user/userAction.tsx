@@ -316,32 +316,6 @@ export const getSessionProfitLoss = createAsyncThunk<any, any>(
   }
 );
 
-export const getBetAccountStatementModal = createAsyncThunk<any, any>(
-  "transaction/BetAccountStatementModal",
-  async ({ id, sort, betId, status, runnerId, result, isCard }, thunkApi) => {
-    try {
-      const resp = await service.get(
-        `${ApiConstants.BET.BET_ACCOUNTSTATEMENT}?createBy=eq${id}&sort=${
-          sort ? sort : ""
-        }${
-          betId
-            ? `&betId=inArr${JSON.stringify(betId)}`
-            : runnerId
-            ? isCard
-              ? `&betPlaced.runnerId=${runnerId}`
-              : `&runnerId=eq${runnerId}`
-            : ""
-        }${result ? `&result=${result}` : status ? `&status=${status}` : ""}`
-      );
-      if (resp?.data) {
-        return resp?.data;
-      }
-    } catch (error) {
-      const err = error as AxiosError;
-      return thunkApi.rejectWithValue(err.response?.status);
-    }
-  }
-);
 export const updateUserSearchId = createAsyncThunk<any, any>(
   "/maxLoss/updateUserSearchId",
   async (data) => {
@@ -357,4 +331,3 @@ export const updateLogoutModal = createAsyncThunk<any, any>(
 export const changePasswordReset = createAction("changePassword/reset");
 export const profileReset = createAction("profile/reset");
 export const updateReset = createAction("update/reset");
-export const buttonValueSuccessReset = createAction("buttonValueSuccess/reset");

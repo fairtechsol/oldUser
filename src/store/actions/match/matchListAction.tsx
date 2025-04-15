@@ -1,7 +1,7 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import service from "../../../service";
-import { ApiConstants, baseUrls } from "../../../utils/Constants";
+import { ApiConstants } from "../../../utils/Constants";
 
 export const getMatchList = createAsyncThunk<any, any>(
   "/match/list",
@@ -17,26 +17,6 @@ export const getMatchList = createAsyncThunk<any, any>(
       });
       if (resp) {
         return { data: resp?.data, type: type };
-      }
-    } catch (error: any) {
-      const err = error as AxiosError;
-      return thunkApi.rejectWithValue(err.response?.status);
-    }
-  }
-);
-
-export const SearchList = createAsyncThunk<any, any>(
-  "/match/searchlist",
-  async (requestData, thunkApi) => {
-    try {
-      const resp = await service.get(ApiConstants.MATCH.MATCHLIST, {
-        params: {
-          searchBy: "title",
-          keyword: requestData?.title,
-        },
-      });
-      if (resp) {
-        return resp?.data?.matches;
       }
     } catch (error: any) {
       const err = error as AxiosError;
@@ -62,25 +42,6 @@ export const matchDetailAction = createAsyncThunk<any, any>(
   }
 );
 
-export const setButtonValue = createAsyncThunk<any, any>(
-  "/setButtonValues",
-  async (requestData, thunkApi) => {
-    try {
-      const resp = await service.post(
-        ApiConstants.USER.SET_BTN_VALUE,
-        requestData
-      );
-      if (resp) {
-        return resp?.data;
-      }
-    } catch (error: any) {
-      const err = error as AxiosError;
-      return thunkApi.rejectWithValue(err.response?.status);
-    }
-  }
-);
-
-export const SearchListReset = createAction("searchList/reset");
 export const selectedBetAction = createAsyncThunk<any, any>(
   "/match/selectedBet",
   async (data) => {
@@ -93,119 +54,9 @@ export const selectedBetMinMax = createAsyncThunk<any, any>(
     return data;
   }
 );
-export const getCompetitionList = createAsyncThunk<any, any>(
-  "competition/list",
-  async (requestData, thunkApi) => {
-    try {
-      const resp = await service.get(
-        `${ApiConstants.EXPERT.COMPETITIONLIST}${requestData}`
-      );
-      if (resp?.data) {
-        return resp?.data;
-      }
-    } catch (error) {
-      const err = error as AxiosError;
-      return thunkApi.rejectWithValue(err.response?.status);
-    }
-  }
-);
-export const betReportList = createAsyncThunk<any, any>(
-  "/bet/",
-  async (requestData, thunkApi) => {
-    try {
-      const resp = await service.get(
-        `${ApiConstants.MATCH.CURRENTBET}?status=${
-          requestData.status
-        }&keyword=${requestData?.keyword || ""}${requestData?.filter || ""}`
-      );
-      if (resp?.data) {
-        return resp?.data;
-      }
-    } catch (error) {
-      const err = error as AxiosError;
-      return thunkApi.rejectWithValue(err.response?.status);
-    }
-  }
-);
-export const settleUnsettleMatch = createAsyncThunk<any, any>(
-  "/bet/",
-  async ({ status, page, limit }, thunkApi) => {
-    try {
-      const resp = await service.get(ApiConstants.MATCH.CURRENTBET, {
-        params: {
-          status,
-          limit: limit || 15,
-          page: page || 1,
-        },
-      });
-      if (resp?.data) {
-        return resp?.data;
-      }
-    } catch (error) {
-      const err = error as AxiosError;
-      return thunkApi.rejectWithValue(err.response?.status);
-    }
-  }
-);
-export const getCompetitionDates = createAsyncThunk<any, any>(
-  "competition/dates",
-  async (requestData, thunkApi) => {
-    try {
-      const resp = await service.get(
-        `${ApiConstants.EXPERT.COMPETITIONDATES}${requestData}`
-      );
-      if (resp?.data) {
-        return resp?.data;
-      }
-    } catch (error) {
-      const err = error as AxiosError;
-      return thunkApi.rejectWithValue(err.response?.status);
-    }
-  }
-);
-export const getCompetitionMatches = createAsyncThunk<any, any>(
-  "competition/matches",
-  async (requestData, thunkApi) => {
-    try {
-      const resp = await service.get(
-        `${ApiConstants.EXPERT.COMPETITIONMATCHES}${requestData?.id}/${requestData?.date}`
-      );
-      if (resp?.data) {
-        return resp?.data;
-      }
-    } catch (error) {
-      const err = error as AxiosError;
-      return thunkApi.rejectWithValue(err.response?.status);
-    }
-  }
-);
 
 export const updateMatchRates = createAsyncThunk<any, any>(
   "/match/rates",
-  async (matchDetails) => {
-    return matchDetails;
-  }
-);
-
-export const getMatchRates = createAsyncThunk<any, any>(
-  "/third/match/rates",
-  async (matchId, thunkApi) => {
-    try {
-      const resp = await axios.get(
-        `${baseUrls.matchSocket}${ApiConstants.MATCH.RATES}${matchId}`
-      );
-      if (resp) {
-        return resp?.data;
-      }
-    } catch (error: any) {
-      const err = error as AxiosError;
-      return thunkApi.rejectWithValue(err.response?.status);
-    }
-  }
-);
-
-export const updateMatchOddRates = createAsyncThunk<any, any>(
-  "/matchOdd/rates",
   async (matchDetails) => {
     return matchDetails;
   }
@@ -224,7 +75,4 @@ export const setCurrentPageRedux = createAsyncThunk<any, any>(
   }
 );
 
-export const searchListReset = createAction("search/list");
-export const matchListReset = createAction("matchList/reset");
 export const matchDetailReset = createAction("matchDetail/reset");
-export const matchDetailSuccessReset = createAction("matchDetailSuccess/reset");
