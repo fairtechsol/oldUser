@@ -46,7 +46,7 @@ const SingleBox = ({
             >
               {time}
             </Typography>
-            <Typography
+            <Box
               sx={{
                 fontWeight: "700",
                 fontSize: { xs: "8px", md: "10px", lg: ".7vw" },
@@ -57,7 +57,7 @@ const SingleBox = ({
             >
               {isCommissionActive && <CommissionDot />}
               {data}
-            </Typography>
+            </Box>
           </>
         ) : (
           <>
@@ -71,7 +71,7 @@ const SingleBox = ({
             >
               {time}
             </Typography>
-            <Typography
+            <Box
               sx={{
                 fontWeight: "700",
                 fontSize: { xs: "8px", md: "10px", lg: ".7vw" },
@@ -84,10 +84,9 @@ const SingleBox = ({
                 alignItems: "center",
               }}
             >
-              {" "}
               {isCommissionActive && <CommissionDot />}
               {data}
-            </Typography>
+            </Box>
           </>
         )}
       </Box>
@@ -112,7 +111,7 @@ const SingleBox = ({
         >
           {time}
         </Typography>
-        <Typography
+        <Box
           sx={{
             fontWeight: "600",
             fontSize: { lg: "9px", md: "10px", xs: "8px" },
@@ -130,7 +129,7 @@ const SingleBox = ({
         >
           {isCommissionActive && <CommissionDot />}
           {data}
-        </Typography>
+        </Box>
       </Box>
     ) : (
       <Box
@@ -143,7 +142,7 @@ const SingleBox = ({
           alignItems: "center",
         }}
       >
-        <Typography
+        <Box
           sx={{
             fontWeight: "700",
             overflow: "hidden",
@@ -161,7 +160,7 @@ const SingleBox = ({
         >
           {isCommissionActive && <CommissionDot />}
           {data}
-        </Typography>
+        </Box>
       </Box>
     )
   ) : (

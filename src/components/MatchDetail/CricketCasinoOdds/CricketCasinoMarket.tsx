@@ -227,7 +227,6 @@ const CricketCasinoMarket = ({
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-
                     borderLeft: {
                       lg: "0 solid #319e5b",
                       xs: "1px solid #319e5b",
