@@ -76,7 +76,6 @@ const OddsPlaceBet = ({ handleClose, session, type }: any) => {
   }, [selectedBet]);
 
   useEffect(() => {
-    // Get browser information
     const { userAgent, appName, appVersion, platform } = navigator;
     const info: any = { userAgent, appName, appVersion, platform };
     setBrowserInfo(info);
