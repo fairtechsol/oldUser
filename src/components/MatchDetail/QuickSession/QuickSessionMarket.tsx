@@ -146,98 +146,96 @@ const QuickSessionMarket = ({
 
         {visible && (
           <Box sx={{ width: "100%", position: "relative" }}>
-            {
+            <Box
+              sx={{
+                display: "flex",
+                background: "#319E5B",
+                height: "25px",
+                width: "100%",
+                alignSelf: "center",
+              }}
+            >
+              <Box
+                sx={{
+                  display: "flex",
+                  background: "'#319E5B'",
+                  height: "25px",
+                  width: "40%",
+                  alignItems: "center",
+                }}
+              >
+                <Typography
+                  sx={{
+                    color: "white",
+                    fontSize: { lg: "11px", xs: "9px" },
+                    marginLeft: "7px",
+                  }}
+                >
+                  MIN:{minBet}
+                </Typography>
+              </Box>
               <Box
                 sx={{
                   display: "flex",
                   background: "#319E5B",
+                  marginRight: { lg: "24px", xs: "0px" },
                   height: "25px",
-                  width: { lg: "100%", xs: "99.9%" },
-                  alignSelf: "center",
+                  gap: { xs: "0px", lg: "1px", md: "1px" },
+                  width: { lg: "60%", md: "78%", xs: "80%" },
+                  justifyContent: { lg: "center", xs: "flex-end" },
                 }}
               >
                 <Box
                   sx={{
+                    background: "#FF9292",
+                    width: { lg: "20%", xs: "30%" },
+                    height: "100%",
                     display: "flex",
-                    background: "'#319E5B'",
-                    height: "25px",
-                    width: "40%",
+                    justifyContent: "center",
                     alignItems: "center",
+                    borderLeft: {
+                      lg: "0 solid #319e5b",
+                      xs: "1px solid #319e5b",
+                    },
                   }}
                 >
                   <Typography
                     sx={{
-                      color: "white",
-                      fontSize: { lg: "11px", xs: "9px" },
-                      marginLeft: "7px",
+                      fontSize: "12px",
+                      color: "black",
+                      fontWeight: "600",
                     }}
                   >
-                    MIN:{minBet}
+                    NO
                   </Typography>
                 </Box>
+                <Box sx={{ width: ".25%", display: "flex" }} />
                 <Box
                   sx={{
+                    background: "#00C0F9",
+                    width: { lg: "21%", xs: "29.9%" },
+                    height: "100%",
                     display: "flex",
-                    background: "#319E5B",
-                    marginRight: { lg: "14px", xs: "0px" },
-                    height: "25px",
-                    gap: { xs: "0px", lg: "1px", md: "1px" },
-                    width: { lg: "60%", md: "78%", xs: "80%" },
-                    justifyContent: { lg: "center", xs: "flex-end" },
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderRight: {
+                      lg: " 4px solid #319e5b;",
+                      xs: "0 solid #319e5b",
+                    },
                   }}
                 >
-                  <Box
+                  <Typography
                     sx={{
-                      background: "#FF9292",
-                      width: { lg: "20%", xs: "30%" },
-                      height: "100%",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      borderLeft: {
-                        lg: "0 solid #319e5b",
-                        xs: "1px solid #319e5b",
-                      },
+                      fontSize: "12px",
+                      color: "black",
+                      fontWeight: "600",
                     }}
                   >
-                    <Typography
-                      sx={{
-                        fontSize: "12px",
-                        color: "black",
-                        fontWeight: "600",
-                      }}
-                    >
-                      NO
-                    </Typography>
-                  </Box>
-                  <Box sx={{ width: ".35%", display: "flex" }} />
-                  <Box
-                    sx={{
-                      background: "#00C0F9",
-                      width: { lg: "21%", xs: "29.9%" },
-                      height: "100%",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      borderRight: {
-                        lg: " 4px solid #319e5b;",
-                        xs: "0 solid #319e5b",
-                      },
-                    }}
-                  >
-                    <Typography
-                      sx={{
-                        fontSize: "12px",
-                        color: "black",
-                        fontWeight: "600",
-                      }}
-                    >
-                      YES
-                    </Typography>
-                  </Box>
+                    YES
+                  </Typography>
                 </Box>
               </Box>
-            }
+            </Box>
             {betLock && (
               <Box
                 sx={{

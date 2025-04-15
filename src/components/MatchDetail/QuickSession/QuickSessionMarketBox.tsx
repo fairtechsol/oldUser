@@ -138,7 +138,7 @@ const QuickSessionMarketBox = ({
               height: "38px",
               minWidth: "10%",
               marginLeft: "auto",
-              width: { lg: "24%", md: "40%", xs: "40%" },
+              width: { lg: "23.8%", md: "40%", xs: "40%" },
               justifyContent: { xs: "center", lg: "center" },
               alignItems: "center",
               display: "flex",
@@ -181,7 +181,7 @@ const QuickSessionMarketBox = ({
                 alignItems: "center",
                 marginRight: "auto",
                 minWidth: { lg: "60%", xs: "40%" },
-                marginLeft: { lg: "40%", xs: "60%", sm: "60%" },
+                marginLeft: { lg: "39%", xs: "60%", sm: "60%" },
               }}
             >
               <SeparateModal
