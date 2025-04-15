@@ -38,7 +38,6 @@ const SessionMarket = ({
   return (
     <>
       <Box
-        id="test"
         sx={{
           display: "flex",
           position: "relative",
@@ -217,7 +216,6 @@ const SessionMarket = ({
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",
-
                         borderLeft: {
                           lg: "0 solid #319e5b",
                           xs: "1px solid #319e5b",
@@ -247,7 +245,6 @@ const SessionMarket = ({
                         display: "flex",
                         justifyContent: "center",
                         alignItems: "center",
-
                         borderLeft: {
                           lg: "0 solid #319e5b",
                           xs: "1px solid #319e5b",

@@ -35,7 +35,6 @@ const QuickSessionMarket = ({
   return (
     <>
       <Box
-        id={"test"}
         sx={{
           display: "flex",
           position: "relative",
@@ -190,12 +189,11 @@ const QuickSessionMarket = ({
                   <Box
                     sx={{
                       background: "#FF9292",
-                      width: { lg: "20.5%", xs: "30%" },
+                      width: { lg: "20%", xs: "30%" },
                       height: "100%",
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
-
                       borderLeft: {
                         lg: "0 solid #319e5b",
                         xs: "1px solid #319e5b",
@@ -216,7 +214,7 @@ const QuickSessionMarket = ({
                   <Box
                     sx={{
                       background: "#00C0F9",
-                      width: { lg: "20.5%", xs: "29.9%" },
+                      width: { lg: "21%", xs: "29.9%" },
                       height: "100%",
                       display: "flex",
                       justifyContent: "center",

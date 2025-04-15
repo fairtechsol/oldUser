@@ -81,7 +81,7 @@ const QuickSessionMarketBox = ({
           overflow: "hidden",
         }}
       >
-        <Box>
+        <>
           <Typography
             sx={{
               color: "black",
@@ -111,7 +111,7 @@ const QuickSessionMarketBox = ({
           >
             max:{formatToINR(data?.maxBet)}
           </Typography>
-        </Box>
+        </>
         {matchesMobile && (
           <PlaceBetComponent
             amount={index == 2}
@@ -137,12 +137,12 @@ const QuickSessionMarketBox = ({
               background: "rgba(0,0,0,1)",
               height: "38px",
               minWidth: "10%",
-              marginRight: { lg: "20%", xs: "0" },
               marginLeft: "auto",
               width: { lg: "24%", md: "40%", xs: "40%" },
               justifyContent: { xs: "center", lg: "center" },
               alignItems: "center",
               display: "flex",
+              marginRight: { lg: "20.5%", xs: "0%" },
               zIndex: 1,
             }}
           >
@@ -251,16 +251,14 @@ const QuickSessionMarketBox = ({
       </Box>
 
       {showFastTimeBox && selectedItem === data?.id && (
-        <Box>
-          <FastTimePlaceBet
-            session={sessionMain}
-            setFastAmount={setFastAmount}
-            selectedFastAmount={fastAmount}
-            setShowFastTimeBox={setShowFastTimeBox}
-            data={data}
-            typeOfBet={typeOfBet}
-          />
-        </Box>
+        <FastTimePlaceBet
+          session={sessionMain}
+          setFastAmount={setFastAmount}
+          selectedFastAmount={fastAmount}
+          setShowFastTimeBox={setShowFastTimeBox}
+          data={data}
+          typeOfBet={typeOfBet}
+        />
       )}
     </Box>
   );
