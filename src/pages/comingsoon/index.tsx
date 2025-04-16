@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { memo } from "react";
-
 import Loader from "../../components/Loader";
+
 const ComingSoon = () => {
   return (
     <Box

@@ -10,6 +10,15 @@ const BetHistory = () => {
   const dispatch: AppDispatch = useDispatch();
   const { placedBets } = useSelector((state: RootState) => state.bets);
 
+  const sessionType = [
+    "session",
+    "cricketcasino",
+    "overByover",
+    "ballByBall",
+    "oddEven",
+    "fancy1",
+  ];
+
   useEffect(() => {
     if (sessionStorage.getItem("jwtUser")) {
       dispatch(getCurrentBets());
@@ -49,28 +58,13 @@ const BetHistory = () => {
             mark2
             mark
             allBetsData={placedBets?.filter(
-              (b: any) =>
-                ![
-                  "session",
-                  "cricketcasino",
-                  "overByover",
-                  "ballByBall",
-                  "oddEven",
-                  "fancy1",
-                ].includes(b?.marketType)
+              (b: any) => !sessionType.includes(b?.marketType)
             )}
           />
           <Box sx={{ width: { lg: "1vw", xs: 0 } }} />
           <SessionBetSeperate
             placedBets={placedBets?.filter((b: any) =>
-              [
-                "session",
-                "cricketcasino",
-                "overByover",
-                "ballByBall",
-                "oddEven",
-                "fancy1",
-              ].includes(b?.marketType)
+              sessionType.includes(b?.marketType)
             )}
           />
         </Box>

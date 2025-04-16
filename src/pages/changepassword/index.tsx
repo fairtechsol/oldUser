@@ -105,8 +105,8 @@ const ChangePassword = (props: any) => {
           >
             <Input
               required={true}
-              placeholder={"Enter Old Password"}
-              title={"Old Password"}
+              placeholder="Enter Old Password"
+              title="Old Password"
               titleStyle={{
                 color: "#222222",
                 marginLeft: "0px",
@@ -117,7 +117,7 @@ const ChangePassword = (props: any) => {
               img={eye}
               img1={eyeLock}
               id="oldPassword"
-              name={"oldPassword"}
+              name="oldPassword"
               type="password"
               onBlur={formik.handleBlur}
               onChange={handleOldPasswordChange}
@@ -127,9 +127,9 @@ const ChangePassword = (props: any) => {
             )}
             <Input
               required={true}
-              placeholder={"Enter New Password"}
-              title={"New Password"}
-              name={"newPassword"}
+              placeholder="Enter New Password"
+              title="New Password"
+              name="newPassword"
               id="newPassword"
               titleStyle={{
                 color: "#222222",
@@ -149,9 +149,9 @@ const ChangePassword = (props: any) => {
             )}
             <Input
               required={true}
-              placeholder={"Enter Confirm Password"}
-              title={"Confirm New Password"}
-              name={"confirmPassword"}
+              placeholder="Enter Confirm Password"
+              title="Confirm New Password"
+              name="confirmPassword"
               id="confirmPassword"
               titleStyle={{
                 color: "#222222",
@@ -192,7 +192,7 @@ const ChangePassword = (props: any) => {
             >
               <Typography
                 sx={{ fontSize: { lg: "18px", xs: "20px" } }}
-                color={"white"}
+                color="white"
               >
                 {passLoader ? (
                   <CircularProgress

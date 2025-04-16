@@ -1,6 +1,11 @@
 import { Box, TextField } from "@mui/material";
 
-const ValueButton = ({ value, onChange }: any) => {
+interface ValueButtonProps {
+  value: any;
+  onChange: (val: any) => void;
+}
+
+const ValueButton = ({ value, onChange }: ValueButtonProps) => {
   return (
     <Box
       sx={{

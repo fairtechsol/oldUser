@@ -166,7 +166,6 @@ const SessionValue = () => {
                   return (
                     <ValueButton
                       key={index}
-                      type="text"
                       onChange={(e: any) => {
                         setFieldValue(`[${index}].value`, e.target.value);
                       }}

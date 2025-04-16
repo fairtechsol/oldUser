@@ -16,17 +16,15 @@ const ChangeButtonValue = () => {
   }, [sessionStorage]);
 
   return (
-    <>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: { xs: "column", lg: "row", md: "column" },
-        }}
-      >
-        <MatchValues />
-        <SessionValue />
-      </Box>
-    </>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: { xs: "column", lg: "row", md: "column" },
+      }}
+    >
+      <MatchValues />
+      <SessionValue />
+    </Box>
   );
 };
 
