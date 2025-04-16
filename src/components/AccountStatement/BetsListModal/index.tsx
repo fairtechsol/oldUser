@@ -17,13 +17,20 @@ import EmptyRow from "../EmptyRow";
 import ListHeaderTModal from "./ListheaderTModal";
 import TableRowModal from "./TableRowModal";
 
+interface BetsListModalProps {
+  open: boolean;
+  onClose: () => void;
+  selected: any;
+  liveCasinoProvider: any;
+  updatedReport: any;
+}
+
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: "90%",
-
   boxShadow: 24,
   border: "2px solid white",
   background: "#F8C851",
@@ -49,13 +56,7 @@ const BetsListModal = ({
   selected,
   liveCasinoProvider,
   updatedReport,
-}: {
-  open: boolean;
-  onClose: () => void;
-  selected: any;
-  liveCasinoProvider: any;
-  updatedReport: any;
-}) => {
+}: BetsListModalProps) => {
   const dispatch: AppDispatch = useDispatch();
 
   const [type, setType] = useState<any>({
