@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 
 const CustomButton = ({ btnStyle, onClick }: any) => {
   return (
@@ -26,4 +27,4 @@ const CustomButton = ({ btnStyle, onClick }: any) => {
     </Box>
   );
 };
-export default CustomButton;
+export default memo(CustomButton);

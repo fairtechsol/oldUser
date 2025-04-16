@@ -1,4 +1,5 @@
 import { Box } from "@mui/material";
+import { memo } from "react";
 import { liveCasinoPics } from "../../../utils/Constants";
 
 interface LiveCasinoTabProps {
@@ -8,7 +9,12 @@ interface LiveCasinoTabProps {
   setType2: (val: any) => void;
 }
 
-const LiveCasinoTab = ({ data2, type2, setGame, setType2 }: LiveCasinoTabProps) => {
+const LiveCasinoTab = ({
+  data2,
+  type2,
+  setGame,
+  setType2,
+}: LiveCasinoTabProps) => {
   return (
     <Box className="w-100 d-flex flex-row overflow-auto">
       {Object.keys(data2)
@@ -55,4 +61,4 @@ const LiveCasinoTab = ({ data2, type2, setGame, setType2 }: LiveCasinoTabProps) 
   );
 };
 
-export default LiveCasinoTab;
+export default memo(LiveCasinoTab);

@@ -1,4 +1,5 @@
 import { Box, MenuItem, Typography } from "@mui/material";
+import { memo } from "react";
 
 import { useNavigate } from "react-router-dom";
 
@@ -110,4 +111,4 @@ const MyAccount = () => {
   );
 };
 
-export default MyAccount;
+export default memo(MyAccount);

@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { memo, ReactNode } from "react";
 import "./style.scss";
 interface props {
   bgColor?: string;
@@ -37,4 +37,4 @@ function BetTableHeader({
   );
 }
 
-export default BetTableHeader;
+export default memo(BetTableHeader);

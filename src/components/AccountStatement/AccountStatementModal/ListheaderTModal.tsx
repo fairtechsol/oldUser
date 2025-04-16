@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import React from "react";
+import React, { memo } from "react";
 
 interface HeaderColumn {
   label: string;
@@ -94,4 +94,4 @@ const ListHeaderTModal: React.FC = () => {
   );
 };
 
-export default ListHeaderTModal;
+export default memo(ListHeaderTModal);

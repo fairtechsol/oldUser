@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 
 const RowComponent = ({ index }: any) => {
   let flag = index % 2 != 0;
@@ -55,4 +56,4 @@ const RowComponent = ({ index }: any) => {
     </Box>
   );
 };
-export default RowComponent;
+export default memo(RowComponent);

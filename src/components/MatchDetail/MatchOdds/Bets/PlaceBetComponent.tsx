@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { handleDecimalAmount } from "../../../../helper";
 import { getRunAmount } from "../../../../store/actions/betPlace/betPlaceActions";
@@ -130,4 +130,4 @@ const PlaceBetComponent = ({
   );
 };
 
-export default PlaceBetComponent;
+export default memo(PlaceBetComponent);

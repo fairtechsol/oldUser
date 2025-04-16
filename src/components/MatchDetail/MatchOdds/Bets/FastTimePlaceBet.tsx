@@ -1,6 +1,6 @@
 import { Typography, useMediaQuery, useTheme } from "@mui/material";
 import { Box } from "@mui/system";
-import { useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   betPlaceErrorCheck,
@@ -209,17 +209,15 @@ const FastTimePlaceBet = ({
     <>
       <Box
         ref={myDivRef}
-        sx={[
-          {
-            display: "flex",
-            flexDirection: "column",
-            border: "1px solid white",
-            borderRadius: "5px",
-            gap: 1,
-            overflow: "hidden",
-            width: "100%",
-          },
-        ]}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          border: "1px solid white",
+          borderRadius: "5px",
+          gap: 1,
+          overflow: "hidden",
+          width: "100%",
+        }}
       >
         <Box
           sx={{
@@ -758,4 +756,4 @@ const FastTimePlaceBet = ({
   );
 };
 
-export default FastTimePlaceBet;
+export default memo(FastTimePlaceBet);

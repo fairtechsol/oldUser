@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import StyledImage from "../../Common/StyledImages";
+import { memo } from "react";
 
 interface PlaceBetMoneyBoxProps {
   color: string;
@@ -64,4 +65,4 @@ const PlaceBetMoneyBox = ({
   );
 };
 
-export default PlaceBetMoneyBox;
+export default memo(PlaceBetMoneyBox);

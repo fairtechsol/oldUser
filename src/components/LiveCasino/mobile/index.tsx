@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { liveCasinoLogin } from "../../../store/actions/card/cardDetail";
@@ -217,4 +217,4 @@ const LiveCasinoMobile = () => {
   );
 };
 
-export default LiveCasinoMobile;
+export default memo(LiveCasinoMobile);

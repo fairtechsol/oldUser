@@ -1,4 +1,5 @@
 import { Box, Modal, Typography } from "@mui/material";
+import { memo } from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 
 interface CountDownTimerProps {
@@ -58,4 +59,4 @@ const CountDownTimer = ({ visible, setVisible, time }: CountDownTimerProps) => {
     </Modal>
   );
 };
-export default CountDownTimer;
+export default memo(CountDownTimer);

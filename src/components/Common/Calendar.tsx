@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import moment from "moment";
-import { useState } from "react";
+import { memo, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker-cssmodules.css";
 import "react-datepicker/dist/react-datepicker.css";
@@ -80,4 +80,4 @@ const Calendar = ({
     </Box>
   );
 };
-export default Calendar;
+export default memo(Calendar);

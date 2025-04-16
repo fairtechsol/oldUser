@@ -1,4 +1,5 @@
 import { Box } from "@mui/material";
+import { memo } from "react";
 import { liveCasinoPics } from "../../../utils/Constants";
 
 interface LiveCasinoTabProps {
@@ -70,4 +71,4 @@ const LiveCasinoTab = ({
   );
 };
 
-export default LiveCasinoTab;
+export default memo(LiveCasinoTab);

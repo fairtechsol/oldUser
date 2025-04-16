@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 
 const ListHeader = () => {
   return (
@@ -56,4 +57,4 @@ const ListHeader = () => {
   );
 };
 
-export default ListHeader;
+export default memo(ListHeader);

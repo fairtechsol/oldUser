@@ -1,4 +1,7 @@
+import { useMediaQuery, useTheme } from "@mui/material";
 import { Box } from "@mui/system";
+import { memo } from "react";
+import { NavLink } from "react-router-dom";
 import {
   BASKETBALL,
   CHESS,
@@ -13,9 +16,6 @@ import {
   SNOOKER,
   Tennis,
 } from "../../../assets";
-
-import { useMediaQuery, useTheme } from "@mui/material";
-import { NavLink } from "react-router-dom";
 import EventComponent from "./EventComponent";
 
 let EventNames = [
@@ -132,4 +132,4 @@ const EventListing = () => {
   );
 };
 
-export default EventListing;
+export default memo(EventListing);

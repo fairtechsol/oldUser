@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import MatchValues from "../../components/ChangeValueButtons/MatchValues";
 import SessionValue from "../../components/ChangeValueButtons/SessionValue";
@@ -28,4 +28,4 @@ const ChangeButtonValue = () => {
   );
 };
 
-export default ChangeButtonValue;
+export default memo(ChangeButtonValue);

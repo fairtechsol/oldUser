@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 
 interface TableRowModalProps {
   index: number;
@@ -185,4 +186,4 @@ const TableRowModal = ({
   );
 };
 
-export default TableRowModal;
+export default memo(TableRowModal);

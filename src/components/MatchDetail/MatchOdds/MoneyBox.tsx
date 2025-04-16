@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { handleDecimalAmount } from "../../../helper";
+import { memo } from "react";
 
 const MoneyBox = ({ color, rates }: any) => {
   return (
@@ -23,4 +24,4 @@ const MoneyBox = ({ color, rates }: any) => {
     </Box>
   );
 };
-export default MoneyBox;
+export default memo(MoneyBox);

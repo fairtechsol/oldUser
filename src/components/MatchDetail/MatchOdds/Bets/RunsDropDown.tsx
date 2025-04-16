@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import StyledImage from "../../../Common/StyledImages";
+import { memo } from "react";
 
 const RunsDropDown = ({ list }: any) => {
   return (
@@ -171,4 +172,4 @@ const RunsDropDown = ({ list }: any) => {
   );
 };
 
-export default RunsDropDown;
+export default memo(RunsDropDown);

@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 
 interface TeamsOdssDataProps {
   input?: boolean;
@@ -118,4 +118,4 @@ const TeamsOdssData = ({
   );
 };
 
-export default TeamsOdssData;
+export default memo(TeamsOdssData);

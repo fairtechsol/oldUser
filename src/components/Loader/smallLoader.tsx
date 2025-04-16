@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 import "./styles.css";
 const SmallCustomLoader = ({ text }: any) => {
   return (
@@ -21,4 +22,4 @@ const SmallCustomLoader = ({ text }: any) => {
   );
 };
 
-export default SmallCustomLoader;
+export default memo(SmallCustomLoader);

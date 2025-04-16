@@ -1,4 +1,5 @@
 import { useMediaQuery, useTheme } from "@mui/material";
+import { memo } from "react";
 import { Modal } from "react-bootstrap";
 import { FaHome } from "react-icons/fa";
 import { useSelector } from "react-redux";
@@ -92,4 +93,4 @@ const LiveCasinoModal = ({ isShow, setIsShow }: LiveCasinoModalProps) => {
   );
 };
 
-export default LiveCasinoModal;
+export default memo(LiveCasinoModal);

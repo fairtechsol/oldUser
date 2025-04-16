@@ -1,5 +1,5 @@
 import { useMediaQuery, useTheme } from "@mui/material";
-import React from "react";
+import React, { memo } from "react";
 import { Container } from "react-bootstrap";
 import BetTableHeader from "./BetTableHeader";
 interface ReportContainerProps {
@@ -29,4 +29,4 @@ const ReportContainer = ({ title, children }: ReportContainerProps) => {
   );
 };
 
-export default ReportContainer;
+export default memo(ReportContainer);

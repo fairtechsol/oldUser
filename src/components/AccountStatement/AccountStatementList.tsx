@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import moment from "moment";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   transactionProviderBetsReset,
@@ -55,6 +55,30 @@ const AccountStatementList = () => {
     setUpdateReports([]);
   };
 
+  const handleDivClick = () => {
+    let filter = "";
+    if (fromDate && toDate) {
+      filter += `&createdAt=between${moment(fromDate)?.format(
+        "YYYY-MM-DD"
+      )}|${moment(toDate).add(1, "days")?.format("YYYY-MM-DD")}`;
+    } else if (fromDate) {
+      filter += `&createdAt=gte${moment(fromDate)?.format("YYYY-MM-DD")}`;
+    } else if (toDate) {
+      filter += `&createdAt=lte${moment(toDate)?.format("YYYY-MM-DD")}`;
+    }
+    setCurrentPage(1);
+    dispatch(
+      getAccountStatement({
+        userId: profileDetail?.id,
+        page: 1,
+        searchBy: "description,user.userName,actionByUser.userName",
+        keyword: searchValue,
+        limit: pageLimit,
+        filter: filter,
+      })
+    );
+  };
+
   useEffect(() => {
     if (profileDetail?.id) {
       let filter = "";
@@ -102,33 +126,7 @@ const AccountStatementList = () => {
           <YellowHeader
             fromDate={fromDate}
             toDate={toDate}
-            getAccountStatement={() => {
-              let filter = "";
-              if (fromDate && toDate) {
-                filter += `&createdAt=between${moment(fromDate)?.format(
-                  "YYYY-MM-DD"
-                )}|${moment(toDate).add(1, "days")?.format("YYYY-MM-DD")}`;
-              } else if (fromDate) {
-                filter += `&createdAt=gte${moment(fromDate)?.format(
-                  "YYYY-MM-DD"
-                )}`;
-              } else if (toDate) {
-                filter += `&createdAt=lte${moment(toDate)?.format(
-                  "YYYY-MM-DD"
-                )}`;
-              }
-              setCurrentPage(1);
-              dispatch(
-                getAccountStatement({
-                  userId: profileDetail?.id,
-                  page: 1,
-                  searchBy: "description,user.userName,actionByUser.userName",
-                  keyword: searchValue,
-                  limit: pageLimit,
-                  filter: filter,
-                })
-              );
-            }}
+            getAccountStatement={handleDivClick}
             setToDate={setToDate}
             setFromDate={setFromDate}
           />
@@ -220,4 +218,4 @@ const AccountStatementList = () => {
   );
 };
 
-export default AccountStatementList;
+export default memo(AccountStatementList);

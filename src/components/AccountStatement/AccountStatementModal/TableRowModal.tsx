@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 
 const TableRowModal = ({
   containerStyle,
@@ -189,4 +190,4 @@ const TableRowModal = ({
   );
 };
 
-export default TableRowModal;
+export default memo(TableRowModal);

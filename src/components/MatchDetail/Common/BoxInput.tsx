@@ -1,5 +1,6 @@
 import { TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
+import { memo } from "react";
 
 interface BoxInputProps {
   title: string;
@@ -90,4 +91,4 @@ const BoxInput = ({
   );
 };
 
-export default BoxInput;
+export default memo(BoxInput);

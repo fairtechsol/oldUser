@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { handleDecimalAmount } from "../../../../helper";
+import { memo } from "react";
 
 interface BookRatioBoxProps {
   valueA: number | any;
@@ -92,4 +93,4 @@ const BookRatioBox = ({ valueA, valueB }: BookRatioBoxProps) => {
   );
 };
 
-export default BookRatioBox;
+export default memo(BookRatioBox);

@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 
 interface SingleBoxProps {
   color: string | undefined | any;
@@ -203,4 +204,4 @@ const SingleBox = ({
   );
 };
 
-export default SingleBox;
+export default memo(SingleBox);

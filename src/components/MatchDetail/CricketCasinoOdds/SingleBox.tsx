@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 
 const SingleBox = ({
   data,
@@ -172,4 +173,4 @@ const SingleBox = ({
   );
 };
 
-export default SingleBox;
+export default memo(SingleBox);

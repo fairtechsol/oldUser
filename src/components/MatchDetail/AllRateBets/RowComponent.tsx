@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
 import moment from "moment";
+import { memo } from "react";
 import { useLocation } from "react-router-dom";
 import { formatToINR } from "../../../helper";
 import SingleBox from "./SingleBox";
@@ -135,4 +136,4 @@ const RowComponent = ({ header, data }: RowComponentProps) => {
   );
 };
 
-export default RowComponent;
+export default memo(RowComponent);

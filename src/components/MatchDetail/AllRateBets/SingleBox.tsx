@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 import CommissionDot from "../../Common/CommissionDot";
 
 interface SingleBoxProps {
@@ -190,4 +191,4 @@ const SingleBox = ({
   );
 };
 
-export default SingleBox;
+export default memo(SingleBox);

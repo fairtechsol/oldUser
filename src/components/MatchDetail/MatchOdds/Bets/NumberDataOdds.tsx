@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 
 interface NumberDataProps {
   value: any;
@@ -46,4 +47,4 @@ const NumberData = ({
   );
 };
 
-export default NumberData;
+export default memo(NumberData);

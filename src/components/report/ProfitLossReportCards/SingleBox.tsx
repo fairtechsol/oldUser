@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 import CommissionDot from "../../Common/CommissionDot";
 
 const SingleBox = ({
@@ -179,4 +180,4 @@ const SingleBox = ({
   );
 };
 
-export default SingleBox;
+export default memo(SingleBox);

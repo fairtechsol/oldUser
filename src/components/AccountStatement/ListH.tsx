@@ -1,10 +1,10 @@
 import { Box } from "@mui/material";
-import SearchInput from "../Common/SearchInput";
+import { memo } from "react";
 import { ApiConstants } from "../../utils/Constants";
 import NumberDropDown from "../Common/NumberDropDown";
+import SearchInput from "../Common/SearchInput";
 
 const ListH = ({
-  getLimitEntries,
   getAccountStatement,
   searchFor,
   pageLimit,
@@ -30,7 +30,6 @@ const ListH = ({
       }}
     >
       <NumberDropDown
-        getLimitEntries={getLimitEntries}
         setPageLimit={setPageLimit}
         pageLimit={pageLimit}
         textColor="#000"
@@ -57,4 +56,4 @@ const ListH = ({
   );
 };
 
-export default ListH;
+export default memo(ListH);

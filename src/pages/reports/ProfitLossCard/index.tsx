@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import moment from "moment";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProfitLossComponent from "../../../components/report/ProfitLossReportCards/ProfitLossComponent";
 import YellowHeaderProfitLoss from "../../../components/report/ProfitLossReportCards/YellowheaderProfitLoss";
@@ -95,4 +95,4 @@ const ProfitLossCard = () => {
   );
 };
 
-export default ProfitLossCard;
+export default memo(ProfitLossCard);

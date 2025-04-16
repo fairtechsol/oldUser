@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowDown, drawerBackground } from "../../../assets/index";
 
@@ -211,4 +211,4 @@ const SideBar = ({ mobileShow, handleDrawerToggle }: any) => {
   );
 };
 
-export default SideBar;
+export default memo(SideBar);

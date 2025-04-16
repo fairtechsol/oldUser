@@ -1,8 +1,8 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import "react-datepicker/dist/react-datepicker.css";
-
 import Calendar from "../Common/Calendar";
 import CustomButton from "../Common/CustomButton";
+import { memo } from "react";
 
 const YellowHeader = ({
   getAccountStatement,
@@ -132,4 +132,4 @@ const YellowHeader = ({
   );
 };
 
-export default YellowHeader;
+export default memo(YellowHeader);

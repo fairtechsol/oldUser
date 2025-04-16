@@ -1,6 +1,7 @@
 import { Form } from "react-bootstrap";
 
 import { useMediaQuery, useTheme } from "@mui/material";
+import { memo } from "react";
 import "./style.scss";
 
 interface SelectItem {
@@ -72,4 +73,4 @@ const CustomSecureInput = ({
   );
 };
 
-export default CustomSecureInput;
+export default memo(CustomSecureInput);

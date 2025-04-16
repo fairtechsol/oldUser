@@ -1,5 +1,5 @@
 import { useMediaQuery, useTheme } from "@mui/material";
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import LiveCasinoDesktop from "../../components/LiveCasino/desktop";
 import LiveCasinoMobile from "../../components/LiveCasino/mobile";
@@ -18,4 +18,4 @@ const LiveCasino = () => {
   return matchesMobile ? <LiveCasinoMobile /> : <LiveCasinoDesktop />;
 };
 
-export default LiveCasino;
+export default memo(LiveCasino);

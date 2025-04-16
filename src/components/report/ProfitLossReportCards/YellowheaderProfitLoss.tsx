@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 import Calendar from "../../../components/Common/Calendar";
 import CustomButton from "../../../components/Common/CustomButton";
 
@@ -104,4 +105,4 @@ const YellowHeaderProfitLoss = ({
     </Box>
   );
 };
-export default YellowHeaderProfitLoss;
+export default memo(YellowHeaderProfitLoss);

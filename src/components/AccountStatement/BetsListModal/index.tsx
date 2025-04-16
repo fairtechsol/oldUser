@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import moment from "moment";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { Col, ModalHeader } from "react-bootstrap";
 import { IoClose } from "react-icons/io5";
 import { useDispatch } from "react-redux";
@@ -186,4 +186,4 @@ const BetsListModal = ({
   );
 };
 
-export default BetsListModal;
+export default memo(BetsListModal);

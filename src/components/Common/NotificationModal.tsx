@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
 import MUIModal from "@mui/material/Modal";
+import { memo } from "react";
 import SmallCustomLoader from "../Loader/smallLoader";
 
 const NotificationModal = () => {
@@ -43,4 +44,4 @@ const NotificationModal = () => {
   );
 };
 
-export default NotificationModal;
+export default memo(NotificationModal);

@@ -1,4 +1,5 @@
 import { Box, Drawer } from "@mui/material";
+import { memo } from "react";
 import SideBar from "./SideBar";
 
 const MobileSideBar = ({
@@ -24,7 +25,7 @@ const MobileSideBar = ({
         },
       }}
       ModalProps={{
-        keepMounted: true, 
+        keepMounted: true,
       }}
       sx={{
         display: { xs: "block", sm: "block", md: "block" },
@@ -48,4 +49,4 @@ const MobileSideBar = ({
   );
 };
 
-export default MobileSideBar;
+export default memo(MobileSideBar);

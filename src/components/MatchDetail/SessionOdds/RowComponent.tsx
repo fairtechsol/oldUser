@@ -3,6 +3,7 @@ import moment from "moment";
 import { useLocation } from "react-router-dom";
 import { formatToINR } from "../../../helper";
 import SingleBox from "./SingleBox";
+import { memo } from "react";
 
 interface RowComponentProps {
   header: boolean;
@@ -103,4 +104,4 @@ const RowComponent = ({ header, data, match }: RowComponentProps) => {
   );
 };
 
-export default RowComponent;
+export default memo(RowComponent);

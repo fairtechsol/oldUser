@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { cardUrlMain } from "../../../utils/Constants";
+import { memo } from "react";
 
 const VideoPage = () => {
   const { vidId } = useParams();
@@ -36,4 +37,4 @@ const VideoPage = () => {
   );
 };
 
-export default VideoPage;
+export default memo(VideoPage);

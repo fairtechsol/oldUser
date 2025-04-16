@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 import moment from "moment";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getMatchWiseProfitLossCard } from "../../../store/actions/user/userAction";
 import { AppDispatch, RootState } from "../../../store/store";
@@ -129,4 +129,4 @@ const ProfitLossComponent = ({
     </Typography>
   );
 };
-export default ProfitLossComponent;
+export default memo(ProfitLossComponent);

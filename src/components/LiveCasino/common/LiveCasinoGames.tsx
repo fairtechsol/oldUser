@@ -1,4 +1,5 @@
 import { Box } from "@mui/material";
+import { memo } from "react";
 import { dt2020 } from "../../../assets";
 
 interface LiveCasinoGamesProps {
@@ -43,4 +44,4 @@ const LiveCasinoGames = ({
   );
 };
 
-export default LiveCasinoGames;
+export default memo(LiveCasinoGames);

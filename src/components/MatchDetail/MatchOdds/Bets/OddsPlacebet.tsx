@@ -1,7 +1,7 @@
 import { Typography, useMediaQuery, useTheme } from "@mui/material";
 import { Box } from "@mui/system";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { CancelDark } from "../../../../assets";
@@ -518,4 +518,4 @@ const OddsPlaceBet = ({ handleClose, session, type }: any) => {
   );
 };
 
-export default OddsPlaceBet;
+export default memo(OddsPlaceBet);

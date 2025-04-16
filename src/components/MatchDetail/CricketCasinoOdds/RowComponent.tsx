@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { formatToINR } from "../../../helper";
 import { RootState } from "../../../store/store";
 import SingleBox from "./SingleBox";
+import { memo } from "react";
 
 const RowComponent = ({ header, data }: any) => {
   const { profileDetail } = useSelector(
@@ -85,4 +86,4 @@ const RowComponent = ({ header, data }: any) => {
   );
 };
 
-export default RowComponent;
+export default memo(RowComponent);

@@ -1,12 +1,8 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 import SmallDropDown from "./SmallDropDown";
 
-const NumberDropDown = ({
-  getLimitEntries,
-  textColor,
-  setPageLimit,
-  pageLimit,
-}: any) => {
+const NumberDropDown = ({ textColor, setPageLimit, pageLimit }: any) => {
   return (
     <Box display="flex" alignItems="center" sx={{ width: "100%" }}>
       <Typography
@@ -14,11 +10,7 @@ const NumberDropDown = ({
       >
         Show
       </Typography>
-      <SmallDropDown
-        getLimitEntries={getLimitEntries}
-        pageLimit={pageLimit}
-        setPageLimit={setPageLimit}
-      />
+      <SmallDropDown pageLimit={pageLimit} setPageLimit={setPageLimit} />
       <Typography
         sx={{ fontSize: "10px", color: `${textColor}`, fontWeight: "500" }}
       >
@@ -28,4 +20,4 @@ const NumberDropDown = ({
   );
 };
 
-export default NumberDropDown;
+export default memo(NumberDropDown);

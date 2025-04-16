@@ -1,6 +1,6 @@
 import { Box, Modal, Typography } from "@mui/material";
 import moment from "moment";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { Form, ModalHeader } from "react-bootstrap";
 import { IoClose } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
@@ -187,4 +187,4 @@ const AccountStatementModal = ({
   );
 };
 
-export default AccountStatementModal;
+export default memo(AccountStatementModal);

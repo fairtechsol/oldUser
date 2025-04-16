@@ -1,4 +1,5 @@
 import { Box, TextField } from "@mui/material";
+import { memo } from "react";
 
 interface ValueButtonProps {
   value: any;
@@ -50,4 +51,4 @@ const ValueButton = ({ value, onChange }: ValueButtonProps) => {
   );
 };
 
-export default ValueButton;
+export default memo(ValueButton);

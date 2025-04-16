@@ -1,6 +1,6 @@
 import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import { useFormik } from "formik";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setButtonValue } from "../../store/actions/user/userAction";
 import { AppDispatch, RootState } from "../../store/store";
@@ -220,4 +220,4 @@ const SessionValue = () => {
   );
 };
 
-export default SessionValue;
+export default memo(SessionValue);
