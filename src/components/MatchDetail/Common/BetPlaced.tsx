@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import CountDownTimer from "./CountDownTimer";
 
 interface BetPlacedProps {
@@ -34,4 +34,4 @@ const BetPlaced = ({ visible, setVisible, not, time }: BetPlacedProps) => {
     return <CountDownTimer visible={true} setVisible={setFlag} time={time} />;
   }
 };
-export default BetPlaced;
+export default memo(BetPlaced);

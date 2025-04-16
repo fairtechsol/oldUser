@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 
 import { useFormik } from "formik";
-import { useEffect, useMemo } from "react";
+import { memo, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { eye, eyeLock } from "../../assets";
 import Input from "../../components/login/input";
@@ -215,4 +215,4 @@ const ChangePassword = (props: any) => {
   );
 };
 
-export default ChangePassword;
+export default memo(ChangePassword);

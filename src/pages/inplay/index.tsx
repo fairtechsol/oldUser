@@ -1,6 +1,6 @@
 import { Box, Grid, useMediaQuery, useTheme } from "@mui/material";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import { FaHome } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
@@ -297,4 +297,4 @@ const Inplay = () => {
   );
 };
 
-export default Inplay;
+export default memo(Inplay);

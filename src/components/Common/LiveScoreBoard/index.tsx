@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { ARROWUP, liveTv } from "../../../assets";
 import "./style.scss";
 
@@ -199,4 +199,4 @@ const LiveScoreBoard = ({ data, width, setIsTv }: LiveScoreBoardProps) => {
   );
 };
 
-export default LiveScoreBoard;
+export default memo(LiveScoreBoard);

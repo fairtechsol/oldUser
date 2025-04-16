@@ -1,5 +1,6 @@
 import { Box, useMediaQuery, useTheme } from "@mui/material";
 import SeparateBox from "./SeparateBox";
+import { memo } from "react";
 
 interface MatchRatesCommonCompProps {
   runnerPosition: number;
@@ -64,4 +65,4 @@ const MatchRatesCommonComp = ({
   );
 };
 
-export default MatchRatesCommonComp;
+export default memo(MatchRatesCommonComp);

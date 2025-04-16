@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AllRateSeperate from "../../components/MatchDetail/AllRateBets/AllRateSeperate";
 import SessionBetSeperate from "../../components/MatchDetail/SessionOdds/SessionBetSeperate";
@@ -73,4 +73,4 @@ const BetHistory = () => {
   );
 };
 
-export default BetHistory;
+export default memo(BetHistory);

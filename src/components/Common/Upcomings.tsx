@@ -2,6 +2,7 @@ import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import moment from "moment";
 import { IconConstants } from "../../helper/gameConstants";
 import { TimeLeftProps } from "../../interface/common";
+import { memo } from "react";
 
 interface UpcomingsProps {
   match: any;
@@ -222,4 +223,4 @@ const Upcomings = ({ match, timeLeft, upcoming }: UpcomingsProps) => {
   );
 };
 
-export default Upcomings;
+export default memo(Upcomings);

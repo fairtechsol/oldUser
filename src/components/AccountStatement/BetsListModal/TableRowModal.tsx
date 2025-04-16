@@ -1,5 +1,20 @@
 import { Box, Typography } from "@mui/material";
 
+interface TableRowModalProps {
+  index: number;
+  profit: boolean;
+  gameName: string;
+  createdAt: string;
+  roundId: string;
+  transactionId: string;
+  containerStyle: any;
+  fContainerStyle: any;
+  fTextStyle: any;
+  amount: string;
+  absAmount: string;
+  total: string;
+}
+
 const TableRowModal = ({
   containerStyle,
   fContainerStyle,
@@ -12,7 +27,7 @@ const TableRowModal = ({
   createdAt,
   roundId,
   transactionId,
-}: any) => {
+}: TableRowModalProps) => {
   return (
     <Box
       key={index}

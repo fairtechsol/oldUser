@@ -1,5 +1,5 @@
 import { Box, useMediaQuery, useTheme } from "@mui/material";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import LiveScoreBoard from "../../components/Common/LiveScoreBoard";
@@ -514,4 +514,4 @@ const MatchDetail = () => {
   );
 };
 
-export default MatchDetail;
+export default memo(MatchDetail);

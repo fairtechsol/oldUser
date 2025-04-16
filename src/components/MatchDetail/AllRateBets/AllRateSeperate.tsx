@@ -1,5 +1,5 @@
 import { Box, Typography, useTheme } from "@mui/material";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { ARROWUP, DELETE } from "../../../assets";
 import { formatToINR } from "../../../helper";
 import { Bet } from "../../../interface/betPlace";
@@ -407,4 +407,4 @@ const AllRateSeperate = ({
   );
 };
 
-export default AllRateSeperate;
+export default memo(AllRateSeperate);

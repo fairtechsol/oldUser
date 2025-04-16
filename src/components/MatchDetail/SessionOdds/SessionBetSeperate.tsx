@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { ARROWUP, ArrowDown, DELETE } from "../../../assets";
 
 import { formatToINR } from "../../../helper";
@@ -346,4 +346,4 @@ const SessionBetSeperate = ({
   );
 };
 
-export default SessionBetSeperate;
+export default memo(SessionBetSeperate);

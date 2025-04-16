@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 import {
   Col,
   Form,
@@ -145,4 +145,4 @@ const SecureAuthVerificationComponent = () => {
   );
 };
 
-export default SecureAuthVerificationComponent;
+export default memo(SecureAuthVerificationComponent);

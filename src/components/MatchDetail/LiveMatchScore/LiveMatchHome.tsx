@@ -1,6 +1,7 @@
 import { Box } from "@mui/material";
 import { Col, Container, Ratio, Row } from "react-bootstrap";
 import { liveStreamUrl } from "../../../utils/Constants";
+import { memo } from "react";
 
 interface LiveMatchHomeProps {
   eventId: string | number;
@@ -47,4 +48,4 @@ const LiveMatchHome = ({ eventId }: LiveMatchHomeProps) => {
   );
 };
 
-export default LiveMatchHome;
+export default memo(LiveMatchHome);
