@@ -63,12 +63,12 @@ export { default as HorseRacing } from "./images/horseRacing.webp";
 export { default as InstantWorli } from "./images/instantWorli.webp";
 export { default as Lucky7A } from "./images/lucky7A.webp";
 export { default as MAC88 } from "./images/mac88.webp";
-export { default as Poker } from "./images/poker.png";
+export { default as Poker } from "./images/poker.webp";
 export { default as Politics } from "./images/politics.png";
 export { default as Race2020 } from "./images/race20.webp";
 export { default as BallByBall } from "./images/snooker.webp";
 export { default as SuperOver } from "./images/superOver.webp";
-export { default as Teenpatti20 } from "./images/teenpatti.png";
+export { default as Teenpatti20 } from "./images/teenpatti.webp";
 export { default as TeenPatti1Day } from "./images/teenpatti1Day.webp";
 export { default as WorliMatka } from "./images/worliMatka.webp";
 
