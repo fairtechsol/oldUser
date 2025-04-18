@@ -9,7 +9,7 @@ import {
   Football,
   GOLF,
   Hockey,
-  Mac88,
+  MAC88,
   MacVirtual,
   MYACCOUNT,
   Play,
@@ -39,7 +39,7 @@ let EventNames = [
   },
   {
     title: "LIVE GAMES",
-    image: Mac88,
+    image: MAC88,
     url: "/liveCasino",
     active: false,
   },
