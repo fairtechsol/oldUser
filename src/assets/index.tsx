@@ -1,74 +1,67 @@
-export { default as ARROWUP } from "./images/arrowup1.webp";
-export { default as CancelDark } from "./images/cancel.webp";
-export { default as DELETE } from "./images/delete.webp";
-export { default as DownIcon } from "./images/down.svg";
-export { default as Draw } from "./images/draw.webp";
-export { default as drawerBackground } from "./images/drawer_bg.png";
-export { default as eye } from "./images/eye.webp";
-export { default as eyeLock } from "./images/eyeLock.webp";
-export { default as FASTTIME } from "./images/fastTime.webp";
-export { default as Lock } from "./images/lock.webp";
-export { default as FgLogo, default as logo } from "./images/logo02.webp";
-export { default as Logout } from "./images/logout.webp";
-export { default as mail } from "./images/mail.png";
-export { default as LoginBg } from "./images/new_back.webp";
-export { default as Search } from "./images/search.webp";
-export { default as SEARCH } from "./images/search1.webp";
-
-export { default as ArrowDown } from "./images/arrow_down.webp";
-export { default as BallStart } from "./images/ballStart.webp";
-
-export { default as Cricket } from "./images/cricket.webp";
-export { default as Football } from "./images/football.webp";
-
-export { default as Card } from "./images/card.webp";
-export { default as Hockey } from "./images/hockey.webp";
-export { default as Play } from "./images/play.webp";
-export { default as Tennis } from "./images/tennis.webp";
-
-export { default as MYACCOUNT } from "./images/my-account.webp";
-
-export { default as BACKIMAGE } from "./images/back.webp";
-export { default as BASKETBALL } from "./images/basketball.webp";
-export { default as CHESS } from "./images/chess.webp";
-export { default as GOLF } from "./images/golf.webp";
-export { default as SNOOKER } from "./images/snooker.webp";
-
-export { default as ARROWDROPDOWN } from "./images/arrowDropDown.webp";
-
-export { default as ARROW_DOWN } from "./images/arrowDown.webp";
-export { default as ARROW_UP } from "./images/arrowUp.webp";
-export { default as liveTv } from "./images/live_tv.svg";
-export { default as LockIcon } from "./images/lock.svg";
-export { default as UD } from "./images/UD.webp";
-
-export { default as ColorPrediction } from "./images/colorPrediction.png"; //
-export { default as dt2020 } from "./images/dt202.webp";
-export { default as MacVirtual } from "./images/macVirtual.png";
-
 export { default as Thirty2CardsA } from "./images/32Cards.webp";
 export { default as AmarAkbarAnthony } from "./images/amarAkbarAnthony.webp";
 export { default as AndarBahar2 } from "./images/andarBahar.webp";
+export { default as ArrowDown } from "./images/arrow_down.webp";
+export { default as ARROW_DOWN } from "./images/arrowDown.webp";
+export { default as ARROWDROPDOWN } from "./images/arrowDropDown.webp";
+export { default as ARROW_UP } from "./images/arrowUp.webp";
+export { default as ARROWUP } from "./images/arrowup1.webp";
 export { default as Baccarat } from "./images/baccarat.webp";
+export { default as BACKIMAGE } from "./images/back.webp";
+export { default as BallStart } from "./images/ballStart.webp";
+export { default as BASKETBALL } from "./images/basketball.webp";
 export { default as BollywoodCasino } from "./images/bollywoodCasino.webp";
 export { default as CANCEL } from "./images/cancel.png";
+export { default as CancelDark } from "./images/cancel.webp";
+export { default as Card } from "./images/card.webp";
 export { default as CasinoMeter } from "./images/casinoMeter.webp";
 export { default as CasinoQueen } from "./images/casinoQueen.webp";
 export { default as CasinoWar } from "./images/casinoWar.webp";
+export { default as CHESS } from "./images/chess.webp";
+export { default as ColorPrediction } from "./images/colorPrediction.png"; //
+export { default as Cricket } from "./images/cricket.webp";
 export { default as CriketMatch2020 } from "./images/cricketMatch2020.webp";
+export { default as DELETE } from "./images/delete.webp";
+export { default as DownIcon } from "./images/down.svg";
 export { default as DragonTiger20 } from "./images/dragonTiger.webp";
+export { default as Draw } from "./images/draw.webp";
+export { default as drawerBackground } from "./images/drawer_bg.png";
+export { default as dt2020 } from "./images/dt202.webp";
+export { default as eye } from "./images/eye.webp";
+export { default as eyeLock } from "./images/eyeLock.webp";
+export { default as FASTTIME } from "./images/fastTime.webp";
 export { default as Five5 } from "./images/five5.webp";
+export { default as Football } from "./images/football.webp";
+export { default as GOLF } from "./images/golf.webp";
 export { default as GreyHound } from "./images/greyHound.webp";
+export { default as Hockey } from "./images/hockey.webp";
 export { default as HorseRacing } from "./images/horseRacing.webp";
 export { default as InstantWorli } from "./images/instantWorli.webp";
+export { default as liveTv } from "./images/live_tv.svg";
+export { default as LockIcon } from "./images/lock.svg";
+export { default as Lock } from "./images/lock.webp";
+export { default as FgLogo, default as logo } from "./images/logo02.webp";
+export { default as Logout } from "./images/logout.webp";
 export { default as Lucky7A } from "./images/lucky7A.webp";
 export { default as MAC88 } from "./images/mac88.webp";
+export { default as MacVirtual } from "./images/macVirtual.png";
+export { default as mail } from "./images/mail.png";
+export { default as MYACCOUNT } from "./images/my-account.webp";
+export { default as LoginBg } from "./images/new_back.webp";
+export { default as Play } from "./images/play.webp";
 export { default as Poker } from "./images/poker.webp";
 export { default as Politics } from "./images/politics.png";
 export { default as Race2020 } from "./images/race20.webp";
-export { default as BallByBall } from "./images/snooker.webp";
+export { default as Search } from "./images/search.webp";
+export { default as SEARCH } from "./images/search1.webp";
+export {
+    default as BallByBall,
+    default as SNOOKER
+} from "./images/snooker.webp";
 export { default as SuperOver } from "./images/superOver.webp";
 export { default as Teenpatti20 } from "./images/teenpatti.webp";
 export { default as TeenPatti1Day } from "./images/teenpatti1Day.webp";
+export { default as Tennis } from "./images/tennis.webp";
+export { default as UD } from "./images/UD.webp";
 export { default as WorliMatka } from "./images/worliMatka.webp";
 
