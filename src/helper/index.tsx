@@ -92,75 +92,79 @@ export const updateSessionBettingsItem = (
   apiResponseBettings: any
 ) => {
   try {
-    if (!apiResponseBettings || Object.keys(apiResponseBettings).length === 0) {
-      for (const key in matchDetailBettings) {
-        // if (matchDetailBettings.hasOwnProperty(key)) {
-        matchDetailBettings[key].mid = apiResponseBettings[key]?.mid;
-        const matchDetailSections = matchDetailBettings[key]?.section;
-        matchDetailSections?.forEach((section: any) => {
-          section.isComplete = true;
-        });
-        // }
-      }
+    if (!matchDetailBettings || Object.keys(matchDetailBettings).length === 0) {
       return matchDetailBettings;
-    } else {
-      let apiSessionIdWiseIndex = Object.keys(apiResponseBettings)?.reduce(
-        (prev: any, curr: any) => {
-          let ind = 0;
-          prev[curr] = apiResponseBettings[curr]?.section?.reduce(
-            (prevSec: any, currSec: any) => {
-              prevSec[currSec?.id] = ind;
-              ind++;
-              return prevSec;
-            },
-            {}
-          );
-          return prev;
-        },
-        {}
-      );
-      for (const key in matchDetailBettings) {
-        if (apiResponseBettings.hasOwnProperty(key)) {
-          matchDetailBettings[key].mid = apiResponseBettings[key]?.mid;
-          const apiSections = apiResponseBettings[key].section;
-          const matchDetailSections = matchDetailBettings[key]?.section;
+    }
 
-          if (matchDetailSections) {
-            matchDetailSections.forEach(
-              (matchDetailSection: any, index: number) => {
-                const matchDetailSectionIndex =
-                  apiSessionIdWiseIndex[key]?.[matchDetailSections?.id];
-
-                if (matchDetailSectionIndex !== -1) {
-                  matchDetailSections[index] = {
-                    ...matchDetailSection,
-                    ...apiSections[matchDetailSectionIndex],
-                    minBet: apiSections[matchDetailSectionIndex]?.min,
-                    maxBet: apiSections[matchDetailSectionIndex]?.max,
-                  };
-                }
-              }
-            );
-            apiSections?.forEach((apiSection: any) => {
-              const existsInMatchDetail = matchDetailSections.some(
-                (matchDetailSection: any) =>
-                  matchDetailSection.id === apiSection.id
-              );
-              if (!existsInMatchDetail) {
-                matchDetailSections.push({
-                  ...apiSection,
-                  minBet: apiSection?.min,
-                  maxBet: apiSection?.max,
-                });
-              }
-            });
-          }
+    if (!apiResponseBettings || Object.keys(apiResponseBettings).length === 0) {
+      Object.values(matchDetailBettings).forEach((match: any) => {
+        if (match.section && Array.isArray(match.section)) {
+          match.section.forEach((section: any) => {
+            section.isComplete = true;
+          });
         }
+      });
+      return matchDetailBettings;
+    }
+
+    const apiSectionMap: any = {};
+
+    for (const key in apiResponseBettings) {
+      apiSectionMap[key] = {};
+
+      if (apiResponseBettings[key]?.section) {
+        apiResponseBettings[key].section.forEach((section: any) => {
+          if (section && section.id) {
+            apiSectionMap[key][section.id] = section;
+          }
+        });
       }
     }
+
+    for (const key in matchDetailBettings) {
+      const apiMatch = apiResponseBettings[key];
+      const matchDetail = matchDetailBettings[key];
+
+      if (apiMatch?.mid) {
+        matchDetail.mid = apiMatch.mid;
+      }
+
+      if (matchDetail?.section && apiMatch?.section) {
+        matchDetail.section = matchDetail.section.map((detailSection: any) => {
+          const apiSection = apiSectionMap[key]?.[detailSection.id];
+
+          if (apiSection) {
+            return {
+              ...detailSection,
+              ...apiSection,
+              minBet: apiSection.min,
+              maxBet: apiSection.max,
+            };
+          }
+
+          return detailSection;
+        });
+
+        const existingSectionIds = new Set(
+          matchDetail.section.map((section: any) => section.id)
+        );
+
+        apiMatch.section.forEach((apiSection: any) => {
+          if (!existingSectionIds.has(apiSection.id)) {
+            matchDetail.section.push({
+              ...apiSection,
+              minBet: apiSection.min,
+              maxBet: apiSection.max,
+            });
+          }
+        });
+      }
+    }
+
     return matchDetailBettings;
   } catch (error) {
-    console.log(error);
+    console.error("Error updating session betting items:", error);
+    return matchDetailBettings;
   }
 };
 
