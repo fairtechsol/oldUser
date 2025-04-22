@@ -90,23 +90,8 @@ const matchListSlice = createSlice({
         state.matchDetails = null;
       })
       .addCase(updateMatchRates.fulfilled, (state, action) => {
-        const {
-          apiSession,
-          apiTiedMatch,
-          bookmaker,
-          bookmaker2,
-          marketCompleteMatch,
-          marketCompleteMatch1,
-          matchOdd,
-          sessionBettings,
-          manualTideMatch,
-          quickbookmaker,
-          completeManual,
-          apiTiedMatch2,
-          other,
-          tournament,
-          scoreBoard,
-        } = action?.payload;
+        const { apiSession, sessionBettings, tournament, scoreBoard } =
+          action?.payload;
         state.liveScoreBoardData = scoreBoard?.data;
         const parsedSessionBettings =
           state.matchDetails?.sessionBettings?.map(JSON.parse) || [];
@@ -133,24 +118,11 @@ const matchListSlice = createSlice({
           manualSessionActive: sessionBettings?.length >= 0 ? true : false,
           gmid: action.payload?.gmid,
           apiSession: apiSession,
-          apiTideMatch: apiTiedMatch,
-          apiTideMatch2: apiTiedMatch2,
-          bookmaker: bookmaker,
-          marketBookmaker2: bookmaker2,
-          manualTiedMatch: manualTideMatch,
-          marketCompleteMatch: marketCompleteMatch,
-          marketCompleteMatch1: marketCompleteMatch1,
-          matchOdd: matchOdd,
-          quickBookmaker: quickbookmaker,
-          manualCompleteMatch: completeManual,
           sessionBettings: stringifiedSessionBetting,
-          other: other,
           tournament: tournament?.sort((a: any, b: any) => {
-            // Primary sort by sno (ascending)
             if (a.sno !== b.sno) {
               return a.sno - b.sno;
             }
-            // If sno values are equal, sort so that null parentId comes first
             if (a.parentBetId === null && b.parentBetId !== null) return -1;
             if (a.parentBetId !== null && b.parentBetId === null) return 1;
             return 0;
