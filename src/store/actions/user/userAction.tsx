@@ -58,6 +58,12 @@ export const updateBalance = createAsyncThunk<any, any>(
     return balance;
   }
 );
+export const updateTeamRateOnUndeclare = createAsyncThunk<any, any>(
+  "/user/updateTeamRateOnUndeclare",
+  async (balance) => {
+    return balance;
+  }
+);
 export const updateProfitLossOnDeleteSession = createAsyncThunk<any, any>(
   "/user/profitLoss/deleteSession",
   async (balance) => {

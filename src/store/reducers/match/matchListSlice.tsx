@@ -16,6 +16,7 @@ import {
   updateBetDataOnUndeclare,
   updateMaxLossForBet,
   updateProfitLossOnDeleteSession,
+  updateTeamRateOnUndeclare,
   updateTeamRatesOnDeleteMatch,
 } from "../../actions/user/userAction";
 
@@ -143,6 +144,16 @@ const matchListSlice = createSlice({
           profitLossDataMatch: {
             ...state.matchDetails.profitLossDataMatch,
             [betId + "_profitLoss_" + matchId]: JSON.stringify(newTeamRateData),
+          },
+        };
+      })
+      .addCase(updateTeamRateOnUndeclare.fulfilled, (state, action) => {
+        const { profitLoss, betId, matchId } = action?.payload;
+        state.matchDetails = {
+          ...state.matchDetails,
+          profitLossDataMatch: {
+            ...state.matchDetails.profitLossDataMatch,
+            [betId + "_profitLoss_" + matchId]: JSON.stringify(profitLoss),
           },
         };
       })
