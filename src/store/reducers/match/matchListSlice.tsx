@@ -137,35 +137,14 @@ const matchListSlice = createSlice({
         state.selectedBet = action?.payload;
       })
       .addCase(updateBalance.fulfilled, (state, action) => {
-        const {
-          newTeamRateData,
-          teamArateRedisKey,
-          teamBrateRedisKey,
-          teamCrateRedisKey,
-          matchBetType,
-          betId,
-          matchId,
-        } = action?.payload;
-        if (matchBetType === "tournament") {
-          state.matchDetails = {
-            ...state.matchDetails,
-            profitLossDataMatch: {
-              ...state.matchDetails.profitLossDataMatch,
-              [betId + "_profitLoss_" + matchId]:
-                JSON.stringify(newTeamRateData),
-            },
-          };
-        } else {
-          state.matchDetails = {
-            ...state.matchDetails,
-            profitLossDataMatch: {
-              ...state.matchDetails.profitLossDataMatch,
-              [teamArateRedisKey]: newTeamRateData?.teamA,
-              [teamBrateRedisKey]: newTeamRateData?.teamB,
-              [teamCrateRedisKey]: newTeamRateData?.teamC,
-            },
-          };
-        }
+        const { newTeamRateData, betId, matchId } = action?.payload;
+        state.matchDetails = {
+          ...state.matchDetails,
+          profitLossDataMatch: {
+            ...state.matchDetails.profitLossDataMatch,
+            [betId + "_profitLoss_" + matchId]: JSON.stringify(newTeamRateData),
+          },
+        };
       })
       .addCase(updateMaxLossForBet.fulfilled, (state, action) => {
         const { betPlaced, profitLossData } = action?.payload;
@@ -192,7 +171,6 @@ const matchListSlice = createSlice({
               maxLoss: JSON.parse(profitLossData)?.maxLoss,
               totalBet: 1,
               profitLoss: JSON.parse(profitLossData)?.betPlaced,
-              // Add other properties as necessary
             });
           }
 
@@ -274,36 +252,16 @@ const matchListSlice = createSlice({
         }
       })
       .addCase(updateTeamRatesOnDeleteMatch.fulfilled, (state, action) => {
-        const {
-          redisObject,
-          matchBetType,
-          betId,
-          teamRate,
-          teamArateRedisKey,
-          teamBrateRedisKey,
-          teamCrateRedisKey,
-        } = action?.payload;
+        const { betId, teamRate } = action?.payload;
 
-        if (matchBetType === "tournament") {
-          state.matchDetails = {
-            ...state.matchDetails,
-            profitLossDataMatch: {
-              ...state.matchDetails.profitLossDataMatch,
-              [betId + "_profitLoss_" + state.matchDetails.id]:
-                JSON.stringify(teamRate),
-            },
-          };
-        } else {
-          state.matchDetails = {
-            ...state.matchDetails,
-            profitLossDataMatch: {
-              ...state.matchDetails?.profitLossDataMatch,
-              [teamArateRedisKey]: redisObject[teamArateRedisKey],
-              [teamBrateRedisKey]: redisObject[teamBrateRedisKey],
-              [teamCrateRedisKey]: redisObject[teamCrateRedisKey],
-            },
-          };
-        }
+        state.matchDetails = {
+          ...state.matchDetails,
+          profitLossDataMatch: {
+            ...state.matchDetails.profitLossDataMatch,
+            [betId + "_profitLoss_" + state.matchDetails.id]:
+              JSON.stringify(teamRate),
+          },
+        };
       })
       .addCase(updateMatchRatesFromApiOnList.fulfilled, (state, action) => {
         let matchListFromApi = action.payload;
@@ -327,77 +285,12 @@ const matchListSlice = createSlice({
         }
       })
       .addCase(selectedBetMinMax.fulfilled, (state, action) => {
-        const { team, data } = action?.payload;
-        let value = {};
-        if (team?.matchBetType === "matchOdd") {
-          value = {
-            min: data?.minBet,
-            max: data?.maxBet,
-          };
-        } else if (team?.matchBetType === "bookmaker") {
-          value = {
-            min: data?.minBet,
-            max: data?.maxBet,
-          };
-        } else if (team?.matchBetType === "quickbookmaker1") {
-          const index = data?.quickBookmaker?.findIndex(
-            (obj: any) => obj["type"] === "quickbookmaker1"
-          );
-          value = {
-            min: data?.quickBookmaker[index]?.minBet,
-            max: data?.quickBookmaker[index]?.maxBet,
-          };
-        } else if (team?.matchBetType === "quickbookmaker2") {
-          const index = data?.quickBookmaker?.findIndex(
-            (obj: any) => obj["type"] === "quickbookmaker2"
-          );
-          value = {
-            min: data?.quickBookmaker[index]?.minBet,
-            max: data?.quickBookmaker[index]?.maxBet,
-          };
-        } else if (team?.matchBetType === "quickbookmaker3") {
-          const index = data?.quickBookmaker?.findIndex(
-            (obj: any) => obj["type"] === "quickbookmaker3"
-          );
-          value = {
-            min: data?.quickBookmaker[index]?.minBet,
-            max: data?.quickBookmaker[index]?.maxBet,
-          };
-        } else if (team?.matchBetType === "tiedMatch2") {
-          value = {
-            min: data?.manualTiedMatch?.minBet,
-            max: data?.manualTiedMatch?.maxBet,
-          };
-        } else if (team?.matchBetType === "tiedMatch1") {
-          value = {
-            min: data?.minBet,
-            max: data?.maxBet,
-          };
-        } else if (team?.matchBetType === "completeMatch") {
-          value = {
-            min: data?.minBet,
-            max: data?.maxBet,
-          };
-        } else if (
-          !team?.matchBetType &&
-          data?.isManual &&
-          team?.betId === data?.id
-        ) {
-          value = {
-            min: data?.minBet,
-            max: data?.maxBet,
-          };
-        } else if (
-          !team?.matchBetType &&
-          !data?.isManual &&
-          team?.betId === data?.id
-        ) {
-          value = {
-            min: data?.min,
-            max: data?.max,
-          };
-        }
-        state.minMax = value;
+        const { data } = action?.payload;
+
+        state.minMax = {
+          min: data?.min,
+          max: data?.max,
+        };
       })
       .addCase(setCurrentPageRedux.fulfilled, (state, action) => {
         state.currentPageRedux = action.payload;

@@ -70,7 +70,12 @@ const SeparateModal = ({
           matchId: matchDetails?.id,
           selectionId: selectionId,
         },
-        { ...data, type: marketDetails?.type }
+        {
+          ...data,
+          type: marketDetails?.type,
+          min: marketDetails?.minBet,
+          max: marketDetails?.maxBet,
+        }
       );
     }
   };

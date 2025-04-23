@@ -30,7 +30,6 @@ import {
   updateMatchRates,
 } from "../../store/actions/match/matchListAction";
 import {
-  betDataFromSocket,
   getButtonValue,
   getProfileInMatchDetail,
   updateBalance,
@@ -87,7 +86,7 @@ const MatchDetail = () => {
       dispatch(updateBalanceSession(event));
       if (event?.betPlaced?.placedBet?.matchId === state?.matchId) {
         dispatch(updateBetsPlaced(event?.betPlaced?.placedBet));
-        dispatch(betDataFromSocket(event));
+        // dispatch(betDataFromSocket(event));
         dispatch(
           updateRunAmount({
             betId: event?.betPlaced?.placedBet?.betId,
