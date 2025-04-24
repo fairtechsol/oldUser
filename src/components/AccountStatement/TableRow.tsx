@@ -113,8 +113,8 @@ const TableRow = ({
         <Typography sx={{ fontSize: "12px", fontWeight: "600" }}>
           {closing !== null
             ? new Intl.NumberFormat("en-IN", { currency: "INR" }).format(
-                closing
-              )
+              closing
+            )
             : ""}
         </Typography>
       </Box>
@@ -140,7 +140,7 @@ const TableRow = ({
         }}
         onClick={() => onClick && onClick()}
       >
-        <Typography sx={{ fontSize: "10px", fontWeight: "600" }}>
+        <Typography sx={{ fontSize: "10px", fontWeight: "600", lineHeight: "1", }}>
           {description}
         </Typography>
       </Box>

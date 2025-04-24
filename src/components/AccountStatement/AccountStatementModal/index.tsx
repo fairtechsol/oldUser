@@ -75,12 +75,12 @@ const AccountStatementModal = ({
         runnerId: show.runnerId,
         ...(option === "matched"
           ? {
-              isCard: true,
-              result: `inArr${JSON.stringify(["WIN", "LOSS", "TIE"])}`,
-            }
+            isCard: true,
+            result: `inArr${JSON.stringify(["WIN", "LOSS", "TIE"])}`,
+          }
           : {
-              status: "DELETED",
-            }),
+            status: "DELETED",
+          }),
       };
       dispatch(getPlacedBetsForAccountStatement(payload));
     }
@@ -162,8 +162,8 @@ const AccountStatementModal = ({
                     item?.result === "LOSS"
                       ? `-${parseFloat(item?.lossAmount).toFixed(2)}`
                       : item?.result === "WIN"
-                      ? parseFloat(item?.winAmount).toFixed(2)
-                      : 0
+                        ? parseFloat(item?.winAmount).toFixed(2)
+                        : 0
                   }
                   createdAt={moment(item?.createdAt).format(
                     "MM/DD/YYYY hh:mm:ss A"
@@ -171,11 +171,11 @@ const AccountStatementModal = ({
                   startAt={
                     item?.racingMatch
                       ? moment(item?.racingMatch?.startAt).format(
-                          "MM/DD/YYYY hh:mm:ss A"
-                        )
+                        "MM/DD/YYYY hh:mm:ss A"
+                      )
                       : moment(item?.match?.startAt).format(
-                          "MM/DD/YYYY hh:mm:ss A"
-                        )
+                        "MM/DD/YYYY hh:mm:ss A"
+                      )
                   }
                 />
               ))
