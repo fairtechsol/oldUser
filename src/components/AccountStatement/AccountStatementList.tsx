@@ -45,11 +45,10 @@ const AccountStatementList = () => {
     (state: RootState) => state.card.cardDetail
   );
 
-  const handleLiveCasinoModalOpen = useCallback((item: any) => {
+  const handleLiveCasinoModalOpen = (item: any) => {
     setShowBetsModal(true);
     setSelectedUser(item);
-  }, []);
-
+  };
   const handleCloseLiveCasinoModal = () => {
     setShowBetsModal(false);
     dispatch(transactionProviderBetsReset());
