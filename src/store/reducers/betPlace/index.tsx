@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  betsSuccessReset,
   getCurrentBets,
   getPlacedBets,
   getPlacedBetsForAccountStatement,
@@ -121,8 +120,7 @@ const placedBet = createSlice({
         }
       })
       .addCase(updateDeleteReasonBet.fulfilled, (state, action) => {
-        const { betPlacedId, deleteReason, isPermanentDelete } =
-          action.payload;
+        const { betPlacedId, deleteReason, isPermanentDelete } = action.payload;
         const updateDeleteReason = (bet: any) => {
           if (betPlacedId.includes(bet?.id)) {
             bet.deleteReason = deleteReason;
@@ -157,9 +155,6 @@ const placedBet = createSlice({
         state.placedBets = Array.from(
           new Set([action.payload, ...state.placedBets])
         );
-      })
-      .addCase(betsSuccessReset, (state) => {
-        state.success = false;
       });
   },
 });
