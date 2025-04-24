@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import moment from "moment";
-import { memo, useEffect, useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   transactionProviderBetsReset,
@@ -45,17 +45,20 @@ const AccountStatementList = () => {
     (state: RootState) => state.card.cardDetail
   );
 
-  const handleLiveCasinoModalOpen = (item: any) => {
+  const handleLiveCasinoModalOpen = useCallback((item: any) => {
     setShowBetsModal(true);
     setSelectedUser(item);
-  };
+  }, []);
+
   const handleCloseLiveCasinoModal = () => {
     setShowBetsModal(false);
     dispatch(transactionProviderBetsReset());
     setUpdateReports([]);
   };
 
-  const handleDivClick = () => {
+
+  // Date formatting utility
+  const formatDateFilter = useCallback(() => {
     let filter = "";
     if (fromDate && toDate) {
       filter += `&createdAt=between${moment(fromDate)?.format(
@@ -66,43 +69,36 @@ const AccountStatementList = () => {
     } else if (toDate) {
       filter += `&createdAt=lte${moment(toDate)?.format("YYYY-MM-DD")}`;
     }
-    setCurrentPage(1);
-    dispatch(
-      getAccountStatement({
-        userId: profileDetail?.id,
-        page: 1,
-        searchBy: "description,user.userName,actionByUser.userName",
-        keyword: searchValue,
-        limit: pageLimit,
-        filter: filter,
-      })
-    );
-  };
+    return filter;
+  }, [fromDate, toDate]);
 
-  useEffect(() => {
+  // Data fetching handler
+  const fetchAccountStatement = useCallback(() => {
     if (profileDetail?.id) {
-      let filter = "";
-      if (fromDate && toDate) {
-        filter += `&createdAt=between${moment(fromDate)?.format(
-          "YYYY-MM-DD"
-        )}|${moment(toDate).add(1, "days")?.format("YYYY-MM-DD")}`;
-      } else if (fromDate) {
-        filter += `&createdAt=gte${moment(fromDate)?.format("YYYY-MM-DD")}`;
-      } else if (toDate) {
-        filter += `&createdAt=lte${moment(toDate)?.format("YYYY-MM-DD")}`;
-      }
+      const filter = formatDateFilter();
       dispatch(
         getAccountStatement({
-          userId: profileDetail?.id,
+          userId: profileDetail.id,
           page: currentPage,
           limit: pageLimit,
-          filter: filter,
+          filter,
           searchBy: "description,user.userName,actionByUser.userName",
           keyword: searchValue,
         })
       );
     }
-  }, [profileDetail, currentPage, pageLimit]);
+  }, [profileDetail, currentPage, pageLimit, searchValue, formatDateFilter, dispatch]);
+
+  // Search handler
+  const handleSearch = useCallback(() => {
+    setCurrentPage(1);
+    fetchAccountStatement();
+  }, [fetchAccountStatement]);
+
+  // Effects
+  useEffect(() => {
+    fetchAccountStatement();
+  }, [fetchAccountStatement]);
 
   useEffect(() => {
     if (liveCasinoProviderBets?.bets) {
@@ -119,6 +115,11 @@ const AccountStatementList = () => {
     dispatch(transactionProviderName(""));
   }, []);
 
+  // Calculate total pages
+  const totalPages = Math.ceil(
+    parseInt(transactions?.count ? transactions.count : 1) / pageLimit
+  );
+
   return (
     <>
       <Box sx={{ width: "100%" }}>
@@ -126,7 +127,7 @@ const AccountStatementList = () => {
           <YellowHeader
             fromDate={fromDate}
             toDate={toDate}
-            getAccountStatement={handleDivClick}
+            getAccountStatement={handleSearch}
             setToDate={setToDate}
             setFromDate={setFromDate}
           />
@@ -192,11 +193,7 @@ const AccountStatementList = () => {
             </Box>
             <Footer
               currentPage={currentPage}
-              pages={Math.ceil(
-                parseInt(
-                  transactions && transactions?.count ? transactions?.count : 1
-                ) / pageLimit
-              )}
+              pages={totalPages}
               setCurrentPage={setCurrentPage}
             />
           </>
