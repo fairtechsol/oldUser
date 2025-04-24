@@ -160,35 +160,40 @@ const matchListSlice = createSlice({
       })
       .addCase(updateMaxLossForBet.fulfilled, (state, action) => {
         const { betPlaced, profitLossData } = action.payload;
-        if (state?.matchDetails?.id === betPlaced?.placedBet?.matchId) {
-          const updatedProfitLossDataSession =
-            state?.matchDetails?.profitLossDataSession?.map((item: any) => {
-              if (item?.betId !== betPlaced?.placedBet?.betId) return item;
-              return {
-                ...item,
-                maxLoss: JSON.parse(profitLossData)?.maxLoss,
-                totalBet: JSON.parse(profitLossData)?.totalBet,
-                profitLoss: JSON.parse(profitLossData)?.betPlaced,
-              };
-            });
+        const placedBet = betPlaced?.placedBet;
+        const parsedProfitLoss = JSON.parse(profitLossData || "{}");
 
-          const betIndex = updatedProfitLossDataSession?.findIndex(
-            (item: any) => item?.betId === betPlaced?.placedBet?.betId
-          );
-          if (betIndex === -1) {
-            updatedProfitLossDataSession?.push({
-              betId: betPlaced?.placedBet?.betId,
-              maxLoss: JSON.parse(profitLossData)?.maxLoss,
-              totalBet: 1,
-              profitLoss: JSON.parse(profitLossData)?.betPlaced,
-            });
+        if (!placedBet || state?.matchDetails?.id !== placedBet.matchId) return;
+
+        const existingData = state.matchDetails.profitLossDataSession || [];
+
+        let found = false;
+        const updatedProfitLossDataSession = existingData.map((item: any) => {
+          if (item.betId === placedBet.betId) {
+            found = true;
+            return {
+              ...item,
+              maxLoss: parsedProfitLoss.maxLoss,
+              totalBet: parsedProfitLoss.totalBet,
+              profitLoss: parsedProfitLoss.betPlaced,
+            };
           }
+          return item;
+        });
 
-          state.matchDetails = {
-            ...state.matchDetails,
-            profitLossDataSession: updatedProfitLossDataSession,
-          };
+        if (!found) {
+          updatedProfitLossDataSession.push({
+            betId: placedBet.betId,
+            maxLoss: parsedProfitLoss.maxLoss,
+            totalBet: 1,
+            profitLoss: parsedProfitLoss.betPlaced,
+          });
         }
+
+        state.matchDetails = {
+          ...state.matchDetails,
+          profitLossDataSession: updatedProfitLossDataSession,
+        };
       })
       .addCase(updateProfitLossOnDeleteSession.fulfilled, (state, action) => {
         const { betId, profitLoss, matchId } = action.payload;
