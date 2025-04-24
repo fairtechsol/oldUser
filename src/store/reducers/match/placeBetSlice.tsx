@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-    betPlaceErrorCheck,
-    betPlaceSuccessReset,
-    placeBet,
+  betPlaceErrorCheck,
+  betPlaceSuccessReset,
+  placeBet,
 } from "../../actions/betPlace/betPlaceActions";
 import { betDataFromSocket } from "../../actions/user/userAction";
 
@@ -65,7 +65,7 @@ const betPlace = createSlice({
         }
       })
       .addCase(betPlaceSuccessReset, (state) => {
-        return { ...state, success: false };
+        state.success = false;
       })
       .addCase(betPlaceErrorCheck, (state) => {
         state.error = null;
