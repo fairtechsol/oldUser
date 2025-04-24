@@ -231,6 +231,7 @@ const matchListSlice = createSlice({
       })
       .addCase(updateBetDataOnUndeclare.fulfilled, (state, action) => {
         const { betId, profitLoss, matchId } = action.payload;
+        const parsedProfitLoss = JSON.parse(profitLoss || "{}");
         if (state?.matchDetails?.id === matchId) {
           const isBetIdPresent =
             state?.matchDetails?.profitLossDataSession?.find(
@@ -242,9 +243,9 @@ const matchListSlice = createSlice({
                 item?.betId === betId
                   ? {
                       ...item,
-                      maxLoss: JSON.parse(profitLoss)?.maxLoss,
-                      totalBet: JSON.parse(profitLoss)?.totalBet,
-                      profitLoss: JSON.parse(profitLoss)?.betPlaced,
+                      maxLoss: parsedProfitLoss?.maxLoss,
+                      totalBet: parsedProfitLoss?.totalBet,
+                      profitLoss: parsedProfitLoss?.betPlaced,
                     }
                   : item
               )
@@ -252,9 +253,9 @@ const matchListSlice = createSlice({
                 ...state.matchDetails?.profitLossDataSession,
                 {
                   betId: betId,
-                  maxLoss: JSON.parse(profitLoss)?.maxLoss,
-                  totalBet: JSON.parse(profitLoss)?.totalBet,
-                  profitLoss: JSON.parse(profitLoss)?.betPlaced,
+                  maxLoss: parsedProfitLoss?.maxLoss,
+                  totalBet: parsedProfitLoss?.totalBet,
+                  profitLoss: parsedProfitLoss?.betPlaced,
                 },
               ];
 
