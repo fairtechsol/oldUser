@@ -1,18 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-    betsSuccessReset,
-    getCurrentBets,
-    getPlacedBets,
-    getPlacedBetsForAccountStatement,
-    getRunAmount,
-    resetRunAmount,
-    updateBetsPlaced,
-    updateDeleteReasonBet,
-    updateEditDeleteReasonBet,
+  betsSuccessReset,
+  getCurrentBets,
+  getPlacedBets,
+  getPlacedBetsForAccountStatement,
+  getRunAmount,
+  resetRunAmount,
+  updateBetsPlaced,
+  updateDeleteReasonBet,
+  updateEditDeleteReasonBet,
 } from "../../actions/betPlace/betPlaceActions";
 import {
-    updateRunAmount,
-    updateRunAmountOnDeleteBet,
+  updateRunAmount,
+  updateRunAmountOnDeleteBet,
 } from "../../actions/user/userAction";
 
 interface InitialState {
@@ -52,7 +52,7 @@ const placedBet = createSlice({
       })
       .addCase(getPlacedBets.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(getCurrentBets.pending, (state) => {
         state.loading = true;
@@ -67,7 +67,7 @@ const placedBet = createSlice({
       })
       .addCase(getCurrentBets.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(getRunAmount.pending, (state) => {
         state.loading = true;
@@ -82,7 +82,7 @@ const placedBet = createSlice({
       })
       .addCase(getRunAmount.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(getPlacedBetsForAccountStatement.pending, (state) => {
         state.loading = true;
@@ -97,7 +97,7 @@ const placedBet = createSlice({
       })
       .addCase(getPlacedBetsForAccountStatement.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(resetRunAmount, (state) => {
         state.runAmount = {};

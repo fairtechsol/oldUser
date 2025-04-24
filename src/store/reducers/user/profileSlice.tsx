@@ -1,16 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-    getAccountStatement,
-    getButtonValue,
-    getProfile,
-    getProfileInMatchDetail,
-    marqueeNotification,
-    setButtonValue,
-    updateBalance,
-    updateBalanceFromSocket,
-    updateBalanceOnBetDelete,
-    updateBalanceOnSessionResult,
-    updateBalanceSession,
+  getAccountStatement,
+  getButtonValue,
+  getProfile,
+  getProfileInMatchDetail,
+  marqueeNotification,
+  setButtonValue,
+  updateBalance,
+  updateBalanceFromSocket,
+  updateBalanceOnBetDelete,
+  updateBalanceOnSessionResult,
+  updateBalanceSession,
 } from "../../actions/user/userAction";
 
 interface InitialState {
@@ -60,7 +60,7 @@ const profileSlice = createSlice({
       })
       .addCase(marqueeNotification.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(getProfile.pending, (state) => {
         state.loading = true;
@@ -74,7 +74,7 @@ const profileSlice = createSlice({
       })
       .addCase(getProfile.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(getProfileInMatchDetail.pending, (state) => {
         state.loading = true;
@@ -88,7 +88,7 @@ const profileSlice = createSlice({
       })
       .addCase(getProfileInMatchDetail.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(getAccountStatement.pending, (state) => {
         state.loading = true;
@@ -102,7 +102,7 @@ const profileSlice = createSlice({
       })
       .addCase(getAccountStatement.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(setButtonValue.pending, (state) => {
         state.loading = true;
@@ -115,7 +115,7 @@ const profileSlice = createSlice({
       })
       .addCase(setButtonValue.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(getButtonValue.pending, (state) => {
         state.loading = true;
@@ -129,7 +129,7 @@ const profileSlice = createSlice({
       })
       .addCase(getButtonValue.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(updateBalance.fulfilled, (state, action) => {
         state.profileDetail = {

@@ -71,7 +71,7 @@ const matchListSlice = createSlice({
       })
       .addCase(getMatchList.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(matchDetailAction.pending, (state) => {
         state.matchDetailloading = true;
@@ -86,7 +86,7 @@ const matchListSlice = createSlice({
       })
       .addCase(matchDetailAction.rejected, (state, action) => {
         state.matchDetailloading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(matchDetailReset, (state) => {
         state.matchDetails = null;

@@ -1,51 +1,51 @@
 import { createSlice } from "@reduxjs/toolkit";
 import _ from "lodash";
 import {
-    ballbyballMatchRates,
-    casinoMeterPattiMatchRates,
-    casinoScoreboardMatchRates,
-    casinoWarPattiMatchRates,
-    dragonTigerReset,
-    getDragonTigerDetail,
-    getDragonTigerDetailHorseRacing,
-    graphData,
-    liveCasinoList,
-    liveCasinoLogin,
-    resultDragonTiger,
-    scoreBoardReset,
-    transactionProviderBets,
-    transactionProviderBetsReset,
-    transactionProviderName,
-    update3CardJRates,
-    update7BCardMatchRates,
-    update7CardMatchRates,
-    updateAmarAkbarAnthonyCardMatchRates,
-    updateBaccarat1Rates,
-    updateBaccarat2Rates,
-    updateBollywoodTableCardMatchRates,
-    updateCard32BMatchRates,
-    updateCard32MatchRates,
-    updateCardAbj1Rates,
-    updateCardAbjRates,
-    updateCardMatchRates,
-    updateCardPoker1DayRates,
-    updateCardPoker20Rates,
-    updateCardPoker6Rates,
-    updateCardRace20Rates,
-    updateCardSuperoverRates,
-    updateCardWorliRates,
-    updateCricket5MatchRates,
-    updateCricketMatch20MatchRates,
-    updateDragonTigerLionRates,
-    updateDragonTigerOneDayRates,
-    updateLiveGameResultTop10,
-    updateProfitLossCards,
-    updateQueenRates,
-    updateTeenPatti1DMatchRates,
-    updateTeenPattiMatchRates,
-    updateTeenPattiOpenMatchRates,
-    updateTeenPattiTestMatchRates,
-    updateWorliMatkaRates,
+  ballbyballMatchRates,
+  casinoMeterPattiMatchRates,
+  casinoScoreboardMatchRates,
+  casinoWarPattiMatchRates,
+  dragonTigerReset,
+  getDragonTigerDetail,
+  getDragonTigerDetailHorseRacing,
+  graphData,
+  liveCasinoList,
+  liveCasinoLogin,
+  resultDragonTiger,
+  scoreBoardReset,
+  transactionProviderBets,
+  transactionProviderBetsReset,
+  transactionProviderName,
+  update3CardJRates,
+  update7BCardMatchRates,
+  update7CardMatchRates,
+  updateAmarAkbarAnthonyCardMatchRates,
+  updateBaccarat1Rates,
+  updateBaccarat2Rates,
+  updateBollywoodTableCardMatchRates,
+  updateCard32BMatchRates,
+  updateCard32MatchRates,
+  updateCardAbj1Rates,
+  updateCardAbjRates,
+  updateCardMatchRates,
+  updateCardPoker1DayRates,
+  updateCardPoker20Rates,
+  updateCardPoker6Rates,
+  updateCardRace20Rates,
+  updateCardSuperoverRates,
+  updateCardWorliRates,
+  updateCricket5MatchRates,
+  updateCricketMatch20MatchRates,
+  updateDragonTigerLionRates,
+  updateDragonTigerOneDayRates,
+  updateLiveGameResultTop10,
+  updateProfitLossCards,
+  updateQueenRates,
+  updateTeenPatti1DMatchRates,
+  updateTeenPattiMatchRates,
+  updateTeenPattiOpenMatchRates,
+  updateTeenPattiTestMatchRates,
+  updateWorliMatkaRates,
 } from "../../actions/card/cardDetail";
 
 interface InitialState {
@@ -105,7 +105,7 @@ const cardDetail = createSlice({
       })
       .addCase(getDragonTigerDetailHorseRacing.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(getDragonTigerDetail.pending, (state) => {
         state.loading = true;
@@ -122,7 +122,7 @@ const cardDetail = createSlice({
       })
       .addCase(getDragonTigerDetail.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(updateCardMatchRates.fulfilled, (state, action) => {
         const { t1, t2 } = action.payload;
@@ -716,7 +716,7 @@ const cardDetail = createSlice({
         state.resultData = action.payload;
       })
       .addCase(resultDragonTiger.rejected, (state, action) => {
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(liveCasinoList.pending, (state) => {
         state.loading = true;
@@ -729,7 +729,7 @@ const cardDetail = createSlice({
       })
       .addCase(liveCasinoList.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(liveCasinoLogin.pending, (state) => {
         state.loading = true;
@@ -742,7 +742,7 @@ const cardDetail = createSlice({
       })
       .addCase(liveCasinoLogin.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(casinoScoreboardMatchRates.pending, (state) => {
         state.error = null;
@@ -751,7 +751,7 @@ const cardDetail = createSlice({
         state.scoreBoardData = action.payload;
       })
       .addCase(casinoScoreboardMatchRates.rejected, (state, action) => {
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(transactionProviderName.pending, (state) => {
         state.error = null;
@@ -763,7 +763,7 @@ const cardDetail = createSlice({
         }));
       })
       .addCase(transactionProviderName.rejected, (state, action) => {
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(transactionProviderBets.pending, (state) => {
         state.error = null;
@@ -772,7 +772,7 @@ const cardDetail = createSlice({
         state.liveCasinoProviderBets = action.payload;
       })
       .addCase(transactionProviderBets.rejected, (state, action) => {
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(dragonTigerReset, (state) => {
         state.dragonTigerDetail = [];

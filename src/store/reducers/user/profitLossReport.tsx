@@ -1,14 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-    getMatchWiseProfitLoss,
-    getMatchWiseProfitLossCard,
-    getSessionProfitLoss,
-    getTotalBetProfitLoss,
-    getTotalBetProfitLossCard,
-    getUserTotalProfitLoss,
-    getUserTotalProfitLossCard,
-    updateLogoutModal,
-    updateUserSearchId,
+  getMatchWiseProfitLoss,
+  getMatchWiseProfitLossCard,
+  getSessionProfitLoss,
+  getTotalBetProfitLoss,
+  getTotalBetProfitLossCard,
+  getUserTotalProfitLoss,
+  getUserTotalProfitLossCard,
+  updateLogoutModal,
+  updateUserSearchId,
 } from "../../actions/user/userAction";
 
 interface InitialState {
@@ -59,7 +59,7 @@ const profitLossReportSlice = createSlice({
       })
       .addCase(getMatchWiseProfitLoss.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(getMatchWiseProfitLossCard.pending, (state) => {
         state.loading = true;
@@ -73,7 +73,7 @@ const profitLossReportSlice = createSlice({
       })
       .addCase(getMatchWiseProfitLossCard.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(getUserTotalProfitLoss.pending, (state) => {
         state.loading = true;
@@ -87,7 +87,7 @@ const profitLossReportSlice = createSlice({
       })
       .addCase(getUserTotalProfitLoss.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(getUserTotalProfitLossCard.pending, (state) => {
         state.loading = true;
@@ -101,7 +101,7 @@ const profitLossReportSlice = createSlice({
       })
       .addCase(getUserTotalProfitLossCard.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(getTotalBetProfitLoss.pending, (state) => {
         state.loading = true;
@@ -115,7 +115,7 @@ const profitLossReportSlice = createSlice({
       })
       .addCase(getTotalBetProfitLoss.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(getTotalBetProfitLossCard.pending, (state) => {
         state.loading = true;
@@ -129,7 +129,7 @@ const profitLossReportSlice = createSlice({
       })
       .addCase(getTotalBetProfitLossCard.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(getSessionProfitLoss.pending, (state) => {
         state.loading = true;
@@ -143,7 +143,7 @@ const profitLossReportSlice = createSlice({
       })
       .addCase(getSessionProfitLoss.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(updateUserSearchId.fulfilled, (state, action) => {
         state.success = true;
