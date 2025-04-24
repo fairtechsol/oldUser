@@ -1,14 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  getMatchWiseProfitLoss,
-  getMatchWiseProfitLossCard,
-  getSessionProfitLoss,
-  getTotalBetProfitLoss,
-  getTotalBetProfitLossCard,
-  getUserTotalProfitLoss,
-  getUserTotalProfitLossCard,
-  updateLogoutModal,
-  updateUserSearchId,
+    getMatchWiseProfitLoss,
+    getMatchWiseProfitLossCard,
+    getSessionProfitLoss,
+    getTotalBetProfitLoss,
+    getTotalBetProfitLossCard,
+    getUserTotalProfitLoss,
+    getUserTotalProfitLossCard,
+    updateLogoutModal,
+    updateUserSearchId,
 } from "../../actions/user/userAction";
 
 interface InitialState {
@@ -55,7 +55,7 @@ const profitLossReportSlice = createSlice({
       .addCase(getMatchWiseProfitLoss.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.matchWiseProfitLoss = action?.payload;
+        state.matchWiseProfitLoss = action.payload;
       })
       .addCase(getMatchWiseProfitLoss.rejected, (state, action) => {
         state.loading = false;
@@ -69,7 +69,7 @@ const profitLossReportSlice = createSlice({
       .addCase(getMatchWiseProfitLossCard.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.matchWiseProfitLossCard = action?.payload;
+        state.matchWiseProfitLossCard = action.payload;
       })
       .addCase(getMatchWiseProfitLossCard.rejected, (state, action) => {
         state.loading = false;
@@ -83,7 +83,7 @@ const profitLossReportSlice = createSlice({
       .addCase(getUserTotalProfitLoss.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.userTotalProfitLoss = action?.payload;
+        state.userTotalProfitLoss = action.payload;
       })
       .addCase(getUserTotalProfitLoss.rejected, (state, action) => {
         state.loading = false;
@@ -97,7 +97,7 @@ const profitLossReportSlice = createSlice({
       .addCase(getUserTotalProfitLossCard.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.userTotalProfitLossCard = action?.payload;
+        state.userTotalProfitLossCard = action.payload;
       })
       .addCase(getUserTotalProfitLossCard.rejected, (state, action) => {
         state.loading = false;
@@ -111,7 +111,7 @@ const profitLossReportSlice = createSlice({
       .addCase(getTotalBetProfitLoss.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.totalBetProfitLoss = action?.payload;
+        state.totalBetProfitLoss = action.payload;
       })
       .addCase(getTotalBetProfitLoss.rejected, (state, action) => {
         state.loading = false;
@@ -125,7 +125,7 @@ const profitLossReportSlice = createSlice({
       .addCase(getTotalBetProfitLossCard.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.totalBetProfitLossCard = action?.payload;
+        state.totalBetProfitLossCard = action.payload;
       })
       .addCase(getTotalBetProfitLossCard.rejected, (state, action) => {
         state.loading = false;
@@ -139,7 +139,7 @@ const profitLossReportSlice = createSlice({
       .addCase(getSessionProfitLoss.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.totalSessionProfitLoss = action?.payload;
+        state.totalSessionProfitLoss = action.payload;
       })
       .addCase(getSessionProfitLoss.rejected, (state, action) => {
         state.loading = false;
@@ -148,10 +148,10 @@ const profitLossReportSlice = createSlice({
       .addCase(updateUserSearchId.fulfilled, (state, action) => {
         state.success = true;
         state.loading = false;
-        state.userData = action?.payload?.search;
+        state.userData = action.payload?.search;
       })
       .addCase(updateLogoutModal.fulfilled, (state, action) => {
-        state.logoutModal = action?.payload?.modal;
+        state.logoutModal = action.payload?.modal;
       });
   },
 });

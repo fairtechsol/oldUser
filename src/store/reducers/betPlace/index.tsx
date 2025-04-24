@@ -1,18 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  betsSuccessReset,
-  getCurrentBets,
-  getPlacedBets,
-  getPlacedBetsForAccountStatement,
-  getRunAmount,
-  resetRunAmount,
-  updateBetsPlaced,
-  updateDeleteReasonBet,
-  updateEditDeleteReasonBet,
+    betsSuccessReset,
+    getCurrentBets,
+    getPlacedBets,
+    getPlacedBetsForAccountStatement,
+    getRunAmount,
+    resetRunAmount,
+    updateBetsPlaced,
+    updateDeleteReasonBet,
+    updateEditDeleteReasonBet,
 } from "../../actions/betPlace/betPlaceActions";
 import {
-  updateRunAmount,
-  updateRunAmountOnDeleteBet,
+    updateRunAmount,
+    updateRunAmountOnDeleteBet,
 } from "../../actions/user/userAction";
 
 interface InitialState {
@@ -48,7 +48,7 @@ const placedBet = createSlice({
       .addCase(getPlacedBets.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.placedBets = action?.payload;
+        state.placedBets = action.payload;
       })
       .addCase(getPlacedBets.rejected, (state, action) => {
         state.loading = false;
@@ -63,7 +63,7 @@ const placedBet = createSlice({
       .addCase(getCurrentBets.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.placedBets = action?.payload;
+        state.placedBets = action.payload;
       })
       .addCase(getCurrentBets.rejected, (state, action) => {
         state.loading = false;
@@ -78,7 +78,7 @@ const placedBet = createSlice({
       .addCase(getRunAmount.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.runAmount = action?.payload;
+        state.runAmount = action.payload;
       })
       .addCase(getRunAmount.rejected, (state, action) => {
         state.loading = false;
@@ -103,7 +103,7 @@ const placedBet = createSlice({
         state.runAmount = {};
       })
       .addCase(updateRunAmount.fulfilled, (state, action) => {
-        const { betId, profitLossData } = action?.payload;
+        const { betId, profitLossData } = action.payload;
         if (betId === state?.runAmount?.betId) {
           state.runAmount = {
             ...state.runAmount,
@@ -112,7 +112,7 @@ const placedBet = createSlice({
         }
       })
       .addCase(updateRunAmountOnDeleteBet.fulfilled, (state, action) => {
-        const { betId, profitLoss } = action?.payload;
+        const { betId, profitLoss } = action.payload;
         if (betId === state?.runAmount?.betId) {
           state.runAmount = {
             ...state.runAmount,
@@ -122,7 +122,7 @@ const placedBet = createSlice({
       })
       .addCase(updateDeleteReasonBet.fulfilled, (state, action) => {
         const { betPlacedId, deleteReason, isPermanentDelete } =
-          action?.payload;
+          action.payload;
         const updateDeleteReason = (bet: any) => {
           if (betPlacedId.includes(bet?.id)) {
             bet.deleteReason = deleteReason;
@@ -140,7 +140,7 @@ const placedBet = createSlice({
         }
       })
       .addCase(updateEditDeleteReasonBet.fulfilled, (state, action) => {
-        const { betIds, deleteReason } = action?.payload;
+        const { betIds, deleteReason } = action.payload;
         const updateDeleteReason = (bet: any) => {
           if (betIds.includes(bet?.id)) {
             bet.deleteReason = deleteReason;
@@ -155,7 +155,7 @@ const placedBet = createSlice({
       })
       .addCase(updateBetsPlaced.fulfilled, (state, action) => {
         state.placedBets = Array.from(
-          new Set([action?.payload, ...state.placedBets])
+          new Set([action.payload, ...state.placedBets])
         );
       })
       .addCase(betsSuccessReset, (state) => {

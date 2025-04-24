@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  betPlaceErrorCheck,
-  betPlaceSuccessReset,
-  placeBet,
+    betPlaceErrorCheck,
+    betPlaceSuccessReset,
+    placeBet,
 } from "../../actions/betPlace/betPlaceActions";
 import { betDataFromSocket } from "../../actions/user/userAction";
 
@@ -38,7 +38,7 @@ const betPlace = createSlice({
         state.loading = false;
       })
       .addCase(placeBet.rejected, (state, action: any) => {
-        const { data } = action?.payload;
+        const { data } = action.payload;
         state.loading = false;
         if (data?.statusCode == 400) {
           state.betPlaceError = true;
@@ -46,21 +46,21 @@ const betPlace = createSlice({
         state.error = data?.message;
       })
       .addCase(betDataFromSocket.fulfilled, (state, action) => {
-        const betId = action?.payload?.betPlaced?.placedBet?.betId;
+        const betId = action.payload?.betPlaced?.placedBet?.betId;
 
         if (
           !state?.betPlaceData?.some(
             (item: any) => item?.betPlaced?.placedBet?.betId === betId
           )
         ) {
-          state.betPlaceData = [...state.betPlaceData, action?.payload];
+          state.betPlaceData = [...state.betPlaceData, action.payload];
         } else {
           const existingIndex = state?.betPlaceData?.findIndex(
             (item: any) => item?.betPlaced?.placedBet?.betId === betId
           );
           if (existingIndex !== -1) {
             let updatedSlice = state?.betPlaceData?.splice(existingIndex, 1);
-            state.betPlaceData = [...updatedSlice, action?.payload];
+            state.betPlaceData = [...updatedSlice, action.payload];
           }
         }
       })

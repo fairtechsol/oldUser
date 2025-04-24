@@ -60,12 +60,13 @@ const matchListSlice = createSlice({
         state.error = null;
       })
       .addCase(getMatchList.fulfilled, (state, action) => {
+        const { type, data } = action.payload;
         state.loading = false;
         state.success = true;
-        if (action?.payload?.type == "search") {
-          state.searchedMatchList = action?.payload?.data;
+        if (type == "search") {
+          state.searchedMatchList = data;
         } else {
-          state.matchList = action?.payload?.data;
+          state.matchList = data;
         }
       })
       .addCase(getMatchList.rejected, (state, action) => {
@@ -81,7 +82,7 @@ const matchListSlice = createSlice({
       .addCase(matchDetailAction.fulfilled, (state, action) => {
         state.matchDetailloading = false;
         state.success = true;
-        state.matchDetails = action?.payload;
+        state.matchDetails = action.payload;
       })
       .addCase(matchDetailAction.rejected, (state, action) => {
         state.matchDetailloading = false;
@@ -92,7 +93,7 @@ const matchListSlice = createSlice({
       })
       .addCase(updateMatchRates.fulfilled, (state, action) => {
         const { apiSession, sessionBettings, tournament, scoreBoard } =
-          action?.payload;
+          action.payload;
         state.liveScoreBoardData = scoreBoard?.data;
         const parsedSessionBettings =
           state.matchDetails?.sessionBettings?.map(JSON.parse) || [];
@@ -135,10 +136,10 @@ const matchListSlice = createSlice({
         };
       })
       .addCase(selectedBetAction.fulfilled, (state, action) => {
-        state.selectedBet = action?.payload;
+        state.selectedBet = action.payload;
       })
       .addCase(updateBalance.fulfilled, (state, action) => {
-        const { newTeamRateData, betId, matchId } = action?.payload;
+        const { newTeamRateData, betId, matchId } = action.payload;
         state.matchDetails = {
           ...state.matchDetails,
           profitLossDataMatch: {
@@ -148,7 +149,7 @@ const matchListSlice = createSlice({
         };
       })
       .addCase(updateTeamRateOnUndeclare.fulfilled, (state, action) => {
-        const { profitLoss, betId, matchId } = action?.payload;
+        const { profitLoss, betId, matchId } = action.payload;
         state.matchDetails = {
           ...state.matchDetails,
           profitLossDataMatch: {
@@ -158,19 +159,17 @@ const matchListSlice = createSlice({
         };
       })
       .addCase(updateMaxLossForBet.fulfilled, (state, action) => {
-        const { betPlaced, profitLossData } = action?.payload;
+        const { betPlaced, profitLossData } = action.payload;
         if (state?.matchDetails?.id === betPlaced?.placedBet?.matchId) {
           const updatedProfitLossDataSession =
             state?.matchDetails?.profitLossDataSession?.map((item: any) => {
-              if (item?.betId === betPlaced?.placedBet?.betId) {
-                return {
-                  ...item,
-                  maxLoss: JSON.parse(profitLossData)?.maxLoss,
-                  totalBet: JSON.parse(profitLossData)?.totalBet,
-                  profitLoss: JSON.parse(profitLossData)?.betPlaced,
-                };
-              }
-              return item;
+              if (item?.betId !== betPlaced?.placedBet?.betId) return item;
+              return {
+                ...item,
+                maxLoss: JSON.parse(profitLossData)?.maxLoss,
+                totalBet: JSON.parse(profitLossData)?.totalBet,
+                profitLoss: JSON.parse(profitLossData)?.betPlaced,
+              };
             });
 
           const betIndex = updatedProfitLossDataSession?.findIndex(
@@ -192,19 +191,17 @@ const matchListSlice = createSlice({
         }
       })
       .addCase(updateProfitLossOnDeleteSession.fulfilled, (state, action) => {
-        const { betId, profitLoss, matchId } = action?.payload;
+        const { betId, profitLoss, matchId } = action.payload;
         if (state?.matchDetails?.id === matchId) {
           const updatedProfitLossDataSession =
             state?.matchDetails?.profitLossDataSession?.map((item: any) => {
-              if (item?.betId === betId) {
-                return {
-                  ...item,
-                  maxLoss: profitLoss?.maxLoss,
-                  profitLoss: profitLoss?.betPlaced,
-                  totalBet: profitLoss?.totalBet,
-                };
-              }
-              return item;
+              if (item?.betId !== betId) return item;
+              return {
+                ...item,
+                maxLoss: profitLoss?.maxLoss,
+                profitLoss: profitLoss?.betPlaced,
+                totalBet: profitLoss?.totalBet,
+              };
             });
 
           state.matchDetails = {
@@ -214,7 +211,7 @@ const matchListSlice = createSlice({
         }
       })
       .addCase(updateBetDataOnDeclare.fulfilled, (state, action) => {
-        const { betId, matchId } = action?.payload;
+        const { betId, matchId } = action.payload;
         if (state?.matchDetails?.id === matchId) {
           const updatedProfitLossDataSession =
             state?.matchDetails?.profitLossDataSession?.filter(
@@ -228,7 +225,7 @@ const matchListSlice = createSlice({
         }
       })
       .addCase(updateBetDataOnUndeclare.fulfilled, (state, action) => {
-        const { betId, profitLoss, matchId } = action?.payload;
+        const { betId, profitLoss, matchId } = action.payload;
         if (state?.matchDetails?.id === matchId) {
           const isBetIdPresent =
             state?.matchDetails?.profitLossDataSession?.find(
@@ -263,7 +260,7 @@ const matchListSlice = createSlice({
         }
       })
       .addCase(updateTeamRatesOnDeleteMatch.fulfilled, (state, action) => {
-        const { betId, teamRate } = action?.payload;
+        const { betId, teamRate } = action.payload;
 
         state.matchDetails = {
           ...state.matchDetails,
@@ -296,7 +293,7 @@ const matchListSlice = createSlice({
         }
       })
       .addCase(selectedBetMinMax.fulfilled, (state, action) => {
-        const { data } = action?.payload;
+        const { data } = action.payload;
 
         state.minMax = {
           min: data?.min,

@@ -21,11 +21,13 @@ export const authReducer = createReducer(initialState, (builder) => {
       state.loading = true;
     })
     .addCase(login.fulfilled, (state, action) => {
+      const { roleName, forceChangePassword, isTransPasswordCreated } =
+        action.payload;
       state.loading = false;
       state.success = true;
-      state.userRole = action?.payload?.roleName;
-      state.forceChangePassword = action?.payload?.forceChangePassword;
-      state.isTransPasswordCreated = action?.payload?.isTransPasswordCreated;
+      state.userRole = roleName;
+      state.forceChangePassword = forceChangePassword;
+      state.isTransPasswordCreated = isTransPasswordCreated;
     })
     .addCase(login.rejected, (state) => {
       state.loading = false;
@@ -45,7 +47,7 @@ export const authReducer = createReducer(initialState, (builder) => {
     })
     .addCase(checkOldPassword.fulfilled, (state, action) => {
       state.loading = false;
-      state.oldPasswordMatched = action?.payload;
+      state.oldPasswordMatched = action.payload;
     })
     .addCase(checkOldPassword.rejected, (state) => {
       state.loading = false;
