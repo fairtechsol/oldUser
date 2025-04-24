@@ -16,6 +16,7 @@ import {
   SNOOKER,
   Tennis,
 } from "../../../assets";
+import { EventNamesType } from "../../../interface/common";
 import EventComponent from "./EventComponent";
 
 let EventNames = [
@@ -98,37 +99,33 @@ const EventListing = () => {
   const matchesMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
-    <>
-      <Box
-        sx={[
-          {
-            width: "100%",
-            msOverflowStyle: "none",
-            overflowY: "hidden",
-            minHeight: { xs: 80, lg: 80 },
-            overflowX: "auto",
-            marginTop: "1vh",
-            paddingX: { xs: "1vh", lg: "0" },
-            alignSelf: { xs: "center", lg: "flex-start" },
-            display: "flex",
-          },
-        ]}
-      >
-        {(matchesMobile
-          ? EventNames.filter((item: any) => item.title !== "CASINO")
-          : EventNames
-        ).map((item, idx) => (
-          <NavLink
-            key={idx}
-            to={`${item.url}`}
-            className={({ isActive }) => (isActive ? "activeEventTab" : "")}
-            style={{ textDecoration: "none" }}
-          >
-            <EventComponent data={item} setAnchor={() => {}} />
-          </NavLink>
-        ))}
-      </Box>
-    </>
+    <Box
+      sx={{
+        width: "100%",
+        msOverflowStyle: "none",
+        overflowY: "hidden",
+        minHeight: { xs: 80, lg: 80 },
+        overflowX: "auto",
+        marginTop: "1vh",
+        paddingX: { xs: "1vh", lg: "0" },
+        alignSelf: { xs: "center", lg: "flex-start" },
+        display: "flex",
+      }}
+    >
+      {(matchesMobile
+        ? EventNames.filter((item: any) => item.title !== "CASINO")
+        : EventNames
+      ).map((item: EventNamesType, idx) => (
+        <NavLink
+          key={idx}
+          to={`${item.url}`}
+          className={({ isActive }) => (isActive ? "activeEventTab" : "")}
+          style={{ textDecoration: "none" }}
+        >
+          <EventComponent data={item} />
+        </NavLink>
+      ))}
+    </Box>
   );
 };
 

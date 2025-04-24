@@ -1,7 +1,12 @@
 import { Box, Typography } from "@mui/material";
 import { memo } from "react";
 
-const CustomButton = ({ btnStyle, onClick }: any) => {
+interface CustomButtonProps {
+  btnStyle: any;
+  onClick: () => void;
+}
+
+const CustomButton = ({ btnStyle, onClick }: CustomButtonProps) => {
   return (
     <Box
       onClick={onClick}

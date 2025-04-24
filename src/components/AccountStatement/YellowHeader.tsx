@@ -110,7 +110,6 @@ const YellowHeader = ({
               onClick={() => {
                 getAccountStatement();
               }}
-              getAccountStatement={getAccountStatement}
             />
           )}
         </Box>
@@ -132,7 +131,6 @@ const YellowHeader = ({
                 getAccountStatement(fromDate, toDate);
               }
             }}
-            getAccountStatement={getAccountStatement}
           />
         )}
       </Box>

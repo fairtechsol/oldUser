@@ -2,7 +2,17 @@ import { Box, Typography } from "@mui/material";
 import { memo } from "react";
 import SmallDropDown from "./SmallDropDown";
 
-const NumberDropDown = ({ textColor, setPageLimit, pageLimit }: any) => {
+interface NumberDropDownProps {
+  textColor: string;
+  setPageLimit: (value: number) => void;
+  pageLimit: number;
+}
+
+const NumberDropDown = ({
+  textColor,
+  setPageLimit,
+  pageLimit,
+}: NumberDropDownProps) => {
   return (
     <Box display="flex" alignItems="center" sx={{ width: "100%" }}>
       <Typography

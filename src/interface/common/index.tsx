@@ -61,3 +61,10 @@ export interface CasinoGameProps {
   name?: string;
   imgSrc?: string;
 }
+
+export interface EventNamesType {
+  title: string;
+  image: string;
+  url: string;
+  active: boolean;
+}

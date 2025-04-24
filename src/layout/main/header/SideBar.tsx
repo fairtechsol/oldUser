@@ -126,7 +126,6 @@ const SideBar = ({ mobileShow, handleDrawerToggle }: any) => {
         onClick={() => {
           navigate(item?.url, { state: { activeTab: item?.activeTab } });
           handleDrawerToggle();
-
           setShowSideBarMobile(false);
         }}
         sx={{
@@ -149,7 +148,7 @@ const SideBar = ({ mobileShow, handleDrawerToggle }: any) => {
             display: "flex",
             width: { xs: "5%", lg: "40%", md: "8%" },
           }}
-         />
+        />
         <Typography
           sx={{
             fontSize: {
@@ -188,21 +187,19 @@ const SideBar = ({ mobileShow, handleDrawerToggle }: any) => {
 
   return (
     <Box
-      sx={[
-        {
-          width: {
-            lg: showSideBarMobile ? "100%" : "18%",
-            xs: mobileShow ? "100%" : "0%",
-          },
-          minHeight: "500px",
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          overflow: "auto",
-          alignItems: { xs: "flex-start", lg: "flex-end" },
-          backgroundImage: `url(${drawerBackground})`,
+      sx={{
+        width: {
+          lg: showSideBarMobile ? "100%" : "18%",
+          xs: mobileShow ? "100%" : "0%",
         },
-      ]}
+        minHeight: "500px",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        overflow: "auto",
+        alignItems: { xs: "flex-start", lg: "flex-end" },
+        backgroundImage: `url(${drawerBackground})`,
+      }}
     >
       {data?.map((i, idx) => {
         return <RenderItem key={idx} i={i} />;

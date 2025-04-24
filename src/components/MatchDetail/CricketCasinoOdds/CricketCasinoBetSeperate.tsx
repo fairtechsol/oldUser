@@ -69,7 +69,7 @@ const CricketCasinoBetSeperate = ({
             background: "#262626",
           }}
         >
-          <div className="slanted"></div>
+          <div className="slanted" />
         </Box>
 
         <Box
@@ -113,7 +113,7 @@ const CricketCasinoBetSeperate = ({
               <Typography
                 sx={{ fontWeight: "400", fontSize: "10px", color: "white" }}
               >
-                {"No"}
+                No
               </Typography>
             </Box>
             <RowComponent
@@ -138,7 +138,7 @@ const CricketCasinoBetSeperate = ({
                     color: "white",
                   }}
                 >
-                  {"Profit/Loss"}
+                  Profit/Loss
                 </Typography>
               </Box>
             )}
@@ -278,7 +278,6 @@ const CricketCasinoBetSeperate = ({
                           ) : (
                             formatToINR(Number(i.totalLoss).toFixed(2))
                           )}
-                          {/* {Number(i.totalLoss).toFixed(2)} */}
                         </Typography>
                         {!isArrow && (
                           <StyledImage
