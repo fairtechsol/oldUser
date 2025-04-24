@@ -11,14 +11,6 @@ interface InitialState {
   success: boolean;
   loading: boolean;
   error: any;
-  dragonTigerDetail: any;
-  lucky7Detail: any;
-  lucky7BDetail: any;
-  liveGameResultTop10: any;
-  graphsData: any;
-  cards32Detail: any;
-  resultData: any;
-  scoreBoardData: any;
   liveCasinoData: any;
   liveCasinoGame: any;
   liveCasinoProvider: any;
@@ -29,14 +21,6 @@ const initialState: InitialState = {
   loading: false,
   success: false,
   error: null,
-  dragonTigerDetail: [],
-  lucky7Detail: [],
-  lucky7BDetail: [],
-  liveGameResultTop10: [],
-  graphsData: [],
-  cards32Detail: [],
-  resultData: null,
-  scoreBoardData: [],
   liveCasinoData: [],
   liveCasinoGame: {},
   liveCasinoProvider: [],
