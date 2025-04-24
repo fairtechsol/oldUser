@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
-import StyledImage from "../../../Common/StyledImages";
 import { memo } from "react";
+import StyledImage from "../../../Common/StyledImages";
 
 const RunsDropDown = ({ list }: any) => {
   return (
@@ -163,7 +163,7 @@ const RunsDropDown = ({ list }: any) => {
                   height: "25px",
                   borderTop: "1px solid #306A47",
                 }}
-              ></Box>{" "}
+               />{" "}
             </>
           )}
         </Box>

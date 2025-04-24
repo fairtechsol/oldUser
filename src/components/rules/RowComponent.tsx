@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { memo } from "react";
 
-const RowComponent = ({ index }: any) => {
+const RowComponent = ({ index }: { index: number }) => {
   let flag = index % 2 != 0;
   return (
     <Box

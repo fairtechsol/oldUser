@@ -31,7 +31,6 @@ const TableRowModal = ({
 }: TableRowModalProps) => {
   return (
     <Box
-      key={index}
       sx={[
         {
           display: "flex",

@@ -1,8 +1,16 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { memo } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import Calendar from "../Common/Calendar";
 import CustomButton from "../Common/CustomButton";
-import { memo } from "react";
+
+interface YellowHeaderProps {
+  getAccountStatement: (val?: string, val1?: string) => void;
+  fromDate: string;
+  toDate: string;
+  setFromDate: (date: string) => void;
+  setToDate: (date: string) => void;
+}
 
 const YellowHeader = ({
   getAccountStatement,
@@ -10,7 +18,7 @@ const YellowHeader = ({
   toDate,
   setFromDate,
   setToDate,
-}: any) => {
+}: YellowHeaderProps) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const tab = useMediaQuery(theme.breakpoints.between("xs", "lg"));
@@ -77,7 +85,7 @@ const YellowHeader = ({
               startDate={fromDate}
               setStartDate={setFromDate}
             />
-            <Box sx={{ width: "10px" }}></Box>
+            <Box sx={{ width: "10px" }} />
 
             <Calendar
               sx={{ width: "50%" }}
@@ -88,7 +96,7 @@ const YellowHeader = ({
             />
           </Box>
 
-          <Box sx={{ width: "10px" }}></Box>
+          <Box sx={{ width: "10px" }} />
           {!matchesMobile && (
             <CustomButton
               btnStyle={{

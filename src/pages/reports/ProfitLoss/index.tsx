@@ -4,10 +4,7 @@ import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProfitLossComponent from "../../../components/report/ProfitLossReport/ProfitLossComponent";
 import YellowHeaderProfitLoss from "../../../components/report/ProfitLossReport/YellowheaderProfitLoss";
-import {
-  getUserTotalProfitLoss,
-  updateUserSearchId,
-} from "../../../store/actions/user/userAction";
+import { getUserTotalProfitLoss } from "../../../store/actions/user/userAction";
 import { AppDispatch, RootState } from "../../../store/store";
 interface FilterObject {
   userId?: any;
@@ -21,7 +18,6 @@ const ProfitLoss = () => {
   const { userTotalProfitLoss } = useSelector(
     (state: RootState) => state.user.profitLoss
   );
-  const [search, setSearch] = useState<any>("");
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [show, setShow] = useState(false);
@@ -30,10 +26,7 @@ const ProfitLoss = () => {
     try {
       setShow(false);
       let filter: FilterObject = {};
-      dispatch(updateUserSearchId({ search }));
-      if (search?.id) {
-        filter["userId"] = search?.id;
-      }
+
       if (startDate && endDate) {
         filter["startDate"] = moment(startDate)?.format("YYYY-MM-DD");
         filter["endDate"] = moment(endDate)?.format("YYYY-MM-DD");
@@ -61,13 +54,11 @@ const ProfitLoss = () => {
     <Box sx={{ width: "100%", paddingX: "1vw" }}>
       <YellowHeaderProfitLoss
         title="PROFIT/LOSS"
-        type="user"
         onClick={handleClick}
         setEndDate={setEndDate}
         endDate={endDate}
         startDate={startDate}
         setStartDate={setStartDate}
-        setSearch={setSearch}
       />
       <Typography
         sx={{

@@ -1,10 +1,4 @@
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Typography,
-  debounce,
-} from "@mui/material";
+import { Box, Button, Typography, debounce } from "@mui/material";
 
 import { useFormik } from "formik";
 import { memo, useEffect, useMemo } from "react";
@@ -24,8 +18,7 @@ const initialValues: any = {
   confirmPassword: "",
 };
 
-const ChangePassword = (props: any) => {
-  const { passLoader, width } = props;
+const ChangePassword = () => {
   const dispatch: AppDispatch = useDispatch();
   const { oldPasswordMatched } = useSelector((state: RootState) => state.auth);
 
@@ -76,8 +69,8 @@ const ChangePassword = (props: any) => {
           sx={{
             width: { xs: "95%", lg: "19vw", md: "19vw" },
             minWidth: {
-              lg: width ? width : "350px",
-              md: width ? width : "350px",
+              lg: "350px",
+              md: "350px",
               xs: "0px",
             },
             marginTop: "10px",
@@ -194,18 +187,7 @@ const ChangePassword = (props: any) => {
                 sx={{ fontSize: { lg: "18px", xs: "20px" } }}
                 color="white"
               >
-                {passLoader ? (
-                  <CircularProgress
-                    sx={{
-                      color: "#FFF",
-                    }}
-                    size={20}
-                    thickness={4}
-                    value={60}
-                  />
-                ) : (
-                  "Update"
-                )}
+                Update
               </Typography>
             </Button>
           </Box>

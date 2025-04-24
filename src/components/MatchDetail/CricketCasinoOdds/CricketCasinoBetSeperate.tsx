@@ -202,7 +202,7 @@ const CricketCasinoBetSeperate = ({
                         position: "absolute",
                       }}
                     >
-                      <Box sx={{ width: mark2 ? "35%" : "35%" }}></Box>
+                      <Box sx={{ width: mark2 ? "35%" : "35%" }} />
                     </Box>
                   )}
                   {i?.deleteReason && (
@@ -220,7 +220,7 @@ const CricketCasinoBetSeperate = ({
                         position: "absolute",
                       }}
                     >
-                      <Box sx={{ width: mark2 ? "35%" : "35%" }}></Box>
+                      <Box sx={{ width: mark2 ? "35%" : "35%" }} />
                       <Box
                         sx={{
                           width: mark2 ? "65%" : "65%",

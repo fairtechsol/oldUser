@@ -1,5 +1,4 @@
 import { Box } from "@mui/material";
-import { memo } from "react";
 import Loader from "../../components/Loader";
 
 const ComingSoon = () => {
@@ -29,4 +28,4 @@ const ComingSoon = () => {
     </Box>
   );
 };
-export default memo(ComingSoon);
+export default ComingSoon;

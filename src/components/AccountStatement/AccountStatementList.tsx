@@ -56,8 +56,6 @@ const AccountStatementList = () => {
     setUpdateReports([]);
   };
 
-
-  // Date formatting utility
   const formatDateFilter = useCallback(() => {
     let filter = "";
     if (fromDate && toDate) {
@@ -72,7 +70,6 @@ const AccountStatementList = () => {
     return filter;
   }, [fromDate, toDate]);
 
-  // Data fetching handler
   const fetchAccountStatement = useCallback(() => {
     if (profileDetail?.id) {
       const filter = formatDateFilter();
@@ -87,15 +84,20 @@ const AccountStatementList = () => {
         })
       );
     }
-  }, [profileDetail, currentPage, pageLimit, searchValue, formatDateFilter, dispatch]);
+  }, [
+    profileDetail,
+    currentPage,
+    pageLimit,
+    searchValue,
+    formatDateFilter,
+    dispatch,
+  ]);
 
-  // Search handler
   const handleSearch = useCallback(() => {
     setCurrentPage(1);
     fetchAccountStatement();
   }, [fetchAccountStatement]);
 
-  // Effects
   useEffect(() => {
     fetchAccountStatement();
   }, [fetchAccountStatement]);
@@ -115,7 +117,6 @@ const AccountStatementList = () => {
     dispatch(transactionProviderName(""));
   }, []);
 
-  // Calculate total pages
   const totalPages = Math.ceil(
     parseInt(transactions?.count ? transactions.count : 1) / pageLimit
   );

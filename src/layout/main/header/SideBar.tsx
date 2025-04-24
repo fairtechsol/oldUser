@@ -74,7 +74,7 @@ const SideBar = ({ mobileShow, handleDrawerToggle }: any) => {
         ]}
       >
         <Box sx={{ display: "flex", height: "100%" }}>
-          <Box sx={{ display: "flex", flex: 0.3 }}></Box>
+          <Box sx={{ display: "flex", flex: 0.3 }} />
           <Box
             sx={{
               display: "flex",
@@ -149,7 +149,7 @@ const SideBar = ({ mobileShow, handleDrawerToggle }: any) => {
             display: "flex",
             width: { xs: "5%", lg: "40%", md: "8%" },
           }}
-        ></Box>
+         />
         <Typography
           sx={{
             fontSize: {

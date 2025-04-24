@@ -3,7 +3,7 @@ import { memo } from "react";
 import ListHeader from "../../components/rules/ListHeader";
 import RowComponent from "../../components/rules/RowComponent";
 
-const Rules = ({ userPadding }: any) => {
+const Rules = () => {
   return (
     <>
       <Typography
@@ -14,15 +14,14 @@ const Rules = ({ userPadding }: any) => {
           marginBottom: "5px",
           color: "white",
           fontWeight: "bold",
-          paddingTop: userPadding,
         }}
       >
         RULES
       </Typography>
       <ListHeader />
-      {[1, 2, 3, 4].map((item, index) => {
-        return <RowComponent key={item} index={index} />;
-      })}
+      {[1, 2, 3, 4].map((item, index) => (
+        <RowComponent key={item} index={index} />
+      ))}
     </>
   );
 };

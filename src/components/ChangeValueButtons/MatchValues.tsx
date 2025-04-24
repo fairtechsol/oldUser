@@ -196,12 +196,12 @@ const MatchValues = () => {
             >
               <Typography
                 sx={{ fontSize: { lg: "18px", xs: "20px" } }}
-                color={"white"}
+                color="#fff"
               >
                 {loader ? (
                   <CircularProgress
                     sx={{
-                      color: "#FFF",
+                      color: "#fff",
                     }}
                     size={20}
                     thickness={4}

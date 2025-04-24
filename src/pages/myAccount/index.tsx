@@ -1,7 +1,10 @@
 import { Box, MenuItem, Typography } from "@mui/material";
-import { memo } from "react";
-
 import { useNavigate } from "react-router-dom";
+
+interface MenuItemProps {
+  title: string;
+  link: string;
+}
 
 const MyAccount = () => {
   const navigate = useNavigate();
@@ -93,7 +96,7 @@ const MyAccount = () => {
             borderRadius: "5px",
           }}
         >
-          {menutItems.map((x, index) => (
+          {menutItems.map((x: MenuItemProps, index: number) => (
             <MenuItem
               key={index}
               dense={true}
@@ -111,4 +114,4 @@ const MyAccount = () => {
   );
 };
 
-export default memo(MyAccount);
+export default MyAccount;
