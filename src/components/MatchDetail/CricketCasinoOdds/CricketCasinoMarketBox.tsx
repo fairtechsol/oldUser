@@ -176,7 +176,7 @@ const CricketCasinoMarketBox = ({
                     session={true}
                     sessionMain={sessionMain}
                     selectedFastAmount={selectedFastAmount}
-                    betType={"back"}
+                    betType="back"
                     value={item?.odds ?? 0}
                     lock={
                       [null, 0, "0"].includes(item?.odds ?? 0) ? true : false

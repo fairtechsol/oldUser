@@ -82,9 +82,8 @@ const SessionMarketBox = ({
               }}
             >
               {data?.type === "khado"
-                ? `${data?.RunnerName || data?.name}-${
-                    data.ex?.availableToLay[0]?.price
-                  }`
+                ? `${data?.RunnerName || data?.name}-${data.ex?.availableToLay[0]?.price
+                }`
                 : data?.RunnerName || data?.name}
             </Typography>
             <Typography
@@ -133,8 +132,8 @@ const SessionMarketBox = ({
           {!["ACTIVE", "active", "", undefined, null, ""].includes(
             data?.GameStatus
           ) ||
-          (!data.ex?.availableToBack?.length &&
-            !data.ex?.availableToLay?.length) ? (
+            (!data.ex?.availableToBack?.length &&
+              !data.ex?.availableToLay?.length) ? (
             <Box
               sx={{
                 background: "rgba(0,0,0,1)",
@@ -230,8 +229,8 @@ const SessionMarketBox = ({
                         sessionBettingType.oddEven == data?.type
                           ? "back"
                           : sessionBettingType.fancy1 == data?.type
-                          ? "lay"
-                          : "no"
+                            ? "lay"
+                            : "no"
                       }
                       value={
                         sessionBettingType.oddEven == data?.type
@@ -310,7 +309,7 @@ const SessionMarketBox = ({
                     session={true}
                     betType={
                       sessionBettingType.oddEven == data?.type ||
-                      sessionBettingType.fancy1 == data?.type
+                        sessionBettingType.fancy1 == data?.type
                         ? "back"
                         : "yes"
                     }
@@ -413,8 +412,8 @@ const SessionMarketBox = ({
             {!["ACTIVE", "active", "", undefined, null, ""].includes(
               data?.GameStatus
             ) ||
-            (!data.ex?.availableToBack?.length &&
-              !data.ex?.availableToLay?.length) ? (
+              (!data.ex?.availableToBack?.length &&
+                !data.ex?.availableToLay?.length) ? (
               <Box
                 sx={{
                   background: "rgba(0,0,0,1)",
@@ -480,7 +479,7 @@ const SessionMarketBox = ({
                   >
                     <SeparateModal
                       key={index}
-                      bettingOn={"session"}
+                      bettingOn="session"
                       closeModal={closeModal}
                       setFastBetLoading={setFastBetLoading}
                       po={
@@ -498,8 +497,8 @@ const SessionMarketBox = ({
                         sessionBettingType.oddEven == data?.type
                           ? "back"
                           : sessionBettingType.fancy1 == data?.type
-                          ? "lay"
-                          : "no"
+                            ? "lay"
+                            : "no"
                       }
                       value={
                         sessionBettingType.oddEven == data?.type
@@ -536,7 +535,7 @@ const SessionMarketBox = ({
                       data={data}
                       mainData={mainData}
                       handleRateChange={handleRateChange}
-                      width={"100%"}
+                      width="100%"
                       mid={mid}
                       teamName={
                         sessionBettingType.oddEven == data?.type ? "odd" : null
@@ -561,7 +560,7 @@ const SessionMarketBox = ({
                   >
                     <SeparateModal
                       key={index}
-                      bettingOn={"session"}
+                      bettingOn="session"
                       closeModal={closeModal}
                       setFastBetLoading={setFastBetLoading}
                       po={
@@ -577,7 +576,7 @@ const SessionMarketBox = ({
                       session={true}
                       betType={
                         sessionBettingType.oddEven == data?.type ||
-                        sessionBettingType.fancy1 == data?.type
+                          sessionBettingType.fancy1 == data?.type
                           ? "back"
                           : "yes"
                       }
@@ -600,13 +599,13 @@ const SessionMarketBox = ({
                           ? true
                           : false
                       }
-                      color={"#B3E0FF"}
+                      color="#B3E0FF"
                       type={{ color: "#A7DCFF", type: "YN" }}
                       typeOfBet={typeOfBet}
                       data={data}
                       mainData={mainData}
                       handleRateChange={handleRateChange}
-                      width={"100%"}
+                      width="100%"
                       mid={mid}
                       teamName={
                         sessionBettingType.oddEven == data?.type ? "even" : null

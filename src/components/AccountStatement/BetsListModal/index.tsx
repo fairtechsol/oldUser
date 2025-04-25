@@ -98,7 +98,7 @@ const BetsListModal = ({
             <IoClose
               size={30}
               color="red"
-              cursor={"pointer"}
+              cursor="pointer"
               onClick={() => onClose()}
             />
           </Box>

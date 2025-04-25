@@ -123,7 +123,7 @@ const SearchInput = ({
       >
         <TextField
           variant="standard"
-          placeholder={"Search"}
+          placeholder="Search"
           value={search?.userName}
           onChange={handleInputChange}
           InputProps={{
