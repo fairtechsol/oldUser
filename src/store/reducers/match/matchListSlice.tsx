@@ -231,39 +231,46 @@ const matchListSlice = createSlice({
       })
       .addCase(updateBetDataOnUndeclare.fulfilled, (state, action) => {
         const { betId, profitLoss, matchId } = action.payload;
-        const parsedProfitLoss = JSON.parse(profitLoss || "{}");
-        if (state?.matchDetails?.id === matchId) {
-          const isBetIdPresent =
-            state?.matchDetails?.profitLossDataSession?.find(
-              (item: any) => item?.betId === betId
-            );
 
-          const updatedProfitLossDataSession = isBetIdPresent
-            ? state?.matchDetails?.profitLossDataSession?.map((item: any) =>
-                item?.betId === betId
-                  ? {
-                      ...item,
-                      maxLoss: parsedProfitLoss?.maxLoss,
-                      totalBet: parsedProfitLoss?.totalBet,
-                      profitLoss: parsedProfitLoss?.betPlaced,
-                    }
-                  : item
-              )
-            : [
-                ...state.matchDetails?.profitLossDataSession,
-                {
-                  betId: betId,
+        if (!state.matchDetails || state.matchDetails.id !== matchId) {
+          return;
+        }
+
+        const parsedProfitLoss = JSON.parse(profitLoss || "{}");
+        const currentSession = state.matchDetails.profitLossDataSession || [];
+
+        const existingBetIndex = currentSession.findIndex(
+          (item: any) => item?.betId === betId
+        );
+
+        let updatedSession;
+        if (existingBetIndex >= 0) {
+          updatedSession = currentSession.map((item: any, index: number) =>
+            index === existingBetIndex
+              ? {
+                  ...item,
                   maxLoss: parsedProfitLoss?.maxLoss,
                   totalBet: parsedProfitLoss?.totalBet,
                   profitLoss: parsedProfitLoss?.betPlaced,
-                },
-              ];
-
-          state.matchDetails = {
-            ...state.matchDetails,
-            profitLossDataSession: updatedProfitLossDataSession,
-          };
+                }
+              : item
+          );
+        } else {
+          updatedSession = [
+            ...currentSession,
+            {
+              betId,
+              maxLoss: parsedProfitLoss?.maxLoss,
+              totalBet: parsedProfitLoss?.totalBet,
+              profitLoss: parsedProfitLoss?.betPlaced,
+            },
+          ];
         }
+
+        state.matchDetails = {
+          ...state.matchDetails,
+          profitLossDataSession: updatedSession,
+        };
       })
       .addCase(updateTeamRatesOnDeleteMatch.fulfilled, (state, action) => {
         const { betId, teamRate } = action.payload;
@@ -278,27 +285,22 @@ const matchListSlice = createSlice({
         };
       })
       .addCase(updateMatchRatesFromApiOnList.fulfilled, (state, action) => {
-        let matchListFromApi = action.payload;
-        if (
-          state.matchList?.matches?.length > 0 &&
-          matchListFromApi?.length > 0
-        ) {
-          state.matchList.matches = state.matchList?.matches?.map(
-            (items: any) => {
-              const itemToUpdate =
-                matchListFromApi &&
-                matchListFromApi?.find(
-                  (item: any) =>
-                    +item?.gameId === +items?.eventId ||
-                    +item?.gmid === +items?.eventId
-                );
-              return {
-                ...items,
-                ...itemToUpdate,
-              };
-            }
-          );
-        }
+        const matchListFromApi = action.payload;
+
+        if (!state.matchList?.matches?.length || !matchListFromApi?.length)
+          return;
+
+        const apiMatchMap = new Map();
+        matchListFromApi.forEach((item: any) => {
+          const id = Number(item.gameId || item.gmid);
+          apiMatchMap.set(id, item);
+        });
+
+        state.matchList.matches = state.matchList.matches.map((match: any) => {
+          const eventId = Number(match.eventId);
+          const apiMatch = apiMatchMap.get(eventId);
+          return apiMatch ? { ...match, ...apiMatch } : match;
+        });
       })
       .addCase(selectedBetMinMax.fulfilled, (state, action) => {
         const { data } = action.payload;
