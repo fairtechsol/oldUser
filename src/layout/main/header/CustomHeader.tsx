@@ -184,7 +184,7 @@ const CustomHeader = () => {
                 showDropDown={false}
                 containerStyle={{ marginTop: matchesMobile ? "5px" : "0px" }}
                 valueStyle={{}}
-                title={"Exposure"}
+                title="Exposure"
                 value={profileDetail?.userBal?.exposure}
               />
               <NewBoxData
