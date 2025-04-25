@@ -285,11 +285,13 @@ const matchListSlice = createSlice({
         ) {
           state.matchList.matches = state.matchList?.matches?.map(
             (items: any) => {
-              const itemToUpdate = matchListFromApi?.find(
-                (item: any) =>
-                  +item?.gameId === +items?.eventId ||
-                  +item?.gmid === +items?.eventId
-              );
+              const itemToUpdate =
+                matchListFromApi &&
+                matchListFromApi?.find(
+                  (item: any) =>
+                    +item?.gameId === +items?.eventId ||
+                    +item?.gmid === +items?.eventId
+                );
               return {
                 ...items,
                 ...itemToUpdate,

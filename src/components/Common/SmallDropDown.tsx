@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { memo, useState } from "react";
+import { Fragment, memo, useState } from "react";
 import { ARROWDROPDOWN } from "../../assets";
 
 interface SmallDropDownProps {
@@ -54,11 +54,10 @@ const SmallDropDown = ({ setPageLimit, pageLimit }: SmallDropDownProps) => {
             zIndex: 22,
           }}
         >
-          {[5, 10, 15, 20, 50, 100].map((item: any, idx: any) => {
+          {[5, 10, 15, 20, 50, 100].map((item: any, idx: number) => {
             return (
-              <>
+              <Fragment key={idx}>
                 <Typography
-                  key={idx}
                   onClick={() => {
                     setPageLimit(+item);
                     setOpen(false);
@@ -70,7 +69,7 @@ const SmallDropDown = ({ setPageLimit, pageLimit }: SmallDropDownProps) => {
                 <Box
                   sx={{ width: "100%", height: "1px", background: "#DEDEDE" }}
                 />
-              </>
+              </Fragment>
             );
           })}
         </Box>
