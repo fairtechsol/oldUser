@@ -136,7 +136,7 @@ const MatchValues = () => {
                     fontWeight: "600",
                   }}
                 >
-                  Price Lable
+                  Price Label
                 </Typography>
                 {values?.map((_: any, index: number) => {
                   return (
