@@ -1,36 +1,37 @@
 import { Box, Typography } from "@mui/material";
 import { memo, useState } from "react";
-import { ARROWUP, LockIcon } from "../../../assets";
+import { ARROWUP } from "../../../assets";
 import Divider from "../../../helper/Divider";
-import { currencyFormatter } from "../../../helper/index";
-import FastTimePlaceBet from "../MatchOdds/Bets/FastTimePlaceBet";
-import FastTime from "../MatchOdds/FastTime";
 import CricketCasinoMarketBox from "./CricketCasinoMarketBox";
 import SmallboxSeason from "./SmallBoxSeason";
 
+interface CricketCasinoMarketProps {
+  data: any;
+  allBetsData: any;
+  show: any;
+  setShow: any;
+  upcoming: boolean;
+  title: string;
+  eventType: string;
+  min: number | string | null | undefined;
+  typeOfBet: string;
+  matchDetails: any;
+  type?: string | null | undefined;
+}
+
 const CricketCasinoMarket = ({
   data,
-  showFast,
-  teamARates,
-  teamBRates,
-  teamCRates,
   allBetsData,
   show,
   setShow,
-  setFastAmount,
-  fastAmount,
-  session,
-  betLock,
   upcoming,
-  handleRateChange,
   title,
   eventType,
   min,
   typeOfBet,
   matchDetails,
   type,
-}: any) => {
-  const [showFastTimeBox, setShowFastTimeBox] = useState(false);
+}: CricketCasinoMarketProps) => {
   const [visible, setVisible] = useState(true);
 
   return (
@@ -82,14 +83,6 @@ const CricketCasinoMarket = ({
             >
               {title}
             </Typography>
-            {showFast && (
-              <FastTime
-                session={session}
-                setFastAmount={setFastAmount}
-                setShowFastTimeBox={setShowFastTimeBox}
-                data={fastAmount ? currencyFormatter(fastAmount) : ""}
-              />
-            )}
           </Box>
           <Box
             sx={{
@@ -146,14 +139,6 @@ const CricketCasinoMarket = ({
             </Box>
           </Box>
         </Box>
-        {showFastTimeBox && (
-          <FastTimePlaceBet
-            session={session}
-            setFastAmount={setFastAmount}
-            selectedFastAmount={fastAmount}
-            setShowFastTimeBox={setShowFastTimeBox}
-          />
-        )}
 
         {visible && (
           <Box sx={{ width: "100%", position: "relative" }}>
@@ -244,52 +229,6 @@ const CricketCasinoMarket = ({
                 </Box>
               </Box>
             </Box>
-            {betLock && (
-              <Box
-                sx={{
-                  position: "absolute",
-                  height: "86%",
-                  top: "14%",
-                  width: "100%",
-                  display: "flex",
-                  zIndex: "999",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  background: "rgba(0, 0, 0, .6)",
-                }}
-              >
-                <Box
-                  sx={{
-                    width: { xs: "60%", lg: "40%", md: "60%" },
-                  }}
-                />
-                <Box
-                  sx={{
-                    width: { xs: "40%", lg: "60%", md: "40%" },
-                    gap: 1,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <img
-                    style={{ width: "35px", height: "40px" }}
-                    src={LockIcon}
-                    alt="lock"
-                  />
-                  <Typography
-                    sx={{
-                      fontWeight: "600",
-                      margin: "20px 0px 0px -25px",
-                      fontSize: "20px",
-                      color: "#FFF",
-                    }}
-                  >
-                    Locked
-                  </Typography>
-                </Box>
-              </Box>
-            )}
             <Box
               sx={{
                 display: "flex",
@@ -320,7 +259,6 @@ const CricketCasinoMarket = ({
                           index={index}
                           upcoming={upcoming}
                           typeOfBet={typeOfBet}
-                          setFastBetLoading={() => {}}
                           eventType={eventType}
                           data={{
                             ...currSessionItem,
@@ -329,18 +267,8 @@ const CricketCasinoMarket = ({
                             id: data?.id,
                             RunnerName: data?.RunnerName,
                           }}
-                          sessionMain={session}
-                          selectedFastAmount={fastAmount}
-                          setFastAmount={setFastAmount}
-                          mainData={data}
-                          allRates={{
-                            teamA: teamARates,
-                            teamB: teamBRates,
-                            teamC: teamCRates,
-                          }}
                           show={show}
                           setShow={setShow}
-                          handleRateChange={handleRateChange}
                           profitLossData={Array.from(
                             new Set(allBetsData)
                           )?.filter((item: any) => item?.betId === data?.id)}

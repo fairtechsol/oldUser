@@ -6,25 +6,29 @@ import PlaceBetComponent from "../MatchOdds/Bets/PlaceBetComponent";
 import PlaceBetComponentWeb from "../MatchOdds/Bets/PlaceBetComponentWeb";
 import SeparateModal from "../MatchOdds/SeparateModal";
 
+interface CricketCasinoMarketBoxProps {
+  index: number;
+  typeOfBet: string;
+  data: any;
+  eventType: string;
+  upcoming: boolean;
+  profitLossData: any;
+  show: any;
+  setShow: any;
+  mid?: string | number | null | undefined;
+}
+
 const CricketCasinoMarketBox = ({
   index,
   typeOfBet,
   data,
-  selectedFastAmount,
-  mainData,
-  allRates,
-  sessionMain,
-  setFastAmount,
   eventType,
-  closeModal,
-  setFastBetLoading,
-  handleRateChange,
   upcoming,
   profitLossData,
   show,
   setShow,
   mid,
-}: any) => {
+}: CricketCasinoMarketBoxProps) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   return (
@@ -82,7 +86,6 @@ const CricketCasinoMarketBox = ({
 
         {matchesMobile && (
           <PlaceBetComponent
-            amount={index == 2}
             data={data}
             show={show}
             setShow={setShow}
@@ -93,7 +96,6 @@ const CricketCasinoMarketBox = ({
         )}
         {!matchesMobile && (
           <PlaceBetComponentWeb
-            amount={index === 2}
             data={data}
             show={show}
             setShow={setShow}
@@ -168,16 +170,8 @@ const CricketCasinoMarketBox = ({
                 {data?.odds?.map((item: any, index: number) => (
                   <SeparateModal
                     key={index}
-                    bettingOn="session"
-                    closeModal={closeModal}
-                    setFastBetLoading={setFastBetLoading}
                     po={item?.tno}
                     eventType={eventType}
-                    setFastAmount={setFastAmount}
-                    rates={allRates}
-                    session={true}
-                    sessionMain={sessionMain}
-                    selectedFastAmount={selectedFastAmount}
                     betType="back"
                     value={item?.odds ?? 0}
                     lock={
@@ -190,8 +184,6 @@ const CricketCasinoMarketBox = ({
                     }}
                     typeOfBet={typeOfBet}
                     data={data}
-                    mainData={mainData}
-                    handleRateChange={handleRateChange}
                     width="100%"
                     mid={mid || data?.mid}
                     teamName={data?.nat}
@@ -204,7 +196,6 @@ const CricketCasinoMarketBox = ({
             )}
             {!matchesMobile && (
               <PlaceBetComponentWeb
-                amount={index === 2}
                 data={data}
                 show={show}
                 setShow={setShow}
