@@ -356,13 +356,14 @@ const CricketCasinoMarket = ({
                           index={index}
                           upcoming={upcoming}
                           typeOfBet={typeOfBet}
-                          setFastBetLoading={() => {}}
+                          setFastBetLoading={() => { }}
                           eventType={eventType}
                           data={{
                             ...currSessionItem,
                             matchId: matchDetails?.id,
                             type: type,
                             id: data?.id,
+                            mid: data?.mid,
                             RunnerName: data?.RunnerName,
                           }}
                           sessionMain={session}
