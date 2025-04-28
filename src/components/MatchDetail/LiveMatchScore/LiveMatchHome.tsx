@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
+import { memo } from "react";
 import { Col, Container, Ratio, Row } from "react-bootstrap";
 import { liveStreamUrl } from "../../../utils/Constants";
-import { memo } from "react";
 
 interface LiveMatchHomeProps {
   eventId: string | number;
