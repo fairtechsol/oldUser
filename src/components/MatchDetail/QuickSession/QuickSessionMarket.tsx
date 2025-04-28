@@ -1,35 +1,37 @@
 import { Box, Typography } from "@mui/material";
 import { memo, useState } from "react";
-import { ARROWUP, LockIcon } from "../../../assets";
+import { ARROWUP } from "../../../assets";
 import Divider from "../../../helper/Divider";
 import { sessionBettingType } from "../../../utils/Constants";
 import SmallBoxSeason from "../QuickSession/SmallBoxSeason";
 import QuickSessionMarketBox from "./QuickSessionMarketBox";
 
+interface QuickSessionMarketProps {
+  newData: any[];
+  allBetsData: any[];
+  session: any;
+  upcoming: boolean;
+  title: string;
+  minBet: number | string;
+  typeOfBet: string | null | undefined | any;
+  eventType: string | null | undefined;
+  setShow: (val: any) => void;
+  matchDetails?: any;
+}
+
 const QuickSessionMarket = ({
-  data,
   newData,
-  backTeamA,
-  backTeamB,
-  backTeamC,
   allBetsData,
-  setFastAmount,
-  fastAmount,
   session,
-  betLock,
   upcoming,
-  handleRateChange,
   title,
   minBet,
   typeOfBet,
   eventType,
   setShow,
-  show,
   matchDetails,
-}: any) => {
+}: QuickSessionMarketProps) => {
   const [showFastTimeBox, setShowFastTimeBox] = useState(false);
-  const [setFastBetLoading] = useState(false);
-  const [selectedItem, setSelectedItem] = useState("");
   const [visible, setVisible] = useState(true);
 
   return (
@@ -236,52 +238,6 @@ const QuickSessionMarket = ({
                 </Box>
               </Box>
             </Box>
-            {betLock && (
-              <Box
-                sx={{
-                  position: "absolute",
-                  height: "86%",
-                  top: "14%",
-                  width: "100%",
-                  display: "flex",
-                  zIndex: "999",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  background: "rgba(0, 0, 0, .6)",
-                }}
-              >
-                <Box
-                  sx={{
-                    width: { xs: "60%", lg: "40%", md: "60%" },
-                  }}
-                />
-                <Box
-                  sx={{
-                    width: { xs: "40%", lg: "60%", md: "40%" },
-                    gap: 1,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <img
-                    style={{ width: "35px", height: "40px" }}
-                    src={LockIcon}
-                    alt="lock"
-                  />
-                  <Typography
-                    sx={{
-                      fontWeight: "600",
-                      margin: "20px 0px 0px -25px",
-                      fontSize: "20px",
-                      color: "#FFF",
-                    }}
-                  >
-                    Locked
-                  </Typography>
-                </Box>
-              </Box>
-            )}
             <Box
               sx={{
                 display: "flex",
@@ -306,28 +262,12 @@ const QuickSessionMarket = ({
                       <QuickSessionMarketBox
                         index={index}
                         upcoming={upcoming}
-                        closeModal={
-                          [0, 2]?.includes(element?.betStatus) ? true : false
-                        }
                         typeOfBet={typeOfBet}
-                        setFastBetLoading={setFastBetLoading}
                         data={element}
                         sessionMain={session}
                         setShowFastTimeBox={setShowFastTimeBox}
-                        selectedFastAmount={fastAmount}
-                        setFastAmount={setFastAmount}
                         showFastTimeBox={showFastTimeBox}
-                        setSelectedItem={setSelectedItem}
-                        selectedItem={selectedItem}
-                        mainData={data}
-                        allRates={{
-                          teamA: backTeamA,
-                          teamB: backTeamB,
-                          teamC: backTeamC,
-                        }}
-                        show={show}
                         setShow={setShow}
-                        handleRateChange={handleRateChange}
                         eventType={eventType}
                         profitLossData={Array.from(
                           new Set(allBetsData)

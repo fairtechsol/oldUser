@@ -2,7 +2,6 @@ import { Box } from "@mui/material";
 import { Fragment, memo } from "react";
 import { customSortBySessionMarketName, formatToINR } from "../../../helper";
 import { sessionBettingType } from "../../../utils/Constants";
-import { MatchType } from "../../../utils/enum";
 import CricketCasinoMarket from "../CricketCasinoOdds/CricketCasinoMarket";
 import QuickSessionMarket from "../QuickSession/QuickSessionMarket";
 import SessionMarket from "../SessionOdds/SessionMarket";
@@ -96,10 +95,7 @@ const MatchOdds = ({ matchDetails, setShow, show }: MatchOddsProps) => {
             title="Quick Session Market"
             session="sessionOdds"
             setShow={setShow}
-            show={show}
             upcoming={!upcoming}
-            type={MatchType.SESSION_MARKET}
-            matchOddsData={matchDetails?.sessionBettings}
             newData={matchDetails?.sessionBettings?.filter(
               filterActiveSessions
             )}
@@ -120,7 +116,6 @@ const MatchOdds = ({ matchDetails, setShow, show }: MatchOddsProps) => {
                   key={key}
                   allBetsData={matchDetails?.profitLossDataSession}
                   newData={value?.section?.filter(filterValidItems)}
-                  matchOddsData={value?.section}
                   typeOfBet={matchDetails?.type}
                   title={value?.mname || key}
                   setShow={setShow}
@@ -143,8 +138,6 @@ const MatchOdds = ({ matchDetails, setShow, show }: MatchOddsProps) => {
             <CricketCasinoMarket
               key={item?.id}
               allBetsData={matchDetails?.profitLossDataSession}
-              newData={item}
-              matchOddsData={item}
               typeOfBet={matchDetails?.type}
               title={item?.RunnerName}
               setShow={setShow}

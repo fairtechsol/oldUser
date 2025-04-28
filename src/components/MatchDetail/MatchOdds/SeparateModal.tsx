@@ -11,32 +11,37 @@ import { AppDispatch, RootState } from "../../../store/store";
 import { sessionBettingType } from "../../../utils/Constants";
 import OddsPlaceBet from "./Bets/OddsPlacebet";
 
+interface SeparateModalProps {
+  color: string;
+  po: number;
+  value: number | string;
+  value2?: number | string;
+  lock: boolean;
+  type: any;
+  data: any;
+  typeOfBet: string;
+  betType?: string;
+  eventType: string | any;
+  width?: string | number;
+  mid?: string | number | null | undefined;
+  teamName?: string | null | undefined;
+}
+
 const SeparateModal = ({
   color,
   po,
-  empty,
   value,
   value2,
   lock,
-  session,
-  currentMatch,
   type,
-  name,
   data,
   typeOfBet,
-  mainData,
   betType,
-  selectedFastAmount,
-  setFastBetLoading,
   eventType,
-  bettingOn,
-  marketDetails,
-  upcoming,
-  selectionId,
   width,
   mid,
   teamName,
-}: any) => {
+}: SeparateModalProps) => {
   const dispatch: AppDispatch = useDispatch();
   const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
   const { loading } = useSelector((state: RootState) => state.match.bet);
@@ -57,126 +62,36 @@ const SeparateModal = ({
   };
 
   const handleBoxClick = () => {
-    if (lock || [0, "0", null, undefined].includes(value) || upcoming) {
+    if (lock || [0, "0", null, undefined].includes(value)) {
       return false;
     }
     if (loading) {
       return false;
     } else {
-      if (selectedFastAmount) {
-        setFastBetLoading(true);
-
-        let payload = {
-          id: currentMatch?.id,
-          matchType: currentMatch?.gameType,
-
-          betType: type?.color === "#A7DCFF" ? "back" : "lay",
-          odds: Number(value),
-          betOn: name,
-          stack: Number(selectedFastAmount),
-          team_bet: name,
-          selectionId: selectionId,
-          stake: Number(selectedFastAmount),
-          teamA_name: currentMatch?.teamA,
-          teamB_name: currentMatch?.teamB,
-          teamC_name: currentMatch?.teamC,
-          marketType: typeOfBet === "MATCH ODDS" ? "MATCH ODDS" : typeOfBet,
-        };
-        if (session) {
-          delete payload.betOn;
-          payload.matchType = data?.matchType;
-          payload.teamA_name = mainData?.teamA;
-          payload.teamB_name = mainData?.teamB;
-          payload.id = data?.matchId;
-          payload.betType = type?.color === "#A7DCFF" ? "yes" : "no";
-          payload.marketType = typeOfBet;
-          payload.odds = Number(value);
-        }
-      } else {
-        setIsPopoverOpen(true);
-        if (bettingOn === "session") {
-          handleClick(
-            {
-              betId: data?.id,
-              name: data?.name ?? data?.RunnerName ?? data?.nat,
-              rate: value,
-              type: betType,
-              stake: 0,
-              percent: [
-                sessionBettingType.fancy1,
-                sessionBettingType.cricketCasino,
-                sessionBettingType.oddEven,
-              ].includes(data?.type)
-                ? value
-                : value2,
-              eventType: eventType,
-              matchId: data?.matchId,
-              betPlaceIndex: po,
-              mid: mid || data?.mid,
-              teamName: teamName,
-              runnerId: data?.id,
-            },
-            data
-          );
-        } else {
-          handleClick(
-            {
-              betOnTeam: name,
-              rate: value,
-              type: betType,
-              stake: 0,
-              teamA:
-                marketDetails?.type === "tiedMatch2" ||
-                marketDetails?.type === "tiedMatch1" ||
-                marketDetails?.type === "tiedMatch3" ||
-                marketDetails?.type === "completeMatch" ||
-                marketDetails?.type === "completeManual"
-                  ? "YES"
-                  : ["matchOdd", "bookmaker", "bookmaker2"].includes(
-                      marketDetails?.type
-                    )
-                  ? currentMatch?.teamA
-                  : marketDetails?.runners?.[0]?.nat
-                  ? marketDetails?.runners?.[0]?.nat
-                  : currentMatch?.teamA,
-              teamB:
-                marketDetails?.type === "tiedMatch2" ||
-                marketDetails?.type === "tiedMatch1" ||
-                marketDetails?.type === "tiedMatch3" ||
-                marketDetails?.type === "completeMatch" ||
-                marketDetails?.type === "completeManual"
-                  ? "NO"
-                  : ["matchOdd", "bookmaker", "bookmaker2"].includes(
-                      marketDetails?.type
-                    )
-                  ? currentMatch?.teamB
-                  : marketDetails?.runners?.[1]?.nat
-                  ? marketDetails?.runners?.[1]?.nat
-                  : currentMatch?.teamB,
-              teamC:
-                marketDetails?.type === "tiedMatch2" ||
-                marketDetails?.type === "tiedMatch3" ||
-                marketDetails?.type === "tiedMatch1" ||
-                marketDetails?.type === "completeMatch" ||
-                marketDetails?.type === "completeManual"
-                  ? ""
-                  : marketDetails?.runners?.[2]?.nat
-                  ? marketDetails?.runners?.[2]?.nat
-                  : currentMatch?.teamC
-                  ? currentMatch?.teamC
-                  : "",
-              betId: marketDetails?.id,
-              eventType: marketDetails?.eventType,
-              matchId: currentMatch?.id,
-              placeIndex: po,
-              matchBetType: marketDetails?.type,
-              bettingName: marketDetails?.name,
-              selectionId: selectionId,
-            },
-            data
-          );
-        }
-      }
+      setIsPopoverOpen(true);
+      handleClick(
+        {
+          betId: data?.id,
+          name: data?.name ?? data?.RunnerName ?? data?.nat,
+          rate: value,
+          type: betType,
+          stake: 0,
+          percent: [
+            sessionBettingType.fancy1,
+            sessionBettingType.cricketCasino,
+            sessionBettingType.oddEven,
+          ].includes(data?.type)
+            ? value
+            : value2,
+          eventType: eventType,
+          matchId: data?.matchId,
+          betPlaceIndex: po,
+          mid: mid || data?.mid,
+          teamName: teamName,
+          runnerId: data?.id,
+        },
+        data
+      );
     }
   };
 
@@ -201,10 +116,10 @@ const SeparateModal = ({
           justifyContent: "center",
           alignItems: "center",
           flexDirection: "column",
-          cursor: !empty && !lock && value && value2 && "pointer",
+          cursor: !lock && value && value2 ? "pointer" : "",
         }}
       >
-        {!empty && !lock && ![0, "0", null, undefined].includes(value) && (
+        {!lock && ![0, "0", null, undefined].includes(value) && (
           <Box sx={{ alignItems: "center", justifyContent: "space-around" }}>
             <Typography
               sx={{
@@ -262,7 +177,6 @@ const SeparateModal = ({
             handleClose={() => {
               setIsPopoverOpen(false);
             }}
-            session={session}
             type={type}
           />
         </Box>

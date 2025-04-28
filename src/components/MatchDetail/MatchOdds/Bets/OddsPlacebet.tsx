@@ -26,7 +26,12 @@ const toastOptions = {
   pauseOnHover: true,
 };
 
-const OddsPlaceBet = ({ handleClose, session, type }: any) => {
+interface OddsPlaceBetProps {
+  handleClose: () => void;
+  type: any;
+}
+
+const OddsPlaceBet = ({ handleClose, type }: OddsPlaceBetProps) => {
   const dispatch: AppDispatch = useDispatch();
   const theme = useTheme();
   const [stakeValue, setStakeValue] = useState<any>(" ");
@@ -336,7 +341,7 @@ const OddsPlaceBet = ({ handleClose, session, type }: any) => {
           border: "1px solid white",
           borderRadius: "5px",
           overflow: "hidden",
-          marginLeft: session ? 0 : 0,
+          marginLeft: 0,
           width: { xs: "98vw", md: "60vw", lg: "40%" },
           position: "relative",
           boxShadow: "rgba(0, 0, 0, 0.56) 0px 22px 70px 4px",
@@ -401,7 +406,7 @@ const OddsPlaceBet = ({ handleClose, session, type }: any) => {
             valueContainerStyle={{
               background: type?.color ? type?.color : "#F8C851",
             }}
-            containerStyle={{ flex: session ? { xs: 2.5, lg: 2 } : 1 }}
+            containerStyle={{ flex: { xs: 2.5, lg: 2 } }}
             value={
               selectedBet?.data?.type === "khado"
                 ? `${selectedBet?.team?.name ?? selectedBet?.team?.betOnTeam}-${

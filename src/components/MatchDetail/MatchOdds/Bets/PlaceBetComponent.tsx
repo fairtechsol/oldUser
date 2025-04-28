@@ -7,19 +7,26 @@ import { AppDispatch, RootState } from "../../../../store/store";
 import { sessionBettingType } from "../../../../utils/Constants";
 import RunsDropDown from "./RunsDropDown";
 
+interface PlaceBetComponentProps {
+  profitLoss: any;
+  data: any;
+  show: { open: boolean; id: string } | any;
+  setShow: (val: any) => void;
+  hideCount?: boolean;
+  index?: number | any;
+}
+
 const PlaceBetComponent = ({
   profitLoss,
   data,
   show,
   setShow,
-  color,
   hideCount = false,
   index,
-}: any) => {
+}: PlaceBetComponentProps) => {
   const dispatch: AppDispatch = useDispatch();
   const [proLoss, setProfitLoss] = useState(profitLoss);
   const { runAmount } = useSelector((state: RootState) => state.bets);
-  const [anchorEl] = useState(null);
 
   useEffect(() => {
     if (profitLoss) {
@@ -108,7 +115,7 @@ const PlaceBetComponent = ({
               ? profitLoss?.profitLoss?.[index]
               : !profitLoss?.maxLoss
               ? "Profit/Loss"
-              : handleDecimalAmount(profitLoss?.maxLoss, color)}
+              : handleDecimalAmount(profitLoss?.maxLoss, "")}
           </Typography>
         </Box>
       </Box>
@@ -119,12 +126,7 @@ const PlaceBetComponent = ({
           sessionBettingType.fancy1,
           sessionBettingType.cricketCasino,
         ].includes(data?.type) && (
-          <RunsDropDown
-            style={{ zIndex: 10 }}
-            list={runAmount && runAmount?.runAmount}
-            open={Boolean(anchorEl)}
-            anchorEl={anchorEl}
-          />
+          <RunsDropDown list={runAmount && runAmount?.runAmount} />
         )}
     </Box>
   );

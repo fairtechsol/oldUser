@@ -8,19 +8,30 @@ import PlaceBetComponent from "../MatchOdds/Bets/PlaceBetComponent";
 import PlaceBetComponentWeb from "../MatchOdds/Bets/PlaceBetComponentWeb";
 import SeparateModal from "../MatchOdds/SeparateModal";
 
+interface QuickSessionMarketBoxProps {
+  index: number;
+  typeOfBet: string;
+  data: any;
+  sessionMain: any;
+  setFastAmount?: (val: any) => void;
+  setShowFastTimeBox: (val: any) => void;
+  showFastTimeBox: boolean;
+  upcoming: boolean;
+  fastAmount?: number;
+  selectedItem?: string | null | undefined;
+  eventType: string | null | undefined;
+  profitLossData: any[] | null | undefined;
+  show?: boolean;
+  setShow: (val: any) => void;
+}
+
 const QuickSessionMarketBox = ({
   index,
   typeOfBet,
   data,
-  selectedFastAmount,
-  mainData,
-  allRates,
   sessionMain,
   setFastAmount,
-  closeModal,
-  setFastBetLoading,
   setShowFastTimeBox,
-  handleRateChange,
   showFastTimeBox,
   upcoming,
   fastAmount,
@@ -29,7 +40,7 @@ const QuickSessionMarketBox = ({
   profitLossData,
   show,
   setShow,
-}: any) => {
+}: QuickSessionMarketBoxProps) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
@@ -82,7 +93,7 @@ const QuickSessionMarketBox = ({
         }}
       >
         <Box>
-          <Typography
+          <Box
             sx={{
               color: "black",
               fontSize: { lg: "11px", md: "10px", xs: "10px" },
@@ -94,11 +105,12 @@ const QuickSessionMarketBox = ({
               display: "flex",
               alignItems: "center",
               gap: "5px",
+              fontFamily: "Poppins sans-serif",
             }}
           >
             {data?.name}
             {data?.isCommissionActive && <CommissionDot />}
-          </Typography>
+          </Box>
           <Typography
             sx={{
               color: "black",
@@ -114,7 +126,6 @@ const QuickSessionMarketBox = ({
         </Box>
         {matchesMobile && (
           <PlaceBetComponent
-            amount={index == 2}
             data={data}
             show={show}
             setShow={setShow}
@@ -123,7 +134,6 @@ const QuickSessionMarketBox = ({
         )}
         {!matchesMobile && (
           <PlaceBetComponentWeb
-            amount={index === 2}
             data={data}
             show={show}
             setShow={setShow}
@@ -185,15 +195,7 @@ const QuickSessionMarketBox = ({
               }}
             >
               <SeparateModal
-                bettingOn="session"
-                closeModal={closeModal}
-                setFastBetLoading={setFastBetLoading}
                 po={2}
-                setFastAmount={setFastAmount}
-                rates={allRates}
-                session={true}
-                sessionMain={sessionMain}
-                selectedFastAmount={selectedFastAmount}
                 betType="no"
                 value={data?.noRate}
                 value2={data?.noPercent}
@@ -202,23 +204,13 @@ const QuickSessionMarketBox = ({
                 type={{ color: "#FFB5B5", type: "YN" }}
                 typeOfBet={typeOfBet}
                 data={data}
-                mainData={mainData}
-                handleRateChange={handleRateChange}
                 eventType={eventType}
               />
               <Box
                 sx={{ width: ".45%", display: "flex", background: "pink" }}
               />
               <SeparateModal
-                bettingOn="session"
-                closeModal={closeModal}
-                setFastBetLoading={setFastBetLoading}
                 po={1}
-                sessionMain={sessionMain}
-                rates={allRates}
-                setFastAmount={setFastAmount}
-                selectedFastAmount={selectedFastAmount}
-                session={true}
                 betType="yes"
                 value={data?.yesRate}
                 value2={data?.yesPercent}
@@ -227,9 +219,7 @@ const QuickSessionMarketBox = ({
                 type={{ color: "#A7DCFF", type: "YN" }}
                 typeOfBet={typeOfBet}
                 data={data}
-                mainData={mainData}
                 eventType={eventType}
-                handleRateChange={handleRateChange}
               />
               {!matchesMobile && (
                 <Box
@@ -239,7 +229,6 @@ const QuickSessionMarketBox = ({
             </Box>
             {!matchesMobile && (
               <PlaceBetComponentWeb
-                amount={index === 2}
                 data={data}
                 show={show}
                 setShow={setShow}
