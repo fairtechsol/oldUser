@@ -80,7 +80,6 @@ const YellowHeader = ({
             }}
           >
             <Calendar
-              sx={{ width: "50%" }}
               title="From"
               startDate={fromDate}
               setStartDate={setFromDate}
@@ -88,7 +87,6 @@ const YellowHeader = ({
             <Box sx={{ width: "10px" }} />
 
             <Calendar
-              sx={{ width: "50%" }}
               title="To"
               startDate={toDate}
               setStartDate={setToDate}

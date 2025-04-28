@@ -114,7 +114,7 @@ const AccountStatementList = () => {
 
   useEffect(() => {
     dispatch(transactionProviderName(""));
-  }, []);
+  }, [dispatch]);
 
   const totalPages = Math.ceil(
     parseInt(transactions?.count ? transactions.count : 1) / pageLimit

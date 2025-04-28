@@ -62,14 +62,12 @@ const YellowHeaderProfitLoss = ({
                 title="From"
                 startDate={startDate}
                 setStartDate={setStartDate}
-                sx={{ width: "50%" }}
               />
               <Box sx={{ width: "10px" }} />
               <Calendar
                 title="To"
                 startDate={endDate}
                 setStartDate={setEndDate}
-                sx={{ width: "50%" }}
                 limit={startDate}
               />
             </Box>

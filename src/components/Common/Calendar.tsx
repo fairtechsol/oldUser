@@ -6,6 +6,16 @@ import "react-datepicker/dist/react-datepicker-cssmodules.css";
 import "react-datepicker/dist/react-datepicker.css";
 import CalendarImage from "../../assets/images/calendar.webp";
 
+interface CalendarProps {
+  title: string;
+  containerStyle?: any;
+  DatePickerProps?: any;
+  pickerStyles?: any;
+  startDate: any;
+  setStartDate: (date: any) => void;
+  limit?: any;
+}
+
 const Calendar = ({
   title,
   containerStyle,
@@ -14,7 +24,7 @@ const Calendar = ({
   startDate,
   setStartDate,
   limit,
-}: any) => {
+}: CalendarProps) => {
   const [open, setOpen] = useState(false);
   return (
     <Box

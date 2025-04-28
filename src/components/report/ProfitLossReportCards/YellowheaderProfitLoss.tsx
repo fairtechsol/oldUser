@@ -3,6 +3,15 @@ import { memo } from "react";
 import Calendar from "../../../components/Common/Calendar";
 import CustomButton from "../../../components/Common/CustomButton";
 
+interface YellowHeaderProfitLossProps {
+  startDate: any;
+  setEndDate: (date: any) => void;
+  setStartDate: (date: any) => void;
+  endDate: any;
+  onClick: () => void;
+  title: string;
+}
+
 const YellowHeaderProfitLoss = ({
   startDate,
   setEndDate,
@@ -10,7 +19,7 @@ const YellowHeaderProfitLoss = ({
   endDate,
   onClick,
   title,
-}: any) => {
+}: YellowHeaderProfitLossProps) => {
   return (
     <Box
       sx={{
@@ -63,7 +72,6 @@ const YellowHeaderProfitLoss = ({
                 title="From"
                 startDate={startDate}
                 setStartDate={setStartDate}
-                sx={{ width: "50%" }}
               />
               <Box sx={{ width: "10px" }} />
 
@@ -71,7 +79,6 @@ const YellowHeaderProfitLoss = ({
                 title="To"
                 startDate={endDate}
                 setStartDate={setEndDate}
-                sx={{ width: "50%" }}
                 limit={startDate}
               />
             </Box>
