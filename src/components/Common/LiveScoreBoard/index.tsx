@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { memo, useState } from "react";
+import { liveTv } from "../../../assets";
 import "./style.scss";
 
 interface LiveScoreBoardProps {
