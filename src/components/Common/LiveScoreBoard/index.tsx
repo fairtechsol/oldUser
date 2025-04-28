@@ -42,12 +42,16 @@ const LiveScoreBoard = ({ data, width, setIsTv }: LiveScoreBoardProps) => {
         }}
       >
         <Box
+          onClick={() => {
+            setVisible(!visible);
+          }}
           sx={{
             flex: 1,
             background: "#f1c550",
             alignItems: "center",
             display: "flex",
             justifyContent: "space-between",
+            cursor: "pointer"
           }}
         >
           <Typography
@@ -69,30 +73,45 @@ const LiveScoreBoard = ({ data, width, setIsTv }: LiveScoreBoardProps) => {
           <div className="slanted" />
         </Box>
         <Box
+          onClick={() => {
+            setIsTv((prev: boolean) => !prev);
+          }}
           sx={{
             flex: 1,
             background: "#262626",
             display: "flex",
             alignItems: "center",
             justifyContent: "flex-end",
+            cursor: "pointer"
           }}
         >
-          <img
-            onClick={() => {
-              setIsTv((prev: boolean) => !prev);
-              setVisible((prev: any) => !prev);
+          <Typography
+            sx={{
+              fontSize: { lg: "13px", md: "10px", xs: "10px" },
+              fontWeight: "bold",
+              marginLeft: "7px",
+              color: "#fff",
+              marginTop: "5px"
             }}
+          >
+            TV
+          </Typography>
+          <img
+            // onClick={() => {
+            //   setIsTv((prev: boolean) => !prev);
+            //   setVisible((prev: any) => !prev);
+            // }}
             style={{
               width: "35px",
               height: "30px",
               color: "white",
-              marginLeft: "1.3rem",
+              // marginLeft: "1.3rem",
               cursor: "pointer",
             }}
             src={liveTv}
             alt="live tv"
           />
-          <img
+          {/* <img
             onClick={() => {
               setIsTv((prev: boolean) => !prev);
               setVisible(!visible);
@@ -106,7 +125,7 @@ const LiveScoreBoard = ({ data, width, setIsTv }: LiveScoreBoardProps) => {
               marginLeft: "5px",
             }}
             alt="arrow up"
-          />
+          /> */}
         </Box>
       </Box>
       <Box>
@@ -169,18 +188,17 @@ const LiveScoreBoard = ({ data, width, setIsTv }: LiveScoreBoardProps) => {
                       ) : (
                         <span
                           key={index}
-                          className={`ball-runs ${
-                            ball === "4" || ball === "6" ? "four" : ""
-                          }`}
+                          className={`ball-runs ${ball === "4" || ball === "6" ? "four" : ""
+                            }`}
                           style={{
                             backgroundColor:
                               ball === "ww"
                                 ? "#ff0000"
                                 : ball === "4"
-                                ? "#087f23"
-                                : ball === "6"
-                                ? "#883997"
-                                : "#08c",
+                                  ? "#087f23"
+                                  : ball === "6"
+                                    ? "#883997"
+                                    : "#08c",
                             fontSize: "12px",
                           }}
                         >

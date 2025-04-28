@@ -59,7 +59,7 @@ const MatchDetail = () => {
   const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
   );
-  const [isTv, setIsTv] = useState(false);
+  const [isTv, setIsTv] = useState(true);
   const { matchDetails, success, matchDetailloading, liveScoreBoardData } =
     useSelector((state: RootState) => state.match.matchList);
   const { placedBets } = useSelector((state: RootState) => state.bets);
@@ -439,7 +439,7 @@ const MatchDetail = () => {
                 width="100%"
                 setIsTv={setIsTv}
               />
-              {isTv &&
+              {liveScoreBoardData && isTv &&
                 matchDetails?.eventId &&
                 matchDetails?.matchType !== "politics" && (
                   <LiveMatchHome eventId={matchDetails?.eventId} />
@@ -505,7 +505,7 @@ const MatchDetail = () => {
                   width="100%"
                   setIsTv={setIsTv}
                 />
-                {isTv &&
+                {liveScoreBoardData && isTv &&
                   matchDetails?.eventId &&
                   matchDetails?.matchType !== "politics" && (
                     <LiveMatchHome eventId={matchDetails?.eventId} />

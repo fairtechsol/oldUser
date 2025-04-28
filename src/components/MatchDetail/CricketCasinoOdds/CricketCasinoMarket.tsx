@@ -265,6 +265,7 @@ const CricketCasinoMarket = ({
                             matchId: matchDetails?.id,
                             type: type,
                             id: data?.id,
+                            mid: data?.mid,
                             RunnerName: data?.RunnerName,
                           }}
                           show={show}
