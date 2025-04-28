@@ -29,7 +29,6 @@ const CricketCasinoMarket = ({
   typeOfBet,
   matchDetails,
   type,
-  mid,
 }: any) => {
   const [showFastTimeBox, setShowFastTimeBox] = useState(false);
   const [visible, setVisible] = useState(true);
@@ -345,7 +344,7 @@ const CricketCasinoMarket = ({
                           profitLossData={Array.from(
                             new Set(allBetsData)
                           )?.filter((item: any) => item?.betId === data?.id)}
-                          mid={mid}
+                          mid={data?.mid}
                         />
                         <Divider />
                       </Box>

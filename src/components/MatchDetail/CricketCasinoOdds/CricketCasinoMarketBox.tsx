@@ -23,6 +23,7 @@ const CricketCasinoMarketBox = ({
   profitLossData,
   show,
   setShow,
+  mid,
 }: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -61,8 +62,8 @@ const CricketCasinoMarketBox = ({
           background: index % 2 === 0 ? "#FFE094" : "#ECECEC",
         }}
       >
-        <Typography>
-          <Typography
+        <Box>
+          <Box
             sx={{
               color: "black",
               fontSize: { lg: "10px", md: "10px", xs: "9px" },
@@ -71,12 +72,13 @@ const CricketCasinoMarketBox = ({
               textAlign: "start",
               width: "100%",
               lineHeight: "0.8rem",
+              fontFamily: "Poppins, sans-serif",
             }}
           >
             {data?.isCommissionActive && <CommissionDot />}
             {data?.nat || `${index} Number`}
-          </Typography>
-        </Typography>
+          </Box>
+        </Box>
 
         {matchesMobile && (
           <PlaceBetComponent
@@ -191,7 +193,7 @@ const CricketCasinoMarketBox = ({
                     mainData={mainData}
                     handleRateChange={handleRateChange}
                     width="100%"
-                    mid={data?.mid}
+                    mid={mid || data?.mid}
                     teamName={data?.nat}
                   />
                 ))}
