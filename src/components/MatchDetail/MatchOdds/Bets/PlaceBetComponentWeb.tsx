@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { memo, useEffect, useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { UD } from "../../../../assets";
 import { handleDecimalAmount } from "../../../../helper";
@@ -34,14 +34,17 @@ const PlaceBetComponentWeb = ({
       setProfitLoss(profitLoss);
     }
   }, [profitLoss]);
+
+  const handleClick = useCallback(() => {
+    if (!show.open && show?.id !== data?.id) {
+      dispatch(getRunAmount(data?.id));
+      setShow({ open: true, id: data?.id });
+    } else setShow({ open: false, id: "" });
+  }, [show, data?.id, dispatch, setShow]);
+
   return (
     <Box
-      onClick={() => {
-        if (!show.open && show?.id !== data?.id) {
-          dispatch(getRunAmount(data?.id));
-          setShow({ open: true, id: data?.id });
-        } else setShow({ open: false, id: "" });
-      }}
+      onClick={handleClick}
       sx={{
         background: "#0B4F26",
         flexDirection: "row",
@@ -113,16 +116,16 @@ const PlaceBetComponentWeb = ({
             data?.type
           ) && profitLoss?.profitLoss
             ? Math.min(
-                ...Object.values(profitLoss.profitLoss)?.map((item: any) =>
-                  parseInt(item)
-                )
+              ...Object.values(profitLoss.profitLoss)?.map((item: any) =>
+                parseInt(item)
               )
+            )
             : data?.type == sessionBettingType.cricketCasino &&
               profitLoss?.profitLoss
-            ? profitLoss?.profitLoss?.[index]
-            : !profitLoss?.maxLoss
-            ? "Profit/Loss"
-            : handleDecimalAmount(profitLoss?.maxLoss, "")}
+              ? profitLoss?.profitLoss?.[index]
+              : !profitLoss?.maxLoss
+                ? "Profit/Loss"
+                : handleDecimalAmount(profitLoss?.maxLoss, "")}
         </Typography>
         <img
           src={UD}
