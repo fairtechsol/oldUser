@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { memo } from "react";
+import { memo, useCallback } from "react";
 
 interface NumberDataProps {
   value: any;
@@ -14,12 +14,15 @@ const NumberData = ({
   setStakeValue,
   selectedBetAction,
 }: NumberDataProps) => {
+
+  const handleClick = useCallback(() => {
+    setStakeValue(value.value);
+    selectedBetAction(value);
+  }, [value, setStakeValue, selectedBetAction]);
+
   return (
     <Box
-      onClick={() => {
-        setStakeValue(value?.value);
-        selectedBetAction(value);
-      }}
+      onClick={handleClick}
       sx={[
         {
           display: "flex",
