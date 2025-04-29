@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { memo, useState } from "react";
+import { memo, useCallback, useMemo, useState } from "react";
 import { ARROWUP } from "../../../assets";
 import Divider from "../../../helper/Divider";
 import CricketCasinoMarketBox from "./CricketCasinoMarketBox";
@@ -33,6 +33,17 @@ const CricketCasinoMarket = ({
   type,
 }: CricketCasinoMarketProps) => {
   const [visible, setVisible] = useState(true);
+
+  // Memoized values
+  const filteredBetsData = useMemo(() =>
+    Array.from(new Set(allBetsData))?.filter((item: any) => item?.betId == data?.id),
+    [allBetsData, data?.id]
+  );
+
+  const toggleVisibility = useCallback(() => setVisible(prev => !prev), []);
+
+  const isActive = useMemo(() => !["result", "unSave"].includes(data?.activeStatus),
+    [data?.activeStatus]);
 
   return (
     <>
@@ -105,11 +116,7 @@ const CricketCasinoMarket = ({
               },
             }}
           >
-            <SmallboxSeason
-              allBetsData={Array.from(new Set(allBetsData))?.filter(
-                (item: any) => item?.betId == data?.id
-              )}
-            />
+            <SmallboxSeason allBetsData={filteredBetsData} />
             <Box
               className="arrowUpCollaps"
               sx={{
@@ -122,9 +129,7 @@ const CricketCasinoMarket = ({
               }}
             >
               <img
-                onClick={() => {
-                  setVisible(!visible);
-                }}
+                onClick={toggleVisibility}
                 src={ARROWUP}
                 style={{
                   transform: !visible ? "rotate(180deg)" : "rotate(0deg)",
@@ -237,10 +242,7 @@ const CricketCasinoMarket = ({
                 position: "relative",
               }}
             >
-              {!(
-                data?.activeStatus === "result" ||
-                data?.activeStatus === "unSave"
-              ) &&
+              {isActive &&
                 Array.from({ length: 10 }, (_, index) => index)?.map(
                   (element: any, index: any) => {
                     const currSessionItem =
@@ -270,9 +272,7 @@ const CricketCasinoMarket = ({
                           }}
                           show={show}
                           setShow={setShow}
-                          profitLossData={Array.from(
-                            new Set(allBetsData)
-                          )?.filter((item: any) => item?.betId === data?.id)}
+                          profitLossData={filteredBetsData}
                           mid={data?.mid}
                         />
                         <Divider />

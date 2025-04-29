@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { memo, useEffect, useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { handleDecimalAmount } from "../../../../helper";
 import { getRunAmount } from "../../../../store/actions/betPlace/betPlaceActions";
@@ -34,17 +34,21 @@ const PlaceBetComponent = ({
     }
   }, [profitLoss]);
 
+  const handleClick = useCallback(() => {
+    if (!show.open && show?.id !== data?.id) {
+      dispatch(getRunAmount(data?.id));
+      setShow({ open: true, id: data?.id });
+    } else {
+      setShow({ open: false, id: "" });
+    }
+  }, [show, data?.id, dispatch, setShow]);
+
   return (
     <Box
       sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
     >
       <Box
-        onClick={() => {
-          if (!show.open && show?.id !== data?.id) {
-            dispatch(getRunAmount(data?.id));
-            setShow({ open: true, id: data?.id });
-          } else setShow({ open: false, id: "" });
-        }}
+        onClick={handleClick}
         sx={{
           background: "#0B4F26",
           position: "absolute",
@@ -106,16 +110,16 @@ const PlaceBetComponent = ({
               data?.type
             ) && profitLoss?.profitLoss
               ? Math.min(
-                  ...Object.values(profitLoss.profitLoss)?.map((item: any) =>
-                    parseInt(item)
-                  )
+                ...Object.values(profitLoss.profitLoss)?.map((item: any) =>
+                  parseInt(item)
                 )
+              )
               : data?.type == sessionBettingType.cricketCasino &&
                 profitLoss?.profitLoss
-              ? profitLoss?.profitLoss?.[index]
-              : !profitLoss?.maxLoss
-              ? "Profit/Loss"
-              : handleDecimalAmount(profitLoss?.maxLoss, "")}
+                ? profitLoss?.profitLoss?.[index]
+                : !profitLoss?.maxLoss
+                  ? "Profit/Loss"
+                  : handleDecimalAmount(profitLoss?.maxLoss, "")}
           </Typography>
         </Box>
       </Box>
