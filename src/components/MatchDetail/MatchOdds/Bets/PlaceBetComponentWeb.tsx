@@ -36,7 +36,7 @@ const PlaceBetComponentWeb = ({
   }, [profitLoss]);
 
   const handleClick = useCallback(() => {
-    if (!show.open && show?.id !== data?.id) {
+    if (!show?.open && show?.id !== data?.id) {
       dispatch(getRunAmount(data?.id));
       setShow({ open: true, id: data?.id });
     } else setShow({ open: false, id: "" });

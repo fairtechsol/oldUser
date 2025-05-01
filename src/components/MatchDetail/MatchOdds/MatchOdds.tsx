@@ -10,10 +10,7 @@ import TournamentOdds from "./TournamentOdds";
 interface MatchOddsProps {
   matchDetails: any;
   setShow: (val: any) => void;
-  show: {
-    open: boolean;
-    id: string;
-  };
+  show: any;
 }
 
 const MatchOdds = ({ matchDetails, setShow, show }: MatchOddsProps) => {
@@ -99,6 +96,7 @@ const MatchOdds = ({ matchDetails, setShow, show }: MatchOddsProps) => {
             newData={matchDetails?.sessionBettings?.filter(
               filterActiveSessions
             )}
+            show={show}
             eventType={matchDetails?.matchType}
             minBet={formatToINR(matchDetails?.betFairSessionMinBet)}
             typeOfBet={matchDetails?.type}

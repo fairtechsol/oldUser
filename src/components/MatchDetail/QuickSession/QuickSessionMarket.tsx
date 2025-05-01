@@ -17,6 +17,7 @@ interface QuickSessionMarketProps {
   eventType: string | null | undefined;
   setShow: (val: any) => void;
   matchDetails?: any;
+  show: any;
 }
 
 const QuickSessionMarket = ({
@@ -25,6 +26,7 @@ const QuickSessionMarket = ({
   session,
   upcoming,
   title,
+  show,
   minBet,
   typeOfBet,
   eventType,
@@ -268,6 +270,7 @@ const QuickSessionMarket = ({
                         setShowFastTimeBox={setShowFastTimeBox}
                         showFastTimeBox={showFastTimeBox}
                         setShow={setShow}
+                        show={show}
                         eventType={eventType}
                         profitLossData={Array.from(
                           new Set(allBetsData)

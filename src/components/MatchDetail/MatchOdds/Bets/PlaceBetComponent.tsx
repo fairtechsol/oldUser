@@ -35,7 +35,7 @@ const PlaceBetComponent = ({
   }, [profitLoss]);
 
   const handleClick = useCallback(() => {
-    if (!show.open && show?.id !== data?.id) {
+    if (!show?.open && show?.id !== data?.id) {
       dispatch(getRunAmount(data?.id));
       setShow({ open: true, id: data?.id });
     } else {
@@ -60,7 +60,7 @@ const PlaceBetComponent = ({
           width: { lg: "90px", xs: "60px", md: "90px" },
           borderRadius: "5px",
           height: "35px",
-
+          cursor: "pointer",
           zIndex: 100,
         }}
       >
@@ -110,16 +110,16 @@ const PlaceBetComponent = ({
               data?.type
             ) && profitLoss?.profitLoss
               ? Math.min(
-                ...Object.values(profitLoss.profitLoss)?.map((item: any) =>
-                  parseInt(item)
+                  ...Object.values(profitLoss.profitLoss)?.map((item: any) =>
+                    parseInt(item)
+                  )
                 )
-              )
               : data?.type == sessionBettingType.cricketCasino &&
                 profitLoss?.profitLoss
-                ? profitLoss?.profitLoss?.[index]
-                : !profitLoss?.maxLoss
-                  ? "Profit/Loss"
-                  : handleDecimalAmount(profitLoss?.maxLoss, "")}
+              ? profitLoss?.profitLoss?.[index]
+              : !profitLoss?.maxLoss
+              ? "Profit/Loss"
+              : handleDecimalAmount(profitLoss?.maxLoss, "")}
           </Typography>
         </Box>
       </Box>
