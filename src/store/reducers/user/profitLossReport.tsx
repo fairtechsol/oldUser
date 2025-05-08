@@ -52,6 +52,7 @@ const profitLossReportSlice = createSlice({
       .addCase(getMatchWiseProfitLoss.pending, (state) => {
         state.loading = true;
         state.success = false;
+        state.matchWiseProfitLoss = [];
       })
       .addCase(getMatchWiseProfitLoss.fulfilled, (state, action) => {
         state.loading = false;
