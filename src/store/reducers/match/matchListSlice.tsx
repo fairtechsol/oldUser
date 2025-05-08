@@ -112,15 +112,13 @@ const matchListSlice = createSlice({
             parsedSessionBettings.push(apiItem);
           }
         });
-        const stringifiedSessionBetting = parsedSessionBettings.map(
-          JSON.stringify
-        );
+
         state.matchDetails = {
           ...state.matchDetails,
-          manualSessionActive: sessionBettings?.length >= 0 ? true : false,
+          manualSessionActive: sessionBettings?.length > 0 ? true : false,
           gmid: action.payload?.gmid,
           apiSession: apiSession,
-          sessionBettings: stringifiedSessionBetting,
+          sessionBettings: sessionBettings,
           tournament: tournament?.sort((a: any, b: any) => {
             if (a.sno !== b.sno) {
               return a.sno - b.sno;
