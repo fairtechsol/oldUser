@@ -9,6 +9,16 @@ import Footer from "../../AccountStatement/Footer";
 import RowComponentMatches from "./RowComponentMatches";
 import RowHeaderMatches from "./RowHeaderMatches";
 
+interface ProfitLossComponentProps {
+  show: boolean;
+  setShow: (val: any) => void;
+  eventData: any;
+  currentPage: any;
+  setCurrentPage: (val: number) => void;
+  startDate: any;
+  endDate: any;
+}
+
 const ProfitLossComponent = ({
   show,
   setShow,
@@ -17,7 +27,7 @@ const ProfitLossComponent = ({
   setCurrentPage,
   startDate,
   endDate,
-}: any) => {
+}: ProfitLossComponentProps) => {
   const dispatch: AppDispatch = useDispatch();
   const { matchWiseProfitLoss, matchWiseProfitLossCount } = useSelector(
     (state: RootState) => state.user.profitLoss
@@ -96,7 +106,6 @@ const ProfitLossComponent = ({
           <RowHeaderMatches
             key={index}
             item={item}
-            index={index}
             getHandleReport={getHandleReport}
             show={show}
             event={event}

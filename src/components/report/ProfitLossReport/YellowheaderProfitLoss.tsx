@@ -3,6 +3,15 @@ import { memo } from "react";
 import Calendar from "../../../components/Common/Calendar";
 import CustomButton from "../../../components/Common/CustomButton";
 
+interface YellowHeaderProfitLossProps {
+  startDate: any;
+  setEndDate: any;
+  setStartDate: any;
+  endDate: any;
+  onClick: () => void;
+  title: string;
+}
+
 const YellowHeaderProfitLoss = ({
   startDate,
   setEndDate,
@@ -10,7 +19,7 @@ const YellowHeaderProfitLoss = ({
   endDate,
   onClick,
   title,
-}: any) => {
+}: YellowHeaderProfitLossProps) => {
   return (
     <Box
       sx={{

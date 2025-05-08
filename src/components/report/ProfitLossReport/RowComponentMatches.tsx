@@ -15,13 +15,21 @@ import AllRateSeperate from "../../MatchDetail/AllRateBets/AllRateSeperate";
 import SessionBetSeperate from "../../MatchDetail/SessionOdds/SessionBetSeperate";
 import SessionComponentMatches from "./SessionComponentMatches";
 
+interface RowComponentMatchesProps {
+  item: any;
+  index: number;
+  selectedId: any;
+  getBetReport: (val: any) => void;
+  currentPage: number;
+}
+
 const RowComponentMatches = ({
   item,
   index,
   selectedId,
   getBetReport,
   currentPage,
-}: any) => {
+}: RowComponentMatchesProps) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const { totalSessionProfitLoss, totalBetProfitLoss } = useSelector(

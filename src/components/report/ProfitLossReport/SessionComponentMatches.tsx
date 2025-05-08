@@ -8,6 +8,16 @@ import { AppDispatch, RootState } from "../../../store/store";
 import StyledImage from "../../Common/StyledImages";
 import SessionBetSeperate from "../../MatchDetail/SessionOdds/SessionBetSeperate";
 
+interface SesssionComponentMatchesProps {
+  item: any;
+  index: number;
+  matchId: string;
+  showSessionBets: any;
+  setShowSessionBets: (val: any) => void;
+  getBetReport: (val: any) => void;
+  selectedId: any;
+  match: string;
+}
 const SessionComponentMatches = ({
   item,
   index,
@@ -17,7 +27,7 @@ const SessionComponentMatches = ({
   getBetReport,
   selectedId,
   match,
-}: any) => {
+}: SesssionComponentMatchesProps) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const dispatch: AppDispatch = useDispatch();
