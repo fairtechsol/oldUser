@@ -1,9 +1,11 @@
 import { Typography } from "@mui/material";
 import moment from "moment";
-import { memo, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getMatchWiseProfitLoss } from "../../../store/actions/user/userAction";
 import { AppDispatch, RootState } from "../../../store/store";
+import { Constants } from "../../../utils/Constants";
+import Footer from "../../AccountStatement/Footer";
 import RowComponentMatches from "./RowComponentMatches";
 import RowHeaderMatches from "./RowHeaderMatches";
 
@@ -11,14 +13,13 @@ const ProfitLossComponent = ({
   show,
   setShow,
   eventData,
-  // pageCount,
-  // currentPage,
-  // setCurrentPage,
+  currentPage,
+  setCurrentPage,
   startDate,
   endDate,
 }: any) => {
   const dispatch: AppDispatch = useDispatch();
-  const { matchWiseProfitLoss } = useSelector(
+  const { matchWiseProfitLoss, matchWiseProfitLossCount } = useSelector(
     (state: RootState) => state.user.profitLoss
   );
   const { userData } = useSelector((state: RootState) => state.user.profitLoss);
@@ -44,7 +45,7 @@ const ProfitLossComponent = ({
       if (!show) {
         setShow((prev: boolean) => !prev);
       }
-      setEvent(eventType);
+      setCurrentPage(1);
       setSelectedId((prev) => ({
         ...prev,
         type: "",
@@ -58,8 +59,11 @@ const ProfitLossComponent = ({
           searchId: userData?.id,
           startDate: startDate && moment(startDate)?.format("YYYY-MM-DD"),
           endDate: endDate && moment(endDate)?.format("YYYY-MM-DD"),
+          page: 1,
+          limit: Constants.pageLimit,
         })
       );
+      setEvent(eventType);
     }
   };
 
@@ -71,6 +75,20 @@ const ProfitLossComponent = ({
       sessionBet: value?.sessionBet,
     });
   };
+
+  useEffect(() => {
+    dispatch(
+      getMatchWiseProfitLoss({
+        type: event,
+        searchId: userData?.id,
+        startDate: startDate && moment(startDate)?.format("YYYY-MM-DD"),
+        endDate: endDate && moment(endDate)?.format("YYYY-MM-DD"),
+        page: currentPage,
+        limit: Constants.pageLimit,
+      })
+    );
+  }, [currentPage]);
+
   return eventData?.length > 0 ? (
     <>
       {eventData?.map((item: any, index: number) => {
@@ -92,19 +110,24 @@ const ProfitLossComponent = ({
                     index={index + 1}
                     selectedId={selectedId}
                     getBetReport={getBetReport}
+                    currentPage={currentPage}
                   />
                 );
               })}
           </RowHeaderMatches>
         );
       })}
-      {/* {show && (
+      {show && (
         <Footer
           setCurrentPage={setCurrentPage}
           currentPage={currentPage}
-          pages={Math.ceil(parseInt(pageCount))}
+          pages={Math.ceil(
+            parseInt(
+              matchWiseProfitLossCount > 0 ? matchWiseProfitLossCount : 1
+            ) / Constants.pageLimit
+          )}
         />
-      )} */}
+      )}
     </>
   ) : (
     <Typography

@@ -13,6 +13,7 @@ import {
 
 interface InitialState {
   matchWiseProfitLoss: [];
+  matchWiseProfitLossCount: any;
   matchWiseProfitLossCard: [];
   userTotalProfitLoss: [];
   userTotalProfitLossCard: [];
@@ -28,6 +29,7 @@ interface InitialState {
 
 const initialState: InitialState = {
   matchWiseProfitLoss: [],
+  matchWiseProfitLossCount: 0,
   matchWiseProfitLossCard: [],
   userTotalProfitLoss: [],
   userTotalProfitLossCard: [],
@@ -50,12 +52,12 @@ const profitLossReportSlice = createSlice({
       .addCase(getMatchWiseProfitLoss.pending, (state) => {
         state.loading = true;
         state.success = false;
-        state.matchWiseProfitLoss = [];
       })
       .addCase(getMatchWiseProfitLoss.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.matchWiseProfitLoss = action.payload;
+        state.matchWiseProfitLoss = action.payload?.result;
+        state.matchWiseProfitLossCount = action.payload?.count;
       })
       .addCase(getMatchWiseProfitLoss.rejected, (state, action) => {
         state.loading = false;
