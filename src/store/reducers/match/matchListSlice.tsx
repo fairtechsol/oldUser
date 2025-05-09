@@ -95,27 +95,25 @@ const matchListSlice = createSlice({
           action.payload;
         state.liveScoreBoardData = scoreBoard?.data;
 
-        const parsedSessionBettings =
-          state.matchDetails?.sessionBettings?.map(JSON.parse) || [];
-        const apiParsedSessionBettings = sessionBettings?.map(JSON.parse) || [];
+        const parsedSessionBettings = new Map(
+          (state.matchDetails?.sessionBettings || []).map((item: any) => {
+            const parsed = JSON.parse(item);
+            return [parsed.id, parsed];
+          })
+        );
 
-        apiParsedSessionBettings.forEach((apiItem: any) => {
-          const index = parsedSessionBettings.findIndex(
-            (parsedItem: any) => parsedItem.id === apiItem.id
+        (sessionBettings || []).forEach((item: any) => {
+          const parsed = JSON.parse(item);
+          const existing = parsedSessionBettings.get(parsed.id);
+          parsedSessionBettings.set(
+            parsed.id,
+            existing ? { ...existing, ...parsed } : parsed
           );
-          if (index !== -1) {
-            parsedSessionBettings[index] = {
-              ...parsedSessionBettings[index],
-              ...apiItem,
-            };
-          } else {
-            parsedSessionBettings.push(apiItem);
-          }
         });
 
-        const stringifiedSessionBetting = parsedSessionBettings.map(
-          JSON.stringify
-        );
+        const stringifiedSessionBetting = Array.from(
+          parsedSessionBettings.values()
+        ).map((item) => JSON.stringify(item));
 
         state.matchDetails = {
           ...state.matchDetails,
