@@ -100,6 +100,46 @@ const AccountStatementList = () => {
     fetchAccountStatement();
   }, [fetchAccountStatement]);
 
+  const handleDescriptionClick = (containsKeywords: any, item: any) => {
+    const match = containsKeywords
+      ? item?.description.match(/Rno\. (\d+)/)
+      : item?.description.match(/Rno\. (\d+\.\d+)/);
+    if (item?.type === "3") {
+      handleLiveCasinoModalOpen(item);
+    } else {
+      if (item?.betId?.length > 0) {
+        setShow({
+          status: true,
+          betId: item?.betId,
+          runnerId: "",
+          casinoType: "",
+        });
+        dispatch(
+          getPlacedBetsForAccountStatement({
+            betId: item?.betId,
+            status: "MATCHED",
+            userId: profileDetail?.id,
+          })
+        );
+      } else if (match && match[1]) {
+        setShow({
+          status: true,
+          betId: [],
+          runnerId: match[1],
+          casinoType: "",
+        });
+        dispatch(
+          getPlacedBetsForAccountStatement({
+            runnerId: match[1],
+            isCard: true,
+            result: `inArr${JSON.stringify(["WIN", "LOSS", "TIE"])}`,
+            userId: profileDetail?.id,
+          })
+        );
+      }
+    }
+  };
+
   useEffect(() => {
     fetchAccountStatement();
   }, [fetchAccountStatement]);
@@ -191,49 +231,9 @@ const AccountStatementList = () => {
                       amount={item?.amount}
                       fromuserName={item?.actionByUser?.userName}
                       touserName={item?.user?.userName}
-                      onClick={() => {
-                        const match = containsKeywords
-                          ? item?.description.match(/Rno\. (\d+)/)
-                          : item?.description.match(/Rno\. (\d+\.\d+)/);
-                        if (item?.type === "3") {
-                          handleLiveCasinoModalOpen(item);
-                        } else {
-                          if (item?.betId?.length > 0) {
-                            setShow({
-                              status: true,
-                              betId: item?.betId,
-                              runnerId: "",
-                              casinoType: "",
-                            });
-                            dispatch(
-                              getPlacedBetsForAccountStatement({
-                                betId: item?.betId,
-                                status: "MATCHED",
-                                userId: profileDetail?.id,
-                              })
-                            );
-                          } else if (match && match[1]) {
-                            setShow({
-                              status: true,
-                              betId: [],
-                              runnerId: match[1],
-                              casinoType: "",
-                            });
-                            dispatch(
-                              getPlacedBetsForAccountStatement({
-                                runnerId: match[1],
-                                isCard: true,
-                                result: `inArr${JSON.stringify([
-                                  "WIN",
-                                  "LOSS",
-                                  "TIE",
-                                ])}`,
-                                userId: profileDetail?.id,
-                              })
-                            );
-                          }
-                        }
-                      }}
+                      onClick={() =>
+                        handleDescriptionClick(containsKeywords, item)
+                      }
                     />
                   );
                 })
