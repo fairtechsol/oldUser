@@ -1,6 +1,20 @@
 import { Box, Typography } from "@mui/material";
 import { memo } from "react";
 
+interface TableRowModalProps {
+  containerStyle: any;
+  fContainerStyle: any;
+  fTextStyle: any;
+  index: number;
+  teamName: string;
+  betType: string;
+  odds: number | string;
+  amount: number | string;
+  result: any;
+  createdAt: any;
+  startAt: any;
+}
+
 const TableRowModal = ({
   containerStyle,
   fContainerStyle,
@@ -13,7 +27,7 @@ const TableRowModal = ({
   result,
   createdAt,
   startAt,
-}: any) => {
+}: TableRowModalProps) => {
   return (
     <Box
       sx={[

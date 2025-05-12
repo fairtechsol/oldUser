@@ -151,7 +151,6 @@ const AccountStatementModal = ({
                   key={index}
                   index={index}
                   containerStyle={{ background: "#FFE094" }}
-                  profit={true}
                   fContainerStyle={{ background: "#0B4F26" }}
                   fTextStyle={{ color: "white" }}
                   teamName={item?.teamName}
