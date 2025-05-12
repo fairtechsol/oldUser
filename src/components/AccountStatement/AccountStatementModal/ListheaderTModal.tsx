@@ -18,29 +18,24 @@ const headerColumns: HeaderColumn[] = [
     align: "left",
   },
   {
-    label: "Type",
-    width: { xs: "16%", md: "14%", lg: "14%" },
-    align: "left",
-  },
-  {
     label: "Nation",
     width: { xs: "16%", md: "14%", lg: "14%" },
     align: "left",
   },
   {
-    label: "Side",
-    width: { xs: "14%", md: "11%", lg: "11%" },
+    label: "Type",
+    width: { xs: "16%", lg: "14%", md: "14%" },
     align: "left",
   },
   {
     label: "Rate",
-    width: { xs: "18%", md: "18%", lg: "11%" },
+    width: { xs: "14%", lg: "11%", md: "11%" },
     align: "left",
   },
   {
     label: "Amount",
     width: { xs: "18%", md: "18%", lg: "11%" },
-    align: "center",
+    align: "left",
   },
   {
     label: "Win/Loss",
@@ -49,12 +44,12 @@ const headerColumns: HeaderColumn[] = [
   },
   {
     label: "Place Date",
-    width: { xs: "18%", md: "18%", lg: "11%" },
+    width: { xs: "18%", md: "18%", lg: "14%" },
     align: "center",
   },
   {
     label: "Match Date",
-    width: { xs: "18%", md: "18%", lg: "11%" },
+    width: { xs: "18%", md: "18%", lg: "14%" },
     align: "center",
   },
 ];

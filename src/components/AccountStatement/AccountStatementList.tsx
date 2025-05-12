@@ -2,6 +2,7 @@ import { Box } from "@mui/material";
 import moment from "moment";
 import { memo, useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { getPlacedBetsForAccountStatement } from "../../store/actions/betPlace/betPlaceActions";
 import {
   transactionProviderBetsReset,
   transactionProviderName,
@@ -17,6 +18,8 @@ import ListHeaderT from "./ListheaderT";
 import TableRow from "./TableRow";
 import YellowHeader from "./YellowHeader";
 
+const keywords = ["ballbyball", "cricketv3", "superover"];
+
 const AccountStatementList = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [pageLimit, setPageLimit] = useState<number>(15);
@@ -24,17 +27,17 @@ const AccountStatementList = () => {
   const [toDate, setToDate] = useState<any>();
   const [searchValue, setSearchValue] = useState<string>("");
   const [showBetsModal, setShowBetsModal] = useState(false);
-  const [showAccountStatementModal, setShowAccountStatementModal] =
-    useState(false);
   const [updatedReport, setUpdateReports] = useState<any>([]);
   const [selectedUser, setSelectedUser] = useState<any>(null);
-  const [show] = useState({
+  const [show, setShow] = useState({
     status: false,
     betId: [],
     runnerId: "",
     casinoType: "",
   });
-
+  const handleClose = () => {
+    setShow({ status: false, betId: [], runnerId: "", casinoType: "a" });
+  };
   const dispatch: AppDispatch = useDispatch();
 
   const { transactions, profileDetail } = useSelector(
@@ -167,28 +170,73 @@ const AccountStatementList = () => {
               {transactions?.transactions?.length === 0 ? (
                 <EmptyRow containerStyle={{ background: "#FFE094" }} />
               ) : (
-                transactions?.transactions?.map((item: any) => (
-                  <TableRow
-                    key={item?.id}
-                    index={item?.id}
-                    containerStyle={{ background: "#FFE094" }}
-                    profit={true}
-                    fContainerStyle={{ background: "#0B4F26" }}
-                    fTextStyle={{ color: "white" }}
-                    date={item?.createdAt}
-                    description={item?.description}
-                    closing={item?.closingBalance}
-                    transType={item?.transType}
-                    amount={item?.amount}
-                    fromuserName={item?.actionByUser?.userName}
-                    touserName={item?.user?.userName}
-                    onClick={() => {
-                      if (item?.type === 3) {
-                        handleLiveCasinoModalOpen(item);
-                      }
-                    }}
-                  />
-                ))
+                transactions?.transactions?.map((item: any) => {
+                  const firstPart = item?.description?.split("/")?.[0];
+                  const containsKeywords =
+                    firstPart &&
+                    keywords.some((keyword) => firstPart.includes(keyword));
+
+                  return (
+                    <TableRow
+                      key={item?.id}
+                      index={item?.id}
+                      containerStyle={{ background: "#FFE094" }}
+                      profit={true}
+                      fContainerStyle={{ background: "#0B4F26" }}
+                      fTextStyle={{ color: "white" }}
+                      date={item?.createdAt}
+                      description={item?.description}
+                      closing={item?.closingBalance}
+                      transType={item?.transType}
+                      amount={item?.amount}
+                      fromuserName={item?.actionByUser?.userName}
+                      touserName={item?.user?.userName}
+                      onClick={() => {
+                        const match = containsKeywords
+                          ? item?.description.match(/Rno\. (\d+)/)
+                          : item?.description.match(/Rno\. (\d+\.\d+)/);
+                        if (item?.type === "3") {
+                          handleLiveCasinoModalOpen(item);
+                        } else {
+                          if (item?.betId?.length > 0) {
+                            setShow({
+                              status: true,
+                              betId: item?.betId,
+                              runnerId: "",
+                              casinoType: "",
+                            });
+                            dispatch(
+                              getPlacedBetsForAccountStatement({
+                                betId: item?.betId,
+                                status: "MATCHED",
+                                userId: profileDetail?.id,
+                              })
+                            );
+                          } else if (match && match[1]) {
+                            setShow({
+                              status: true,
+                              betId: [],
+                              runnerId: match[1],
+                              casinoType: "",
+                            });
+                            dispatch(
+                              getPlacedBetsForAccountStatement({
+                                runnerId: match[1],
+                                isCard: true,
+                                result: `inArr${JSON.stringify([
+                                  "WIN",
+                                  "LOSS",
+                                  "TIE",
+                                ])}`,
+                                userId: profileDetail?.id,
+                              })
+                            );
+                          }
+                        }
+                      }}
+                    />
+                  );
+                })
               )}
             </Box>
             <Footer
@@ -207,8 +255,8 @@ const AccountStatementList = () => {
         updatedReport={updatedReport}
       />
       <AccountStatementModal
-        open={showAccountStatementModal}
-        onClose={() => setShowAccountStatementModal(false)}
+        open={show.status}
+        onClose={handleClose}
         show={show}
       />
     </>
