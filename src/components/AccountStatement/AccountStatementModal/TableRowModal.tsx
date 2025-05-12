@@ -79,6 +79,7 @@ const TableRowModal = ({
           alignItems: "center",
           height: "45px",
           borderRight: "2px solid white",
+          background: betType !== "BACK" ? "#F2CBCB" : "#CEEBFF",
         }}
       >
         <Typography sx={{ fontSize: "12px", fontWeight: "600", color: "#000" }}>
