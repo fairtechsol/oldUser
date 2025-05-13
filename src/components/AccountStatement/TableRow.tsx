@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import moment from "moment";
+import { memo } from "react";
 
 const TableRow = ({
   containerStyle,
@@ -112,8 +113,8 @@ const TableRow = ({
         <Typography sx={{ fontSize: "12px", fontWeight: "600" }}>
           {closing !== null
             ? new Intl.NumberFormat("en-IN", { currency: "INR" }).format(
-                closing
-              )
+              closing
+            )
             : ""}
         </Typography>
       </Box>
@@ -126,12 +127,12 @@ const TableRow = ({
           overflow: "auto",
           height: "45px",
           lineHeight: "1",
-          scrollbarWidth: "thin", // Customize scrollbar width (for Firefox)
+          scrollbarWidth: "thin",
           "&::-webkit-scrollbar": {
-            width: "8px", // Customize scrollbar width (for WebKit browsers)
+            width: "8px",
           },
           "&::-webkit-scrollbar-thumb": {
-            backgroundColor: "#888", // Customize scrollbar thumb color
+            backgroundColor: "#888",
           },
           borderRight: "2px solid white",
           background: transType === "creditReference" ? "#F8C851" : "#FFE094",
@@ -139,7 +140,7 @@ const TableRow = ({
         }}
         onClick={() => onClick && onClick()}
       >
-        <Typography sx={{ fontSize: "10px", fontWeight: "600" }}>
+        <Typography sx={{ fontSize: "10px", fontWeight: "600", lineHeight: "1", }}>
           {description}
         </Typography>
       </Box>
@@ -187,4 +188,4 @@ const TableRow = ({
   );
 };
 
-export default TableRow;
+export default memo(TableRow);

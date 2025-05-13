@@ -1,10 +1,10 @@
 import { useMediaQuery, useTheme } from "@mui/material";
-import LiveCasinoMobile from "../../components/LiveCasino/mobile";
-import LiveCasinoDesktop from "../../components/LiveCasino/desktop";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../store/store";
+import LiveCasinoDesktop from "../../components/LiveCasino/desktop";
+import LiveCasinoMobile from "../../components/LiveCasino/mobile";
 import { liveCasinoList } from "../../store/actions/card/cardDetail";
+import { AppDispatch } from "../../store/store";
 
 const LiveCasino = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -13,7 +13,7 @@ const LiveCasino = () => {
 
   useEffect(() => {
     dispatch(liveCasinoList(""));
-  }, []);
+  }, [dispatch]);
 
   return matchesMobile ? <LiveCasinoMobile /> : <LiveCasinoDesktop />;
 };

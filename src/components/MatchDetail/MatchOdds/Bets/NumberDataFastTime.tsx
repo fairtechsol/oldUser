@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { currencyFormatter } from "../../../../helper";
+import { memo } from "react";
 
 const NumberData = ({
   lable,
@@ -38,4 +39,4 @@ const NumberData = ({
   );
 };
 
-export default NumberData;
+export default memo(NumberData);

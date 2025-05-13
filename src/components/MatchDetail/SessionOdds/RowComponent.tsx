@@ -1,12 +1,17 @@
 import { Box } from "@mui/material";
-import SingleBox from "./SingleBox";
-// import { RootState } from "../../../store/store";
-// import { useSelector } from "react-redux";
 import moment from "moment";
 import { useLocation } from "react-router-dom";
 import { formatToINR } from "../../../helper";
+import SingleBox from "./SingleBox";
+import { memo } from "react";
 
-const RowComponent = ({ header, data, match }: any) => {
+interface RowComponentProps {
+  header: boolean;
+  data: any;
+  match: any;
+}
+
+const RowComponent = ({ header, data, match }: RowComponentProps) => {
   const { state } = useLocation();
   const getTime = (date: any) => {
     const timeString = moment
@@ -19,10 +24,8 @@ const RowComponent = ({ header, data, match }: any) => {
     if (header) {
       return "black";
     } else if (data?.betType === "BACK" || data?.betType == "YES") {
-      // return "#00C0F9";
       return "#CEEBFF";
     } else if (data?.betType === "LAY" || data?.betType == "NO") {
-      // return "#FF9292";
       return "#F2CBCB";
     }
   };
@@ -36,7 +39,6 @@ const RowComponent = ({ header, data, match }: any) => {
         alignItems: "center",
         display: "flex",
         gap: "1px",
-        // marginTop: "1px"
         marginBottom: { xs: "1px", lg: "1px" },
       }}
     >
@@ -96,11 +98,10 @@ const RowComponent = ({ header, data, match }: any) => {
           <SingleBox color={getColor()} data={data[2]} header={header} />
           <SingleBox color={getColor()} data={data[3]} header={header} />
           <SingleBox color={getColor()} data={data[4]} header={header} />
-          {/* <SingleBox color={getColor()} data={data[4]} header={header} /> */}
         </>
       )}
     </Box>
   );
 };
 
-export default RowComponent;
+export default memo(RowComponent);

@@ -1,6 +1,12 @@
-import { Typography, Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 
-const CustomButton = ({ btnStyle, onClick }: any) => {
+interface CustomButtonProps {
+  btnStyle: any;
+  onClick: () => void;
+}
+
+const CustomButton = ({ btnStyle, onClick }: CustomButtonProps) => {
   return (
     <Box
       onClick={onClick}
@@ -26,4 +32,4 @@ const CustomButton = ({ btnStyle, onClick }: any) => {
     </Box>
   );
 };
-export default CustomButton;
+export default memo(CustomButton);

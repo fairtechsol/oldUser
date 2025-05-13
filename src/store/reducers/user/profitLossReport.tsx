@@ -13,6 +13,7 @@ import {
 
 interface InitialState {
   matchWiseProfitLoss: [];
+  matchWiseProfitLossCount: any;
   matchWiseProfitLossCard: [];
   userTotalProfitLoss: [];
   userTotalProfitLossCard: [];
@@ -28,6 +29,7 @@ interface InitialState {
 
 const initialState: InitialState = {
   matchWiseProfitLoss: [],
+  matchWiseProfitLossCount: 0,
   matchWiseProfitLossCard: [],
   userTotalProfitLoss: [],
   userTotalProfitLossCard: [],
@@ -55,11 +57,12 @@ const profitLossReportSlice = createSlice({
       .addCase(getMatchWiseProfitLoss.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.matchWiseProfitLoss = action?.payload;
+        state.matchWiseProfitLoss = action.payload?.result;
+        state.matchWiseProfitLossCount = action.payload?.count;
       })
       .addCase(getMatchWiseProfitLoss.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(getMatchWiseProfitLossCard.pending, (state) => {
         state.loading = true;
@@ -69,11 +72,11 @@ const profitLossReportSlice = createSlice({
       .addCase(getMatchWiseProfitLossCard.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.matchWiseProfitLossCard = action?.payload;
+        state.matchWiseProfitLossCard = action.payload;
       })
       .addCase(getMatchWiseProfitLossCard.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(getUserTotalProfitLoss.pending, (state) => {
         state.loading = true;
@@ -83,11 +86,11 @@ const profitLossReportSlice = createSlice({
       .addCase(getUserTotalProfitLoss.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.userTotalProfitLoss = action?.payload;
+        state.userTotalProfitLoss = action.payload;
       })
       .addCase(getUserTotalProfitLoss.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(getUserTotalProfitLossCard.pending, (state) => {
         state.loading = true;
@@ -97,11 +100,11 @@ const profitLossReportSlice = createSlice({
       .addCase(getUserTotalProfitLossCard.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.userTotalProfitLossCard = action?.payload;
+        state.userTotalProfitLossCard = action.payload;
       })
       .addCase(getUserTotalProfitLossCard.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(getTotalBetProfitLoss.pending, (state) => {
         state.loading = true;
@@ -111,11 +114,11 @@ const profitLossReportSlice = createSlice({
       .addCase(getTotalBetProfitLoss.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.totalBetProfitLoss = action?.payload;
+        state.totalBetProfitLoss = action.payload;
       })
       .addCase(getTotalBetProfitLoss.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(getTotalBetProfitLossCard.pending, (state) => {
         state.loading = true;
@@ -125,11 +128,11 @@ const profitLossReportSlice = createSlice({
       .addCase(getTotalBetProfitLossCard.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.totalBetProfitLossCard = action?.payload;
+        state.totalBetProfitLossCard = action.payload;
       })
       .addCase(getTotalBetProfitLossCard.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(getSessionProfitLoss.pending, (state) => {
         state.loading = true;
@@ -139,19 +142,19 @@ const profitLossReportSlice = createSlice({
       .addCase(getSessionProfitLoss.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.totalSessionProfitLoss = action?.payload;
+        state.totalSessionProfitLoss = action.payload;
       })
       .addCase(getSessionProfitLoss.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(updateUserSearchId.fulfilled, (state, action) => {
         state.success = true;
         state.loading = false;
-        state.userData = action?.payload?.search;
+        state.userData = action.payload?.search;
       })
       .addCase(updateLogoutModal.fulfilled, (state, action) => {
-        state.logoutModal = action?.payload?.modal;
+        state.logoutModal = action.payload?.modal;
       });
   },
 });

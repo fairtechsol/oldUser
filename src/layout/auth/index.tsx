@@ -1,5 +1,5 @@
 import { Box, Card, useMediaQuery, useTheme } from "@mui/material";
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { FgLogo } from "../../assets";
 import StyledImage from "../../components/Common/StyledImages";
@@ -12,7 +12,6 @@ const AuthLayout = () => {
 
   useEffect(() => {
     if (sessionStorage.getItem("jwtUser")) {
-      // navigate("/match");
       navigate("/inplay");
     }
   }, [navigate]);
@@ -42,7 +41,7 @@ const AuthLayout = () => {
               width: { lg: "380px", md: "43%", xs: "100%" },
             },
             (theme: any) => ({
-              background: `${theme.palette.primary.mainGradient}`,
+              background: theme?.palette?.primary?.mainGradient,
             }),
           ]}
         >
@@ -62,4 +61,4 @@ const AuthLayout = () => {
   );
 };
 
-export default AuthLayout;
+export default memo(AuthLayout);

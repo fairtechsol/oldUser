@@ -1,11 +1,21 @@
 import { Box, Typography } from "@mui/material";
-import { useState } from "react";
-import DatePicker from "react-datepicker";
-import 'react-datepicker/dist/react-datepicker.css';
-import 'react-datepicker/dist/react-datepicker-cssmodules.css';
-
 import moment from "moment";
+import { memo, useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker-cssmodules.css";
+import "react-datepicker/dist/react-datepicker.css";
 import CalendarImage from "../../assets/images/calendar.webp";
+
+interface CalendarProps {
+  title: string;
+  containerStyle?: any;
+  DatePickerProps?: any;
+  pickerStyles?: any;
+  startDate: any;
+  setStartDate: (date: any) => void;
+  limit?: any;
+}
+
 const Calendar = ({
   title,
   containerStyle,
@@ -13,9 +23,8 @@ const Calendar = ({
   pickerStyles,
   startDate,
   setStartDate,
-  limit
-}:any) => {
-  // const [startDate, setStartDate] = useState(new Date());
+  limit,
+}: CalendarProps) => {
   const [open, setOpen] = useState(false);
   return (
     <Box
@@ -45,7 +54,7 @@ const Calendar = ({
             setStartDate(date);
           }}
           {...DatePickerProps}
-          customInput={<Box sx={[{ width: "10vw" }]}></Box>}
+          customInput={<Box sx={[{ width: "10vw" }]} />}
           minDate={limit ?? limit}
         />
       </Box>
@@ -72,9 +81,13 @@ const Calendar = ({
         <Typography sx={{ fontSize: "11px", fontWeight: "500" }}>
           {startDate ? moment(startDate).format("YYYY-MM-DD") : "select date"}
         </Typography>
-        <img src={CalendarImage} style={{ width: "12px", height: "13px" }} alt=""/>
+        <img
+          src={CalendarImage}
+          style={{ width: "12px", height: "13px" }}
+          alt="calender"
+        />
       </Box>
     </Box>
   );
 };
-export default Calendar;
+export default memo(Calendar);

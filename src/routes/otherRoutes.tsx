@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
 import OtherLayout from "../layout/otherLayout";
-import VideoPage from "../pages/pubic/VideoPage";
+import VideoPage from "../pages/public/VideoPage";
 
 const OtherRoutes = {
   path: "/",

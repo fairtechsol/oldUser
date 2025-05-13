@@ -1,111 +1,65 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
+
+const headerItems = [
+  { label: "Date", width: { xs: "14%", lg: "11%", md: "11%" }, align: "left" },
+  {
+    label: "Credit",
+    width: { xs: "16%", lg: "14%", md: "14%" },
+    align: "left",
+  },
+  { label: "Debit", width: { xs: "16%", lg: "14%", md: "14%" }, align: "left" },
+  {
+    label: "Closing",
+    width: { xs: "14%", lg: "11%", md: "11%" },
+    align: "left",
+  },
+  {
+    label: "Description",
+    width: { xs: "36%", lg: "36%", md: "36%" },
+    align: "left",
+  },
+  {
+    label: "From",
+    width: { xs: "18%", lg: "11%", md: "18%" },
+    align: "center",
+  },
+  { label: "To", width: { xs: "18%", lg: "11%", md: "18%" }, align: "center" },
+];
 
 const ListHeaderT = () => {
-    return (
-      <Box
-        sx={{
-          display: "flex",
-          height: "35px",
-          background: "#262626",
-          alignItems: "center",
-          width: { xs: "222vw", md: "100%", lg: "100%" },
-          borderTop: "2px solid white",
-          borderBottom: "2px solid white",
-        }}
-      >
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        height: "35px",
+        background: "#262626",
+        alignItems: "center",
+        width: { xs: "222vw", md: "100%", lg: "100%" },
+        borderTop: "2px solid white",
+        borderBottom: "2px solid white",
+      }}
+    >
+      {headerItems.map((item) => (
         <Box
+          key={item.label}
           sx={{
-            width: { xs: "14%", lg: "11%", md: "11%" },
+            width: item.width,
             display: "flex",
-            paddingLeft: "10px",
-            alignItems: "center",
-            height: "35px",
-            borderRight: "2px solid white",
-          }}
-        >
-          <Typography sx={{ color: "white", fontSize: "12px" }}>Date</Typography>
-        </Box>
-        <Box
-          sx={{
-            width: { xs: "16%", lg: "14%", md: "14%" },
-            display: "flex",
-            paddingLeft: "10px",
+            paddingLeft: item.align === "left" ? "10px" : 0,
+            justifyContent: item.align === "center" ? "center" : "flex-start",
             alignItems: "center",
             height: "35px",
             borderRight: "2px solid white",
           }}
         >
           <Typography sx={{ color: "white", fontSize: "12px" }}>
-            Credit
+            {item.label}
           </Typography>
         </Box>
-        <Box
-          sx={{
-            width: { xs: "16%", lg: "14%", md: "14%" },
-            display: "flex",
-            paddingLeft: "10px",
-            alignItems: "center",
-            height: "35px",
-            borderRight: "2px solid white",
-          }}
-        >
-          <Typography sx={{ color: "white", fontSize: "12px" }}>Debit</Typography>
-        </Box>
-        <Box
-          sx={{
-            width: { xs: "14%", lg: "11%", md: "11%" },
-            display: "flex",
-            paddingLeft: "10px",
-            alignItems: "center",
-            height: "35px",
-            borderRight: "2px solid white",
-          }}
-        >
-          <Typography sx={{ color: "white", fontSize: "12px" }}>
-            Closing
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            width: { xs: "36%", lg: "36%", md: "36%" },
-            display: "flex",
-            paddingLeft: "10px",
-            alignItems: "center",
-            height: "35px",
-            borderRight: "2px solid white",
-          }}
-        >
-          <Typography sx={{ color: "white", fontSize: "12px" }}>
-            Description
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            width: { xs: "18%", lg: "11%", md: "18%" },
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "35px",
-            borderRight: "2px solid white",
-          }}
-        >
-          <Typography sx={{ color: "white", fontSize: "12px" }}>From</Typography>
-        </Box>
-        <Box
-          sx={{
-            width: { xs: "18%", lg: "11%", md: "18%" },
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "35px",
-            borderRight: "2px solid white",
-          }}
-        >
-          <Typography sx={{ color: "white", fontSize: "12px" }}>To</Typography>
-        </Box>
-      </Box>
-    );
-  };
-  
+      ))}
+    </Box>
+  );
+};
 
-  export default ListHeaderT;
+export default memo(ListHeaderT);

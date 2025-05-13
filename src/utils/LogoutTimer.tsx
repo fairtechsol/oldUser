@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useIdleTimer } from "react-idle-timer";
 import { useDispatch } from "react-redux";
 import { logout } from "../store/actions/auth/authAction";
@@ -90,4 +90,4 @@ const LogoutTimer = () => {
   );
 };
 
-export default LogoutTimer;
+export default memo(LogoutTimer);

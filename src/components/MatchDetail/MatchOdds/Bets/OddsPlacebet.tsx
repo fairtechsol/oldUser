@@ -1,9 +1,9 @@
 import { Typography, useMediaQuery, useTheme } from "@mui/material";
-// import MUIModal from "@mui/material/Modal";
 import { Box } from "@mui/system";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import { CancelDark } from "../../../../assets";
 import {
   betPlaceSuccessReset,
@@ -19,8 +19,6 @@ import PlaceBetMoneyBox from "../PlaceBetMoneyBox";
 import NumberData from "./NumberDataOdds";
 import TeamsOdssData from "./TeamOddsData";
 
-import { toast } from "react-toastify";
-
 const toastOptions = {
   autoClose: 2000,
   hideProgressBar: false,
@@ -28,22 +26,19 @@ const toastOptions = {
   pauseOnHover: true,
 };
 
-// const types=["matchOdd","tiedMatch1","completeMatch"]
+interface OddsPlaceBetProps {
+  handleClose: () => void;
+  type: any;
+}
 
-const OddsPlaceBet = ({ handleClose, season, type }: any) => {
+const OddsPlaceBet = ({ handleClose, type }: OddsPlaceBetProps) => {
   const dispatch: AppDispatch = useDispatch();
   const theme = useTheme();
   const [stakeValue, setStakeValue] = useState<any>(" ");
   const [matchOddLoading, setMatchOddLoading] = useState<any>(false);
   const [openModal1, setOpenModal1] = useState(false);
-  const [___, setErrorText] = useState("");
   const [browserInfo, setBrowserInfo] = useState<any>(null);
   const [ipAddress, setIpAddress] = useState(null);
-  const [_, setStake] = useState<any>(0);
-  const [__, setNewRates] = useState({
-    lossAmount: 0,
-    winAmount: 0,
-  });
 
   const { buttonValues, profileDetail } = useSelector(
     (state: RootState) => state.user.profile
@@ -75,19 +70,17 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
   });
   const buttonToShow: any =
     Object.values(sessionBettingType)?.includes(selectedBet?.data?.type) &&
-      selectedBet?.data?.type != "tournament"
+    selectedBet?.data?.type != "tournament"
       ? sessionButtonValues
       : matchButtonValues;
 
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
   useEffect(() => {
-    setStake(selectedBet?.team?.stake);
     setStakeValue(selectedBet?.team?.stake);
   }, [selectedBet]);
 
   useEffect(() => {
-    // Get browser information
     const { userAgent, appName, appVersion, platform } = navigator;
     const info: any = { userAgent, appName, appVersion, platform };
     setBrowserInfo(info);
@@ -137,12 +130,12 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
         selectedBet?.team?.type === "no" || selectedBet?.team?.type === "lay"
           ? value
           : [
-            sessionBettingType.cricketCasino,
-            sessionBettingType.fancy1,
-            sessionBettingType.oddEven,
-          ].includes(selectedBet?.data?.type)
-            ? value * (parseFloat(selectedBet?.team?.percent) - 1)
-            : (value * selectedBet?.team?.percent) / 100;
+              sessionBettingType.cricketCasino,
+              sessionBettingType.fancy1,
+              sessionBettingType.oddEven,
+            ].includes(selectedBet?.data?.type)
+          ? value * (parseFloat(selectedBet?.team?.percent) - 1)
+          : (value * selectedBet?.team?.percent) / 100;
     } else if (
       ["matchOdd", "tiedMatch1", "completeMatch", "tournament"].includes(
         selectedBet?.data?.type
@@ -184,12 +177,12 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
         selectedBet?.team?.type === "yes" || selectedBet?.team?.type === "back"
           ? value
           : [
-            sessionBettingType.cricketCasino,
-            sessionBettingType.fancy1,
-            sessionBettingType.oddEven,
-          ].includes(selectedBet?.data?.type)
-            ? value * (parseFloat(selectedBet?.team?.percent) - 1)
-            : (value * selectedBet?.team?.percent) / 100;
+              sessionBettingType.cricketCasino,
+              sessionBettingType.fancy1,
+              sessionBettingType.oddEven,
+            ].includes(selectedBet?.data?.type)
+          ? value * (parseFloat(selectedBet?.team?.percent) - 1)
+          : (value * selectedBet?.team?.percent) / 100;
     } else if (
       ["matchOdd", "tiedMatch1", "completeMatch", "tournament"].includes(
         selectedBet?.data?.type
@@ -214,7 +207,6 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
     setOpenModal1(true);
     setTimeout(() => {
       setOpenModal1(false);
-      setErrorText("");
     }, 1500);
   };
 
@@ -231,7 +223,6 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
       ].includes(selectedBet?.team?.matchBetType)
     ) {
       if (stakeValue > minMax?.max) {
-        setErrorText("Amount should be less than the maximum bet amount!");
         toast.error(
           "Amount should be less than the maximum bet amount!",
           toastOptions
@@ -241,7 +232,6 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
       }
 
       if (stakeValue < minMax?.min) {
-        setErrorText("Amount should be greater than the minimum bet amount!");
         toast.error(
           "Amount should be greater than the minimum bet amount!",
           toastOptions
@@ -351,7 +341,7 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
           border: "1px solid white",
           borderRadius: "5px",
           overflow: "hidden",
-          marginLeft: season ? 0 : 0,
+          marginLeft: 0,
           width: { xs: "98vw", md: "60vw", lg: "40%" },
           position: "relative",
           boxShadow: "rgba(0, 0, 0, 0.56) 0px 22px 70px 4px",
@@ -369,7 +359,7 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
               px: "10px",
             },
             (theme: any) => ({
-              backgroundImage: `${theme.palette.primary.headerGradient}`,
+              backgroundImage: theme?.palette?.primary?.headerGradient,
             }),
           ]}
         >
@@ -388,16 +378,15 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
             <PlaceBetMoneyBox
               trendingUp={false}
               rate={handleProfit(stakeValue)}
-              // rate={Number(newRates?.winAmount)?.toFixed(2)}
-              color={"#10DC61"}
+              color="#10DC61"
             />
-            <Box sx={{ width: "5px" }}></Box>
+            <Box sx={{ width: "5px" }} />
             <PlaceBetMoneyBox
               trendingDown={false}
               rate={handleLoss(stakeValue)}
-              color={"#FF4D4D"}
+              color="#FF4D4D"
             />
-            <Box sx={{ width: "5px", marginRight: "20px" }}></Box>
+            <Box sx={{ width: "5px", marginRight: "20px" }} />
           </Box>
           <StyledImage
             onClick={handleClose}
@@ -408,101 +397,84 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
               width: "50px",
               cursor: "pointer",
             }}
-            alt=""
+            alt="cancel"
           />
         </Box>
         <Box sx={{ display: "flex", marginTop: "2px", marginX: "2px" }}>
           <TeamsOdssData
-            title={"Team"}
+            title="Team"
             valueContainerStyle={{
               background: type?.color ? type?.color : "#F8C851",
             }}
-            containerStyle={{ flex: season ? { xs: 2.5, lg: 2 } : 1 }}
+            containerStyle={{ flex: { xs: 2.5, lg: 2 } }}
             value={
               selectedBet?.data?.type === "khado"
-                ? `${selectedBet?.team?.name ?? selectedBet?.team?.betOnTeam}-${selectedBet?.data.ex?.availableToLay[0]?.price
-                }`
+                ? `${selectedBet?.team?.name ?? selectedBet?.team?.betOnTeam}-${
+                    selectedBet?.data.ex?.availableToLay[0]?.price
+                  }`
                 : selectedBet?.team?.name ?? selectedBet?.team?.betOnTeam
             }
           />
           <TeamsOdssData
             input={true}
-            title={"Odds"}
+            title="Odds"
             valueContainerStyle={{
               background: type?.color ? type?.color : "#F8C851",
             }}
             value={selectedBet?.team?.rate}
             containerStyle={{ marginLeft: "2px", flex: 1 }}
-          // onChange={(e:any) => {
-          //   dispatch(
-          //     selectedBetAction({
-          //       ...selectedBet,
-          //       team: { ...selectedBet?.team, stake: +e.target.value },
-          //     })
-          //   );
-          // }}
           />
           <TeamsOdssData
-            title={"Back/Lay"}
+            title="Back/Lay"
             value={selectedBet?.team?.type}
             valueContainerStyle={{ background: type?.color }}
             containerStyle={{ marginLeft: "2px", flex: 1 }}
           />
-          {!matchesMobile && <Box sx={{ width: "20px" }}></Box>}
+          {!matchesMobile && <Box sx={{ width: "20px" }} />}
           <BoxInput
             setStakeValue={setStakeValue}
             stakeValue={stakeValue}
             selectedColorBox={type?.color}
             containerStyle={{ marginLeft: "2px", flex: 1.3 }}
-            title={"Stake"}
-            selectedBetAction={(value: any) =>
-              value && selectedBetAction(selectedBet?.data)
-            }
+            title="Stake"
           />
         </Box>
         {matchesMobile && (
           <Box sx={{ display: "flex", marginTop: "2px", marginX: "2px" }} />
         )}
-        {
-          <>
-            <Box
-              sx={{
-                display: "flex",
-                marginTop: "15px",
-                marginX: "2px",
-                border: "2px solid white",
-              }}
-            >
-              {buttonToShow?.slice(0, 4)?.map((v: any, idx: number) => (
-                <NumberData
-                  key={idx}
-                  containerStyle={{ marginLeft: "2px", flex: 1 }}
-                  value={v}
-                  selectedBetAction={(value: any) =>
-                    value && selectedBetAction(selectedBet?.data)
-                  }
-                  setStakeValue={setStakeValue}
-                  setNewRatesValue={setNewRates}
-                />
-              ))}
-            </Box>
-            <Box sx={{ display: "flex", marginTop: "2px", marginX: "2px" }}>
-              {buttonToShow?.slice(4, 8)?.map((v: any, idx: number) => (
-                <NumberData
-                  key={idx}
-                  containerStyle={{ marginLeft: "2px", flex: 1 }}
-                  value={v}
-                  selectedBetAction={(value: any) =>
-                    value && selectedBetAction(selectedBet?.data)
-                  }
-                  setStakeValue={setStakeValue}
-                  setNewRatesValue={setNewRates}
-                />
-              ))}
-            </Box>
-          </>
-        }
-
+        <Box
+          sx={{
+            display: "flex",
+            marginTop: "15px",
+            marginX: "2px",
+            border: "2px solid white",
+          }}
+        >
+          {buttonToShow?.slice(0, 4)?.map((v: any, idx: number) => (
+            <NumberData
+              key={idx}
+              containerStyle={{ marginLeft: "2px", flex: 1 }}
+              value={v}
+              selectedBetAction={(value: any) =>
+                value && selectedBetAction(selectedBet?.data)
+              }
+              setStakeValue={setStakeValue}
+            />
+          ))}
+        </Box>
+        <Box sx={{ display: "flex", marginTop: "2px", marginX: "2px" }}>
+          {buttonToShow?.slice(4, 8)?.map((v: any, idx: number) => (
+            <NumberData
+              key={idx}
+              containerStyle={{ marginLeft: "2px", flex: 1 }}
+              value={v}
+              selectedBetAction={(value: any) =>
+                value && selectedBetAction(selectedBet?.data)
+              }
+              setStakeValue={setStakeValue}
+            />
+          ))}
+        </Box>
         <Box
           sx={{
             display: "flex",
@@ -512,27 +484,20 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
           }}
         >
           <button
-            // style={classes.CustomButton_Btn("#262626")}
             style={{
               color: "#FFF",
               backgroundColor: "#FF4949",
               width: "150px",
-              // width: { lg: "150px", xs: "130px" },
               height: "35px",
               borderRadius: "5px",
               border: "2px solid white",
             }}
             onClick={() => {
               setStakeValue(" ");
-              setNewRates({
-                lossAmount: 0,
-                winAmount: 0,
-              });
             }}
           >
             Reset
           </button>
-
           <button
             type="submit"
             disabled={loading || !stakeValue ? true : false}
@@ -541,7 +506,6 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
               backgroundColor: "#262626",
               width: "150px",
               cursor: loading || !stakeValue ? "not-allowed" : "pointer",
-              // width: { lg: "150px", xs: "130px" },
               height: "35px",
               borderRadius: "5px",
               border: "2px solid white",
@@ -553,63 +517,10 @@ const OddsPlaceBet = ({ handleClose, season, type }: any) => {
         </Box>
       </Box>
 
-      {(loading || matchOddLoading) && (
-        <NotificationModal
-        // open={{ value: true, loading: loading }}
-        // handleClose={""}
-        />
-      )}
+      {(loading || matchOddLoading) && <NotificationModal />}
       {openModal1 && <NotificationModal />}
-      {/* <MUIModal
-        open={openModal1}
-        // onClose={() => {
-        //   setIsPopoverOpen(false);
-        // }}
-      >
-        <Box
-          sx={{
-            width: "100%",
-            height: "300px",
-            position: "absolute",
-            display: "flex",
-            alignItems: "center",
-            top: "33%",
-            overflow: "hidden",
-            justifyContent: "center",
-            outline: "none",
-          }}
-        >
-          <Box
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              width: "200px",
-              // flex: 1,
-              height: "160px",
-              alignItems: "center",
-              flexDirection: "column",
-              // marginTop: "70px",
-              backgroundColor: "#fff",
-              borderRadius: "10px",
-            }}
-          >
-            <img src={NOT} width={"50"} height={"50px"} />
-            <Typography
-              sx={{
-                fontSize: "15px",
-                fontWeight: "500",
-                color: "#000",
-                textAlign: "center",
-                margin: "10px",
-              }}
-            >
-              {errorText}
-            </Typography>
-          </Box>
-        </Box>
-      </MUIModal> */}
     </Box>
   );
 };
 
-export default OddsPlaceBet;
+export default memo(OddsPlaceBet);

@@ -5,41 +5,40 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { InputInterface } from "../../interface/common";
 
-const Input: React.FC<InputInterface> = (props: any) => {
-  const {
-    id,
-    title,
-    value,
-    containerStyle,
-    required,
-    placeholder,
-    titleStyle,
-    inputStyle,
-    inputContainerStyle,
-    inputProps,
-    type,
-    disabled,
-    autoFocus,
-    img,
-    img1,
-    imgstyle,
-    onBlur,
-    error,
-    onChange,
-    name,
-    max,
-    min,
-  } = props;
+const Input: React.FC<InputInterface> = ({
+  id,
+  title,
+  value,
+  containerStyle,
+  required,
+  placeholder,
+  titleStyle,
+  inputStyle,
+  inputContainerStyle,
+  inputProps,
+  type,
+  disabled,
+  autoFocus,
+  img,
+  img1,
+  imgstyle,
+  onBlur,
+  error,
+  onChange,
+  name,
+  max,
+  min,
+}: any) => {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down("md"));
   const [showPass, setShowPass] = useState(false);
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
   return (
-    <Box sx={[{}, containerStyle]}>
+    <Box sx={[containerStyle]}>
       <Typography
         sx={[
           {
@@ -120,4 +119,4 @@ const Input: React.FC<InputInterface> = (props: any) => {
   );
 };
 
-export default Input;
+export default memo(Input);

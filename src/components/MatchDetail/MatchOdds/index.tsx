@@ -7,6 +7,7 @@ import { expertSocketService, socket } from "../../../socketManager";
 import {
   getMatchList,
   matchDetailReset,
+  setCurrentPageRedux,
   updateMatchRatesFromApiOnList,
 } from "../../../store/actions/match/matchListAction";
 import { AppDispatch, RootState } from "../../../store/store";
@@ -15,11 +16,16 @@ import Odds from "./Odds";
 
 const MatchesComponent = () => {
   const dispatch: AppDispatch = useDispatch();
-  const [currentPage, setCurrentPage] = useState<number>(1);
   const [selectedMatchId, setSelectedMatchId] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
   const { type } = useParams();
+  const { matchList, success } = useSelector(
+    (state: RootState) => state.match.matchList
+  );
+  const { currentPageRedux } = useSelector(
+    (state: RootState) => state.match.matchList
+  );
 
   const getMatchListMarket = async (matchType: string) => {
     try {
@@ -34,16 +40,21 @@ const MatchesComponent = () => {
     }
   };
 
-  const { matchList, success } = useSelector(
-    (state: RootState) => state.match.matchList
-  );
-  // const setMatchOddRatesInRedux = (event: any) => {
-  //   dispatch(updateMatchOddRates(event));
-  // };
-
   const getMatchListService = () => {
-    // dispatch(getMatchList({}));
-    dispatch(getMatchList({ matchType: type }));
+    if (["/inplay"].includes(location.pathname)) {
+      dispatch(getMatchList({ matchType: type }));
+    } else {
+      dispatch(
+        getMatchList({
+          matchType: type,
+          page:
+            matchList?.count % Constants.pageLimit === 0
+              ? currentPageRedux + 1
+              : currentPageRedux,
+          limit: Constants.pageLimit,
+        })
+      );
+    }
   };
 
   useEffect(() => {
@@ -53,29 +64,9 @@ const MatchesComponent = () => {
       }
       if (success && socket) {
         expertSocketService.match.matchAddedOff();
-        // matchList?.matches?.forEach((element: any) => {
-        //   expertSocketService.match.getMatchRatesOff(element?.id);
-        // });
-        // matchList?.matches?.forEach((element: any) => {
-        //   expertSocketService.match.joinMatchRoom(element?.id, "user");
-        // });
-        // matchList?.matches?.forEach((element: any) => {
-        //   expertSocketService.match.getMatchRates(
-        //     element?.id,
-        //     setMatchOddRatesInRedux
-        //   );
-        // });
         expertSocketService.match.matchAdded(getMatchListService);
       }
-      return () => {
-        // expertSocketService.match.matchAddedOff();
-        // matchList?.matches?.forEach((element: any) => {
-        //   expertSocketService.match.leaveMatchRoom(element?.id);
-        // });
-        // matchList?.matches?.forEach((element: any) => {
-        //   expertSocketService.match.getMatchRatesOff(element?.id);
-        // });
-      };
+      return () => {};
     } catch (e) {
       console.log(e);
     }
@@ -91,15 +82,6 @@ const MatchesComponent = () => {
           },
         });
       }
-      return () => {
-        // if (selectedMatchId !== "") {
-        //   matchList?.matches?.forEach((element: any) => {
-        //     if (element?.id !== selectedMatchId) {
-        //       expertSocketService.match.leaveMatchRoom(element?.id);
-        //     }
-        //   });
-        // }
-      };
     } catch (error) {
       console.error(error);
     }
@@ -109,18 +91,19 @@ const MatchesComponent = () => {
     try {
       const handleVisibilityChange = () => {
         if (document.visibilityState === "visible") {
-          // dispatch(getMatchList({}));
-          dispatch(getMatchList({ matchType: type }));
+          if (["/inplay"].includes(location.pathname)) {
+            dispatch(getMatchList({ matchType: type }));
+          } else {
+            dispatch(
+              getMatchList({
+                matchType: type,
+                page: currentPageRedux,
+                limit: Constants.pageLimit,
+              })
+            );
+          }
         }
-        // else if (document.visibilityState === "hidden") {
-        //   if (matchList?.matches) {
-        //     matchList?.matches?.forEach((element: any) => {
-        //       expertSocketService.match.getMatchRatesOff(element?.id);
-        //     });
-        //   }
-        // }
       };
-
       document.addEventListener("visibilitychange", handleVisibilityChange);
       return () => {
         document.removeEventListener(
@@ -131,18 +114,27 @@ const MatchesComponent = () => {
     } catch (error) {
       console.error(error);
     }
-  }, []);
+  }, [currentPageRedux, type]);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      // dispatch(getMatchList({}));
-      dispatch(getMatchList({ matchType: type }));
+      if (["/inplay"].includes(location.pathname)) {
+        dispatch(getMatchList({ matchType: type }));
+      } else {
+        dispatch(
+          getMatchList({
+            matchType: type,
+            page: currentPageRedux,
+            limit: Constants.pageLimit,
+          })
+        );
+      }
     }, 14100 * 1000);
 
     return () => {
       clearInterval(intervalId);
     };
-  }, []);
+  }, [type]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -157,40 +149,28 @@ const MatchesComponent = () => {
     return () => clearInterval(intervalId);
   }, [type]);
 
-  useEffect(() => {
-    if (type) {
-      dispatch(getMatchList({ matchType: type }));
-    }
-  }, [type]);
-
   return (
     <>
       {matchList &&
-        matchList?.matches
-          .slice(
-            (currentPage - 1) * Constants.pageLimit,
-            currentPage * Constants.pageLimit
-          )
-          .map((match: any) => {
-            return (
-              <Odds
-                key={match?.id}
-                top={true}
-                blur={false}
-                match={match}
-                data={match?.matchOdds}
-                selectedMatchId={selectedMatchId}
-                setSelectedMatchId={setSelectedMatchId}
-              />
-            );
-          })}
+        (matchList?.matches).map((match: any) => {
+          return (
+            <Odds
+              key={match?.id}
+              top={true}
+              blur={false}
+              match={match}
+              selectedMatchId={selectedMatchId}
+              setSelectedMatchId={setSelectedMatchId}
+            />
+          );
+        })}
 
-      {!location.pathname.includes("/inplay") && (
+      {!["/inplay"].includes(location.pathname) && (
         <Pagination
-          page={currentPage}
+          page={currentPageRedux}
           className="whiteTextPagination d-flex justify-content-center"
           onChange={(_, page) => {
-            setCurrentPage(page);
+            dispatch(setCurrentPageRedux(page));
           }}
           count={Math.ceil(
             parseInt(matchList?.count ? matchList?.count : 1) /

@@ -12,8 +12,8 @@ const SmallCustomLoader = ({ text }: any) => {
     >
       <div className="small-loading-wrap">
         <div className="small-loading">
-          <div></div>
-          <div></div>
+          <div />
+          <div />
         </div>
       </div>
       <Typography sx={{ marginTop: "-40px" }}>{text}</Typography>

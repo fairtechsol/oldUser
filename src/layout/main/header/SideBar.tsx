@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ArrowDown, drawerBackground } from "../../../assets/index";
 
@@ -15,37 +15,33 @@ const SideBar = ({ mobileShow, handleDrawerToggle }: any) => {
         { title: "In Play", url: "/inplay", activeTab: "INPLAY" },
         {
           title: "Cricket",
-          url: "/match",
-          activeTab: "CRICKET",
+          url: "/match/cricket",
           matchType: "cricket",
         },
         {
-          title: "Live Casino",
-          url: "/comingsoon",
-          activeTab: "LIVE CASINO",
+          title: "Casino",
+          url: "/casino",
         },
         {
-          title: "Live Card",
-          url: "/comingsoon",
-          activeTab: "LIVE CARD",
+          title: "Live Games",
+          url: "/liveCasino",
         },
-        { title: "soccer", url: "/comingsoon", activeTab: "TENNIS" },
+        { title: "Soccer", url: "/match/football" },
+        { title: "Tennis", url: "/match/tennis" },
         {
           title: "Ice Hockey",
           url: "/comingsoon",
-          activeTab: "ICE HOCKEY",
         },
-        { title: "Volleyball", url: "/comingsoon" },
-        { title: "Politics", url: "/comingsoon" },
-        { title: "Table", url: "/comingsoon" },
-        { title: "Darts", url: "/comingsoon" },
-        { title: "Snooker", url: "/comingsoon", activeTab: "SNOOKER" },
-        { title: "Golf", url: "/comingsoon", activeTab: "GOLF" },
-        { title: "Chess", url: "/comingsoon", activeTab: "CHESS" },
+        // { title: "Volleyball", url: "/comingsoon" },
+        // { title: "Politics", url: "/comingsoon" },
+        // { title: "Table", url: "/comingsoon" },
+        // { title: "Darts", url: "/comingsoon" },
+        { title: "Snooker", url: "/comingsoon" },
+        { title: "Golf", url: "/comingsoon" },
+        { title: "Chess", url: "/comingsoon" },
         {
           title: "Basketball",
           url: "/comingsoon",
-          activeTab: "BASKETBALL",
         },
       ],
     },
@@ -73,12 +69,12 @@ const SideBar = ({ mobileShow, handleDrawerToggle }: any) => {
             borderTopRightRadius: ".5vh",
           },
           (theme) => ({
-            backgroundImage: `${theme.palette.primary.headerGradient}`,
+            backgroundImage: theme?.palette?.primary?.headerGradient,
           }),
         ]}
       >
         <Box sx={{ display: "flex", height: "100%" }}>
-          <Box sx={{ display: "flex", flex: 0.3 }}></Box>
+          <Box sx={{ display: "flex", flex: 0.3 }} />
           <Box
             sx={{
               display: "flex",
@@ -89,7 +85,6 @@ const SideBar = ({ mobileShow, handleDrawerToggle }: any) => {
             }}
           >
             <Typography
-              //   variant="menuListHeader"
               sx={{
                 fontSize: {
                   lg: showSideBarMobile ? "18px" : "16px",
@@ -97,7 +92,7 @@ const SideBar = ({ mobileShow, handleDrawerToggle }: any) => {
                 },
                 fontWeight: { xs: "500", lg: "600" },
               }}
-              color={"white"}
+              color="white"
             >
               {title}
             </Typography>
@@ -118,7 +113,7 @@ const SideBar = ({ mobileShow, handleDrawerToggle }: any) => {
                   selected == title ? "rotate(0deg)" : "rotate(180deg)",
               }}
               src={ArrowDown}
-              alt=""
+              alt="arrow down"
             />
           </Box>
         </Box>
@@ -131,7 +126,6 @@ const SideBar = ({ mobileShow, handleDrawerToggle }: any) => {
         onClick={() => {
           navigate(item?.url, { state: { activeTab: item?.activeTab } });
           handleDrawerToggle();
-
           setShowSideBarMobile(false);
         }}
         sx={{
@@ -154,9 +148,8 @@ const SideBar = ({ mobileShow, handleDrawerToggle }: any) => {
             display: "flex",
             width: { xs: "5%", lg: "40%", md: "8%" },
           }}
-        ></Box>
+        />
         <Typography
-          //   variant="menuListItem"
           sx={{
             fontSize: {
               lg: showSideBarMobile ? "15px" : "13px",
@@ -194,21 +187,19 @@ const SideBar = ({ mobileShow, handleDrawerToggle }: any) => {
 
   return (
     <Box
-      sx={[
-        {
-          width: {
-            lg: showSideBarMobile ? "100%" : "18%",
-            xs: mobileShow ? "100%" : "0%",
-          },
-          minHeight: "500px",
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          overflow: "auto",
-          alignItems: { xs: "flex-start", lg: "flex-end" },
-          backgroundImage: `url(${drawerBackground})`,
+      sx={{
+        width: {
+          lg: showSideBarMobile ? "100%" : "18%",
+          xs: mobileShow ? "100%" : "0%",
         },
-      ]}
+        minHeight: "500px",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        overflow: "auto",
+        alignItems: { xs: "flex-start", lg: "flex-end" },
+        backgroundImage: `url(${drawerBackground})`,
+      }}
     >
       {data?.map((i, idx) => {
         return <RenderItem key={idx} i={i} />;
@@ -217,4 +208,4 @@ const SideBar = ({ mobileShow, handleDrawerToggle }: any) => {
   );
 };
 
-export default SideBar;
+export default memo(SideBar);

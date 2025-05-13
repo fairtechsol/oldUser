@@ -1,7 +1,7 @@
 import { Box, useMediaQuery, useTheme } from "@mui/material";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import LiveScoreBoard from "../../components/Common/LiveScoreBoard";
 import Loader from "../../components/Loader";
 import AllRateSeperate from "../../components/MatchDetail/AllRateBets/AllRateSeperate";
@@ -9,11 +9,12 @@ import BetPlaced from "../../components/MatchDetail/Common/BetPlaced";
 import LiveMatchHome from "../../components/MatchDetail/LiveMatchScore/LiveMatchHome";
 import MatchOdds from "../../components/MatchDetail/MatchOdds/MatchOdds";
 import SessionBetSeperate from "../../components/MatchDetail/SessionOdds/SessionBetSeperate";
+import { Bet } from "../../interface/betPlace";
 import {
   expertSocketService,
   matchService,
   socket,
-  socketService
+  socketService,
 } from "../../socketManager";
 import {
   getPlacedBets,
@@ -29,7 +30,6 @@ import {
   updateMatchRates,
 } from "../../store/actions/match/matchListAction";
 import {
-  betDataFromSocket,
   getButtonValue,
   getProfileInMatchDetail,
   updateBalance,
@@ -42,6 +42,7 @@ import {
   updateProfitLossOnDeleteSession,
   updateRunAmount,
   updateRunAmountOnDeleteBet,
+  updateTeamRateOnUndeclare,
   updateTeamRatesOnDeleteMatch,
 } from "../../store/actions/user/userAction";
 import { AppDispatch, RootState } from "../../store/store";
@@ -50,22 +51,17 @@ const MatchDetail = () => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const dispatch: AppDispatch = useDispatch();
+  const { type } = useParams();
   const { state } = useLocation();
   const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
   const [show, setShow] = useState({ open: false, id: "" });
-  // const [liveScoreBoardData, setLiveScoreBoardData] = useState(null);
-  // const [errorCount, setErrorCount] = useState<number>(0);
   const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
   );
-  const [isTv, setIsTv] = useState(false);
-  const {
-    matchDetails,
-    success,
-    matchDetailloading,
-    liveScoreBoardData,
-  } = useSelector((state: RootState) => state.match.matchList);
+  const [isTv, setIsTv] = useState(true);
+  const { matchDetails, success, matchDetailloading, liveScoreBoardData } =
+    useSelector((state: RootState) => state.match.matchList);
   const { placedBets } = useSelector((state: RootState) => state.bets);
 
   useEffect(() => {
@@ -91,7 +87,7 @@ const MatchDetail = () => {
       dispatch(updateBalanceSession(event));
       if (event?.betPlaced?.placedBet?.matchId === state?.matchId) {
         dispatch(updateBetsPlaced(event?.betPlaced?.placedBet));
-        dispatch(betDataFromSocket(event));
+        // dispatch(betDataFromSocket(event));
         dispatch(
           updateRunAmount({
             betId: event?.betPlaced?.placedBet?.betId,
@@ -183,7 +179,9 @@ const MatchDetail = () => {
       if (event?.matchId === state?.matchId) {
         dispatch(getProfileInMatchDetail());
         if (event.isMatchDeclare) {
-          navigate("/match");
+          navigate("/inplay");
+        } else {
+          dispatch(getPlacedBets(state?.matchId));
         }
       }
     } catch (e) {
@@ -230,6 +228,12 @@ const MatchDetail = () => {
     }
   };
 
+  const handleMatchResultUndeclare = (event: any) => {
+    if (event?.matchId !== state?.matchId) return;
+    dispatch(getProfileInMatchDetail());
+    dispatch(updateTeamRateOnUndeclare(event));
+  };
+
   useEffect(() => {
     try {
       window.scrollTo(0, 0);
@@ -244,7 +248,7 @@ const MatchDetail = () => {
 
   useEffect(() => {
     if (matchDetails && matchDetails?.stopAt) {
-      navigate("/match");
+      navigate(`/match/${type}`);
     }
   }, [matchDetails]);
 
@@ -273,9 +277,7 @@ const MatchDetail = () => {
         socketService.userBalance.sessionNoResultOff();
         socketService.userBalance.sessionResultUnDeclareOff();
         socketService.userBalance.updateDeleteReasonOff();
-        expertSocketService.match.joinMatchRoom(
-          state?.matchId
-        );
+        expertSocketService.match.joinMatchRoom(state?.matchId);
         expertSocketService.match.getMatchRates(
           state?.matchId,
           setMatchRatesInRedux
@@ -292,6 +294,9 @@ const MatchDetail = () => {
           handleSessionResultUnDeclare
         );
         socketService.userBalance.updateDeleteReason(handleBetDeleteReason);
+        socketService.userBalance.matchResultUnDeclared(
+          handleMatchResultUndeclare
+        );
       }
     } catch (e) {
       console.log(e);
@@ -317,10 +322,20 @@ const MatchDetail = () => {
     dispatch(getProfileInMatchDetail());
   };
 
+  const uniqueBets = Array.from(
+    new Map(placedBets.map((bet: Bet) => [bet.id, bet])).values()
+  );
+
+  const sessionBets = uniqueBets.filter(
+    (bet: any) => bet?.marketBetType === "SESSION"
+  );
+  const nonSessionBets = uniqueBets.filter(
+    (bet: any) => bet?.marketBetType !== "SESSION"
+  );
+
   useEffect(() => {
     try {
       return () => {
-        // expertSocketService.match.leaveMatchRoom(state?.matchId);
         expertSocketService.match.getMatchRatesOff(state?.matchId);
         socketService.userBalance.userSessionBetPlacedOff();
         socketService.userBalance.userMatchBetPlacedOff();
@@ -349,38 +364,6 @@ const MatchDetail = () => {
     }
   }, []);
 
-  // const getScoreBoard = async (marketId: string) => {
-  //   try {
-  //     const response: any = await service.get(
-  //       // `https://devscore.fairgame.club/score/getMatchScore/${marketId}`
-  //       // `https://fairscore7.com/score/getMatchScore/${marketId}`
-  //       `${Constants.thirdPartyLive}/cricketScore?eventId=${marketId}`
-  //     );
-  //     if (response) {
-  //       setLiveScoreBoardData(response?.data);
-  //       setErrorCount(0);
-  //     }
-  //   } catch (e) {
-  //     setErrorCount((prevCount: number) => prevCount + 1);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   if (matchDetails?.eventId) {
-  //     let intervalTime = 500;
-  //     if (errorCount >= 5 && errorCount < 10) {
-  //       intervalTime = 60000;
-  //     } else if (errorCount >= 10) {
-  //       intervalTime = 600000;
-  //     }
-  //     const interval = setInterval(() => {
-  //       getScoreBoard(matchDetails?.eventId);
-  //     }, intervalTime);
-
-  //     return () => clearInterval(interval);
-  //   }
-  // }, [matchDetails?.eventId, errorCount]);
-
   useEffect(() => {
     try {
       const handleVisibilityChange = () => {
@@ -389,12 +372,8 @@ const MatchDetail = () => {
             dispatch(selectedBetAction(null));
             dispatch(matchDetailAction(state?.matchId));
             dispatch(getPlacedBets(state?.matchId));
-            // if (matchDetails?.marketId) {
-            //   getScoreBoard(matchDetails?.marketId);
-            // }
           }
         } else if (document.visibilityState === "hidden") {
-          // expertSocketService.match.leaveMatchRoom(state?.matchId);
           expertSocketService.match.getMatchRatesOff(state?.matchId);
         }
       };
@@ -429,22 +408,6 @@ const MatchDetail = () => {
     }
   }, []);
 
-  // useEffect(() => {
-  //   try {
-  //     if (matchDetails?.eventId) {
-  //       const callApiForLiveStream = async () => {
-  //         let result = await getChannelId(matchDetails?.eventId);
-  //         if (result) {
-  //           setChannelId(result?.channelNo);
-  //         }
-  //       };
-  //       callApiForLiveStream();
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }, [matchDetails?.id]);
-
   return (
     <>
       {matchDetailloading && <Loader text="" />}
@@ -460,191 +423,106 @@ const MatchDetail = () => {
           }}
         >
           <BetPlaced visible={visible} setVisible={setVisible} />
-          <>
-            {matchesMobile && (
-              <div
-                style={{
-                  width: "100%",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  display: "flex",
-                  // gap: { lg: "8px", xs: "0px", md: "0px" },
-                  marginTop: "2%",
-                  flexDirection: "column",
-                }}
-              >
-                {(
-                  <LiveScoreBoard
-                    data={liveScoreBoardData}
-                    width="100%"
-                    setIsTv={setIsTv}
-                  />
+          {matchesMobile && (
+            <div
+              style={{
+                width: "100%",
+                alignItems: "center",
+                justifyContent: "center",
+                display: "flex",
+                marginTop: "2%",
+                flexDirection: "column",
+              }}
+            >
+              <LiveScoreBoard
+                data={liveScoreBoardData}
+                width="100%"
+                setIsTv={setIsTv}
+              />
+              {liveScoreBoardData && isTv &&
+                matchDetails?.eventId &&
+                matchDetails?.matchType !== "politics" && (
+                  <LiveMatchHome eventId={matchDetails?.eventId} />
                 )}
-                {isTv &&
-                  matchDetails?.eventId &&
-                  matchDetails?.matchType !== "politics" && (
-                    <LiveMatchHome
-                      eventId={matchDetails?.eventId}
-                    />
-                  )}
-                <div style={{ width: "100%" }}>
-                  <MatchOdds
-                    setShow={setShow}
-                    show={show}
-                    matchDetails={matchDetails && matchDetails}
-                  />
-                </div>
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    width: "100%",
-                    alignSelf: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                      width: "98%",
-                    }}
-                  >
-                    {Array.from(
-                      placedBets.reduce(
-                        (acc: any, obj: any) =>
-                          acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
-                        new Set()
-                      ),
-                      (id) => placedBets.find((obj: any) => obj.id === id)
-                    ).filter((bet: any) => bet?.marketBetType == "SESSION")
-                      .length > 0 && (
-                        <SessionBetSeperate
-                          placedBets={Array.from(
-                            placedBets.reduce(
-                              (acc: any, obj: any) =>
-                                acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
-                              new Set()
-                            ),
-                            (id) => placedBets.find((obj: any) => obj.id === id)
-                          ).filter((bet: any) => bet?.marketBetType == "SESSION")}
-                          mark
-                        />
-                      )}
-                    {Array.from(
-                      placedBets.reduce(
-                        (acc: any, obj: any) =>
-                          acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
-                        new Set()
-                      ),
-                      (id) => placedBets.find((obj: any) => obj.id === id)
-                    ).filter((bet: any) => bet?.marketBetType != "SESSION")
-                      .length > 0 && (
-                        <AllRateSeperate
-                          allBetsData={Array.from(
-                            placedBets.reduce(
-                              (acc: any, obj: any) =>
-                                acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
-                              new Set()
-                            ),
-                            (id) => placedBets.find((obj: any) => obj.id === id)
-                          ).filter((bet: any) => bet?.marketBetType != "SESSION")}
-                          mark
-                        />
-                      )}
-                  </Box>
-                </Box>
+              <div style={{ width: "100%" }}>
+                <MatchOdds
+                  setShow={setShow}
+                  show={show}
+                  matchDetails={matchDetails && matchDetails}
+                />
               </div>
-            )}
-            {!matchesMobile && (
               <Box
                 sx={{
                   display: "flex",
+                  flexDirection: "column",
                   width: "100%",
-                  gap: "8px",
-                  marginTop: "1%",
+                  alignSelf: "center",
+                  alignItems: "center",
                 }}
               >
                 <Box
                   sx={{
                     display: "flex",
                     flexDirection: "column",
-                    width: "70%",
+                    width: "98%",
                   }}
                 >
-                  <MatchOdds
-                    setShow={setShow}
-                    show={show}
-                    matchDetails={matchDetails && matchDetails}
-                    data={matchDetails && matchDetails}
-                  />
-                </Box>
-                <Box sx={{ width: "30%", paddingRight: "1%" }}>
-                  {(
-                    <LiveScoreBoard
-                      data={liveScoreBoardData}
-                      width="100%"
-                      setIsTv={setIsTv}
-                      isTv={isTv}
-                    />
+                  {sessionBets.length > 0 && (
+                    <SessionBetSeperate placedBets={sessionBets} />
                   )}
-                  {isTv &&
-                    matchDetails?.eventId &&
-                    matchDetails?.matchType !== "politics" && (
-                      <LiveMatchHome
-                        eventId={matchDetails?.eventId}
-                      />
-                    )}
-                  {Array.from(
-                    placedBets.reduce(
-                      (acc: any, obj: any) =>
-                        acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
-                      new Set()
-                    ),
-                    (id) => placedBets.find((obj: any) => obj.id === id)
-                  ).filter((bet: any) => bet?.marketBetType != "SESSION")
-                    .length > 0 && (
-                      <AllRateSeperate
-                        mark
-                        allBetsData={Array.from(
-                          placedBets.reduce(
-                            (acc: any, obj: any) =>
-                              acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
-                            new Set()
-                          ),
-                          (id) => placedBets.find((obj: any) => obj.id === id)
-                        ).filter((bet: any) => bet?.marketBetType != "SESSION")}
-                      />
-                    )}
-                  {Array.from(
-                    placedBets.reduce(
-                      (acc: any, obj: any) =>
-                        acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
-                      new Set()
-                    ),
-                    (id) => placedBets.find((obj: any) => obj.id === id)
-                  ).filter((bet: any) => bet?.marketBetType == "SESSION")
-                    .length > 0 && (
-                      <SessionBetSeperate
-                        placedBets={Array.from(
-                          placedBets.reduce(
-                            (acc: any, obj: any) =>
-                              acc.has(obj.id) ? acc : acc.add(obj.id) && acc,
-                            new Set()
-                          ),
-                          (id) => placedBets.find((obj: any) => obj.id === id)
-                        ).filter((bet: any) => bet?.marketBetType == "SESSION")}
-                        mark
-                      />
-                    )}
+                  {nonSessionBets.length > 0 && (
+                    <AllRateSeperate allBetsData={nonSessionBets} mark />
+                  )}
                 </Box>
               </Box>
-            )}
-          </>
+            </div>
+          )}
+          {!matchesMobile && (
+            <Box
+              sx={{
+                display: "flex",
+                width: "100%",
+                gap: "8px",
+                marginTop: "1%",
+              }}
+            >
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  width: "70%",
+                }}
+              >
+                <MatchOdds
+                  setShow={setShow}
+                  show={show}
+                  matchDetails={matchDetails && matchDetails}
+                />
+              </Box>
+              <Box sx={{ width: "30%", paddingRight: "1%" }}>
+                <LiveScoreBoard
+                  data={liveScoreBoardData}
+                  width="100%"
+                  setIsTv={setIsTv}
+                />
+                {liveScoreBoardData && isTv &&
+                  matchDetails?.eventId &&
+                  matchDetails?.matchType !== "politics" && (
+                    <LiveMatchHome eventId={matchDetails?.eventId} />
+                  )}
+                {nonSessionBets.length > 0 && (
+                  <AllRateSeperate allBetsData={nonSessionBets} mark />
+                )}
+                {sessionBets.length > 0 && (
+                  <SessionBetSeperate placedBets={sessionBets} />
+                )}
+              </Box>
+            </Box>
+          )}
         </Box>
       )}
     </>
   );
 };
 
-export default MatchDetail;
+export default memo(MatchDetail);

@@ -1,6 +1,16 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 import Calendar from "../../../components/Common/Calendar";
 import CustomButton from "../../../components/Common/CustomButton";
+
+interface YellowHeaderProfitLossProps {
+  startDate: any;
+  setEndDate: any;
+  setStartDate: any;
+  endDate: any;
+  onClick: () => void;
+  title: string;
+}
 
 const YellowHeaderProfitLoss = ({
   startDate,
@@ -9,7 +19,7 @@ const YellowHeaderProfitLoss = ({
   endDate,
   onClick,
   title,
-}: any) => {
+}: YellowHeaderProfitLossProps) => {
   return (
     <Box
       sx={{
@@ -54,27 +64,23 @@ const YellowHeaderProfitLoss = ({
             padding: "10px 20px",
           }}
         >
-          <Box sx={{ width: "10px" }}></Box>
-
+          <Box sx={{ width: "10px" }} />
           <Box sx={{ display: "flex", width: { xs: "100%", lg: "60%" } }}>
             <Box sx={{ display: "flex", width: { lg: "70%", xs: "60%" } }}>
               <Calendar
-                title={"From"}
+                title="From"
                 startDate={startDate}
                 setStartDate={setStartDate}
-                sx={{ width: "50%" }}
               />
-              <Box sx={{ width: "10px" }}></Box>
-
+              <Box sx={{ width: "10px" }} />
               <Calendar
-                title={"To"}
+                title="To"
                 startDate={endDate}
                 setStartDate={setEndDate}
-                sx={{ width: "50%" }}
                 limit={startDate}
               />
             </Box>
-            <Box sx={{ width: "10px" }}></Box>
+            <Box sx={{ width: "10px" }} />
             <Box
               sx={{
                 width: { xs: "40%", lg: "30%" },
@@ -104,4 +110,4 @@ const YellowHeaderProfitLoss = ({
     </Box>
   );
 };
-export default YellowHeaderProfitLoss;
+export default memo(YellowHeaderProfitLoss);

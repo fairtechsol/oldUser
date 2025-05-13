@@ -9,20 +9,27 @@ import {
   getTotalBetProfitLoss,
 } from "../../../store/actions/user/userAction";
 import { AppDispatch, RootState } from "../../../store/store";
+import { Constants } from "../../../utils/Constants";
 import StyledImage from "../../Common/StyledImages";
 import AllRateSeperate from "../../MatchDetail/AllRateBets/AllRateSeperate";
 import SessionBetSeperate from "../../MatchDetail/SessionOdds/SessionBetSeperate";
 import SessionComponentMatches from "./SessionComponentMatches";
 
+interface RowComponentMatchesProps {
+  item: any;
+  index: number;
+  selectedId: any;
+  getBetReport: (val: any) => void;
+  currentPage: number;
+}
+
 const RowComponentMatches = ({
   item,
   index,
   selectedId,
-  betData,
-  sessionBetData,
   getBetReport,
-  user,
-}: any) => {
+  currentPage,
+}: RowComponentMatchesProps) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const { totalSessionProfitLoss, totalBetProfitLoss } = useSelector(
@@ -32,6 +39,50 @@ const RowComponentMatches = ({
   const [showBets, setShowBets] = useState(false);
   const [showSessions, setShowSessions] = useState(false);
   const [showSessionBets, setShowSessionBets] = useState(false);
+
+  const handleAllBetClick = () => {
+    if (selectedId?.id === item?.matchId && selectedId?.type === "all_bet") {
+      setShowBets((prev) => !prev);
+    } else {
+      setShowBets(true);
+      getBetReport({
+        eventType: item?.eventType,
+        match_id: item?.matchId,
+        type: "all_bet",
+        betId: "",
+        sessionBet: false,
+      });
+      dispatch(
+        getTotalBetProfitLoss({
+          matchId: item?.matchId,
+        })
+      );
+    }
+  };
+  const handleSessionBetClick = () => {
+    if (
+      selectedId?.id === item?.matchId &&
+      selectedId?.type === "session_bet"
+    ) {
+      setShowSessions((prev) => !prev);
+    } else {
+      setShowSessions(true);
+      getBetReport({
+        eventType: item?.eventType,
+        match_id: item?.matchId,
+        type: "session_bet",
+        betId: "",
+        sessionBet: false,
+      });
+      dispatch(
+        getSessionProfitLoss({
+          matchId: item?.matchId,
+        })
+      );
+    }
+  };
+
+  const isCricketOrPolitics = ["cricket", "politics"].includes(item?.eventType);
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -60,12 +111,15 @@ const RowComponentMatches = ({
           <Typography
             sx={{ fontSize: "14px", color: "white", fontWeight: "600" }}
           >
-            {0 + index}
+            {0 + index + Constants.pageLimit * (currentPage - 1)}
           </Typography>
         </Box>
         <Box
           sx={{
-            width: { xs: "40%", lg: "60%" },
+            width: {
+              xs: isCricketOrPolitics ? "40%" : "65%",
+              lg: isCricketOrPolitics ? "60%" : "65%",
+            },
             position: "relative",
             height: "100%",
             paddingY: "4px",
@@ -124,56 +178,11 @@ const RowComponentMatches = ({
               ({moment(item?.startAt).format("DD-MM-YYYY")})
             </Typography>
           </Box>
-          {user === "admin" && (
-            <StyledImage
-              src={ArrowDown}
-              sx={{
-                width: { lg: "20px", xs: "10px" },
-                height: { lg: "10px", xs: "6px" },
-                transform:
-                  selectedId?.id === item?.matchId
-                    ? "rotate(180deg)"
-                    : "rotate(0deg)",
-              }}
-              alt=""
-            />
-          )}
-          {/* <StyledImage
-              src={ArrowDown}
-              sx={{
-                marginTop: { xs: "5px", lg: "0" },
-                width: { lg: "20px", xs: "10px" },
-                height: { lg: "10px", xs: "6px" },
-                transform:
-                  selectedId === item?.matchId
-                    ? "rotate(180deg)"
-                    : "rotate(0deg)",
-              }}
-            /> */}
         </Box>
         <Box
           onClick={(e) => {
             e.stopPropagation();
-            if (
-              selectedId?.id === item?.matchId &&
-              selectedId?.type === "all_bet"
-            ) {
-              setShowBets((prev) => !prev);
-            } else {
-              setShowBets(true);
-              getBetReport({
-                eventType: item?.eventType,
-                match_id: item?.matchId,
-                type: "all_bet",
-                betId: "",
-                sessionBet: false,
-              });
-              dispatch(
-                getTotalBetProfitLoss({
-                  matchId: item?.matchId,
-                })
-              );
-            }
+            handleAllBetClick();
           }}
           sx={{
             background: item?.rateProfitLoss > 0 ? "#27AC1E" : "#E32A2A",
@@ -210,7 +219,7 @@ const RowComponentMatches = ({
                 width: { lg: "25px", xs: "15px" },
                 height: { lg: "12px", xs: "8px" },
               }}
-              alt=""
+              alt="arrow"
             />
           </Box>
           <Box
@@ -225,7 +234,7 @@ const RowComponentMatches = ({
                 fontSize: { xs: "10px", lg: "14px" },
                 fontWeight: "700",
                 color: "white",
-                lineHeight: "0.9"
+                lineHeight: "0.9",
               }}
             >
               {formatToINR(Number(item?.rateProfitLoss).toFixed(2))}{" "}
@@ -246,104 +255,87 @@ const RowComponentMatches = ({
                     ? "rotate(180deg)"
                     : "rotate(0deg)",
               }}
-              alt=""
+              alt="arrow down"
             />
           </Box>
         </Box>
-        <Box
-          onClick={(e) => {
-            e.stopPropagation();
-            if (
-              selectedId?.id === item?.matchId &&
-              selectedId?.type === "session_bet"
-            ) {
-              setShowSessions((prev) => !prev);
-            } else {
-              setShowSessions(true);
-              getBetReport({
-                eventType: item?.eventType,
-                match_id: item?.matchId,
-                type: "session_bet",
-                betId: "",
-                sessionBet: false,
-              });
-              dispatch(
-                getSessionProfitLoss({
-                  matchId: item?.matchId,
-                })
-              );
-            }
-          }}
-          sx={{
-            background: item?.sessionProfitLoss > 0 ? "#27AC1E" : "#E32A2A",
-            paddingX: "2px",
-            width: { xs: "25%", lg: "30%" },
-            height: "100%",
-            marginLeft: 0.1,
-            justifyContent: "center",
-            display: "flex",
-            flexDirection: "column",
-            paddingLeft: "10px",
-          }}
-        >
+        {isCricketOrPolitics && (
           <Box
+            onClick={(e) => {
+              e.stopPropagation();
+              handleSessionBetClick();
+            }}
             sx={{
-              width: "100%",
+              background: item?.sessionProfitLoss > 0 ? "#27AC1E" : "#E32A2A",
+              paddingX: "2px",
+              width: { xs: "25%", lg: "30%" },
+              height: "100%",
+              marginLeft: 0.1,
+              justifyContent: "center",
               display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
+              flexDirection: "column",
+              paddingLeft: "10px",
             }}
           >
-            <Typography
+            <Box
               sx={{
-                fontSize: { lg: "12px", xs: "8px" },
-                fontWeight: "500",
-                color: "white",
+                width: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
               }}
             >
-              Session Profit/Loss
-            </Typography>
-            <StyledImage
-              src={item?.sessionProfitLoss > 0 ? ARROW_UP : ARROW_DOWN}
+              <Typography
+                sx={{
+                  fontSize: { lg: "12px", xs: "8px" },
+                  fontWeight: "500",
+                  color: "white",
+                }}
+              >
+                Session Profit/Loss
+              </Typography>
+              <StyledImage
+                src={item?.sessionProfitLoss > 0 ? ARROW_UP : ARROW_DOWN}
+                sx={{
+                  width: { lg: "25px", xs: "15px" },
+                  height: { lg: "12px", xs: "8px" },
+                }}
+                alt="arrow"
+              />
+            </Box>
+            <Box
               sx={{
-                width: { lg: "25px", xs: "15px" },
-                height: { lg: "12px", xs: "8px" },
-              }}
-              alt=""
-            />
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            <Typography
-              sx={{
-                fontSize: { xs: "10px", lg: "14px" },
-                fontWeight: "700",
-                color: "white",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
               }}
             >
-              {formatToINR(Number(item?.sessionProfitLoss).toFixed(2))}
-            </Typography>
-            <StyledImage
-              src={ArrowDown}
-              sx={{
-                width: { lg: "20px", xs: "10px" },
-                height: { lg: "10px", xs: "6px" },
-                transform:
-                  selectedId?.id === item?.matchId &&
-                  selectedId?.type === "session_bet" &&
-                  showSessions
-                    ? "rotate(180deg)"
-                    : "rotate(0deg)",
-              }}
-              alt=""
-            />
+              <Typography
+                sx={{
+                  fontSize: { xs: "10px", lg: "14px" },
+                  fontWeight: "700",
+                  color: "white",
+                }}
+              >
+                {formatToINR(Number(item?.sessionProfitLoss).toFixed(2))}
+              </Typography>
+              <StyledImage
+                src={ArrowDown}
+                sx={{
+                  width: { lg: "20px", xs: "10px" },
+                  height: { lg: "10px", xs: "6px" },
+                  transform:
+                    selectedId?.id === item?.matchId &&
+                    selectedId?.type === "session_bet" &&
+                    showSessions
+                      ? "rotate(180deg)"
+                      : "rotate(0deg)",
+                }}
+                alt="arrow down"
+              />
+            </Box>
           </Box>
-        </Box>
+        )}
       </Box>
       {selectedId?.id === item?.matchId && (
         <>
@@ -360,13 +352,11 @@ const RowComponentMatches = ({
               >
                 <AllRateSeperate
                   betHistory={false}
-                  count={betData?.length}
-                  match={item?.title}
                   allBetsData={totalBetProfitLoss && totalBetProfitLoss}
                   profit
                 />
               </Box>
-              <Box sx={{ width: { lg: "1vw", xs: 0 } }}></Box>
+              <Box sx={{ width: { lg: "1vw", xs: 0 } }} />
             </>
           )}
           {selectedId?.type === "session_bet" && showSessions && (
@@ -402,7 +392,6 @@ const RowComponentMatches = ({
                           setShowSessionBets={setShowSessionBets}
                           getBetReport={getBetReport}
                           selectedId={selectedId}
-                          sessionBetData={sessionBetData}
                           match={item?.title}
                         />
                       );
@@ -421,7 +410,6 @@ const RowComponentMatches = ({
                       }}
                     >
                       <SessionBetSeperate
-                        betHistory={false}
                         placedBets={totalBetProfitLoss && totalBetProfitLoss}
                         profit
                         isArrow={true}

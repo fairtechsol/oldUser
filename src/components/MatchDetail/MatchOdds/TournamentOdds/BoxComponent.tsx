@@ -11,10 +11,10 @@ const BoxComponent = ({
   rate,
   matchDetails,
   showBox,
-  livestatus,
   isRound,
   marketDetails,
   upcoming,
+  show6Box,
 }: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
@@ -32,13 +32,47 @@ const BoxComponent = ({
         justifyContent: "space-between",
       }}
     >
+      {(upcoming ||
+        showBox ||
+        !marketDetails?.isActive ||
+        (!["ACTIVE", "OPEN", ""].includes(marketDetails?.status) &&
+          marketDetails?.gtype == "match")) && (
+          <Box
+            sx={{
+              position: "absolute",
+              height: "100%",
+              width: "100%",
+              display: "flex",
+              zIndex: "888",
+              justifyContent: "center",
+              alignItems: "center",
+              background: "rgba(0, 0, 0, 0.71)",
+            }}
+          >
+            <Typography
+              sx={{
+                fontSize: { xs: "12px", lg: "22px" },
+                textTransform: "uppercase",
+                width: "100%",
+                textAlign: "center",
+                color: "white",
+                fontWeight: "400",
+              }}
+            >
+              {!["ACTIVE", "OPEN", ""].includes(marketDetails?.status) &&
+                marketDetails?.gtype == "match"
+                ? marketDetails?.status
+                : ""}
+            </Typography>
+          </Box>
+        )}
       <Box
         sx={{
           display: "flex",
           background: "white",
           position: "relative",
           height: "40px",
-          width: { xs: "60%", lg: "40%" },
+          width: { xs: "60%", lg: show6Box ? "40%" : "60%" },
           alignItems: "center",
         }}
       >
@@ -46,7 +80,7 @@ const BoxComponent = ({
           sx={{
             flexDirection: "row",
             display: "flex",
-            width: { xs: "70%", lg: "100%", md: "100%" },
+            width: { xs: "70%", lg: show6Box ? "100%" : "70%", md: "100%" },
             alignItems: "center",
           }}
         >
@@ -74,16 +108,18 @@ const BoxComponent = ({
             position: "absolute",
             right: 0,
             zIndex: 10,
-            width: { lg: "60%", xs: "40%" },
-            justifyContent: { xs: "flex-end", lg: "center" },
+            width: { lg: show6Box ? "60%" : "40%", xs: "40%" },
+            justifyContent: {
+              xs: "flex-end",
+              lg: show6Box ? "center" : "flex-end",
+            },
             alignItems: "center",
             display: "flex",
           }}
-        ></Box>
+        />
       )}
       {(!["ACTIVE", "", "OPEN", undefined, null].includes(status) ||
-        matchDetails?.bettings?.length === 0 ||
-        livestatus) &&
+        matchDetails?.bettings?.length === 0) &&
         !(
           !["ACTIVE", "OPEN", ""].includes(marketDetails?.status) &&
           marketDetails?.gtype == "match"
@@ -92,7 +128,7 @@ const BoxComponent = ({
           sx={{
             background: "rgba(0,0,0,1)",
             height: "40px",
-            width: { lg: "60%", xs: "40.5%" },
+            width: { lg: show6Box ? "60%" : "40.5%", xs: "40.5%" },
             justifyContent: { xs: "center", lg: "center" },
             alignItems: "center",
             display: "flex",
@@ -108,9 +144,7 @@ const BoxComponent = ({
               fontWeight: "400",
             }}
           >
-            {matchDetails?.bettings?.length === 0 || livestatus
-              ? "suspended"
-              : status}
+            {matchDetails?.bettings?.length === 0 ? "suspended" : status}
           </Typography>
         </Box>
       ) : (
@@ -119,19 +153,19 @@ const BoxComponent = ({
             display: "flex",
             background: "white",
             height: "40px",
-            width: { lg: "60%", xs: "40.5%" },
+            width: { lg: show6Box ? "60%" : "40%", xs: "40.5%" },
             justifyContent: { xs: "flex-end", lg: "center" },
             alignItems: "center",
             position: "relative",
           }}
         >
-          {!matchesMobile && (
+          {!matchesMobile && show6Box && (
             <SeparateModal
               po={
                 ex?.availableToBack[ex?.availableToBack?.length > 1 ? 0 : 2]
                   ?.tno
               }
-              betType={"back"}
+              betType="back"
               lock={ex?.availableToBack?.length > 0 ? false : true}
               value={
                 isRound
@@ -162,15 +196,13 @@ const BoxComponent = ({
               mid={marketDetails?.mid}
               selectionId={selectionId}
               matchDetails={matchDetails}
+              show6Box={show6Box}
             />
           )}
-          <Box
-            sx={{ width: ".25%", display: "flex", background: "pink" }}
-          ></Box>
-          {!matchesMobile && (
+          {!matchesMobile && show6Box && (
             <SeparateModal
               po={ex?.availableToBack[1]?.tno}
-              betType={"back"}
+              betType="back"
               lock={ex?.availableToBack?.length > 0 ? false : true}
               value={
                 isRound
@@ -197,17 +229,15 @@ const BoxComponent = ({
               mid={marketDetails?.mid}
               selectionId={selectionId}
               matchDetails={matchDetails}
+              show6Box={show6Box}
             />
           )}
-          <Box
-            sx={{ width: ".25%", display: "flex", background: "pink" }}
-          ></Box>
 
           <SeparateModal
             po={
               ex?.availableToBack[ex?.availableToBack?.length > 1 ? 2 : 0]?.tno
             }
-            betType={"back"}
+            betType="back"
             lock={ex?.availableToBack?.length > 0 ? false : true}
             value={
               isRound
@@ -238,15 +268,12 @@ const BoxComponent = ({
             mid={marketDetails?.mid}
             selectionId={selectionId}
             matchDetails={matchDetails}
+            show6Box={show6Box}
           />
-
-          <Box
-            sx={{ width: ".25%", display: "flex", background: "pink" }}
-          ></Box>
 
           <SeparateModal
             po={ex?.availableToLay[0]?.tno}
-            betType={"lay"}
+            betType="lay"
             lock={ex?.availableToLay?.length > 0 ? false : true}
             value={
               isRound
@@ -273,11 +300,12 @@ const BoxComponent = ({
             mid={marketDetails?.mid}
             selectionId={selectionId}
             matchDetails={matchDetails}
+            show6Box={show6Box}
           />
-          {!matchesMobile && (
+          {!matchesMobile && show6Box && (
             <SeparateModal
               po={ex?.availableToLay[1]?.tno}
-              betType={"lay"}
+              betType="lay"
               lock={ex?.availableToLay?.length > 0 ? false : true}
               value={
                 isRound
@@ -304,12 +332,13 @@ const BoxComponent = ({
               mid={marketDetails?.mid}
               selectionId={selectionId}
               matchDetails={matchDetails}
+              show6Box={show6Box}
             />
           )}
-          {!matchesMobile && (
+          {!matchesMobile && show6Box && (
             <SeparateModal
               po={ex?.availableToLay[2]?.tno}
-              betType={"lay"}
+              betType="lay"
               lock={ex?.availableToLay?.length > 0 ? false : true}
               value={
                 isRound
@@ -336,11 +365,10 @@ const BoxComponent = ({
               mid={marketDetails?.mid}
               selectionId={selectionId}
               matchDetails={matchDetails}
+              show6Box={show6Box}
+              lastIndex
             />
           )}
-          <Box
-            sx={{ width: ".25%", display: "flex", background: "pink" }}
-          ></Box>
         </Box>
       )}
     </Box>

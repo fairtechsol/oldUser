@@ -1,6 +1,10 @@
 import { Box, MenuItem, Typography } from "@mui/material";
-
 import { useNavigate } from "react-router-dom";
+
+interface MenuItemProps {
+  title: string;
+  link: string;
+}
 
 const MyAccount = () => {
   const navigate = useNavigate();
@@ -32,27 +36,21 @@ const MyAccount = () => {
       fontSize: { lg: "16px", xs: "10px" },
       fontWeight: "600",
       marginX: "0px",
-      // width: { lg: "140px", xs: "170px" },
       borderBottomWidth: 0,
       borderColor: "#EAEFEC",
-      // paddingY: "-10px",
       marginTop: "0px",
       borderStyle: "solid",
-      // marginLeft: "-10px",
       minHeight: "40px",
       lineHeight: "18px",
       color: "black",
       "&:hover": {
         backgroundColor: "#e5b744",
-        // color: "white",
         border: 0,
-
-        // transform: "scale(1.02)",
       },
     },
   };
 
-  const menutItems1 = [
+  const menutItems = [
     { title: "Account Statement", link: "/my-account/account_statement" },
     { title: "Profile/Loss Report", link: "/my-account/profit_loss" },
     { title: "Profile/Loss Card Report", link: "/my-account/profit_loss_card" },
@@ -76,23 +74,19 @@ const MyAccount = () => {
       }}
     >
       <Box sx={{ width: "100%" }}>
-        <Box sx={{}}>
-          <Typography
-            sx={[
-              {
-                fontSize: { lg: "18px", xs: "10px" },
-                fontWeight: "600",
-                fontFamily: "Montserrat",
-                padding: "10px 13px",
-                paddingBottom: "15px",
-                color: "#fff",
-                textTransform: "uppercase",
-              },
-            ]}
-          >
-            My Account
-          </Typography>
-        </Box>
+        <Typography
+          sx={{
+            fontSize: { lg: "18px", xs: "10px" },
+            fontWeight: "600",
+            fontFamily: "Montserrat",
+            padding: "10px 13px",
+            paddingBottom: "15px",
+            color: "#fff",
+            textTransform: "uppercase",
+          }}
+        >
+          My Account
+        </Typography>
         <Box
           sx={{
             background: "#F8C851",
@@ -102,7 +96,7 @@ const MyAccount = () => {
             borderRadius: "5px",
           }}
         >
-          {menutItems1.map((x, index) => (
+          {menutItems.map((x: MenuItemProps, index: number) => (
             <MenuItem
               key={index}
               dense={true}

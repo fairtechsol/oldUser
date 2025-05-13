@@ -41,3 +41,30 @@ export interface PaginationInterface {
   className?: any;
   callPage?: any;
 }
+export interface TimeLeftProps {
+  days: string;
+  hours: string;
+  minutes: string;
+  seconds?: string;
+}
+
+export interface CasinoGameProps {
+  game_id: string;
+  game_name: string;
+  category: string;
+  provider_name: string;
+  sub_provider_name: string;
+  status: string;
+  url_thumb: string;
+  game_code: string;
+  url?: string;
+  name?: string;
+  imgSrc?: string;
+}
+
+export interface EventNamesType {
+  title: string;
+  image: string;
+  url: string;
+  active: boolean;
+}

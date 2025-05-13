@@ -1,21 +1,27 @@
 import { Box } from "@mui/material";
+import { memo } from "react";
+import NumberDropDown from "../Common/NumberDropDown";
 import SearchInput from "../Common/SearchInput";
 
-import { ApiConstants } from "../../utils/Constants";
-import NumberDropDown from "../Common/NumberDropDown";
+interface ListHProps {
+  searchFor: string;
+  pageLimit: number;
+  setPageLimit: (val: number) => void;
+  fromDate: any;
+  toDate: any;
+  setCurrentPage: (val: number) => void;
+  setSearchValue: (val: string) => void;
+}
 
-const ListH = (props: any) => {
-  const {
-    getLimitEntries,
-    getAccountStatement,
-    searchFor,
-    pageLimit,
-    setPageLimit,
-    fromDate,
-    toDate,
-    setCurrentPage,
-    setSearchValue,
-  } = props;
+const ListH = ({
+  searchFor,
+  pageLimit,
+  setPageLimit,
+  fromDate,
+  toDate,
+  setCurrentPage,
+  setSearchValue,
+}: ListHProps) => {
   return (
     <Box
       sx={{
@@ -32,24 +38,17 @@ const ListH = (props: any) => {
       }}
     >
       <NumberDropDown
-        getLimitEntries={getLimitEntries}
         setPageLimit={setPageLimit}
         pageLimit={pageLimit}
-        textColor={"000"}
+        textColor="#000"
       />
-
       <SearchInput
-        show={true}
         searchFor={searchFor}
-        endpoint={ApiConstants.USER.LIST}
-        getListOfUser={getAccountStatement}
         setCurrentPage={setCurrentPage}
         pageLimit={pageLimit}
         fromDate={fromDate}
         toDate={toDate}
         onChange={setSearchValue}
-        width={"100%"}
-        placeholder={"Search..."}
         inputContainerStyle={{
           width: { xs: "50vw", lg: "17vw" },
           marginLeft: "auto",
@@ -59,4 +58,4 @@ const ListH = (props: any) => {
   );
 };
 
-export default ListH;
+export default memo(ListH);

@@ -1,48 +1,54 @@
 import { Box, Typography } from "@mui/material";
-import { memo, useState } from "react";
-import { ARROWUP, LockIcon } from "../../../assets";
+import { memo, useCallback, useMemo, useState } from "react";
+import { ARROWUP } from "../../../assets";
 import Divider from "../../../helper/Divider";
-import { currencyFormatter } from "../../../helper/index";
-import FastTimePlaceBet from "../MatchOdds/Bets/FastTimePlaceBet";
-import FastTime from "../MatchOdds/FastTime";
 import CricketCasinoMarketBox from "./CricketCasinoMarketBox";
 import SmallboxSeason from "./SmallBoxSeason";
 
+interface CricketCasinoMarketProps {
+  data: any;
+  allBetsData: any;
+  show: any;
+  setShow: any;
+  upcoming: boolean;
+  title: string;
+  eventType: string;
+  min: number | string | null | undefined;
+  typeOfBet: string;
+  matchDetails: any;
+  type?: string | null | undefined;
+}
+
 const CricketCasinoMarket = ({
   data,
-  showFast,
-  teamARates,
-  teamBRates,
-  teamCRates,
   allBetsData,
   show,
   setShow,
-  setFastAmount,
-  fastAmount,
-  session,
-  betLock,
   upcoming,
-  handleRateChange,
   title,
   eventType,
   min,
   typeOfBet,
   matchDetails,
   type,
-  mid,
-}: any) => {
-  const [showFastTimeBox, setShowFastTimeBox] = useState(false);
-  // const [fastBetLoading, setFastBetLoading] = useState(false);
-  // const [localData, setLocalData] = useState(newData);
-  // useEffect(() => {
-  //   setLocalData(newData);
-  // }, [newData]);
+}: CricketCasinoMarketProps) => {
   const [visible, setVisible] = useState(true);
+
+  // Memoized values
+  const filteredBetsData = useMemo(() =>
+    Array.from(new Set(allBetsData))?.filter((item: any) => item?.betId == data?.id),
+    [allBetsData, data?.id]
+  );
+
+  const toggleVisibility = useCallback(() => setVisible(prev => !prev), []);
+
+  const isActive = useMemo(() => !["result", "unSave"].includes(data?.activeStatus),
+    [data?.activeStatus]);
 
   return (
     <>
       <Box
-        id={"test"}
+        id="test"
         sx={{
           display: "flex",
           position: "relative",
@@ -88,29 +94,19 @@ const CricketCasinoMarket = ({
             >
               {title}
             </Typography>
-            {showFast && (
-              <FastTime
-                session={session}
-                setFastAmount={setFastAmount}
-                setShowFastTimeBox={setShowFastTimeBox}
-                data={fastAmount ? currencyFormatter(fastAmount) : ""}
-              />
-            )}
           </Box>
           <Box
             sx={{
               flex: 0.1,
               background: "#262626",
-              // '#262626'
             }}
           >
-            <div className="slanted"></div>
+            <div className="slanted" />
           </Box>
           <Box
             sx={{
               flex: 1,
               background: "#262626",
-              // '#262626' ,
               display: "flex",
               alignItems: "center",
               justifyContent: {
@@ -120,51 +116,34 @@ const CricketCasinoMarket = ({
               },
             }}
           >
-            <SmallboxSeason
-              allBetsData={Array.from(new Set(allBetsData))?.filter(
-                (item: any) => item?.betId == data?.id
-              )}
-            />
+            <SmallboxSeason allBetsData={filteredBetsData} />
             <Box
               className="arrowUpCollaps"
               sx={{
                 flex: 1,
                 background: { lg: "#262626", xs: "none" },
                 position: { lg: "static", xs: "absolute" },
-                // '#262626' ,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "flex-end",
               }}
             >
               <img
-                onClick={() => {
-                  setVisible(!visible);
-                }}
+                onClick={toggleVisibility}
                 src={ARROWUP}
                 style={{
-                  transform: visible ? "rotate(180deg)" : "rotate(0deg)",
+                  transform: !visible ? "rotate(180deg)" : "rotate(0deg)",
                   width: "15px",
                   height: "15px",
                   marginRight: "5px",
                   marginLeft: "5px",
                   cursor: "pointer",
                 }}
-                alt=""
+                alt="arrow up"
               />
             </Box>
           </Box>
         </Box>
-        {showFastTimeBox && (
-          <Box>
-            <FastTimePlaceBet
-              session={session}
-              setFastAmount={setFastAmount}
-              selectedFastAmount={fastAmount}
-              setShowFastTimeBox={setShowFastTimeBox}
-            />
-          </Box>
-        )}
 
         {visible && (
           <Box sx={{ width: "100%", position: "relative" }}>
@@ -179,7 +158,7 @@ const CricketCasinoMarket = ({
                   background: "rgba(0, 0, 0, 0.4)",
                   zIndex: 2,
                 }}
-              ></Box>
+              />
             )}
             <Box
               sx={{
@@ -207,8 +186,6 @@ const CricketCasinoMarket = ({
                   }}
                 >
                   MIN:{min}
-                  {/* MAX:
-                    {max} */}
                 </Typography>
                 <Typography
                   sx={{
@@ -218,8 +195,6 @@ const CricketCasinoMarket = ({
                   }}
                 >
                   MAX:{data?.max}
-                  {/* MAX:
-                    {max} */}
                 </Typography>
               </Box>
               <Box
@@ -241,7 +216,6 @@ const CricketCasinoMarket = ({
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-
                     borderLeft: {
                       lg: "0 solid #319e5b",
                       xs: "1px solid #319e5b",
@@ -260,84 +234,15 @@ const CricketCasinoMarket = ({
                 </Box>
               </Box>
             </Box>
-
-            {betLock && (
-              <Box
-                sx={{
-                  position: "absolute",
-                  height: "86%",
-                  top: "14%",
-                  width: "100%",
-                  display: "flex",
-                  zIndex: "999",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  background: "rgba(0, 0, 0, .6)",
-                }}
-              >
-                <Box
-                  sx={{
-                    width: { xs: "60%", lg: "40%", md: "60%" },
-                  }}
-                ></Box>
-                <Box
-                  sx={{
-                    width: { xs: "40%", lg: "60%", md: "40%" },
-                    gap: 1,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <img
-                    style={{ width: "35px", height: "40px" }}
-                    src={LockIcon}
-                    alt=""
-                  />
-                  <Typography
-                    sx={{
-                      fontWeight: "600",
-                      margin: "20px 0px 0px -25px",
-                      fontSize: "20px",
-                      color: "#FFF",
-                    }}
-                  >
-                    Locked
-                  </Typography>
-                </Box>
-              </Box>
-            )}
-            {/* 
-            {upcoming && (
-              <Box
-                sx={{
-                  position: "absolute",
-                  height: "100%",
-                  // top: "29%",
-                  width: "100%",
-                  display: "flex",
-                  zIndex: "999",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  background: "rgba(0, 0, 0, .5)",
-                }}
-              ></Box>
-            )} */}
-
             <Box
               sx={{
                 display: "flex",
                 flexDirection: "column",
                 width: "100%",
                 position: "relative",
-                // maxHeight: "387px",
-                // overflowY: "visible",
               }}
             >
-              {!(
-                data?.activeStatus === "result" ||
-                data?.activeStatus === "unSave"
-              ) &&
+              {isActive &&
                 Array.from({ length: 10 }, (_, index) => index)?.map(
                   (element: any, index: any) => {
                     const currSessionItem =
@@ -356,31 +261,19 @@ const CricketCasinoMarket = ({
                           index={index}
                           upcoming={upcoming}
                           typeOfBet={typeOfBet}
-                          setFastBetLoading={() => {}}
                           eventType={eventType}
                           data={{
                             ...currSessionItem,
                             matchId: matchDetails?.id,
                             type: type,
                             id: data?.id,
+                            mid: data?.mid,
                             RunnerName: data?.RunnerName,
-                          }}
-                          sessionMain={session}
-                          selectedFastAmount={fastAmount}
-                          setFastAmount={setFastAmount}
-                          mainData={data}
-                          allRates={{
-                            teamA: teamARates,
-                            teamB: teamBRates,
-                            teamC: teamCRates,
                           }}
                           show={show}
                           setShow={setShow}
-                          handleRateChange={handleRateChange}
-                          profitLossData={Array.from(
-                            new Set(allBetsData)
-                          )?.filter((item: any) => item?.betId === data?.id)}
-                          mid={mid}
+                          profitLossData={filteredBetsData}
+                          mid={data?.mid}
                         />
                         <Divider />
                       </Box>

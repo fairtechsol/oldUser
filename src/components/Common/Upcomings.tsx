@@ -1,9 +1,16 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import moment from "moment";
 import { IconConstants } from "../../helper/gameConstants";
+import { TimeLeftProps } from "../../interface/common";
+import { memo } from "react";
 
-const Upcomings = (props: any) => {
-  const { match, timeLeft, upcoming } = props;
+interface UpcomingsProps {
+  match: any;
+  timeLeft: TimeLeftProps;
+  upcoming: boolean;
+}
+
+const Upcomings = ({ match, timeLeft, upcoming }: UpcomingsProps) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   return (
@@ -41,12 +48,18 @@ const Upcomings = (props: any) => {
           <span style={{ fontWeight: "500" }}>
             ({moment(match.startAt).format("LLL")})
           </span>
-        </Typography>{" "}
+        </Typography>
       </Box>
-      <div style={{ background: "#f1c550" }}>
+      <div
+        style={{
+          background: "#f1c550",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         {location.pathname === "/inplay" && (
           <img
-            className="inplayicon"
             src={IconConstants[match?.matchType]}
             alt="Inplay Icon"
             width={25}
@@ -58,18 +71,15 @@ const Upcomings = (props: any) => {
         sx={{
           flex: 0.1,
           background: "#262626",
-          // '#262626'
         }}
       >
-        <div className="slanted"></div>
+        <div className="slanted" />
       </Box>
-
       <Box
         sx={{
           flex: 1,
           background: "#262626",
           display: "flex",
-
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
@@ -87,9 +97,9 @@ const Upcomings = (props: any) => {
               display: "flex",
               alignSelf: "flex-end",
               visibility:
-                Number(timeLeft) === 0 &&
-                Number(timeLeft) === 0 &&
-                Number(timeLeft) === 0
+                Number(timeLeft?.days) === 0 &&
+                Number(timeLeft?.hours) === 0 &&
+                Number(timeLeft?.minutes) === 0
                   ? "hidden"
                   : "visible",
             }}
@@ -213,4 +223,4 @@ const Upcomings = (props: any) => {
   );
 };
 
-export default Upcomings;
+export default memo(Upcomings);

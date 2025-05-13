@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  betsSuccessReset,
   getCurrentBets,
   getPlacedBets,
   getPlacedBetsForAccountStatement,
@@ -48,11 +47,11 @@ const placedBet = createSlice({
       .addCase(getPlacedBets.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.placedBets = action?.payload;
+        state.placedBets = action.payload;
       })
       .addCase(getPlacedBets.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(getCurrentBets.pending, (state) => {
         state.loading = true;
@@ -63,11 +62,11 @@ const placedBet = createSlice({
       .addCase(getCurrentBets.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.placedBets = action?.payload;
+        state.placedBets = action.payload;
       })
       .addCase(getCurrentBets.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(getRunAmount.pending, (state) => {
         state.loading = true;
@@ -78,11 +77,11 @@ const placedBet = createSlice({
       .addCase(getRunAmount.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.runAmount = action?.payload;
+        state.runAmount = action.payload;
       })
       .addCase(getRunAmount.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(getPlacedBetsForAccountStatement.pending, (state) => {
         state.loading = true;
@@ -97,13 +96,13 @@ const placedBet = createSlice({
       })
       .addCase(getPlacedBetsForAccountStatement.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(resetRunAmount, (state) => {
         state.runAmount = {};
       })
       .addCase(updateRunAmount.fulfilled, (state, action) => {
-        const { betId, profitLossData } = action?.payload;
+        const { betId, profitLossData } = action.payload;
         if (betId === state?.runAmount?.betId) {
           state.runAmount = {
             ...state.runAmount,
@@ -112,7 +111,7 @@ const placedBet = createSlice({
         }
       })
       .addCase(updateRunAmountOnDeleteBet.fulfilled, (state, action) => {
-        const { betId, profitLoss } = action?.payload;
+        const { betId, profitLoss } = action.payload;
         if (betId === state?.runAmount?.betId) {
           state.runAmount = {
             ...state.runAmount,
@@ -121,8 +120,7 @@ const placedBet = createSlice({
         }
       })
       .addCase(updateDeleteReasonBet.fulfilled, (state, action) => {
-        const { betPlacedId, deleteReason, isPermanentDelete } =
-          action?.payload;
+        const { betPlacedId, deleteReason, isPermanentDelete } = action.payload;
         const updateDeleteReason = (bet: any) => {
           if (betPlacedId.includes(bet?.id)) {
             bet.deleteReason = deleteReason;
@@ -140,7 +138,7 @@ const placedBet = createSlice({
         }
       })
       .addCase(updateEditDeleteReasonBet.fulfilled, (state, action) => {
-        const { betIds, deleteReason } = action?.payload;
+        const { betIds, deleteReason } = action.payload;
         const updateDeleteReason = (bet: any) => {
           if (betIds.includes(bet?.id)) {
             bet.deleteReason = deleteReason;
@@ -155,11 +153,8 @@ const placedBet = createSlice({
       })
       .addCase(updateBetsPlaced.fulfilled, (state, action) => {
         state.placedBets = Array.from(
-          new Set([action?.payload, ...state.placedBets])
+          new Set([action.payload, ...state.placedBets])
         );
-      })
-      .addCase(betsSuccessReset, (state) => {
-        state.success = false;
       });
   },
 });

@@ -1,20 +1,19 @@
-import { Box, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import moment from "moment";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getMatchWiseProfitLossCard } from "../../../store/actions/user/userAction";
 import { AppDispatch, RootState } from "../../../store/store";
-import Footer from "../../AccountStatement/Footer";
 import RowComponentMatches from "./RowComponentMatches";
 import RowHeaderMatches from "./RowHeaderMatches";
+
 const ProfitLossComponent = ({
   eventData,
   betData,
   sessionBetData,
-  handleReport,
-  currentPage,
-  pageCount,
-  setCurrentPage,
+  // currentPage,
+  // pageCount,
+  // setCurrentPage,
   sessionBets,
   setShow,
   show,
@@ -35,7 +34,8 @@ const ProfitLossComponent = ({
   const [event, setEvent] = useState("");
   const getHandleReport = (eventType: any) => {
     setEvent(eventType);
-    if (show) {
+    if (eventType === event) {
+      setShow((prev: boolean) => !prev);
       setSelectedId((prev) => ({
         ...prev,
         type: "",
@@ -43,8 +43,12 @@ const ProfitLossComponent = ({
         betId: "",
         sessionBet: false,
       }));
-    }
-    if (!show) {
+      setEvent("");
+    } else {
+      if (!show) {
+        setShow((prev: boolean) => !prev);
+      }
+      setEvent(eventType);
       setSelectedId((prev) => ({
         ...prev,
         type: "",
@@ -61,15 +65,7 @@ const ProfitLossComponent = ({
         })
       );
     }
-    setShow(!show);
   };
-
-  function callPage(val: any) {
-    // setCurrentPage(setProfitLossReportPage(parseInt(val)));
-    setCurrentPage(parseInt(val));
-
-    handleReport(event, parseInt(val));
-  }
 
   const getBetReport = (value: any) => {
     setSelectedId({
@@ -81,7 +77,7 @@ const ProfitLossComponent = ({
   };
 
   return eventData?.length > 0 ? (
-    <Box>
+    <>
       {eventData?.map((item: any, index: number) => {
         return (
           <RowHeaderMatches
@@ -90,53 +86,47 @@ const ProfitLossComponent = ({
             index={index}
             getHandleReport={getHandleReport}
             show={show}
-          />
+            event={event}
+          >
+            {item?.eventType === event &&
+              matchWiseProfitLossCard?.map((item: any, index: number) => {
+                return (
+                  <RowComponentMatches
+                    key={index}
+                    item={item}
+                    index={index + 1}
+                    selectedId={selectedId}
+                    betData={betData}
+                    sessionBetData={sessionBetData}
+                    sessionBets={sessionBets}
+                    getBetReport={getBetReport}
+                  />
+                );
+              })}
+          </RowHeaderMatches>
         );
       })}
 
-      <Box>
-        {show &&
-          matchWiseProfitLossCard?.map((item: any, index: number) => {
-            return (
-              <RowComponentMatches
-                key={index}
-                item={item}
-                index={index + 1}
-                selectedId={selectedId}
-                betData={betData}
-                sessionBetData={sessionBetData}
-                sessionBets={sessionBets}
-                getBetReport={getBetReport}
-              />
-            );
-          })}
-      </Box>
-
-      {show && (
+      {/* {show && (
         <Footer
-          getListOfUser={() => handleReport(event)}
           setCurrentPage={setCurrentPage}
           currentPage={currentPage}
-          // pages={pageCount}
           pages={Math.ceil(parseInt(pageCount))}
-          callPage={callPage}
         />
-      )}
-    </Box>
+      )} */}
+    </>
   ) : (
-    <Box>
-      <Typography
-        sx={{
-          color: "#fff",
-          textAlign: "center",
-          fontSize: { lg: "16px", xs: "10px" },
-          fontWeight: "600",
-          margin: "1rem",
-        }}
-      >
-        No Matching Records Found
-      </Typography>
-    </Box>
+    <Typography
+      sx={{
+        color: "#fff",
+        textAlign: "center",
+        fontSize: { lg: "16px", xs: "10px" },
+        fontWeight: "600",
+        margin: "1rem",
+      }}
+    >
+      No Matching Records Found
+    </Typography>
   );
 };
-export default ProfitLossComponent;
+export default memo(ProfitLossComponent);

@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 
 const LiveMarket = ({ title, boxStyle, titleStyle, onClick }: any) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -62,4 +62,4 @@ const LiveMarket = ({ title, boxStyle, titleStyle, onClick }: any) => {
   );
 };
 
-export default LiveMarket;
+export default memo(LiveMarket);

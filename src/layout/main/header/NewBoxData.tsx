@@ -1,13 +1,13 @@
 import { memo, useEffect, useRef, useState } from "react";
 
-import StyledImage from "../../../components/Common/StyledImages";
-import DownIcon from "../../../assets/images/down.svg";
 import { Box, Typography } from "@mui/material";
-import DropDownMenu from "./DropdownMenu";
-import { AppDispatch, RootState } from "../../../store/store";
 import { useDispatch, useSelector } from "react-redux";
-import { updateLogoutModal } from "../../../store/actions/user/userAction";
+import DownIcon from "../../../assets/images/down.svg";
+import StyledImage from "../../../components/Common/StyledImages";
 import { handleDecimalAmount } from "../../../helper";
+import { updateLogoutModal } from "../../../store/actions/user/userAction";
+import { AppDispatch, RootState } from "../../../store/store";
+import DropDownMenu from "./DropdownMenu";
 
 const NewBoxData = ({
   title,
@@ -75,16 +75,6 @@ const NewBoxData = ({
       setAnchorEl(event.currentTarget);
     }
   };
-  // const handleNumber=(num:any)=>{
-  //   let value: any = parseFloat(num)?.toFixed(2)?.toString()?.split('.');
-  //   return(
-  //     value?.length > 0 ?
-  //       <>
-  //        <span style={{color:color}}>{new Intl.NumberFormat("en-IN").format(value[0])}.</span>
-  //        <span  style={{fontSize:"0.8em",color:color}}>{value[1]}</span>
-  //       </> : null
-  //   )
-  // }
   return (
     <Box>
       <Box
@@ -122,20 +112,6 @@ const NewBoxData = ({
           }}
         >
           <Typography
-            // sx={[
-            //   {
-            //     fontSize: { lg: "8px", xs: "8px" },
-            //     fontWeight: { xs: "bold", lg: "500px" },
-            //     textTransform: showDropDown && "capitalize",
-            //     whiteSpace: showDropDown && "nowrap",
-            //     textOverflow: showDropDown && "ellipsis",
-            //     maxWidth: showDropDown && "54px",
-            //     overflow: showDropDown && "hidden",
-            //     marginLeft: 0.5,
-            //     color: "black",
-            //   },
-            //   titleStyle,
-            // ]}
             sx={[
               {
                 fontSize: { lg: "8px", xs: "8px" },
@@ -171,7 +147,7 @@ const NewBoxData = ({
             <StyledImage
               src={DownIcon}
               sx={{ height: "10px", width: "10px", marginRight: "5px" }}
-              alt=""
+              alt="down"
             />
           </Box>
         )}

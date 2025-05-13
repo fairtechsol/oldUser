@@ -2,7 +2,7 @@ import { Box, Button, CircularProgress, useTheme } from "@mui/material";
 import { eye, eyeLock, mail } from "../../../assets";
 
 import { useFormik } from "formik";
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Input from "../../../components/login/input";
@@ -10,7 +10,13 @@ import { authReset, login } from "../../../store/actions/auth/authAction";
 import { AppDispatch, RootState } from "../../../store/store";
 import { loginValidationSchema } from "../../../utils/Validations";
 
-const initialValues: any = {
+interface LoginProps {
+  userName: string;
+  password: string;
+  loginType: string;
+}
+
+const initialValues: LoginProps = {
   userName: "",
   password: "",
   loginType: "user",
@@ -27,7 +33,7 @@ const Login = () => {
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema: loginValidationSchema,
-    onSubmit: (values: any) => {
+    onSubmit: (values: LoginProps) => {
       if (loading) {
         return;
       }
@@ -43,7 +49,6 @@ const Login = () => {
         sessionStorage.setItem("forceChangePassword", "true");
         navigate("/change-password");
       } else {
-        // navigate("/match");
         navigate("/inplay");
       }
       dispatch(authReset());
@@ -56,7 +61,6 @@ const Login = () => {
       style={{
         width: "75%",
         justifyContent: "center",
-        // marginTop: "45px",
       }}
     >
       <Box
@@ -67,9 +71,9 @@ const Login = () => {
         }}
       >
         <Input
-          id={"userName"}
-          placeholder={"Enter Username"}
-          title={"Username"}
+          id="userName"
+          placeholder="Enter Username"
+          title="Username"
           type="text"
           name="userName"
           img={mail}
@@ -81,10 +85,10 @@ const Login = () => {
           <p style={{ color: "#fa1e1e" }}>{errors.userName as string}</p>
         )}
         <Input
-          id={"password"}
-          title={"Password"}
+          id="password"
+          title="Password"
           type="password"
-          placeholder={"Enter Password"}
+          placeholder="Enter Password"
           containerStyle={{ marginTop: "10px" }}
           img={eye}
           img1={eyeLock}
@@ -105,10 +109,6 @@ const Login = () => {
         }}
       >
         <Button
-          // onClick={(e) => {
-          //     navigate("/match", { state: { activeTab: "CRICKET" } });
-          //     e.stopPropagation();
-          // }}
           type="submit"
           variant="contained"
           color="secondary"
@@ -141,4 +141,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default memo(Login);

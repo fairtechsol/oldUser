@@ -1,41 +1,44 @@
 import { Box, Typography } from "@mui/material";
 import { memo, useState } from "react";
-import { ARROWUP, LockIcon } from "../../../assets";
+import { ARROWUP } from "../../../assets";
 import Divider from "../../../helper/Divider";
 import { sessionBettingType } from "../../../utils/Constants";
 import SmallBoxSeason from "../QuickSession/SmallBoxSeason";
 import QuickSessionMarketBox from "./QuickSessionMarketBox";
 
+interface QuickSessionMarketProps {
+  newData: any[];
+  allBetsData: any[];
+  session: any;
+  upcoming: boolean;
+  title: string;
+  minBet: number | string;
+  typeOfBet: string | null | undefined | any;
+  eventType: string | null | undefined;
+  setShow: (val: any) => void;
+  matchDetails?: any;
+  show: any;
+}
+
 const QuickSessionMarket = ({
-  data,
   newData,
-  backTeamA,
-  backTeamB,
-  backTeamC,
   allBetsData,
-  setFastAmount,
-  fastAmount,
   session,
-  betLock,
   upcoming,
-  handleRateChange,
   title,
+  show,
   minBet,
   typeOfBet,
   eventType,
   setShow,
-  show,
   matchDetails,
-}: any) => {
+}: QuickSessionMarketProps) => {
   const [showFastTimeBox, setShowFastTimeBox] = useState(false);
-  const [setFastBetLoading] = useState(false);
-  const [selectedItem, setSelectedItem] = useState("");
   const [visible, setVisible] = useState(true);
 
   return (
     <>
       <Box
-        id={"test"}
         sx={{
           display: "flex",
           position: "relative",
@@ -81,29 +84,19 @@ const QuickSessionMarket = ({
             >
               {title}
             </Typography>
-            {/* {showFast && (
-              <FastTime
-                session={session}
-                setFastAmount={setFastAmount}
-                setShowFastTimeBox={setShowFastTimeBox}
-                data={fastAmount ? currencyFormatter(fastAmount) : ""}
-              />
-            )} */}
           </Box>
           <Box
             sx={{
               flex: 0.1,
               background: "#262626",
-              // '#262626'
             }}
           >
-            <div className="slanted"></div>
+            <div className="slanted" />
           </Box>
           <Box
             sx={{
               flex: 1,
               background: "#262626",
-              // '#262626' ,
               display: "flex",
               alignItems: "center",
               justifyContent: {
@@ -113,7 +106,6 @@ const QuickSessionMarket = ({
               },
             }}
           >
-            {/* {console.warn("newData11 ",newData)} */}
             <SmallBoxSeason
               allBetsData={Array.from(new Set(allBetsData))?.filter(
                 (item: any) =>
@@ -132,7 +124,6 @@ const QuickSessionMarket = ({
                 flex: 1,
                 background: { lg: "#262626", xs: "none" },
                 position: { lg: "static", xs: "absolute" },
-                // '#262626' ,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "flex-end",
@@ -144,14 +135,14 @@ const QuickSessionMarket = ({
                 }}
                 src={ARROWUP}
                 style={{
-                  transform: visible ? "rotate(180deg)" : "rotate(0deg)",
+                  transform: !visible ? "rotate(180deg)" : "rotate(0deg)",
                   width: "15px",
                   height: "15px",
                   marginRight: "5px",
                   marginLeft: "5px",
                   cursor: "pointer",
                 }}
-                alt=""
+                alt="arrow up"
               />
             </Box>
           </Box>
@@ -159,148 +150,96 @@ const QuickSessionMarket = ({
 
         {visible && (
           <Box sx={{ width: "100%", position: "relative" }}>
-            {
+            <Box
+              sx={{
+                display: "flex",
+                background: "#319E5B",
+                height: "25px",
+                width: "100%",
+                alignSelf: "center",
+              }}
+            >
+              <Box
+                sx={{
+                  display: "flex",
+                  background: "'#319E5B'",
+                  height: "25px",
+                  width: "40%",
+                  alignItems: "center",
+                }}
+              >
+                <Typography
+                  sx={{
+                    color: "white",
+                    fontSize: { lg: "11px", xs: "9px" },
+                    marginLeft: "7px",
+                  }}
+                >
+                  MIN:{minBet}
+                </Typography>
+              </Box>
               <Box
                 sx={{
                   display: "flex",
                   background: "#319E5B",
+                  marginRight: { lg: "24px", xs: "0px" },
                   height: "25px",
-                  width: { lg: "100%", xs: "99.9%" },
-                  alignSelf: "center",
+                  gap: { xs: "0px", lg: "1px", md: "1px" },
+                  width: { lg: "60%", md: "78%", xs: "80%" },
+                  justifyContent: { lg: "center", xs: "flex-end" },
                 }}
               >
                 <Box
                   sx={{
-                    display: "flex",
-                    background: "'#319E5B'",
-                    height: "25px",
-                    width: "40%",
-                    alignItems: "center",
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      color: "white",
-                      fontSize: { lg: "11px", xs: "9px" },
-                      marginLeft: "7px",
-                    }}
-                  >
-                    MIN:{minBet}
-                    {/* MAX:
-                    {maxBet} */}
-                  </Typography>
-                </Box>
-                <Box
-                  sx={{
-                    display: "flex",
-                    background: "#319E5B",
-                    marginRight: { lg: "14px", xs: "0px" },
-                    height: "25px",
-                    gap: { xs: "0px", lg: "1px", md: "1px" },
-                    width: { lg: "60%", md: "78%", xs: "80%" },
-                    justifyContent: { lg: "center", xs: "flex-end" },
-                  }}
-                >
-                  <Box
-                    sx={{
-                      background: "#FF9292",
-                      width: { lg: "20.5%", xs: "30%" },
-                      height: "100%",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-
-                      borderLeft: {
-                        lg: "0 solid #319e5b",
-                        xs: "1px solid #319e5b",
-                      },
-                    }}
-                  >
-                    <Typography
-                      sx={{
-                        fontSize: "12px",
-                        color: "black",
-                        fontWeight: "600",
-                      }}
-                    >
-                      NO
-                    </Typography>
-                  </Box>
-                  <Box sx={{ width: ".35%", display: "flex" }}></Box>
-                  <Box
-                    sx={{
-                      background: "#00C0F9",
-                      width: { lg: "20.5%", xs: "29.9%" },
-                      height: "100%",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      borderRight: {
-                        lg: " 4px solid #319e5b;",
-                        xs: "0 solid #319e5b",
-                      },
-                    }}
-                  >
-                    <Typography
-                      sx={{
-                        fontSize: "12px",
-                        color: "black",
-                        fontWeight: "600",
-                      }}
-                    >
-                      YES
-                    </Typography>
-                  </Box>
-                </Box>
-              </Box>
-            }
-            {betLock && (
-              <Box
-                sx={{
-                  position: "absolute",
-                  height: "86%",
-                  top: "14%",
-                  width: "100%",
-                  display: "flex",
-                  zIndex: "999",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  background: "rgba(0, 0, 0, .6)",
-                }}
-              >
-                <Box
-                  sx={{
-                    width: { xs: "60%", lg: "40%", md: "60%" },
-                  }}
-                ></Box>
-                <Box
-                  sx={{
-                    width: { xs: "40%", lg: "60%", md: "40%" },
-                    gap: 1,
+                    background: "#FF9292",
+                    width: { lg: "20%", xs: "30%" },
+                    height: "100%",
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
+                    borderLeft: {
+                      lg: "0 solid #319e5b",
+                      xs: "1px solid #319e5b",
+                    },
                   }}
                 >
-                  <img
-                    style={{ width: "35px", height: "40px" }}
-                    src={LockIcon}
-                    alt=""
-                  />
                   <Typography
                     sx={{
+                      fontSize: "12px",
+                      color: "black",
                       fontWeight: "600",
-                      margin: "20px 0px 0px -25px",
-                      fontSize: "20px",
-                      color: "#FFF",
                     }}
                   >
-                    Locked
+                    NO
+                  </Typography>
+                </Box>
+                <Box sx={{ width: ".25%", display: "flex" }} />
+                <Box
+                  sx={{
+                    background: "#00C0F9",
+                    width: { lg: "21%", xs: "29.9%" },
+                    height: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderRight: {
+                      lg: " 4px solid #319e5b;",
+                      xs: "0 solid #319e5b",
+                    },
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      fontSize: "12px",
+                      color: "black",
+                      fontWeight: "600",
+                    }}
+                  >
+                    YES
                   </Typography>
                 </Box>
               </Box>
-            )}
-
+            </Box>
             <Box
               sx={{
                 display: "flex",
@@ -323,31 +262,15 @@ const QuickSessionMarket = ({
                       }}
                     >
                       <QuickSessionMarketBox
-                        // betStatus={false}
                         index={index}
                         upcoming={upcoming}
-                        closeModal={
-                          [0, 2]?.includes(element?.betStatus) ? true : false
-                        }
                         typeOfBet={typeOfBet}
-                        setFastBetLoading={setFastBetLoading}
                         data={element}
                         sessionMain={session}
                         setShowFastTimeBox={setShowFastTimeBox}
-                        selectedFastAmount={fastAmount}
-                        setFastAmount={setFastAmount}
                         showFastTimeBox={showFastTimeBox}
-                        setSelectedItem={setSelectedItem}
-                        selectedItem={selectedItem}
-                        mainData={data}
-                        allRates={{
-                          teamA: backTeamA,
-                          teamB: backTeamB,
-                          teamC: backTeamC,
-                        }}
-                        show={show}
                         setShow={setShow}
-                        handleRateChange={handleRateChange}
+                        show={show}
                         eventType={eventType}
                         profitLossData={Array.from(
                           new Set(allBetsData)

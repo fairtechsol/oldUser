@@ -1,49 +1,51 @@
 import { Box, Typography, useTheme } from "@mui/material";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { ARROWUP, DELETE } from "../../../assets";
 import { formatToINR } from "../../../helper";
+import { Bet } from "../../../interface/betPlace";
 import StyledImage from "../../Common/StyledImages";
 import RowComponent from "./RowComponent";
 
+interface AllRateSeperateProps {
+  profit?: boolean;
+  mark?: boolean;
+  mark2?: boolean;
+  betHistory?: boolean;
+  allBetsData: Bet[] | any;
+  count?: number;
+}
 const AllRateSeperate = ({
   profit,
   mark,
   mark2,
   betHistory,
   allBetsData,
-  count,
-  isArrow,
-  match
-}: any) => {
+}: AllRateSeperateProps) => {
   const [visible, setVisible] = useState(true);
-
   const theme = useTheme();
   const matchesMobile = theme.breakpoints.down("lg");
 
   return (
     <>
       <Box
-        sx={[
-          {
-            width: { md: "100%", xs: "100%", lg: "100%" },
-            display: "flex",
-            flexDirection: "column",
-            // alignSelf: "center",
-            marginX: { lg: "0vw", xs: "0px", md: "0px" },
-            marginY: { lg: ".5vh", xs: "2px" },
-            marginTop: { xs: "0" },
-            marginBottom: { lg: ".5vh", xs: "2px" },
-            borderRadius: "2px",
-            background: "white",
-            padding: "1px",
+        sx={{
+          width: { md: "100%", xs: "100%", lg: "100%" },
+          display: "flex",
+          flexDirection: "column",
+          marginX: { lg: "0vw", xs: "0px", md: "0px" },
+          marginY: { lg: ".5vh", xs: "2px" },
+          marginTop: { xs: "0" },
+          marginBottom: { lg: ".5vh", xs: "2px" },
+          borderRadius: "2px",
+          background: "white",
+          padding: "1px",
 
-            alignSelf: {
-              xs: "center",
-              md: "center",
-              lg: "flex-start",
-            },
+          alignSelf: {
+            xs: "center",
+            md: "center",
+            lg: "flex-start",
           },
-        ]}
+        }}
       >
         <Box
           sx={{
@@ -70,34 +72,21 @@ const AllRateSeperate = ({
                 marginLeft: "7px",
               }}
             >
-              All Rate Bets: {count ? count : allBetsData?.length}
+              All Rate Bets: {allBetsData?.length}
             </Typography>
           </Box>
           <Box
             sx={{
               flex: 0.1,
               background: "#262626",
-              // '#262626'
             }}
           >
-            <div className="slanted"></div>
+            <div className="slanted" />
           </Box>
-          {/* <Box
-            sx={{
-              flex: 1,
-              background: "#262626",
-              // '#262626' ,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "flex-end",
-            }}
-          ></Box> */}
-
           <Box
             sx={{
               flex: 1,
               background: "#262626",
-              // '#262626' ,
               display: "flex",
               alignItems: "center",
               justifyContent: "flex-end",
@@ -115,18 +104,8 @@ const AllRateSeperate = ({
                 marginRight: "5px",
                 marginLeft: "5px",
               }}
-              alt=""
+              alt="arrow up"
             />
-            {/* <Typography
-              sx={{ fontSize: "12px", fontWeight: "700", color: "#FF1111" }}
-            >
-              All Bet
-            </Typography>
-            <Typography
-              sx={{ fontSize: "12px", fontWeight: "700", color: "#0B4F26" }}
-            >
-              {count || 0}
-            </Typography> */}
           </Box>
         </Box>
         {visible && (
@@ -135,7 +114,6 @@ const AllRateSeperate = ({
               <Box
                 sx={{
                   height: "25px",
-                  // margin: { xs: "1px", lg: "0.5px" },
                   width: "30px",
                   display: "flex",
                   background: "black",
@@ -146,7 +124,7 @@ const AllRateSeperate = ({
                 <Typography
                   sx={{ fontWeight: "400", fontSize: "10px", color: "white" }}
                 >
-                  {"No"}
+                  No
                 </Typography>
               </Box>
               <RowComponent
@@ -159,9 +137,7 @@ const AllRateSeperate = ({
                   "Odds",
                   "Stake",
                 ]}
-                match={match}
               />
-
               {profit && (
                 <Box
                   sx={{
@@ -171,7 +147,6 @@ const AllRateSeperate = ({
                     background: "#319E5B",
                     justifyContent: "center",
                     alignItems: "center",
-                    // margin: { xs: "1px", lg: "0" },
                   }}
                 >
                   <Typography
@@ -181,14 +156,12 @@ const AllRateSeperate = ({
                       color: "white",
                     }}
                   >
-                    {"Profit/Loss"}
+                    Profit/Loss
                   </Typography>
                 </Box>
               )}
             </Box>
-
             <Box
-              // className="myScroll"
               sx={{
                 maxHeight: { xs: "200px", lg: "420px" },
                 overflowY: "auto",
@@ -218,7 +191,6 @@ const AllRateSeperate = ({
                       flexDirection: "row",
                       position: "relative",
                       gap: "1px",
-                      // marginBottom: { xs: "1px", lg: "1px" },
                     }}
                   >
                     <Box
@@ -227,7 +199,6 @@ const AllRateSeperate = ({
                         width: "30px",
                         display: "flex",
                         background: "black",
-                        // marginBottom: { xs: "1px", lg: "1px" },
                         justifyContent: "center",
                         alignItems: "center",
                       }}
@@ -242,7 +213,7 @@ const AllRateSeperate = ({
                         {formattedNum}
                       </Typography>
                     </Box>
-                    <RowComponent header={false} data={i} match={match}/>
+                    <RowComponent header={false} data={i} />
                     {i?.deleteReason && betHistory && (
                       <Box
                         sx={{
@@ -253,12 +224,11 @@ const AllRateSeperate = ({
                             display: "flex",
                             lg: profit ? "100 % " : "100% ",
                           },
-                          // background: "rgba(0, 0, 0, 0.6)",
                           height: "100%",
                           position: "absolute",
                         }}
                       >
-                        <Box sx={{ width: mark2 ? "20%" : "35%" }}></Box>
+                        <Box sx={{ width: mark2 ? "20%" : "35%" }} />
                       </Box>
                     )}
                     {i?.deleteReason && (
@@ -276,7 +246,7 @@ const AllRateSeperate = ({
                           position: "absolute",
                         }}
                       >
-                        <Box sx={{ width: mark2 ? "20%" : "35%" }}></Box>
+                        <Box sx={{ width: mark2 ? "20%" : "35%" }} />
                         <Box
                           sx={{
                             width: mark2 ? "80%" : "65%",
@@ -314,12 +284,11 @@ const AllRateSeperate = ({
                             display: "flex",
                             lg: profit ? "100 % " : "100% ",
                           },
-                          // background: "rgba(0, 0, 0, 0.6)",
                           height: "100%",
                           position: "absolute",
                         }}
                       >
-                        <Box sx={{ width: mark2 ? "20%" : "35%" }}></Box>
+                        <Box sx={{ width: mark2 ? "20%" : "35%" }} />
                       </Box>
                     )}
                     {profit && !i?.deleteReason && (
@@ -327,7 +296,6 @@ const AllRateSeperate = ({
                         sx={{
                           height: "40px",
                           width: "30%",
-                          // margin: { xs: "1px", lg: "1px" },
                           display: "flex",
                           background: i?.totalLoss > 0 ? "#10DC61" : "#E32A2A",
                           justifyContent: "center",
@@ -360,14 +328,14 @@ const AllRateSeperate = ({
                             )}
                           </Typography>
 
-                          {!matchesMobile && !isArrow && (
+                          {!matchesMobile && (
                             <StyledImage
                               sx={{
                                 width: { xs: "12px", lg: "15px" },
                                 height: { xs: "5px", lg: "7px" },
                               }}
                               src={ARROWUP}
-                              alt=""
+                              alt="arrow up"
                             />
                           )}
                         </Box>
@@ -378,7 +346,6 @@ const AllRateSeperate = ({
                         sx={{
                           height: "40px",
                           width: "30%",
-                          // margin: { xs: "1px", lg: "1px" },
                           display: "flex",
                           background: "black",
                           justifyContent: "center",
@@ -393,7 +360,7 @@ const AllRateSeperate = ({
                             marginRight: "5px",
                           }}
                           src={DELETE}
-                          alt=""
+                          alt="delete"
                         />
                         <Typography
                           sx={{
@@ -409,83 +376,35 @@ const AllRateSeperate = ({
                         </Typography>
                       </Box>
                     )}
-                    {/* {i?.deleteReason && betHistory && (
-                      <Box
-                        sx={{
-                          height: "40px",
-                          width: "30%",
-                          // margin: { xs: "1px", lg: "1px" },
-                          display: "flex",
-                          // background: "black",
-                          justifyContent: "center",
-                          alignItems: "center",
-                          zIndex: 999,
-                          position: "absolute",
-                          right: 0,
-                        }}
-                      > */}
-                    {/* <StyledImage
-                        sx={{
-                          width: { xs: "15px", lg: "20px" },
-                          height: { lg: "20px", xs: "14px" },
-                          marginRight: "5px",
-                        }}
-                        src={DELETE}
-                      />
-                      <Typography
-                        sx={{
-                          fontSize: { xs: "7px", lg: ".5vw" },
-                          color: "white",
-                          fontWeight: "700",
-                          width: { lg: "65%", xs: "55%" },
-                          textTransform: "uppercase",
-                        }}
-                      >
-                        Bet <span style={{ color: "#e41b23" }}>Deleted</span>{" "}
-                        Due {"\n"} {"i?.deleteReason"}
-                      </Typography> */}
                   </Box>
-                  // )}
-                  // </Box>
                 );
               })}
-              {/* <Footer
-                currentPage={currentPage}
-                pages={pageCount}
-                callPage={callPage}
-                currentPageNo={allbetsPage}
-              /> */}
             </Box>
           </>
         )}
       </Box>
-
-      {/* --------- */}
       <style>
         {`
-                /* width */
-                .myScroll::-webkit-scrollbar {
-                  width: 0px;
-                }
-
-                /* Track */
-                .myScroll::-webkit-scrollbar-track {
-                  background: #f1f1f1;
-                }
-
-                /* Handle */
-                .myScroll::-webkit-scrollbar-thumb {
-                  background: #888;
-                }
-
-                /* Handle on hover */
-                .myScroll::-webkit-scrollbar-thumb:hover {
-                  background: #555;
-                }
-              `}
+          /* width */
+          .myScroll::-webkit-scrollbar {
+            width: 0px;
+          }
+          /* Track */
+          .myScroll::-webkit-scrollbar-track {
+            background: #f1f1f1;
+          }
+          /* Handle */
+          .myScroll::-webkit-scrollbar-thumb {
+            background: #888;
+          }
+          /* Handle on hover */
+          .myScroll::-webkit-scrollbar-thumb:hover {
+            background: #555;
+          }
+        `}
       </style>
     </>
   );
 };
 
-export default AllRateSeperate;
+export default memo(AllRateSeperate);

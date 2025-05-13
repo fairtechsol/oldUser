@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 
 const SingleBox = ({
   data,
@@ -18,10 +19,8 @@ const SingleBox = ({
           height: "40px",
           flexDirection: "column",
           background: "#F8C851",
-          // marginX: { xs: "1px", lg: "1px" },
           display: "flex",
           justifyContent: "center",
-          // margin: "1px"
         }}
       >
         <Typography
@@ -34,7 +33,7 @@ const SingleBox = ({
         >
           {time}
         </Typography>
-        <Box sx={{ height: ".4vh" }}></Box>
+        <Box sx={{ height: ".4vh" }} />
         <Typography
           sx={{
             maxHeight: "1em",
@@ -72,7 +71,7 @@ const SingleBox = ({
         >
           {data.time}
         </Typography>
-        <Box sx={{ height: ".4vh" }}></Box>
+        <Box sx={{ height: ".4vh" }} />
         <Typography
           sx={{
             fontWeight: "600",
@@ -91,7 +90,6 @@ const SingleBox = ({
           width: "70%",
           height: "40px",
           background: color,
-          // marginX: { xs: "1px", lg: "1px" },
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -132,7 +130,6 @@ const SingleBox = ({
         width: "200%",
         height: "25px",
         background: "#319E5B",
-        // marginX: { xs: "1px", lg: "1px" },
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -144,7 +141,7 @@ const SingleBox = ({
           fontSize: "12px",
           color: "white",
           wordWrap: "break-word",
-          lineHeight: "0.9"
+          lineHeight: "0.9",
         }}
       >
         {data}
@@ -176,4 +173,4 @@ const SingleBox = ({
   );
 };
 
-export default SingleBox;
+export default memo(SingleBox);

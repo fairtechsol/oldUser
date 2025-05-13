@@ -6,24 +6,29 @@ import PlaceBetComponent from "../MatchOdds/Bets/PlaceBetComponent";
 import PlaceBetComponentWeb from "../MatchOdds/Bets/PlaceBetComponentWeb";
 import SeparateModal from "../MatchOdds/SeparateModal";
 
+interface CricketCasinoMarketBoxProps {
+  index: number;
+  typeOfBet: string;
+  data: any;
+  eventType: string;
+  upcoming: boolean;
+  profitLossData: any;
+  show: any;
+  setShow: any;
+  mid?: string | number | null | undefined;
+}
+
 const CricketCasinoMarketBox = ({
   index,
   typeOfBet,
   data,
-  selectedFastAmount,
-  mainData,
-  allRates,
-  sessionMain,
-  setFastAmount,
   eventType,
-  closeModal,
-  setFastBetLoading,
-  handleRateChange,
   upcoming,
   profitLossData,
   show,
   setShow,
-}: any) => {
+  mid,
+}: CricketCasinoMarketBoxProps) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   return (
@@ -48,12 +53,11 @@ const CricketCasinoMarketBox = ({
             background: "rgba(0,0,0,0.5)",
             zIndex: 2,
           }}
-        ></Box>
+        />
       )}
       <Box
         sx={{
           display: "flex",
-          // background: "white",
           height: "38px",
           overflow: "hidden",
           width: { xs: "100%", lg: "100%" },
@@ -62,8 +66,8 @@ const CricketCasinoMarketBox = ({
           background: index % 2 === 0 ? "#FFE094" : "#ECECEC",
         }}
       >
-        <Typography>
-          <Typography
+        <Box>
+          <Box
             sx={{
               color: "black",
               fontSize: { lg: "10px", md: "10px", xs: "9px" },
@@ -71,18 +75,17 @@ const CricketCasinoMarketBox = ({
               fontWeight: "600",
               textAlign: "start",
               width: "100%",
-              // paddingRight: "5rem",
               lineHeight: "0.8rem",
+              fontFamily: "Poppins, sans-serif",
             }}
           >
             {data?.isCommissionActive && <CommissionDot />}
             {data?.nat || `${index} Number`}
-          </Typography>
-        </Typography>
+          </Box>
+        </Box>
 
         {matchesMobile && (
           <PlaceBetComponent
-            amount={index == 2}
             data={data}
             show={show}
             setShow={setShow}
@@ -93,7 +96,6 @@ const CricketCasinoMarketBox = ({
         )}
         {!matchesMobile && (
           <PlaceBetComponentWeb
-            amount={index === 2}
             data={data}
             show={show}
             setShow={setShow}
@@ -102,9 +104,6 @@ const CricketCasinoMarketBox = ({
             index={index}
           />
         )}
-        {/* <Box
-              sx={{ width: "20%", display: "flex", background: "pink" }}
-            ></Box> */}
         {!["ACTIVE", "active", "", undefined, null, "", "OPEN"].includes(
           data?.gstatus
         ) || !data.odds?.length ? (
@@ -126,7 +125,7 @@ const CricketCasinoMarketBox = ({
               <img
                 src={BallStart}
                 style={{ width: "113px", height: "32px" }}
-                alt=""
+                alt="ball start"
               />
             ) : (
               <Typography
@@ -157,7 +156,6 @@ const CricketCasinoMarketBox = ({
                 minWidth: { lg: "60%", xs: "40%" },
                 marginRight: "auto",
                 overflow: "hidden",
-                // left: {lg:"23%", xs: "0%", sm: "40%"}
                 marginLeft: { lg: "37.9%", xs: "59.9%", sm: "59.9%" },
               }}
             >
@@ -169,50 +167,35 @@ const CricketCasinoMarketBox = ({
                   flexDirection: "row",
                 }}
               >
-                {data?.odds?.map((item: any, index: number) => {
-                  return (
-                    <SeparateModal
-                      key={index}
-                      bettingOn={"session"}
-                      closeModal={closeModal}
-                      setFastBetLoading={setFastBetLoading}
-                      po={item?.tno}
-                      eventType={eventType}
-                      setFastAmount={setFastAmount}
-                      rates={allRates}
-                      session={true}
-                      sessionMain={sessionMain}
-                      selectedFastAmount={selectedFastAmount}
-                      betType={"back"}
-                      value={item?.odds ?? 0}
-                      lock={
-                        [null, 0, "0"].includes(item?.odds ?? 0) ? true : false
-                      }
-                      color={"#B3E0FF"}
-                      type={{
-                        color: "#A7DCFF",
-                        type: "YN",
-                      }}
-                      typeOfBet={typeOfBet}
-                      data={data}
-                      mainData={mainData}
-                      handleRateChange={handleRateChange}
-                      width={"100%"}
-                      mid={data?.mid}
-                      teamName={data?.nat}
-                    />
-                  );
-                })}
+                {data?.odds?.map((item: any, index: number) => (
+                  <SeparateModal
+                    key={index}
+                    po={item?.tno}
+                    eventType={eventType}
+                    betType="back"
+                    value={item?.odds ?? 0}
+                    lock={
+                      [null, 0, "0"].includes(item?.odds ?? 0) ? true : false
+                    }
+                    color="#B3E0FF"
+                    type={{
+                      color: "#A7DCFF",
+                      type: "YN",
+                    }}
+                    typeOfBet={typeOfBet}
+                    data={data}
+                    width="100%"
+                    mid={mid || data?.mid}
+                    teamName={data?.nat}
+                  />
+                ))}
               </Box>
             </Box>
             {!matchesMobile && (
-              <Box
-                sx={{ width: "33%", display: "flex", background: "pink" }}
-              ></Box>
+              <Box sx={{ width: "33%", display: "flex", background: "pink" }} />
             )}
             {!matchesMobile && (
               <PlaceBetComponentWeb
-                amount={index === 2}
                 data={data}
                 show={show}
                 setShow={setShow}

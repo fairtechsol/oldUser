@@ -1,22 +1,15 @@
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Typography,
-  debounce,
-} from "@mui/material";
+import { Box, Button, Typography, debounce } from "@mui/material";
 
+import { useFormik } from "formik";
+import { memo, useEffect, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { eye, eyeLock } from "../../assets";
 import Input from "../../components/login/input";
-import { useDispatch } from "react-redux";
-import { AppDispatch, RootState } from "../../store/store";
 import {
   changePassword,
   checkOldPassword,
 } from "../../store/actions/auth/authAction";
-import { useFormik } from "formik";
-import { useMemo } from "react";
-import { useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store/store";
 import { changePasswordValidation } from "../../utils/Validations";
 
 const initialValues: any = {
@@ -25,8 +18,7 @@ const initialValues: any = {
   confirmPassword: "",
 };
 
-const ChangePassword = (props: any) => {
-  const { passLoader, width } = props;
+const ChangePassword = () => {
   const dispatch: AppDispatch = useDispatch();
   const { oldPasswordMatched } = useSelector((state: RootState) => state.auth);
 
@@ -45,10 +37,11 @@ const ChangePassword = (props: any) => {
 
   const { handleSubmit, touched, errors } = formik;
 
-  const debouncedInputValue = useMemo(() => {
-    return debounce((value) => {
+  const debouncedInputValue: any = useMemo(() => {
+    const debouncedFn = debounce((value) => {
       dispatch(checkOldPassword({ oldPassword: value }));
     }, 500);
+    return debouncedFn;
   }, []);
 
   const handleOldPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,15 +50,27 @@ const ChangePassword = (props: any) => {
     debouncedInputValue(query);
   };
 
+  useEffect(() => {
+    if (formik.values.oldPassword) {
+      formik.validateForm();
+    }
+  }, [oldPasswordMatched]);
+
   return (
-    <>
+    <Box
+      sx={{
+        width: "100%",
+        paddingLeft: "1vw",
+        paddingRight: "1vw",
+      }}
+    >
       <form onSubmit={handleSubmit}>
         <Box
           sx={{
-            width: { xs: "96vw", lg: "19vw", md: "19vw" },
+            width: { xs: "95%", lg: "19vw", md: "19vw" },
             minWidth: {
-              lg: width ? width : "350px",
-              md: width ? width : "350px",
+              lg: "350px",
+              md: "350px",
               xs: "0px",
             },
             marginTop: "10px",
@@ -93,8 +98,8 @@ const ChangePassword = (props: any) => {
           >
             <Input
               required={true}
-              placeholder={"Enter Old Password"}
-              title={"Old Password"}
+              placeholder="Enter Old Password"
+              title="Old Password"
               titleStyle={{
                 color: "#222222",
                 marginLeft: "0px",
@@ -105,7 +110,7 @@ const ChangePassword = (props: any) => {
               img={eye}
               img1={eyeLock}
               id="oldPassword"
-              name={"oldPassword"}
+              name="oldPassword"
               type="password"
               onBlur={formik.handleBlur}
               onChange={handleOldPasswordChange}
@@ -115,9 +120,9 @@ const ChangePassword = (props: any) => {
             )}
             <Input
               required={true}
-              placeholder={"Enter New Password"}
-              title={"New Password"}
-              name={"newPassword"}
+              placeholder="Enter New Password"
+              title="New Password"
+              name="newPassword"
               id="newPassword"
               titleStyle={{
                 color: "#222222",
@@ -137,9 +142,9 @@ const ChangePassword = (props: any) => {
             )}
             <Input
               required={true}
-              placeholder={"Enter Confirm Password"}
-              title={"Confirm New Password"}
-              name={"confirmPassword"}
+              placeholder="Enter Confirm Password"
+              title="Confirm New Password"
+              name="confirmPassword"
               id="confirmPassword"
               titleStyle={{
                 color: "#222222",
@@ -180,27 +185,16 @@ const ChangePassword = (props: any) => {
             >
               <Typography
                 sx={{ fontSize: { lg: "18px", xs: "20px" } }}
-                color={"white"}
+                color="white"
               >
-                {passLoader ? (
-                  <CircularProgress
-                    sx={{
-                      color: "#FFF",
-                    }}
-                    size={20}
-                    thickness={4}
-                    value={60}
-                  />
-                ) : (
-                  "Update"
-                )}
+                Update
               </Typography>
             </Button>
           </Box>
         </Box>
       </form>
-    </>
+    </Box>
   );
 };
 
-export default ChangePassword;
+export default memo(ChangePassword);

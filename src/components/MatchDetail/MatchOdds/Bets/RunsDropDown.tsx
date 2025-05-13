@@ -1,7 +1,12 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
 import StyledImage from "../../../Common/StyledImages";
 
-const RunsDropDown = ({ list }: any) => {
+interface RunsDropDownProps {
+  list: any;
+}
+
+const RunsDropDown = ({ list }: RunsDropDownProps) => {
   return (
     <Box
       sx={{
@@ -147,23 +152,20 @@ const RunsDropDown = ({ list }: any) => {
                           "invert(.9) sepia(1) saturate(5) hue-rotate(175deg);",
                         width: "15px",
                       }}
-                      alt=""
+                      alt="profit"
                     />
                   </Box>
                 </Box>
               );
             })
           ) : (
-            <>
-              {" "}
-              <Box
-                sx={{
-                  display: "flex",
-                  height: "25px",
-                  borderTop: "1px solid #306A47",
-                }}
-              ></Box>{" "}
-            </>
+            <Box
+              sx={{
+                display: "flex",
+                height: "25px",
+                borderTop: "1px solid #306A47",
+              }}
+            />
           )}
         </Box>
       </Box>
@@ -171,4 +173,4 @@ const RunsDropDown = ({ list }: any) => {
   );
 };
 
-export default RunsDropDown;
+export default memo(RunsDropDown);

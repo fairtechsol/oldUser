@@ -4,10 +4,7 @@ import { Fragment, memo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { ARROWUP, LockIcon } from "../../../../assets";
-import {
-  calculateRequiredStack,
-  handleDecimalAmount,
-} from "../../../../helper";
+import { calculateRequiredStack } from "../../../../helper";
 import Divider from "../../../../helper/Divider";
 import {
   selectedBetAction,
@@ -16,100 +13,24 @@ import {
 import { AppDispatch, RootState } from "../../../../store/store";
 import CommissionDot from "../../../Common/CommissionDot";
 import OddsPlaceBet from "../Bets/OddsPlacebet";
+import BookRatioBox from "./BookRatioBox";
 import BoxComponent from "./BoxComponent";
 
-const SmallBox = ({ valueA, valueB, color }: any) => {
-  return (
-    <Box
-      sx={{
-        marginLeft: { xs: 0, lg: "-14px", md: 0 },
-        justifyContent: {
-          xs: "center",
-          lg: "center",
-          md: "center",
-        },
-        display: "flex",
-        width: { xs: "85%", lg: "80%", md: "85%" },
-        gap: "4px",
-      }}
-    >
-      <Box
-        sx={{
-          width: { lg: "70px", xs: "45px", md: "70px" },
-          // position: "absolute",
-          flexDirection: "column",
-          paddingX: "5px",
-          display: "flex",
-          left: { xs: "53%", lg: "49vw", md: "53%" },
-          justifyContent: "center",
-          alignItems: "center",
-          height: "30px",
-          background: "white",
-          borderRadius: "3px",
-        }}
-      >
-        <Typography
-          sx={{
-            color: "#FF4D4D",
-            fontSize: "8px",
-            fontWeight: "bold",
-          }}
-        >
-          Book
-        </Typography>
-        <Typography
-          sx={{
-            fontSize: { lg: "12px", xs: "10px", md: "10px" },
-            fontWeight: "bold",
-            color: valueA < 0 ? `#FF4D4D` : `#319E5B`,
-          }}
-        >
-          {handleDecimalAmount(parseFloat(valueA || 0.0), color)}
-          {/* {valueA < 0 ? ` ${valueA}` : `${valueA}`} */}
-        </Typography>
-      </Box>
-      <Box
-        sx={{
-          width: { lg: "70px", xs: "45px", md: "70px" },
-          // position: "absolute",
-          paddingX: "5px",
-          display: "flex",
-          flexDirection: "column",
-          left: { xs: "65%", lg: "55vw", md: "65%" },
-          justifyContent: "center",
-          alignItems: "center",
-          height: "30px",
-          background: "white",
-          borderRadius: "3px",
-        }}
-      >
-        <Typography
-          sx={{
-            color: "#FF4D4D",
-            fontSize: "8px",
-            fontWeight: "bold",
-          }}
-        >
-          Book
-        </Typography>
-
-        <Typography
-          sx={{
-            fontSize: { lg: "12px", xs: "10px", md: "10px" },
-            fontWeight: "bold",
-            color: valueB < 0 ? `#FF4D4D` : `#319E5B`,
-          }}
-        >
-          {handleDecimalAmount(parseFloat(valueB || 0.0), color)}
-          {/* {valueB < 0 ? ` ${valueB}` : `${valueB}`} */}
-        </Typography>
-      </Box>
-    </Box>
-  );
-};
+interface TournamentOddsProps {
+  teamARates: string | number | any;
+  teamBRates: string | number | any;
+  title: string;
+  min: string | number;
+  max: string | number;
+  showBox: boolean;
+  isRound: boolean;
+  betLock: boolean;
+  upcoming: boolean;
+  marketDetails: any;
+  matchDetails: any;
+}
 
 const TournamentOdds = ({
-  data,
   teamARates,
   teamBRates,
   title,
@@ -121,7 +42,7 @@ const TournamentOdds = ({
   upcoming,
   marketDetails,
   matchDetails,
-}: any) => {
+}: TournamentOddsProps) => {
   const dispatch: AppDispatch = useDispatch();
   const [visible, setVisible] = useState(true);
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
@@ -164,7 +85,6 @@ const TournamentOdds = ({
       });
       return;
     }
-    // profitLossObj?.[teamAId] < profitLossObj?.[teamBId]
     const getBackAndLayRates = (team: any) => {
       const back1 =
         team?.ex?.availableToBack?.find((item: any) => item.oname === "back1")
@@ -185,7 +105,6 @@ const TournamentOdds = ({
       };
     };
 
-    // Get back1 & lay1 values for Team A & Team B
     const teamA = getBackAndLayRates(marketDetails?.runners[0]);
     const teamB = getBackAndLayRates(marketDetails?.runners[1]);
 
@@ -286,8 +205,11 @@ const TournamentOdds = ({
     matchDetails?.id
   }`;
   const profitLossJson = matchDetails?.profitLossDataMatch?.[key];
-
   const profitLossObj = profitLossJson ? JSON.parse(profitLossJson) : {};
+
+  const show6Box =
+    marketDetails?.runners?.[0]?.ex?.availableToBack?.length > 1 ||
+    marketDetails?.runners?.[0]?.ex?.availableToLay?.length > 1;
   return (
     <>
       <Box
@@ -314,7 +236,7 @@ const TournamentOdds = ({
             display: "flex",
             height: 38,
             flexDirection: "row",
-            width: "99.7%",
+            width: "100%",
             alignSelf: "center",
           }}
         >
@@ -345,13 +267,12 @@ const TournamentOdds = ({
               background: "#262626",
             }}
           >
-            <div className="slanted"></div>
+            <div className="slanted" />
           </Box>
           <Box
             sx={{
               flex: 1,
               background: "#262626",
-              // '#262626' ,
               display: "flex",
               alignItems: "center",
               justifyContent: {
@@ -361,39 +282,30 @@ const TournamentOdds = ({
               },
             }}
           >
-            <SmallBox valueA={bookRatioA} valueB={bookRatioB} />
-            {!matchesMobile && (
+            <BookRatioBox valueA={bookRatioA} valueB={bookRatioB} />
+            {!matchesMobile && marketDetails?.runners?.length === 2 && (
               <Box
                 sx={{
                   position: { lg: "static", xs: "relative" },
-                  // paddingY: "2vh",
                   right: 25,
                 }}
               >
-                {marketDetails?.runners?.length === 2 && (
-                  <button
-                    type="submit"
-                    disabled={
-                      Object.keys(profitLossObj).length <= 0 ? true : false
-                    }
-                    // disabled={loading || !stakeValue ? true : false}
-                    style={{
-                      color: "#319E5B",
-                      backgroundColor: "#fff",
-                      // width: "150px",
-                      // cursor: loading || !stakeValue ? "not-allowed" : "pointer",
-                      // width: { lg: "150px", xs: "130px" },
-                      // height: "35px",
-                      borderRadius: "3px",
-                      border: "2px solid white",
-                      opacity:
-                        Object.keys(profitLossObj).length <= 0 ? 0.65 : 1,
-                    }}
-                    onClick={() => handleCashout()}
-                  >
-                    Cashout
-                  </button>
-                )}
+                <button
+                  type="submit"
+                  disabled={
+                    Object.keys(profitLossObj).length <= 0 ? true : false
+                  }
+                  style={{
+                    color: "#319E5B",
+                    backgroundColor: "#fff",
+                    borderRadius: "3px",
+                    border: "2px solid white",
+                    opacity: Object.keys(profitLossObj).length <= 0 ? 0.65 : 1,
+                  }}
+                  onClick={() => handleCashout()}
+                >
+                  Cashout
+                </button>
               </Box>
             )}
             <Box
@@ -402,7 +314,6 @@ const TournamentOdds = ({
                 flex: 1,
                 background: { lg: "#262626", xs: "none" },
                 position: { lg: "static", xs: "absolute" },
-                // '#262626' ,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "flex-end",
@@ -421,7 +332,7 @@ const TournamentOdds = ({
                   marginLeft: "5px",
                   cursor: "pointer",
                 }}
-                alt={"Banner"}
+                alt="arrow up"
               />
             </Box>
           </Box>
@@ -435,7 +346,7 @@ const TournamentOdds = ({
                 display: "flex",
                 background: "#319E5B",
                 height: "25px",
-                width: { lg: "100%", xs: "99.9%" },
+                width: "100%",
                 alignSelf: "center",
               }}
             >
@@ -444,8 +355,9 @@ const TournamentOdds = ({
                   display: "flex",
                   background: "'#319E5B'",
                   height: "25px",
-                  width: "40%",
+                  width: { lg: show6Box ? "40%" : "60%", xs: "60%" },
                   alignItems: "center",
+                  justifyContent: "space-between",
                 }}
               >
                 <Typography
@@ -457,67 +369,55 @@ const TournamentOdds = ({
                 >
                   {min === max ? `MAX:${max}` : `MIN: ${min} MAX:${max}`}
                 </Typography>
+                {matchesMobile && marketDetails?.runners?.length === 2 && (
+                  <Box
+                    sx={{
+                      marginRight: "14px",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <button
+                      type="submit"
+                      disabled={
+                        Object.keys(profitLossObj).length <= 0 ? true : false
+                      }
+                      style={{
+                        color: "#319E5B",
+                        backgroundColor: "#fff",
+                        borderRadius: "3px",
+                        border: "0px solid white",
+                        opacity:
+                          Object.keys(profitLossObj).length <= 0 ? 0.65 : 1,
+                        fontSize: "12px",
+                        padding: "0 6px",
+                      }}
+                      onClick={() => handleCashout()}
+                    >
+                      Cashout
+                    </button>
+                  </Box>
+                )}
               </Box>
-
               <Box
                 sx={{
                   display: "flex",
                   background: "#319E5B",
                   height: "25px",
                   gap: { xs: "0px", lg: "1px", md: "1px" },
-                  width: { lg: "60%", xs: "80%" },
+                  width: { lg: show6Box ? "60%" : "40.2%", xs: "40.2%" },
                   justifyContent: { lg: "center", xs: "flex-end" },
                 }}
               >
-                {matchesMobile && (
-                  <Box
-                    sx={{
-                      // position: { lg: "static", xs: "relative" },
-                      // paddingY: "2vh",
-                      marginRight: "14px",
-                    }}
-                  >
-                    {marketDetails?.runners?.length === 2 && (
-                      <button
-                        type="submit"
-                        disabled={
-                          Object.keys(profitLossObj).length <= 0 ? true : false
-                        }
-                        // disabled={loading || !stakeValue ? true : false}
-                        style={{
-                          color: "#319E5B",
-                          backgroundColor: "#fff",
-                          // width: "150px",
-                          // cursor: loading || !stakeValue ? "not-allowed" : "pointer",
-                          // width: { lg: "150px", xs: "130px" },
-                          // height: "35px",
-                          borderRadius: "3px",
-                          border: "0px solid white",
-                          opacity:
-                            Object.keys(profitLossObj).length <= 0 ? 0.65 : 1,
-                          height: 23,
-                          marginTop: 1,
-                          padding: "0 6px",
-                        }}
-                        onClick={() => handleCashout()}
-                      >
-                        Cashout
-                      </button>
-                    )}
-                  </Box>
-                )}
                 <Box
                   sx={{
                     background: "#00C0F9",
-                    width: { lg: "16.5%", xs: "30%" },
+                    width: { lg: show6Box ? "16.5%" : "50%", xs: "50%" },
                     height: "100%",
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                    borderLeft: {
-                      lg: "3px solid #319e5b",
-                      xs: "1px solid #319e5b",
-                    },
                   }}
                 >
                   <Typography
@@ -526,11 +426,11 @@ const TournamentOdds = ({
                     Back
                   </Typography>
                 </Box>
-                <Box sx={{ width: ".35%", display: "flex" }}></Box>
+                <Box sx={{ width: "0.2%", display: "flex" }} />
                 <Box
                   sx={{
                     background: "#FF9292",
-                    width: { lg: "16.4%", xs: "29.9%" },
+                    width: { lg: show6Box ? "16.4%" : "50%", xs: "50%" },
                     height: "100%",
                     display: "flex",
                     justifyContent: "center",
@@ -563,7 +463,7 @@ const TournamentOdds = ({
                   sx={{
                     width: { xs: "60%", lg: "40%", md: "60%" },
                   }}
-                ></Box>
+                />
                 <Box
                   sx={{
                     width: { xs: "40%", lg: "60%", md: "40%" },
@@ -576,7 +476,7 @@ const TournamentOdds = ({
                   <img
                     style={{ width: "35px", height: "40px" }}
                     src={LockIcon}
-                    alt=""
+                    alt="lock"
                   />
                   <Typography
                     sx={{
@@ -591,51 +491,10 @@ const TournamentOdds = ({
                 </Box>
               </Box>
             )}
-
-            {(upcoming ||
-              showBox ||
-              !marketDetails?.isActive ||
-              (!["ACTIVE", "OPEN", ""].includes(marketDetails?.status) &&
-                marketDetails?.gtype == "match")) && (
-              <Box
-                sx={{
-                  position: "absolute",
-                  height: "83%",
-                  // top: "18%",
-                  width: "100%",
-                  display: "flex",
-                  zIndex: "999",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  background: "rgba(0, 0, 0, 0.71)",
-                }}
-              >
-                <Typography
-                  sx={{
-                    fontSize: { xs: "12px", lg: "22px" },
-                    textTransform: "uppercase",
-                    width: "100%",
-                    textAlign: "center",
-                    color: "white",
-                    fontWeight: "400",
-                  }}
-                >
-                  {!["ACTIVE", "OPEN", ""].includes(marketDetails?.status) &&
-                  marketDetails?.gtype == "match"
-                    ? marketDetails?.status
-                    : ""}
-                </Typography>
-              </Box>
-            )}
             {marketDetails?.runners?.map((item: any) => (
               <Fragment key={item?.selectionId}>
                 <BoxComponent
                   showBox={showBox}
-                  livestatus={
-                    data?.[0]?.status?.toLowerCase() === "suspended"
-                      ? true
-                      : false
-                  }
                   matchDetails={matchDetails}
                   color={
                     matchDetails?.profitLossDataMatch?.[
@@ -682,8 +541,15 @@ const TournamentOdds = ({
                   isRound={isRound}
                   marketDetails={marketDetails}
                   upcoming={upcoming}
+                  show6Box={show6Box}
                 />
-                <Divider />
+                {!(
+                  upcoming ||
+                  showBox ||
+                  !marketDetails?.isActive ||
+                  (!["ACTIVE", "OPEN", ""].includes(marketDetails?.status) &&
+                    marketDetails?.gtype == "match")
+                ) && <Divider />}
               </Fragment>
             ))}
           </Box>

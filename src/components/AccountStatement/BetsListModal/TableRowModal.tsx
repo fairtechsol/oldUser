@@ -1,4 +1,20 @@
 import { Box, Typography } from "@mui/material";
+import { memo } from "react";
+
+interface TableRowModalProps {
+  index: number;
+  profit: boolean;
+  gameName: string;
+  createdAt: string;
+  roundId: string;
+  transactionId: string;
+  containerStyle: any;
+  fContainerStyle: any;
+  fTextStyle: any;
+  amount: string;
+  absAmount: string;
+  total: string;
+}
 
 const TableRowModal = ({
   containerStyle,
@@ -12,10 +28,9 @@ const TableRowModal = ({
   createdAt,
   roundId,
   transactionId,
-}: any) => {
+}: TableRowModalProps) => {
   return (
     <Box
-      key={index}
       sx={[
         {
           display: "flex",
@@ -112,12 +127,12 @@ const TableRowModal = ({
           overflow: "auto",
           height: "45px",
           lineHeight: "1",
-          scrollbarWidth: "thin", // Customize scrollbar width (for Firefox)
+          scrollbarWidth: "thin",
           "&::-webkit-scrollbar": {
-            width: "8px", // Customize scrollbar width (for WebKit browsers)
+            width: "8px",
           },
           "&::-webkit-scrollbar-thumb": {
-            backgroundColor: "#888", // Customize scrollbar thumb color
+            backgroundColor: "#888",
           },
           borderRight: "2px solid white",
         }}
@@ -170,4 +185,4 @@ const TableRowModal = ({
   );
 };
 
-export default TableRowModal;
+export default memo(TableRowModal);

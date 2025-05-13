@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { Outlet } from "react-router-dom";
 import "./style.scss";
 
@@ -11,4 +12,4 @@ const OtherLayout = () => {
   );
 };
 
-export default OtherLayout;
+export default memo(OtherLayout);

@@ -1,10 +1,10 @@
 import { Box, Button, CircularProgress, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
-import { AppDispatch, RootState } from "../../store/store";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 import { useFormik } from "formik";
+import { memo, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { setButtonValue } from "../../store/actions/user/userAction";
+import { AppDispatch, RootState } from "../../store/store";
+import { initialValues } from "../../utils/Constants";
 import LabelButton from "./LabelButton";
 import ValueButton from "./ValueButton";
 
@@ -16,48 +16,6 @@ interface ButtonProps {
 const SessionValue = () => {
   const [loader, setLoader] = useState(false);
 
-  const initialValues = [
-    {
-      label: "",
-      value: "",
-    },
-    {
-      label: "",
-      value: "",
-    },
-    {
-      label: "",
-      value: "",
-    },
-    {
-      label: "",
-      value: "",
-    },
-    {
-      label: "",
-      value: "",
-    },
-    {
-      label: "",
-      value: "",
-    },
-    {
-      label: "",
-      value: "",
-    },
-    {
-      label: "",
-      value: "",
-    },
-    {
-      label: "",
-      value: "",
-    },
-    {
-      label: "",
-      value: "",
-    },
-  ];
   interface ButtonValue {
     id: string;
     type: string;
@@ -141,128 +99,125 @@ const SessionValue = () => {
         flexDirection: { xs: "column", lg: "row", md: "column" },
       }}
     >
-      <>
-        <form onSubmit={handleSubmit}>
-          <Box
+      <form onSubmit={handleSubmit}>
+        <Box
+          sx={{
+            flex: 1,
+            width: { xs: "96vw", lg: "35vw", md: "35vw" },
+            minWidth: { lg: "450px", md: "450px", xs: "0px" },
+            marginTop: "10px",
+            marginX: { xs: "2vw", lg: "1vw" },
+          }}
+        >
+          <Typography
             sx={{
-              flex: 1,
-              width: { xs: "96vw", lg: "35vw", md: "35vw" },
-              minWidth: { lg: "450px", md: "450px", xs: "0px" },
-              marginTop: "10px",
-              marginX: { xs: "2vw", lg: "1vw" },
+              color: "white",
+              fontSize: { lg: "18px", xs: "20px" },
+              fontWeight: "700",
             }}
           >
-            <Typography
-              sx={{
-                color: "white",
-                fontSize: { lg: "18px", xs: "20px" },
-                fontWeight: "700",
-              }}
-            >
-              Change Session Button Values
-            </Typography>
-            <Box
-              sx={{
-                width: "100%",
-                minHeight: "200px",
-                background: "#F8C851",
-                borderRadius: "5px",
-                padding: "20px",
-                marginTop: "10px",
-              }}
-            >
-              <Box sx={{ display: "flex" }}>
-                <Box sx={{ flex: 1 }}>
-                  <Typography
-                    sx={{
-                      color: "#202020",
-                      fontSize: "14px",
-                      fontWeight: "600",
-                    }}
-                  >
-                    Price Lable
-                  </Typography>
-                  {values?.map((_: any, index: number) => {
-                    return (
-                      <LabelButton
-                        key={index}
-                        type="text"
-                        onChange={(e: any) => {
-                          setFieldValue(`[${index}].label`, e.target.value);
-                        }}
-                        value={values[index]}
-                      />
-                    );
-                  })}
-                </Box>
-                <Box sx={{ flex: 1, marginLeft: "10px" }}>
-                  <Typography
-                    sx={{
-                      color: "#202020",
-                      fontSize: "14px",
-                      fontWeight: "600",
-                    }}
-                  >
-                    Price Value
-                  </Typography>
-                  {values.map((_: any, index: number) => {
-                    return (
-                      <ValueButton
-                        key={index}
-                        type="text"
-                        onChange={(e: any) => {
-                          setFieldValue(`[${index}].value`, e.target.value);
-                        }}
-                        value={values[index]}
-                      />
-                    );
-                  })}
-                </Box>
-              </Box>
-              <Button
-                type="submit"
-                sx={{
-                  height: "50px",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  mx: "auto",
-                  marginTop: "50px",
-                  marginBottom: "40px",
-                  width: "80%",
-                  background: "#0B4F26",
-                  borderRadius: "5px",
-                  cursor: "pointer",
-                  "&:hover": {
-                    cursor: "pointer",
-                    background: "#0B4F26",
-                  },
-                }}
-              >
+            Change Session Button Values
+          </Typography>
+          <Box
+            sx={{
+              width: "100%",
+              minHeight: "200px",
+              background: "#F8C851",
+              borderRadius: "5px",
+              padding: "20px",
+              marginTop: "10px",
+            }}
+          >
+            <Box sx={{ display: "flex" }}>
+              <Box sx={{ flex: 1 }}>
                 <Typography
-                  sx={{ fontSize: { lg: "18px", xs: "20px" } }}
-                  color={"white"}
+                  sx={{
+                    color: "#202020",
+                    fontSize: "14px",
+                    fontWeight: "600",
+                  }}
                 >
-                  {loader ? (
-                    <CircularProgress
-                      sx={{
-                        color: "#FFF",
-                      }}
-                      size={20}
-                      thickness={4}
-                      value={60}
-                    />
-                  ) : (
-                    "Update"
-                  )}
+                  Price Label
                 </Typography>
-              </Button>
+                {values?.map((_: any, index: number) => {
+                  return (
+                    <LabelButton
+                      key={index}
+                      type="text"
+                      onChange={(e: any) => {
+                        setFieldValue(`[${index}].label`, e.target.value);
+                      }}
+                      value={values[index]}
+                    />
+                  );
+                })}
+              </Box>
+              <Box sx={{ flex: 1, marginLeft: "10px" }}>
+                <Typography
+                  sx={{
+                    color: "#202020",
+                    fontSize: "14px",
+                    fontWeight: "600",
+                  }}
+                >
+                  Price Value
+                </Typography>
+                {values.map((_: any, index: number) => {
+                  return (
+                    <ValueButton
+                      key={index}
+                      onChange={(e: any) => {
+                        setFieldValue(`[${index}].value`, e.target.value);
+                      }}
+                      value={values[index]}
+                    />
+                  );
+                })}
+              </Box>
             </Box>
+            <Button
+              type="submit"
+              sx={{
+                height: "50px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                mx: "auto",
+                marginTop: "50px",
+                marginBottom: "40px",
+                width: "80%",
+                background: "#0B4F26",
+                borderRadius: "5px",
+                cursor: "pointer",
+                "&:hover": {
+                  cursor: "pointer",
+                  background: "#0B4F26",
+                },
+              }}
+            >
+              <Typography
+                sx={{ fontSize: { lg: "18px", xs: "20px" } }}
+                color="#fff"
+              >
+                {loader ? (
+                  <CircularProgress
+                    sx={{
+                      color: "#fff",
+                    }}
+                    size={20}
+                    thickness={4}
+                    value={60}
+                  />
+                ) : (
+                  "Update"
+                )}
+              </Typography>
+            </Button>
           </Box>
-        </form>
-      </>
+        </Box>
+      </form>
     </Box>
   );
 };
 
-export default SessionValue;
+export default memo(SessionValue);

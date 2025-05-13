@@ -1,8 +1,7 @@
 import { Box, TextField } from "@mui/material";
+import { memo } from "react";
 
-
-const LabelButton = ({ value, onChange, }: any) => {
-
+const LabelButton = ({ value, onChange }: any) => {
   return (
     <Box
       sx={{
@@ -34,4 +33,4 @@ const LabelButton = ({ value, onChange, }: any) => {
   );
 };
 
-export default LabelButton;
+export default memo(LabelButton);

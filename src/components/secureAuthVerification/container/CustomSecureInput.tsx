@@ -1,6 +1,7 @@
 import { Form } from "react-bootstrap";
 
 import { useMediaQuery, useTheme } from "@mui/material";
+import { memo } from "react";
 import "./style.scss";
 
 interface SelectItem {
@@ -8,26 +9,23 @@ interface SelectItem {
   name: string;
 }
 
-const CustomSecureInput = (props: any) => {
-  const {
-    title,
-    formInline,
-    labelCol,
-    inputCol,
-    bgColor,
-    errors,
-    id,
-    touched,
-    inputClass,
-    type,
-    options,
-    customStyle,
-    inputIcon,
-    isUnderlinedInput,
-
-    ...prop
-  } = props;
-
+const CustomSecureInput = ({
+  title,
+  formInline,
+  labelCol,
+  inputCol,
+  bgColor,
+  errors,
+  id,
+  touched,
+  inputClass,
+  type,
+  options,
+  customStyle,
+  inputIcon,
+  isUnderlinedInput,
+  ...prop
+}: any) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
 
@@ -70,10 +68,9 @@ const CustomSecureInput = (props: any) => {
           />
         )}
         {inputIcon && <div className="input-icon">{inputIcon}</div>}
-        {/* <CustomErrorMessage touched={touched} errors={errors} /> */}
       </Form.Group>
     </>
   );
 };
 
-export default CustomSecureInput;
+export default memo(CustomSecureInput);

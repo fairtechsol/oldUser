@@ -1,6 +1,12 @@
 import { Box, TextField } from "@mui/material";
+import { memo } from "react";
 
-const ValueButton = ({ value, onChange }: any) => {
+interface ValueButtonProps {
+  value: any;
+  onChange: (val: any) => void;
+}
+
+const ValueButton = ({ value, onChange }: ValueButtonProps) => {
   return (
     <Box
       sx={{
@@ -17,7 +23,7 @@ const ValueButton = ({ value, onChange }: any) => {
         value={value.value}
         onChange={onChange}
         variant="outlined"
-        type="number" // Allow only numeric input
+        type="number"
         size="small"
         fullWidth
         sx={{ fontSize: "14px", fontWeight: "600" }}
@@ -29,8 +35,8 @@ const ValueButton = ({ value, onChange }: any) => {
               event.code !== "ArrowUp" &&
               event.code !== "ArrowDown" &&
               event.code !== "Enter" &&
-              event.code !== "Tab" && // Allow Tab key
-              event.code !== "ArrowRight" && // Allow Right Arrow key
+              event.code !== "Tab" &&
+              event.code !== "ArrowRight" &&
               event.code !== "ArrowLeft")
           ) {
             event.preventDefault();
@@ -45,4 +51,4 @@ const ValueButton = ({ value, onChange }: any) => {
   );
 };
 
-export default ValueButton;
+export default memo(ValueButton);

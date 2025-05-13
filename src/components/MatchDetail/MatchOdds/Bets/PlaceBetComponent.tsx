@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { handleDecimalAmount } from "../../../../helper";
 import { getRunAmount } from "../../../../store/actions/betPlace/betPlaceActions";
@@ -7,19 +7,26 @@ import { AppDispatch, RootState } from "../../../../store/store";
 import { sessionBettingType } from "../../../../utils/Constants";
 import RunsDropDown from "./RunsDropDown";
 
+interface PlaceBetComponentProps {
+  profitLoss: any;
+  data: any;
+  show: { open: boolean; id: string } | any;
+  setShow: (val: any) => void;
+  hideCount?: boolean;
+  index?: number | any;
+}
+
 const PlaceBetComponent = ({
   profitLoss,
   data,
   show,
   setShow,
-  color,
   hideCount = false,
   index,
-}: any) => {
+}: PlaceBetComponentProps) => {
   const dispatch: AppDispatch = useDispatch();
   const [proLoss, setProfitLoss] = useState(profitLoss);
   const { runAmount } = useSelector((state: RootState) => state.bets);
-  const [anchorEl] = useState(null);
 
   useEffect(() => {
     if (profitLoss) {
@@ -27,17 +34,21 @@ const PlaceBetComponent = ({
     }
   }, [profitLoss]);
 
+  const handleClick = useCallback(() => {
+    if (!show?.open && show?.id !== data?.id) {
+      dispatch(getRunAmount(data?.id));
+      setShow({ open: true, id: data?.id });
+    } else {
+      setShow({ open: false, id: "" });
+    }
+  }, [show, data?.id, dispatch, setShow]);
+
   return (
     <Box
       sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
     >
       <Box
-        onClick={() => {
-          if (!show.open && show?.id !== data?.id) {
-            dispatch(getRunAmount(data?.id));
-            setShow({ open: true, id: data?.id });
-          } else setShow({ open: false, id: "" });
-        }}
+        onClick={handleClick}
         sx={{
           background: "#0B4F26",
           position: "absolute",
@@ -49,7 +60,7 @@ const PlaceBetComponent = ({
           width: { lg: "90px", xs: "60px", md: "90px" },
           borderRadius: "5px",
           height: "35px",
-
+          cursor: "pointer",
           zIndex: 100,
         }}
       >
@@ -108,7 +119,7 @@ const PlaceBetComponent = ({
               ? profitLoss?.profitLoss?.[index]
               : !profitLoss?.maxLoss
               ? "Profit/Loss"
-              : handleDecimalAmount(profitLoss?.maxLoss, color)}
+              : handleDecimalAmount(profitLoss?.maxLoss, "")}
           </Typography>
         </Box>
       </Box>
@@ -119,16 +130,10 @@ const PlaceBetComponent = ({
           sessionBettingType.fancy1,
           sessionBettingType.cricketCasino,
         ].includes(data?.type) && (
-          <RunsDropDown
-            style={{ zIndex: 10 }}
-            list={runAmount && runAmount?.runAmount}
-            open={Boolean(anchorEl)}
-            anchorEl={anchorEl}
-            //   handleClose={handleClose}
-          />
+          <RunsDropDown list={runAmount && runAmount?.runAmount} />
         )}
     </Box>
   );
 };
 
-export default PlaceBetComponent;
+export default memo(PlaceBetComponent);

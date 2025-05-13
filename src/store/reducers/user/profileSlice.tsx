@@ -1,8 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
-  buttonValueSuccessReset,
   getAccountStatement,
-  getBetAccountStatementModal,
   getButtonValue,
   getProfile,
   getProfileInMatchDetail,
@@ -27,7 +25,6 @@ interface InitialState {
   buttonValueSuccess: boolean;
   transactions: any;
   matchDetails: any;
-  betAccountStatementModal: any;
 }
 
 const initialState: InitialState = {
@@ -42,7 +39,6 @@ const initialState: InitialState = {
   loading: false,
   success: false,
   error: null,
-  betAccountStatementModal: null,
 };
 
 const profileSlice = createSlice({
@@ -60,11 +56,11 @@ const profileSlice = createSlice({
       .addCase(marqueeNotification.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.marqueeNotification = action?.payload;
+        state.marqueeNotification = action.payload;
       })
       .addCase(marqueeNotification.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(getProfile.pending, (state) => {
         state.loading = true;
@@ -74,11 +70,11 @@ const profileSlice = createSlice({
       .addCase(getProfile.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.profileDetail = action?.payload?.[0]?.[0];
+        state.profileDetail = action.payload;
       })
       .addCase(getProfile.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(getProfileInMatchDetail.pending, (state) => {
         state.loading = true;
@@ -88,11 +84,11 @@ const profileSlice = createSlice({
       .addCase(getProfileInMatchDetail.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.profileDetail = action?.payload?.[0]?.[0];
+        state.profileDetail = action.payload;
       })
       .addCase(getProfileInMatchDetail.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(getAccountStatement.pending, (state) => {
         state.loading = true;
@@ -102,11 +98,11 @@ const profileSlice = createSlice({
       .addCase(getAccountStatement.fulfilled, (state, action) => {
         state.loading = false;
         state.success = true;
-        state.transactions = action?.payload;
+        state.transactions = action.payload;
       })
       .addCase(getAccountStatement.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(setButtonValue.pending, (state) => {
         state.loading = true;
@@ -119,10 +115,7 @@ const profileSlice = createSlice({
       })
       .addCase(setButtonValue.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
-      })
-      .addCase(buttonValueSuccessReset, (state) => {
-        return { ...state, buttonValueSuccess: false };
+        state.error = action.error?.message;
       })
       .addCase(getButtonValue.pending, (state) => {
         state.loading = true;
@@ -130,26 +123,13 @@ const profileSlice = createSlice({
         state.error = null;
       })
       .addCase(getButtonValue.fulfilled, (state, action) => {
-        state.buttonValues = action?.payload;
+        state.buttonValues = action.payload;
         state.loading = false;
         state.success = true;
       })
       .addCase(getButtonValue.rejected, (state, action) => {
         state.loading = false;
-        state.error = action?.error?.message;
-      })
-      .addCase(getBetAccountStatementModal.pending, (state) => {
-        state.loading = false;
-        state.error = null;
-        state.betAccountStatementModal = null;
-      })
-      .addCase(getBetAccountStatementModal.fulfilled, (state, action) => {
-        state.betAccountStatementModal = action.payload;
-        state.loading = false;
-      })
-      .addCase(getBetAccountStatementModal.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action?.error?.message;
+        state.error = action.error?.message;
       })
       .addCase(updateBalance.fulfilled, (state, action) => {
         state.profileDetail = {
@@ -157,8 +137,7 @@ const profileSlice = createSlice({
           userBal: {
             ...state?.profileDetail?.userBal,
             exposure:
-              action?.payload?.newUserExposure ?? action?.payload?.exposure,
-            // currentBalance: action.payload.userCurrentBalance,
+              action.payload?.newUserExposure ?? action.payload?.exposure,
           },
         };
       })
@@ -167,8 +146,8 @@ const profileSlice = createSlice({
           ...state.profileDetail,
           userBal: {
             ...state?.profileDetail?.userBal,
-            exposure: action?.payload?.exposure,
-            currentBalance: action?.payload?.currentBalance,
+            exposure: action.payload?.exposure,
+            currentBalance: action.payload?.currentBalance,
           },
         };
       })
@@ -177,8 +156,8 @@ const profileSlice = createSlice({
           ...state.profileDetail,
           userBal: {
             ...state?.profileDetail?.userBal,
-            exposure: action?.payload?.exposure,
-            currentBalance: action?.payload?.currentBalance,
+            exposure: action.payload?.exposure,
+            currentBalance: action.payload?.currentBalance,
           },
         };
       })
@@ -188,10 +167,7 @@ const profileSlice = createSlice({
           userBal: {
             ...state?.profileDetail?.userBal,
             exposure:
-              action?.payload?.newUserExposure ?? action?.payload?.exposure,
-            // currentBalance:
-            //   action.payload.newUserCurrentBalance ??
-            //   action.payload.currentBalance,
+              action.payload?.newUserExposure ?? action.payload?.exposure,
           },
         };
       })
@@ -200,8 +176,8 @@ const profileSlice = createSlice({
           ...state.profileDetail,
           userBal: {
             ...state?.profileDetail?.userBal,
-            currentBalance: action?.payload?.currentBalance,
-            profitLoss: action?.payload?.profitLoss,
+            currentBalance: action.payload?.currentBalance,
+            profitLoss: action.payload?.profitLoss,
           },
         };
       });

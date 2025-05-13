@@ -1,26 +1,28 @@
 import { Box, Typography } from "@mui/material";
+import { memo, useCallback } from "react";
+
+interface NumberDataProps {
+  value: any;
+  containerStyle: any;
+  setStakeValue: (val: any) => void;
+  selectedBetAction: (val: any) => void;
+}
 
 const NumberData = ({
   value,
   containerStyle,
   setStakeValue,
   selectedBetAction,
-  setNewRatesValue,
-}: any) => {
+}: NumberDataProps) => {
+
+  const handleClick = useCallback(() => {
+    setStakeValue(value.value);
+    selectedBetAction(value);
+  }, [value, setStakeValue, selectedBetAction]);
+
   return (
     <Box
-      onClick={() => {
-        // setNewRatesValue(
-        //   value?.value
-        // );
-        setNewRatesValue({
-          lossAmount: value?.value,
-          winAmount: value?.value,
-        });
-        setStakeValue(value?.value);
-
-        selectedBetAction(value);
-      }}
+      onClick={handleClick}
       sx={[
         {
           display: "flex",
@@ -48,4 +50,4 @@ const NumberData = ({
   );
 };
 
-export default NumberData;
+export default memo(NumberData);

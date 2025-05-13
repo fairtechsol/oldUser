@@ -1,7 +1,6 @@
 import { Box } from "@mui/material";
-import { memo } from "react";
-
 import Loader from "../../components/Loader";
+
 const ComingSoon = () => {
   return (
     <Box
@@ -24,9 +23,9 @@ const ComingSoon = () => {
           alignItems: "center",
         }}
       >
-        <Loader height={"70vh"} text={"Coming Soon"} />
+        <Loader height="70vh" text="Coming Soon" />
       </Box>
     </Box>
   );
 };
-export default memo(ComingSoon);
+export default ComingSoon;

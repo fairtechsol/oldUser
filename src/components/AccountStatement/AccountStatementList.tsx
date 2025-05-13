@@ -1,14 +1,14 @@
 import { Box } from "@mui/material";
 import moment from "moment";
-import { useEffect, useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { getPlacedBetsForAccountStatement } from "../../store/actions/betPlace/betPlaceActions";
 import {
   transactionProviderBetsReset,
   transactionProviderName,
 } from "../../store/actions/card/cardDetail";
 import { getAccountStatement } from "../../store/actions/user/userAction";
 import { AppDispatch, RootState } from "../../store/store";
-import Loader from "../Loader";
 import AccountStatementModal from "./AccountStatementModal";
 import BetsListModal from "./BetsListModal";
 import EmptyRow from "./EmptyRow";
@@ -18,26 +18,26 @@ import ListHeaderT from "./ListheaderT";
 import TableRow from "./TableRow";
 import YellowHeader from "./YellowHeader";
 
-const AccountStatementList = () => {
-  const [loading] = useState(false);
+const keywords = ["ballbyball", "cricketv3", "superover"];
 
+const AccountStatementList = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [pageLimit, setPageLimit] = useState<number>(15);
   const [fromDate, setFromDate] = useState<any>();
   const [toDate, setToDate] = useState<any>();
   const [searchValue, setSearchValue] = useState<string>("");
   const [showBetsModal, setShowBetsModal] = useState(false);
-  const [showAccountStatementModal, setShowAccountStatementModal] =
-    useState(false);
   const [updatedReport, setUpdateReports] = useState<any>([]);
   const [selectedUser, setSelectedUser] = useState<any>(null);
-  const [show] = useState({
+  const [show, setShow] = useState({
     status: false,
     betId: [],
     runnerId: "",
     casinoType: "",
   });
-
+  const handleClose = () => {
+    setShow({ status: false, betId: [], runnerId: "", casinoType: "a" });
+  };
   const dispatch: AppDispatch = useDispatch();
 
   const { transactions, profileDetail } = useSelector(
@@ -58,58 +58,91 @@ const AccountStatementList = () => {
     setUpdateReports([]);
   };
 
-  // const handleClickToOpenBetModal = (item: any, user: any) => {
-  //   const match = item?.description.match(/Rno\. (\d+\.\d+)/);
-  //   if (item?.betId) {
-  //     setShowAccountStatementModal((prev) => !prev);
-  //     setSelectedUser(item);
-  //     dispatch(
-  //       getBetAccountStatementModal({
-  //         id: user?.id,
-  //         betId: item?.betId,
-  //         status: null,
-  //         sort: "betPlaced.createdAt:DESC",
-  //       })
-  //     );
-  //   } else if (match && match[1]) {
-  //     setShowAccountStatementModal((prev) => !prev);
-  //     setSelectedUser(item);
-  //     dispatch(
-  //       getBetAccountStatementModal({
-  //         id: user?.id,
-  //         isCard: true,
-  //         runnerId: match[1],
-  //         result: `inArr${JSON.stringify(["WIN", "LOSS", "TIE"])}`,
-  //         sort: "betPlaced.createdAt:DESC",
-  //       })
-  //     );
-  //   }
-  // };
+  const formatDateFilter = useCallback(() => {
+    let filter = "";
+    if (fromDate && toDate) {
+      filter += `&createdAt=between${moment(fromDate)?.format(
+        "YYYY-MM-DD"
+      )}|${moment(toDate).add(1, "days")?.format("YYYY-MM-DD")}`;
+    } else if (fromDate) {
+      filter += `&createdAt=gte${moment(fromDate)?.format("YYYY-MM-DD")}`;
+    } else if (toDate) {
+      filter += `&createdAt=lte${moment(toDate)?.format("YYYY-MM-DD")}`;
+    }
+    return filter;
+  }, [fromDate, toDate]);
 
-  useEffect(() => {
+  const fetchAccountStatement = useCallback(() => {
     if (profileDetail?.id) {
-      let filter = "";
-      if (fromDate && toDate) {
-        filter += `&createdAt=between${moment(fromDate)?.format(
-          "YYYY-MM-DD"
-        )}|${moment(toDate).add(1, "days")?.format("YYYY-MM-DD")}`;
-      } else if (fromDate) {
-        filter += `&createdAt=gte${moment(fromDate)?.format("YYYY-MM-DD")}`;
-      } else if (toDate) {
-        filter += `&createdAt=lte${moment(toDate)?.format("YYYY-MM-DD")}`;
-      }
+      const filter = formatDateFilter();
       dispatch(
         getAccountStatement({
-          userId: profileDetail?.id,
+          userId: profileDetail.id,
           page: currentPage,
           limit: pageLimit,
-          filter: filter,
+          filter,
           searchBy: "description,user.userName,actionByUser.userName",
           keyword: searchValue,
         })
       );
     }
-  }, [profileDetail, currentPage, pageLimit]);
+  }, [
+    profileDetail,
+    currentPage,
+    pageLimit,
+    searchValue,
+    formatDateFilter,
+    dispatch,
+  ]);
+
+  const handleSearch = useCallback(() => {
+    setCurrentPage(1);
+    fetchAccountStatement();
+  }, [fetchAccountStatement]);
+
+  const handleDescriptionClick = (containsKeywords: any, item: any) => {
+    const match = containsKeywords
+      ? item?.description.match(/Rno\. (\d+)/)
+      : item?.description.match(/Rno\. (\d+\.\d+)/);
+    if (item?.type === "3") {
+      handleLiveCasinoModalOpen(item);
+    } else {
+      if (item?.betId?.length > 0) {
+        setShow({
+          status: true,
+          betId: item?.betId,
+          runnerId: "",
+          casinoType: "",
+        });
+        dispatch(
+          getPlacedBetsForAccountStatement({
+            betId: item?.betId,
+            status: "MATCHED",
+            userId: profileDetail?.id,
+          })
+        );
+      } else if (match && match[1]) {
+        setShow({
+          status: true,
+          betId: [],
+          runnerId: match[1],
+          casinoType: "",
+        });
+        dispatch(
+          getPlacedBetsForAccountStatement({
+            runnerId: match[1],
+            isCard: true,
+            result: `inArr${JSON.stringify(["WIN", "LOSS", "TIE"])}`,
+            userId: profileDetail?.id,
+          })
+        );
+      }
+    }
+  };
+
+  useEffect(() => {
+    fetchAccountStatement();
+  }, [fetchAccountStatement]);
 
   useEffect(() => {
     if (liveCasinoProviderBets?.bets) {
@@ -124,7 +157,11 @@ const AccountStatementList = () => {
 
   useEffect(() => {
     dispatch(transactionProviderName(""));
-  }, []);
+  }, [dispatch]);
+
+  const totalPages = Math.ceil(
+    parseInt(transactions?.count ? transactions.count : 1) / pageLimit
+  );
 
   return (
     <>
@@ -133,62 +170,33 @@ const AccountStatementList = () => {
           <YellowHeader
             fromDate={fromDate}
             toDate={toDate}
-            getAccountStatement={() => {
-              let filter = "";
-              if (fromDate && toDate) {
-                filter += `&createdAt=between${moment(fromDate)?.format(
-                  "YYYY-MM-DD"
-                )}|${moment(toDate).add(1, "days")?.format("YYYY-MM-DD")}`;
-              } else if (fromDate) {
-                filter += `&createdAt=gte${moment(fromDate)?.format(
-                  "YYYY-MM-DD"
-                )}`;
-              } else if (toDate) {
-                filter += `&createdAt=lte${moment(toDate)?.format(
-                  "YYYY-MM-DD"
-                )}`;
-              }
-              setCurrentPage(1);
-              dispatch(
-                getAccountStatement({
-                  userId: profileDetail?.id,
-                  page: 1,
-                  searchBy: "description,user.userName,actionByUser.userName",
-                  keyword: searchValue,
-                  limit: pageLimit,
-                  filter: filter,
-                })
-              );
-            }}
+            getAccountStatement={handleSearch}
             setToDate={setToDate}
             setFromDate={setFromDate}
           />
         </Box>
-
         <Box
-          sx={[
-            {
-              marginX: { xs: "2vw", lg: "1vw" },
-              minHeight: "100px",
-              borderRadius: "2px",
-              border: "2px solid white",
-              width: "97.5%",
-              borderTopRightRadius: {
-                xs: "10px",
-                lg: "0px",
-                md: "10px",
-              },
-              borderTopLeftRadius: {
-                xs: "10px",
-                lg: "0px",
-                md: "10px",
-              },
-              background: "#F8C851",
+          sx={{
+            marginX: { xs: "2vw", lg: "1vw" },
+            minHeight: "100px",
+            borderRadius: "2px",
+            border: "2px solid white",
+            width: "97.5%",
+            borderTopRightRadius: {
+              xs: "10px",
+              lg: "0px",
+              md: "10px",
             },
-          ]}
+            borderTopLeftRadius: {
+              xs: "10px",
+              lg: "0px",
+              md: "10px",
+            },
+            background: "#F8C851",
+          }}
         >
           <ListH
-            searchFor={"accountStatement"}
+            searchFor="accountStatement"
             pageLimit={pageLimit}
             setPageLimit={setPageLimit}
             fromDate={fromDate}
@@ -196,26 +204,19 @@ const AccountStatementList = () => {
             setCurrentPage={setCurrentPage}
             setSearchValue={setSearchValue}
           />
+          <>
+            <Box sx={{ overflowX: "scroll", width: "100%" }}>
+              <ListHeaderT />
+              {transactions?.transactions?.length === 0 ? (
+                <EmptyRow containerStyle={{ background: "#FFE094" }} />
+              ) : (
+                transactions?.transactions?.map((item: any) => {
+                  const firstPart = item?.description?.split("/")?.[0];
+                  const containsKeywords =
+                    firstPart &&
+                    keywords.some((keyword) => firstPart.includes(keyword));
 
-          {loading ? (
-            <Box
-              sx={{
-                minHeight: "60vh",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Loader text="" />
-            </Box>
-          ) : (
-            <>
-              <Box sx={{ overflowX: "scroll", width: "100%" }}>
-                <ListHeaderT />
-                {transactions?.transactions?.length === 0 ? ( // Check if no records
-                  <EmptyRow containerStyle={{ background: "#FFE094" }} />
-                ) : (
-                  transactions?.transactions?.map((item: any) => (
+                  return (
                     <TableRow
                       key={item?.id}
                       index={item?.id}
@@ -230,30 +231,20 @@ const AccountStatementList = () => {
                       amount={item?.amount}
                       fromuserName={item?.actionByUser?.userName}
                       touserName={item?.user?.userName}
-                      onClick={() => {
-                        if (item?.type === 3) {
-                          handleLiveCasinoModalOpen(item);
-                          // } else {
-                          //   handleClickToOpenBetModal(item, item?.user);
-                        }
-                      }}
+                      onClick={() =>
+                        handleDescriptionClick(containsKeywords, item)
+                      }
                     />
-                  ))
-                )}
-              </Box>
-              <Footer
-                currentPage={currentPage}
-                pages={Math.ceil(
-                  parseInt(
-                    transactions && transactions?.count
-                      ? transactions?.count
-                      : 1
-                  ) / pageLimit
-                )}
-                setCurrentPage={setCurrentPage}
-              />
-            </>
-          )}
+                  );
+                })
+              )}
+            </Box>
+            <Footer
+              currentPage={currentPage}
+              pages={totalPages}
+              setCurrentPage={setCurrentPage}
+            />
+          </>
         </Box>
       </Box>
       <BetsListModal
@@ -264,12 +255,12 @@ const AccountStatementList = () => {
         updatedReport={updatedReport}
       />
       <AccountStatementModal
-        open={showAccountStatementModal}
-        onClose={() => setShowAccountStatementModal(false)}
+        open={show.status}
+        onClose={handleClose}
         show={show}
       />
     </>
   );
 };
 
-export default AccountStatementList;
+export default memo(AccountStatementList);

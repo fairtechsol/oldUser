@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { memo, ReactNode } from "react";
 import "./style.scss";
 interface props {
   bgColor?: string;
@@ -6,9 +6,8 @@ interface props {
   padding?: string | number;
   style?: React.CSSProperties;
   customClass?: string;
-  rightComponent?:ReactNode;
-  customTextClass?:string;
-  
+  rightComponent?: ReactNode;
+  customTextClass?: string;
 }
 
 function BetTableHeader({
@@ -17,22 +16,25 @@ function BetTableHeader({
   style,
   customClass,
   rightComponent,
-  customTextClass
+  customTextClass,
 }: props) {
   const inlineStyle: React.CSSProperties = {
     ...style,
   };
   return (
     <div
-      className={`tableHeader d-flex justify-content-between f600 ${padding ? padding : "px-2"} ${customClass ?? ""}
+      className={`tableHeader d-flex justify-content-between f600 ${
+        padding ? padding : "px-2"
+      } ${customClass ?? ""}
       `}
       style={{ ...inlineStyle }}
     >
-      <span className={`text-white ${customTextClass??"title-14"}`}>{title}</span>
-      
+      <span className={`text-white ${customTextClass ?? "title-14"}`}>
+        {title}
+      </span>
       {rightComponent}
     </div>
   );
 }
 
-export default BetTableHeader;
+export default memo(BetTableHeader);

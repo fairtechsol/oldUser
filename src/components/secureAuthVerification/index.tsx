@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { memo, useState } from "react";
 import {
-    Col,
-    Form,
-    Row,
-    ToggleButton,
-    ToggleButtonGroup,
+  Col,
+  Form,
+  Row,
+  ToggleButton,
+  ToggleButtonGroup,
 } from "react-bootstrap";
 import { TfiAndroid } from "react-icons/tfi";
 
@@ -145,4 +145,4 @@ const SecureAuthVerificationComponent = () => {
   );
 };
 
-export default SecureAuthVerificationComponent;
+export default memo(SecureAuthVerificationComponent);

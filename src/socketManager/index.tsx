@@ -21,14 +21,6 @@ export const initialiseSocket = () => {
       token: `${sessionStorage.getItem("jwtUser")}`,
     },
   });
-  // matchSocket = io(baseUrls.matchSocket, {
-  //   transports: [
-  //     // process.env.NODE_ENV === "production"
-  //     //   ? `${Constants.POLLING}`
-  //     //   :
-  //        `${Constants.WEBSOCKET}`,`${Constants.POLLING}`
-  //   ],
-  // });
 };
 
 export const initialiseMatchSocket = (matchId: string[]) => {
@@ -40,7 +32,7 @@ export const initialiseMatchSocket = (matchId: string[]) => {
     ],
     query: {
       matchIdArray: matchId,
-      roleName: "superAdmin"
+      roleName: "superAdmin",
     },
   });
 };

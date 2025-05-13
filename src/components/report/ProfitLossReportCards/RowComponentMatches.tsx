@@ -13,7 +13,6 @@ const RowComponentMatches = ({
   index,
   selectedId,
   betData,
-  // sessionBetData,
   getBetReport,
 }: any) => {
   const { totalBetProfitLossCard } = useSelector(
@@ -21,6 +20,26 @@ const RowComponentMatches = ({
   );
   const dispatch: AppDispatch = useDispatch();
   const [showBets, setShowBets] = useState(false);
+
+  const handleAllBetClick = () => {
+    if (selectedId?.id === item?.gameId && selectedId?.type === "all_bet") {
+      setShowBets((prev) => !prev);
+    } else {
+      setShowBets(true);
+      getBetReport({
+        eventType: item?.eventType,
+        match_id: item?.gameId,
+        type: "all_bet",
+        betId: "",
+        sessionBet: false,
+      });
+      dispatch(
+        getTotalBetProfitLossCard({
+          gameId: item?.gameId,
+        })
+      );
+    }
+  };
   return (
     <Box sx={{ width: "100%" }}>
       <Box
@@ -92,26 +111,7 @@ const RowComponentMatches = ({
         <Box
           onClick={(e) => {
             e.stopPropagation();
-            if (
-              selectedId?.id === item?.gameId &&
-              selectedId?.type === "all_bet"
-            ) {
-              setShowBets((prev) => !prev);
-            } else {
-              setShowBets(true);
-              getBetReport({
-                eventType: item?.eventType,
-                match_id: item?.gameId,
-                type: "all_bet",
-                betId: "",
-                sessionBet: false,
-              });
-              dispatch(
-                getTotalBetProfitLossCard({
-                  gameId: item?.gameId,
-                })
-              );
-            }
+            handleAllBetClick();
           }}
           sx={{
             background: item?.rateProfitLoss > 0 ? "#27AC1E" : "#E32A2A",
@@ -148,7 +148,7 @@ const RowComponentMatches = ({
                 width: { lg: "25px", xs: "15px" },
                 height: { lg: "12px", xs: "8px" },
               }}
-              alt=""
+              alt="arrow"
             />
           </Box>
           <Box
@@ -180,7 +180,7 @@ const RowComponentMatches = ({
                     ? "rotate(180deg)"
                     : "rotate(0deg)",
               }}
-              alt=""
+              alt="arrow down"
             />
           </Box>
         </Box>
@@ -206,7 +206,7 @@ const RowComponentMatches = ({
                   profit
                 />
               </Box>
-              <Box sx={{ width: { lg: "1vw", xs: 0 } }}></Box>
+              <Box sx={{ width: { lg: "1vw", xs: 0 } }} />
             </>
           )}
         </>

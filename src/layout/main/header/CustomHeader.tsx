@@ -5,16 +5,14 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Draw, logo } from "../../../assets";
 import StyledImage from "../../../components/Common/StyledImages";
+import { RootState } from "../../../store/store";
 import "./index.css";
 import MobileSideBar from "./MobileSideBar";
-
-import { memo } from "react";
-import { useSelector } from "react-redux";
-import { Draw, logo } from "../../../assets";
-import { RootState } from "../../../store/store";
 import NewBoxData from "./NewBoxData";
 
 const CustomHeader = () => {
@@ -29,7 +27,6 @@ const CustomHeader = () => {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
 
   const marqueeTextRef = useRef<HTMLDivElement | null>(null);
-
 
   useEffect(() => {
     if (!matchesMobile) {
@@ -55,7 +52,6 @@ const CustomHeader = () => {
       window.removeEventListener("offline", offlineHandler);
     };
   }, []);
-
 
   useEffect(() => {
     const marqueeText = marqueeTextRef.current;
@@ -93,11 +89,9 @@ const CustomHeader = () => {
             </Typography>
           </Box>
         )}
-        {/* <CustomLoader height={"100%"} /> */}
       </Box>
 
       <AppBar position="fixed" sx={{ zIndex: 999 }}>
-        {/* <IdleTimer role="user" /> */}
         {!isOnline && (
           <Box
             sx={{
@@ -129,14 +123,13 @@ const CustomHeader = () => {
               flexDirection: matchesMobile ? "column" : "row",
               alignItems: !matchesMobile ? "center" : "flex-start",
               justifyContent: "space-between",
-              // paddingLeft: { lg: "6.5%" },
               paddingRight: { lg: "1%" },
               paddingX: { xs: "2%", lg: "1%" },
               paddingY: matchesMobile ? "5px" : "0px",
               paddingBottom: matchesMobile ? "5px" : "0px",
             },
             (theme: any) => ({
-              backgroundImage: `${theme.palette.primary.headerGradient}`,
+              backgroundImage: theme?.palette?.primary?.headerGradient,
             }),
           ]}
         >
@@ -163,10 +156,11 @@ const CustomHeader = () => {
                   height: { lg: "24px", xs: "20px" },
                   width: "auto",
                 }}
+                alt="draw"
               />
               <StyledImage
                 onClick={(e) => {
-                  navigate("/match", { state: { activeTab: "CRICKET" } });
+                  navigate("/match/cricket");
                   e.stopPropagation();
                 }}
                 src={logo}
@@ -175,6 +169,7 @@ const CustomHeader = () => {
                   width: "auto",
                   marginLeft: { lg: "20px", xs: "10px" },
                 }}
+                alt="Fairgame Logo"
               />
             </Box>
 
@@ -189,7 +184,7 @@ const CustomHeader = () => {
                 showDropDown={false}
                 containerStyle={{ marginTop: matchesMobile ? "5px" : "0px" }}
                 valueStyle={{}}
-                title={"Exposure"}
+                title="Exposure"
                 value={profileDetail?.userBal?.exposure}
               />
               <NewBoxData
@@ -247,6 +242,3 @@ const CustomHeader = () => {
 };
 
 export default memo(CustomHeader);
-// function dispatch(arg0: any) {
-//   throw new Error("Function not implemented.");
-// }
