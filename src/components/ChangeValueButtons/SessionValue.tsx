@@ -12,15 +12,15 @@ interface ButtonProps {
   label: string;
   value: string;
 }
+interface ButtonValue {
+  id: string;
+  type: string;
+  value: any;
+}
 
 const SessionValue = () => {
   const [loader, setLoader] = useState(false);
 
-  interface ButtonValue {
-    id: string;
-    type: string;
-    value: any;
-  }
   const dispatch: AppDispatch = useDispatch();
   const { buttonValues, buttonValueSuccess, error } = useSelector(
     (state: RootState) => state.user.profile
