@@ -1,9 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
 import { CasinoGameProps } from "../../../interface/common";
+import { MobileGameListProps } from "../../../interface/common/MatchesComponent";
 import { homeCasinoListIcons } from "../../../utils/Constants";
 import liveCasinoGameList from "../../../utils/liveCasinoGameList.json";
 
-const MobileGameList = ({ handleModal }: any) => {
+const MobileGameList = ({ handleModal }: MobileGameListProps) => {
   const navigate = useNavigate();
   return (
     <div className="w-100 tab-pane active casino-tables d-flex">

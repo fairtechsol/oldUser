@@ -5,6 +5,7 @@ import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { CancelDark } from "../../../../assets";
+import { OddsPlaceBetProps } from "../../../../interface/common/GameDetail";
 import {
   betPlaceSuccessReset,
   placeBet,
@@ -25,11 +26,6 @@ const toastOptions = {
   closeOnClick: true,
   pauseOnHover: true,
 };
-
-interface OddsPlaceBetProps {
-  handleClose: () => void;
-  type: any;
-}
 
 const OddsPlaceBet = ({ handleClose, type }: OddsPlaceBetProps) => {
   const dispatch: AppDispatch = useDispatch();
@@ -334,19 +330,17 @@ const OddsPlaceBet = ({ handleClose, type }: OddsPlaceBetProps) => {
   };
   return (
     <Box
-      sx={[
-        {
-          display: "flex",
-          flexDirection: "column",
-          border: "1px solid white",
-          borderRadius: "5px",
-          overflow: "hidden",
-          marginLeft: 0,
-          width: { xs: "98vw", md: "60vw", lg: "40%" },
-          position: "relative",
-          boxShadow: "rgba(0, 0, 0, 0.56) 0px 22px 70px 4px",
-        },
-      ]}
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        border: "1px solid white",
+        borderRadius: "5px",
+        overflow: "hidden",
+        marginLeft: 0,
+        width: { xs: "98vw", md: "60vw", lg: "40%" },
+        position: "relative",
+        boxShadow: "rgba(0, 0, 0, 0.56) 0px 22px 70px 4px",
+      }}
     >
       <Box sx={{ background: "#F8C851", width: "100%", overflow: "hidden" }}>
         <Box

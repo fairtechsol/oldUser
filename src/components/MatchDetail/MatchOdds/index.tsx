@@ -29,10 +29,10 @@ const MatchesComponent = () => {
 
   const getMatchListMarket = async (matchType: string) => {
     try {
-      const resp: any = await axios.get(marketApiConst[matchType] || "", {
+      const resp: any = await axios.get(marketApiConst[matchType], {
         timeout: 2000,
       });
-      if (resp?.status) {
+      if (resp?.data) {
         dispatch(updateMatchRatesFromApiOnList(resp?.data));
       }
     } catch (error) {
@@ -137,16 +137,18 @@ const MatchesComponent = () => {
   }, [type]);
 
   useEffect(() => {
-    setTimeout(() => {
-      getMatchListMarket(type || "");
-    }, 1500);
-    const intervalId = setInterval(() => {
-      if (type) {
-        getMatchListMarket(type || "");
-      }
-    }, 3000);
+    if (type) {
+      setTimeout(() => {
+        getMatchListMarket(type);
+      }, 1500);
+      const intervalId = setInterval(() => {
+        if (type) {
+          getMatchListMarket(type);
+        }
+      }, 3000);
 
-    return () => clearInterval(intervalId);
+      return () => clearInterval(intervalId);
+    }
   }, [type]);
 
   return (
@@ -159,7 +161,6 @@ const MatchesComponent = () => {
               top={true}
               blur={false}
               match={match}
-              selectedMatchId={selectedMatchId}
               setSelectedMatchId={setSelectedMatchId}
             />
           );

@@ -1,11 +1,7 @@
 import { Box, Typography } from "@mui/material";
-import { handleDecimalAmount } from "../../../../helper";
 import { memo } from "react";
-
-interface BookRatioBoxProps {
-  valueA: number | any;
-  valueB: number | any;
-}
+import { handleDecimalAmount } from "../../../../helper";
+import { BookRatioBoxProps } from "../../../../interface/common/GameDetail";
 
 const BookRatioBox = ({ valueA, valueB }: BookRatioBoxProps) => {
   return (

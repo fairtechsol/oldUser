@@ -1,6 +1,20 @@
 import { Box, Typography } from "@mui/material";
 import { memo } from "react";
 
+interface TableRowModalProps {
+  containerStyle: any;
+  fContainerStyle: any;
+  fTextStyle: any;
+  index: number;
+  teamName: string;
+  betType: string;
+  odds: number | string;
+  amount: number | string;
+  result: any;
+  createdAt: any;
+  startAt: any;
+}
+
 const TableRowModal = ({
   containerStyle,
   fContainerStyle,
@@ -13,7 +27,7 @@ const TableRowModal = ({
   result,
   createdAt,
   startAt,
-}: any) => {
+}: TableRowModalProps) => {
   return (
     <Box
       sx={[
@@ -76,15 +90,13 @@ const TableRowModal = ({
           width: { xs: "16%", lg: "14%", md: "14%" },
           display: "flex",
           paddingLeft: { lg: "10px", xs: "5px" },
-          background: "#E32A2A",
           alignItems: "center",
           height: "45px",
           borderRight: "2px solid white",
+          background: betType !== "BACK" ? "#F2CBCB" : "#CEEBFF",
         }}
       >
-        <Typography
-          sx={{ fontSize: "12px", fontWeight: "600", color: "white" }}
-        >
+        <Typography sx={{ fontSize: "12px", fontWeight: "600", color: "#000" }}>
           {betType}
         </Typography>
       </Box>
@@ -148,7 +160,7 @@ const TableRowModal = ({
       </Box>
       <Box
         sx={{
-          width: { xs: "18%", lg: "11%", md: "18%" },
+          width: { xs: "18%", lg: "14%", md: "18%" },
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -168,7 +180,7 @@ const TableRowModal = ({
       </Box>
       <Box
         sx={{
-          width: { xs: "18%", lg: "11%", md: "18%" },
+          width: { xs: "18%", lg: "14%", md: "18%" },
           display: "flex",
           justifyContent: "center",
           alignItems: "center",

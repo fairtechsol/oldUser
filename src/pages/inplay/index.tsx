@@ -40,7 +40,7 @@ const Inplay = () => {
       const resp: any = await axios.get(marketApiConst[matchType], {
         timeout: 2000,
       });
-      if (resp?.status) {
+      if (resp?.data) {
         dispatch(updateMatchRatesFromApiOnList(resp?.data));
       }
     } catch (error) {

@@ -1,13 +1,7 @@
 import { Box, Typography } from "@mui/material";
-import StyledImage from "../../Common/StyledImages";
 import { memo } from "react";
-
-interface PlaceBetMoneyBoxProps {
-  color: string;
-  trendingDown?: boolean;
-  trendingUp?: boolean;
-  rate: string | number;
-}
+import { PlaceBetMoneyBoxProps } from "../../../interface/common/GameDetail";
+import StyledImage from "../../Common/StyledImages";
 
 const PlaceBetMoneyBox = ({
   color,

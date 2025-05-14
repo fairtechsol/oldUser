@@ -6,15 +6,10 @@ import { memo, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Input from "../../../components/login/input";
+import { LoginProps } from "../../../interface/auth";
 import { authReset, login } from "../../../store/actions/auth/authAction";
 import { AppDispatch, RootState } from "../../../store/store";
 import { loginValidationSchema } from "../../../utils/Validations";
-
-interface LoginProps {
-  userName: string;
-  password: string;
-  loginType: string;
-}
 
 const initialValues: LoginProps = {
   userName: "",

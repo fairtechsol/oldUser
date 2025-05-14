@@ -1,6 +1,7 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { memo } from "react";
 import { formatNumber } from "../../../../helper";
+import { BoxComponentProps } from "../../../../interface/common/GameDetail";
 import MoneyBox from "../MoneyBox";
 import SeparateModal from "./SeparateModal";
 
@@ -15,7 +16,7 @@ const BoxComponent = ({
   marketDetails,
   upcoming,
   show6Box,
-}: any) => {
+}: BoxComponentProps) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const { ex, status, selectionId } = data ?? {};
@@ -37,35 +38,35 @@ const BoxComponent = ({
         !marketDetails?.isActive ||
         (!["ACTIVE", "OPEN", ""].includes(marketDetails?.status) &&
           marketDetails?.gtype == "match")) && (
-          <Box
+        <Box
+          sx={{
+            position: "absolute",
+            height: "100%",
+            width: "100%",
+            display: "flex",
+            zIndex: "888",
+            justifyContent: "center",
+            alignItems: "center",
+            background: "rgba(0, 0, 0, 0.71)",
+          }}
+        >
+          <Typography
             sx={{
-              position: "absolute",
-              height: "100%",
+              fontSize: { xs: "12px", lg: "22px" },
+              textTransform: "uppercase",
               width: "100%",
-              display: "flex",
-              zIndex: "888",
-              justifyContent: "center",
-              alignItems: "center",
-              background: "rgba(0, 0, 0, 0.71)",
+              textAlign: "center",
+              color: "white",
+              fontWeight: "400",
             }}
           >
-            <Typography
-              sx={{
-                fontSize: { xs: "12px", lg: "22px" },
-                textTransform: "uppercase",
-                width: "100%",
-                textAlign: "center",
-                color: "white",
-                fontWeight: "400",
-              }}
-            >
-              {!["ACTIVE", "OPEN", ""].includes(marketDetails?.status) &&
-                marketDetails?.gtype == "match"
-                ? marketDetails?.status
-                : ""}
-            </Typography>
-          </Box>
-        )}
+            {!["ACTIVE", "OPEN", ""].includes(marketDetails?.status) &&
+            marketDetails?.gtype == "match"
+              ? marketDetails?.status
+              : ""}
+          </Typography>
+        </Box>
+      )}
       <Box
         sx={{
           display: "flex",
@@ -120,10 +121,10 @@ const BoxComponent = ({
       )}
       {(!["ACTIVE", "", "OPEN", undefined, null].includes(status) ||
         matchDetails?.bettings?.length === 0) &&
-        !(
-          !["ACTIVE", "OPEN", ""].includes(marketDetails?.status) &&
-          marketDetails?.gtype == "match"
-        ) ? (
+      !(
+        !["ACTIVE", "OPEN", ""].includes(marketDetails?.status) &&
+        marketDetails?.gtype == "match"
+      ) ? (
         <Box
           sx={{
             background: "rgba(0,0,0,1)",
@@ -170,21 +171,21 @@ const BoxComponent = ({
               value={
                 isRound
                   ? Math.round(
-                    ex?.availableToBack?.length > 0
-                      ? ex?.availableToBack[
-                        ex?.availableToBack?.length > 1 ? 0 : 2
-                      ]?.price ?? 0
-                      : 0
-                  )
+                      ex?.availableToBack?.length > 0
+                        ? ex?.availableToBack[
+                            ex?.availableToBack?.length > 1 ? 0 : 2
+                          ]?.price ?? 0
+                        : 0
+                    )
                   : ex?.availableToBack?.length > 0
-                    ? ex?.availableToBack[ex?.availableToBack?.length > 1 ? 0 : 2]
+                  ? ex?.availableToBack[ex?.availableToBack?.length > 1 ? 0 : 2]
                       ?.price ?? 0
-                    : 0
+                  : 0
               }
               value2={formatNumber(
                 ex?.availableToBack?.length > 0
                   ? ex?.availableToBack[ex?.availableToBack?.length > 1 ? 0 : 2]
-                    ?.size ?? 0
+                      ?.size ?? 0
                   : 0,
                 isRound
               )}
@@ -207,13 +208,13 @@ const BoxComponent = ({
               value={
                 isRound
                   ? Math.round(
-                    ex?.availableToBack?.length > 0
-                      ? ex?.availableToBack[1]?.price ?? 0
-                      : 0
-                  )
+                      ex?.availableToBack?.length > 0
+                        ? ex?.availableToBack[1]?.price ?? 0
+                        : 0
+                    )
                   : ex?.availableToBack?.length > 0
-                    ? ex?.availableToBack[1]?.price ?? 0
-                    : 0
+                  ? ex?.availableToBack[1]?.price ?? 0
+                  : 0
               }
               value2={formatNumber(
                 ex?.availableToBack?.length > 0
@@ -242,21 +243,21 @@ const BoxComponent = ({
             value={
               isRound
                 ? Math.round(
-                  ex?.availableToBack?.length > 0
-                    ? ex?.availableToBack[
-                      ex?.availableToBack?.length > 1 ? 2 : 0
-                    ]?.price ?? 0
-                    : 0
-                )
+                    ex?.availableToBack?.length > 0
+                      ? ex?.availableToBack[
+                          ex?.availableToBack?.length > 1 ? 2 : 0
+                        ]?.price ?? 0
+                      : 0
+                  )
                 : ex?.availableToBack?.length > 0
-                  ? ex?.availableToBack[ex?.availableToBack?.length > 1 ? 2 : 0]
+                ? ex?.availableToBack[ex?.availableToBack?.length > 1 ? 2 : 0]
                     ?.price ?? 0
-                  : 0
+                : 0
             }
             value2={formatNumber(
               ex?.availableToBack?.length > 0
                 ? ex?.availableToBack[ex?.availableToBack?.length > 1 ? 2 : 0]
-                  ?.size ?? 0
+                    ?.size ?? 0
                 : 0,
               isRound
             )}
@@ -278,13 +279,13 @@ const BoxComponent = ({
             value={
               isRound
                 ? Math.round(
-                  ex?.availableToLay?.length > 0
-                    ? ex?.availableToLay[0]?.price ?? 0
-                    : 0
-                )
+                    ex?.availableToLay?.length > 0
+                      ? ex?.availableToLay[0]?.price ?? 0
+                      : 0
+                  )
                 : ex?.availableToLay?.length > 0
-                  ? ex?.availableToLay[0]?.price ?? 0
-                  : 0
+                ? ex?.availableToLay[0]?.price ?? 0
+                : 0
             }
             value2={formatNumber(
               ex?.availableToLay?.length > 0
@@ -310,13 +311,13 @@ const BoxComponent = ({
               value={
                 isRound
                   ? Math.round(
-                    ex?.availableToLay?.length > 0
-                      ? ex?.availableToLay[1]?.price ?? 0
-                      : 0
-                  )
+                      ex?.availableToLay?.length > 0
+                        ? ex?.availableToLay[1]?.price ?? 0
+                        : 0
+                    )
                   : ex?.availableToLay?.length > 0
-                    ? ex?.availableToLay[1]?.price ?? 0
-                    : 0
+                  ? ex?.availableToLay[1]?.price ?? 0
+                  : 0
               }
               value2={formatNumber(
                 ex?.availableToLay?.length > 0
@@ -343,13 +344,13 @@ const BoxComponent = ({
               value={
                 isRound
                   ? Math.round(
-                    ex?.availableToLay?.length > 0
-                      ? ex?.availableToLay[2]?.price ?? 0
-                      : 0
-                  )
+                      ex?.availableToLay?.length > 0
+                        ? ex?.availableToLay[2]?.price ?? 0
+                        : 0
+                    )
                   : ex?.availableToLay?.length > 0
-                    ? ex?.availableToLay[2]?.price ?? 0
-                    : 0
+                  ? ex?.availableToLay[2]?.price ?? 0
+                  : 0
               }
               value2={formatNumber(
                 ex?.availableToLay?.length > 0

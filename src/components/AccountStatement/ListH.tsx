@@ -1,11 +1,19 @@
 import { Box } from "@mui/material";
 import { memo } from "react";
-import { ApiConstants } from "../../utils/Constants";
 import NumberDropDown from "../Common/NumberDropDown";
 import SearchInput from "../Common/SearchInput";
 
+interface ListHProps {
+  searchFor: string;
+  pageLimit: number;
+  setPageLimit: (val: number) => void;
+  fromDate: any;
+  toDate: any;
+  setCurrentPage: (val: number) => void;
+  setSearchValue: (val: string) => void;
+}
+
 const ListH = ({
-  getAccountStatement,
   searchFor,
   pageLimit,
   setPageLimit,
@@ -13,7 +21,7 @@ const ListH = ({
   toDate,
   setCurrentPage,
   setSearchValue,
-}: any) => {
+}: ListHProps) => {
   return (
     <Box
       sx={{
@@ -34,19 +42,13 @@ const ListH = ({
         pageLimit={pageLimit}
         textColor="#000"
       />
-
       <SearchInput
-        show={true}
         searchFor={searchFor}
-        endpoint={ApiConstants.USER.LIST}
-        getListOfUser={getAccountStatement}
         setCurrentPage={setCurrentPage}
         pageLimit={pageLimit}
         fromDate={fromDate}
         toDate={toDate}
         onChange={setSearchValue}
-        width="100%"
-        placeholder="Search..."
         inputContainerStyle={{
           width: { xs: "50vw", lg: "17vw" },
           marginLeft: "auto",

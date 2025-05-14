@@ -1,14 +1,7 @@
 import { TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { memo } from "react";
-
-interface BoxInputProps {
-  title: string;
-  stakeValue: string | number;
-  containerStyle: any;
-  setStakeValue: (val: any) => void;
-  selectedColorBox: string;
-}
+import { BoxInputProps } from "../../../interface/common/GameDetail";
 
 const BoxInput = ({
   title,

@@ -1,14 +1,9 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import moment from "moment";
-import { IconConstants } from "../../helper/gameConstants";
-import { TimeLeftProps } from "../../interface/common";
 import { memo } from "react";
+import { IconConstants } from "../../helper/gameConstants";
+import { UpcomingsProps } from "../../interface/common/MatchesComponent";
 
-interface UpcomingsProps {
-  match: any;
-  timeLeft: TimeLeftProps;
-  upcoming: boolean;
-}
 
 const Upcomings = ({ match, timeLeft, upcoming }: UpcomingsProps) => {
   const theme = useTheme();

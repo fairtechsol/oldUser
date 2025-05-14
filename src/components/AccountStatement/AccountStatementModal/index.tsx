@@ -43,7 +43,7 @@ const AccountStatementModal = ({
   show: any;
 }) => {
   const dispatch: AppDispatch = useDispatch();
-  const [selectedOption, setSelectedOption] = useState("all");
+  const [selectedOption, setSelectedOption] = useState("matched");
   const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
   );
@@ -75,12 +75,12 @@ const AccountStatementModal = ({
         runnerId: show.runnerId,
         ...(option === "matched"
           ? {
-            isCard: true,
-            result: `inArr${JSON.stringify(["WIN", "LOSS", "TIE"])}`,
-          }
+              isCard: true,
+              result: `inArr${JSON.stringify(["WIN", "LOSS", "TIE"])}`,
+            }
           : {
-            status: "DELETED",
-          }),
+              status: "DELETED",
+            }),
       };
       dispatch(getPlacedBetsForAccountStatement(payload));
     }
@@ -142,16 +142,15 @@ const AccountStatementModal = ({
           <hr />
           <Box sx={{ overflowX: "scroll", width: "100%" }}>
             <ListHeaderTModal />
-            {placedBetsAccountStatement.length > 0 ? (
+            {placedBetsAccountStatement.length <= 0 ? (
               <EmptyRow containerStyle={{ background: "#FFE094" }} />
             ) : (
-              placedBetsAccountStatement?.length >= 0 &&
+              placedBetsAccountStatement?.length > 0 &&
               placedBetsAccountStatement?.map((item: any, index: number) => (
                 <TableRowModal
                   key={index}
                   index={index}
                   containerStyle={{ background: "#FFE094" }}
-                  profit={true}
                   fContainerStyle={{ background: "#0B4F26" }}
                   fTextStyle={{ color: "white" }}
                   teamName={item?.teamName}
@@ -162,8 +161,8 @@ const AccountStatementModal = ({
                     item?.result === "LOSS"
                       ? `-${parseFloat(item?.lossAmount).toFixed(2)}`
                       : item?.result === "WIN"
-                        ? parseFloat(item?.winAmount).toFixed(2)
-                        : 0
+                      ? parseFloat(item?.winAmount).toFixed(2)
+                      : 0
                   }
                   createdAt={moment(item?.createdAt).format(
                     "MM/DD/YYYY hh:mm:ss A"
@@ -171,11 +170,11 @@ const AccountStatementModal = ({
                   startAt={
                     item?.racingMatch
                       ? moment(item?.racingMatch?.startAt).format(
-                        "MM/DD/YYYY hh:mm:ss A"
-                      )
+                          "MM/DD/YYYY hh:mm:ss A"
+                        )
                       : moment(item?.match?.startAt).format(
-                        "MM/DD/YYYY hh:mm:ss A"
-                      )
+                          "MM/DD/YYYY hh:mm:ss A"
+                        )
                   }
                 />
               ))

@@ -31,19 +31,23 @@ const MatchList = () => {
         );
       }
     }
-  }, [sessionStorage, currentPageRedux]);
+  }, [currentPageRedux]);
 
   useEffect(() => {
-    if (type) {
+    if (type && currentPageRedux !== 1) {
+      dispatch(setCurrentPageRedux(1));
+    } else {
       dispatch(
         getMatchList({
           matchType: type,
-          page: 1,
+          page: currentPageRedux,
           limit: Constants.pageLimit,
         })
       );
-      dispatch(setCurrentPageRedux(1));
     }
+    return () => {
+      dispatch(setCurrentPageRedux(1));
+    };
   }, [type]);
 
   return (

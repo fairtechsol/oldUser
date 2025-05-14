@@ -2,25 +2,16 @@ import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import { useFormik } from "formik";
 import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { ButtonProps, ButtonValue } from "../../interface/changeButtonValues";
 import { setButtonValue } from "../../store/actions/user/userAction";
 import { AppDispatch, RootState } from "../../store/store";
 import { initialValues } from "../../utils/Constants";
 import LabelButton from "./LabelButton";
 import ValueButton from "./ValueButton";
 
-interface ButtonProps {
-  label: string;
-  value: string;
-}
-
 const MatchValues = () => {
   const [loader, setLoader] = useState(false);
 
-  interface ButtonValue {
-    id: string;
-    type: string;
-    value: any;
-  }
   const dispatch: AppDispatch = useDispatch();
   const { buttonValues, buttonValueSuccess, error } = useSelector(
     (state: RootState) => state.user.profile

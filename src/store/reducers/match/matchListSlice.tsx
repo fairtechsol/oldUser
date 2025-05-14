@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { convertData, updateSessionBettingsItem } from "../../../helper";
 import {
   getMatchList,
   matchDetailAction,
@@ -95,29 +94,30 @@ const matchListSlice = createSlice({
         const { apiSession, sessionBettings, tournament, scoreBoard } =
           action.payload;
         state.liveScoreBoardData = scoreBoard?.data;
-        const parsedSessionBettings =
-          state.matchDetails?.sessionBettings?.map(JSON.parse) || [];
-        const apiParsedSessionBettings = sessionBettings?.map(JSON.parse) || [];
 
-        apiParsedSessionBettings.forEach((apiItem: any) => {
-          const index = parsedSessionBettings.findIndex(
-            (parsedItem: any) => parsedItem.id === apiItem.id
-          );
-          if (index !== -1) {
-            parsedSessionBettings[index] = {
-              ...parsedSessionBettings[index],
-              ...apiItem,
-            };
-          } else {
-            parsedSessionBettings.push(apiItem);
-          }
-        });
-        const stringifiedSessionBetting = parsedSessionBettings.map(
-          JSON.stringify
+        const parsedSessionBettings = new Map(
+          (state.matchDetails?.sessionBettings || []).map((item: any) => {
+            const parsed = JSON.parse(item);
+            return [parsed.id, parsed];
+          })
         );
+
+        (sessionBettings || []).forEach((item: any) => {
+          const parsed = JSON.parse(item);
+          const existing = parsedSessionBettings.get(parsed.id);
+          parsedSessionBettings.set(
+            parsed.id,
+            existing ? { ...existing, ...parsed } : parsed
+          );
+        });
+
+        const stringifiedSessionBetting = Array.from(
+          parsedSessionBettings.values()
+        ).map((item) => JSON.stringify(item));
+
         state.matchDetails = {
           ...state.matchDetails,
-          manualSessionActive: sessionBettings?.length >= 0 ? true : false,
+          manualSessionActive: sessionBettings?.length > 0 ? true : false,
           gmid: action.payload?.gmid,
           apiSession: apiSession,
           sessionBettings: stringifiedSessionBetting,
@@ -129,10 +129,6 @@ const matchListSlice = createSlice({
             if (a.parentBetId !== null && b.parentBetId === null) return 1;
             return 0;
           }),
-          updatedSessionBettings: updateSessionBettingsItem(
-            convertData(parsedSessionBettings),
-            apiSession
-          ),
         };
       })
       .addCase(selectedBetAction.fulfilled, (state, action) => {
@@ -286,12 +282,11 @@ const matchListSlice = createSlice({
       })
       .addCase(updateMatchRatesFromApiOnList.fulfilled, (state, action) => {
         const matchListFromApi = action.payload;
-
         if (!state.matchList?.matches?.length || !matchListFromApi?.length)
           return;
 
         const apiMatchMap = new Map();
-        matchListFromApi.forEach((item: any) => {
+        matchListFromApi?.forEach((item: any) => {
           const id = Number(item.gameId || item.gmid);
           apiMatchMap.set(id, item);
         });

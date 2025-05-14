@@ -1,12 +1,7 @@
 import { Box, Modal, Typography } from "@mui/material";
 import { memo } from "react";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
-
-interface CountDownTimerProps {
-  visible: boolean;
-  setVisible: (val: boolean) => void;
-  time: number;
-}
+import { CountDownTimerProps } from "../../../interface/common";
 
 const CountDownTimer = ({ visible, setVisible, time }: CountDownTimerProps) => {
   return (

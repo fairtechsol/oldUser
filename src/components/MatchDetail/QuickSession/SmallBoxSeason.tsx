@@ -1,7 +1,8 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
+import { SmallBoxSeasonProps } from "../../../interface/common/GameDetail";
 
-const SmallBoxSeason = ({ allBetsData }: any) => {
+const SmallBoxSeason = ({ allBetsData }: SmallBoxSeasonProps) => {
   return (
     <Box
       sx={{

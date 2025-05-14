@@ -1,13 +1,8 @@
 import { Box, Typography } from "@mui/material";
 import { memo, useState } from "react";
 import { liveTv } from "../../../assets";
+import { LiveScoreBoardProps } from "../../../interface/common/GameDetail";
 import "./style.scss";
-
-interface LiveScoreBoardProps {
-  data: any;
-  width: string;
-  setIsTv: (val: any) => void;
-}
 
 const LiveScoreBoard = ({ data, width, setIsTv }: LiveScoreBoardProps) => {
   const [visible, setVisible] = useState(false);
@@ -51,7 +46,7 @@ const LiveScoreBoard = ({ data, width, setIsTv }: LiveScoreBoardProps) => {
             alignItems: "center",
             display: "flex",
             justifyContent: "space-between",
-            cursor: "pointer"
+            cursor: "pointer",
           }}
         >
           <Typography
@@ -82,7 +77,7 @@ const LiveScoreBoard = ({ data, width, setIsTv }: LiveScoreBoardProps) => {
             display: "flex",
             alignItems: "center",
             justifyContent: "flex-end",
-            cursor: "pointer"
+            cursor: "pointer",
           }}
         >
           <Typography
@@ -91,7 +86,7 @@ const LiveScoreBoard = ({ data, width, setIsTv }: LiveScoreBoardProps) => {
               fontWeight: "bold",
               marginLeft: "7px",
               color: "#fff",
-              marginTop: "5px"
+              marginTop: "5px",
             }}
           >
             TV
@@ -188,17 +183,18 @@ const LiveScoreBoard = ({ data, width, setIsTv }: LiveScoreBoardProps) => {
                       ) : (
                         <span
                           key={index}
-                          className={`ball-runs ${ball === "4" || ball === "6" ? "four" : ""
-                            }`}
+                          className={`ball-runs ${
+                            ball === "4" || ball === "6" ? "four" : ""
+                          }`}
                           style={{
                             backgroundColor:
                               ball === "ww"
                                 ? "#ff0000"
                                 : ball === "4"
-                                  ? "#087f23"
-                                  : ball === "6"
-                                    ? "#883997"
-                                    : "#08c",
+                                ? "#087f23"
+                                : ball === "6"
+                                ? "#883997"
+                                : "#08c",
                             fontSize: "12px",
                           }}
                         >

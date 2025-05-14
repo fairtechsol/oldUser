@@ -439,7 +439,8 @@ const MatchDetail = () => {
                 width="100%"
                 setIsTv={setIsTv}
               />
-              {liveScoreBoardData && isTv &&
+              {liveScoreBoardData &&
+                isTv &&
                 matchDetails?.eventId &&
                 matchDetails?.matchType !== "politics" && (
                   <LiveMatchHome eventId={matchDetails?.eventId} />
@@ -505,7 +506,8 @@ const MatchDetail = () => {
                   width="100%"
                   setIsTv={setIsTv}
                 />
-                {liveScoreBoardData && isTv &&
+                {liveScoreBoardData &&
+                  isTv &&
                   matchDetails?.eventId &&
                   matchDetails?.matchType !== "politics" && (
                     <LiveMatchHome eventId={matchDetails?.eventId} />

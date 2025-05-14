@@ -1,3 +1,5 @@
+import { Bet } from "../betPlace";
+
 export interface InputInterface {
   id?: string;
   title?: string;
@@ -68,3 +70,34 @@ export interface EventNamesType {
   url: string;
   active: boolean;
 }
+
+export interface AllRateSeperateProps {
+  profit?: boolean;
+  mark?: boolean;
+  mark2?: boolean;
+  betHistory?: boolean;
+  allBetsData: Bet[] | any;
+  count?: number;
+}
+
+export interface SessionBetSeperateProps {
+  profit?: boolean;
+  placedBets: Bet[] | any;
+  isArrow?: boolean;
+  match?: string;
+}
+
+export interface BetPlacedProps {
+  visible: boolean;
+  setVisible: (val: boolean) => void;
+  not?: boolean;
+  time?: number;
+}
+
+export interface CountDownTimerProps {
+  visible: boolean;
+  setVisible: (val: boolean) => void;
+  time: number;
+}
+
+

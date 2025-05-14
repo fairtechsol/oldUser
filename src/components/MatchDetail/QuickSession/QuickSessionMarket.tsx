@@ -2,23 +2,10 @@ import { Box, Typography } from "@mui/material";
 import { memo, useState } from "react";
 import { ARROWUP } from "../../../assets";
 import Divider from "../../../helper/Divider";
+import { QuickSessionMarketProps } from "../../../interface/common/GameDetail";
 import { sessionBettingType } from "../../../utils/Constants";
 import SmallBoxSeason from "../QuickSession/SmallBoxSeason";
 import QuickSessionMarketBox from "./QuickSessionMarketBox";
-
-interface QuickSessionMarketProps {
-  newData: any[];
-  allBetsData: any[];
-  session: any;
-  upcoming: boolean;
-  title: string;
-  minBet: number | string;
-  typeOfBet: string | null | undefined | any;
-  eventType: string | null | undefined;
-  setShow: (val: any) => void;
-  matchDetails?: any;
-  show: any;
-}
 
 const QuickSessionMarket = ({
   newData,

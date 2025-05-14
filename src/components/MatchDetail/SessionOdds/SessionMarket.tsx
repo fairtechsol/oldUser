@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import { memo, useState } from "react";
 import { ARROWUP } from "../../../assets";
 import Divider from "../../../helper/Divider";
-import { customSort } from "../../../helper/index";
+import { customSort, formatToINR } from "../../../helper/index";
 import { sessionBettingType } from "../../../utils/Constants";
 import SessionMarketBox from "./SessionMarketBox";
 import SmallboxSeason from "./SmallBoxSeason";
@@ -39,6 +39,21 @@ const SessionMarket = ({
   mid,
 }: SessionMarketProps) => {
   const [visible, setVisible] = useState(true);
+
+  const filteredData: any =
+    newData?.length > 0
+      ? newData
+          ?.filter(
+            (item: any) =>
+              !item?.isManual &&
+              !(
+                item?.activeStatus === "unSave" ||
+                item?.activeStatus === "result"
+              )
+          )
+          ?.sort(customSort)
+      : [];
+
   return (
     <>
       <Box
@@ -176,7 +191,7 @@ const SessionMarket = ({
                     marginLeft: "7px",
                   }}
                 >
-                  MIN:{min}
+                  MIN:{formatToINR(filteredData?.[0]?.min || min)}
                 </Typography>
               </Box>
               <Box
@@ -278,48 +293,36 @@ const SessionMarket = ({
                 position: "relative",
               }}
             >
-              {newData?.length > 0 &&
-                newData
-                  ?.filter(
-                    (item: any) =>
-                      !item?.isManual &&
-                      !(
-                        item?.activeStatus === "unSave" ||
-                        item?.activeStatus === "result"
-                      )
-                  )
-                  ?.slice()
-                  .sort(customSort)
-                  ?.map((element: any, index: any) => {
-                    return (
-                      <Box
-                        key={element?.id}
-                        sx={{
-                          width: "100%",
-                          display: "block",
-                        }}
-                      >
-                        <SessionMarketBox
-                          index={index}
-                          upcoming={upcoming}
-                          typeOfBet={typeOfBet}
-                          eventType={eventType}
-                          data={{
-                            ...element,
-                            matchId: matchDetails?.id,
-                            type: type,
-                          }}
-                          show={show}
-                          setShow={setShow}
-                          profitLossData={Array.from(
-                            new Set(allBetsData)
-                          )?.filter((item: any) => item?.betId === element?.id)}
-                          mid={mid}
-                        />
-                        <Divider />
-                      </Box>
-                    );
-                  })}
+              {filteredData?.map((element: any, index: any) => {
+                return (
+                  <Box
+                    key={element?.id}
+                    sx={{
+                      width: "100%",
+                      display: "block",
+                    }}
+                  >
+                    <SessionMarketBox
+                      index={index}
+                      upcoming={upcoming}
+                      typeOfBet={typeOfBet}
+                      eventType={eventType}
+                      data={{
+                        ...element,
+                        matchId: matchDetails?.id,
+                        type: type,
+                      }}
+                      show={show}
+                      setShow={setShow}
+                      profitLossData={Array.from(new Set(allBetsData))?.filter(
+                        (item: any) => item?.betId === element?.id
+                      )}
+                      mid={mid}
+                    />
+                    <Divider />
+                  </Box>
+                );
+              })}
             </Box>
           </Box>
         )}

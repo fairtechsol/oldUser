@@ -1,11 +1,7 @@
 import { Box, useMediaQuery, useTheme } from "@mui/material";
-import SeparateBox from "./SeparateBox";
 import { memo } from "react";
-
-interface MatchRatesCommonCompProps {
-  runnerPosition: number;
-  match: any;
-}
+import { MatchRatesCommonCompProps } from "../../../interface/common/MatchesComponent";
+import SeparateBox from "./SeparateBox";
 
 const MatchRatesCommonComp = ({
   runnerPosition,

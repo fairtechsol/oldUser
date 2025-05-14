@@ -9,17 +9,27 @@ import {
   getTotalBetProfitLoss,
 } from "../../../store/actions/user/userAction";
 import { AppDispatch, RootState } from "../../../store/store";
+import { Constants } from "../../../utils/Constants";
 import StyledImage from "../../Common/StyledImages";
 import AllRateSeperate from "../../MatchDetail/AllRateBets/AllRateSeperate";
 import SessionBetSeperate from "../../MatchDetail/SessionOdds/SessionBetSeperate";
 import SessionComponentMatches from "./SessionComponentMatches";
+
+interface RowComponentMatchesProps {
+  item: any;
+  index: number;
+  selectedId: any;
+  getBetReport: (val: any) => void;
+  currentPage: number;
+}
 
 const RowComponentMatches = ({
   item,
   index,
   selectedId,
   getBetReport,
-}: any) => {
+  currentPage,
+}: RowComponentMatchesProps) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   const { totalSessionProfitLoss, totalBetProfitLoss } = useSelector(
@@ -72,6 +82,8 @@ const RowComponentMatches = ({
     }
   };
 
+  const isCricketOrPolitics = ["cricket", "politics"].includes(item?.eventType);
+
   return (
     <Box sx={{ width: "100%" }}>
       <Box
@@ -99,12 +111,15 @@ const RowComponentMatches = ({
           <Typography
             sx={{ fontSize: "14px", color: "white", fontWeight: "600" }}
           >
-            {0 + index}
+            {0 + index + Constants.pageLimit * (currentPage - 1)}
           </Typography>
         </Box>
         <Box
           sx={{
-            width: { xs: "40%", lg: "60%" },
+            width: {
+              xs: isCricketOrPolitics ? "40%" : "65%",
+              lg: isCricketOrPolitics ? "60%" : "65%",
+            },
             position: "relative",
             height: "100%",
             paddingY: "4px",
@@ -244,81 +259,83 @@ const RowComponentMatches = ({
             />
           </Box>
         </Box>
-        <Box
-          onClick={(e) => {
-            e.stopPropagation();
-            handleSessionBetClick();
-          }}
-          sx={{
-            background: item?.sessionProfitLoss > 0 ? "#27AC1E" : "#E32A2A",
-            paddingX: "2px",
-            width: { xs: "25%", lg: "30%" },
-            height: "100%",
-            marginLeft: 0.1,
-            justifyContent: "center",
-            display: "flex",
-            flexDirection: "column",
-            paddingLeft: "10px",
-          }}
-        >
+        {isCricketOrPolitics && (
           <Box
+            onClick={(e) => {
+              e.stopPropagation();
+              handleSessionBetClick();
+            }}
             sx={{
-              width: "100%",
+              background: item?.sessionProfitLoss > 0 ? "#27AC1E" : "#E32A2A",
+              paddingX: "2px",
+              width: { xs: "25%", lg: "30%" },
+              height: "100%",
+              marginLeft: 0.1,
+              justifyContent: "center",
               display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
+              flexDirection: "column",
+              paddingLeft: "10px",
             }}
           >
-            <Typography
+            <Box
               sx={{
-                fontSize: { lg: "12px", xs: "8px" },
-                fontWeight: "500",
-                color: "white",
+                width: "100%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
               }}
             >
-              Session Profit/Loss
-            </Typography>
-            <StyledImage
-              src={item?.sessionProfitLoss > 0 ? ARROW_UP : ARROW_DOWN}
+              <Typography
+                sx={{
+                  fontSize: { lg: "12px", xs: "8px" },
+                  fontWeight: "500",
+                  color: "white",
+                }}
+              >
+                Session Profit/Loss
+              </Typography>
+              <StyledImage
+                src={item?.sessionProfitLoss > 0 ? ARROW_UP : ARROW_DOWN}
+                sx={{
+                  width: { lg: "25px", xs: "15px" },
+                  height: { lg: "12px", xs: "8px" },
+                }}
+                alt="arrow"
+              />
+            </Box>
+            <Box
               sx={{
-                width: { lg: "25px", xs: "15px" },
-                height: { lg: "12px", xs: "8px" },
-              }}
-              alt="arrow"
-            />
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            <Typography
-              sx={{
-                fontSize: { xs: "10px", lg: "14px" },
-                fontWeight: "700",
-                color: "white",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
               }}
             >
-              {formatToINR(Number(item?.sessionProfitLoss).toFixed(2))}
-            </Typography>
-            <StyledImage
-              src={ArrowDown}
-              sx={{
-                width: { lg: "20px", xs: "10px" },
-                height: { lg: "10px", xs: "6px" },
-                transform:
-                  selectedId?.id === item?.matchId &&
-                  selectedId?.type === "session_bet" &&
-                  showSessions
-                    ? "rotate(180deg)"
-                    : "rotate(0deg)",
-              }}
-              alt="arrow down"
-            />
+              <Typography
+                sx={{
+                  fontSize: { xs: "10px", lg: "14px" },
+                  fontWeight: "700",
+                  color: "white",
+                }}
+              >
+                {formatToINR(Number(item?.sessionProfitLoss).toFixed(2))}
+              </Typography>
+              <StyledImage
+                src={ArrowDown}
+                sx={{
+                  width: { lg: "20px", xs: "10px" },
+                  height: { lg: "10px", xs: "6px" },
+                  transform:
+                    selectedId?.id === item?.matchId &&
+                    selectedId?.type === "session_bet" &&
+                    showSessions
+                      ? "rotate(180deg)"
+                      : "rotate(0deg)",
+                }}
+                alt="arrow down"
+              />
+            </Box>
           </Box>
-        </Box>
+        )}
       </Box>
       {selectedId?.id === item?.matchId && (
         <>

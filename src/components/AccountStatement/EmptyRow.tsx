@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { memo } from "react";
 
-const EmptyRow = ({ containerStyle }: any) => {
+const EmptyRow = ({ containerStyle }: { containerStyle: any }) => {
   return (
     <Box
       sx={[

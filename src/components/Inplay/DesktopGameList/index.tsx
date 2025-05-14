@@ -4,7 +4,11 @@ import { CasinoGameProps } from "../../../interface/common";
 import { homeCasinoListIcons } from "../../../utils/Constants";
 import liveCasinoGameList from "../../../utils/liveCasinoGameList.json";
 
-const DesktopGameList = ({ handleModal }: any) => {
+interface DesktopGameListProps {
+  handleModal: (val: any) => void;
+}
+
+const DesktopGameList = ({ handleModal }: DesktopGameListProps) => {
   const navigate = useNavigate();
   return (
     <div className="mt-2 mx-1 casino-list">

@@ -3,6 +3,7 @@ import MUIModal from "@mui/material/Modal";
 import React, { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Lock } from "../../../../assets";
+import { SeparateModalProps } from "../../../../interface/common/GameDetail";
 import {
   selectedBetAction,
   selectedBetMinMax,
@@ -26,7 +27,7 @@ const SeparateModal = ({
   selectionId,
   show6Box,
   lastIndex,
-}: any) => {
+}: SeparateModalProps) => {
   const dispatch: AppDispatch = useDispatch();
   const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
   const { loading } = useSelector((state: RootState) => state.match.bet);
