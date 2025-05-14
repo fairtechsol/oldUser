@@ -43,7 +43,7 @@ export const getProfileInMatchDetail = createAsyncThunk<any>(
     try {
       const resp = await service.get(ApiConstants.USER.GET_PROFILE);
       if (resp) {
-        return resp?.data[0][0];
+        return resp?.data;
       }
     } catch (error: any) {
       const err = error as AxiosError;
