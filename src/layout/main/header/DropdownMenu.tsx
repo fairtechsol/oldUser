@@ -7,16 +7,8 @@ import StyledImage from "../../../components/Common/StyledImages";
 import { logout } from "../../../store/actions/auth/authAction";
 import { AppDispatch, RootState } from "../../../store/store";
 
-interface MenuItem {
-  title: string;
-  link?: string;
-}
 
-interface DropdownMenuProps {
-  handleClose: () => void;
-}
-
-const DropdownMenu = ({ handleClose }: DropdownMenuProps) => {
+const DropdownMenu = ({ handleClose }: any) => {
   const { loading } = useSelector((state: RootState) => state.auth);
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
