@@ -1,17 +1,22 @@
 import { Box, Typography } from "@mui/material";
 import moment from "moment-timezone";
 import { memo } from "react";
-import Divider from "../../../helper/Divider";
-
 import { useDispatch } from "react-redux";
 import { formatToINR } from "../../../helper";
 import { TimeLeftProps } from "../../../interface/common";
 import { updateLogoutModal } from "../../../store/actions/user/userAction";
 import { AppDispatch } from "../../../store/store";
 import Upcomings from "../../Common/Upcomings";
-import MatchRatesCommonComp from "./MatchRatesCommonComp";
+import TeamRow from "./TeamRow";
 
-const Odds = ({ onClick, top, blur, match, setSelectedMatchId }: any) => {
+interface OddsProps {
+  top: boolean;
+  blur: boolean;
+  match: any;
+  setSelectedMatchId: (val: string) => void;
+}
+
+const Odds = ({ top, blur, match, setSelectedMatchId }: OddsProps) => {
   const dispatch: AppDispatch = useDispatch();
   function calculateTimeLeft(): TimeLeftProps {
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -154,50 +159,48 @@ const Odds = ({ onClick, top, blur, match, setSelectedMatchId }: any) => {
         }}
       >
         {!upcoming && (
-          <Box
-            onClick={onClick}
-            sx={{
-              position: "absolute",
-              cursor: "pointer",
-              zIndex: 2,
-              background: "rgba(0,0,0,0.5)",
-              width: "100%",
-              right: 0,
-              height: "100%",
-            }}
-          />
-        )}
-        {!upcoming && (
-          <Box
-            sx={{
-              width: "70px",
-              zIndex: 3,
-              border: "1px solid white",
-              height: { xs: "20px", lg: "13px" },
-              justifyContent: "center",
-              display: "flex",
-              alignItems: "center",
-              background: "#129FFE",
-              position: "absolute",
-              marginTop: { xs: "-10px", lg: -1 },
-              borderRadius: "3px",
-              marginLeft: { xs: "0", lg: "0" },
-            }}
-          >
-            <Typography
+          <>
+            <Box
               sx={{
-                fontStyle: "italic",
-                fontSize: { lg: "10px", xs: "10px" },
-                fontWeight: "600",
-                color: "white",
+                position: "absolute",
+                cursor: "pointer",
+                zIndex: 2,
+                background: "rgba(0,0,0,0.5)",
+                width: "100%",
+                right: 0,
+                height: "100%",
+              }}
+            />
+            <Box
+              sx={{
+                width: "70px",
+                zIndex: 3,
+                border: "1px solid white",
+                height: { xs: "20px", lg: "13px" },
+                justifyContent: "center",
+                display: "flex",
+                alignItems: "center",
+                background: "#129FFE",
+                position: "absolute",
+                marginTop: { xs: "-10px", lg: -1 },
+                borderRadius: "3px",
+                marginLeft: { xs: "0", lg: "0" },
               }}
             >
-              UPCOMING
-            </Typography>
-          </Box>
+              <Typography
+                sx={{
+                  fontStyle: "italic",
+                  fontSize: { lg: "10px", xs: "10px" },
+                  fontWeight: "600",
+                  color: "white",
+                }}
+              >
+                UPCOMING
+              </Typography>
+            </Box>
+          </>
         )}
         <Box
-          onClick={onClick}
           sx={{
             zIndex: 0,
             filter: blur ? "blur(0px)" : null,
@@ -319,109 +322,9 @@ const Odds = ({ onClick, top, blur, match, setSelectedMatchId }: any) => {
               </Box>
             </Box>
           </Box>
-          <Box
-            sx={{
-              display: "flex",
-              background: "white",
-              height: "40px",
-              width: "100%",
-              alignItems: "center",
-            }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                background: "white",
-                height: "40px",
-                width: "40%",
-                alignItems: "center",
-              }}
-            >
-              <Typography
-                sx={{
-                  color: "black",
-                  fontSize: { lg: "11px", md: "10px", xs: "10px" },
-                  marginLeft: "7px",
-                  fontWeight: "600",
-                }}
-              >
-                {match?.teamA}
-              </Typography>
-            </Box>
-            <MatchRatesCommonComp match={match} runnerPosition={0} />
-          </Box>
-          {match.teamB && (
-            <>
-              <Divider />
-              <Box
-                sx={{
-                  display: "flex",
-                  background: "white",
-                  height: "40px",
-                  width: "100%",
-                  alignItems: "center",
-                }}
-              >
-                <Box
-                  sx={{
-                    display: "flex",
-                    background: "white",
-                    height: "40px",
-                    width: "40%",
-                    alignItems: "center",
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      color: "black",
-                      fontSize: { lg: "12px", xs: "11px" },
-                      marginLeft: "7px",
-                      fontWeight: "600",
-                    }}
-                  >
-                    {match.teamB}
-                  </Typography>
-                </Box>
-                <MatchRatesCommonComp match={match} runnerPosition={1} />
-              </Box>
-            </>
-          )}
-          {match.teamC && (
-            <>
-              <Divider />
-              <Box
-                sx={{
-                  display: "flex",
-                  background: "white",
-                  height: "40px",
-                  width: "100%",
-                  alignItems: "center",
-                }}
-              >
-                <Box
-                  sx={{
-                    display: "flex",
-                    background: "white",
-                    height: "40px",
-                    width: "40%",
-                    alignItems: "center",
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      color: "black",
-                      fontSize: { lg: "12px", xs: "11px" },
-                      marginLeft: "7px",
-                      fontWeight: "600",
-                    }}
-                  >
-                    {match.teamC}
-                  </Typography>
-                </Box>
-                <MatchRatesCommonComp match={match} runnerPosition={2} />
-              </Box>
-            </>
-          )}
+          <TeamRow teamName={match?.teamA} match={match} runnerPosition={0} />
+          <TeamRow teamName={match?.teamB} match={match} runnerPosition={1} />
+          <TeamRow teamName={match?.teamC} match={match} runnerPosition={2} />
         </Box>
       </Box>
     </>
