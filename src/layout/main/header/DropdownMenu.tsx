@@ -7,11 +7,34 @@ import StyledImage from "../../../components/Common/StyledImages";
 import { logout } from "../../../store/actions/auth/authAction";
 import { AppDispatch, RootState } from "../../../store/store";
 
-const DropdownMenu = ({ handleClose }: any) => {
+interface MenuItem {
+  title: string;
+  link?: string;
+}
+
+interface DropdownMenuProps {
+  handleClose: () => void;
+}
+
+const DropdownMenu = ({ handleClose }: DropdownMenuProps) => {
   const { loading } = useSelector((state: RootState) => state.auth);
   const navigate = useNavigate();
   const dispatch: AppDispatch = useDispatch();
   const menutItems = [{ title: "Rules", link: "/rules" }];
+
+  const handleMenuItemClick = (link?: string) => {
+    handleClose();
+    if (link) {
+      navigate(link);
+    }
+  };
+
+  const handleLogout = () => {
+    if (!loading) {
+      dispatch(logout());
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -27,7 +50,7 @@ const DropdownMenu = ({ handleClose }: any) => {
         zIndex: "999",
       }}
     >
-      {menutItems.map((x, idx) => (
+      {menutItems.map((item, idx) => (
         <MenuItem
           key={idx}
           dense={true}
@@ -50,24 +73,13 @@ const DropdownMenu = ({ handleClose }: any) => {
               transform: "scale(1.02)",
             },
           }}
-          onClick={() => {
-            handleClose();
-            if (x.link) {
-              navigate(x.link);
-            }
-          }}
+          onClick={() => handleMenuItemClick(item.link)}
         >
-          {x.title}
+          {item.title}
         </MenuItem>
       ))}
       <Box
-        onClick={() => {
-          if (!loading) {
-            dispatch(logout());
-          } else {
-            return false;
-          }
-        }}
+        onClick={handleLogout}
         sx={{
           borderRadius: "5px",
           height: { lg: "38px", xs: "34px" },

@@ -28,15 +28,3 @@
     /* Move off-screen to the left */
   }
 }
-
-/* .marquee-text {
-    animation: marqueeAnimation 50s linear infinite;
-  }
-   */
-/* Media query for screens with max-width 768px */
-@media screen and (max-width: 768px) {
-  /* .marquee-container .marquee-text { */
-  /* The animation duration will be dynamically calculated */
-  /* animation: marqueeAnimation 50s linear infinite; */
-  /* } */
-}
