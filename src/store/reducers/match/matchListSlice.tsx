@@ -282,12 +282,11 @@ const matchListSlice = createSlice({
       })
       .addCase(updateMatchRatesFromApiOnList.fulfilled, (state, action) => {
         const matchListFromApi = action.payload;
-
         if (!state.matchList?.matches?.length || !matchListFromApi?.length)
           return;
 
         const apiMatchMap = new Map();
-        matchListFromApi.forEach((item: any) => {
+        matchListFromApi?.forEach((item: any) => {
           const id = Number(item.gameId || item.gmid);
           apiMatchMap.set(id, item);
         });
