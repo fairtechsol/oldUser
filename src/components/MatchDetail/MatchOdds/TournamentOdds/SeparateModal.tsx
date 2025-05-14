@@ -10,6 +10,24 @@ import {
 import { AppDispatch, RootState } from "../../../../store/store";
 import OddsPlaceBet from "../Bets/OddsPlacebet";
 
+interface SeparateModalProps {
+  color: string;
+  po: number;
+  value: any;
+  value2: any;
+  lock: boolean;
+  type: any;
+  data: any;
+  betType: string;
+  marketDetails: any;
+  upcoming: boolean;
+  mid: number | string;
+  matchDetails: any;
+  selectionId: string;
+  show6Box: boolean;
+  lastIndex?: boolean;
+}
+
 const SeparateModal = ({
   color,
   po,
@@ -26,7 +44,7 @@ const SeparateModal = ({
   selectionId,
   show6Box,
   lastIndex,
-}: any) => {
+}: SeparateModalProps) => {
   const dispatch: AppDispatch = useDispatch();
   const [isPopoverOpen, setIsPopoverOpen] = React.useState(false);
   const { loading } = useSelector((state: RootState) => state.match.bet);
