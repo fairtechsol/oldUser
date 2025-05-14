@@ -2,28 +2,12 @@ import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { memo } from "react";
 import { BallStart } from "../../../assets";
 import { formatToINR } from "../../../helper";
+import { QuickSessionMarketBoxProps } from "../../../interface/common/GameDetail";
 import CommissionDot from "../../Common/CommissionDot";
 import FastTimePlaceBet from "../MatchOdds/Bets/FastTimePlaceBet";
 import PlaceBetComponent from "../MatchOdds/Bets/PlaceBetComponent";
 import PlaceBetComponentWeb from "../MatchOdds/Bets/PlaceBetComponentWeb";
 import SeparateModal from "../MatchOdds/SeparateModal";
-
-interface QuickSessionMarketBoxProps {
-  index: number;
-  typeOfBet: string;
-  data: any;
-  sessionMain: any;
-  setFastAmount?: (val: any) => void;
-  setShowFastTimeBox: (val: any) => void;
-  showFastTimeBox: boolean;
-  upcoming: boolean;
-  fastAmount?: number;
-  selectedItem?: string | null | undefined;
-  eventType: string | null | undefined;
-  profitLossData: any[] | null | undefined;
-  show?: boolean;
-  setShow: (val: any) => void;
-}
 
 const QuickSessionMarketBox = ({
   index,

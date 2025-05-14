@@ -1,13 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { memo, useEffect, useState } from "react";
-
-interface TeamsOdssDataProps {
-  input?: boolean;
-  title: string;
-  value: string;
-  containerStyle: any;
-  valueContainerStyle: any;
-}
+import { TeamsOdssDataProps } from "../../../../interface/common/GameDetail";
 
 const TeamsOdssData = ({
   input,

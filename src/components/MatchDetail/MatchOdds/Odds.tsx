@@ -4,17 +4,11 @@ import { memo } from "react";
 import { useDispatch } from "react-redux";
 import { formatToINR } from "../../../helper";
 import { TimeLeftProps } from "../../../interface/common";
+import { OddsProps } from "../../../interface/common/MatchesComponent";
 import { updateLogoutModal } from "../../../store/actions/user/userAction";
 import { AppDispatch } from "../../../store/store";
 import Upcomings from "../../Common/Upcomings";
 import TeamRow from "./TeamRow";
-
-interface OddsProps {
-  top: boolean;
-  blur: boolean;
-  match: any;
-  setSelectedMatchId: (val: string) => void;
-}
 
 const Odds = ({ top, blur, match, setSelectedMatchId }: OddsProps) => {
   const dispatch: AppDispatch = useDispatch();

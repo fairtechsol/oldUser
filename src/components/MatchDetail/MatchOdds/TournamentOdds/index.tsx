@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { ARROWUP, LockIcon } from "../../../../assets";
 import { calculateRequiredStack } from "../../../../helper";
 import Divider from "../../../../helper/Divider";
+import { TournamentOddsProps } from "../../../../interface/common/GameDetail";
 import {
   selectedBetAction,
   selectedBetMinMax,
@@ -15,20 +16,6 @@ import CommissionDot from "../../../Common/CommissionDot";
 import OddsPlaceBet from "../Bets/OddsPlacebet";
 import BookRatioBox from "./BookRatioBox";
 import BoxComponent from "./BoxComponent";
-
-interface TournamentOddsProps {
-  teamARates: string | number | any;
-  teamBRates: string | number | any;
-  title: string;
-  min: string | number;
-  max: string | number;
-  showBox: boolean;
-  isRound: boolean;
-  betLock: boolean;
-  upcoming: boolean;
-  marketDetails: any;
-  matchDetails: any;
-}
 
 const TournamentOdds = ({
   teamARates,

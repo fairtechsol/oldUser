@@ -2,18 +2,11 @@ import { Box, Typography, useTheme } from "@mui/material";
 import { memo, useState } from "react";
 import { ARROWUP, DELETE } from "../../../assets";
 import { formatToINR } from "../../../helper";
-import { Bet } from "../../../interface/betPlace";
+import { AllRateSeperateProps } from "../../../interface/common";
 import StyledImage from "../../Common/StyledImages";
 import RowComponent from "./RowComponent";
 
-interface AllRateSeperateProps {
-  profit?: boolean;
-  mark?: boolean;
-  mark2?: boolean;
-  betHistory?: boolean;
-  allBetsData: Bet[] | any;
-  count?: number;
-}
+
 const AllRateSeperate = ({
   profit,
   mark,

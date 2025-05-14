@@ -1,18 +1,10 @@
 import { Box, Typography } from "@mui/material";
 import { memo, useState } from "react";
 import { ARROWUP, ArrowDown, DELETE } from "../../../assets";
-
 import { formatToINR } from "../../../helper";
-import { Bet } from "../../../interface/betPlace";
+import { SessionBetSeperateProps } from "../../../interface/common";
 import StyledImage from "../../Common/StyledImages";
 import RowComponent from "./RowComponent";
-
-interface SessionBetSeperateProps {
-  profit?: boolean;
-  placedBets: Bet[] | any;
-  isArrow?: boolean;
-  match?: string;
-}
 
 const SessionBetSeperate = ({
   profit,

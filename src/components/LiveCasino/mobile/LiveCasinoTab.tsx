@@ -1,13 +1,7 @@
 import { Box } from "@mui/material";
 import { memo } from "react";
+import { LiveCasinoTabProps } from "../../../interface/liveCasino";
 import { liveCasinoPics } from "../../../utils/Constants";
-
-interface LiveCasinoTabProps {
-  data2: any;
-  type2: string;
-  setGame: (val: any) => void;
-  setType2: (val: any) => void;
-}
 
 const LiveCasinoTab = ({
   data2,

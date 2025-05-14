@@ -1,12 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import Divider from "../../../helper/Divider";
+import { TeamRowProps } from "../../../interface/common/MatchesComponent";
 import MatchRatesCommonComp from "./MatchRatesCommonComp";
-
-interface TeamRowProps {
-  teamName: string;
-  match: any;
-  runnerPosition: number;
-}
 
 const TeamRow = ({ teamName, match, runnerPosition }: TeamRowProps) => {
   if (!teamName) return null;

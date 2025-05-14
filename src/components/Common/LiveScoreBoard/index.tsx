@@ -1,13 +1,8 @@
 import { Box, Typography } from "@mui/material";
 import { memo, useState } from "react";
 import { liveTv } from "../../../assets";
+import { LiveScoreBoardProps } from "../../../interface/common/GameDetail";
 import "./style.scss";
-
-interface LiveScoreBoardProps {
-  data: any;
-  width: string;
-  setIsTv: (val: any) => void;
-}
 
 const LiveScoreBoard = ({ data, width, setIsTv }: LiveScoreBoardProps) => {
   const [visible, setVisible] = useState(false);

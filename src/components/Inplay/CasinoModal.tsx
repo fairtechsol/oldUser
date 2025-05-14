@@ -3,9 +3,10 @@ import { Modal } from "react-bootstrap";
 import { FaHome } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { FgLogo } from "../../assets";
+import { CasinoModalProps } from "../../interface/common/MatchesComponent";
 import { RootState } from "../../store/store";
 
-const CasinoModal = ({ setShow }: { setShow: (val: boolean) => void }) => {
+const CasinoModal = ({ setShow }: CasinoModalProps) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
 

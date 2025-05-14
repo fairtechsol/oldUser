@@ -1,12 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { memo, useCallback } from "react";
-
-interface NumberDataProps {
-  value: any;
-  containerStyle: any;
-  setStakeValue: (val: any) => void;
-  selectedBetAction: (val: any) => void;
-}
+import { NumberDataProps } from "../../../../interface/common/GameDetail";
 
 const NumberData = ({
   value,
@@ -14,7 +8,6 @@ const NumberData = ({
   setStakeValue,
   selectedBetAction,
 }: NumberDataProps) => {
-
   const handleClick = useCallback(() => {
     setStakeValue(value.value);
     selectedBetAction(value);

@@ -3,19 +3,11 @@ import { memo, useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { UD } from "../../../../assets";
 import { handleDecimalAmount } from "../../../../helper";
+import { PlaceBetComponentWebProps } from "../../../../interface/common/GameDetail";
 import { getRunAmount } from "../../../../store/actions/betPlace/betPlaceActions";
 import { AppDispatch, RootState } from "../../../../store/store";
 import { sessionBettingType } from "../../../../utils/Constants";
 import RunsDropDown from "./RunsDropDown";
-
-interface PlaceBetComponentWebProps {
-  profitLoss: any;
-  data: any;
-  show: { open: boolean; id: string } | any;
-  setShow: (val: any) => void;
-  hideCount?: boolean;
-  index?: number | any;
-}
 
 const PlaceBetComponentWeb = ({
   profitLoss,
@@ -116,16 +108,16 @@ const PlaceBetComponentWeb = ({
             data?.type
           ) && profitLoss?.profitLoss
             ? Math.min(
-              ...Object.values(profitLoss.profitLoss)?.map((item: any) =>
-                parseInt(item)
+                ...Object.values(profitLoss.profitLoss)?.map((item: any) =>
+                  parseInt(item)
+                )
               )
-            )
             : data?.type == sessionBettingType.cricketCasino &&
               profitLoss?.profitLoss
-              ? profitLoss?.profitLoss?.[index]
-              : !profitLoss?.maxLoss
-                ? "Profit/Loss"
-                : handleDecimalAmount(profitLoss?.maxLoss, "")}
+            ? profitLoss?.profitLoss?.[index]
+            : !profitLoss?.maxLoss
+            ? "Profit/Loss"
+            : handleDecimalAmount(profitLoss?.maxLoss, "")}
         </Typography>
         <img
           src={UD}

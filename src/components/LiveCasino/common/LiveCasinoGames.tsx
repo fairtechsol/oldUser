@@ -1,13 +1,7 @@
 import { Box } from "@mui/material";
 import { memo } from "react";
 import { dt2020 } from "../../../assets";
-
-interface LiveCasinoGamesProps {
-  data3: any;
-  handleGame: (val: any) => void;
-  width: string;
-  gap: string;
-}
+import { LiveCasinoGamesProps } from "../../../interface/liveCasino";
 
 const LiveCasinoGames = ({
   data3,

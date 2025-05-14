@@ -1,12 +1,6 @@
 import { memo, useEffect, useState } from "react";
+import { BetPlacedProps } from "../../../interface/common";
 import CountDownTimer from "./CountDownTimer";
-
-interface BetPlacedProps {
-  visible: boolean;
-  setVisible: (val: boolean) => void;
-  not?: boolean;
-  time?: number;
-}
 
 const BetPlaced = ({ visible, setVisible, not, time }: BetPlacedProps) => {
   const [flag, setFlag] = useState(false);

@@ -1,11 +1,8 @@
 import { Box } from "@mui/material";
 import { memo } from "react";
 import { Col, Container, Ratio, Row } from "react-bootstrap";
+import { LiveMatchHomeProps } from "../../../interface/common/GameDetail";
 import { liveStreamUrl } from "../../../utils/Constants";
-
-interface LiveMatchHomeProps {
-  eventId: string | number;
-}
 
 const LiveMatchHome = ({ eventId }: LiveMatchHomeProps) => {
   return (

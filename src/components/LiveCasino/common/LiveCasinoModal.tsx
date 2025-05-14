@@ -4,12 +4,8 @@ import { Modal } from "react-bootstrap";
 import { FaHome } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { FgLogo } from "../../../assets";
+import { LiveCasinoModalProps } from "../../../interface/liveCasino";
 import { RootState } from "../../../store/store";
-
-interface LiveCasinoModalProps {
-  isShow: boolean;
-  setIsShow: (val: boolean) => void;
-}
 
 const LiveCasinoModal = ({ isShow, setIsShow }: LiveCasinoModalProps) => {
   const theme = useTheme();

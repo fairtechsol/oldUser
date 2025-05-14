@@ -1,10 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { memo } from "react";
+import { RunsDropDownProps } from "../../../../interface/common/GameDetail";
 import StyledImage from "../../../Common/StyledImages";
-
-interface RunsDropDownProps {
-  list: any;
-}
 
 const RunsDropDown = ({ list }: RunsDropDownProps) => {
   return (

@@ -1,21 +1,9 @@
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { memo } from "react";
 import { formatNumber } from "../../../../helper";
+import { BoxComponentProps } from "../../../../interface/common/GameDetail";
 import MoneyBox from "../MoneyBox";
 import SeparateModal from "./SeparateModal";
-
-interface BoxComponentProps {
-  name: string;
-  color: string;
-  data: any;
-  rate: number | string;
-  matchDetails: any;
-  showBox: boolean;
-  isRound: boolean;
-  marketDetails: any;
-  upcoming: boolean;
-  show6Box: boolean;
-}
 
 const BoxComponent = ({
   name,

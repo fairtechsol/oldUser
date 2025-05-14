@@ -1,17 +1,12 @@
 import { Box } from "@mui/material";
 import { Fragment, memo } from "react";
 import { customSortBySessionMarketName, formatToINR } from "../../../helper";
+import { MatchOddsProps } from "../../../interface/common/GameDetail";
 import { sessionBettingType } from "../../../utils/Constants";
 import CricketCasinoMarket from "../CricketCasinoOdds/CricketCasinoMarket";
 import QuickSessionMarket from "../QuickSession/QuickSessionMarket";
 import SessionMarket from "../SessionOdds/SessionMarket";
 import TournamentOdds from "./TournamentOdds";
-
-interface MatchOddsProps {
-  matchDetails: any;
-  setShow: (val: any) => void;
-  show: any;
-}
 
 const MatchOdds = ({ matchDetails, setShow, show }: MatchOddsProps) => {
   const upcoming = true;

@@ -3,30 +3,13 @@ import MUIModal from "@mui/material/Modal";
 import React, { memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Lock } from "../../../../assets";
+import { SeparateModalProps } from "../../../../interface/common/GameDetail";
 import {
   selectedBetAction,
   selectedBetMinMax,
 } from "../../../../store/actions/match/matchListAction";
 import { AppDispatch, RootState } from "../../../../store/store";
 import OddsPlaceBet from "../Bets/OddsPlacebet";
-
-interface SeparateModalProps {
-  color: string;
-  po: number;
-  value: any;
-  value2: any;
-  lock: boolean;
-  type: any;
-  data: any;
-  betType: string;
-  marketDetails: any;
-  upcoming: boolean;
-  mid: number | string;
-  matchDetails: any;
-  selectionId: string;
-  show6Box: boolean;
-  lastIndex?: boolean;
-}
 
 const SeparateModal = ({
   color,

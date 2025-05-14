@@ -5,6 +5,7 @@ import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { CancelDark } from "../../../../assets";
+import { OddsPlaceBetProps } from "../../../../interface/common/GameDetail";
 import {
   betPlaceSuccessReset,
   placeBet,
@@ -25,11 +26,6 @@ const toastOptions = {
   closeOnClick: true,
   pauseOnHover: true,
 };
-
-interface OddsPlaceBetProps {
-  handleClose: () => void;
-  type: any;
-}
 
 const OddsPlaceBet = ({ handleClose, type }: OddsPlaceBetProps) => {
   const dispatch: AppDispatch = useDispatch();
