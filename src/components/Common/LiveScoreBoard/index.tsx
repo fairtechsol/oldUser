@@ -8,24 +8,22 @@ const LiveScoreBoard = ({ data, width, setIsTv }: LiveScoreBoardProps) => {
   const [visible, setVisible] = useState(false);
   return (
     <Box
-      sx={[
-        {
-          width: {
-            md: "98%",
-            xs: "98%",
-            lg: "100%",
-          },
-          display: "flex",
-          flexDirection: "column",
-          alignSelf: "center",
-          marginX: { lg: "0vw", xs: "0px", md: "0px" },
-          marginY: { lg: ".5vh", xs: "0.2vh" },
-          marginTop: { xs: "0" },
-          borderRadius: "2px",
-          background: "white",
-          padding: "1px",
+      sx={{
+        width: {
+          md: "98%",
+          xs: "98%",
+          lg: "100%",
         },
-      ]}
+        display: "flex",
+        flexDirection: "column",
+        alignSelf: "center",
+        marginX: { lg: "0vw", xs: "0px", md: "0px" },
+        marginY: { lg: ".5vh", xs: "0.2vh" },
+        marginTop: { xs: "0" },
+        borderRadius: "2px",
+        background: "white",
+        padding: "1px",
+      }}
     >
       <Box
         sx={{
