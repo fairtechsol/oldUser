@@ -7,6 +7,7 @@ import { expertSocketService, socket } from "../../../socketManager";
 import {
   getMatchList,
   matchDetailReset,
+  matchListSuccessReset,
   setCurrentPageRedux,
   updateMatchRatesFromApiOnList,
 } from "../../../store/actions/match/matchListAction";
@@ -20,7 +21,7 @@ const MatchesComponent = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { type } = useParams();
-  const { matchList, success } = useSelector(
+  const { matchList, success, matchListSuccess } = useSelector(
     (state: RootState) => state.match.matchList
   );
   const { currentPageRedux } = useSelector(
@@ -138,9 +139,6 @@ const MatchesComponent = () => {
 
   useEffect(() => {
     if (type) {
-      setTimeout(() => {
-        getMatchListMarket(type);
-      }, 1500);
       const intervalId = setInterval(() => {
         if (type) {
           getMatchListMarket(type);
@@ -150,6 +148,15 @@ const MatchesComponent = () => {
       return () => clearInterval(intervalId);
     }
   }, [type]);
+
+  useEffect(() => {
+    if (matchListSuccess) {
+      if (type) {
+        getMatchListMarket(type);
+      }
+      dispatch(matchListSuccessReset());
+    }
+  }, [matchListSuccess]);
 
   return (
     <>

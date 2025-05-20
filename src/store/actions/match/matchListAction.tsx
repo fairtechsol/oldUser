@@ -76,3 +76,4 @@ export const setCurrentPageRedux = createAsyncThunk<any, any>(
 );
 
 export const matchDetailReset = createAction("matchDetail/reset");
+export const matchListSuccessReset = createAction("matchListSuccess/reset");
