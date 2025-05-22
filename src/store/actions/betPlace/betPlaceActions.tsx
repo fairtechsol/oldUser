@@ -56,9 +56,11 @@ export const getCurrentBets = createAsyncThunk<any>(
 
 export const getRunAmount = createAsyncThunk<any, any>(
   "/runAmount",
-  async (id, thunkApi) => {
+  async ({ id, matchId }, thunkApi) => {
     try {
-      const resp = await service.get(ApiConstants.BET.RUN_AMOUNT + "/" + id);
+      const resp = await service.get(
+        `${ApiConstants.BET.RUN_AMOUNT}/${id}?matchId=${matchId}`
+      );
       if (resp) {
         return {
           betId: id,

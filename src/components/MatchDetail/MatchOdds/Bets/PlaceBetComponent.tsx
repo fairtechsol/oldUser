@@ -28,7 +28,7 @@ const PlaceBetComponent = ({
 
   const handleClick = useCallback(() => {
     if (!show?.open && show?.id !== data?.id) {
-      dispatch(getRunAmount(data?.id));
+      dispatch(getRunAmount({ id: data?.id, matchId: data?.matchId }));
       setShow({ open: true, id: data?.id });
     } else {
       setShow({ open: false, id: "" });
