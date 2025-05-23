@@ -24,11 +24,11 @@ export const getProfile = createAsyncThunk<any>(
     try {
       const resp = await service.get(ApiConstants.USER.GET_PROFILE);
       if (resp) {
-        if (resp?.data?.loginAt === null) {
+        if (resp?.data[0][0]?.loginAt === null) {
           window.location.replace("/login");
           sessionStorage.clear();
         } else {
-          return resp?.data;
+          return resp?.data[0][0];
         }
       }
     } catch (error: any) {
