@@ -4,6 +4,7 @@ import { ARROWUP } from "../../../assets";
 import Divider from "../../../helper/Divider";
 import CricketCasinoMarketBox from "./CricketCasinoMarketBox";
 import SmallboxSeason from "./SmallBoxSeason";
+import CommissionDot from "../../Common/CommissionDot";
 
 interface CricketCasinoMarketProps {
   data: any;
@@ -94,6 +95,7 @@ const CricketCasinoMarket = ({
             >
               {title}
             </Typography>
+            {data?.isCommissionActive && <CommissionDot />}
           </Box>
           <Box
             sx={{
