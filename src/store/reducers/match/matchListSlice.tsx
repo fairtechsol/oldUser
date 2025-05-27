@@ -293,7 +293,7 @@ const matchListSlice = createSlice({
 
         const apiMatchMap = new Map();
         matchListFromApi?.forEach((item: any) => {
-          const id = Number(item.gameId || item.gmid);
+          const id = Number(item.beventId || item.gmid);
           apiMatchMap.set(id, item);
         });
 
