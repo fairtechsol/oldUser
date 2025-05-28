@@ -8,7 +8,7 @@ import BackgroundLayout from "../../components/Common/BackgroundLayout";
 import SecureAuthVerification from "../../pages/auth/secureAuthverification";
 import Rules from "../../pages/rules";
 import { socketService } from "../../socketManager";
-import { getMatchList } from "../../store/actions/match/matchListAction";
+import { getMatchList, setCurrentPageRedux } from "../../store/actions/match/matchListAction";
 import {
   getProfile,
   marqueeNotification,
@@ -47,6 +47,7 @@ const MainLayout = () => {
 
   const handleMatchResult = (event: any) => {
     dispatch(getProfile());
+    dispatch(setCurrentPageRedux(1));
     if (event?.isMatchDeclare || !event?.betId) {
       if (location.pathname.includes("inplay")) {
         setTimeout(() => {

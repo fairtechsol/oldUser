@@ -331,7 +331,7 @@ const MatchDetail = () => {
             })
           );
         }, 1000);
-        setCurrentPageRedux(1);
+        dispatch(setCurrentPageRedux(1));
       }
     }
   };
