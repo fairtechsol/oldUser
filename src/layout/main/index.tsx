@@ -45,24 +45,27 @@ const MainLayout = () => {
     }
   };
 
-  const handleMatchResult = () => {
+  const handleMatchResult = (event: any) => {
     dispatch(getProfile());
-    if (["/inplay"].includes(location.pathname)) {
-      setTimeout(() => {
-        dispatch(getMatchList({}));
-      }, 1000);
-    } else if (["/match"].includes(location.pathname)) {
-      setTimeout(() => {
-        dispatch(
-          getMatchList({
-            matchType: location.pathname.split("/").pop(),
-            page: currentPageRedux,
-            limit: Constants.pageLimit,
-          })
-        );
-      }, 1000);
+    if (event?.isMatchDeclare || !event?.betId) {
+      if (location.pathname.includes("inplay")) {
+        setTimeout(() => {
+          dispatch(getMatchList({}));
+        }, 1000);
+      } else if (location.pathname.includes("match")) {
+        setTimeout(() => {
+          dispatch(
+            getMatchList({
+              matchType: event?.gameType || location.pathname.split("/").pop(),
+              page: currentPageRedux,
+              limit: Constants.pageLimit,
+            })
+          );
+        }, 1000);
+      }
     }
   };
+
   const getUserProfile = () => {
     dispatch(getProfile());
   };
@@ -85,9 +88,7 @@ const MainLayout = () => {
         socketService.userBalance.updateUserBalance(updateLoggedUserBalance);
         socketService.userBalance.sessionResult(sessionResultDeclared);
         socketService.userBalance.sessionResultUnDeclare(sessionResultDeclared);
-        socketService.userBalance.matchResultDeclared(handleMatchResult);
         socketService.userBalance.sessionNoResult(getUserProfile);
-        socketService.userBalance.matchResultUnDeclared(handleMatchResult);
         socketService.userBalance.declaredMatchResultAllUser(handleMatchResult);
         socketService.userBalance.unDeclaredMatchResultAllUser(
           handleMatchResult

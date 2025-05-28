@@ -27,6 +27,7 @@ import {
   getMatchList,
   matchDetailAction,
   selectedBetAction,
+  setCurrentPageRedux,
   updateMatchRates,
 } from "../../store/actions/match/matchListAction";
 import {
@@ -46,6 +47,7 @@ import {
   updateTeamRatesOnDeleteMatch,
 } from "../../store/actions/user/userAction";
 import { AppDispatch, RootState } from "../../store/store";
+import { Constants } from "../../utils/Constants";
 
 const MatchDetail = () => {
   const theme = useTheme();
@@ -59,6 +61,7 @@ const MatchDetail = () => {
   const { profileDetail } = useSelector(
     (state: RootState) => state.user.profile
   );
+
   const [isTv, setIsTv] = useState(true);
   const { matchDetails, success, matchDetailloading, liveScoreBoardData } =
     useSelector((state: RootState) => state.match.matchList);
@@ -311,11 +314,26 @@ const MatchDetail = () => {
     }
   };
 
-  const handleMatchResult = () => {
+  const handleMatchResult = (event: any) => {
     dispatch(getProfileInMatchDetail());
-    setTimeout(() => {
-      dispatch(getMatchList({}));
-    }, 1000);
+    if (event?.isMatchDeclare || !event?.betId) {
+      if (location.pathname.includes("inplay")) {
+        setTimeout(() => {
+          dispatch(getMatchList({}));
+        }, 1000);
+      } else if (location.pathname.includes("match")) {
+        setTimeout(() => {
+          dispatch(
+            getMatchList({
+              matchType: event?.gameType || location.pathname.split("/").pop(),
+              page: 1,
+              limit: Constants.pageLimit,
+            })
+          );
+        }, 1000);
+        setCurrentPageRedux(1);
+      }
+    }
   };
 
   const getUserProfile = () => {
@@ -349,9 +367,9 @@ const MatchDetail = () => {
         socketService.userBalance.updateDeleteReasonOff();
         socketService.userBalance.sessionResult(sessionResultDeclared);
         socketService.userBalance.sessionResultUnDeclare(sessionResultDeclared);
-        socketService.userBalance.matchResultDeclared(handleMatchResult);
+        // socketService.userBalance.matchResultDeclared(handleMatchResult);
         socketService.userBalance.sessionNoResult(getUserProfile);
-        socketService.userBalance.matchResultUnDeclared(handleMatchResult);
+        // socketService.userBalance.matchResultUnDeclared(handleMatchResult);
         socketService.userBalance.declaredMatchResultAllUser(handleMatchResult);
         socketService.userBalance.unDeclaredMatchResultAllUser(
           handleMatchResult
