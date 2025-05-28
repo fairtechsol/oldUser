@@ -17,6 +17,8 @@ interface ProfitLossComponentProps {
   setCurrentPage: (val: number) => void;
   startDate: any;
   endDate: any;
+  event: string;
+  setEvent: (val: string) => void;
 }
 
 const ProfitLossComponent = ({
@@ -27,6 +29,8 @@ const ProfitLossComponent = ({
   setCurrentPage,
   startDate,
   endDate,
+  event,
+  setEvent,
 }: ProfitLossComponentProps) => {
   const dispatch: AppDispatch = useDispatch();
   const { matchWiseProfitLoss, matchWiseProfitLossCount } = useSelector(
@@ -39,7 +43,7 @@ const ProfitLossComponent = ({
     betId: "",
     sessionBet: false,
   });
-  const [event, setEvent] = useState("");
+
   const getHandleReport = (eventType: any) => {
     if (eventType === event) {
       setShow((prev: boolean) => !prev);
