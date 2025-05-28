@@ -15,6 +15,7 @@ const ProfitLossCard = () => {
   const dispatch: AppDispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [pageCount] = useState(1);
+  const [event, setEvent] = useState("");
   const { userTotalProfitLossCard } = useSelector(
     (state: RootState) => state.user.profitLoss
   );
@@ -25,6 +26,7 @@ const ProfitLossCard = () => {
   const handleClick = () => {
     try {
       setShow(false);
+      setEvent("");
       let filter: FilterObject = {};
 
       if (startDate && endDate) {
@@ -81,6 +83,8 @@ const ProfitLossCard = () => {
         setCurrentPage={setCurrentPage}
         startDate={startDate}
         endDate={endDate}
+        event={event}
+        setEvent={setEvent}
       />
     </Box>
   );

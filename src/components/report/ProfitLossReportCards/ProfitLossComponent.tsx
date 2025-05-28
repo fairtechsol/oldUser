@@ -19,6 +19,8 @@ const ProfitLossComponent = ({
   show,
   endDate,
   startDate,
+  event,
+  setEvent,
 }: any) => {
   const dispatch: AppDispatch = useDispatch();
   const { matchWiseProfitLossCard } = useSelector(
@@ -31,7 +33,7 @@ const ProfitLossComponent = ({
     betId: "",
     sessionBet: false,
   });
-  const [event, setEvent] = useState("");
+
   const getHandleReport = (eventType: any) => {
     setEvent(eventType);
     if (eventType === event) {
