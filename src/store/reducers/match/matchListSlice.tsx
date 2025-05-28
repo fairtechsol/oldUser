@@ -163,7 +163,7 @@ const matchListSlice = createSlice({
       .addCase(updateMaxLossForBet.fulfilled, (state, action) => {
         const { betPlaced, profitLossData } = action.payload;
         const placedBet = betPlaced?.placedBet;
-        const parsedProfitLoss = JSON.parse(profitLossData || "{}");
+        const parsedProfitLoss = profitLossData || {};
 
         if (!placedBet || state?.matchDetails?.id !== placedBet.matchId) return;
 
