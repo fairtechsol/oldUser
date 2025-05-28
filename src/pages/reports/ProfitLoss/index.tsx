@@ -4,7 +4,10 @@ import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProfitLossComponent from "../../../components/report/ProfitLossReport/ProfitLossComponent";
 import YellowHeaderProfitLoss from "../../../components/report/ProfitLossReport/YellowheaderProfitLoss";
-import { getUserTotalProfitLoss } from "../../../store/actions/user/userAction";
+import {
+  getUserTotalProfitLoss,
+  resetMatchwiseProfitLossList,
+} from "../../../store/actions/user/userAction";
 import { AppDispatch, RootState } from "../../../store/store";
 interface FilterObject {
   userId?: any;
@@ -39,6 +42,8 @@ const ProfitLoss = () => {
         }
       }
       dispatch(getUserTotalProfitLoss({ filter: filter }));
+      dispatch(resetMatchwiseProfitLossList());
+      setCurrentPage(1);
     } catch (error) {
       console.error("Error:", (error as Error)?.message);
     }

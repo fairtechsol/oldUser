@@ -337,3 +337,4 @@ export const updateLogoutModal = createAsyncThunk<any, any>(
 export const changePasswordReset = createAction("changePassword/reset");
 export const profileReset = createAction("profile/reset");
 export const updateReset = createAction("update/reset");
+export const resetMatchwiseProfitLossList = createAction("matchwiseProfitLossList/reset");

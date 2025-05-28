@@ -7,6 +7,7 @@ import {
   getTotalBetProfitLossCard,
   getUserTotalProfitLoss,
   getUserTotalProfitLossCard,
+  resetMatchwiseProfitLossList,
   updateLogoutModal,
   updateUserSearchId,
 } from "../../actions/user/userAction";
@@ -63,6 +64,10 @@ const profitLossReportSlice = createSlice({
       .addCase(getMatchWiseProfitLoss.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error?.message;
+      })
+      .addCase(resetMatchwiseProfitLossList, (state) => {
+        state.matchWiseProfitLoss = [];
+        state.matchWiseProfitLossCount = 0;
       })
       .addCase(getMatchWiseProfitLossCard.pending, (state) => {
         state.loading = true;
