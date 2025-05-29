@@ -91,31 +91,29 @@ const SessionMarketBox = ({
                   }`
                 : data?.RunnerName || data?.name}
             </Typography>
-            <Typography
-              sx={{
-                color: "black",
-                fontSize: { lg: "8px", md: "9px", xs: "7px" },
-                marginLeft: "7px",
-                fontWeight: "500",
-                textAlign: "start",
-                lineHeight: "0.8rem",
-                width: "100%",
-              }}
-            >
-              max:{formatToINR(data?.max || 0)}
-            </Typography>
-          </Box>
-          {data?.isCommissionActive && (
             <Box
               sx={{
-                position: "absolute",
-                right: { xs: "58vw", sm: "49vw", lg: "28vw", md: "50vw" },
-                zIndex: "123",
+                display: "flex",
+                alignItems: "center",
+                textAlign: "start",
+                gap: 1,
               }}
             >
-              <CommissionDot />
+              <Typography
+                sx={{
+                  color: "black",
+                  fontSize: { lg: "8px", md: "9px", xs: "7px" },
+                  marginLeft: "7px",
+                  fontWeight: "500",
+                  textAlign: "start",
+                  lineHeight: "0.8rem",
+                }}
+              >
+                max:{formatToINR(data?.max || 0)}
+              </Typography>
+              {data?.isCommissionActive && <CommissionDot />}
             </Box>
-          )}
+          </Box>
           {matchesMobile && (
             <PlaceBetComponent
               data={data}
