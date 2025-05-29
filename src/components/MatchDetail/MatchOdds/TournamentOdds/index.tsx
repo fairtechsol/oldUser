@@ -192,7 +192,7 @@ const TournamentOdds = ({
     matchDetails?.id
   }`;
   const profitLossJson = matchDetails?.profitLossDataMatch?.[key];
-  const profitLossObj = profitLossJson ? JSON.parse(profitLossJson) : {};
+  const profitLossObj = profitLossJson ? profitLossJson : {};
 
   const show6Box =
     marketDetails?.runners?.[0]?.ex?.availableToBack?.length > 1 ||
@@ -484,43 +484,19 @@ const TournamentOdds = ({
                   showBox={showBox}
                   matchDetails={matchDetails}
                   color={
-                    matchDetails?.profitLossDataMatch?.[
-                      (marketDetails?.parentBetId || marketDetails?.id) +
-                        "_" +
-                        "profitLoss" +
-                        "_" +
-                        matchDetails?.id
-                    ]
-                      ? JSON.parse(
-                          matchDetails?.profitLossDataMatch?.[
-                            (marketDetails?.parentBetId || marketDetails?.id) +
-                              "_" +
-                              "profitLoss" +
-                              "_" +
-                              matchDetails?.id
-                          ]
-                        )?.[item?.parentRunnerId || item?.id] <= 0
+                    matchDetails?.profitLossDataMatch?.[key]
+                      ? matchDetails?.profitLossDataMatch?.[key]?.[
+                          item?.parentRunnerId || item?.id
+                        ] <= 0
                         ? "#FF4D4D"
                         : "#319E5B"
                       : "#319E5B"
                   }
                   rate={
-                    matchDetails?.profitLossDataMatch?.[
-                      (marketDetails?.parentBetId || marketDetails?.id) +
-                        "_" +
-                        "profitLoss" +
-                        "_" +
-                        matchDetails?.id
-                    ]
-                      ? JSON.parse(
-                          matchDetails?.profitLossDataMatch?.[
-                            (marketDetails?.parentBetId || marketDetails?.id) +
-                              "_" +
-                              "profitLoss" +
-                              "_" +
-                              matchDetails?.id
-                          ]
-                        )?.[item?.parentRunnerId || item?.id]
+                    matchDetails?.profitLossDataMatch?.[key]
+                      ? matchDetails?.profitLossDataMatch?.[key]?.[
+                          item?.parentRunnerId || item?.id
+                        ]
                       : 0
                   }
                   name={item?.nat ?? item?.runnerName}
