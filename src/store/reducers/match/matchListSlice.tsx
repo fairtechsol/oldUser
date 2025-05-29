@@ -146,7 +146,7 @@ const matchListSlice = createSlice({
           ...state.matchDetails,
           profitLossDataMatch: {
             ...state.matchDetails.profitLossDataMatch,
-            [betId + "_profitLoss_" + matchId]: JSON.stringify(newTeamRateData),
+            [betId + "_profitLoss_" + matchId]: newTeamRateData,
           },
         };
       })
@@ -156,7 +156,7 @@ const matchListSlice = createSlice({
           ...state.matchDetails,
           profitLossDataMatch: {
             ...state.matchDetails.profitLossDataMatch,
-            [betId + "_profitLoss_" + matchId]: JSON.stringify(profitLoss),
+            [betId + "_profitLoss_" + matchId]: profitLoss,
           },
         };
       })
@@ -282,7 +282,7 @@ const matchListSlice = createSlice({
           profitLossDataMatch: {
             ...state.matchDetails.profitLossDataMatch,
             [betId + "_profitLoss_" + state.matchDetails.id]:
-              JSON.stringify(teamRate),
+              teamRate,
           },
         };
       })
