@@ -23,11 +23,7 @@ const PlaceBetComponentWeb = ({
 
   useEffect(() => {
     if (profitLoss) {
-      console.log("profitLoss", JSON.stringify(profitLoss));
-      // console.log("profitLoss cc",
-      //   Object.values(profitLoss.profitLoss)?.map((item: any) =>
-      //     parseInt(item)
-      //   ));
+      setProfitLoss(profitLoss);
     }
   }, [profitLoss]);
 
