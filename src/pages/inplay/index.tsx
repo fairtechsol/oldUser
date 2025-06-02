@@ -41,7 +41,7 @@ const Inplay = () => {
         timeout: 2000,
       });
       if (resp?.data) {
-        dispatch(updateMatchRatesFromApiOnList(resp?.data));
+        dispatch(updateMatchRatesFromApiOnList({ data: resp?.data }));
       }
     } catch (error) {
       console.log(error);
