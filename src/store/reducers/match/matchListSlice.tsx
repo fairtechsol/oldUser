@@ -27,9 +27,11 @@ interface InitialState {
   matchDetailloading: boolean;
   error: any;
   matchList: any;
+  matchListCricket: any;
+  matchListFootball: any;
+  matchListTennis: any;
   matchDetails: any;
   selectedBet: any;
-  searchedMatchList: any;
   minMax: any;
   liveScoreBoardData?: any;
   currentPageRedux: number;
@@ -37,6 +39,9 @@ interface InitialState {
 
 const initialState: InitialState = {
   matchList: null,
+  matchListCricket: null,
+  matchListFootball: null,
+  matchListTennis: null,
   loading: false,
   matchDetailloading: false,
   success: false,
@@ -44,7 +49,6 @@ const initialState: InitialState = {
   error: null,
   matchDetails: null,
   selectedBet: null,
-  searchedMatchList: null,
   minMax: null,
   liveScoreBoardData: null,
   currentPageRedux: 1,
@@ -62,11 +66,15 @@ const matchListSlice = createSlice({
         state.error = null;
       })
       .addCase(getMatchList.fulfilled, (state, action) => {
-        const { type, data } = action.payload;
+        const { data, matchType } = action.payload;
         state.loading = false;
         state.matchListSuccess = true;
-        if (type == "search") {
-          state.searchedMatchList = data;
+        if (matchType === "cricket") {
+          state.matchListCricket = data;
+        } else if (matchType === "football") {
+          state.matchListFootball = data;
+        } else if (matchType === "tennis") {
+          state.matchListTennis = data;
         } else {
           state.matchList = data;
         }
@@ -281,23 +289,30 @@ const matchListSlice = createSlice({
           ...state.matchDetails,
           profitLossDataMatch: {
             ...state.matchDetails.profitLossDataMatch,
-            [betId + "_profitLoss_" + state.matchDetails.id]:
-              teamRate,
+            [betId + "_profitLoss_" + state.matchDetails.id]: teamRate,
           },
         };
       })
       .addCase(updateMatchRatesFromApiOnList.fulfilled, (state, action) => {
-        const matchListFromApi = action.payload;
-        if (!state.matchList?.matches?.length || !matchListFromApi?.length)
-          return;
+        const { data, matchType } = action.payload;
+        if (!state.matchList?.matches?.length || !data?.length) return;
 
         const apiMatchMap = new Map();
-        matchListFromApi?.forEach((item: any) => {
+        data?.forEach((item: any) => {
           const id = Number(item.beventId || item.gmid);
           apiMatchMap.set(id, item);
         });
 
-        state.matchList.matches = state.matchList.matches.map((match: any) => {
+        const stateToUpodate =
+          matchType === "cricket"
+            ? state.matchListCricket
+            : matchType === "football"
+            ? state.matchListFootball
+            : matchType === "tennis"
+            ? state.matchListTennis
+            : state.matchList;
+
+        stateToUpodate.matches = stateToUpodate.matches.map((match: any) => {
           const eventId = Number(match.eventId);
           const apiMatch = apiMatchMap.get(eventId);
           return apiMatch ? { ...match, ...apiMatch } : match;

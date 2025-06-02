@@ -21,9 +21,14 @@ const MatchesComponent = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { type } = useParams();
-  const { matchList, success, matchListSuccess } = useSelector(
-    (state: RootState) => state.match.matchList
-  );
+  const {
+    matchList,
+    matchListCricket,
+    matchListFootball,
+    matchListTennis,
+    success,
+    matchListSuccess,
+  } = useSelector((state: RootState) => state.match.matchList);
   const { currentPageRedux } = useSelector(
     (state: RootState) => state.match.matchList
   );
@@ -34,7 +39,9 @@ const MatchesComponent = () => {
         timeout: 2000,
       });
       if (resp?.data) {
-        dispatch(updateMatchRatesFromApiOnList(resp?.data));
+        dispatch(
+          updateMatchRatesFromApiOnList({ data: resp?.data, matchType })
+        );
       }
     } catch (error) {
       console.log(error);
@@ -158,10 +165,19 @@ const MatchesComponent = () => {
     }
   }, [matchListSuccess]);
 
+  const listToShow =
+    type === "cricket"
+      ? matchListCricket
+      : type === "football"
+      ? matchListFootball
+      : type === "tennis"
+      ? matchListTennis
+      : matchList;
+
   return (
     <>
-      {matchList &&
-        (matchList?.matches).map((match: any) => {
+      {listToShow &&
+        (listToShow?.matches).map((match: any) => {
           return (
             <Odds
               key={match?.id}
@@ -181,7 +197,7 @@ const MatchesComponent = () => {
             dispatch(setCurrentPageRedux(page));
           }}
           count={Math.ceil(
-            parseInt(matchList?.count ? matchList?.count : 1) /
+            parseInt(listToShow?.count ? listToShow?.count : 1) /
               Constants.pageLimit
           )}
           color="primary"

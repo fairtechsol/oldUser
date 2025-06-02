@@ -5,7 +5,7 @@ import { ApiConstants } from "../../../utils/Constants";
 
 export const getMatchList = createAsyncThunk<any, any>(
   "/match/list",
-  async ({ type, matchType, page, limit }, thunkApi) => {
+  async ({ matchType, page, limit }, thunkApi) => {
     try {
       const resp = await service.get(ApiConstants.MATCH.MATCHLIST, {
         params: {
@@ -16,7 +16,7 @@ export const getMatchList = createAsyncThunk<any, any>(
         },
       });
       if (resp) {
-        return { data: resp?.data, type: type };
+        return { data: resp?.data, matchType };
       }
     } catch (error: any) {
       const err = error as AxiosError;
