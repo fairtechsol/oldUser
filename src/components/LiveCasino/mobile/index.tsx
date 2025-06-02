@@ -115,7 +115,7 @@ const LiveCasinoMobile = () => {
           whiteSpace: "nowrap",
           overflow: "auto",
           textOverflow: "ellipsis",
-          padding: "0px 10px",
+          // padding: "0px 10px",
           width: "100%",
         }}
       >
@@ -157,7 +157,7 @@ const LiveCasinoMobile = () => {
           whiteSpace: "nowrap",
           overflow: "auto",
           textOverflow: "ellipsis",
-          padding: "0px 10px",
+          // padding: "0px 10px",
           width: "100%",
         }}
       >
@@ -195,7 +195,7 @@ const LiveCasinoMobile = () => {
           whiteSpace: "nowrap",
           overflow: "hidden",
           textOverflow: "ellipsis",
-          padding: "0px 10px",
+          // padding: "0px 10px",
           width: "100%",
         }}
       >
