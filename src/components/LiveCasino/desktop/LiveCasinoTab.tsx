@@ -17,7 +17,7 @@ const LiveCasinoTab = ({
         whiteSpace: "nowrap",
         overflow: "hidden",
         textOverflow: "ellipsis",
-        padding: "0px 2px",
+        // padding: "0px 2px",
         overflowX: "auto",
         flexWrap: "nowrap",
       }}
