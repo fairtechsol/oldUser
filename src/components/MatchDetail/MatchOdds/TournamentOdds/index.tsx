@@ -487,7 +487,7 @@ const TournamentOdds = ({
                     matchDetails?.profitLossDataMatch?.[key]
                       ? matchDetails?.profitLossDataMatch?.[key]?.[
                           item?.parentRunnerId || item?.id
-                        ] <= 0
+                        ] < 0
                         ? "#FF4D4D"
                         : "#319E5B"
                       : "#319E5B"
