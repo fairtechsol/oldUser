@@ -33,18 +33,6 @@ let EventNames = [
     active: false,
   },
   {
-    title: "CASINO",
-    image: MacVirtual,
-    url: "/casino",
-    active: false,
-  },
-  {
-    title: "LIVE GAMES",
-    image: MAC88,
-    url: "/liveCasino",
-    active: false,
-  },
-  {
     title: "SOCCER",
     image: Football,
     url: "/match/football",
@@ -56,6 +44,19 @@ let EventNames = [
     url: "/match/tennis",
     active: false,
   },
+  {
+    title: "CASINO",
+    image: MacVirtual,
+    url: "/casino",
+    active: false,
+  },
+  {
+    title: "LIVE GAMES",
+    image: MAC88,
+    url: "/liveCasino",
+    active: false,
+  },
+
   {
     title: "ICE HOCKEY",
     image: Hockey,
