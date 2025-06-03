@@ -18,6 +18,8 @@ const SideBar = ({ mobileShow, handleDrawerToggle }: any) => {
           url: "/match/cricket",
           matchType: "cricket",
         },
+        { title: "Soccer", url: "/match/football" },
+        { title: "Tennis", url: "/match/tennis" },
         {
           title: "Casino",
           url: "/casino",
@@ -26,8 +28,6 @@ const SideBar = ({ mobileShow, handleDrawerToggle }: any) => {
           title: "Live Games",
           url: "/liveCasino",
         },
-        { title: "Soccer", url: "/match/football" },
-        { title: "Tennis", url: "/match/tennis" },
         {
           title: "Ice Hockey",
           url: "/comingsoon",
