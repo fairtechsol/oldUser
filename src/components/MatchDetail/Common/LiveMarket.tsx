@@ -51,12 +51,7 @@ const LiveMarket = ({ title, boxStyle, titleStyle, onClick }: any) => {
   };
 
   return (
-    <Box
-      onClick={() => {
-        onClick();
-      }}
-      sx={classes.mainBoxsx}
-    >
+    <Box onClick={onClick} sx={classes.mainBoxsx}>
       <Typography sx={classes.mainBoxTypography}>{title}</Typography>
     </Box>
   );
