@@ -50,8 +50,9 @@ const MatchOdds = ({ matchDetails, setShow, show }: MatchOddsProps) => {
               (market?.parentBetId || market?.id) +
               "_profitLoss_" +
               matchDetails?.id;
-            const profitLossData =
-              matchDetails?.profitLossDataMatch?.[profitLossKey] || {};
+            const profitLossData = JSON.parse(
+              matchDetails?.profitLossDataMatch?.[profitLossKey] || "{}"
+            );
             return (
               <TournamentOdds
                 key={market?.id}
@@ -158,7 +159,7 @@ const MatchOdds = ({ matchDetails, setShow, show }: MatchOddsProps) => {
               "_profitLoss_" +
               matchDetails?.id;
             const profitLossData =
-              matchDetails?.profitLossDataMatch?.[profitLossKey] || {};
+              JSON.parse(matchDetails?.profitLossDataMatch?.[profitLossKey] || "{}");
             return (
               <TournamentOdds
                 key={market?.id}

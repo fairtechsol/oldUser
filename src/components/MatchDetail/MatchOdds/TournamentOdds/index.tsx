@@ -192,7 +192,7 @@ const TournamentOdds = ({
     matchDetails?.id
   }`;
   const profitLossJson = matchDetails?.profitLossDataMatch?.[key];
-  const profitLossObj = profitLossJson ? profitLossJson : {};
+  const profitLossObj = profitLossJson ? JSON.parse(profitLossJson) : {};
 
   const show6Box =
     marketDetails?.runners?.[0]?.ex?.availableToBack?.length > 1 ||
@@ -485,7 +485,7 @@ const TournamentOdds = ({
                   matchDetails={matchDetails}
                   color={
                     matchDetails?.profitLossDataMatch?.[key]
-                      ? matchDetails?.profitLossDataMatch?.[key]?.[
+                      ? JSON.parse(matchDetails?.profitLossDataMatch?.[key])?.[
                           item?.parentRunnerId || item?.id
                         ] < 0
                         ? "#FF4D4D"
@@ -494,7 +494,7 @@ const TournamentOdds = ({
                   }
                   rate={
                     matchDetails?.profitLossDataMatch?.[key]
-                      ? matchDetails?.profitLossDataMatch?.[key]?.[
+                      ? JSON.parse(matchDetails?.profitLossDataMatch?.[key])?.[
                           item?.parentRunnerId || item?.id
                         ]
                       : 0
