@@ -188,9 +188,8 @@ const TournamentOdds = ({
     );
   };
 
-  const key = `${marketDetails.parentBetId || marketDetails?.id}_profitLoss_${
-    matchDetails?.id
-  }`;
+  const key = `${marketDetails.parentBetId || marketDetails?.id}_profitLoss_${matchDetails?.id
+    }`;
   const profitLossJson = matchDetails?.profitLossDataMatch?.[key];
   const profitLossObj = profitLossJson ? profitLossJson : {};
 
@@ -289,7 +288,7 @@ const TournamentOdds = ({
                     border: "2px solid white",
                     opacity: Object.keys(profitLossObj).length <= 0 ? 0.65 : 1,
                   }}
-                  onClick={() => handleCashout()}
+                  onClick={handleCashout}
                 >
                   Cashout
                 </button>
@@ -380,7 +379,7 @@ const TournamentOdds = ({
                         fontSize: "12px",
                         padding: "0 6px",
                       }}
-                      onClick={() => handleCashout()}
+                      onClick={handleCashout}
                     >
                       Cashout
                     </button>
@@ -486,8 +485,8 @@ const TournamentOdds = ({
                   color={
                     matchDetails?.profitLossDataMatch?.[key]
                       ? matchDetails?.profitLossDataMatch?.[key]?.[
-                          item?.parentRunnerId || item?.id
-                        ] < 0
+                        item?.parentRunnerId || item?.id
+                      ] < 0
                         ? "#FF4D4D"
                         : "#319E5B"
                       : "#319E5B"
@@ -495,8 +494,8 @@ const TournamentOdds = ({
                   rate={
                     matchDetails?.profitLossDataMatch?.[key]
                       ? matchDetails?.profitLossDataMatch?.[key]?.[
-                          item?.parentRunnerId || item?.id
-                        ]
+                      item?.parentRunnerId || item?.id
+                      ]
                       : 0
                   }
                   name={item?.nat ?? item?.runnerName}
