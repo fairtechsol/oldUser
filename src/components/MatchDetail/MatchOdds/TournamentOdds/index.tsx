@@ -191,7 +191,7 @@ const TournamentOdds = ({
   const key = `${marketDetails.parentBetId || marketDetails?.id}_profitLoss_${matchDetails?.id
     }`;
   const profitLossJson = matchDetails?.profitLossDataMatch?.[key];
-  const profitLossObj = profitLossJson ? profitLossJson : {};
+  const profitLossObj = profitLossJson ? JSON.parse(profitLossJson) : {};
 
   const show6Box =
     marketDetails?.runners?.[0]?.ex?.availableToBack?.length > 1 ||
@@ -484,18 +484,18 @@ const TournamentOdds = ({
                   matchDetails={matchDetails}
                   color={
                     matchDetails?.profitLossDataMatch?.[key]
-                      ? matchDetails?.profitLossDataMatch?.[key]?.[
-                        item?.parentRunnerId || item?.id
-                      ] < 0
+                      ? JSON.parse(matchDetails?.profitLossDataMatch?.[key])?.[
+                          item?.parentRunnerId || item?.id
+                        ] < 0
                         ? "#FF4D4D"
                         : "#319E5B"
                       : "#319E5B"
                   }
                   rate={
                     matchDetails?.profitLossDataMatch?.[key]
-                      ? matchDetails?.profitLossDataMatch?.[key]?.[
-                      item?.parentRunnerId || item?.id
-                      ]
+                      ? JSON.parse(matchDetails?.profitLossDataMatch?.[key])?.[
+                          item?.parentRunnerId || item?.id
+                        ]
                       : 0
                   }
                   name={item?.nat ?? item?.runnerName}

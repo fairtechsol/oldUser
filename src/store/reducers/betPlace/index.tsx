@@ -106,7 +106,7 @@ const placedBet = createSlice({
         if (betId === state?.runAmount?.betId) {
           state.runAmount = {
             ...state.runAmount,
-            runAmount: profitLossData?.betPlaced,
+            runAmount: JSON.parse(profitLossData)?.betPlaced,
           };
         }
       })
