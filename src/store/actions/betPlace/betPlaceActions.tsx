@@ -64,10 +64,9 @@ export const getRunAmount = createAsyncThunk<any, any>(
       if (resp) {
         return {
           betId: id,
-          runAmount:
-            resp?.data?.profitLoss[0] !== null
-              ? JSON.parse(resp?.data?.profitLoss).betPlaced
-              : [],
+          runAmount: resp?.data?.profitLoss
+            ? resp?.data?.profitLoss.betPlaced
+            : [],
         };
       }
     } catch (error: any) {

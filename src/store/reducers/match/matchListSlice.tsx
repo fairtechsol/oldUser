@@ -154,7 +154,7 @@ const matchListSlice = createSlice({
           ...state.matchDetails,
           profitLossDataMatch: {
             ...state.matchDetails.profitLossDataMatch,
-            [betId + "_profitLoss_" + matchId]: JSON.stringify(newTeamRateData),
+            [betId + "_profitLoss_" + matchId]: newTeamRateData,
           },
         };
       })
@@ -164,14 +164,14 @@ const matchListSlice = createSlice({
           ...state.matchDetails,
           profitLossDataMatch: {
             ...state.matchDetails.profitLossDataMatch,
-            [betId + "_profitLoss_" + matchId]: JSON.stringify(profitLoss),
+            [betId + "_profitLoss_" + matchId]: profitLoss,
           },
         };
       })
       .addCase(updateMaxLossForBet.fulfilled, (state, action) => {
         const { betPlaced, profitLossData } = action.payload;
         const placedBet = betPlaced?.placedBet;
-        const parsedProfitLoss = JSON.parse(profitLossData || "{}");
+        const parsedProfitLoss = (profitLossData || {});
 
         if (!placedBet || state?.matchDetails?.id !== placedBet.matchId) return;
 
@@ -290,7 +290,7 @@ const matchListSlice = createSlice({
           profitLossDataMatch: {
             ...state.matchDetails.profitLossDataMatch,
             [betId + "_profitLoss_" + state.matchDetails.id]:
-              JSON.stringify(teamRate),
+              teamRate,
           },
         };
       })
