@@ -99,7 +99,7 @@ const BetsListModal = ({
               size={30}
               color="red"
               cursor="pointer"
-              onClick={() => onClose()}
+              onClick={onClose}
             />
           </Box>
         </ModalHeader>

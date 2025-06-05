@@ -53,13 +53,7 @@ const SideBar = ({ mobileShow, handleDrawerToggle }: any) => {
   const ListHeader = ({ title }: any) => {
     return (
       <Box
-        onClick={() => {
-          if (selected == title) {
-            setSelected("");
-          } else {
-            setSelected(title);
-          }
-        }}
+        onClick={() => setSelected(selected === title ? "" : title)}
         sx={[
           {
             width: "100%",

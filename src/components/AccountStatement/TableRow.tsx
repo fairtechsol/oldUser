@@ -138,7 +138,7 @@ const TableRow = ({
           background: transType === "creditReference" ? "#F8C851" : "#FFE094",
           cursor: "pointer",
         }}
-        onClick={() => onClick?.()}
+        onClick={onClick}
       >
         <Typography sx={{ fontSize: "10px", fontWeight: "600", lineHeight: "1", }}>
           {description}

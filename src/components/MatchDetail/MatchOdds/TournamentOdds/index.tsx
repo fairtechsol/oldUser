@@ -188,9 +188,8 @@ const TournamentOdds = ({
     );
   };
 
-  const key = `${marketDetails.parentBetId || marketDetails?.id}_profitLoss_${
-    matchDetails?.id
-  }`;
+  const key = `${marketDetails.parentBetId || marketDetails?.id}_profitLoss_${matchDetails?.id
+    }`;
   const profitLossJson = matchDetails?.profitLossDataMatch?.[key];
   const profitLossObj = profitLossJson ? JSON.parse(profitLossJson) : {};
 
@@ -289,7 +288,7 @@ const TournamentOdds = ({
                     border: "2px solid white",
                     opacity: Object.keys(profitLossObj).length <= 0 ? 0.65 : 1,
                   }}
-                  onClick={() => handleCashout()}
+                  onClick={handleCashout}
                 >
                   Cashout
                 </button>
@@ -380,7 +379,7 @@ const TournamentOdds = ({
                         fontSize: "12px",
                         padding: "0 6px",
                       }}
-                      onClick={() => handleCashout()}
+                      onClick={handleCashout}
                     >
                       Cashout
                     </button>

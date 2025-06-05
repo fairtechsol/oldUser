@@ -60,7 +60,7 @@ const SessionComponentMatches = ({
   return (
     <Box key={index} sx={{ width: "100%" }}>
       <Box
-        onClick={() => handleSessionBetClick()}
+        onClick={handleSessionBetClick}
         sx={{
           width: "100%",
           height: "45px",
