@@ -210,7 +210,7 @@ const AccountStatementList = () => {
               {transactions?.transactions?.length === 0 ? (
                 <EmptyRow containerStyle={{ background: "#FFE094" }} />
               ) : (
-                transactions?.transactions?.map((item: any) => {
+                transactions?.transactions?.map((item: any, index: number) => {
                   const firstPart = item?.description?.split("/")?.[0];
                   const containsKeywords =
                     firstPart &&
@@ -219,9 +219,8 @@ const AccountStatementList = () => {
                   return (
                     <TableRow
                       key={item?.id}
-                      index={item?.id}
+                      index={index}
                       containerStyle={{ background: "#FFE094" }}
-                      profit={true}
                       fContainerStyle={{ background: "#0B4F26" }}
                       fTextStyle={{ color: "white" }}
                       date={item?.createdAt}

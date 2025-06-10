@@ -1,7 +1,13 @@
 import { Box, Typography } from "@mui/material";
 import { memo, useEffect, useState } from "react";
 
-const LiveMarket = ({ title, boxStyle, titleStyle, onClick }: any) => {
+interface LiveMarketProps {
+  title: string;
+  boxStyle: any;
+  onClick: () => void;
+}
+
+const LiveMarket = ({ title, boxStyle, onClick }: LiveMarketProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const colors = [
     "#ff0000",
@@ -46,7 +52,6 @@ const LiveMarket = ({ title, boxStyle, titleStyle, onClick }: any) => {
         color: colors[currentIndex],
         fontFamily: "Montserrat",
       },
-      titleStyle,
     ],
   };
 

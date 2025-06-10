@@ -2,7 +2,11 @@ import { Box, Typography } from "@mui/material";
 import React from "react";
 import { formatToINR } from "../../../helper";
 
-const SmallBoxSeason = ({ allBetsData }: any) => {
+interface SmallBoxSeasonProps {
+  allBetsData: any;
+}
+
+const SmallBoxSeason = ({ allBetsData }: SmallBoxSeasonProps) => {
   return (
     <Box
       sx={{

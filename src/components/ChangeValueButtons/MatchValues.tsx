@@ -133,7 +133,6 @@ const MatchValues = () => {
                   return (
                     <LabelButton
                       key={index}
-                      type="text"
                       onChange={(e: any) => {
                         setFieldValue(`[${index}].label`, e.target.value);
                       }}
