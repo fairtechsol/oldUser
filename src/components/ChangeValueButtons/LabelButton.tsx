@@ -1,7 +1,12 @@
 import { Box, TextField } from "@mui/material";
 import { memo } from "react";
 
-const LabelButton = ({ value, onChange }: any) => {
+interface LabelButtonProps {
+  value: any;
+  onChange: (val: any) => void;
+}
+
+const LabelButton = ({ value, onChange }: LabelButtonProps) => {
   return (
     <Box
       sx={{

@@ -2,7 +2,12 @@ import { Box, Typography } from "@mui/material";
 import { handleDecimalAmount } from "../../../helper";
 import { memo } from "react";
 
-const MoneyBox = ({ color, rates }: any) => {
+interface MoneyBoxProps {
+  color: string;
+  rates: any;
+}
+
+const MoneyBox = ({ color, rates }: MoneyBoxProps) => {
   return (
     <Box
       sx={{

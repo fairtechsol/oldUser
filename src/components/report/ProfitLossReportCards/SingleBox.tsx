@@ -2,6 +2,17 @@ import { Box, Typography } from "@mui/material";
 import { memo } from "react";
 import CommissionDot from "../../Common/CommissionDot";
 
+interface SingleBoxProps {
+  data: string;
+  header: boolean;
+  color: any;
+  up?: boolean;
+  first?: boolean;
+  time?: any;
+  boxWidth?: any;
+  isCommissionActive?: boolean;
+}
+
 const SingleBox = ({
   data,
   header,
@@ -11,7 +22,7 @@ const SingleBox = ({
   time,
   boxWidth,
   isCommissionActive,
-}: any) => {
+}: SingleBoxProps) => {
   return !header ? (
     first ? (
       <Box

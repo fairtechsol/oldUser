@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { memo } from "react";
-import { liveCasinoPics } from "../../../utils/Constants";
 import { LiveCasinoTabProps } from "../../../interface/liveCasino";
+import { liveCasinoPics } from "../../../utils/Constants";
 
 const LiveCasinoTab = ({
   data2,
@@ -17,7 +17,6 @@ const LiveCasinoTab = ({
         whiteSpace: "nowrap",
         overflow: "hidden",
         textOverflow: "ellipsis",
-        // padding: "0px 2px",
         overflowX: "auto",
         flexWrap: "nowrap",
       }}

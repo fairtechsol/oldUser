@@ -10,11 +10,9 @@ import RowHeaderMatches from "./RowHeaderMatches";
 const ProfitLossComponent = ({
   eventData,
   betData,
-  sessionBetData,
   // currentPage,
   // pageCount,
   // setCurrentPage,
-  sessionBets,
   setShow,
   show,
   endDate,
@@ -85,7 +83,6 @@ const ProfitLossComponent = ({
           <RowHeaderMatches
             key={index}
             item={item}
-            index={index}
             getHandleReport={getHandleReport}
             show={show}
             event={event}
@@ -99,8 +96,6 @@ const ProfitLossComponent = ({
                     index={index + 1}
                     selectedId={selectedId}
                     betData={betData}
-                    sessionBetData={sessionBetData}
-                    sessionBets={sessionBets}
                     getBetReport={getBetReport}
                   />
                 );

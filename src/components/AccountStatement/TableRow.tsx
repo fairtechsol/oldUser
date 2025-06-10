@@ -2,6 +2,21 @@ import { Box, Typography } from "@mui/material";
 import moment from "moment";
 import { memo } from "react";
 
+interface TableRowProps {
+  containerStyle: object;
+  fContainerStyle: any;
+  fTextStyle: any;
+  index: number;
+  date: string;
+  closing: any;
+  description: string;
+  touserName: string;
+  fromuserName: string;
+  transType: string;
+  amount: any;
+  onClick: () => void;
+}
+
 const TableRow = ({
   containerStyle,
   fContainerStyle,
@@ -15,7 +30,7 @@ const TableRow = ({
   transType,
   amount,
   onClick,
-}: any) => {
+}: TableRowProps) => {
   const dateString = date;
   const formattedDate = moment
     .utc(dateString)
@@ -113,8 +128,8 @@ const TableRow = ({
         <Typography sx={{ fontSize: "12px", fontWeight: "600" }}>
           {closing !== null
             ? new Intl.NumberFormat("en-IN", { currency: "INR" }).format(
-              closing
-            )
+                closing
+              )
             : ""}
         </Typography>
       </Box>
@@ -140,7 +155,9 @@ const TableRow = ({
         }}
         onClick={onClick}
       >
-        <Typography sx={{ fontSize: "10px", fontWeight: "600", lineHeight: "1", }}>
+        <Typography
+          sx={{ fontSize: "10px", fontWeight: "600", lineHeight: "1" }}
+        >
           {description}
         </Typography>
       </Box>

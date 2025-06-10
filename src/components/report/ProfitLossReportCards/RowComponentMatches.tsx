@@ -8,13 +8,21 @@ import { AppDispatch, RootState } from "../../../store/store";
 import StyledImage from "../../Common/StyledImages";
 import AllRateSeperate from "./AllRateSeperate";
 
+interface RowComponentMatchesProps {
+  item: any;
+  index: number;
+  selectedId: any;
+  betData: any;
+  getBetReport: (val: any) => void;
+}
+
 const RowComponentMatches = ({
   item,
   index,
   selectedId,
   betData,
   getBetReport,
-}: any) => {
+}: RowComponentMatchesProps) => {
   const { totalBetProfitLossCard } = useSelector(
     (state: RootState) => state.user.profitLoss
   );
@@ -201,7 +209,6 @@ const RowComponentMatches = ({
                 <AllRateSeperate
                   betHistory={false}
                   count={betData?.length}
-                  match={item?.title}
                   allBetsData={totalBetProfitLossCard && totalBetProfitLossCard}
                   profit
                 />
