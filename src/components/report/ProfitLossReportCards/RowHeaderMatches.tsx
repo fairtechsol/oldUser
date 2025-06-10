@@ -5,13 +5,21 @@ import { formatToINR } from "../../../helper";
 import { gameIconConstants } from "../../../utils/Constants";
 import StyledImage from "../../Common/StyledImages";
 
+interface RowHeaderMatchesProps {
+  item: any;
+  getHandleReport: (val: any) => void;
+  show: boolean;
+  children: any;
+  event: any;
+}
+
 const RowHeaderMatches = ({
   item,
   getHandleReport,
   show,
   children,
   event,
-}: any) => {
+}: RowHeaderMatchesProps) => {
   const theme = useTheme();
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
   return (

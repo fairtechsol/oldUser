@@ -5,7 +5,12 @@ import { useLocation } from "react-router-dom";
 import { formatToINR } from "../../../helper";
 import SingleBox from "./SingleBox";
 
-const RowComponent = ({ header, data }: any) => {
+interface RowComponentProps {
+  header: boolean;
+  data: any;
+}
+
+const RowComponent = ({ header, data }: RowComponentProps) => {
   const { state } = useLocation();
 
   // const getTime = (date: any) => {

@@ -5,16 +5,19 @@ import { formatToINR } from "../../../helper";
 import StyledImage from "../../Common/StyledImages";
 import RowComponent from "./RowComponent";
 
+interface AllRateSeperateProps {
+  profit: boolean;
+  betHistory: boolean;
+  allBetsData: any;
+  count: number;
+}
+
 const AllRateSeperate = ({
   profit,
-  mark,
-  mark2,
   betHistory,
   allBetsData,
   count,
-  isArrow,
-  match,
-}: any) => {
+}: AllRateSeperateProps) => {
   const [visible, setVisible] = useState(true);
 
   const theme = useTheme();
@@ -154,7 +157,6 @@ const AllRateSeperate = ({
                   "Provider",
                   "Stake",
                 ]}
-                match={match}
               />
 
               {profit && (
@@ -224,7 +226,7 @@ const AllRateSeperate = ({
                         {formattedNum}
                       </Typography>
                     </Box>
-                    <RowComponent header={false} data={i} match={match} />
+                    <RowComponent header={false} data={i} />
                     {i?.deleteReason && betHistory && (
                       <Box
                         sx={{
@@ -239,50 +241,7 @@ const AllRateSeperate = ({
                           position: "absolute",
                         }}
                       >
-                        <Box sx={{ width: mark2 ? "20%" : "35%" }} />
-                      </Box>
-                    )}
-                    {i?.deleteReason && (
-                      <Box
-                        sx={{
-                          width: {
-                            xs: profit ? "100%" : "100%",
-                            alignItems: "flex-end",
-                            justifyContent: "center",
-                            display: "flex",
-                            lg: profit ? "100 % " : "100% ",
-                          },
-                          background: "rgba(0, 0, 0, 0.5)",
-                          height: "42px",
-                          position: "absolute",
-                        }}
-                      >
-                        <Box sx={{ width: mark2 ? "20%" : "35%" }} />
-                        <Box
-                          sx={{
-                            width: mark2 ? "80%" : "65%",
-                            height: "100%",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "flex-end",
-                            alignSelf: "flex-end",
-                          }}
-                        >
-                          {mark && (
-                            <Typography
-                              sx={{
-                                fontSize: "10px",
-                                fontWeight: "700",
-                                color: "white",
-                                textTransform: "uppercase",
-                              }}
-                            >
-                              Bet{" "}
-                              <span style={{ color: "#e41b23" }}>deleted</span>{" "}
-                              due to {i?.deleteReason}
-                            </Typography>
-                          )}
-                        </Box>
+                        <Box sx={{ width: "35%" }} />
                       </Box>
                     )}
                     {i?.deleteReason && (
@@ -299,7 +258,7 @@ const AllRateSeperate = ({
                           position: "absolute",
                         }}
                       >
-                        <Box sx={{ width: mark2 ? "20%" : "35%" }} />
+                        <Box sx={{ width: "35%" }} />
                       </Box>
                     )}
                     {profit && !i?.deleteReason && (
@@ -339,7 +298,7 @@ const AllRateSeperate = ({
                             )}
                           </Typography>
 
-                          {!matchesMobile && !isArrow && (
+                          {!matchesMobile && (
                             <StyledImage
                               sx={{
                                 width: { xs: "12px", lg: "15px" },
