@@ -193,14 +193,7 @@ const RunsDropDown = ({ list }: RunsDropDownProps) => {
                           width: "40px",
                         }}
                       >
-                        {Number(v?.profitLoss) >= 0 ? (
-                          <>
-                            <span style={{ visibility: "hidden" }}>-</span>
-                            {v?.profitLoss}
-                          </>
-                        ) : (
-                          v?.profitLoss
-                        )}
+                        {v?.profitLoss}
                       </Typography>
                       <StyledImage
                         src={getSVG(v?.profitLoss)}
