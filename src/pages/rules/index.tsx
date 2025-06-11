@@ -1,5 +1,4 @@
 import { Typography } from "@mui/material";
-import { memo } from "react";
 import ListHeader from "../../components/rules/ListHeader";
 import RowComponent from "../../components/rules/RowComponent";
 
@@ -26,4 +25,4 @@ const Rules = () => {
   );
 };
 
-export default memo(Rules);
+export default Rules;
