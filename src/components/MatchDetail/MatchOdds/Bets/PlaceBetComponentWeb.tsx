@@ -104,17 +104,12 @@ const PlaceBetComponentWeb = ({
             color: "white",
           }}
         >
-          {[sessionBettingType?.oddEven, sessionBettingType.fancy1].includes(
-            data?.type
-          ) && profitLoss?.maxLoss
-            ?
-            handleDecimalAmount(profitLoss?.maxLoss, "")
-            : data?.type == sessionBettingType.cricketCasino &&
-              profitLoss?.profitLoss
-              ? profitLoss?.profitLoss?.[index]
-              : !profitLoss?.maxLoss
-                ? "Profit/Loss"
-                : handleDecimalAmount(profitLoss?.maxLoss, "")}
+          {data?.type == sessionBettingType.cricketCasino &&
+          profitLoss?.profitLoss
+            ? profitLoss?.profitLoss?.[index]
+            : !profitLoss?.maxLoss
+            ? "Profit/Loss"
+            : handleDecimalAmount(profitLoss?.maxLoss, "")}
         </Typography>
         <img
           src={UD}

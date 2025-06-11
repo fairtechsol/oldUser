@@ -2,11 +2,11 @@ import { Box, Typography } from "@mui/material";
 import { memo, useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { handleDecimalAmount } from "../../../../helper";
+import { PlaceBetComponentProps } from "../../../../interface/common/GameDetail";
 import { getRunAmount } from "../../../../store/actions/betPlace/betPlaceActions";
 import { AppDispatch, RootState } from "../../../../store/store";
 import { sessionBettingType } from "../../../../utils/Constants";
 import RunsDropDown from "./RunsDropDown";
-import { PlaceBetComponentProps } from "../../../../interface/common/GameDetail";
 
 const PlaceBetComponent = ({
   profitLoss,
@@ -98,16 +98,8 @@ const PlaceBetComponent = ({
               color: "white",
             }}
           >
-            {[sessionBettingType?.oddEven, sessionBettingType.fancy1].includes(
-              data?.type
-            ) && profitLoss?.profitLoss
-              ? Math.min(
-                  ...Object.values(profitLoss.profitLoss)?.map((item: any) =>
-                    parseInt(item)
-                  )
-                )
-              : data?.type == sessionBettingType.cricketCasino &&
-                profitLoss?.profitLoss
+            {data?.type == sessionBettingType.cricketCasino &&
+            profitLoss?.profitLoss
               ? profitLoss?.profitLoss?.[index]
               : !profitLoss?.maxLoss
               ? "Profit/Loss"
