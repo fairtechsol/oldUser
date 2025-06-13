@@ -66,22 +66,20 @@ const CricketCasinoMarketBox = ({
           background: index % 2 === 0 ? "#FFE094" : "#ECECEC",
         }}
       >
-        <Box>
-          <Box
-            sx={{
-              color: "black",
-              fontSize: { lg: "10px", md: "10px", xs: "9px" },
-              marginLeft: "7px",
-              fontWeight: "600",
-              textAlign: "start",
-              width: "100%",
-              lineHeight: "0.8rem",
-              fontFamily: "Poppins, sans-serif",
-            }}
-          >
-            {data?.isCommissionActive && <CommissionDot />}
-            {data?.nat || `${index} Number`}
-          </Box>
+        <Box
+          sx={{
+            color: "black",
+            fontSize: { lg: "10px", md: "10px", xs: "9px" },
+            marginLeft: "7px",
+            fontWeight: "600",
+            textAlign: "start",
+            width: "100%",
+            lineHeight: "0.8rem",
+            fontFamily: "Poppins, sans-serif",
+          }}
+        >
+          {data?.isCommissionActive && <CommissionDot />}
+          {data?.nat || `${index} Number`}
         </Box>
 
         {matchesMobile && (

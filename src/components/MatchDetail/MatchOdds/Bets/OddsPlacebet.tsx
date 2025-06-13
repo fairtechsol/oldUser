@@ -66,44 +66,11 @@ const OddsPlaceBet = ({ handleClose, type }: OddsPlaceBetProps) => {
   });
   const buttonToShow: any =
     Object.values(sessionBettingType)?.includes(selectedBet?.data?.type) &&
-      selectedBet?.data?.type != "tournament"
+    selectedBet?.data?.type != "tournament"
       ? sessionButtonValues
       : matchButtonValues;
 
   const matchesMobile = useMediaQuery(theme.breakpoints.down("lg"));
-
-  useEffect(() => {
-    setStakeValue(selectedBet?.team?.stake);
-  }, [selectedBet]);
-
-  useEffect(() => {
-    const { userAgent, appName, appVersion, platform } = navigator;
-    const info: any = { userAgent, appName, appVersion, platform };
-    setBrowserInfo(info);
-    const fetchData = async () => {
-      try {
-        const { data } = await axios.get("https://api.ipify.org?format=json");
-        if (data) {
-          setIpAddress(data?.ip);
-        }
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    if (success) {
-      dispatch(selectedBetAction(null));
-      dispatch(betPlaceSuccessReset());
-      setMatchOddLoading(false);
-      handleClose();
-    }
-    if (error) {
-      setMatchOddLoading(false);
-    }
-  }, [success, error]);
 
   const handleProfit = (value: any) => {
     let profit;
@@ -126,12 +93,12 @@ const OddsPlaceBet = ({ handleClose, type }: OddsPlaceBetProps) => {
         selectedBet?.team?.type === "no" || selectedBet?.team?.type === "lay"
           ? value
           : [
-            sessionBettingType.cricketCasino,
-            sessionBettingType.fancy1,
-            sessionBettingType.oddEven,
-          ].includes(selectedBet?.data?.type)
-            ? value * (parseFloat(selectedBet?.team?.percent) - 1)
-            : (value * selectedBet?.team?.percent) / 100;
+              sessionBettingType.cricketCasino,
+              sessionBettingType.fancy1,
+              sessionBettingType.oddEven,
+            ].includes(selectedBet?.data?.type)
+          ? value * (parseFloat(selectedBet?.team?.percent) - 1)
+          : (value * selectedBet?.team?.percent) / 100;
     } else if (
       ["matchOdd", "tiedMatch1", "completeMatch", "tournament"].includes(
         selectedBet?.data?.type
@@ -173,12 +140,12 @@ const OddsPlaceBet = ({ handleClose, type }: OddsPlaceBetProps) => {
         selectedBet?.team?.type === "yes" || selectedBet?.team?.type === "back"
           ? value
           : [
-            sessionBettingType.cricketCasino,
-            sessionBettingType.fancy1,
-            sessionBettingType.oddEven,
-          ].includes(selectedBet?.data?.type)
-            ? value * (parseFloat(selectedBet?.team?.percent) - 1)
-            : (value * selectedBet?.team?.percent) / 100;
+              sessionBettingType.cricketCasino,
+              sessionBettingType.fancy1,
+              sessionBettingType.oddEven,
+            ].includes(selectedBet?.data?.type)
+          ? value * (parseFloat(selectedBet?.team?.percent) - 1)
+          : (value * selectedBet?.team?.percent) / 100;
     } else if (
       ["matchOdd", "tiedMatch1", "completeMatch", "tournament"].includes(
         selectedBet?.data?.type
@@ -328,6 +295,40 @@ const OddsPlaceBet = ({ handleClose, type }: OddsPlaceBetProps) => {
       dispatch(placeBet({ url, data }));
     }
   };
+
+  useEffect(() => {
+    setStakeValue(selectedBet?.team?.stake);
+  }, [selectedBet]);
+
+  useEffect(() => {
+    const { userAgent, appName, appVersion, platform } = navigator;
+    const info: any = { userAgent, appName, appVersion, platform };
+    setBrowserInfo(info);
+    const fetchData = async () => {
+      try {
+        const { data } = await axios.get("https://api.ipify.org?format=json");
+        if (data) {
+          setIpAddress(data?.ip);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (success) {
+      dispatch(selectedBetAction(null));
+      dispatch(betPlaceSuccessReset());
+      setMatchOddLoading(false);
+      handleClose();
+    }
+    if (error) {
+      setMatchOddLoading(false);
+    }
+  }, [success, error]);
+
   return (
     <Box
       sx={{
@@ -403,8 +404,9 @@ const OddsPlaceBet = ({ handleClose, type }: OddsPlaceBetProps) => {
             containerStyle={{ flex: { xs: 2.5, lg: 2 } }}
             value={
               selectedBet?.data?.type === "khado"
-                ? `${selectedBet?.team?.name ?? selectedBet?.team?.betOnTeam}-${selectedBet?.data.ex?.availableToLay[0]?.price
-                }`
+                ? `${selectedBet?.team?.name ?? selectedBet?.team?.betOnTeam}-${
+                    selectedBet?.data.ex?.availableToLay[0]?.price
+                  }`
                 : selectedBet?.team?.name ?? selectedBet?.team?.betOnTeam
             }
           />
