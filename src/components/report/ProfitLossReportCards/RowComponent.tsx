@@ -13,13 +13,6 @@ interface RowComponentProps {
 const RowComponent = ({ header, data }: RowComponentProps) => {
   const { state } = useLocation();
 
-  // const getTime = (date: any) => {
-  //   const timeString = moment
-  //     .utc(date)
-  //     .utcOffset("+05:30")
-  //     .format("hh:mm:ss A");
-  //   return timeString;
-  // };
   const getColor = () => {
     if (header) {
       return "black";

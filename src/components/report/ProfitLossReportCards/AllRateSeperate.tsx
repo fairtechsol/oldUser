@@ -26,26 +26,23 @@ const AllRateSeperate = ({
   return (
     <>
       <Box
-        sx={[
-          {
-            width: { md: "100%", xs: "100%", lg: "100%" },
-            display: "flex",
-            flexDirection: "column",
-            marginX: { lg: "0vw", xs: "0px", md: "0px" },
-            marginY: { lg: ".5vh", xs: "2px" },
-            marginTop: { xs: "0" },
-            marginBottom: { lg: ".5vh", xs: "2px" },
-            borderRadius: "2px",
-            background: "white",
-            padding: "1px",
-
-            alignSelf: {
-              xs: "center",
-              md: "center",
-              lg: "flex-start",
-            },
+        sx={{
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          marginX: { lg: "0vw", xs: "0px", md: "0px" },
+          marginY: { lg: ".5vh", xs: "2px" },
+          marginTop: { xs: "0" },
+          marginBottom: { lg: ".5vh", xs: "2px" },
+          borderRadius: "2px",
+          background: "white",
+          padding: "1px",
+          alignSelf: {
+            xs: "center",
+            md: "center",
+            lg: "flex-start",
           },
-        ]}
+        }}
       >
         <Box
           sx={{
@@ -231,11 +228,11 @@ const AllRateSeperate = ({
                       <Box
                         sx={{
                           width: {
-                            xs: profit ? "100%" : "100%",
+                            xs: "100%",
                             alignItems: "flex-end",
                             justifyContent: "center",
                             display: "flex",
-                            lg: profit ? "100 % " : "100% ",
+                            lg: "100% ",
                           },
                           height: "100%",
                           position: "absolute",
@@ -248,11 +245,11 @@ const AllRateSeperate = ({
                       <Box
                         sx={{
                           width: {
-                            xs: profit ? "100%" : "100%",
+                            xs: "100%",
                             alignItems: "flex-end",
                             justifyContent: "center",
                             display: "flex",
-                            lg: profit ? "100 % " : "100% ",
+                            lg: "100% ",
                           },
                           height: "100%",
                           position: "absolute",
