@@ -7,11 +7,7 @@ const SmallBoxSeason = ({ allBetsData }: SmallBoxSeasonProps) => {
     <Box
       sx={{
         marginLeft: { xs: 0, lg: "-15px", md: 0 },
-        justifyContent: {
-          xs: "center",
-          lg: "center",
-          md: "center",
-        },
+        justifyContent: "center",
         display: "flex",
         width: { xs: "85%", lg: "80%", md: "85%" },
         gap: "4px",

@@ -90,35 +90,15 @@ const LiveScoreBoard = ({ data, width, setIsTv }: LiveScoreBoardProps) => {
             TV
           </Typography>
           <img
-            // onClick={() => {
-            //   setIsTv((prev: boolean) => !prev);
-            //   setVisible((prev: any) => !prev);
-            // }}
             style={{
               width: "35px",
               height: "30px",
               color: "white",
-              // marginLeft: "1.3rem",
               cursor: "pointer",
             }}
             src={liveTv}
             alt="live tv"
           />
-          {/* <img
-            onClick={() => {
-              setIsTv((prev: boolean) => !prev);
-              setVisible(!visible);
-            }}
-            src={ARROWUP}
-            style={{
-              transform: !visible ? "rotate(180deg)" : "rotate(0deg)",
-              width: "15px",
-              height: "15px",
-              marginRight: "5px",
-              marginLeft: "5px",
-            }}
-            alt="arrow up"
-          /> */}
         </Box>
       </Box>
       <Box>
