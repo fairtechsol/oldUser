@@ -11,14 +11,12 @@ export { default as BACKIMAGE } from "./images/back.webp";
 export { default as BallStart } from "./images/ballStart.webp";
 export { default as BASKETBALL } from "./images/basketball.webp";
 export { default as BollywoodCasino } from "./images/bollywoodCasino.webp";
-export { default as CANCEL } from "./images/cancel.png";
 export { default as CancelDark } from "./images/cancel.webp";
 export { default as Card } from "./images/card.webp";
 export { default as CasinoMeter } from "./images/casinoMeter.webp";
 export { default as CasinoQueen } from "./images/casinoQueen.webp";
 export { default as CasinoWar } from "./images/casinoWar.webp";
 export { default as CHESS } from "./images/chess.webp";
-export { default as ColorPrediction } from "./images/colorPrediction.png"; //
 export { default as Cricket } from "./images/cricket.webp";
 export { default as CriketMatch2020 } from "./images/cricketMatch2020.webp";
 export { default as DELETE } from "./images/delete.webp";
@@ -53,7 +51,6 @@ export { default as Poker } from "./images/poker.webp";
 export { default as Politics } from "./images/politics.png";
 export { default as Race2020 } from "./images/race20.webp";
 export { default as Search } from "./images/search.webp";
-export { default as SEARCH } from "./images/search1.webp";
 export {
     default as BallByBall,
     default as SNOOKER
